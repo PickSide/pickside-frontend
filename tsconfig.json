@@ -1,26 +1,33 @@
 {
   "compilerOptions": {
+    "paths": {
+      "components/*": ["./src/components/*"],
+      "utils/*": ["./src/utils/*"],
+      "icons/*": ["./node_modules/@mui/icons-material/*"]
+    },
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": false,
     "module": "esnext",
+    "rootDir": "src",
+    "baseUrl": "src",
+    "noImplicitReturns": false,
+    "noImplicitAny": false,
+    "importHelpers": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "noFallthroughCasesInSwitch": true,
+    "downlevelIteration": true
   },
-  "include": [
-    "src"
-  ]
+  "typeRoots": ["node_modules/@types"],
+  "exclude": ["node_modules", "build", "scripts"],
+  "include": ["src"]
 }
