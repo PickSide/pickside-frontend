@@ -6,7 +6,7 @@ import { Grid } from '@mui/material'
 import './App.css'
 import Dialog from '../src/components/Dialog'
 import Navbar from './components/Navbar'
-import Authentication from './components/authentication/section/Authentication'
+import Authentication from './components/Authentication/Authentication'
 import AppContainer from './pages/AppContainer'
 import { reducers } from 'state'
 
@@ -25,24 +25,18 @@ const App = () => {
 
 	return (
 		<Provider store={store}>
-			<Grid container spacing={2} direction="column">
-				<Dialog
-					open={openAuthenticationDialog}
-					onClose={() => setOpenAuthenticationDialog(false)}
-					title="Authentication"
-					aria-labelledby="alert-dialog-title"
-					aria-describedby="alert-dialog-description"
-					size="sm"
-				>
-					<Authentication />
-				</Dialog>
-				<Grid item>
-					<Navbar setOpenAuthenticationDialog={setOpenAuthenticationDialog} />
-				</Grid>
-				<Grid item>
-					<AppContainer />
-				</Grid>
-			</Grid>
+			<Dialog
+				open={openAuthenticationDialog}
+				onClose={() => setOpenAuthenticationDialog(false)}
+				title="Authentication"
+				aria-labelledby="alert-dialog-title"
+				aria-describedby="alert-dialog-description"
+				size="sm"
+			>
+				<Authentication />
+			</Dialog>
+			<Navbar setOpenAuthenticationDialog={setOpenAuthenticationDialog} />
+			<AppContainer />
 		</Provider>
 	)
 }

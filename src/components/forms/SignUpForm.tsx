@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import * as Yup from 'yup'
 import { Formik, Form, Field } from 'formik'
-import FormikFieldText from '../formikFields/FormikTextField'
-import FormikSelect from '../formikFields/FormikSelect'
+import FormikFieldText from '../FormikFields/FormikTextField'
+import FormikSelect from '../FormikFields/FormikSelect'
 import { Box, Button, DialogActions, MenuItem } from '@mui/material'
 //import { REGEX_STRONG_PASSWORD } from 'utils/regex'
 
