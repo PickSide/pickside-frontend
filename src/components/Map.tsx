@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { makeStyles } from '@mui/material'
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api'
 import mapStyles from './MapStyles'
 
@@ -18,8 +19,8 @@ const Map: FC<MapProps> = ({ coords, places, setCoords, setBounds, setChildClick
 		zoomControl: true,
 	}
 	const mapContainerStyle = {
-		height: 'calc(100vh - 68.5px)',
-		width: '100vw',
+		height: 'calc(100vh - 2 * 68.5px)',
+		// minWidth: 700,
 	}
 	const center = {
 		lat: 45.508888,
@@ -35,20 +36,13 @@ const Map: FC<MapProps> = ({ coords, places, setCoords, setBounds, setChildClick
 	if (!isLoaded) return <p>Loading...</p>
 
 	return (
-		<div
-			style={{
-				position: 'absolute',
-				zIndex: 0,
-			}}
-		>
-			<GoogleMap
-				key="AIzaSyCHYGRo5QpIyCQ8mZdd5-SoaSw8uvSubwM"
-				zoom={8}
-				mapContainerStyle={mapContainerStyle}
-				center={center}
-				options={options}
-			></GoogleMap>
-		</div>
+		<GoogleMap
+			key="AIzaSyCHYGRo5QpIyCQ8mZdd5-SoaSw8uvSubwM"
+			zoom={8}
+			mapContainerStyle={mapContainerStyle}
+			center={center}
+			options={options}
+		></GoogleMap>
 	)
 }
 

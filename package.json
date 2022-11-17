@@ -37,9 +37,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "watch": "webpack --watch",
+    "build": "NODE_ENV=production webpack",
+    "build-dev": "webpack"
   },
   "eslintConfig": {
     "extends": [
@@ -65,6 +65,7 @@
     }
   },
   "devDependencies": {
-    "@types/google.maps": "^3.50.2"
+    "@types/google.maps": "^3.50.2",
+    "jest": "^27.5.1"
   }
 }

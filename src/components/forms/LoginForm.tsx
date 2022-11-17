@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
-import FormikFieldText from '../FormikFields/FormikTextField'
+import FormikFieldText from '../formikFields/FormikTextField'
 import { Button, DialogActions } from '@mui/material'
 
 interface LoginFormProps {

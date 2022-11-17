@@ -4,8 +4,7 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import { Grid } from '@mui/material'
 
 import './App.css'
-import Dialog from '../src/components/Dialog'
-import Navbar from './components/Navbar'
+import { Dialog, FilterToolbar, Navbar } from 'components'
 import Authentication from './components/Authentication/Authentication'
 import AppContainer from './pages/AppContainer'
 import { reducers } from 'state'
@@ -35,8 +34,17 @@ const App = () => {
 			>
 				<Authentication />
 			</Dialog>
-			<Navbar setOpenAuthenticationDialog={setOpenAuthenticationDialog} />
-			<AppContainer />
+			<Grid container direction="column" style={{ overflow: 'none' }}>
+				<Grid item>
+					<Navbar setOpenAuthenticationDialog={setOpenAuthenticationDialog} />
+				</Grid>
+				<Grid item>
+					<FilterToolbar />
+				</Grid>
+				<Grid item>
+					<AppContainer />
+				</Grid>
+			</Grid>
 		</Provider>
 	)
 }

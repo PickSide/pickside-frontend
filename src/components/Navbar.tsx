@@ -90,7 +90,7 @@ const Navbar: FC<NavbarProps> = ({ setOpenAuthenticationDialog }) => {
 
 	return (
 		<AppBar position="relative">
-			<Container maxWidth="xl">
+			<Container >
 				<Toolbar>
 					<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
 						<IconButton
