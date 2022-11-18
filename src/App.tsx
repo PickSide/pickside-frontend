@@ -1,13 +1,11 @@
-import react, { FC, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { Provider, useDispatch } from 'react-redux'
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import { Grid } from '@mui/material'
 
-import './App.css'
-import { Dialog, FilterToolbar, Navbar } from 'components'
-import Authentication from './components/Authentication/Authentication'
-import AppContainer from './pages/AppContainer'
 import { reducers } from 'state'
+import { Dialog, FilterToolbar, Navbar } from 'components'
+import { AppContainer, Authentication } from 'components'
 
 const middleware = [...getDefaultMiddleware()]
 

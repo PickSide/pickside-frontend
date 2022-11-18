@@ -1,8 +1,7 @@
 import React, { FC } from 'react'
 import * as Yup from 'yup'
 import { Formik, Form, Field } from 'formik'
-import FormikFieldText from '../formikFields/FormikTextField'
-import FormikSelect from '../formikFields/FormikSelect'
+import { FormikSelect, FormikTextField } from 'components'
 import { Box, Button, DialogActions, MenuItem } from '@mui/material'
 //import { REGEX_STRONG_PASSWORD } from 'utils/regex'
 
@@ -42,17 +41,17 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 			<Formik validationSchema={SignUpFormSchema} initialValues={initialValues} onSubmit={(values) => onSubmit(values)}>
 				{({ setFieldValue, values, isSubmitting, isValid }) => (
 					<Form>
-						<FormikFieldText label="Email" type="email" name="email" placeholder="Email" value={values.email} />
-						<FormikFieldText label="First Name" name="firstName" placeholder="First Name" value={values.firstName} />
-						<FormikFieldText label="Last Name" name="lastName" placeholder="Last Name" value={values.lastName} />
-						<FormikFieldText
+						<FormikTextField label="Email" type="email" name="email" placeholder="Email" value={values.email} />
+						<FormikTextField label="First Name" name="firstName" placeholder="First Name" value={values.firstName} />
+						<FormikTextField label="Last Name" name="lastName" placeholder="Last Name" value={values.lastName} />
+						<FormikTextField
 							label="Password"
 							type="password"
 							name="password"
 							placeholder="Password"
 							value={values.password}
 						/>
-						<FormikFieldText
+						<FormikTextField
 							label="Confirm Password"
 							type="password"
 							name="confirmPassword"

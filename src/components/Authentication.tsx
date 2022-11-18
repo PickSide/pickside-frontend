@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import { Box, Tab } from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
-import LoginForm from '../forms/LoginForm'
-import SignUpForm from '../forms/SignUpForm'
+import LoginForm from '../pages/Authentication/Forms/LoginForm'
+import SignUpForm from '../pages/Authentication/Forms/SignUpForm'
 
 const Authentication: FC<any> = ({ ...props }) => {
 	const [value, setValue] = React.useState('login')

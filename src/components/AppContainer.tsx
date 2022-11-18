@@ -1,10 +1,8 @@
 import React, { FC, useState, useEffect } from 'react'
-import { Box, Container, Grid, Typography } from '@mui/material'
-import { Card, FilterToolbar, Map } from 'components'
+import { Box, Grid } from '@mui/material'
+import { Card, Map } from 'components'
 
-import ActivityToolbar from '../components/ActivityToolbar/ActivityToolbar'
-
-interface AppContainerProps { }
+interface AppContainerProps {}
 
 const AppContainer: FC<AppContainerProps> = () => {
 	const [type, setType] = useState('restaurants')
@@ -45,7 +43,17 @@ const AppContainer: FC<AppContainerProps> = () => {
 					weatherData={weatherData}
 				/>
 			</Grid>
-			<Grid container item xs={4} rowSpacing={1} direction="column" justifyContent="flex-start" alignItems="center" wrap="nowrap" p={2}>
+			<Grid
+				container
+				item
+				xs={4}
+				rowSpacing={1}
+				direction="column"
+				justifyContent="flex-start"
+				alignItems="center"
+				wrap="nowrap"
+				p={2}
+			>
 				{[0, 1, 2, 3, 4, 5, 6, 7].map((e, idx) => (
 					<Grid item>
 						<Card key={idx} />
