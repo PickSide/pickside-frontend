@@ -2,7 +2,7 @@ import React, { ReactPropTypes, FC, useState, useEffect, useContext } from 'reac
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import { Box, Grid } from '@mui/material'
-import { AppContext, Card, FilterToolbar, Map } from 'components'
+import { AppContext, FilterToolbar, Map } from 'components'
 
 const AppLayout: FC<any> = ({ children, ...props }) => {
 	const context = useContext(AppContext)

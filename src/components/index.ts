@@ -2,7 +2,7 @@ import ActivityToolbar from '../pages/Home/ActivityToolbar'
 import AppContext from './context/AppContext'
 import AppLayout from './AppLayout'
 import Authentication from './Authentication'
-import Card from './Card'
+import EventCard from './EventCard'
 import DefaultNavbar from './DefaultNavbar'
 import Dialog from './Dialog'
 import FilterToolbar from './FilterToolbar'
@@ -17,7 +17,7 @@ export {
 	AppLayout,
 	AppContext,
 	Authentication,
-	Card,
+	EventCard,
 	Dialog,
 	FilterToolbar,
 	FormikSelect,

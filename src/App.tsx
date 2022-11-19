@@ -4,12 +4,12 @@ import { RouterProvider, Routes, Route } from 'react-router-dom'
 import { Provider, useDispatch } from 'react-redux'
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 
-import { ThemeProvider, useTheme } from '@mui/material'
+import { useTheme } from '@mui/material'
 import { reducers } from 'state'
-import { User } from '../src/state/user/index'
 import { AppContext, AppLayout, DefaultNavbar, NavbarContent } from 'components'
 import useAppRoutes from 'hooks/useAppRoutes'
 import HomePage from './pages/Home/HomePage'
+import { useTestData } from 'hooks'
 
 const middleware = [...getDefaultMiddleware()]
 
@@ -18,24 +18,14 @@ export const store = configureStore({
 	middleware,
 })
 
-const randomUser1: User = {
-	firstName: 'Antoine',
-	lastName: 'Hakim',
-	sexe: 'male',
-	level: 5,
-	darkMode: false,
-}
-
 export type AppDispatch = typeof store.dispatch
 export const useAppDispatch: () => AppDispatch = useDispatch
 
 const App = () => {
-	const theme = useTheme()
-	const windowSize = useWindowSize()
-	const { routes } = useAppRoutes()
+	const { connectedUser } = useTestData()
 
 	return (
-		<AppContext.Provider value={randomUser1}>
+		<AppContext.Provider value={connectedUser || {}}>
 			<Provider store={store}>
 				<DefaultNavbar>
 					<NavbarContent />

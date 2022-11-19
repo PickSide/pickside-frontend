@@ -5,6 +5,7 @@ import { darkModeMapStyles, lightModeMapStyles } from 'utils'
 const useMapStyles = (): { mapStyles } => {
 	const context = useContext(AppContext)
 	const [mapStyles, setMapStyles] = useState<any>([])
+
 	useEffect(() => {
 		if (context.darkMode) {
 			setMapStyles(darkModeMapStyles)

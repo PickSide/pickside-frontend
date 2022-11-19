@@ -14,10 +14,10 @@ export interface User {
 }
 
 const User = createSlice({
-	initialState: null as unknown as User | null,
+	initialState: null as unknown as User,
 	name: 'user',
 	reducers: {
-		setUser: (state, action: PayloadAction<User | null>) => (state = action.payload),
+		setUser: (state, action: PayloadAction<User>) => (state = action.payload),
 	},
 })
 

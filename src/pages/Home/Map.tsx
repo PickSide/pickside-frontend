@@ -1,7 +1,7 @@
-import { FC, useMemo } from 'react'
-import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api'
-import { useTheme } from '@mui/material'
-import { useMapStyles } from 'hooks'
+import { FC, useCallback, useMemo, useState } from 'react'
+import { GoogleMap, useLoadScript, LoadScript, Marker, InfoWindow } from '@react-google-maps/api'
+import { Box, CircularProgress, Typography, useTheme } from '@mui/material'
+import { useEnvVariables, useMapStyles } from 'hooks'
 
 interface CoordProps {
 	lat: number
@@ -14,6 +14,7 @@ interface MapProps {
 
 const Map: FC<MapProps> = ({ coords }) => {
 	const theme = useTheme()
+	const { googleAPIKey } = useEnvVariables()
 	const { mapStyles } = useMapStyles()
 
 	const options: google.maps.MapOptions = {
@@ -31,22 +32,37 @@ const Map: FC<MapProps> = ({ coords }) => {
 	)
 
 	const { isLoaded, loadError } = useLoadScript({
+		id: 'google-map-script',
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '',
 		libraries: ['places'],
 	})
 
-	if (loadError) return <p>Error</p>
-	if (!isLoaded) return <p>Loading...</p>
+	const ActivityMap = (): JSX.Element => {
+		const onLoad = useCallback((mapInstance) => {
+			console.log(mapInstance)
+		}, [])
 
-	return (
-		<GoogleMap
-			key="AIzaSyCHYGRo5QpIyCQ8mZdd5-SoaSw8uvSubwM"
-			zoom={8}
-			mapContainerStyle={mapContainerStyle}
-			center={coords}
-			options={options}
-		></GoogleMap>
-	)
+		return (
+			<GoogleMap
+				key={googleAPIKey}
+				zoom={8}
+				mapContainerStyle={mapContainerStyle}
+				center={coords}
+				onLoad={onLoad}
+				options={options}
+			></GoogleMap>
+		)
+	}
+
+	if (loadError) {
+		return (
+			<Box>
+				<Typography>There was an error loading the map</Typography>
+			</Box>
+		)
+	}
+
+	return isLoaded ? <ActivityMap /> : <CircularProgress />
 }
 
 export default Map
