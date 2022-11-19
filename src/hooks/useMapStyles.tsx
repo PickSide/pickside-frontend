@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { AppContext } from 'components'
-import { darkModeMapStyles, lightModeMapStyles } from 'utils'
+import { AppContext, darkModeMapStyles, lightModeMapStyles } from 'utils'
 
 const useMapStyles = (): { mapStyles } => {
 	const context = useContext(AppContext)

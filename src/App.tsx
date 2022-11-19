@@ -1,15 +1,12 @@
-import React, { FC, createContext, useContext, useState } from 'react'
-import { useWindowSize } from 'react-use'
-import { RouterProvider, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import { Provider, useDispatch } from 'react-redux'
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 
-import { useTheme } from '@mui/material'
 import { reducers } from 'state'
-import { AppContext, AppLayout, DefaultNavbar, NavbarContent } from 'components'
-import useAppRoutes from 'hooks/useAppRoutes'
-import HomePage from './pages/Home/HomePage'
+import { DefaultNavbar, NavbarContent } from 'components'
 import { useTestData } from 'hooks'
+import { AppContext } from 'utils'
+import HomePage from './pages/Home/HomePage'
 
 const middleware = [...getDefaultMiddleware()]
 

@@ -1,6 +1,4 @@
 import ActivityToolbar from '../pages/Home/ActivityToolbar'
-import AppContext from './context/AppContext'
-import AppLayout from './AppLayout'
 import Authentication from './Authentication'
 import EventCard from './EventCard'
 import DefaultNavbar from './DefaultNavbar'
@@ -14,8 +12,6 @@ import Select from './Select'
 
 export {
 	ActivityToolbar,
-	AppLayout,
-	AppContext,
 	Authentication,
 	EventCard,
 	Dialog,
