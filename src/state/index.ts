@@ -1,4 +1,4 @@
-import user, { User } from 'state/user'
+import user, { User } from './user'
 
 export interface AppState {
 	user?: User

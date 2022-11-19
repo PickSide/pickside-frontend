@@ -2,9 +2,10 @@
 	"compilerOptions": {
 		"paths": {
 			"components/*": ["./src/components/*"],
+			"icons/*": ["./node_modules/@mui/icons-material/*"],
 			"pages/*": ["./src/pages/*"],
-			"utils/*": ["./src/utils/*"],
-			"icons/*": ["./node_modules/@mui/icons-material/*"]
+			"state/*": ["./src/state/*"],
+			"utils/*": ["./src/utils/*"]
 		},
 		"target": "es6",
 		"lib": ["dom", "dom.iterable", "esnext"],
@@ -30,5 +31,5 @@
 	},
 	"typeRoots": ["node_modules/@types"],
 	"exclude": ["node_modules", "build", "scripts"],
-	"include": ["src"]
+	"include": ["src/**/*"]
 }

@@ -1,5 +1,4 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
-import { AppState } from 'state'
 
 export interface User {
 	id?: string
@@ -11,6 +10,7 @@ export interface User {
 	reliability?: number
 	matchPlayed?: number
 	matchOrganized?: number
+	darkMode?: boolean
 }
 
 const User = createSlice({

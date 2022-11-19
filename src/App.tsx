@@ -1,11 +1,15 @@
-import React, { FC, useState } from 'react'
+import React, { FC, createContext, useContext, useState } from 'react'
+import { useWindowSize } from 'react-use'
+import { RouterProvider, Routes, Route } from 'react-router-dom'
 import { Provider, useDispatch } from 'react-redux'
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
-import { Grid } from '@mui/material'
 
+import { ThemeProvider, useTheme } from '@mui/material'
 import { reducers } from 'state'
-import { Dialog, FilterToolbar, Navbar } from 'components'
-import { AppContainer, Authentication } from 'components'
+import { User } from '../src/state/user/index'
+import { AppContext, AppLayout, DefaultNavbar, NavbarContent } from 'components'
+import useAppRoutes from 'hooks/useAppRoutes'
+import HomePage from './pages/Home/HomePage'
 
 const middleware = [...getDefaultMiddleware()]
 
@@ -14,36 +18,33 @@ export const store = configureStore({
 	middleware,
 })
 
+const randomUser1: User = {
+	firstName: 'Antoine',
+	lastName: 'Hakim',
+	sexe: 'male',
+	level: 5,
+	darkMode: false,
+}
+
 export type AppDispatch = typeof store.dispatch
 export const useAppDispatch: () => AppDispatch = useDispatch
 
 const App = () => {
-	const [openAuthenticationDialog, setOpenAuthenticationDialog] = useState<boolean>(false)
+	const theme = useTheme()
+	const windowSize = useWindowSize()
+	const { routes } = useAppRoutes()
 
 	return (
-		<Provider store={store}>
-			<Dialog
-				open={openAuthenticationDialog}
-				onClose={() => setOpenAuthenticationDialog(false)}
-				title="Authentication"
-				aria-labelledby="alert-dialog-title"
-				aria-describedby="alert-dialog-description"
-				size="sm"
-			>
-				<Authentication />
-			</Dialog>
-			<Grid container direction="column" style={{ overflow: 'none' }}>
-				<Grid item>
-					<Navbar setOpenAuthenticationDialog={setOpenAuthenticationDialog} />
-				</Grid>
-				<Grid item>
-					<FilterToolbar />
-				</Grid>
-				<Grid item>
-					<AppContainer />
-				</Grid>
-			</Grid>
-		</Provider>
+		<AppContext.Provider value={randomUser1}>
+			<Provider store={store}>
+				<DefaultNavbar>
+					<NavbarContent />
+				</DefaultNavbar>
+				<Routes>
+					<Route path="/" element={<HomePage />} />
+				</Routes>
+			</Provider>
+		</AppContext.Provider>
 	)
 }
 
