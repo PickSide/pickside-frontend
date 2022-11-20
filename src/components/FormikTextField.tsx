@@ -1,16 +1,9 @@
 import React, { FC } from 'react'
 import { Field } from 'formik'
-import { Box, TextField } from '@mui/material'
+import { Box, TextField, StandardTextFieldProps } from '@mui/material'
 
-interface FormikTextFieldProps {
-	label?: string
-	name?: string
-	placeholder?: string
-	type?: 'text' | 'email' | 'password'
-	value?: string
+interface FormikTextFieldProps extends StandardTextFieldProps {
 	horizontal?: boolean
-	fullWidth?: boolean
-	onChange?: (e: any) => void
 }
 
 const FormikTextField: FC<FormikTextFieldProps> = ({

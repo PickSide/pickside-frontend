@@ -6,7 +6,7 @@ export interface User {
 	lastName?: string
 	email?: string
 	sexe?: 'male' | 'female'
-	level?: 1 | 2 | 3 | 4 | 5
+	level?: number
 	reliability?: number
 	matchPlayed?: number
 	matchOrganized?: number

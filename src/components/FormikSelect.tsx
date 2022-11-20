@@ -1,16 +1,9 @@
 import React, { FC } from 'react'
 import { Field } from 'formik'
-import { Box, Select } from '@mui/material'
+import { Box, Select, SelectProps } from '@mui/material'
 
-interface FormikSelectProps extends React.PropsWithChildren {
-	label?: string
-	name?: string
-	placeholder?: string
-	defaultValue?: string
-	value?: string
+interface FormikSelectProps extends SelectProps {
 	horizontal?: boolean
-	multiple?: boolean
-	onChange?: (e: any) => void
 }
 
 const FormikSelect: FC<FormikSelectProps> = ({

@@ -5,11 +5,11 @@ import {
 	Button,
 	Card as MuiCard,
 	CardMedia as MuiCardMedia,
-	CardActionArea as MuiCardActionArea,
 	CardContent as MuiCardContent,
 	Grid,
 	Typography,
 } from '@mui/material'
+import { ConfirmRegisterEventForm, Dialog } from 'components'
 import { times } from 'lodash'
 import { Activity } from 'state/activity'
 import { MAX_LEVEL } from 'utils'
@@ -19,6 +19,7 @@ interface EventCardProps {
 }
 
 const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
+	const [openConfirmRegisterDialog, setOpenConfirmRegisterDialog] = useState<boolean>(false)
 	const combineAddress = useMemo(
 		() => `${event.location?.streetName} ${event.location?.city} ${event.location?.zipCode}`,
 		[event],
@@ -38,44 +39,55 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 	}, [event])
 
 	return (
-		<MuiCard>
-			<MuiCardMedia width={580} height={320} component="img" alt="placeholder" image="/monkey.jpeg" />
-			<MuiCardContent>
-				<Grid container>
-					<Grid item container direction="column" xs={8} rowSpacing={3}>
-						<Grid item>
-							<Typography>
-								<Level />
-							</Typography>
-						</Grid>
-						<Grid item>
-							<Typography variant="h4">{event.title}</Typography>
-						</Grid>
-						<Grid item container columnSpacing={2}>
-							<Grid item>
-								<DirectionsRun />
-							</Grid>
+		<>
+			<Dialog
+				title={`Register for ${event.title}`}
+				open={openConfirmRegisterDialog}
+				onClose={() => setOpenConfirmRegisterDialog(false)}
+			>
+				<ConfirmRegisterEventForm event={event} onClose={() => setOpenConfirmRegisterDialog(false)} />
+			</Dialog>
+			<MuiCard>
+				<MuiCardMedia width={580} height={320} component="img" alt="placeholder" image="/monkey.jpeg" />
+				<MuiCardContent>
+					<Grid container>
+						<Grid item container direction="column" xs={8} rowSpacing={3}>
 							<Grid item>
 								<Typography>
-									{event.registeredPlayers}/{event.maxPlayersCapacity}
+									<Level />
 								</Typography>
 							</Grid>
+							<Grid item>
+								<Typography variant="h4">{event.title}</Typography>
+							</Grid>
+							<Grid item container columnSpacing={2}>
+								<Grid item>
+									<DirectionsRun />
+								</Grid>
+								<Grid item>
+									<Typography>
+										{event.registeredPlayers}/{event.maxPlayersCapacity}
+									</Typography>
+								</Grid>
+							</Grid>
+							<Grid item container columnSpacing={2}>
+								<Grid item>
+									<LocationOn />
+								</Grid>
+								<Grid item>
+									<Typography>{combineAddress}</Typography>
+								</Grid>
+							</Grid>
 						</Grid>
-						<Grid item container columnSpacing={2}>
-							<Grid item>
-								<LocationOn />
-							</Grid>
-							<Grid item>
-								<Typography>{combineAddress}</Typography>
-							</Grid>
+						<Grid item container justifyContent="center" alignItems="center" xs={4}>
+							<Button variant="contained" size="medium" onClick={() => setOpenConfirmRegisterDialog(true)}>
+								Register
+							</Button>
 						</Grid>
 					</Grid>
-					<Grid item container justifyContent="center" alignItems="center" xs={4}>
-						<Button variant='contained' size='medium'>Register</Button>
-					</Grid>
-				</Grid>
-			</MuiCardContent>
-		</MuiCard>
+				</MuiCardContent>
+			</MuiCard>
+		</>
 	)
 }
 

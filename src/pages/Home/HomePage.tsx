@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import { useWindowSize } from 'react-use'
 import { Box, Container, Grid, Stack, useTheme, Paper } from '@mui/material'
 
-import { ActivityToolbar, EventCard, FilterToolbar, Map } from 'components'
+import { EventCard, FilterToolbar, Map } from 'components'
 import { useTestData } from 'hooks'
 
 const HomePage: FC<any> = ({ ...props }) => {

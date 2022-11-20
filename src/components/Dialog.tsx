@@ -1,6 +1,5 @@
 import React, { FC, cloneElement, ReactElement } from 'react'
-import { Dialog as MuiDialog, DialogTitle, Breakpoint } from '@mui/material'
-import { useTheme } from '@mui/material/styles'
+import { Container, Dialog as MuiDialog, DialogTitle, Breakpoint } from '@mui/material'
 
 interface DialogProps extends React.PropsWithChildren {
 	size?: Breakpoint
@@ -29,7 +28,7 @@ const Dialog: FC<DialogProps> = ({
 			{...props}
 		>
 			{title && <DialogTitle>{title}</DialogTitle>}
-			{cloneElement(children as ReactElement, { onClose })}
+			<Container>{children && cloneElement(children as ReactElement, { onClose })}</Container>
 		</MuiDialog>
 	)
 }
