@@ -28,11 +28,11 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 	const Level = useCallback(() => {
 		return (
 			<Box component="span">
-				{times(event.levelRequired, () => (
-					<Star />
+				{times(event.levelRequired, (idx) => (
+					<Star key={idx} />
 				))}
-				{times(MAX_LEVEL - event.levelRequired, () => (
-					<StarBorder />
+				{times(MAX_LEVEL - event.levelRequired, (idx) => (
+					<StarBorder key={idx} />
 				))}
 			</Box>
 		)

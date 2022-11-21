@@ -3,13 +3,25 @@ import { useEffect, useState } from 'react'
 import { Address } from 'types'
 import { Activity } from 'state/activity'
 import { User } from 'state/user'
+import { AppConfig } from 'state/config'
 
-const useTestData = (): { connectedUser?: User; activitesInRegion?: Activity[]; randomUsers?: User[] } => {
+const useTestData = (): {
+	appConfig?: AppConfig
+	connectedUser?: User
+	activitesInRegion?: Activity[]
+	randomUsers?: User[]
+} => {
+	const [appConfig, setAppConfig] = useState<AppConfig>()
 	const [connectedUser, setConnectedUser] = useState<User>()
 	const [randomUsers, setRandomUsers] = useState<User[]>()
 	const [activitesInRegion, setActivitesInRegion] = useState<Activity[]>()
 
 	useEffect(() => {
+		setAppConfig({
+			darkModeOn: false,
+			language: 'en_US',
+			location: { lat: 45.508888, lng: -73.561668 },
+		})
 		setConnectedUser({
 			firstName: 'Antoine',
 			lastName: 'Hakim',
@@ -94,7 +106,7 @@ const useTestData = (): { connectedUser?: User; activitesInRegion?: Activity[]; 
 		}
 	}, [randomUsers?.length])
 
-	return { connectedUser, activitesInRegion, randomUsers }
+	return { appConfig, connectedUser, activitesInRegion, randomUsers }
 }
 
 export default useTestData

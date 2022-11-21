@@ -1,6 +1,4 @@
 import { createContext } from 'react'
-import { User } from 'state/user'
+import { AppState } from 'state'
 
-const AppContext = createContext<User>({})
-
-export default AppContext
+export default createContext<AppState>({})

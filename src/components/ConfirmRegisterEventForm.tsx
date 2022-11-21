@@ -13,9 +13,9 @@ const ConfirmRegisterEventForm: FC<ConfirmRegisterEventFormProps> = ({ event, on
 	const userContext = useContext(AppContext)
 
 	const isLevelLessThanRequired = useMemo(() => {
-		if (userContext.level) {
-			return userContext.level < event.levelRequired
-		}
+		// if (userContext.level) {
+		// 	return userContext.level < event.levelRequired
+		// }
 		return false
 	}, [event, userContext])
 

@@ -6,12 +6,12 @@ const useMapStyles = (): { mapStyles } => {
 	const [mapStyles, setMapStyles] = useState<any>([])
 
 	useEffect(() => {
-		if (context.darkMode) {
+		if (context.appConfig?.darkModeOn) {
 			setMapStyles(darkModeMapStyles)
 		} else {
 			setMapStyles(lightModeMapStyles)
 		}
-	}, [context.darkMode])
+	}, [context.appConfig?.darkModeOn])
 
 	return { mapStyles }
 }

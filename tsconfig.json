@@ -6,7 +6,8 @@
 			"pages/*": ["./src/pages/*"],
 			"state/**": ["./src/state/*"],
 			"types/*": ["./src/types/*"],
-			"utils/*": ["./src/utils/*"]
+			"utils/*": ["./src/utils/*"],
+			"utils/context/*": ["./src/utils/context/*"]
 		},
 		"target": "es6",
 		"lib": ["dom", "dom.iterable", "esnext"],

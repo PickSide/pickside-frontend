@@ -5,6 +5,7 @@ import DefaultNavbar from './DefaultNavbar'
 import Dialog from './Dialog'
 import FilterToolbar from './FilterToolbar'
 import FormikSelect from './FormikSelect'
+import FormikSwitch from './FormikSwitch'
 import FormikTextField from './FormikTextField'
 import Map from '../pages/Home/Map'
 import NavbarContent from './NavbarContent'
@@ -18,6 +19,7 @@ export {
 	Dialog,
 	FilterToolbar,
 	FormikSelect,
+	FormikSwitch,
 	FormikTextField,
 	DefaultNavbar,
 	Map,
