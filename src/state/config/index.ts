@@ -18,18 +18,16 @@ const User = createSlice({
 export const { setAppConfig } = User.actions
 
 export const fetchAppConfiguration =
-	(data: AppConfig = {}) =>
+	(data: AppConfig) =>
 	async (dispatch: Dispatch): Promise<any> => {
 		if (data) {
 			setAppConfig(data)
 		}
 	}
+
 export const updateAppConfiguration =
-	(data: AppConfig = {}) =>
-	async (dispatch: Dispatch): Promise<any> => {
-		fetch('http://example.com/movies.json')
-			.then((response) => response.json())
-			.then((data) => console.log(data))
+	(data: AppConfig) =>
+	async (dispatch: Dispatch<any>): Promise<any> => {
 		if (data) {
 			dispatch(setAppConfig(data))
 		}

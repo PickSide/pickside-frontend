@@ -11,6 +11,7 @@ import Map from '../pages/Home/Map'
 import NavbarContent from './NavbarContent'
 import RegisterEventForm from './RegisterEventForm'
 import Select from './Select'
+import ThemeToggler from './ThemeToggler'
 
 export {
 	Authentication,
@@ -26,4 +27,5 @@ export {
 	NavbarContent,
 	RegisterEventForm,
 	Select,
+	ThemeToggler,
 }

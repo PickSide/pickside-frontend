@@ -3,19 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Grid, IconButton } from '@mui/material'
 import { Login, Person } from '@mui/icons-material'
 
-import { Authentication, Dialog, FormikSwitch } from 'components'
-import { AppContext } from 'utils'
+import { Authentication, Dialog, ThemeToggler } from 'components'
 import { AppState } from 'state'
-import { setAppConfig } from 'state/config'
 
 const NavbarContent: FC<any> = ({ ...props }) => {
-	const { connectedUser } = useContext(AppContext)
-	const dispatch = useDispatch()
-
-	const appConfig = useSelector((state: AppState) => state.appConfig)
+	const connectedUser = useSelector((state: AppState) => state.connectedUser)
 
 	const [openAuthenticationDialog, setOpenAuthenticationDialog] = useState<boolean>(false)
-	const initialDarkModeOn = useMemo(() => appConfig?.darkModeOn || false, [appConfig])
 
 	return (
 		<>
@@ -32,13 +26,7 @@ const NavbarContent: FC<any> = ({ ...props }) => {
 
 			<Grid container justifyContent="flex-end" alignItems="center">
 				<Grid item>
-					<FormikSwitch
-						label="Dark mode"
-						name="darkMode"
-						freeSolo
-						checked={initialDarkModeOn}
-						onChange={(e) => dispatch(setAppConfig({ darkModeOn: e.target.checked }))}
-					/>
+					<ThemeToggler />
 				</Grid>
 				<Grid item>
 					{connectedUser ? (

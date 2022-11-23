@@ -1,12 +1,12 @@
 import React, { FC, useEffect, useState } from 'react'
-import { useWindowSize } from 'react-use'
-import { Box, Container, Grid, Stack, useTheme, Paper } from '@mui/material'
+import { useSelector } from 'react-redux'
+import { Container, Grid, useTheme } from '@mui/material'
 
 import { EventCard, FilterToolbar, Map } from 'components'
-import { useTestData } from 'hooks'
+import { AppState } from 'state'
 
 const HomePage: FC<any> = ({ ...props }) => {
-	const { activitesInRegion } = useTestData()
+	const activities = useSelector((state: AppState) => state.activities)
 	const theme = useTheme()
 
 	return (
@@ -36,7 +36,7 @@ const HomePage: FC<any> = ({ ...props }) => {
 					md={3}
 				>
 					<Container>
-						{activitesInRegion?.map((event, idx) => (
+						{activities?.map((event, idx) => (
 							<Grid item key={idx}>
 								<EventCard event={event} />
 							</Grid>

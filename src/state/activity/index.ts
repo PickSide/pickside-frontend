@@ -14,10 +14,10 @@ export interface Activity extends ActivityEvent {
 }
 
 const Activity = createSlice({
-	initialState: null as unknown as Activity,
+	initialState: null as unknown as Activity[],
 	name: 'activity',
 	reducers: {
-		setActivites: (state, action: PayloadAction<Activity>) => (state = action.payload),
+		setActivites: (state, action: PayloadAction<Activity[]>) => (state = [...state, ...action.payload]),
 	},
 })
 

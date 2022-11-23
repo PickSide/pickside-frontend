@@ -39,7 +39,7 @@ const Map: FC<MapProps> = ({ coords }) => {
 
 	const ActivityMap = (): JSX.Element => {
 		const onLoad = useCallback((mapInstance) => {
-			console.log(mapInstance)
+			// console.log(mapInstance)
 		}, [])
 
 		return (

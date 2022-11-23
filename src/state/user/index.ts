@@ -10,7 +10,6 @@ export interface User {
 	reliability?: number
 	matchPlayed?: number
 	matchOrganized?: number
-	darkMode?: boolean
 }
 
 const User = createSlice({
