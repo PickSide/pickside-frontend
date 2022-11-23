@@ -18,17 +18,16 @@ export const useMode = (): [theme: Theme, colorMode: { toggleColorMode: () => {}
 	const colorMode = useMemo(
 		() => ({
 			toggleColorMode: () => {
-				console.log(mode, appConfig)
 				if (appConfig?.darkModeOn) {
-					dispatch<any>(updateAppConfiguration({ ...appConfig, darkModeOn: false }))
+					dispatch<any>(updateAppConfiguration({ darkModeOn: false }))
 					setMode('light')
 				} else {
-					dispatch<any>(updateAppConfiguration({ ...appConfig, darkModeOn: true }))
+					dispatch<any>(updateAppConfiguration({ darkModeOn: true }))
 					setMode('dark')
 				}
 			},
 		}),
-		[],
+		[appConfig],
 	)
 
 	const theme = useMemo(() => createTheme(deepmerge(getDesignTokens(mode), getThemedComponents(mode))), [mode])
