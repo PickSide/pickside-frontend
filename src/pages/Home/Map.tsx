@@ -1,7 +1,7 @@
 import { FC, useCallback, useMemo, useState } from 'react'
-import { GoogleMap, useLoadScript, LoadScript, Marker, InfoWindow } from '@react-google-maps/api'
+import { GoogleMap, useLoadScript } from '@react-google-maps/api'
 import { Box, CircularProgress, Typography, useTheme } from '@mui/material'
-import { useEnvVariables, useMapStyles } from 'hooks'
+import { useConnectedUserPosition, useEnvVariables, useMapStyles } from 'hooks'
 
 interface CoordProps {
 	lat: number
@@ -12,14 +12,14 @@ interface MapProps {
 	coords?: CoordProps
 }
 
-const Map: FC<MapProps> = ({ coords }) => {
+const Map: FC<MapProps> = () => {
 	const theme = useTheme()
 	const { googleAPIKey } = useEnvVariables()
 	const { mapStyles } = useMapStyles()
+	const { lat, lng } = useConnectedUserPosition()
 
 	const options: google.maps.MapOptions = {
 		styles: mapStyles,
-
 		disableDefaultUI: true,
 		zoomControl: true,
 	}
@@ -39,15 +39,15 @@ const Map: FC<MapProps> = ({ coords }) => {
 
 	const ActivityMap = (): JSX.Element => {
 		const onLoad = useCallback((mapInstance) => {
-			// console.log(mapInstance)
+			//console.log(geoLocation)
 		}, [])
 
 		return (
 			<GoogleMap
 				key={googleAPIKey}
-				zoom={8}
+				zoom={10}
 				mapContainerStyle={mapContainerStyle}
-				center={coords}
+				center={{ lat, lng }}
 				onLoad={onLoad}
 				options={options}
 			></GoogleMap>

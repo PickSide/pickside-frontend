@@ -2,7 +2,6 @@ import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
 import { User } from 'state/user'
 import { ActivityEvent } from 'types'
 
-export type ActivityType = 'soccer' | 'basketball' | 'tennis' | 'american_football' | 'squash'
 
 export interface Activity extends ActivityEvent {
 	id?: string

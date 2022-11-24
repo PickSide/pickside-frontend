@@ -1,6 +1,6 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import { reducers } from 'state'
-import { activities, appConfig, connectedUser } from '../src/testData'
+import { activities, appConfig, connectedUser, sports } from '../src/testData'
 
 const middleware = [...getDefaultMiddleware()]
 
@@ -11,6 +11,7 @@ export const store = configureStore({
 		activities,
 		appConfig,
 		connectedUser,
+		sports,
 	},
 })
 

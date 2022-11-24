@@ -1,12 +1,15 @@
 import React, { FC, ChangeEvent, Dispatch, useState, useMemo, SetStateAction, ReactNode } from 'react'
 import { styled } from '@mui/system'
 import { SvgIconComponent, SportsSoccer, Height, LocationOn, Search } from '@mui/icons-material'
-import { Grid } from '@mui/material'
-import { DefaultNavbar, Select } from 'components'
+import { Grid, IconButton, MenuItem } from '@mui/material'
+import { Autocomplete, DatePicker, DefaultNavbar, Select } from 'components'
+import { useSelector } from 'react-redux'
+import { AppState } from 'state'
+import { camelCase } from 'lodash'
 
-interface FilterToolbarProps {}
+const FilterToolbar: FC<any> = ({ ...props }) => {
+	const sports = useSelector((state: AppState) => state.sports)
 
-const FilterToolbar: FC<FilterToolbarProps> = ({ ...props }) => {
 	return (
 		<DefaultNavbar
 			sx={{
@@ -16,13 +19,19 @@ const FilterToolbar: FC<FilterToolbarProps> = ({ ...props }) => {
 		>
 			<Grid container justifyContent="center" columnSpacing={2}>
 				<Grid item>
-					<Select size="small"></Select>
+					<Select placeholder="Select a sport" size="small">
+						{sports?.map((sportType, idx) => (
+							<MenuItem key={idx} value={sportType.id}>
+								{camelCase(sportType.name?.replace('_', ' '))}
+							</MenuItem>
+						))}
+					</Select>
 				</Grid>
 				<Grid item>
-					<Select size="small"></Select>
+					<DatePicker />
 				</Grid>
 				<Grid item>
-					<Select size="small"></Select>
+					<Autocomplete size="small" />
 				</Grid>
 			</Grid>
 		</DefaultNavbar>

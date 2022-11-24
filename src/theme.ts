@@ -56,6 +56,26 @@ export const getThemedComponents = (mode) => ({
 				size: 'small',
 			},
 		},
+		MuiAutocomplete: {
+			defaultProps: {
+				size: 'small',
+			},
+			styleOverrides: {
+				root: {
+					minWidth: 200,
+				},
+			},
+		},
+		MuiInputBase: {
+			defaultProps: {
+				size: 'small',
+			},
+			styleOverrides: {
+				root: {
+					minWidth: 200,
+				},
+			},
+		},
 		MuiSelect: {
 			defaultProps: {
 				size: 'small',

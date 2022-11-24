@@ -1,1 +1,0 @@
-export type ActivityType = 'soccer' | 'basketball' | 'tennis' | 'american_football' | 'squash'

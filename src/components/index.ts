@@ -1,5 +1,7 @@
 import Authentication from './Authentication'
+import Autocomplete from './Autocomplete'
 import ConfirmRegisterEventForm from './ConfirmRegisterEventForm'
+import DatePicker from './DatePicker'
 import EventCard from './EventCard'
 import DefaultNavbar from './DefaultNavbar'
 import Dialog from './Dialog'
@@ -15,7 +17,9 @@ import ThemeToggler from './ThemeToggler'
 
 export {
 	Authentication,
+	Autocomplete,
 	ConfirmRegisterEventForm,
+	DatePicker,
 	EventCard,
 	Dialog,
 	FilterToolbar,

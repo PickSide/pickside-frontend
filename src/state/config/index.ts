@@ -4,7 +4,7 @@ import { Coordinates } from 'types'
 export interface AppConfig {
 	darkModeOn?: boolean
 	language?: string
-	location?: Coordinates
+	currentConfiguredLocation?: Coordinates
 }
 
 const User = createSlice({

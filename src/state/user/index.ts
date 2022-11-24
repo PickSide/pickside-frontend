@@ -1,4 +1,5 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
+import { Coordinates } from 'types'
 
 export interface User {
 	id?: string
@@ -10,6 +11,7 @@ export interface User {
 	reliability?: number
 	matchPlayed?: number
 	matchOrganized?: number
+	location?: Coordinates
 }
 
 const User = createSlice({

@@ -16,6 +16,7 @@ const StyledDefaultNavbar = styled(Box)<BoxProps>(({ theme }) => ({
 	flexBasis: 'auto',
 	backgroundColor: theme.palette.primary.main,
 	minHeight: theme.mixins.toolbar.minHeight,
+	paddingInlineEnd: theme.spacing(2),
 }))
 const DefaultNavbar: FC<any> = ({ children, ...props }) => {
 	return <StyledDefaultNavbar {...props}>{children}</StyledDefaultNavbar>
