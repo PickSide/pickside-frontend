@@ -36,7 +36,7 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 				))}
 			</Box>
 		)
-	}, [event])
+	}, [event.levelRequired])
 
 	return (
 		<>
@@ -66,7 +66,7 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 								</Grid>
 								<Grid item>
 									<Typography>
-										{event.registeredPlayers}/{event.maxPlayersCapacity}
+										{event.numberOfRegisteredPlayers}/{event.maxPlayersCapacity}
 									</Typography>
 								</Grid>
 							</Grid>

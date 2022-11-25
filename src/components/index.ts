@@ -9,6 +9,7 @@ import FilterToolbar from './FilterToolbar'
 import FormikSelect from './FormikSelect'
 import FormikSwitch from './FormikSwitch'
 import FormikTextField from './FormikTextField'
+import Marker from './Marker'
 import Map from '../pages/Home/Map'
 import NavbarContent from './NavbarContent'
 import Popover from './Popover'
@@ -27,6 +28,7 @@ export {
 	FormikSelect,
 	FormikSwitch,
 	FormikTextField,
+	Marker,
 	DefaultNavbar,
 	Map,
 	NavbarContent,

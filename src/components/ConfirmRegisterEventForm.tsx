@@ -1,8 +1,10 @@
 import React, { FC, useContext, useEffect, useMemo, useCallback, useState } from 'react'
-
+import { useDispatch } from 'react-redux'
 import { Button, DialogActions, Container, Typography } from '@mui/material'
 import { Activity } from 'state/activity'
-import { AppContext } from 'utils'
+import { registerPlayerToActivityEvent } from 'state/activity'
+import { useSelector } from 'react-redux'
+import { AppState } from 'state'
 
 interface ConfirmRegisterEventFormProps {
 	event: Activity
@@ -10,16 +12,17 @@ interface ConfirmRegisterEventFormProps {
 }
 
 const ConfirmRegisterEventForm: FC<ConfirmRegisterEventFormProps> = ({ event, onClose, ...props }) => {
-	const userContext = useContext(AppContext)
+	const connectedUser = useSelector((state: AppState) => state.connectedUser)
+	const dispatch = useDispatch()
 
 	const isLevelLessThanRequired = useMemo(() => {
-		// if (userContext.level) {
-		// 	return userContext.level < event.levelRequired
-		// }
-		return false
-	}, [event, userContext])
+		return connectedUser && connectedUser.level && connectedUser.level < event.levelRequired
+	}, [connectedUser, event])
 
-	const onRegisterEvent = () => {}
+	const onRegisterEvent = () => {
+		dispatch<any>(registerPlayerToActivityEvent(event.id))
+		onClose()
+	}
 
 	return (
 		<>
