@@ -11,6 +11,7 @@ import FormikSwitch from './FormikSwitch'
 import FormikTextField from './FormikTextField'
 import Map from '../pages/Home/Map'
 import NavbarContent from './NavbarContent'
+import Popover from './Popover'
 import RegisterEventForm from './RegisterEventForm'
 import Select from './Select'
 import ThemeToggler from './ThemeToggler'
@@ -29,6 +30,7 @@ export {
 	DefaultNavbar,
 	Map,
 	NavbarContent,
+	Popover,
 	RegisterEventForm,
 	Select,
 	ThemeToggler,
