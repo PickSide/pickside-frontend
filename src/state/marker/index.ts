@@ -1,16 +1,17 @@
-import { MarkerProps } from '@react-google-maps/api'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export type MarkerState = Pick<MarkerProps, 'position'>
+export interface MarkerActivity extends google.maps.LatLng {
+	activityId: string
+}
 
-const Sport = createSlice({
-	initialState: null as unknown as MarkerState[],
+const Marker = createSlice({
+	initialState: null as unknown as MarkerActivity[],
 	name: 'markers',
 	reducers: {
-		setMapMarkers: (state, action: PayloadAction<MarkerState[]>) => (state = action.payload),
+		setMapMarkers: (state, action: PayloadAction<MarkerActivity[] | any>) => action.payload,
 	},
 })
 
-export const { setMapMarkers } = Sport.actions
+export const { setMapMarkers } = Marker.actions
 
-export default Sport.reducer
+export default Marker.reducer

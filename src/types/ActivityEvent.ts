@@ -8,7 +8,7 @@ export interface ActivityEvent {
 	type?: ActivityEventType
 	free?: boolean
 	pricePerUnit?: number
-	location?: Address
+	address?: Address
 }
 
 export interface Sport {

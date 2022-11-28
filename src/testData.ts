@@ -8,15 +8,36 @@ const address1: Address = {
 	streetName: '1856 Rue de Tripoli',
 	city: 'Laval',
 	zipCode: 'H7M 4M5',
+	place_id: '"ChIJy4wGGoEhyUwRk4otlwqlAlM"',
+	geometry: {
+		location: {
+			lat: () => 45.5790972,
+			lng: () => -73.719133,
+		},
+	},
 } as Address
 const address2: Address = {
 	streetName: '45 Bd Cartier O',
 	city: 'Laval',
+	place_id: 'ChIJg3TGJAkiyUwR_cDAufwz5A4',
+	geometry: {
+		location: {
+			lat: () => 45.5586144,
+			lng: () => -73.6885578,
+		},
+	},
 } as Address
 const address3: Address = {
 	streetName: '350 Rue Sauvé E',
 	city: 'Montréal',
 	zipCode: 'H3L 1H4',
+	place_id: '"ChIJl4MCQ8AYyUwRPGDjNcsejUw"',
+	geometry: {
+		location: {
+			lat: () => 45.5490424,
+			lng: () => -73.6573323,
+		},
+	},
 } as Address
 export const connectedUser = {
 	id: '284190751071057130',
@@ -66,7 +87,7 @@ export const activities = [
 		levelRequired: 3,
 		numberOfRegisteredPlayers: Math.floor(Math.random() * 16) + 1,
 		maxPlayersCapacity: 16,
-		location: address1,
+		address: address1,
 	},
 	{
 		id: '83290-58230jf09',
@@ -76,7 +97,7 @@ export const activities = [
 		levelRequired: 2,
 		numberOfRegisteredPlayers: Math.floor(Math.random() * 16) + 1,
 		maxPlayersCapacity: 16,
-		location: address2,
+		address: address2,
 	},
 	{
 		id: 'fm032ut20u4',
@@ -86,7 +107,7 @@ export const activities = [
 		levelRequired: 4,
 		numberOfRegisteredPlayers: Math.floor(Math.random() * 16) + 1,
 		maxPlayersCapacity: 16,
-		location: address3,
+		address: address3,
 	},
 	{
 		id: '8123fjm1301j',
@@ -96,7 +117,7 @@ export const activities = [
 		levelRequired: 5,
 		numberOfRegisteredPlayers: Math.floor(Math.random() * 16) + 1,
 		maxPlayersCapacity: 16,
-		location: address3,
+		address: address3,
 	},
 ] as Activity[]
 export const sports = [

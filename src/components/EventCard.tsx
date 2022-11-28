@@ -21,7 +21,7 @@ interface EventCardProps {
 const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 	const [openConfirmRegisterDialog, setOpenConfirmRegisterDialog] = useState<boolean>(false)
 	const combineAddress = useMemo(
-		() => `${event.location?.streetName} ${event.location?.city} ${event.location?.zipCode}`,
+		() => `${event.address?.streetName} ${event.address?.city} ${event.address?.zipCode}`,
 		[event],
 	)
 

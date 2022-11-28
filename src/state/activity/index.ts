@@ -19,7 +19,6 @@ const Activity = createSlice({
 	reducers: {
 		setActivites: (state, action: PayloadAction<Activity[]>) => (state = [...state, ...action.payload]),
 		registerNewUser: (state, action: PayloadAction<{ eventId: any; connectedUserId: any }>) => {
-			console.group(action.payload)
 			const updatedEvent = state.find((activity) => activity.id === action.payload.eventId)
 			const oldEventIdx = state.findIndex((activity) => activity.id === action.payload.eventId)
 			if (updatedEvent) {

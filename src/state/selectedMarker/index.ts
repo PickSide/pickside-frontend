@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { MarkerState } from 'types'
+import { MarkerActivity } from 'state/marker'
 
 const Sport = createSlice({
-	initialState: null as unknown as MarkerState,
+	initialState: null as unknown as MarkerActivity,
 	name: 'selectedMarker',
 	reducers: {
 		setSelectedMarker: (state, action: PayloadAction<any>) => (state = action.payload),

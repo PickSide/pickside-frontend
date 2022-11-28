@@ -1,7 +1,8 @@
-import { FC, useCallback, useMemo, useState } from 'react'
-import { GoogleMap, useLoadScript } from '@react-google-maps/api'
+import { FC, cloneElement, useCallback, useMemo } from 'react'
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api'
 import { Box, CircularProgress, Typography, useTheme } from '@mui/material'
 import { useConnectedUserPosition, useEnvVariables, useMapStyles } from 'hooks'
+import useMarkers from 'hooks/useMarkers'
 
 interface CoordProps {
 	lat: number
@@ -13,6 +14,7 @@ interface MapProps {
 }
 
 const Map: FC<MapProps> = () => {
+	const { markers } = useMarkers()
 	const theme = useTheme()
 	const { googleAPIKey } = useEnvVariables()
 	const { mapStyles } = useMapStyles()
@@ -31,7 +33,7 @@ const Map: FC<MapProps> = () => {
 		[theme],
 	)
 
-	const { isLoaded, loadError } = useLoadScript({
+	const { isLoaded, loadError } = useJsApiLoader({
 		id: 'google-map-script',
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '',
 		libraries: ['places'],
@@ -39,9 +41,20 @@ const Map: FC<MapProps> = () => {
 
 	const ActivityMap = (): JSX.Element => {
 		const onLoad = useCallback((mapInstance) => {
-			//console.log(geoLocation)
+			// const { geocode } = new google.maps.Geocoder()
+			// uniqWith(activities, isEqual)
+			// 	?.map((a) => a.location)
+			// 	.forEach((location) => {
+			// 		geocode({
+			// 			address: `${location?.propertyNumber || ''} ${location?.streetName || ''} ${location?.zipCode || ''}`,
+			// 		}).then(({ results }) => {
+			// 			console.log(map(results, 'geometry.location'))
+			// 			dispatch(setMapMarkers(map(results, 'geometry.location')))
+			// 		})
+			// 	})
 		}, [])
 
+		const onTilesLoaded = useCallback(() => {}, [])
 		return (
 			<GoogleMap
 				key={googleAPIKey}
@@ -49,8 +62,14 @@ const Map: FC<MapProps> = () => {
 				mapContainerStyle={mapContainerStyle}
 				center={{ lat, lng }}
 				onLoad={onLoad}
+				onTilesLoaded={onTilesLoaded}
 				options={options}
-			></GoogleMap>
+			>
+				{markers?.map((marker) => {
+					console.log(marker)
+					return cloneElement(marker)
+				})}
+			</GoogleMap>
 		)
 	}
 

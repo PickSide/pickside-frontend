@@ -2,7 +2,7 @@ export interface Coordinates {
 	lat?: number
 	lng?: number
 }
-export interface Address {
+export interface Address extends google.maps.GeocoderResult {
 	propertyNumber?: number
 	streetName?: string
 	city?: string
