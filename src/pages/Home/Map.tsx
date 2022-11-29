@@ -1,8 +1,10 @@
 import { FC, cloneElement, useCallback, useMemo } from 'react'
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api'
+import { useDispatch } from 'react-redux'
+import { GoogleMap, MarkerF as Marker, useJsApiLoader } from '@react-google-maps/api'
 import { Box, CircularProgress, Typography, useTheme } from '@mui/material'
 import { useConnectedUserPosition, useEnvVariables, useMapStyles } from 'hooks'
 import useMarkers from 'hooks/useMarkers'
+import { setSelectedActivity } from 'state/selectedActivity'
 
 interface CoordProps {
 	lat: number
@@ -14,8 +16,9 @@ interface MapProps {
 }
 
 const Map: FC<MapProps> = () => {
-	const { markers } = useMarkers()
+	const dispatch = useDispatch()
 	const theme = useTheme()
+	const { markers } = useMarkers()
 	const { googleAPIKey } = useEnvVariables()
 	const { mapStyles } = useMapStyles()
 	const { lat, lng } = useConnectedUserPosition()
@@ -36,24 +39,16 @@ const Map: FC<MapProps> = () => {
 	const { isLoaded, loadError } = useJsApiLoader({
 		id: 'google-map-script',
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '',
-		libraries: ['places'],
 	})
 
 	const ActivityMap = (): JSX.Element => {
-		const onLoad = useCallback((mapInstance) => {
-			// const { geocode } = new google.maps.Geocoder()
-			// uniqWith(activities, isEqual)
-			// 	?.map((a) => a.location)
-			// 	.forEach((location) => {
-			// 		geocode({
-			// 			address: `${location?.propertyNumber || ''} ${location?.streetName || ''} ${location?.zipCode || ''}`,
-			// 		}).then(({ results }) => {
-			// 			console.log(map(results, 'geometry.location'))
-			// 			dispatch(setMapMarkers(map(results, 'geometry.location')))
-			// 		})
-			// 	})
-		}, [])
-
+		/**
+		 * TODO - Decide what to do with onLoad
+		 */
+		const onLoad = useCallback((mapInstance) => {}, [])
+		/**
+		 * TODO - Decide what to do with tileOnLoad (also runs every time you move the map)
+		 */
 		const onTilesLoaded = useCallback(() => {}, [])
 		return (
 			<GoogleMap
@@ -65,10 +60,9 @@ const Map: FC<MapProps> = () => {
 				onTilesLoaded={onTilesLoaded}
 				options={options}
 			>
-				{markers?.map((marker) => {
-					console.log(marker)
-					return cloneElement(marker)
-				})}
+				{markers?.map((marker, idx) => (
+					<Marker key={idx} {...marker} onClick={() => dispatch(setSelectedActivity(marker.activityId))} />
+				))}
 			</GoogleMap>
 		)
 	}

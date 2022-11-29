@@ -5,10 +5,10 @@ const Sport = createSlice({
 	initialState: null as unknown as MarkerActivity,
 	name: 'selectedMarker',
 	reducers: {
-		setSelectedMarker: (state, action: PayloadAction<any>) => (state = action.payload),
+		setSelectedActivity: (state, action: PayloadAction<any>) => (state = action.payload),
 	},
 })
 
-export const { setSelectedMarker } = Sport.actions
+export const { setSelectedActivity } = Sport.actions
 
 export default Sport.reducer

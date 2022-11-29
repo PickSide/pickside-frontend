@@ -1,46 +1,83 @@
-# Getting Started with Create React App
+# Soccer app (placeholder name)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This application is going to be a PWA which will be available on most platforms, exploiting the best and latest features from each devices to bring the best and smoothest user experience. Its concept is simple, enable location services on the device, and let the app do the work for you.
 
-## Available Scripts
+## Installation
+```bash
+git clone https://github.com/thenoobgrammer/soccer-app.git
 
-In the project directory, you can run:
+cd /soccer-app
 
-### `npm start`
+npm i
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+npm run start
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Current AppState 
 
-### `npm test`
+```typescript
+// Global app state
+export interface AppState {
+    activities?: Activity[]
+	appConfig?: AppConfig
+	connectedUser?: User
+	markers?: MarkerActivity[]
+	selectedActivity?: MarkerActivity
+	sports?: SportType[]
+}
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+// An activity event
+export interface ActivityEvent {
+	type?: ActivityEventType
+	free?: boolean
+	pricePerUnit?: number
+	address?: Address
+}
 
-### `npm run build`
+// An activity
+export interface Activity extends ActivityEvent {
+    id?: string
+	levelRequired?: any
+	maxPlayersCapacity: number
+	numberOfRegisteredPlayers: number
+	organiser?: User
+	registeredUserIds?: string[]
+	title?: string
+}
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+// Application configuration 
+export interface AppConfig {
+	darkModeOn?: boolean
+	language?: string
+	currentConfiguredLocation?: Coordinates
+}
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+// Marker that will display on the map linked to the activity
+export interface MarkerActivity extends google.maps.LatLng {
+	activityId: string
+}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+// A sport object 
+export interface SportType {
+	id?: string
+	name?: string
+}
 
-### `npm run eject`
+// State of a user
+export interface User {
+	id?: string
+	firstName?: string
+	lastName?: string
+	email?: string
+	sexe?: 'male' | 'female'
+	level?: number
+	reliability?: number
+	matchPlayed?: number
+	matchOrganized?: number
+	location?: Coordinates
+}
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## License
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[MIT](https://choosealicense.com/licenses/mit/)

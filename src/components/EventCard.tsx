@@ -7,18 +7,24 @@ import {
 	CardMedia as MuiCardMedia,
 	CardContent as MuiCardContent,
 	Grid,
+	Link,
 	Typography,
 } from '@mui/material'
 import { ConfirmRegisterEventForm, Dialog } from 'components'
 import { times } from 'lodash'
 import { Activity } from 'state/activity'
+import { setSelectedActivity } from 'state/selectedActivity'
 import { MAX_LEVEL } from 'utils'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppState } from 'state'
 
 interface EventCardProps {
 	event: Activity
 }
 
 const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
+	const dispatch = useDispatch()
+	const currentMarkerActivity = useSelector((state: AppState) => state.markers?.find((x) => x.activityId === event.id))
 	const [openConfirmRegisterDialog, setOpenConfirmRegisterDialog] = useState<boolean>(false)
 	const combineAddress = useMemo(
 		() => `${event.address?.streetName} ${event.address?.city} ${event.address?.zipCode}`,
@@ -75,7 +81,9 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 									<LocationOn />
 								</Grid>
 								<Grid item>
-									<Typography>{combineAddress}</Typography>
+									<Link href="#" underline="hover" onClick={() => dispatch(setSelectedActivity(currentMarkerActivity))}>
+										<Typography>{combineAddress}</Typography>
+									</Link>
 								</Grid>
 							</Grid>
 						</Grid>
