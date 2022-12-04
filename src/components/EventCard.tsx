@@ -10,10 +10,11 @@ import {
 	Link,
 	Typography,
 } from '@mui/material'
-import { ConfirmRegisterEventForm, Dialog } from 'components'
 import { times } from 'lodash'
+
+import { ConfirmRegisterEventForm, Dialog } from 'components'
+import { setSelectedMarker } from 'state/marker'
 import { Activity } from 'state/activity'
-import { setSelectedActivity } from 'state/selectedActivity'
 import { MAX_LEVEL } from 'utils'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppState } from 'state'
@@ -81,7 +82,11 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 									<LocationOn />
 								</Grid>
 								<Grid item>
-									<Link href="#" underline="hover" onClick={() => dispatch(setSelectedActivity(currentMarkerActivity))}>
+									<Link
+										href="#"
+										underline="hover"
+										onClick={() => dispatch(setSelectedMarker(currentMarkerActivity?.activityId))}
+									>
 										<Typography>{combineAddress}</Typography>
 									</Link>
 								</Grid>

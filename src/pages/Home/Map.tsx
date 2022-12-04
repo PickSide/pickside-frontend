@@ -1,7 +1,9 @@
 import { FC, cloneElement, useCallback, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
-import { GoogleMap, MarkerF as Marker, useJsApiLoader } from '@react-google-maps/api'
+import { GoogleMap, useJsApiLoader, MarkerClustererF } from '@react-google-maps/api'
 import { Box, CircularProgress, Typography, useTheme } from '@mui/material'
+
+import { Marker } from 'components'
 import { useConnectedUserPosition, useEnvVariables, useMapStyles } from 'hooks'
 import useMarkers from 'hooks/useMarkers'
 import { setSelectedMarker } from 'state/marker'

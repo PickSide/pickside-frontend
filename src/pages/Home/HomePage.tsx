@@ -29,15 +29,15 @@ const HomePage: FC<any> = ({ ...props }) => {
 					container
 					direction="column"
 					wrap="nowrap"
-					sx={{ overflowY: 'scroll' }}
 					maxHeight={`calc(100vh - 2 * ${theme.mixins.toolbar.minHeight}px)`}
+					sx={{ overflowY: 'scroll' }}
 					xl={3}
 					lg={3}
 					md={3}
 				>
 					<Container>
 						{activities?.map((event, idx) => (
-							<Grid item key={idx}>
+							<Grid item key={idx} marginTop={2} marginBottom={2}>
 								<EventCard event={event} />
 							</Grid>
 						))}
