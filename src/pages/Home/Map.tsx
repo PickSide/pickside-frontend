@@ -4,7 +4,7 @@ import { GoogleMap, MarkerF as Marker, useJsApiLoader } from '@react-google-maps
 import { Box, CircularProgress, Typography, useTheme } from '@mui/material'
 import { useConnectedUserPosition, useEnvVariables, useMapStyles } from 'hooks'
 import useMarkers from 'hooks/useMarkers'
-import { setSelectedActivity } from 'state/selectedActivity'
+import { setSelectedMarker } from 'state/marker'
 
 interface CoordProps {
 	lat: number
@@ -61,7 +61,15 @@ const Map: FC<MapProps> = () => {
 				options={options}
 			>
 				{markers?.map((marker, idx) => (
-					<Marker key={idx} {...marker} onClick={() => dispatch(setSelectedActivity(marker.activityId))} />
+					<Marker
+						key={idx}
+						{...marker}
+						onClick={() => dispatch(setSelectedMarker(marker.activityId))}
+						icon={{
+							url: '/soccer_marker.png',
+							scaledSize: new google.maps.Size(marker.scaleFactor, marker.scaleFactor),
+						}}
+					/>
 				))}
 			</GoogleMap>
 		)

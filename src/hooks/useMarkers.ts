@@ -1,10 +1,12 @@
-import { MarkerProps } from '@react-google-maps/api'
 import { FC, useEffect, useState } from 'react'
+import { MarkerProps } from '@react-google-maps/api'
 import { useSelector } from 'react-redux'
 import { AppState } from 'state'
 
 interface MarkerInfo extends MarkerProps {
 	activityId?: string
+	selected?: boolean
+	scaleFactor: number
 }
 
 const useMarkers = (): { markers: MarkerInfo[] } => {
@@ -15,6 +17,7 @@ const useMarkers = (): { markers: MarkerInfo[] } => {
 		const MarkersArray = markersProps?.map((marker, idx) => ({
 			activityId: marker.activityId,
 			position: { lat: marker.lat(), lng: marker.lng() },
+			scaleFactor: marker.selected ? 64 : 32,
 		})) as MarkerInfo[]
 
 		setMarkers(MarkersArray)
