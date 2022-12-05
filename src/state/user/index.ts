@@ -1,4 +1,5 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
+import { fetchItems } from 'api'
 import { Coordinates } from 'types'
 
 export interface User {
@@ -18,14 +19,25 @@ const User = createSlice({
 	initialState: null as unknown as User,
 	name: 'user',
 	reducers: {
-		setUser: (state, action: PayloadAction<User>) => (state = action.payload),
+		setConnectedUser: (state, action: PayloadAction<User>) => (state = action.payload),
 	},
 })
 
-export const { setUser } = User.actions
+export const { setConnectedUser } = User.actions
 
-export const fetchUser =
-	(credentials: any) =>
-	async (dispatch: Dispatch): Promise<any> => {}
+export const connectToPlatform =
+	(data: any) =>
+	async (dispatch: Dispatch): Promise<any> => {
+		console.log(data)
+		const item = await fetchItems({
+			endpoint: 'auth/login',
+			method: 'POST',
+			data,
+		})(dispatch)
+
+		if (item) {
+			setConnectedUser(data)
+		}
+	}
 
 export default User.reducer

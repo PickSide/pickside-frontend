@@ -1,6 +1,6 @@
-import { FC, cloneElement, useCallback, useMemo } from 'react'
+import { FC, useCallback, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
-import { GoogleMap, useJsApiLoader, MarkerClustererF } from '@react-google-maps/api'
+import { GoogleMap, useJsApiLoader, GoogleMapProps, MarkerClustererF } from '@react-google-maps/api'
 import { Box, CircularProgress, Typography, useTheme } from '@mui/material'
 
 import { Marker } from 'components'

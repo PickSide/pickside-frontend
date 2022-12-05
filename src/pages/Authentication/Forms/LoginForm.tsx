@@ -3,23 +3,27 @@ import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
 import FormikFieldText from '../../../components/FormikTextField'
 import { Button, DialogActions } from '@mui/material'
+import { connectToPlatform } from 'state/user'
+import { useDispatch } from 'react-redux'
 
 interface LoginFormProps {
 	onClose: () => void
 }
 
 const LoginFormSchema = Yup.object().shape({
-	email: Yup.string().required('Required'),
+	username: Yup.string().required('Required'),
 	password: Yup.string().required('Required'),
 })
 
 const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
-	const onSubmit = (values: any) => console.log(`values: ${values}`)
+	const dispatch = useDispatch()
+
+	const onSubmit = (values: any) => dispatch<any>(connectToPlatform(values))
 
 	const resetForm = () => console.log('resetting form')
 
 	const initialValues = {
-		email: '',
+		username: '',
 		password: '',
 	}
 
@@ -34,12 +38,12 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 				{({ setFieldValue, values, isSubmitting, isValid }) => (
 					<Form>
 						<FormikFieldText
-							label="Email"
-							type="email"
-							name="email"
-							value={values.email}
-							placeholder="Email"
-							onChange={(e) => setFieldValue('email', e.target.value)}
+							label="Username"
+							type="text"
+							name="username"
+							value={values.username}
+							placeholder="Username"
+							onChange={(e) => setFieldValue('username', e.target.value)}
 						/>
 						<FormikFieldText
 							label="Password"
