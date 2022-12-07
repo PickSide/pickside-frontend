@@ -81,6 +81,19 @@ export interface User {
 }
 ```
 
+## Way to receive an and array from the backend
+
+#### Example for SportEvents
+
+```typescript
+export interface SportEvents {
+	results: SportEvent[]
+	/*
+		It's to allow for generic use of pagination in case we need it later
+	*/
+}
+```
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
