@@ -1,13 +1,13 @@
 import React, { FC, useContext, useEffect, useMemo, useCallback, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Button, DialogActions, Container, Typography } from '@mui/material'
-import { Activity } from 'state/activity'
-import { registerPlayerToActivityEvent } from 'state/activity'
+import { SportEvent } from 'state/sportEvent'
+import { registerPlayerToSportEvent } from 'state/sportEvent'
 import { useSelector } from 'react-redux'
 import { AppState } from 'state'
 
 interface ConfirmRegisterEventFormProps {
-	event: Activity
+	event: SportEvent
 	onClose: () => void
 }
 
@@ -20,7 +20,7 @@ const ConfirmRegisterEventForm: FC<ConfirmRegisterEventFormProps> = ({ event, on
 	}, [connectedUser, event])
 
 	const onRegisterEvent = () => {
-		dispatch<any>(registerPlayerToActivityEvent(event.id))
+		dispatch<any>(registerPlayerToSportEvent(event.id))
 		onClose()
 	}
 

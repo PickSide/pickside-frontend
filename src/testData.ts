@@ -1,8 +1,7 @@
 import { Address } from 'types'
-import { Activity } from 'state/activity'
+import { SportEvents } from 'state/sportEvent'
 import { User } from 'state/user'
 import { AppConfig } from 'state/config'
-import { SportType } from 'state/sport'
 
 const address1: Address = {
 	streetName: '1856 Rue de Tripoli',
@@ -78,79 +77,47 @@ export const randomUsers = [
 		level: 5,
 	},
 ] as User[]
-export const activities = [
-	{
-		id: '32u4892y1491y481',
-		title: 'Soccer game',
-		type: 'soccer',
-		organiser: randomUsers[0],
-		levelRequired: 3,
-		numberOfRegisteredPlayers: Math.floor(Math.random() * 16) + 1,
-		maxPlayersCapacity: 16,
-		address: address1,
-	},
-	{
-		id: '83290-58230jf09',
-		title: 'Bball street',
-		type: 'basketball',
-		organiser: randomUsers[1],
-		levelRequired: 2,
-		numberOfRegisteredPlayers: Math.floor(Math.random() * 16) + 1,
-		maxPlayersCapacity: 16,
-		address: address2,
-	},
-	{
-		id: 'fm032ut20u4',
-		title: 'Tennis tournament!!',
-		type: 'tennis',
-		organiser: randomUsers[2],
-		levelRequired: 4,
-		numberOfRegisteredPlayers: Math.floor(Math.random() * 16) + 1,
-		maxPlayersCapacity: 16,
-		address: address3,
-	},
-	{
-		id: '8123fjm1301j',
-		title: 'AF game',
-		type: 'american_football',
-		organiser: randomUsers[4],
-		levelRequired: 5,
-		numberOfRegisteredPlayers: Math.floor(Math.random() * 16) + 1,
-		maxPlayersCapacity: 16,
-		address: address3,
-	},
-] as Activity[]
-export const sports = [
-	{
-		id: '213214',
-		name: 'basketball',
-	},
-	{
-		id: '213414214',
-		name: 'tennis',
-	},
-	{
-		id: '213232114',
-		name: 'american_football',
-	},
-	{
-		id: '21324414',
-		name: 'soccer',
-	},
-	{
-		id: '2132231314',
-		name: 'running',
-	},
-	{
-		id: '213226714',
-		name: 'boxing',
-	},
-	{
-		id: '21325514',
-		name: 'squash',
-	},
-	{
-		id: '2132117994',
-		name: 'handball',
-	},
-] as SportType[]
+export const sportEvents = {
+	results: [
+		{
+			id: '32u4892y1491y481',
+			title: 'Soccer game',
+			type: 'soccer',
+			organiser: randomUsers[0],
+			levelRequired: 3,
+			numberOfRegisteredPlayers: Math.floor(Math.random() * 16) + 1,
+			maxPlayersCapacity: 16,
+			address: address1,
+		},
+		{
+			id: '83290-58230jf09',
+			title: 'Bball street',
+			type: 'basketball',
+			organiser: randomUsers[1],
+			levelRequired: 2,
+			numberOfRegisteredPlayers: Math.floor(Math.random() * 16) + 1,
+			maxPlayersCapacity: 16,
+			address: address2,
+		},
+		{
+			id: 'fm032ut20u4',
+			title: 'Tennis tournament!!',
+			type: 'tennis',
+			organiser: randomUsers[2],
+			levelRequired: 4,
+			numberOfRegisteredPlayers: Math.floor(Math.random() * 16) + 1,
+			maxPlayersCapacity: 16,
+			address: address3,
+		},
+		{
+			id: '8123fjm1301j',
+			title: 'AF game',
+			type: 'american_football',
+			organiser: randomUsers[4],
+			levelRequired: 5,
+			numberOfRegisteredPlayers: Math.floor(Math.random() * 16) + 1,
+			maxPlayersCapacity: 16,
+			address: address3,
+		},
+	],
+} as SportEvents

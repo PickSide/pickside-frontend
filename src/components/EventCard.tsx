@@ -13,19 +13,20 @@ import {
 import { times } from 'lodash'
 
 import { ConfirmRegisterEventForm, Dialog } from 'components'
-import { setSelectedMarker } from 'state/marker'
-import { Activity } from 'state/activity'
+import { SportEvent } from 'state/sportEvent'
 import { MAX_LEVEL } from 'utils'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppState } from 'state'
 
 interface EventCardProps {
-	event: Activity
+	event: SportEvent
 }
 
 const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 	const dispatch = useDispatch()
-	const currentMarkerActivity = useSelector((state: AppState) => state.markers?.find((x) => x.activityId === event.id))
+	// const currentMarkerActivity = useSelector((state: AppState) =>
+	// 	state.eventLocations?.results?.find((x) => x.sportEventId === event.id),
+	// )
 	const [openConfirmRegisterDialog, setOpenConfirmRegisterDialog] = useState<boolean>(false)
 	const combineAddress = useMemo(
 		() => `${event.address?.streetName} ${event.address?.city} ${event.address?.zipCode}`,
@@ -85,7 +86,7 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 									<Link
 										href="#"
 										underline="hover"
-										onClick={() => dispatch(setSelectedMarker(currentMarkerActivity?.activityId))}
+										//onClick={() => dispatch(setSelectedMarker(currentMarkerActivity?.activityId))}
 									>
 										<Typography>{combineAddress}</Typography>
 									</Link>

@@ -1,35 +1,26 @@
-import { FC, useCallback, useMemo } from 'react'
+import { FC, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
-import { GoogleMap, useJsApiLoader, GoogleMapProps, MarkerClustererF } from '@react-google-maps/api'
+import { GoogleMap, InfoWindowF as InfoWindow, useJsApiLoader } from '@react-google-maps/api'
 import { Box, CircularProgress, Typography, useTheme } from '@mui/material'
 
 import { Marker } from 'components'
-import { useConnectedUserPosition, useEnvVariables, useMapStyles } from 'hooks'
+import { useEnvVariables, useMapStyles } from 'hooks'
 import useMarkers from 'hooks/useMarkers'
-import { setSelectedMarker } from 'state/marker'
 
-interface CoordProps {
-	lat: number
-	lng: number
-}
-
-interface MapProps {
-	coords?: CoordProps
-}
-
-const Map: FC<MapProps> = () => {
+const Map: FC<any> = ({ ...props }) => {
 	const dispatch = useDispatch()
 	const theme = useTheme()
 	const { markers } = useMarkers()
 	const { googleAPIKey } = useEnvVariables()
 	const { mapStyles } = useMapStyles()
-	const { lat, lng } = useConnectedUserPosition()
 
 	const options: google.maps.MapOptions = {
 		styles: mapStyles,
 		disableDefaultUI: true,
 		zoomControl: true,
 	}
+
+	const center = useMemo(() => ({ lat: 45.5490424, lng: -73.6573323 }), []) //useConnectedUserPosition()
 
 	const mapContainerStyle = useMemo(
 		() => ({
@@ -44,33 +35,17 @@ const Map: FC<MapProps> = () => {
 	})
 
 	const ActivityMap = (): JSX.Element => {
-		/**
-		 * TODO - Decide what to do with onLoad
-		 */
-		const onLoad = useCallback((mapInstance) => {}, [])
-		/**
-		 * TODO - Decide what to do with tileOnLoad (also runs every time you move the map)
-		 */
-		const onTilesLoaded = useCallback(() => {}, [])
 		return (
-			<GoogleMap
-				key={googleAPIKey}
-				zoom={10}
-				mapContainerStyle={mapContainerStyle}
-				center={{ lat, lng }}
-				onLoad={onLoad}
-				onTilesLoaded={onTilesLoaded}
-				options={options}
-			>
+			<GoogleMap key={googleAPIKey} zoom={10} mapContainerStyle={mapContainerStyle} center={center} options={options}>
 				{markers?.map((marker, idx) => (
 					<Marker
 						key={idx}
-						{...marker}
-						onClick={() => dispatch(setSelectedMarker(marker.activityId))}
+						//onClick={() => dispatch(setSelectedMarker(marker.activityId))}
 						icon={{
 							url: '/soccer_marker.png',
 							scaledSize: new google.maps.Size(marker.scaleFactor, marker.scaleFactor),
 						}}
+						{...marker}
 					/>
 				))}
 			</GoogleMap>

@@ -1,24 +1,24 @@
-import activities, { Activity } from './activity'
+import sportEvents, { SportEvents } from './sportEvent'
 import appConfig, { AppConfig } from './config'
-import markers, { MarkerActivity } from './marker'
-import selectedMarker from './selectedActivity'
-import sports, { SportType } from './sport'
+import eventLocations, { EventLocations, EventLocation } from './eventLocation'
+import selectedEvent from './selectedEvent'
+import sports, { Sports } from './sport'
 import user, { User } from './user'
 
 export interface AppState {
-	activities?: Activity[]
 	appConfig?: AppConfig
 	connectedUser?: User
-	markers?: MarkerActivity[]
-	selectedActivity?: MarkerActivity
-	sports?: SportType[]
+	eventLocations?: EventLocations
+	selectedEvent?: EventLocation
+	sports?: Sports
+	sportEvents?: SportEvents
 }
 
 export const reducers = {
-	activities,
 	appConfig,
 	connectedUser: user,
-	markers,
-	selectedMarker,
+	eventLocations,
+	selectedEvent,
 	sports,
+	sportEvents,
 }

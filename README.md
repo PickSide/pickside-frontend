@@ -3,6 +3,7 @@
 This application is going to be a PWA which will be available on most platforms, exploiting the best and latest features from each devices to bring the best and smoothest user experience. Its concept is simple, enable location services on the device, and let the app do the work for you.
 
 ## Installation
+
 ```bash
 git clone https://github.com/thenoobgrammer/soccer-app.git
 
@@ -13,54 +14,56 @@ npm i
 npm run start
 ```
 
-## Current AppState 
+## Current AppState
 
 ```typescript
 // Global app state
 export interface AppState {
-    activities?: Activity[]
 	appConfig?: AppConfig
 	connectedUser?: User
-	markers?: MarkerActivity[]
-	selectedActivity?: MarkerActivity
-	sports?: SportType[]
+	eventLocations?: EventLocations
+	selectedEvent?: EventLocation
+	sports?: Sports
+	sportEvents?: SportEvents
 }
 
-// An activity event
-export interface ActivityEvent {
-	type?: ActivityEventType
-	free?: boolean
-	pricePerUnit?: number
-	address?: Address
-}
-
-// An activity
-export interface Activity extends ActivityEvent {
-    id?: string
-	levelRequired?: any
-	maxPlayersCapacity: number
-	numberOfRegisteredPlayers: number
-	organiser?: User
-	registeredUserIds?: string[]
-	title?: string
-}
-
-// Application configuration 
 export interface AppConfig {
 	darkModeOn?: boolean
 	language?: string
 	currentConfiguredLocation?: Coordinates
 }
 
-// Marker that will display on the map linked to the activity
-export interface MarkerActivity extends google.maps.LatLng {
-	activityId: string
+export interface EventLocation {
+	id?: string
+	sportEventId: string
+	location: google.maps.LatLng
 }
 
-// A sport object 
-export interface SportType {
+export interface RegionEvent {
 	id?: string
-	name?: string
+	description?: string
+	events: SportEvents
+}
+
+export interface Sport {
+	id?: string
+	value?: string
+	description?: string
+}
+
+export interface SportEvent {
+	id?: string
+	address?: Address
+	free?: boolean
+	levelRequired?: any
+	locations: google.maps.LatLng
+	maxPlayersCapacity: number
+	numberOfRegisteredPlayers: number
+	organiser?: User
+	pricePerUnit?: number
+	registeredUserIds?: string[]
+	title?: string
+	type?: Sport
 }
 
 // State of a user

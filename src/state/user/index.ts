@@ -28,7 +28,6 @@ export const { setConnectedUser } = User.actions
 export const connectToPlatform =
 	(data: any) =>
 	async (dispatch: Dispatch): Promise<any> => {
-		console.log(data)
 		const item = await fetchItems({
 			endpoint: 'auth/login',
 			method: 'POST',

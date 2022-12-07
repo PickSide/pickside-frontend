@@ -6,7 +6,7 @@ import { EventCard, FilterToolbar, Map } from 'components'
 import { AppState } from 'state'
 
 const HomePage: FC<any> = ({ ...props }) => {
-	const activities = useSelector((state: AppState) => state.activities)
+	const sportEvents = useSelector((state: AppState) => state.sportEvents)
 	const theme = useTheme()
 
 	return (
@@ -36,7 +36,7 @@ const HomePage: FC<any> = ({ ...props }) => {
 					md={3}
 				>
 					<Container>
-						{activities?.map((event, idx) => (
+						{sportEvents?.results?.map((event, idx) => (
 							<Grid item key={idx} marginTop={2} marginBottom={2}>
 								<EventCard event={event} />
 							</Grid>
