@@ -1,2 +1,2 @@
-export * from './Address'
+export * from './Location'
 export * from './common'

@@ -20,9 +20,9 @@ const FilterToolbar: FC<any> = ({ ...props }) => {
 			<Grid container justifyContent="center" columnSpacing={2}>
 				<Grid item>
 					<Select placeholder="Select a sport" size="small">
-						{sports?.map((sportType, idx) => (
+						{sports?.results?.map((sportType, idx) => (
 							<MenuItem key={idx} value={sportType.id}>
-								{camelCase(sportType.name?.replace('_', ' '))}
+								{sportType.description}
 							</MenuItem>
 						))}
 					</Select>

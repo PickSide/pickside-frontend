@@ -1,10 +1,8 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
-import { Coordinates } from 'types'
 
 export interface AppConfig {
 	darkModeOn?: boolean
 	language?: string
-	currentConfiguredLocation?: Coordinates
 }
 
 const User = createSlice({

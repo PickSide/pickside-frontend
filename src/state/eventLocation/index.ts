@@ -12,7 +12,7 @@ export interface EventLocation {
 
 const EventLocation = createSlice({
 	initialState: null as unknown as EventLocations,
-	name: '',
+	name: 'eventLocations',
 	reducers: {
 		setEventLocations: (state, action: PayloadAction<EventLocations>) => (state = action.payload),
 	},

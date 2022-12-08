@@ -1,7 +1,7 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
 import { User } from 'state/user'
 import { Sport } from 'state/sport'
-import { Address } from 'types'
+import { Location } from 'types'
 
 export interface SportEvents {
 	results?: SportEvent[]
@@ -9,10 +9,9 @@ export interface SportEvents {
 
 export interface SportEvent {
 	id?: string
-	address?: Address
 	free?: boolean
 	levelRequired?: any
-	locations: google.maps.LatLng
+	location: Location
 	maxPlayersCapacity: number
 	numberOfRegisteredPlayers: number
 	organiser?: User

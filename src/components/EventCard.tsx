@@ -24,12 +24,11 @@ interface EventCardProps {
 
 const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 	const dispatch = useDispatch()
-	// const currentMarkerActivity = useSelector((state: AppState) =>
-	// 	state.eventLocations?.results?.find((x) => x.sportEventId === event.id),
-	// )
+
 	const [openConfirmRegisterDialog, setOpenConfirmRegisterDialog] = useState<boolean>(false)
+
 	const combineAddress = useMemo(
-		() => `${event.address?.streetName} ${event.address?.city} ${event.address?.zipCode}`,
+		() => `${event.location?.streetName} ${event.location?.city} ${event.location?.zipCode}`,
 		[event],
 	)
 

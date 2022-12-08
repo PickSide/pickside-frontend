@@ -10,7 +10,7 @@ import useMarkers from 'hooks/useMarkers'
 const Map: FC<any> = ({ ...props }) => {
 	const dispatch = useDispatch()
 	const theme = useTheme()
-	const { markers } = useMarkers()
+	const { markerProps } = useMarkers()
 	const { googleAPIKey } = useEnvVariables()
 	const { mapStyles } = useMapStyles()
 
@@ -37,16 +37,8 @@ const Map: FC<any> = ({ ...props }) => {
 	const ActivityMap = (): JSX.Element => {
 		return (
 			<GoogleMap key={googleAPIKey} zoom={10} mapContainerStyle={mapContainerStyle} center={center} options={options}>
-				{markers?.map((marker, idx) => (
-					<Marker
-						key={idx}
-						//onClick={() => dispatch(setSelectedMarker(marker.activityId))}
-						icon={{
-							url: '/soccer_marker.png',
-							scaledSize: new google.maps.Size(marker.scaleFactor, marker.scaleFactor),
-						}}
-						{...marker}
-					/>
+				{markerProps?.map((props, idx) => (
+					<Marker key={idx} {...props} />
 				))}
 			</GoogleMap>
 		)

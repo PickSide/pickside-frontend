@@ -12,7 +12,7 @@ export interface User {
 	reliability?: number
 	matchPlayed?: number
 	matchOrganized?: number
-	location?: Coordinates
+	localeRegion?: string
 }
 
 const User = createSlice({

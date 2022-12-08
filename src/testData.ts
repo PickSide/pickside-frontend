@@ -1,56 +1,58 @@
-import { Address } from 'types'
+import { Location } from 'types'
+import { Sports } from 'state/sport'
 import { SportEvents } from 'state/sportEvent'
 import { User } from 'state/user'
 import { AppConfig } from 'state/config'
+import { v4 as uuidv4 } from 'uuid'
 
-const address1: Address = {
+const location1 = {
 	streetName: '1856 Rue de Tripoli',
 	city: 'Laval',
 	zipCode: 'H7M 4M5',
 	place_id: '"ChIJy4wGGoEhyUwRk4otlwqlAlM"',
-	geometry: {
-		location: {
-			lat: () => 45.5790972,
-			lng: () => -73.719133,
-		},
+	coords: {
+		lat: 45.5790972,
+		lng: -73.719133,
 	},
-} as Address
-const address2: Address = {
+} as Location
+
+const location2 = {
 	streetName: '45 Bd Cartier O',
 	city: 'Laval',
 	place_id: 'ChIJg3TGJAkiyUwR_cDAufwz5A4',
-	geometry: {
-		location: {
-			lat: () => 45.5586144,
-			lng: () => -73.6885578,
-		},
+	coords: {
+		lat: 45.5586144,
+		lng: -73.6885578,
 	},
-} as Address
-const address3: Address = {
+} as Location
+
+const location3 = {
 	streetName: '350 Rue Sauvé E',
 	city: 'Montréal',
 	zipCode: 'H3L 1H4',
 	place_id: '"ChIJl4MCQ8AYyUwRPGDjNcsejUw"',
-	geometry: {
-		location: {
-			lat: () => 45.5490424,
-			lng: () => -73.6573323,
-		},
+	coords: {
+		lat: 45.5490424,
+		lng: -73.6573323,
 	},
-} as Address
+} as Location
+
 export const connectedUser = {
 	id: '284190751071057130',
 	firstName: 'Antoine',
 	lastName: 'Hakim',
 	sexe: 'male',
 	level: 5,
-	location: { lat: 45.508888, lng: -73.561668 },
+	locatedRegion: '',
+	localeRegion: 'montreal',
 } as User
+
 export const appConfig = {
 	darkModeOn: false,
 	language: 'en_US',
 	currentConfiguredLocation: { lat: 45.508888, lng: -73.561668 },
 } as AppConfig
+
 export const randomUsers = [
 	{
 		firstName: 'Jean',
@@ -77,6 +79,7 @@ export const randomUsers = [
 		level: 5,
 	},
 ] as User[]
+
 export const sportEvents = {
 	results: [
 		{
@@ -87,7 +90,7 @@ export const sportEvents = {
 			levelRequired: 3,
 			numberOfRegisteredPlayers: Math.floor(Math.random() * 16) + 1,
 			maxPlayersCapacity: 16,
-			address: address1,
+			location: location1,
 		},
 		{
 			id: '83290-58230jf09',
@@ -97,7 +100,7 @@ export const sportEvents = {
 			levelRequired: 2,
 			numberOfRegisteredPlayers: Math.floor(Math.random() * 16) + 1,
 			maxPlayersCapacity: 16,
-			address: address2,
+			location: location2,
 		},
 		{
 			id: 'fm032ut20u4',
@@ -107,7 +110,7 @@ export const sportEvents = {
 			levelRequired: 4,
 			numberOfRegisteredPlayers: Math.floor(Math.random() * 16) + 1,
 			maxPlayersCapacity: 16,
-			address: address3,
+			location: location3,
 		},
 		{
 			id: '8123fjm1301j',
@@ -117,7 +120,32 @@ export const sportEvents = {
 			levelRequired: 5,
 			numberOfRegisteredPlayers: Math.floor(Math.random() * 16) + 1,
 			maxPlayersCapacity: 16,
-			address: address3,
+			location: location3,
 		},
 	],
 } as SportEvents
+
+export const sports = {
+	results: [
+		{
+			id: uuidv4(),
+			value: 'soccer',
+			description: 'Soccer',
+		},
+		{
+			id: uuidv4(),
+			value: 'basketball',
+			description: 'Basketball',
+		},
+		{
+			id: uuidv4(),
+			value: 'afootball',
+			description: 'American Football',
+		},
+		{
+			id: uuidv4(),
+			value: 'tennis',
+			description: 'Tennis',
+		},
+	],
+} as Sports

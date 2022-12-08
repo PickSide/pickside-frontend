@@ -8,6 +8,7 @@
 			"types/*": ["./src/types/*"],
 			"utils/*": ["./src/utils/*"],
 			"api/*": ["./src/api/*"],
+			"utils/constants/*": ["./src/utils/constants/*"],
 			"utils/context/*": ["./src/utils/context/*"]
 		},
 		"target": "es6",
