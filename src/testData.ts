@@ -93,7 +93,7 @@ export const sportEvents = {
 			location: location1,
 		},
 		{
-			id: '83290-58230jf09',
+			id: '8329058230jf09',
 			title: 'Bball street',
 			type: 'basketball',
 			organiser: randomUsers[1],

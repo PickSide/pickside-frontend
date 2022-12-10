@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react'
+import { FC, useCallback, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
 import { GoogleMap, InfoWindowF as InfoWindow, useJsApiLoader } from '@react-google-maps/api'
 import { Box, CircularProgress, Typography, useTheme } from '@mui/material'
@@ -33,6 +33,10 @@ const Map: FC<any> = ({ ...props }) => {
 		id: 'google-map-script',
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '',
 	})
+
+	const onClickMarker = useCallback((props, marker, e) => {
+		console.log(props, marker, e)
+	}, [])
 
 	const ActivityMap = (): JSX.Element => {
 		return (

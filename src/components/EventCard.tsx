@@ -55,7 +55,7 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 				<ConfirmRegisterEventForm event={event} onClose={() => setOpenConfirmRegisterDialog(false)} />
 			</Dialog>
 			<MuiCard>
-				<MuiCardMedia width={580} height={320} component="img" alt="placeholder" image="/monkey.jpeg" />
+				{/* <MuiCardMedia width={580} height={320} component="img" alt="placeholder" image="/monkey.jpeg" /> */}
 				<MuiCardContent>
 					<Grid container>
 						<Grid item container direction="column" xs={8} rowSpacing={3}>

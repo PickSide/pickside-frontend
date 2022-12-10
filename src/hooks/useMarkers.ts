@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useState } from 'react'
+import { FC, useCallback, useMemo } from 'react'
 import { MarkerProps } from '@react-google-maps/api'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppState } from 'state'
@@ -8,11 +8,15 @@ import { SPORT_EVENTS_ID } from 'utils'
 const useMarkers = (): { markerProps: MarkerProps[] } => {
 	const dispatch = useDispatch()
 	const sportEvents = useSelector((state: AppState) => state.sportEvents)
+	const selectedEvent = useSelector((state: AppState) => state.selectedContexts?.[SPORT_EVENTS_ID])
 
 	const markerProps = useMemo<MarkerProps[] | any>(
 		() =>
 			sportEvents?.results?.map((e) => ({
+				sportEventId: e.id,
 				position: e.location.coords,
+				opacity: selectedEvent?.[e.id!] ? 1 : 0.5,
+				scaleSize: 2,
 				onClick: () =>
 					dispatch(
 						setSelectedContext({
@@ -22,7 +26,7 @@ const useMarkers = (): { markerProps: MarkerProps[] } => {
 						}),
 					),
 			})),
-		[sportEvents],
+		[selectedEvent, sportEvents],
 	)
 
 	return { markerProps }
