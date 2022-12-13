@@ -1,8 +1,12 @@
 import React, { FC, useEffect, useMemo, useCallback, useState } from 'react'
 import { Formik, Form } from 'formik'
-import { Grid } from '@mui/material'
+import { Box, Button, Container, DialogActions, Grid } from '@mui/material'
 import { FormikTextField, FormikSelect } from 'components'
 import * as Yup from 'yup'
+
+interface RegisterEventFormProps {
+	onClose: () => void
+}
 
 const RegisterEventFormSchema = Yup.object().shape({
 	eventCapacity: Yup.number().required(),
@@ -14,7 +18,7 @@ const RegisterEventFormSchema = Yup.object().shape({
 	eventType: Yup.string().required(),
 })
 
-const RegisterEventForm: FC<any> = ({ ...props }) => {
+const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props }) => {
 	const initialValues = useMemo(
 		() => ({
 			eventCapacity: 16,
@@ -49,6 +53,16 @@ const RegisterEventForm: FC<any> = ({ ...props }) => {
 					<FormikTextField label="Event name" name="eventName" placeholder="Enter event name" />
 					<FormikTextField label="Event name" name="eventName" placeholder="Enter event name" />
 				</Grid>
+				<Box padding={1} mb={2}>
+					<DialogActions>
+						<Button size="medium" autoFocus onClick={() => onClose()}>
+							Cancel
+						</Button>
+						<Button size="medium" variant="contained" onClick={() => {}}>
+							Create
+						</Button>
+					</DialogActions>
+				</Box>
 			</Form>
 		</Formik>
 	)
