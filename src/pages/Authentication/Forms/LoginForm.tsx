@@ -1,8 +1,7 @@
 import React, { FC } from 'react'
-import * as Yup from 'yup'
-import { Formik, Form } from 'formik'
-import FormikFieldText from '../../../components/FormikTextField'
-import { Button, DialogActions } from '@mui/material'
+import { useForm, Controller } from 'react-hook-form'
+
+import { Button, DialogActions, Grid, TextField } from '@mui/material'
 import { connectToPlatform } from 'state/user'
 import { useDispatch } from 'react-redux'
 
@@ -10,59 +9,52 @@ interface LoginFormProps {
 	onClose: () => void
 }
 
-const LoginFormSchema = Yup.object().shape({
-	username: Yup.string().required('Required'),
-	password: Yup.string().required('Required'),
-})
+type FormData = {
+	username: string
+	password: string
+}
 
 const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 	const dispatch = useDispatch()
+	const { control, handleSubmit } = useForm<FormData>({
+		defaultValues: {
+			username: '',
+			password: '',
+		},
+	})
 
-	const onSubmit = (values: any) => dispatch<any>(connectToPlatform(values))
-
-	const resetForm = () => console.log('resetting form')
-
-	const initialValues = {
-		username: '',
-		password: '',
+	const onSubmit = (values: any) => {
+		dispatch<any>(connectToPlatform(values))
+		onClose()
 	}
 
 	return (
 		<>
-			<Formik
-				validationSchema={LoginFormSchema}
-				initialValues={initialValues}
-				validateOnBlur={false}
-				onSubmit={({ ...values }) => onSubmit(values)}
-			>
-				{({ setFieldValue, values, isSubmitting, isValid }) => (
-					<Form>
-						<FormikFieldText
-							label="Username"
-							type="text"
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<Grid container direction="column" rowSpacing={3}>
+					<Grid item>
+						<Controller
 							name="username"
-							value={values.username}
-							placeholder="Username"
-							onChange={(e) => setFieldValue('username', e.target.value)}
+							control={control}
+							render={({ field }) => <TextField label="Username" placeholder="Enter username" fullWidth {...field} />}
 						/>
-						<FormikFieldText
-							label="Password"
-							type="password"
+					</Grid>
+					<Grid item>
+						<Controller
 							name="password"
-							value={values.password}
-							placeholder="Password"
-							onChange={(e) => setFieldValue('password', e.target.value)}
+							control={control}
+							render={({ field }) => <TextField label="Password" placeholder="Enter password" fullWidth {...field} />}
 						/>
+					</Grid>
 
+					<Grid item>
 						<DialogActions>
 							<Button onClick={() => onClose()}>Cancel</Button>
-							<Button disabled={isSubmitting || !isValid} type="submit">
-								Login
-							</Button>
+							<Button type="submit">Login</Button>
 						</DialogActions>
-					</Form>
-				)}
-			</Formik>
+					</Grid>
+				</Grid>
+			</form>
 		</>
 	)
 }

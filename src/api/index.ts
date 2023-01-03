@@ -1,7 +1,7 @@
 import { Dispatch } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : ''
+export const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : ''
 const HEADERS = {
 	'Content-Type': 'application/json',
 	'X-Request-Id': uuidv4(),
@@ -23,12 +23,12 @@ export const fetchItems =
 		const aditionalParams = params ? `/${new URLSearchParams({ ...params })}` : ''
 		const aditionalQueries = queries ? `?${getQueryString(queries)}` : ''
 		const FULL_ROUTE = `${BASE_URL}/${endpoint}${aditionalParams}${aditionalQueries}`
-		console.log(data, method, HEADERS, FULL_ROUTE)
+
 		return await fetch(FULL_ROUTE, {
 			method,
 			headers: HEADERS,
 			body: JSON.stringify(data),
-		})
+		}).then((response) => response.json())
 	}
 
 const getQueryString = (queries: any) => {

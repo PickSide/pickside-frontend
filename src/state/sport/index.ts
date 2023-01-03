@@ -1,4 +1,5 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
+import { fetchItems } from 'api'
 
 export interface Sports {
 	results?: Sport[]
@@ -20,10 +21,15 @@ const Sport = createSlice({
 export const { setSports } = Sport.actions
 
 export const fetchAllSports =
-	(data: Sports) =>
+	() =>
 	async (dispatch: Dispatch): Promise<any> => {
-		if (data) {
-			setSports(data)
+		const items = await fetchItems({
+			endpoint: 'sports',
+			method: 'GET',
+		})(dispatch)
+
+		if (items) {
+			dispatch(setSports(items))
 		}
 	}
 

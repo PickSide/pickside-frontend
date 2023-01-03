@@ -7,6 +7,7 @@
 			"state/**": ["./src/state/*"],
 			"types/*": ["./src/types/*"],
 			"utils/*": ["./src/utils/*"],
+			"widgets/*": ["./src/widgets/*"],
 			"api/*": ["./src/api/*"],
 			"utils/constants/*": ["./src/utils/constants/*"],
 			"utils/context/*": ["./src/utils/context/*"]

@@ -15,15 +15,14 @@ import { times } from 'lodash'
 import { ConfirmRegisterEventForm, Dialog } from 'components'
 import { SportEvent } from 'state/sportEvent'
 import { MAX_LEVEL } from 'utils'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppState } from 'state'
+import { useTranslation } from 'react-i18next'
 
 interface EventCardProps {
 	event: SportEvent
 }
 
 const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
-	const dispatch = useDispatch()
+	const { t } = useTranslation()
 
 	const [openConfirmRegisterDialog, setOpenConfirmRegisterDialog] = useState<boolean>(false)
 
@@ -48,7 +47,7 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 	return (
 		<>
 			<Dialog
-				title={`Register for ${event.title}`}
+				title={`${t('Register for')} ${event.title}`}
 				open={openConfirmRegisterDialog}
 				onClose={() => setOpenConfirmRegisterDialog(false)}
 			>
@@ -94,7 +93,7 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 						</Grid>
 						<Grid item container justifyContent="center" alignItems="center" xs={4}>
 							<Button variant="contained" size="medium" onClick={() => setOpenConfirmRegisterDialog(true)}>
-								Register
+								{t('Register')}
 							</Button>
 						</Grid>
 					</Grid>

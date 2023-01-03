@@ -1,20 +1,21 @@
-import React, { FC, ChangeEvent, Dispatch, useState, useMemo, SetStateAction, ReactNode } from 'react'
-import { styled } from '@mui/system'
-import { Add, SvgIconComponent, SportsSoccer, Height, LocationOn, Search } from '@mui/icons-material'
-import { Button, Grid, IconButton, MenuItem } from '@mui/material'
-import { Autocomplete, DatePicker, DefaultNavbar, Dialog, RegisterEventForm, Select } from 'components'
+import React, { FC, useState } from 'react'
+import { Add } from '@mui/icons-material'
+import { Button, Grid } from '@mui/material'
+import { Autocomplete, DatePicker, DefaultNavbar, Dialog, RegisterEventForm } from 'components'
+import { SelectSports } from 'widgets'
 import { useSelector } from 'react-redux'
 import { AppState } from 'state'
-import { camelCase } from 'lodash'
+import { useTranslation } from 'react-i18next'
 
 const FilterToolbar: FC<any> = ({ ...props }) => {
-	const sports = useSelector((state: AppState) => state.sports)
+	const { t } = useTranslation()
+	const isDarkModeOn = useSelector((state: AppState) => state.appConfig?.darkModeOn)
 	const [openCreateNewEventDialog, setOpenCreateNewEventDialog] = useState<boolean>(false)
 
 	return (
 		<>
 			<Dialog
-				title={`Create a new event`}
+				title={t('Create a new event')}
 				open={openCreateNewEventDialog}
 				onClose={() => setOpenCreateNewEventDialog(false)}
 			>
@@ -22,20 +23,14 @@ const FilterToolbar: FC<any> = ({ ...props }) => {
 			</Dialog>
 			<DefaultNavbar
 				sx={{
-					backgroundColor: 'common.white',
+					backgroundColor: `${isDarkModeOn ? 'common.black' : 'common.white'}`,
 					boxShadow: 'rgba(0, 0, 0, 0.15) 0px 3px 3px 0px',
 				}}
 			>
 				<Grid container wrap="nowrap">
 					<Grid item container justifyContent="center" columnSpacing={2} xs={10}>
 						<Grid item>
-							<Select placeholder="Select a sport" size="small">
-								{sports?.results?.map((sportType, idx) => (
-									<MenuItem key={idx} value={sportType.id}>
-										{sportType.description}
-									</MenuItem>
-								))}
-							</Select>
+							<SelectSports />
 						</Grid>
 						<Grid item>
 							<DatePicker />
@@ -53,7 +48,7 @@ const FilterToolbar: FC<any> = ({ ...props }) => {
 								startIcon={<Add />}
 								onClick={() => setOpenCreateNewEventDialog(true)}
 							>
-								Add event
+								{t('Add event')}
 							</Button>
 						</Grid>
 					</Grid>

@@ -5,6 +5,7 @@ import { SportEvent } from 'state/sportEvent'
 import { registerPlayerToSportEvent } from 'state/sportEvent'
 import { useSelector } from 'react-redux'
 import { AppState } from 'state'
+import { useTranslation } from 'react-i18next'
 
 interface ConfirmRegisterEventFormProps {
 	event: SportEvent
@@ -12,8 +13,9 @@ interface ConfirmRegisterEventFormProps {
 }
 
 const ConfirmRegisterEventForm: FC<ConfirmRegisterEventFormProps> = ({ event, onClose, ...props }) => {
-	const connectedUser = useSelector((state: AppState) => state.connectedUser)
+	const { t } = useTranslation()
 	const dispatch = useDispatch()
+	const connectedUser = useSelector((state: AppState) => state.connectedUser)
 
 	const isLevelLessThanRequired = useMemo(() => {
 		return connectedUser && connectedUser.level && connectedUser.level < event.levelRequired
@@ -29,12 +31,13 @@ const ConfirmRegisterEventForm: FC<ConfirmRegisterEventFormProps> = ({ event, on
 			<Container>
 				{isLevelLessThanRequired ? (
 					<Typography>
-						Are you sure you want to register to this event? Your level is less than the required. You will have to wait
-						for admin approval.
+						{t(
+							'Are you sure you want to register to this event? Your level is less than the required. You will have to wait for admin approval.',
+						)}
 					</Typography>
 				) : (
 					<Typography>
-						Are you sure you want to register to this event? You will have to wait for admin approval.
+						{t('Are you sure you want to register to this event? You will have to wait for admin approval.')}
 					</Typography>
 				)}
 			</Container>

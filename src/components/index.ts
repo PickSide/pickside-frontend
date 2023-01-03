@@ -6,15 +6,12 @@ import EventCard from './EventCard'
 import DefaultNavbar from './DefaultNavbar'
 import Dialog from './Dialog'
 import FilterToolbar from './FilterToolbar'
-import FormikSelect from './FormikSelect'
-import FormikSwitch from './FormikSwitch'
-import FormikTextField from './FormikTextField'
 import Marker from './Marker'
 import Map from '../pages/Home/Map'
 import NavbarContent from './NavbarContent'
+import OptionSelect from './OptionSelect'
 import Popover from './Popover'
 import RegisterEventForm from './RegisterEventForm'
-import Select from './Select'
 import ThemeToggler from './ThemeToggler'
 
 export {
@@ -25,15 +22,12 @@ export {
 	EventCard,
 	Dialog,
 	FilterToolbar,
-	FormikSelect,
-	FormikSwitch,
-	FormikTextField,
 	Marker,
 	DefaultNavbar,
 	Map,
 	NavbarContent,
+	OptionSelect,
 	Popover,
 	RegisterEventForm,
-	Select,
 	ThemeToggler,
 }

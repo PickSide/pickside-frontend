@@ -1,17 +1,19 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { CssBaseline, ThemeProvider } from '@mui/material'
-
-import { setEventLocations, EventLocations } from 'state/eventLocation'
 import { DefaultNavbar, NavbarContent } from 'components'
 import { useMode, ColorModeContext } from 'hooks/useMode'
 import HomePage from './pages/Home/HomePage'
-import { AppState } from 'state'
 
 const App = () => {
-	const dispatch = useDispatch()
 	const [theme, colorMode] = useMode()
+	const { i18n } = useTranslation()
+
+	useEffect(() => {
+		const lng = navigator.language
+		i18n.changeLanguage(lng)
+	}, [])
 
 	return (
 		<>

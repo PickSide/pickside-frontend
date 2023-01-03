@@ -4,25 +4,29 @@ import { Avatar, Box, Grid, IconButton, ListItemIcon, Menu, MenuItem, Typography
 import { Login, Logout, Person, Settings } from '@mui/icons-material'
 
 import { Authentication, Dialog, Popover, ThemeToggler } from 'components'
+import { LanguageSwitcher } from 'widgets'
 import { AppState } from 'state'
 import { MenuItemElement } from 'types'
+import { useTranslation } from 'react-i18next'
 
 const NavbarContent: FC<any> = ({ ...props }) => {
+	const { t } = useTranslation()
+
 	const connectedUser = useSelector((state: AppState) => state.connectedUser)
 
 	const [openAuthenticationDialog, setOpenAuthenticationDialog] = useState<boolean>(false)
 
 	const UserMenuItems: MenuItemElement[] = [
 		{
-			label: 'Profile',
+			label: t('Profile'),
 			icon: <Person fontSize="small" />,
 		},
 		{
-			label: 'Settings',
+			label: t('Settings'),
 			icon: <Settings fontSize="small" />,
 		},
 		{
-			label: 'Logout',
+			label: t('Logout'),
 			icon: <Logout fontSize="small" />,
 		},
 	]
@@ -32,7 +36,7 @@ const NavbarContent: FC<any> = ({ ...props }) => {
 			<Dialog
 				open={openAuthenticationDialog}
 				onClose={() => setOpenAuthenticationDialog(false)}
-				title="Authentication"
+				title={t('Authentication')}
 				aria-labelledby="alert-dialog-title"
 				aria-describedby="alert-dialog-description"
 				size="sm"
@@ -42,6 +46,9 @@ const NavbarContent: FC<any> = ({ ...props }) => {
 
 			<Grid container justifyContent="flex-end" alignItems="center">
 				<Grid item>
+					<LanguageSwitcher />
+				</Grid>
+				<Grid item>
 					<ThemeToggler />
 				</Grid>
 				<Grid item>
@@ -49,7 +56,9 @@ const NavbarContent: FC<any> = ({ ...props }) => {
 						<Popover
 							triggerElement={
 								<IconButton>
-									<Avatar>{`${connectedUser.firstName?.charAt(0).toLocaleUpperCase()}`}</Avatar>
+									<Avatar sx={{ backgroundColor: 'primary.main' }}>{`${connectedUser.firstName
+										?.charAt(0)
+										.toLocaleUpperCase()}`}</Avatar>
 								</IconButton>
 							}
 						>

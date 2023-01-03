@@ -1,4 +1,6 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
+import { fetchItems } from 'api'
+import store from 'store'
 
 export interface AppConfig {
 	darkModeOn?: boolean
@@ -16,10 +18,16 @@ const User = createSlice({
 export const { setAppConfig } = User.actions
 
 export const fetchAppConfiguration =
-	(data: AppConfig) =>
+	() =>
 	async (dispatch: Dispatch): Promise<any> => {
-		if (data) {
-			setAppConfig(data)
+		const connectedUser = store.getState().connectedUser
+		const items = await fetchItems({
+			endpoint: `user-config/${connectedUser}`,
+			method: 'GET',
+		})(dispatch)
+
+		if (items) {
+			setAppConfig(items)
 		}
 	}
 

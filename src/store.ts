@@ -12,7 +12,7 @@ export const store = configureStore({
 	reducer: reducers,
 	middleware,
 	preloadedState: {
-		connectedUser,
+		//connectedUser,
 		appConfig,
 		sports,
 		sportEvents,

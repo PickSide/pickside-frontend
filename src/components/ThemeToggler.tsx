@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { IconButton } from '@mui/material'
-import { Brightness2, Brightness5 } from '@mui/icons-material'
+import { FormControlLabel, IconButton, Switch } from '@mui/material'
+import { LightMode, Brightness2 } from '@mui/icons-material'
 
 import { ColorModeContext } from 'hooks/useMode'
 import { AppState } from 'state'
@@ -12,9 +12,14 @@ const ThemeToggler = () => {
 	return (
 		<ColorModeContext.Consumer>
 			{({ toggleColorMode }) => (
-				<IconButton onClick={() => toggleColorMode()}>
-					{appConfig?.darkModeOn ? <Brightness2 /> : <Brightness5 />}
-				</IconButton>
+				<Switch
+					icon={<Brightness2 />}
+					checkedIcon={<LightMode />}
+					onChange={(e) => {
+						e.preventDefault()
+						toggleColorMode()
+					}}
+				/>
 			)}
 		</ColorModeContext.Consumer>
 	)

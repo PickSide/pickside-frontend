@@ -1,6 +1,5 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
 import { fetchItems } from 'api'
-import { Coordinates } from 'types'
 
 export interface User {
 	id?: string
@@ -35,7 +34,7 @@ export const connectToPlatform =
 		})(dispatch)
 
 		if (item) {
-			setConnectedUser(data)
+			dispatch(setConnectedUser(item))
 		}
 	}
 
