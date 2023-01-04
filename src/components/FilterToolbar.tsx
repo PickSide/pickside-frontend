@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 
 const FilterToolbar: FC<any> = ({ ...props }) => {
 	const { t } = useTranslation()
-	const isDarkModeOn = useSelector((state: AppState) => state.appConfig?.darkModeOn)
+	const isdarkModeEnabled = useSelector((state: AppState) => state.appConfig?.darkModeEnabled)
 	const [openCreateNewEventDialog, setOpenCreateNewEventDialog] = useState<boolean>(false)
 
 	return (
@@ -23,7 +23,7 @@ const FilterToolbar: FC<any> = ({ ...props }) => {
 			</Dialog>
 			<DefaultNavbar
 				sx={{
-					backgroundColor: `${isDarkModeOn ? 'common.black' : 'common.white'}`,
+					backgroundColor: `${isdarkModeEnabled ? 'common.black' : 'common.white'}`,
 					boxShadow: 'rgba(0, 0, 0, 0.15) 0px 3px 3px 0px',
 				}}
 			>

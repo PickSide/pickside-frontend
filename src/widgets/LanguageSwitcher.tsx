@@ -9,8 +9,10 @@ import { fetchSupportedLanguages } from 'state/locales'
 import '/node_modules/flag-icons/css/flag-icons.min.css'
 
 const LanguageSwitcher: FC<any> = ({ ...props }) => {
-	const locales = useSelector((state: AppState) => state.locales)
 	const dispatch = useDispatch()
+
+	const locales = useSelector((state: AppState) => state.locales)
+	const config = useSelector((state: AppState) => state.appConfig)
 
 	useEffect(() => {
 		if (!locales) {
@@ -27,10 +29,10 @@ const LanguageSwitcher: FC<any> = ({ ...props }) => {
 			}
 		>
 			{locales?.results?.map((locale, idx) => (
-				<MenuItem key={idx} value={locale.id}>
+				<MenuItem key={idx} value={locale.id} disabled={config?.locale === locale.value}>
 					<Grid container wrap="nowrap" columnSpacing={2}>
 						<Grid item>
-							<span className={`fi fi-${locale}`}></span>
+							<span className={`fi fi-${locale.flagCode}`}></span>
 						</Grid>
 						<Grid item>{locale.description}</Grid>
 					</Grid>

@@ -1,10 +1,12 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
 import { fetchItems } from 'api'
 import store from 'store'
+import { Coordinates } from 'types'
 
 export interface AppConfig {
-	darkModeOn?: boolean
-	language?: string
+	darkModeEnabled?: boolean
+	locale?: string
+	connctedUserLocation?: Coordinates
 }
 
 const User = createSlice({
@@ -22,12 +24,12 @@ export const fetchAppConfiguration =
 	async (dispatch: Dispatch): Promise<any> => {
 		const connectedUser = store.getState().connectedUser
 		const items = await fetchItems({
-			endpoint: `user-config/${connectedUser}`,
+			endpoint: connectedUser?.id ? `config/${connectedUser?.id}` : 'config',
 			method: 'GET',
 		})(dispatch)
 
 		if (items) {
-			setAppConfig(items)
+			dispatch(setAppConfig(items))
 		}
 	}
 

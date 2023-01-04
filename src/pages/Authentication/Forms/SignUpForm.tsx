@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { Button, DialogActions, Grid, MenuItem, TextField, Select } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 interface SignUpFormProps {
 	onClose: () => void
 }
@@ -16,6 +17,7 @@ type FormData = {
 }
 
 const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
+	const { t } = useTranslation()
 	const onSubmit = (values: any) => console.log(`values: ${values}`)
 	const { control, handleSubmit } = useForm<FormData>({
 		defaultValues: {
@@ -36,35 +38,43 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 					<Controller
 						name="username"
 						control={control}
-						render={({ field }) => <TextField label="Username" placeholder="Enter username" fullWidth {...field} />}
+						render={({ field }) => (
+							<TextField label={t('Username')} placeholder={t('Enter username')} fullWidth {...field} />
+						)}
 					/>
 				</Grid>
 				<Grid item>
 					<Controller
 						name="fullName"
 						control={control}
-						render={({ field }) => <TextField label="Full name" placeholder="Enter full name" fullWidth {...field} />}
+						render={({ field }) => (
+							<TextField label={t('Full name')} placeholder={t('Enter full name')} fullWidth {...field} />
+						)}
 					/>
 				</Grid>
 				<Grid item>
 					<Controller
 						name="email"
 						control={control}
-						render={({ field }) => <TextField label="Email" placeholder="Enter email" fullWidth {...field} />}
+						render={({ field }) => <TextField label={t('Email')} placeholder={t('Enter email')} fullWidth {...field} />}
 					/>
 				</Grid>
 				<Grid item>
 					<Controller
 						name="confirmEmail"
 						control={control}
-						render={({ field }) => <TextField label="Confirm email" placeholder="Confirm email" fullWidth {...field} />}
+						render={({ field }) => (
+							<TextField label={t('Confirm email')} placeholder={t('Confirm email')} fullWidth {...field} />
+						)}
 					/>
 				</Grid>
 				<Grid item>
 					<Controller
 						name="password"
 						control={control}
-						render={({ field }) => <TextField label="Password" placeholder="Enter password" fullWidth {...field} />}
+						render={({ field }) => (
+							<TextField label={t('Password')} placeholder={t('Enter password')} fullWidth {...field} />
+						)}
 					/>
 				</Grid>
 				<Grid item>
@@ -72,7 +82,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 						name="confirmPassword"
 						control={control}
 						render={({ field }) => (
-							<TextField label="Confirm password" placeholder="Confirm password" fullWidth {...field} />
+							<TextField label={t('Confirm password')} placeholder={t('Confirm password')} fullWidth {...field} />
 						)}
 					/>
 				</Grid>
@@ -81,13 +91,13 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 						name="sexe"
 						control={control}
 						render={({ field }) => (
-							<Select label="Sexe" defaultValue="DEFAULT" placeholder="Sexe" fullWidth {...field}>
-								<MenuItem value="DEFAULT">Sexe</MenuItem>
+							<Select label={t('Sexe')} defaultValue="DEFAULT" placeholder={t('Sexe')} fullWidth {...field}>
+								<MenuItem value="DEFAULT">{t('Sexe')}</MenuItem>
 								<MenuItem key="male" value="male">
-									Male
+									{t('Male')}
 								</MenuItem>
 								<MenuItem key="female" value="female">
-									Female
+									{t('Female')}
 								</MenuItem>
 							</Select>
 						)}
@@ -96,8 +106,8 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 
 				<Grid item>
 					<DialogActions>
-						<Button onClick={() => onClose()}>Cancel</Button>
-						<Button type="submit">Register</Button>
+						<Button onClick={() => onClose()}>{t('Cancel')}</Button>
+						<Button type="submit">{t('Register')}</Button>
 					</DialogActions>
 				</Grid>
 			</Grid>

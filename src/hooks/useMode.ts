@@ -12,17 +12,17 @@ export const ColorModeContext = createContext({
 
 export const useMode = (): [theme: Theme, colorMode: { toggleColorMode: () => {} | void }] => {
 	const dispatch = useDispatch()
-	const isDarkModeOn = useSelector((state: AppState) => state.appConfig?.darkModeOn)
-	const [mode, setMode] = useState<PaletteMode>(isDarkModeOn ? 'dark' : 'light')
+	const appConfig = useSelector((state: AppState) => state.appConfig)
+	const [mode, setMode] = useState<PaletteMode>(appConfig?.darkModeEnabled ? 'dark' : 'light')
 
 	const colorMode = useMemo(
 		() => ({
 			toggleColorMode: () => {
-				dispatch<any>(updateAppConfiguration({ darkModeOn: !isDarkModeOn || false }))
-				setMode(isDarkModeOn ? 'light' : 'dark')
+				dispatch<any>(updateAppConfiguration({ darkModeEnabled: !appConfig?.darkModeEnabled || false }))
+				setMode(appConfig?.darkModeEnabled ? 'light' : 'dark')
 			},
 		}),
-		[isDarkModeOn],
+		[appConfig],
 	)
 
 	const theme = useMemo(() => createTheme(deepmerge(getDesignTokens(mode), getThemedComponents(mode))), [mode])

@@ -1,14 +1,14 @@
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
-import { useTranslation, I18nextProvider } from 'react-i18next'
+import { I18nextProvider } from 'react-i18next'
 
 import { store } from './store'
 import { Box, CircularProgress } from '@mui/material'
-import './index.css'
 import App from './App'
 import i18n from './i18n'
 import reportWebVitals from './reportWebVitals'
+import './index.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 

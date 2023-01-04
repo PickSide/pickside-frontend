@@ -10,7 +10,7 @@ const useMapStyles = (): { mapStyles } => {
 
 	useEffect(() => {
 		if (appConfig) {
-			if (appConfig.darkModeOn) {
+			if (appConfig.darkModeEnabled) {
 				setMapStyles(darkModeMapStyles)
 			} else {
 				setMapStyles(lightModeMapStyles)

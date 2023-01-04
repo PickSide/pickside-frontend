@@ -28,9 +28,9 @@ export interface AppState {
 }
 
 export interface AppConfig {
-	darkModeOn?: boolean
-	language?: string
-	currentConfiguredLocation?: Coordinates
+	darkModeEnabled?: boolean
+	locale?: string
+	connectedUserLocation?: Coordinates
 }
 
 export interface EventLocation {

@@ -13,7 +13,7 @@ export const store = configureStore({
 	middleware,
 	preloadedState: {
 		//connectedUser,
-		appConfig,
+		//appConfig,
 		sports,
 		sportEvents,
 	},
