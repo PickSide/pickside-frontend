@@ -1,12 +1,12 @@
-import React, { FC, useContext, useState, useMemo } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Avatar, Box, Grid, IconButton, Link, ListItemIcon, Menu, MenuItem, Typography } from '@mui/material'
+import React, { FC, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import { Avatar, Box, Grid, IconButton, ListItemIcon, MenuItem, Typography } from '@mui/material'
 import { Login, Logout, Person, Settings } from '@mui/icons-material'
 
 import { Authentication, Dialog, Popover, ThemeToggler } from 'components'
 import { LanguageSwitcher } from 'widgets'
 import { AppState } from 'state'
-import { MenuItemElement } from 'types'
 import { useTranslation } from 'react-i18next'
 
 const NavbarContent: FC<any> = ({ ...props }) => {
@@ -20,17 +20,17 @@ const NavbarContent: FC<any> = ({ ...props }) => {
 		{
 			label: t('History'),
 			icon: <Settings fontSize="small" />,
-			href: '/history',
+			href: '/user/history',
 		},
 		{
 			label: t('Profile'),
 			icon: <Person fontSize="small" />,
-			href: '/profile',
+			href: '/user/profile',
 		},
 		{
 			label: t('Settings'),
 			icon: <Settings fontSize="small" />,
-			href: '/app-settings',
+			href: '/user/app-settings',
 		},
 		{
 			label: t('Logout'),
@@ -71,11 +71,9 @@ const NavbarContent: FC<any> = ({ ...props }) => {
 							}
 						>
 							{UserMenuItems.map((item, idx) => (
-								<MenuItem key={idx}>
+								<MenuItem component={NavLink} to={item.href} key={idx}>
 									<ListItemIcon>{item.icon}</ListItemIcon>
-									<Link href={item.href} underline="none" color="inherit">
-										<Typography>{item.label}</Typography>
-									</Link>
+									<Typography>{item.label}</Typography>
 								</MenuItem>
 							))}
 						</Popover>
