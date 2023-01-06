@@ -49,7 +49,7 @@ export const connectedUser = {
 
 export const appConfig = {
 	darkModeEnabled: false,
-	language: 'en_US',
+	locale: 'en',
 	currentConfiguredLocation: { lat: 45.508888, lng: -73.561668 },
 } as AppConfig
 

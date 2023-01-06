@@ -54,6 +54,10 @@ export const getDesignTokens = (mode: PaletteMode) => ({
 						primary: grey[800],
 						link: blue[600],
 					},
+					menuItemBorderBottom: {
+						primary: grey[300],
+						secondary: grey[500],
+					},
 			  }
 			: {
 					// palette values for dark mode
@@ -104,6 +108,10 @@ export const getDesignTokens = (mode: PaletteMode) => ({
 						primary: common.white,
 						secondary: grey[500],
 						link: blue[600],
+					},
+					menuItemBorderBottom: {
+						primary: grey[500],
+						secondary: grey[300],
 					},
 			  }),
 		typography: {

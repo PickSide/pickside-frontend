@@ -7,16 +7,18 @@ import { getDesignTokens, getThemedComponents } from '../theme'
 import { AppState } from 'state'
 
 export const ColorModeContext = createContext({
+	mode: 'light',
 	toggleColorMode: () => {},
 })
 
-export const useMode = (): [theme: Theme, colorMode: { toggleColorMode: () => {} | void }] => {
+export const useMode = (): [theme: Theme, colorMode: { mode: PaletteMode; toggleColorMode: () => {} | void }] => {
 	const dispatch = useDispatch()
 	const appConfig = useSelector((state: AppState) => state.appConfig)
 	const [mode, setMode] = useState<PaletteMode>(appConfig?.darkModeEnabled ? 'dark' : 'light')
 
 	const colorMode = useMemo(
 		() => ({
+			mode,
 			toggleColorMode: () => {
 				dispatch<any>(updateAppConfiguration({ darkModeEnabled: !appConfig?.darkModeEnabled || false }))
 				setMode(appConfig?.darkModeEnabled ? 'light' : 'dark')

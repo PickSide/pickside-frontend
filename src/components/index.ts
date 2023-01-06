@@ -12,6 +12,7 @@ import NavbarContent from './NavbarContent'
 import OptionSelect from './OptionSelect'
 import Popover from './Popover'
 import RegisterEventForm from './RegisterEventForm'
+import Switch from './Switch'
 import ThemeToggler from './ThemeToggler'
 
 export {
@@ -29,5 +30,6 @@ export {
 	OptionSelect,
 	Popover,
 	RegisterEventForm,
+	Switch,
 	ThemeToggler,
 }

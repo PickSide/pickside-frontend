@@ -1,6 +1,6 @@
 import React, { FC, useContext, useState, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Avatar, Box, Grid, IconButton, ListItemIcon, Menu, MenuItem, Typography } from '@mui/material'
+import { Avatar, Box, Grid, IconButton, Link, ListItemIcon, Menu, MenuItem, Typography } from '@mui/material'
 import { Login, Logout, Person, Settings } from '@mui/icons-material'
 
 import { Authentication, Dialog, Popover, ThemeToggler } from 'components'
@@ -16,18 +16,26 @@ const NavbarContent: FC<any> = ({ ...props }) => {
 
 	const [openAuthenticationDialog, setOpenAuthenticationDialog] = useState<boolean>(false)
 
-	const UserMenuItems: MenuItemElement[] = [
+	const UserMenuItems = [
+		{
+			label: t('History'),
+			icon: <Settings fontSize="small" />,
+			href: '/history',
+		},
 		{
 			label: t('Profile'),
 			icon: <Person fontSize="small" />,
+			href: '/profile',
 		},
 		{
 			label: t('Settings'),
 			icon: <Settings fontSize="small" />,
+			href: '/app-settings',
 		},
 		{
 			label: t('Logout'),
 			icon: <Logout fontSize="small" />,
+			href: '/',
 		},
 	]
 
@@ -65,8 +73,9 @@ const NavbarContent: FC<any> = ({ ...props }) => {
 							{UserMenuItems.map((item, idx) => (
 								<MenuItem key={idx}>
 									<ListItemIcon>{item.icon}</ListItemIcon>
-
-									<Typography>{item.label}</Typography>
+									<Link href={item.href} underline="none" color="inherit">
+										<Typography>{item.label}</Typography>
+									</Link>
 								</MenuItem>
 							))}
 						</Popover>
