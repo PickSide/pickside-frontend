@@ -10,8 +10,11 @@ import Marker from './Marker'
 import Map from '../pages/Home/Map'
 import NavbarContent from './NavbarContent'
 import OptionSelect from './OptionSelect'
+import PageLayout from './PageLayout'
 import Popover from './Popover'
 import RegisterEventForm from './RegisterEventForm'
+import SettingsInput from './SettingsInput'
+import Select from './Select'
 import Switch from './Switch'
 import ThemeToggler from './ThemeToggler'
 
@@ -28,8 +31,11 @@ export {
 	Map,
 	NavbarContent,
 	OptionSelect,
+	PageLayout,
 	Popover,
 	RegisterEventForm,
+	SettingsInput,
+	Select,
 	Switch,
 	ThemeToggler,
 }

@@ -1,14 +1,26 @@
-import { FC } from 'react'
-import { Switch as MuiSwitch, SwitchProps as MuiSwitchProps, Tooltip } from '@mui/material'
+import React, { FC, forwardRef } from 'react'
+import {
+	Switch as MuiSwitch,
+	SwitchProps as MuiSwitchProps,
+	FormControl,
+	FormGroup,
+	FormControlLabel,
+	FormHelperText,
+	Tooltip,
+} from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 interface SwitchProps extends MuiSwitchProps {
 	dense?: boolean
+	freeSolo?: boolean
+	helperText?: string
+	label?: string
+	labelPlacement?: 'bottom' | 'end' | 'start' | 'top' | undefined
 	tooltip?: boolean
 	tooltipHelperText?: string
 }
 
-const IOSSwitch = styled(({ dense = false, ...props }: SwitchProps) => (
+const BaseSwitch = styled(({ dense = false, ...props }: SwitchProps) => (
 	<MuiSwitch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
 ))(({ theme, dense }) => ({
 	width: 42,
@@ -64,17 +76,43 @@ const IOSSwitch = styled(({ dense = false, ...props }: SwitchProps) => (
 	},
 }))
 
-const Switch: FC<SwitchProps> = ({ tooltip = false, tooltipHelperText, ...props }) => {
-	return (
-		<>
-			{tooltip && tooltipHelperText ? (
-				<Tooltip title={tooltipHelperText}>
-					<IOSSwitch {...props} />
-				</Tooltip>
-			) : (
-				<IOSSwitch {...props} />
-			)}
-		</>
+const BaseSwitchWrapper = forwardRef<HTMLButtonElement, SwitchProps>((props, ref) => {
+	return <BaseSwitch ref={ref} {...props} />
+})
+
+const Switch: FC<SwitchProps> = ({
+	freeSolo = false,
+	helperText,
+	label,
+	labelPlacement = 'start',
+	tooltip = false,
+	tooltipHelperText,
+	...props
+}) => {
+	const TooltippedSwitch = () =>
+		tooltip ? (
+			<Tooltip title={tooltipHelperText}>
+				<BaseSwitchWrapper {...props} />
+			</Tooltip>
+		) : (
+			<BaseSwitchWrapper {...props} />
+		)
+
+	return freeSolo ? (
+		<TooltippedSwitch />
+	) : (
+		<FormControl component="fieldset">
+			<FormGroup aria-label="position">
+				<FormControlLabel
+					sx={{ justifyContent: 'space-between' }}
+					label={label}
+					labelPlacement={labelPlacement}
+					control={<TooltippedSwitch />}
+				/>
+				<FormHelperText>{helperText}</FormHelperText>
+			</FormGroup>
+		</FormControl>
 	)
 }
+
 export default Switch

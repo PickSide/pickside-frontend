@@ -114,25 +114,25 @@ export const getDesignTokens = (mode: PaletteMode) => ({
 						secondary: grey[300],
 					},
 			  }),
-		typography: {
-			fontFamily: ['--apple-system', 'Roboto'].join(','),
+	},
+	typography: {
+		fontFamily: ['--apple-system', 'Roboto'].join(','),
+	},
+	icon: common.white,
+	breakpoints: {
+		values: {
+			xs: 0,
+			sm: 600,
+			md: 900,
+			lg: 1250,
+			xl: 1536,
 		},
-		icon: common.white,
-		breakpoints: {
-			values: {
-				xs: 0,
-				sm: 600,
-				md: 900,
-				lg: 1250,
-				xl: 1536,
-			},
-		},
-		spacing: [0, 4, 8, 12, 16, 32, 64],
-		mixins: {
-			toolbar: {
-				minHeight: 50,
-				backgroundColor: common.white,
-			},
+	},
+	spacing: [0, 4, 8, 12, 16, 32, 64],
+	mixins: {
+		toolbar: {
+			minHeight: 50,
+			backgroundColor: common.white,
 		},
 	},
 })
@@ -149,6 +149,13 @@ export const getThemedComponents = (mode) => ({
 				root: {},
 			},
 		},
+		MuiFormControl: {
+			styleOverrides: {
+				root: {
+					width: '100%',
+				},
+			},
+		},
 		MuiInputBase: {
 			defaultProps: {
 				size: 'small',
@@ -162,16 +169,19 @@ export const getThemedComponents = (mode) => ({
 		MuiTypography: {
 			defaultProps: {
 				variantMapping: {
-					h1: 'h2',
+					h1: 'h1',
 					h2: 'h2',
-					h3: 'h2',
-					h4: 'h2',
-					h5: 'h2',
-					h6: 'h2',
+					h3: 'h3',
+					h4: 'h4',
+					h5: 'h5',
+					h6: 'h6',
 					subtitle1: 'h2',
 					subtitle2: 'h2',
 					body1: 'span',
 					body2: 'span',
+					headerSmall: 'h3',
+					headerMedium: 'h2',
+					headerLarge: 'h1',
 				},
 			},
 		},

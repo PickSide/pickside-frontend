@@ -7,15 +7,19 @@ import { AppState } from 'state'
 import { useTranslation } from 'react-i18next'
 
 const ThemeToggler = () => {
-	const appConfig = useSelector((state: AppState) => state.appConfig)
 	const { t } = useTranslation()
+
+	const appConfig = useSelector((state: AppState) => state.appConfig)
 
 	return (
 		<ColorModeContext.Consumer>
 			{({ mode, toggleColorMode }) => (
 				<Switch
+					freeSolo
 					checked={appConfig?.darkModeEnabled || false}
 					checkedIcon={<Brightness2 />}
+					tooltip
+					tooltipHelperText={mode === 'light' ? t('Toggle dark mode') : t('Toggle light mode')}
 					sx={{
 						'& .MuiSwitch-thumb': {
 							backgroundColor: (theme) => theme.palette.primary.main,
@@ -25,8 +29,6 @@ const ThemeToggler = () => {
 						e.preventDefault()
 						toggleColorMode()
 					}}
-					tooltip
-					tooltipHelperText={mode === 'light' ? t('Toggle dark mode') : t('Toggle light mode')}
 				/>
 			)}
 		</ColorModeContext.Consumer>
