@@ -6,7 +6,6 @@ import Dialog from './Dialog'
 import Marker from './Marker'
 import NavbarWrapper from './NavbarWrapper'
 import Map from '../pages/Home/Map'
-import OptionSelect from './OptionSelect'
 import PageLayout from './PageLayout'
 import Popover from './Popover'
 import SettingsInput from './SettingsInput'
@@ -23,7 +22,6 @@ export {
 	Marker,
 	NavbarWrapper,
 	Map,
-	OptionSelect,
 	PageLayout,
 	Popover,
 	SettingsInput,

@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 
-import { Button, DialogActions, Grid, TextField } from '@mui/material'
+import { Button, Container, DialogActions, Grid, TextField } from '@mui/material'
 import { connectToPlatform } from 'state/user'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
@@ -31,7 +31,7 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 	}
 
 	return (
-		<>
+		<Container>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Grid container direction="column" rowSpacing={3}>
 					<Grid item>
@@ -61,7 +61,7 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 					</Grid>
 				</Grid>
 			</form>
-		</>
+		</Container>
 	)
 }
 

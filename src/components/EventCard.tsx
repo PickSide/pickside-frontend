@@ -1,5 +1,5 @@
 import React, { FC, useState, useMemo, useCallback } from 'react'
-import { DirectionsRun, LocationOn, StarBorder, Star } from '@mui/icons-material'
+import { EmojiEvents, DirectionsRun, LocationOn } from '@mui/icons-material'
 import {
 	Box,
 	Button,
@@ -15,7 +15,6 @@ import { times } from 'lodash'
 import { Dialog } from 'components'
 import { ConfirmRegisterEventForm } from 'widgets'
 import { SportEvent } from 'state/sportEvent'
-import { MAX_LEVEL } from 'utils'
 import { useTranslation } from 'react-i18next'
 
 interface EventCardProps {
@@ -33,13 +32,11 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 	)
 
 	const Level = useCallback(() => {
+		const level = event.levelRequired
 		return (
 			<Box component="span">
 				{times(event.levelRequired, (idx) => (
-					<Star key={idx} />
-				))}
-				{times(MAX_LEVEL - event.levelRequired, (idx) => (
-					<StarBorder key={idx} />
+					<EmojiEvents key={idx} color={level < 3 ? 'success' : level === 3 ? 'warning' : 'error'} />
 				))}
 			</Box>
 		)
@@ -60,12 +57,12 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 					<Grid container>
 						<Grid item container direction="column" xs={8} rowSpacing={3}>
 							<Grid item>
+								<Typography variant="h4">{event.title}</Typography>
+							</Grid>
+							<Grid item>
 								<Typography>
 									<Level />
 								</Typography>
-							</Grid>
-							<Grid item>
-								<Typography variant="h4">{event.title}</Typography>
 							</Grid>
 							<Grid item container columnSpacing={2}>
 								<Grid item>
