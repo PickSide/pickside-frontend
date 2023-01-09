@@ -30,5 +30,13 @@
 	"Free": "Free",
 	"Register for": "Register for",
 	"Choose level required for entry": "Choose level required for entry",
-	"Are you sure you want to register to this event? You will have to wait for admin approval.": "Are you sure you want to register to this event? You will have to wait for admin approval."
+	"Are you sure you want to register to this event? You will have to wait for admin approval.": "Are you sure you want to register to this event? You will have to wait for admin approval.",
+	"History": "History",
+	"App settings": "App settings",
+	"Default theme": "Default theme",
+	"Select the default theme for your application.": "Select the default theme for your application.",
+	"Allow location tracking": "Allow location tracking",
+	"Allow the app to track your location.": "Allow the app to track your location.",
+	"Set default location": "Set default location",
+	"Set the default region when loading the app.": "Set the default region when loading the app."
 }

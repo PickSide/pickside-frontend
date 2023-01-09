@@ -30,5 +30,13 @@
 	"Free": "Sans frais",
 	"Register for": "Réservation pour",
 	"Choose level required for entry": "Choisir le niveau d'entré",
-	"Are you sure you want to register to this event? You will have to wait for admin approval.": "Êtes-vous certain de vouloir réserver une place pour cet événement? Vous serez en attente pour une acceptation par l'organisateur."
+	"Are you sure you want to register to this event? You will have to wait for admin approval.": "Êtes-vous certain de vouloir réserver une place pour cet événement? Vous serez en attente pour une acceptation par l'organisateur.",
+	"History": "Historique",
+	"App settings": "Paramètres de l'application",
+	"Default theme": "Thème par défaut",
+	"Select the default theme for your application.": "Selectionné le thème par défaut de votre application.",
+	"Allow location tracking": "Permission de connaître votre emplacement",
+	"Allow the app to track your location.": "Donner permission à l'application de connaître votre emplacement actuel.",
+	"Set default location": "Région par défaut",
+	"Set the default region when loading the app.": "Choisir la région par défaut de l'application. Cette région permettra de vous donner les événements cette région au chargement."
 }

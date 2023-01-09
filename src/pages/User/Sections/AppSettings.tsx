@@ -3,16 +3,18 @@ import { PageLayout, SettingsInput } from 'components'
 import { useTranslation } from 'react-i18next'
 
 const AppSettings = () => {
+	const { t } = useTranslation()
+
 	const AppSettingsConfigurations = [
 		{
 			key: 'darkmode_permanent',
 			value: 'darkmodePermanent',
 			inputType: 'switch',
 			extraProps: {
-				label: 'Default theme',
+				label: t('Default theme'),
 				labelPlacement: 'start',
 				dense: true,
-				helperText: 'Select the default theme for your application.',
+				helperText: t('Select the default theme for your application.'),
 			},
 		},
 		{
@@ -20,10 +22,10 @@ const AppSettings = () => {
 			value: 'darkmodePermanent',
 			inputType: 'switch',
 			extraProps: {
-				label: 'Allow location tracking',
+				label: t('Allow location tracking'),
 				labelPlacement: 'start',
 				dense: true,
-				helperText: 'Allow the app to track your location.',
+				helperText: t('Allow the app to track your location.'),
 			},
 		},
 		{
@@ -31,37 +33,13 @@ const AppSettings = () => {
 			value: 'darkmodePermanent',
 			inputType: 'select',
 			extraProps: {
-				label: 'Set default location',
+				label: t('Set default location'),
 				labelPlacement: 'start',
 				dense: true,
-				helperText: 'Select the default theme for your application.',
+				helperText: t('Select the default theme for your application.'),
 			},
 		},
-		// {
-		// 	key: 'darkmode_permanent',
-		// 	value: 'darkmodePermanent',
-		// 	inputType: 'switch',
-		// 	extraProps: {
-		// 		label: 'Default theme',
-		// 		labelPlacement: 'start',
-		// 		dense: true,
-		// 		helperText: 'Select the default theme for your application.',
-		// 	},
-		// },
-		// {
-		// 	key: 'darkmode_permanent',
-		// 	value: 'darkmodePermanent',
-		// 	inputType: 'switch',
-		// 	extraProps: {
-		// 		label: 'Default theme',
-		// 		labelPlacement: 'start',
-		// 		dense: true,
-		// 		helperText: 'Select the default theme for your application.',
-		// 	},
-		// },
 	]
-
-	const { t } = useTranslation()
 
 	return (
 		<PageLayout title={t('App settings')}>

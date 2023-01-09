@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { NavLink } from 'react-router-dom'
-import { Avatar, Box, Grid, IconButton, ListItemIcon, MenuItem, Typography } from '@mui/material'
-import { Login, Logout, Person, Settings } from '@mui/icons-material'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { Grid, IconButton, ListItemIcon, MenuItem, Typography } from '@mui/material'
+import { AccountCircle, Home, Login, Logout, Person, Settings } from '@mui/icons-material'
 
 import { Authentication, Dialog, Popover, ThemeToggler } from 'components'
 import { LanguageSwitcher } from 'widgets'
@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next'
 
 const NavbarContent: FC<any> = ({ ...props }) => {
 	const { t } = useTranslation()
+	const navigate = useNavigate()
 
 	const connectedUser = useSelector((state: AppState) => state.connectedUser)
 
@@ -52,36 +53,41 @@ const NavbarContent: FC<any> = ({ ...props }) => {
 				<Authentication />
 			</Dialog>
 
-			<Grid container justifyContent="flex-end" alignItems="center">
-				<Grid item>
-					<LanguageSwitcher />
+			<Grid container justifyContent="space-around" alignItems="center" wrap="nowrap">
+				<Grid item xs>
+					<IconButton onClick={() => navigate('/')}>
+						<Home />
+					</IconButton>
 				</Grid>
-				<Grid item>
-					<ThemeToggler />
-				</Grid>
-				<Grid item>
-					{connectedUser ? (
-						<Popover
-							triggerElement={
-								<IconButton>
-									<Avatar sx={{ backgroundColor: 'primary.main' }}>{`${connectedUser.firstName
-										?.charAt(0)
-										.toLocaleUpperCase()}`}</Avatar>
-								</IconButton>
-							}
-						>
-							{UserMenuItems.map((item, idx) => (
-								<MenuItem component={NavLink} to={item.href} key={idx}>
-									<ListItemIcon>{item.icon}</ListItemIcon>
-									<Typography>{item.label}</Typography>
-								</MenuItem>
-							))}
-						</Popover>
-					) : (
-						<IconButton onClick={() => setOpenAuthenticationDialog(true)}>
-							<Login />
-						</IconButton>
-					)}
+				<Grid item container justifyContent="flex-end" alignItems="center" columnSpacing={3} xs>
+					<Grid item>
+						<LanguageSwitcher />
+					</Grid>
+					<Grid item>
+						<ThemeToggler />
+					</Grid>
+					<Grid item>
+						{connectedUser ? (
+							<Popover
+								triggerElement={
+									<IconButton>
+										<AccountCircle />
+									</IconButton>
+								}
+							>
+								{UserMenuItems.map((item, idx) => (
+									<MenuItem component={NavLink} to={item.href} key={idx}>
+										<ListItemIcon>{item.icon}</ListItemIcon>
+										<Typography>{item.label}</Typography>
+									</MenuItem>
+								))}
+							</Popover>
+						) : (
+							<IconButton onClick={() => setOpenAuthenticationDialog(true)}>
+								<Login />
+							</IconButton>
+						)}
+					</Grid>
 				</Grid>
 			</Grid>
 		</>

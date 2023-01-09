@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { I18nextProvider } from 'react-i18next'
 
 import { store } from './store'
-import { Box, CircularProgress } from '@mui/material'
+import { Grid, CircularProgress } from '@mui/material'
 import App from './App'
 import i18n from './i18n'
 import reportWebVitals from './reportWebVitals'
@@ -13,20 +13,20 @@ import './index.css'
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 const Loading = (): JSX.Element => (
-	<Box
-		sx={{
-			top: 0,
-			left: 0,
-			bottom: 0,
-			right: 0,
-			position: 'absolute',
-			display: 'flex',
-			alignItems: 'center',
-			justifyContent: 'center',
+	<Grid
+		container
+		spacing={0}
+		direction="column"
+		alignContent="center"
+		justifyContent="center"
+		style={{
+			minHeight: '100vh',
 		}}
 	>
-		<CircularProgress />
-	</Box>
+		<Grid item xs={3}>
+			<CircularProgress />
+		</Grid>
+	</Grid>
 )
 root.render(
 	<Suspense fallback={<Loading />}>

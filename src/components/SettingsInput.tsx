@@ -1,6 +1,5 @@
 import React, { FC, cloneElement } from 'react'
-import { DatePicker, Select, Switch } from 'components'
-import { TextField } from '@mui/material'
+import { DatePicker, Select, Switch, TextField } from 'components'
 
 interface SettingsInputProps {
 	extraProps?: any

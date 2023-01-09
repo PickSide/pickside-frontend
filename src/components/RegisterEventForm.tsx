@@ -8,16 +8,15 @@ import {
 	FormControlLabel,
 	Grid,
 	MenuItem,
-	TextField,
-	Select,
 	FormControl,
 	InputAdornment,
 	InputLabel,
 } from '@mui/material'
 import { useSelector } from 'react-redux'
-import { AppState } from 'state'
-import { SelectSports } from 'widgets'
 import { useTranslation } from 'react-i18next'
+import { Select, TextField } from 'components'
+import { SelectSports } from 'widgets'
+import { AppState } from 'state'
 
 interface RegisterEventFormProps {
 	onClose: () => void
@@ -51,13 +50,13 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<Grid container direction="column" rowSpacing={2}>
+			<Grid container direction="column" rowSpacing={4}>
 				<Grid item container columnSpacing={2}>
 					<Grid item xs={8}>
 						<Controller
 							name="name"
 							control={control}
-							render={({ field }) => <TextField label={t('Event Name')} fullWidth {...field} />}
+							render={({ field }) => <TextField label={t('Event Name')} freeSolo fullWidth {...field} />}
 						/>
 					</Grid>
 					<Grid item xs={4}>
@@ -68,6 +67,7 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 								<TextField
 									type="number"
 									label={t('Capacity')}
+									freeSolo
 									placeholder={t('Enter capacity of players')}
 									fullWidth
 									{...field}
@@ -96,6 +96,7 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 								<TextField
 									type="number"
 									label={t('Level')}
+									freeSolo
 									placeholder={t('Choose level required for entry')}
 									fullWidth
 									{...field}
@@ -114,6 +115,7 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 									disabled={watch('isFree')}
 									type="number"
 									label={t('Price')}
+									freeSolo
 									InputProps={{
 										startAdornment: <InputAdornment position="start">$</InputAdornment>,
 										endAdornment: <InputAdornment position="end">/ person</InputAdornment>,

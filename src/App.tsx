@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useAsync } from 'react-use'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'

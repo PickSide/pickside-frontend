@@ -39,12 +39,12 @@ const FilterToolbar: FC<any> = ({ ...props }) => {
 							<Autocomplete size="small" />
 						</Grid>
 					</Grid>
-					<Grid item container justifyContent="flex-end" xs>
-						<Grid item>
+					<Grid item container justifyContent="flex-end" alignContent="center" xs>
+						<Grid item marginX={4}>
 							<Button
 								fullWidth
 								variant="contained"
-								size="medium"
+								size="small"
 								startIcon={<Add />}
 								onClick={() => setOpenCreateNewEventDialog(true)}
 							>

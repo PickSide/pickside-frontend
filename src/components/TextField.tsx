@@ -4,36 +4,34 @@ import {
 	FormGroup,
 	FormControlLabel,
 	FormHelperText,
-	Select as MuiSelect,
-	SelectProps as MuiSelectProps,
+	TextField as MuiTextField,
+	StandardTextFieldProps as MuiTextFieldProps,
 } from '@mui/material'
 import { omit } from 'lodash'
 
-interface SelectProps extends MuiSelectProps {
+interface TextFieldProps extends MuiTextFieldProps {
 	freeSolo?: boolean
 	helperText?: string
-	label?: string
 	labelPlacement?: 'bottom' | 'end' | 'start' | 'top' | undefined
 }
 
-const Select: FC<SelectProps> = ({
+const TextField: FC<TextFieldProps> = ({
 	freeSolo = false,
+	fullWidth = false,
 	helperText,
-	label,
 	labelPlacement = 'start',
-	children,
 	...props
 }) => {
 	return freeSolo ? (
-		<MuiSelect {...props}>{children}</MuiSelect>
+		<MuiTextField {...props} />
 	) : (
 		<FormControl>
 			<FormGroup>
 				<FormControlLabel
 					sx={{ justifyContent: 'space-between' }}
-					label={label}
+					label={props.label ?? null}
 					labelPlacement={labelPlacement}
-					control={<MuiSelect {...omit(props, 'label')}>{children}</MuiSelect>}
+					control={<MuiTextField {...omit(props, 'label')} />}
 				/>
 				<FormHelperText>{helperText}</FormHelperText>
 			</FormGroup>
@@ -41,4 +39,4 @@ const Select: FC<SelectProps> = ({
 	)
 }
 
-export default Select
+export default TextField

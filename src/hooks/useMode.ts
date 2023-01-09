@@ -24,7 +24,7 @@ export const useMode = (): [theme: Theme, colorMode: { mode: PaletteMode; toggle
 				setMode(appConfig?.darkModeEnabled ? 'light' : 'dark')
 			},
 		}),
-		[appConfig],
+		[appConfig?.darkModeEnabled],
 	)
 
 	const theme = useMemo(() => createTheme(deepmerge(getDesignTokens(mode), getThemedComponents(mode))), [mode])

@@ -16,6 +16,7 @@ import RegisterEventForm from './RegisterEventForm'
 import SettingsInput from './SettingsInput'
 import Select from './Select'
 import Switch from './Switch'
+import TextField from './TextField'
 import ThemeToggler from './ThemeToggler'
 
 export {
@@ -37,5 +38,6 @@ export {
 	SettingsInput,
 	Select,
 	Switch,
+	TextField,
 	ThemeToggler,
 }

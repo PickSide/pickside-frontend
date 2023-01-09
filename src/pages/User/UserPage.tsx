@@ -1,30 +1,36 @@
-import { FC, lazy, useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
-import { Drawer, Grid, Link, MenuItem, Typography } from '@mui/material'
+import { useTranslation } from 'react-i18next'
+import { Grid, MenuItem, Typography } from '@mui/material'
 import AppSettings from './Sections/AppSettings'
 import History from './Sections/History'
 import ProfileSettings from './Sections/ProfileSettings'
 
 const UserPage = () => {
+	const { t } = useTranslation()
+
 	const MenuItems = useMemo(
 		() => [
 			{
-				description: 'App Settings',
+				description: t('Profile'),
+				ref: 'profile',
+				value: 'profile',
+				content: <ProfileSettings />,
+			},
+			{
+				description: t('App settings'),
 				ref: 'app-settings',
+				value: 'appsettings',
 				content: <AppSettings />,
 			},
 			{
-				description: 'History',
+				description: t('History'),
 				ref: 'history',
+				value: 'history',
 				content: <History />,
 			},
-			{
-				description: 'Profile',
-				ref: 'profile',
-				content: <ProfileSettings />,
-			},
 		],
-		[],
+		[t],
 	)
 
 	return (
@@ -37,13 +43,13 @@ const UserPage = () => {
 			>
 				<Grid item>
 					{MenuItems.map((menu, idx) => (
-						<MenuItem component={NavLink} to={menu.ref} key={idx} sx={{ height: 50 }}>
+						<MenuItem divider component={NavLink} to={menu.ref} key={idx} sx={{ height: 50 }}>
 							<Typography>{menu.description}</Typography>
 						</MenuItem>
 					))}
 				</Grid>
 			</Grid>
-			<Grid item container>
+			<Grid item xs>
 				<Outlet />
 			</Grid>
 		</Grid>
