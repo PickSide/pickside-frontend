@@ -4,12 +4,12 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { Grid, IconButton, ListItemIcon, MenuItem, Typography } from '@mui/material'
 import { AccountCircle, Home, Login, Logout, Person, Settings } from '@mui/icons-material'
 
-import { Authentication, Dialog, Popover, ThemeToggler } from 'components'
-import { LanguageSwitcher } from 'widgets'
+import { Authentication, Dialog, Popover } from 'components'
+import { LanguageSwitcher, ThemeToggler } from 'widgets'
 import { AppState } from 'state'
 import { useTranslation } from 'react-i18next'
 
-const NavbarContent: FC<any> = ({ ...props }) => {
+const AppBar: FC<any> = ({ ...props }) => {
 	const { t } = useTranslation()
 	const navigate = useNavigate()
 
@@ -94,4 +94,4 @@ const NavbarContent: FC<any> = ({ ...props }) => {
 	)
 }
 
-export default NavbarContent
+export default AppBar

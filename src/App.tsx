@@ -2,7 +2,8 @@ import { useAsync } from 'react-use'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { CssBaseline, ThemeProvider } from '@mui/material'
-import { DefaultNavbar, NavbarContent } from 'components'
+import { NavbarWrapper } from 'components'
+import { AppBar } from 'widgets'
 import { useMode, ColorModeContext } from 'hooks/useMode'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppState } from 'state'
@@ -35,9 +36,9 @@ const App = () => {
 				<ThemeProvider theme={theme}>
 					<CssBaseline />
 					<BrowserRouter>
-						<DefaultNavbar>
-							<NavbarContent />
-						</DefaultNavbar>
+						<NavbarWrapper>
+							<AppBar />
+						</NavbarWrapper>
 						<Routes>
 							<Route path="/" element={<HomePage />} />
 							<Route path="/user/" element={<UserPage />}>

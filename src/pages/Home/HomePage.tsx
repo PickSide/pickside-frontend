@@ -1,9 +1,9 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC } from 'react'
 import { useSelector } from 'react-redux'
-import { Button, Container, Grid, useTheme } from '@mui/material'
-import { Add } from '@mui/icons-material'
+import { Container, Grid, useTheme } from '@mui/material'
 
-import { EventCard, FilterToolbar, Map } from 'components'
+import { EventCard, Map } from 'components'
+import { FilterToolbar } from 'widgets'
 import { AppState } from 'state'
 
 const HomePage: FC<any> = ({ ...props }) => {

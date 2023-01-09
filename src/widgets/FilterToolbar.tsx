@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react'
 import { Add } from '@mui/icons-material'
 import { Button, Grid } from '@mui/material'
-import { Autocomplete, DatePicker, DefaultNavbar, Dialog, RegisterEventForm } from 'components'
-import { SelectSports } from 'widgets'
+import { Autocomplete, DatePicker, Dialog, NavbarWrapper } from 'components'
+import { RegisterEventForm, SelectSports } from 'widgets'
 import { useSelector } from 'react-redux'
 import { AppState } from 'state'
 import { useTranslation } from 'react-i18next'
@@ -21,7 +21,7 @@ const FilterToolbar: FC<any> = ({ ...props }) => {
 			>
 				<RegisterEventForm onClose={() => setOpenCreateNewEventDialog(false)} />
 			</Dialog>
-			<DefaultNavbar
+			<NavbarWrapper
 				sx={{
 					backgroundColor: `${isdarkModeEnabled ? 'common.black' : 'common.white'}`,
 					boxShadow: 'rgba(0, 0, 0, 0.15) 0px 3px 3px 0px',
@@ -53,7 +53,7 @@ const FilterToolbar: FC<any> = ({ ...props }) => {
 						</Grid>
 					</Grid>
 				</Grid>
-			</DefaultNavbar>
+			</NavbarWrapper>
 		</>
 	)
 }

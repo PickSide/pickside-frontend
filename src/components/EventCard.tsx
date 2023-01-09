@@ -12,7 +12,8 @@ import {
 } from '@mui/material'
 import { times } from 'lodash'
 
-import { ConfirmRegisterEventForm, Dialog } from 'components'
+import { Dialog } from 'components'
+import { ConfirmRegisterEventForm } from 'widgets'
 import { SportEvent } from 'state/sportEvent'
 import { MAX_LEVEL } from 'utils'
 import { useTranslation } from 'react-i18next'
