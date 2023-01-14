@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { Grid, IconButton, ListItemIcon, MenuItem, Typography } from '@mui/material'
 import { AccountCircle, Home, Login, Logout, Person, Settings } from '@mui/icons-material'
@@ -7,11 +7,15 @@ import { AccountCircle, Home, Login, Logout, Person, Settings } from '@mui/icons
 import { Authentication, Dialog, Popover } from 'components'
 import { LanguageSwitcher, ThemeToggler } from 'widgets'
 import { AppState } from 'state'
+import { disconnectUser } from 'state/user'
 import { useTranslation } from 'react-i18next'
+import { useAuth } from 'hooks'
 
 const AppBar: FC<any> = ({ ...props }) => {
+	const dispatch = useDispatch()
 	const { t } = useTranslation()
 	const navigate = useNavigate()
+	const { setAuthConfig } = useAuth()
 
 	const connectedUser = useSelector((state: AppState) => state.connectedUser)
 
@@ -21,22 +25,26 @@ const AppBar: FC<any> = ({ ...props }) => {
 		{
 			label: t('History'),
 			icon: <Settings fontSize="small" />,
-			href: '/user/history',
+			action: () => navigate('/user/history'),
 		},
 		{
 			label: t('Profile'),
 			icon: <Person fontSize="small" />,
-			href: '/user/profile',
+			action: () => navigate('/user/profile'),
 		},
 		{
 			label: t('Settings'),
 			icon: <Settings fontSize="small" />,
-			href: '/user/app-settings',
+			action: () => navigate('/user/app-settings'),
 		},
 		{
 			label: t('Logout'),
 			icon: <Logout fontSize="small" />,
-			href: '/',
+			action: async () => {
+				await dispatch<any>(disconnectUser())
+				setAuthConfig({})
+				navigate('/')
+			},
 		},
 	]
 
@@ -76,7 +84,7 @@ const AppBar: FC<any> = ({ ...props }) => {
 								}
 							>
 								{UserMenuItems.map((item, idx) => (
-									<MenuItem component={NavLink} to={item.href} key={idx}>
+									<MenuItem key={idx} onClick={item.action}>
 										<ListItemIcon>{item.icon}</ListItemIcon>
 										<Typography>{item.label}</Typography>
 									</MenuItem>

@@ -7,9 +7,7 @@ const useAuth = () => {
 	const { set } = useLocalStorage()
 
 	useEffect(() => {
-		if (auth?.accessToken && auth?.connectedUser) {
-			set('auth', JSON.stringify(auth))
-		}
+		set('auth', JSON.stringify(auth))
 	}, [auth])
 
 	const setAuthConfig = (authConfig: AuthConfig) => setAuth && setAuth(authConfig)

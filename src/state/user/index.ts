@@ -17,10 +17,10 @@ export interface User {
 }
 
 const User = createSlice({
-	initialState: null as unknown as User,
+	initialState: null as unknown as User | null,
 	name: 'user',
 	reducers: {
-		setConnectedUser: (state, action: PayloadAction<User>) => (state = action.payload),
+		setConnectedUser: (state, action: PayloadAction<User | null>) => (state = action.payload),
 	},
 })
 
@@ -42,6 +42,12 @@ export const connectToPlatform =
 
 			return { accessToken, connectedUser }
 		}
+	}
+
+export const disconnectUser =
+	() =>
+	async (dispatch: Dispatch): Promise<any> => {
+		dispatch(setConnectedUser(null))
 	}
 
 export default User.reducer
