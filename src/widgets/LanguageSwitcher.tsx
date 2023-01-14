@@ -5,9 +5,9 @@ import { Language } from '@mui/icons-material'
 import { Grid, IconButton, MenuItem } from '@mui/material'
 import { Popover } from 'components'
 import { AppState } from 'state'
-import { fetchSupportedLanguages } from 'state/locales'
-import '/node_modules/flag-icons/css/flag-icons.min.css'
+import { fetchLocales } from 'state/locales'
 import { useLocaleSwitcher } from 'hooks'
+import '/node_modules/flag-icons/css/flag-icons.min.css'
 
 const LanguageSwitcher: FC<any> = ({ ...props }) => {
 	const dispatch = useDispatch()
@@ -17,7 +17,7 @@ const LanguageSwitcher: FC<any> = ({ ...props }) => {
 
 	useEffect(() => {
 		if (!locales) {
-			dispatch<any>(fetchSupportedLanguages())
+			dispatch<any>(fetchLocales())
 		}
 	}, [])
 

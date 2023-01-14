@@ -1,8 +1,7 @@
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
-import { Provider } from 'react-redux'
+import { Provider as StoreProvider } from 'react-redux'
 import { I18nextProvider } from 'react-i18next'
-
 import { store } from './store'
 import { Grid, CircularProgress } from '@mui/material'
 import App from './App'
@@ -31,11 +30,11 @@ const Loading = (): JSX.Element => (
 root.render(
 	<Suspense fallback={<Loading />}>
 		<React.StrictMode>
-			<Provider store={store}>
+			<StoreProvider store={store}>
 				<I18nextProvider i18n={i18n}>
 					<App />
 				</I18nextProvider>
-			</Provider>
+			</StoreProvider>
 		</React.StrictMode>
 	</Suspense>,
 )

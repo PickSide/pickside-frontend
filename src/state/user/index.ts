@@ -5,6 +5,7 @@ export interface User {
 	id?: string
 	firstName?: string
 	lastName?: string
+	username?: string
 	email?: string
 	sexe?: 'male' | 'female'
 	level?: number
@@ -12,6 +13,7 @@ export interface User {
 	matchPlayed?: number
 	matchOrganized?: number
 	localeRegion?: string
+	accessToken?: string
 }
 
 const User = createSlice({
@@ -28,13 +30,17 @@ export const connectToPlatform =
 	(data: any) =>
 	async (dispatch: Dispatch): Promise<any> => {
 		const item = await fetchItems({
-			endpoint: 'auth/login',
+			endpoint: 'auth',
 			method: 'POST',
 			data,
 		})(dispatch)
 
 		if (item) {
-			dispatch(setConnectedUser(item))
+			const { accessToken, connectedUser } = item
+
+			dispatch(setConnectedUser(connectedUser))
+
+			return { accessToken, connectedUser }
 		}
 	}
 
