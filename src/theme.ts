@@ -1,4 +1,4 @@
-import { orange, red, indigo, grey, yellow, common, green, amber, deepOrange, blue } from '@mui/material/colors'
+import { orange, red, indigo, grey, yellow, pink, common, green, amber, deepOrange, blue } from '@mui/material/colors'
 import { PaletteMode } from '@mui/material'
 
 export const getDesignTokens = (mode: PaletteMode) => ({
@@ -7,47 +7,22 @@ export const getDesignTokens = (mode: PaletteMode) => ({
 		...(mode === 'light'
 			? {
 					// palette values for light mode
-					primary: {
-						contrastText: common.white,
-						dark: orange[900],
-						main: orange[500],
-						light: orange[100],
-					},
-					secondary: {
-						contrastText: common.white,
-						dark: amber[900],
-						main: amber[500],
-						light: amber[100],
-					},
+					primary: orange,
+					secondary: pink,
 					danger: {
-						contrastText: common.white,
-						dark: red[900],
 						main: red[500],
-						light: red[100],
 					},
 					success: {
-						contrastText: common.white,
-						dark: green[500],
 						main: green[300],
-						light: green[200],
 					},
 					info: {
-						contrastText: common.white,
-						dark: grey[600],
 						main: grey[400],
-						light: grey[200],
 					},
 					warning: {
-						contrastText: common.white,
-						dark: yellow['A200'],
 						main: yellow[500],
-						light: yellow[300],
 					},
 					error: {
-						contrastText: common.white,
-						dark: red['A700'],
 						main: red['A400'],
-						light: red['A200'],
 					},
 					divider: orange[600],
 					text: {
@@ -58,50 +33,26 @@ export const getDesignTokens = (mode: PaletteMode) => ({
 						primary: grey[300],
 						secondary: grey[500],
 					},
+					subNavbar: common.white,
 			  }
 			: {
 					// palette values for dark mode
-					primary: {
-						contrastText: common.white,
-						dark: deepOrange[900],
-						main: deepOrange[500],
-						light: deepOrange[100],
-					},
-					secondary: {
-						contrastText: common.white,
-						dark: indigo[900],
-						main: indigo[500],
-						light: indigo[100],
-					},
+					primary: deepOrange,
+					secondary: pink,
 					danger: {
-						contrastText: common.white,
-						dark: indigo[900],
 						main: indigo[500],
-						light: indigo[100],
 					},
 					success: {
-						contrastText: common.white,
-						dark: green[900],
 						main: green[600],
-						light: green[400],
 					},
 					info: {
-						contrastText: common.white,
-						dark: blue[900],
 						main: blue[600],
-						light: blue[400],
 					},
 					warning: {
-						contrastText: common.white,
-						dark: orange[900],
 						main: orange[600],
-						light: orange[400],
 					},
 					error: {
-						contrastText: common.white,
-						dark: red[900],
 						main: red[600],
-						light: red[400],
 					},
 					divider: orange[600],
 					text: {
@@ -113,6 +64,7 @@ export const getDesignTokens = (mode: PaletteMode) => ({
 						primary: grey[500],
 						secondary: grey[300],
 					},
+					subNavbar: grey,
 			  }),
 	},
 	typography: {

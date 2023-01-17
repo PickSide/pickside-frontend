@@ -32,6 +32,7 @@ export const connectToPlatform =
 		const item = await fetchItems({
 			endpoint: 'auth',
 			method: 'POST',
+			type: 'AUTH',
 			data,
 		})(dispatch)
 

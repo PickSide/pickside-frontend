@@ -9,6 +9,8 @@ import { useMode, ColorModeContext } from 'hooks/useMode'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppState } from 'state'
 import { fetchAppConfiguration } from 'state/config'
+import { fetchSports } from 'state/sport'
+import { fetchEvents } from 'state/sportEvent'
 import { AuthContext, AuthProvider } from 'utils'
 import { useAuth } from 'hooks'
 import HomePage from './pages/Home/HomePage'
@@ -23,13 +25,25 @@ const App = () => {
 	const { i18n } = useTranslation()
 
 	const appConfig = useSelector((state: AppState) => state.appConfig)
+	const connectedUser = useSelector((state: AppState) => state.connectedUser)
+
+	useEffect(() => {
+		dispatch<any>(fetchAppConfiguration())
+		dispatch<any>(fetchEvents())
+		dispatch<any>(fetchSports())
+		i18n.changeLanguage(navigator.language)
+	}, [])
+
+	useEffect(() => {
+		dispatch<any>(fetchAppConfiguration())
+	}, [connectedUser])
+
+	useEffect(() => {
+		console.log(theme)
+	}, [theme])
 
 	useAsync(async () => {
-		const lng = navigator.language
-		i18n.changeLanguage(lng)
-
 		if (!appConfig) {
-			await dispatch<any>(fetchAppConfiguration())
 			colorMode.toggleColorMode()
 		}
 	}, [])

@@ -6,10 +6,12 @@ import { RegisterEventForm, SelectSports } from 'widgets'
 import { useSelector } from 'react-redux'
 import { AppState } from 'state'
 import { useTranslation } from 'react-i18next'
+import { useMode } from 'hooks/useMode'
+import { useGlobalConfig } from 'hooks'
 
 const FilterToolbar: FC<any> = ({ ...props }) => {
 	const { t } = useTranslation()
-	const isdarkModeEnabled = useSelector((state: AppState) => state.appConfig?.darkModeEnabled)
+	const { theme: appTheme } = useGlobalConfig()
 	const [openCreateNewEventDialog, setOpenCreateNewEventDialog] = useState<boolean>(false)
 
 	return (
@@ -21,39 +23,40 @@ const FilterToolbar: FC<any> = ({ ...props }) => {
 			>
 				<RegisterEventForm onClose={() => setOpenCreateNewEventDialog(false)} />
 			</Dialog>
-			<NavbarWrapper
+			<Grid
+				container
+				alignItems="center"
+				wrap="nowrap"
 				sx={{
-					backgroundColor: `${isdarkModeEnabled ? 'common.black' : 'common.white'}`,
 					boxShadow: 'rgba(0, 0, 0, 0.15) 0px 3px 3px 0px',
+					minHeight: (theme) => theme.mixins.toolbar.minHeight,
 				}}
 			>
-				<Grid container wrap="nowrap">
-					<Grid item container justifyContent="center" columnSpacing={2} xs={10}>
-						<Grid item>
-							<SelectSports />
-						</Grid>
-						<Grid item>
-							<DatePicker />
-						</Grid>
-						<Grid item>
-							<Autocomplete size="small" />
-						</Grid>
+				<Grid item container justifyContent="center" columnSpacing={2} xs={10}>
+					<Grid item>
+						<SelectSports />
 					</Grid>
-					<Grid item container justifyContent="flex-end" alignContent="center" xs>
-						<Grid item marginX={4}>
-							<Button
-								fullWidth
-								variant="contained"
-								size="small"
-								startIcon={<Add />}
-								onClick={() => setOpenCreateNewEventDialog(true)}
-							>
-								{t('Add event')}
-							</Button>
-						</Grid>
+					<Grid item>
+						<DatePicker />
+					</Grid>
+					<Grid item>
+						<Autocomplete size="small" />
 					</Grid>
 				</Grid>
-			</NavbarWrapper>
+				<Grid item container justifyContent="flex-end" alignContent="center" xs>
+					<Grid item marginX={4}>
+						<Button
+							fullWidth
+							variant="contained"
+							size="small"
+							startIcon={<Add />}
+							onClick={() => setOpenCreateNewEventDialog(true)}
+						>
+							{t('Add event')}
+						</Button>
+					</Grid>
+				</Grid>
+			</Grid>
 		</>
 	)
 }

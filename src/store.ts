@@ -14,8 +14,8 @@ export const store = configureStore({
 	preloadedState: {
 		//connectedUser,
 		//appConfig,
-		sports,
-		sportEvents,
+		//sports,
+		//sportEvents,
 	},
 })
 

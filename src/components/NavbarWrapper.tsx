@@ -1,10 +1,6 @@
-import { FC, Dispatch, SetStateAction } from 'react'
+import { FC } from 'react'
 import { styled } from '@mui/material/styles'
 import { Box, BoxProps } from '@mui/material'
-
-interface NavbarProps {
-	setOpenAuthenticationDialog?: Dispatch<SetStateAction<boolean>>
-}
 
 const StyledNavbarWrapper = styled(Box)<BoxProps>(({ theme }) => ({
 	display: 'flex',
@@ -16,8 +12,8 @@ const StyledNavbarWrapper = styled(Box)<BoxProps>(({ theme }) => ({
 	minHeight: theme.mixins.toolbar.minHeight,
 	paddingInlineEnd: theme.spacing(2),
 }))
-const NavbarWrapper: FC<any> = ({ children, ...props }) => {
-	return <StyledNavbarWrapper {...props}>{children}</StyledNavbarWrapper>
-}
+const NavbarWrapper: FC<any> = ({ children, ...props }) => (
+	<StyledNavbarWrapper {...props}>{children}</StyledNavbarWrapper>
+)
 
 export default NavbarWrapper

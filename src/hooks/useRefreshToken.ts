@@ -1,5 +1,5 @@
 import { useAsync } from 'react-use'
-import { fetchItemsNoDispatch } from 'api'
+import { lazyFetch } from 'api'
 import { useAuth } from 'hooks'
 
 interface UseRefreshTokenOutputs {
@@ -9,7 +9,7 @@ interface UseRefreshTokenOutputs {
 
 const useRefreshToken = (): UseRefreshTokenOutputs => {
 	const { auth, setAuthConfig } = useAuth()
-	const { loading, value } = useAsync(async () => await fetchItemsNoDispatch({ method: 'GET', endpoint: 'refresh' }))
+	const { loading, value } = useAsync(async () => await lazyFetch({ method: 'GET', endpoint: 'refresh' }))
 
 	const refresh = async () => {
 		// setConnectedUser &&

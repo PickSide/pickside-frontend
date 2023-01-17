@@ -14,7 +14,7 @@ const useMarkers = (): { markerProps: MarkerProps[] } => {
 		() =>
 			sportEvents?.results?.map((e) => ({
 				sportEventId: e.id,
-				position: e.location.coords,
+				position: e.location,
 				opacity: selectedEvent?.[e.id!] ? 1 : 0.5,
 				scaleSize: 2,
 				onClick: () =>

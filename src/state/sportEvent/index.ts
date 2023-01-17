@@ -2,6 +2,7 @@ import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
 import { User } from 'state/user'
 import { Sport } from 'state/sport'
 import { Location } from 'types'
+import { fetchItems } from 'api'
 
 export interface SportEvents {
 	results?: SportEvent[]
@@ -15,6 +16,7 @@ export interface SportEvent {
 	maxPlayersCapacity: number
 	numberOfRegisteredPlayers: number
 	organiser?: User
+	participants?: User[]
 	pricePerUnit?: number
 	registeredUserIds?: string[]
 	title?: string
@@ -25,7 +27,7 @@ const SportEvent = createSlice({
 	initialState: null as unknown as SportEvents,
 	name: 'sportEvents',
 	reducers: {
-		setActivites: (state, action: PayloadAction<SportEvents>) => (state = action.payload),
+		setEvents: (state, action: PayloadAction<SportEvents>) => (state = action.payload),
 		registerNewUser: (state, action: PayloadAction<{ eventId: any; connectedUserId: any }>) => {
 			const updatedEvent = state.results?.find((sportEvent) => sportEvent.id === action.payload.eventId)
 			const oldEventIdx = state.results?.findIndex((sportEvent) => sportEvent.id === action.payload.eventId) || -1
@@ -39,11 +41,20 @@ const SportEvent = createSlice({
 	},
 })
 
-export const { registerNewUser, setActivites } = SportEvent.actions
+export const { registerNewUser, setEvents } = SportEvent.actions
 
-export const fetchActivites =
-	(credentials: any) =>
-	async (dispatch: Dispatch): Promise<any> => {}
+export const fetchEvents =
+	() =>
+	async (dispatch: Dispatch): Promise<any> => {
+		const items = await fetchItems({
+			method: 'GET',
+			endpoint: 'events',
+		})(dispatch)
+
+		if (items) {
+			dispatch(setEvents(items))
+		}
+	}
 
 export const registerPlayerToSportEvent =
 	(eventId: any) =>

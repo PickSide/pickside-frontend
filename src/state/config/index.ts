@@ -1,16 +1,25 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
-import { fetchItems } from 'api'
+import { fetchItems, updateItem } from 'api'
 import store from 'store'
-import { Coordinates } from 'types'
 
 export interface AppConfig {
+	allowLocationTracking?: boolean
 	darkModeEnabled?: boolean
+	defaultDarkMode?: boolean
+	defautltLocation?: string
 	locale?: string
-	connctedUserLocation?: Coordinates
+	userId?: string
 }
 
 const User = createSlice({
-	initialState: null as unknown as AppConfig,
+	initialState: {
+		allowLocationTracking: false,
+		darkModeEnabled: false,
+		defaultDarkMode: false,
+		defautltLocation: 'montreal',
+		locale: 'en',
+		userId: undefined,
+	} as AppConfig,
 	name: 'appConfig',
 	reducers: {
 		setAppConfig: (state, action: PayloadAction<AppConfig>) => (state = { ...state, ...action.payload }),
@@ -24,8 +33,7 @@ export const fetchAppConfiguration =
 	async (dispatch: Dispatch): Promise<any> => {
 		const connectedUser = store.getState().connectedUser
 		const items = await fetchItems({
-			endpoint: connectedUser?.id ? `config/${connectedUser?.id}` : 'config',
-			method: 'GET',
+			endpoint: connectedUser?.id ? `configs/${connectedUser?.id}` : 'configs',
 		})(dispatch)
 
 		if (items) {
@@ -36,8 +44,14 @@ export const fetchAppConfiguration =
 export const updateAppConfiguration =
 	(data: AppConfig) =>
 	async (dispatch: Dispatch<any>): Promise<any> => {
-		if (data) {
-			dispatch(setAppConfig(data))
+		const connectedUser = store.getState().connectedUser
+		const updatedItem = await updateItem({
+			endpoint: `configs/${connectedUser?.id}`,
+			data,
+		})(dispatch)
+
+		if (updatedItem) {
+			dispatch(setAppConfig(updatedItem))
 		}
 	}
 

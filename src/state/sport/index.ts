@@ -20,7 +20,7 @@ const Sport = createSlice({
 
 export const { setSports } = Sport.actions
 
-export const fetchAllSports =
+export const fetchSports =
 	() =>
 	async (dispatch: Dispatch): Promise<any> => {
 		const items = await fetchItems({

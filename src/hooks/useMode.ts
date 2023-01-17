@@ -1,10 +1,8 @@
 import { createContext, useMemo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { deepmerge } from '@mui/utils'
 import { PaletteMode, createTheme, Theme } from '@mui/material'
-import { updateAppConfiguration } from 'state/config'
 import { getDesignTokens, getThemedComponents } from '../theme'
-import { AppState } from 'state'
+import { useGlobalConfig } from 'hooks'
 
 export const ColorModeContext = createContext({
 	mode: 'light',
@@ -12,19 +10,18 @@ export const ColorModeContext = createContext({
 })
 
 export const useMode = (): [theme: Theme, colorMode: { mode: PaletteMode; toggleColorMode: () => {} | void }] => {
-	const dispatch = useDispatch()
-	const appConfig = useSelector((state: AppState) => state.appConfig)
-	const [mode, setMode] = useState<PaletteMode>(appConfig?.darkModeEnabled ? 'dark' : 'light')
+	const globalConfig = useGlobalConfig()
+	const [mode, setMode] = useState<PaletteMode>(globalConfig.theme || 'light')
 
 	const colorMode = useMemo(
 		() => ({
 			mode,
 			toggleColorMode: () => {
-				dispatch<any>(updateAppConfiguration({ darkModeEnabled: !appConfig?.darkModeEnabled || false }))
-				setMode(appConfig?.darkModeEnabled ? 'light' : 'dark')
+				console.log(mode)
+				setMode(mode === 'dark' ? 'light' : 'dark')
 			},
 		}),
-		[appConfig?.darkModeEnabled],
+		[globalConfig],
 	)
 
 	const theme = useMemo(() => createTheme(deepmerge(getDesignTokens(mode), getThemedComponents(mode))), [mode])

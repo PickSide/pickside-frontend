@@ -2,44 +2,62 @@ import axios from 'axios'
 import { Dispatch } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-export const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : ''
+export const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost' : ''
 
 const HEADERS = {
 	'Content-Type': 'application/json',
 	'X-Request-Id': uuidv4(),
-	Authorization: `Bearer ${process.env.REACT_APP_GOOGLE_MAPS_BEARER}`,
+	Authorization: `Bearer ${window.localStorage.getItem('auth.accessToken')}`,
+}
+
+enum PORT {
+	AUTH = 4000,
+	REST = 8000,
 }
 
 interface FetchProps<T> {
+	id?: string
 	data?: T
 	endpoint: string
-	method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
+	method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
 	params?: any
 	queries?: any
 	filters?: any
+	type?: 'REST' | 'AUTH'
 }
 
-export const fetchItemsNoDispatch = async ({
+export const lazyFetch = async ({
 	data,
 	endpoint,
 	method,
 	params,
 	queries,
 	filters,
+	type = 'REST',
 }: FetchProps<any>): Promise<any> => {
 	const aditionalParams = params ? `/${new URLSearchParams({ ...params })}` : ''
 	const aditionalQueries = queries ? `?${getQueryString(queries)}` : ''
-	const FULL_ROUTE = `${BASE_URL}/${endpoint}${aditionalParams}${aditionalQueries}`
+	const FULL_ROUTE = `${BASE_URL}:${PORT[type]}}/${endpoint}${aditionalParams}${aditionalQueries}`
 
 	return baseFetch(FULL_ROUTE, method, data)
 }
 
-export const fetchItems =
-	({ data, endpoint, method, params, queries, filters }: FetchProps<any>) =>
+export const updateItem =
+	({ id, data, endpoint, method = 'PUT', params, queries, filters, type = 'REST' }: FetchProps<any>) =>
 	async (dispatch: Dispatch<any>): Promise<any> => {
 		const aditionalParams = params ? `/${new URLSearchParams({ ...params })}` : ''
 		const aditionalQueries = queries ? `?${getQueryString(queries)}` : ''
-		const FULL_ROUTE = `${BASE_URL}/${endpoint}${aditionalParams}${aditionalQueries}`
+		const FULL_ROUTE = `${BASE_URL}:${PORT[type]}/${endpoint}${aditionalParams}${aditionalQueries}`
+
+		return baseFetch(FULL_ROUTE, method, data)
+	}
+
+export const fetchItems =
+	({ data, endpoint, method = 'GET', params, queries, filters, type = 'REST' }: FetchProps<any>) =>
+	async (dispatch: Dispatch<any>): Promise<any> => {
+		const aditionalParams = params ? `/${new URLSearchParams({ ...params })}` : ''
+		const aditionalQueries = queries ? `?${getQueryString(queries)}` : ''
+		const FULL_ROUTE = `${BASE_URL}:${PORT[type]}/${endpoint}${aditionalParams}${aditionalQueries}`
 
 		return baseFetch(FULL_ROUTE, method, data)
 	}
