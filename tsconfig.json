@@ -6,11 +6,11 @@
 			"pages/*": ["./src/pages/*"],
 			"state/**": ["./src/state/*"],
 			"types/*": ["./src/types/*"],
-			"utils/*": ["./src/utils/*"],
+			"utils/**": ["./src/utils/*"],
 			"widgets/*": ["./src/widgets/*"],
 			"api/*": ["./src/api/*"],
 			"utils/constants/*": ["./src/utils/constants/*"],
-			"utils/context/*": ["./src/utils/context/*"]
+			"utils/context/**": ["./src/utils/context/*"]
 		},
 		"target": "es6",
 		"lib": ["dom", "dom.iterable", "esnext"],

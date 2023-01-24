@@ -1,7 +1,6 @@
-import { orange, red, indigo, grey, yellow, pink, common, green, amber, deepOrange, blue } from '@mui/material/colors'
-import { PaletteMode } from '@mui/material'
+import { orange, red, indigo, grey, yellow, pink, common, green, deepOrange, blue } from '@mui/material/colors'
 
-export const getDesignTokens = (mode: PaletteMode) => ({
+export const getDesignTokens = (mode) => ({
 	palette: {
 		mode,
 		...(mode === 'light'

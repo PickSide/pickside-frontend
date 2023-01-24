@@ -1,6 +1,5 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import { reducers } from 'state'
-import { appConfig, connectedUser, sports, sportEvents } from '../src/testData'
 
 const middleware = [
 	...getDefaultMiddleware({
@@ -11,12 +10,7 @@ const middleware = [
 export const store = configureStore({
 	reducer: reducers,
 	middleware,
-	preloadedState: {
-		//connectedUser,
-		//appConfig,
-		//sports,
-		//sportEvents,
-	},
+	preloadedState: {},
 })
 
 export type RootState = ReturnType<typeof store.getState>

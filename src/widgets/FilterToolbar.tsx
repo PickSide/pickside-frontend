@@ -6,12 +6,10 @@ import { RegisterEventForm, SelectSports } from 'widgets'
 import { useSelector } from 'react-redux'
 import { AppState } from 'state'
 import { useTranslation } from 'react-i18next'
-import { useMode } from 'hooks/useMode'
-import { useGlobalConfig } from 'hooks'
+import { useTheme } from 'hooks'
 
 const FilterToolbar: FC<any> = ({ ...props }) => {
 	const { t } = useTranslation()
-	const { theme: appTheme } = useGlobalConfig()
 	const [openCreateNewEventDialog, setOpenCreateNewEventDialog] = useState<boolean>(false)
 
 	return (

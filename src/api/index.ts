@@ -45,19 +45,21 @@ export const lazyFetch = async ({
 export const updateItem =
 	({ id, data, endpoint, method = 'PUT', params, queries, filters, type = 'REST' }: FetchProps<any>) =>
 	async (dispatch: Dispatch<any>): Promise<any> => {
+		const endpointId = id ? `/${id}` : ''
 		const aditionalParams = params ? `/${new URLSearchParams({ ...params })}` : ''
 		const aditionalQueries = queries ? `?${getQueryString(queries)}` : ''
-		const FULL_ROUTE = `${BASE_URL}:${PORT[type]}/${endpoint}${aditionalParams}${aditionalQueries}`
+		const FULL_ROUTE = `${BASE_URL}:${PORT[type]}/${endpoint}${endpointId}${aditionalParams}${aditionalQueries}`
 
 		return baseFetch(FULL_ROUTE, method, data)
 	}
 
 export const fetchItems =
-	({ data, endpoint, method = 'GET', params, queries, filters, type = 'REST' }: FetchProps<any>) =>
+	({ id, data, endpoint, method = 'GET', params, queries, filters, type = 'REST' }: FetchProps<any>) =>
 	async (dispatch: Dispatch<any>): Promise<any> => {
+		const endpointId = id ? `/${id}` : ''
 		const aditionalParams = params ? `/${new URLSearchParams({ ...params })}` : ''
 		const aditionalQueries = queries ? `?${getQueryString(queries)}` : ''
-		const FULL_ROUTE = `${BASE_URL}:${PORT[type]}/${endpoint}${aditionalParams}${aditionalQueries}`
+		const FULL_ROUTE = `${BASE_URL}:${PORT[type]}/${endpoint}${endpointId}${aditionalParams}${aditionalQueries}`
 
 		return baseFetch(FULL_ROUTE, method, data)
 	}

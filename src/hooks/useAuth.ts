@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react'
 import { useLocalStorage } from 'hooks'
-import { AuthConfig, AuthContext } from 'utils'
+import { AuthContext } from 'utils/context'
+import { AuthConfig } from 'utils/context/AuthContext'
 
 const useAuth = () => {
 	const { auth, setAuth } = useContext(AuthContext)

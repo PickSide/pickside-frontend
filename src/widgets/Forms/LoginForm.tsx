@@ -6,7 +6,7 @@ import { Button, Container, DialogActions, Grid, TextField } from '@mui/material
 
 import { connectToPlatform } from 'state/user'
 import { useAuth } from 'hooks'
-import { AuthConfig } from 'utils'
+import { AuthConfig } from 'utils/context/AuthContext'
 
 interface LoginFormProps {
 	onClose: () => void
