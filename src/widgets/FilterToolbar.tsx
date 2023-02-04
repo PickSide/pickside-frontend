@@ -1,15 +1,15 @@
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react'
 import { Add } from '@mui/icons-material'
 import { Button, Grid } from '@mui/material'
-import { Autocomplete, DatePicker, Dialog, NavbarWrapper } from 'components'
+import { Autocomplete, DatePicker, Dialog } from 'components'
 import { RegisterEventForm, SelectSports } from 'widgets'
 import { useSelector } from 'react-redux'
 import { AppState } from 'state'
 import { useTranslation } from 'react-i18next'
-import { useTheme } from 'hooks'
 
 const FilterToolbar: FC<any> = ({ ...props }) => {
 	const { t } = useTranslation()
+	const connectedUser = useSelector((state: AppState) => state.connectedUser)
 	const [openCreateNewEventDialog, setOpenCreateNewEventDialog] = useState<boolean>(false)
 
 	return (
@@ -18,6 +18,7 @@ const FilterToolbar: FC<any> = ({ ...props }) => {
 				title={t('Create a new event')}
 				open={openCreateNewEventDialog}
 				onClose={() => setOpenCreateNewEventDialog(false)}
+				size="sm"
 			>
 				<RegisterEventForm onClose={() => setOpenCreateNewEventDialog(false)} />
 			</Dialog>
@@ -38,16 +39,16 @@ const FilterToolbar: FC<any> = ({ ...props }) => {
 						<DatePicker />
 					</Grid>
 					<Grid item>
-						<Autocomplete size="small" />
+						<Autocomplete />
 					</Grid>
 				</Grid>
 				<Grid item container justifyContent="flex-end" alignContent="center" xs>
 					<Grid item marginX={4}>
 						<Button
-							fullWidth
 							variant="contained"
 							size="small"
 							startIcon={<Add />}
+							disabled={!connectedUser}
 							onClick={() => setOpenCreateNewEventDialog(true)}
 						>
 							{t('Add event')}

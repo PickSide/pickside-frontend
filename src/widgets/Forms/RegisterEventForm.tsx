@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useCallback, useState } from 'react'
+import { FC } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import {
 	Box,
@@ -7,71 +7,74 @@ import {
 	DialogActions,
 	FormControlLabel,
 	Grid,
-	MenuItem,
 	FormControl,
 	InputAdornment,
-	InputLabel,
 	Container,
 } from '@mui/material'
-import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { Select, TextField } from 'components'
+import { TextField } from 'components'
 import { SelectSports } from 'widgets'
-import { AppState } from 'state'
+import { registerSportEvent } from 'state/sportEvent'
 
 interface RegisterEventFormProps {
 	onClose: () => void
 }
 
 type FormData = {
-	name: string
-	isFree: boolean
-	capacity: number
-	level: number
-	price: number
+	title: string
 	sport: string
+	organiser: string
+	price: number
+	levelRequired: number
+	maxPlayersCapacity: number
+	location: object
+	isFree: boolean
 }
 
 const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props }) => {
+	const dispatch = useDispatch()
 	const { t } = useTranslation()
-	const sports = useSelector((state: AppState) => state.sports)
 	const { control, getValues, handleSubmit, watch } = useForm<FormData>({
 		defaultValues: {
-			name: '',
-			capacity: 0,
-			isFree: false,
-			level: 1,
-			price: 0.0,
+			title: '',
 			sport: 'default',
+			organiser: '',
+			price: 0,
+			levelRequired: 1,
+			maxPlayersCapacity: 10,
+			isFree: false,
 		},
 	})
+
 	const onSubmit = (values) => {
-		console.log('onSubmit RegisteEventForm')
+		dispatch<any>(registerSportEvent(values))
+		onClose()
 	}
 
 	return (
-		<Container>
+		<Container maxWidth="lg">
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Grid container direction="column" rowSpacing={4}>
 					<Grid item container columnSpacing={2}>
-						<Grid item xs={8}>
+						<Grid item xs>
 							<Controller
-								name="name"
+								name="title"
 								control={control}
-								render={({ field }) => <TextField label={t('Event Name')} freeSolo fullWidth {...field} />}
+								render={({ field }) => <TextField label={t('Event Name')} fullWidth freeSolo {...field} />}
 							/>
 						</Grid>
-						<Grid item xs={4}>
+						<Grid item xs>
 							<Controller
-								name="capacity"
+								name="maxPlayersCapacity"
 								control={control}
 								render={({ field }) => (
 									<TextField
 										type="number"
 										label={t('Capacity')}
 										freeSolo
-										placeholder={t('Enter capacity of players')}
 										fullWidth
+										placeholder={t('Enter capacity of players')}
 										{...field}
 									/>
 								)}
@@ -92,7 +95,7 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 						</Grid>
 						<Grid item xs>
 							<Controller
-								name="level"
+								name="levelRequired"
 								control={control}
 								render={({ field }) => (
 									<TextField
@@ -129,13 +132,13 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 								)}
 							/>
 						</Grid>
-						<Grid item>
-							<Controller
-								name="isFree"
-								control={control}
-								render={({ field }) => <FormControlLabel control={<Checkbox {...field} />} label={t('Free')} />}
-							/>
-						</Grid>
+					</Grid>
+					<Grid item>
+						<Controller
+							name="isFree"
+							control={control}
+							render={({ field }) => <FormControlLabel control={<Checkbox {...field} />} label={t('Free')} />}
+						/>
 					</Grid>
 				</Grid>
 				<Box padding={1} mb={2}>

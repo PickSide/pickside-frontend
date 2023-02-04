@@ -41,7 +41,6 @@ export const lazyFetch = async ({
 
 	return baseFetch(FULL_ROUTE, method, data)
 }
-
 export const updateItem =
 	({ id, data, endpoint, method = 'PUT', params, queries, filters, type = 'REST' }: FetchProps<any>) =>
 	async (dispatch: Dispatch<any>): Promise<any> => {
@@ -69,7 +68,10 @@ export const baseFetch = async (FULL_ROUTE, method, data) => {
 		method,
 		headers: HEADERS,
 		body: JSON.stringify(data),
-	}).then((response) => response.json())
+	}).then((response) => {
+		//console.log(response.text())
+		return response.json()
+	})
 }
 
 const getQueryString = (queries: any) => {

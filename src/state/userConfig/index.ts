@@ -4,7 +4,7 @@ import { fetchItems, updateItem } from 'api'
 import store from 'store'
 import { AppTheme } from 'state/availableTheme'
 
-export interface AppConfig {
+export interface UserConfig {
 	allowLocationTracking?: boolean
 	defaultTheme?: AppTheme
 	currentTheme?: string
@@ -13,17 +13,17 @@ export interface AppConfig {
 	userId?: string
 }
 
-const User = createSlice({
-	initialState: {} as AppConfig,
-	name: 'appConfig',
+const UserConfig = createSlice({
+	initialState: null as unknown as UserConfig,
+	name: 'userConfig',
 	reducers: {
-		setAppConfig: (state, action: PayloadAction<AppConfig>) => (state = { ...state, ...action.payload }),
+		setUserConfig: (state, action: PayloadAction<UserConfig>) => (state = { ...state, ...action.payload }),
 	},
 })
 
-export const { setAppConfig } = User.actions
+export const { setUserConfig } = UserConfig.actions
 
-export const fetchAppConfiguration =
+export const fetchUserConfiguration =
 	() =>
 	async (dispatch: Dispatch): Promise<any> => {
 		const connectedUser = store.getState().connectedUser
@@ -33,12 +33,12 @@ export const fetchAppConfiguration =
 		})(dispatch)
 
 		if (items) {
-			dispatch(setAppConfig({ ...items, currentTheme: items.defaultTheme }))
+			dispatch(setUserConfig({ ...items, currentTheme: items.defaultTheme }))
 		}
 	}
 
-export const updateAppConfiguration =
-	(data: AppConfig) =>
+export const updateUserConfiguration =
+	(data: UserConfig) =>
 	async (dispatch: Dispatch<any>): Promise<any> => {
 		const connectedUser = store.getState().connectedUser
 		const updatedItem = await updateItem({
@@ -48,7 +48,7 @@ export const updateAppConfiguration =
 		})(dispatch)
 
 		if (updatedItem) {
-			dispatch(setAppConfig(updatedItem))
+			dispatch(setUserConfig(updatedItem))
 		}
 	}
 
@@ -61,4 +61,4 @@ export const lazyFetchThemes =
 
 		return items || {}
 	}
-export default User.reducer
+export default UserConfig.reducer

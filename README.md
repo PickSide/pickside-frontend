@@ -19,7 +19,7 @@ npm run start
 ```typescript
 // Global app state
 export interface AppState {
-	appConfig?: AppConfig
+	appConfig?: UserConfig
 	connectedUser?: User
 	eventLocations?: EventLocations
 	selectedEvent?: EventLocation
@@ -27,7 +27,7 @@ export interface AppState {
 	sportEvents?: SportEvents
 }
 
-export interface AppConfig {
+export interface UserConfig {
 	darkModeEnabled?: boolean
 	locale?: string
 	connectedUserLocation?: Coordinates

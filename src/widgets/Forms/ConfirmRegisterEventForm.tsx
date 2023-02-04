@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useMemo, useCallback, useState } from 'react'
+import { FC, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
 import { Button, Container, DialogActions, Grid, Typography } from '@mui/material'
 import { SportEvent } from 'state/sportEvent'
@@ -17,9 +17,10 @@ const ConfirmRegisterEventForm: FC<ConfirmRegisterEventFormProps> = ({ event, on
 	const dispatch = useDispatch()
 	const connectedUser = useSelector((state: AppState) => state.connectedUser)
 
-	const isLevelLessThanRequired = useMemo(() => {
-		return connectedUser && connectedUser.level && connectedUser.level < event.levelRequired
-	}, [connectedUser, event])
+	const isLevelLessThanRequired = useMemo(
+		() => connectedUser && connectedUser.level && connectedUser.level < event.levelRequired,
+		[connectedUser, event],
+	)
 
 	const onRegisterEvent = () => {
 		dispatch<any>(registerPlayerToSportEvent(event.id))

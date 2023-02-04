@@ -1,6 +1,6 @@
 import { createContext, Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { User } from 'state/user'
-import { fetchAppConfiguration } from 'state/config'
+import { fetchUserConfiguration } from 'state/userConfig'
 import { useDispatch } from 'react-redux'
 
 export interface AuthConfig {
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
 
 	useEffect(() => {
 		if (auth.connectedUser && auth.accessToken) {
-			dispatch<any>(fetchAppConfiguration())
+			dispatch<any>(fetchUserConfiguration())
 		}
 	}, [auth])
 

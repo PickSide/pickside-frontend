@@ -35,7 +35,7 @@ export const connectToPlatform =
 			type: 'AUTH',
 			data,
 		})(dispatch)
-
+		console.log(item)
 		if (item) {
 			const { accessToken, connectedUser } = item
 

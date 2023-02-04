@@ -81,6 +81,9 @@ export const getDesignTokens = (mode) => ({
 	},
 	spacing: [0, 4, 8, 12, 16, 32, 64],
 	mixins: {
+		filterToolbar: {
+			minHeight: 55,
+		},
 		toolbar: {
 			minHeight: 50,
 			backgroundColor: common.white,
@@ -97,7 +100,13 @@ export const getThemedComponents = (mode) => ({
 				color: 'secondary.main',
 			},
 			styleOverrides: {
-				root: {},
+				root: {
+					'& > span': {
+						overflow: 'hidden',
+						whiteSpace: 'nowrap',
+						textOverflow: 'ellipsis',
+					},
+				},
 			},
 		},
 		MuiFormControl: {
@@ -108,9 +117,6 @@ export const getThemedComponents = (mode) => ({
 			},
 		},
 		MuiInputBase: {
-			defaultProps: {
-				size: 'small',
-			},
 			styleOverrides: {
 				root: {
 					minWidth: 200,

@@ -20,7 +20,7 @@ const SelectSports: FC<any> = ({ ...props }) => {
 	}, [])
 
 	return (
-		<Select freeSolo placeholder={t('Sport')}>
+		<Select freeSolo id="sport-select" label={t('Sport')}>
 			{loading ? (
 				<MenuItem>{`${t('Loading')}...`}</MenuItem>
 			) : (

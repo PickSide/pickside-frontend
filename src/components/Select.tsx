@@ -6,6 +6,8 @@ import {
 	FormHelperText,
 	Select as MuiSelect,
 	SelectProps as MuiSelectProps,
+	styled,
+	InputLabel,
 } from '@mui/material'
 import { omit } from 'lodash'
 
@@ -16,6 +18,12 @@ interface SelectProps extends MuiSelectProps {
 	labelPlacement?: 'bottom' | 'end' | 'start' | 'top' | undefined
 }
 
+const StyledSelect = styled(MuiSelect)((theme) => ({
+	root: {
+		'& label': {},
+	},
+}))
+
 const Select: FC<SelectProps> = ({
 	freeSolo = false,
 	helperText,
@@ -25,7 +33,12 @@ const Select: FC<SelectProps> = ({
 	...props
 }) => {
 	return freeSolo ? (
-		<MuiSelect {...props}>{children}</MuiSelect>
+		<FormControl>
+			<InputLabel id={props.id}>{label}</InputLabel>
+			<MuiSelect labelId={props.id} {...props}>
+				{children}
+			</MuiSelect>
+		</FormControl>
 	) : (
 		<FormControl>
 			<FormGroup>

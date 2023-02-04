@@ -18,7 +18,7 @@ const DatePicker = ({ ...props }) => {
 				onChange={(newValue) => {
 					setValue(newValue)
 				}}
-				renderInput={(params) => <TextField size="small" {...params} />}
+				renderInput={(params) => <TextField {...params} />}
 			/>
 		</LocalizationProvider>
 	)

@@ -3,13 +3,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { NavbarWrapper, RequireAuth } from 'components'
-import { AppBar } from 'widgets'
+import { AppBar, FilterToolbar } from 'widgets'
 import { useTheme } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppState } from 'state'
 import { fetchAvailableThemes } from 'state/availableTheme'
-import { changeTheme } from 'state/appTheme'
-import { fetchAppConfiguration } from 'state/config'
+import { changeLanguage, changeTheme } from 'state/appConfig'
+import { fetchUserConfiguration } from 'state/userConfig'
 import { fetchSports } from 'state/sport'
 import { fetchEvents } from 'state/sportEvent'
 import { AuthProvider } from 'utils/context/AuthContext'
@@ -26,6 +26,7 @@ const App = () => {
 	const { i18n } = useTranslation()
 
 	const appConfig = useSelector((state: AppState) => state.appConfig)
+	const userConfig = useSelector((state: AppState) => state.userConfig)
 	const availableThemes = useSelector((state: AppState) => state.availableThemes)
 	const connectedUser = useSelector((state: AppState) => state.connectedUser)
 	const sports = useSelector((state: AppState) => state.sports)
@@ -37,18 +38,22 @@ const App = () => {
 		if (!sports) {
 			dispatch<any>(fetchSports())
 		}
-		if (!appConfig) {
-			dispatch<any>(fetchAppConfiguration())
+		if (!userConfig) {
+			dispatch<any>(fetchUserConfiguration())
 		}
 		dispatch<any>(fetchEvents())
-		i18n.changeLanguage(navigator.language)
 	}, [])
 
 	useEffect(() => {
-		if (connectedUser?.id === appConfig.userId) {
-			dispatch<any>(changeTheme(appConfig.defaultTheme?.value))
+		if (connectedUser?.id === userConfig?.userId) {
+			dispatch<any>(changeTheme(userConfig?.defaultTheme?.value))
+			dispatch<any>(changeLanguage(userConfig?.locale))
 		}
-	}, [connectedUser, appConfig])
+	}, [connectedUser, userConfig])
+
+	useEffect(() => {
+		i18n.changeLanguage(appConfig.lang)
+	}, [appConfig.lang])
 
 	return (
 		<AuthProvider>
@@ -58,6 +63,7 @@ const App = () => {
 					<NavbarWrapper>
 						<AppBar />
 					</NavbarWrapper>
+					<FilterToolbar />
 					<Routes>
 						<Route path="/" element={<HomePage />} />
 						<Route element={<RequireAuth />}>

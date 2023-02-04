@@ -1,19 +1,19 @@
-import { useCallback, useContext, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { deepmerge } from '@mui/utils'
 import { createTheme, Theme } from '@mui/material'
 import { getDesignTokens, getThemedComponents } from '../theme'
-import { changeTheme } from 'state/appTheme'
+import { changeTheme } from 'state/appConfig'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppState } from 'state'
 
 interface UseThemeOutput {
-	theme: string
+	theme?: string
 	palette: Theme
 	toggleTheme?: Function
 }
 
 export const useTheme = (): UseThemeOutput => {
-	const theme = useSelector((state: AppState) => state.appTheme)
+	const theme = useSelector((state: AppState) => state.appConfig.theme)
 	const dispatch = useDispatch()
 
 	const palette = useMemo(() => {

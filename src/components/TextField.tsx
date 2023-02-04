@@ -6,6 +6,7 @@ import {
 	FormHelperText,
 	TextField as MuiTextField,
 	StandardTextFieldProps as MuiTextFieldProps,
+	styled,
 } from '@mui/material'
 import { omit } from 'lodash'
 
@@ -15,6 +16,12 @@ interface TextFieldProps extends MuiTextFieldProps {
 	labelPlacement?: 'bottom' | 'end' | 'start' | 'top' | undefined
 }
 
+const StyledTextField = styled(MuiTextField)({
+	root: {
+		'& label': {},
+	},
+})
+
 const TextField: FC<TextFieldProps> = ({
 	freeSolo = false,
 	fullWidth = false,
@@ -23,7 +30,7 @@ const TextField: FC<TextFieldProps> = ({
 	...props
 }) => {
 	return freeSolo ? (
-		<MuiTextField {...props} />
+		<StyledTextField {...props} InputLabelProps={{ shrink: true }} />
 	) : (
 		<FormControl>
 			<FormGroup>
@@ -31,7 +38,12 @@ const TextField: FC<TextFieldProps> = ({
 					sx={{ justifyContent: 'space-between' }}
 					label={props.label ?? null}
 					labelPlacement={labelPlacement}
-					control={<MuiTextField {...omit(props, 'label')} />}
+					control={
+						<StyledTextField
+							InputLabelProps={{ sx: { fontSize: '1.6vh', top: '-1.6vh', '&.MuiInputLabel-shrink': { top: 0 } } }}
+							{...omit(props, ['label'])}
+						/>
+					}
 				/>
 				<FormHelperText>{helperText}</FormHelperText>
 			</FormGroup>

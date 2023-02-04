@@ -1,5 +1,5 @@
-import appConfig, { AppConfig } from './config'
-import appTheme from './appTheme'
+import userConfig, { UserConfig } from './userConfig'
+import appConfig, { AppConfig } from './appConfig'
 import availableThemes, { AvailableThemes } from './availableTheme'
 import eventLocations, { EventLocations } from './eventLocation'
 import locales, { Locales } from './locales'
@@ -10,7 +10,6 @@ import user, { User } from './user'
 
 export interface AppState {
 	appConfig: AppConfig
-	appTheme: string
 	availableThemes?: AvailableThemes
 	connectedUser?: User
 	eventLocations?: EventLocations
@@ -18,11 +17,11 @@ export interface AppState {
 	selectedContexts?: SelectedContexts
 	sports?: Sports
 	sportEvents?: SportEvents
+	userConfig: UserConfig
 }
 
 export const reducers = {
 	appConfig,
-	appTheme,
 	availableThemes,
 	connectedUser: user,
 	eventLocations,
@@ -30,4 +29,5 @@ export const reducers = {
 	selectedContexts,
 	sports,
 	sportEvents,
+	userConfig,
 }

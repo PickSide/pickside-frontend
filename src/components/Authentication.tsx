@@ -1,13 +1,13 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Box, Tab } from '@mui/material'
+import { Alert, Box, Tab } from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
 import { LoginForm, SignUpForm } from 'widgets'
 
 const Authentication: FC<any> = ({ ...props }) => {
 	const { t } = useTranslation()
 
-	const [value, setValue] = React.useState('login')
+	const [value, setValue] = useState('login')
 
 	const handleChange = (event: React.SyntheticEvent, newValue: string) => {
 		setValue(newValue)

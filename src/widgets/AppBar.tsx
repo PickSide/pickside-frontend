@@ -1,6 +1,6 @@
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Grid, IconButton, ListItemIcon, MenuItem, Typography } from '@mui/material'
 import { AccountCircle, Home, Login, Logout, Person, Settings } from '@mui/icons-material'
 
@@ -13,9 +13,9 @@ import { useAuth } from 'hooks'
 
 const AppBar: FC<any> = ({ ...props }) => {
 	const dispatch = useDispatch()
-	const { t } = useTranslation()
 	const navigate = useNavigate()
 	const { setAuthConfig } = useAuth()
+	const { t } = useTranslation()
 
 	const connectedUser = useSelector((state: AppState) => state.connectedUser)
 

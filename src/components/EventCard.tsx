@@ -16,6 +16,8 @@ import { Dialog } from 'components'
 import { ConfirmRegisterEventForm } from 'widgets'
 import { SportEvent } from 'state/sportEvent'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import { AppState } from 'state'
 
 interface EventCardProps {
 	event: SportEvent
@@ -24,7 +26,14 @@ interface EventCardProps {
 const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 	const { t } = useTranslation()
 
+	const connectedUser = useSelector((state: AppState) => state.connectedUser)
+
 	const [openConfirmRegisterDialog, setOpenConfirmRegisterDialog] = useState<boolean>(false)
+
+	const disableEvent = useMemo(
+		() => (connectedUser?.id && event.participants?.includes(connectedUser?.id)) || !connectedUser || false,
+		[event, connectedUser],
+	)
 
 	const combineAddress = useMemo(
 		() => `${event.location?.streetName} ${event.location?.city} ${event.location?.zipCode}`,
@@ -52,7 +61,6 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 				<ConfirmRegisterEventForm event={event} onClose={() => setOpenConfirmRegisterDialog(false)} />
 			</Dialog>
 			<MuiCard>
-				{/* <MuiCardMedia width={580} height={320} component="img" alt="placeholder" image="/monkey.jpeg" /> */}
 				<MuiCardContent>
 					<Grid container>
 						<Grid item container direction="column" xs={8} rowSpacing={3}>
@@ -70,7 +78,7 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 								</Grid>
 								<Grid item>
 									<Typography>
-										{event.numberOfRegisteredPlayers}/{event.maxPlayersCapacity}
+										{event.participants?.length}/{event.maxPlayersCapacity}
 									</Typography>
 								</Grid>
 							</Grid>
@@ -90,7 +98,12 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 							</Grid>
 						</Grid>
 						<Grid item container justifyContent="center" alignItems="center" xs={4}>
-							<Button variant="contained" size="medium" onClick={() => setOpenConfirmRegisterDialog(true)}>
+							<Button
+								variant="contained"
+								size="medium"
+								disabled={disableEvent}
+								onClick={() => setOpenConfirmRegisterDialog(true)}
+							>
 								{t('Register')}
 							</Button>
 						</Grid>
