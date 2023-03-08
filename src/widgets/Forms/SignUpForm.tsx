@@ -65,7 +65,6 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 	const onSubmit = async (data) => {
 		const { username, password, message } = await dispatch<any>(
 			updateItem({
-				method: 'POST',
 				endpoint: 'users/create',
 				data: omit(data, ['confirmEmail', 'confirmPassword']),
 			}),

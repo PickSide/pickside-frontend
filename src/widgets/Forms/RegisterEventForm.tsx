@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { TextField } from 'components'
 import { SelectSports } from 'widgets'
-import { registerSportEvent } from 'state/sportEvent'
+import { createEvent, fetchEvents } from 'state/sportEvent'
 
 interface RegisterEventFormProps {
 	onClose: () => void
@@ -47,8 +47,9 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 		},
 	})
 
-	const onSubmit = (values) => {
-		dispatch<any>(registerSportEvent(values))
+	const onSubmit = async (values) => {
+		await dispatch<any>(createEvent(values))
+		await dispatch<any>(fetchEvents())
 		onClose()
 	}
 

@@ -1,5 +1,5 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
-import { fetchItems } from 'api'
+import { createItem } from 'api'
 
 export interface User {
 	id?: string
@@ -28,27 +28,25 @@ export const { setConnectedUser } = User.actions
 
 export const connectToPlatform =
 	(data: any) =>
-	async (dispatch: Dispatch): Promise<any> => {
-		const item = await fetchItems({
-			endpoint: 'auth',
-			method: 'POST',
-			type: 'AUTH',
-			data,
-		})(dispatch)
-		console.log(item)
-		if (item) {
-			const { accessToken, connectedUser } = item
+		async (dispatch: Dispatch): Promise<any> => {
+			const item = await createItem({
+				endpoint: 'auth',
+				data,
+				secure: false
+			})(dispatch)
+			if (item) {
+				const { accessToken, connectedUser } = item
 
-			dispatch(setConnectedUser(connectedUser))
+				dispatch(setConnectedUser(connectedUser))
 
-			return { accessToken, connectedUser }
+				return { accessToken, connectedUser }
+			}
 		}
-	}
 
 export const disconnectUser =
 	() =>
-	async (dispatch: Dispatch): Promise<any> => {
-		dispatch(setConnectedUser(null))
-	}
+		async (dispatch: Dispatch): Promise<any> => {
+			dispatch(setConnectedUser(null))
+		}
 
 export default User.reducer

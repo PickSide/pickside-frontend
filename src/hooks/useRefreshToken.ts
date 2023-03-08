@@ -9,7 +9,7 @@ interface UseRefreshTokenOutputs {
 
 const useRefreshToken = (): UseRefreshTokenOutputs => {
 	const { auth, setAuthConfig } = useAuth()
-	const { loading, value } = useAsync(async () => await lazyFetch({ method: 'GET', endpoint: 'refresh' }))
+	const { loading, value } = useAsync(async () => await lazyFetch({ endpoint: 'refresh' }))
 
 	const refresh = async () => {
 		// setConnectedUser &&

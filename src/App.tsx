@@ -1,16 +1,15 @@
 import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { NavbarWrapper, RequireAuth } from 'components'
 import { AppBar, FilterToolbar } from 'widgets'
 import { useTheme } from 'hooks'
-import { useDispatch, useSelector } from 'react-redux'
 import { AppState } from 'state'
 import { fetchAvailableThemes } from 'state/availableTheme'
 import { changeLanguage, changeTheme } from 'state/appConfig'
 import { fetchUserConfiguration } from 'state/userConfig'
-import { fetchSports } from 'state/sport'
 import { fetchEvents } from 'state/sportEvent'
 import { AuthProvider } from 'utils/context/AuthContext'
 
@@ -29,14 +28,10 @@ const App = () => {
 	const userConfig = useSelector((state: AppState) => state.userConfig)
 	const availableThemes = useSelector((state: AppState) => state.availableThemes)
 	const connectedUser = useSelector((state: AppState) => state.connectedUser)
-	const sports = useSelector((state: AppState) => state.sports)
 
 	useEffect(() => {
 		if (!availableThemes) {
 			dispatch<any>(fetchAvailableThemes())
-		}
-		if (!sports) {
-			dispatch<any>(fetchSports())
 		}
 		if (!userConfig) {
 			dispatch<any>(fetchUserConfiguration())
@@ -49,11 +44,11 @@ const App = () => {
 			dispatch<any>(changeTheme(userConfig?.defaultTheme?.value))
 			dispatch<any>(changeLanguage(userConfig?.locale))
 		}
-	}, [connectedUser, userConfig])
+	}, [connectedUser, dispatch, userConfig])
 
 	useEffect(() => {
 		i18n.changeLanguage(appConfig.lang)
-	}, [appConfig.lang])
+	}, [appConfig.lang ,i18n])
 
 	return (
 		<AuthProvider>

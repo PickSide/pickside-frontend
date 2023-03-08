@@ -22,15 +22,15 @@ export const { setSports } = Sport.actions
 
 export const fetchSports =
 	() =>
-	async (dispatch: Dispatch): Promise<any> => {
-		const items = await fetchItems({
-			endpoint: 'sports',
-			method: 'GET',
-		})(dispatch)
+		async (dispatch: Dispatch): Promise<any> => {
+			const items = await fetchItems({
+				endpoint: 'sports',
+				secure: false
+			})(dispatch)
 
-		if (items) {
-			dispatch(setSports(items))
+			if (items) {
+				dispatch(setSports(items))
+			}
 		}
-	}
 
 export default Sport.reducer
