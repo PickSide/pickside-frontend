@@ -1,15 +1,6 @@
 import React, { FC, useState, useMemo, useCallback } from 'react'
 import { EmojiEvents, DirectionsRun, LocationOn } from '@mui/icons-material'
-import {
-	Box,
-	Button,
-	Card as MuiCard,
-	CardMedia as MuiCardMedia,
-	CardContent as MuiCardContent,
-	Grid,
-	Link,
-	Typography,
-} from '@mui/material'
+import { Box, Button, Card as MuiCard, CardContent as MuiCardContent, Grid, Link, Typography } from '@mui/material'
 import { times } from 'lodash'
 
 import { Dialog } from 'components'
@@ -31,8 +22,8 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 	const [openConfirmRegisterDialog, setOpenConfirmRegisterDialog] = useState<boolean>(false)
 
 	const disableEvent = useMemo(
-		() => (connectedUser?.id && event.participants?.includes(connectedUser?.id)) || !connectedUser || false,
-		[event, connectedUser],
+		() => !connectedUser || event.participants?.includes(connectedUser.id!),
+		[connectedUser, event],
 	)
 
 	const combineAddress = useMemo(

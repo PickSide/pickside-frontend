@@ -2,7 +2,7 @@ import { FC, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
 import { Button, Container, DialogActions, Grid, Typography } from '@mui/material'
 import { SportEvent } from 'state/sportEvent'
-import { registerPlayerToSportEvent } from 'state/sportEvent'
+import { register } from 'state/sportEvent'
 import { useSelector } from 'react-redux'
 import { AppState } from 'state'
 import { useTranslation } from 'react-i18next'
@@ -23,7 +23,7 @@ const ConfirmRegisterEventForm: FC<ConfirmRegisterEventFormProps> = ({ event, on
 	)
 
 	const onRegisterEvent = () => {
-		dispatch<any>(registerPlayerToSportEvent(event.id))
+		dispatch<any>(register(event))
 		onClose()
 	}
 
