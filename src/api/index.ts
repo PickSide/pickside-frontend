@@ -24,25 +24,39 @@ export const lazyFetch = async ({ endpoint, id, secure = true }: RequestProps<an
 	return await axiosInstance(secure).get(url)
 }
 
-export const fetchItem = ({ endpoint, id, secure = true }: RequestProps<any>) => async (dispatch: Dispatch): Promise<any> => {
-	const url = Url(endpoint, id)
-	return await axiosInstance(secure).get(url).then((response) => response.data)
-}
+export const fetchItem =
+	({ endpoint, id, secure = true }: RequestProps<any>) =>
+	async (dispatch: Dispatch): Promise<any> => {
+		const url = Url(endpoint, id)
+		return await axiosInstance(secure)
+			.get(url)
+			.then((response) => response.data)
+	}
 
-export const fetchItems = ({ endpoint, id, params, queries, secure = true }: RequestProps<any>) => async (dispatch: Dispatch): Promise<any> => {
-	const url = Url(endpoint, id, params, queries)
-	return await axiosInstance(secure).get(url).then((response) => response.data)
-}
+export const fetchItems =
+	({ endpoint, id, params, queries, secure = true }: RequestProps<any>) =>
+	async (dispatch: Dispatch): Promise<any> => {
+		const url = Url(endpoint, id, params, queries)
+		return await axiosInstance(secure)
+			.get(url)
+			.then((response) => response.data)
+	}
 
-export const updateItem = ({ endpoint, id, data, secure = true }: RequestProps<any>) => async (dispatch: Dispatch): Promise<any> => {
-	const url = Url(endpoint, id)
-	return await axiosInstance(secure).put(url, { data })
-}
+export const updateItem =
+	({ endpoint, id, data, secure = true }: RequestProps<any>) =>
+	async (dispatch: Dispatch): Promise<any> => {
+		const url = Url(endpoint, id)
+		return await axiosInstance(secure).put(url, { data })
+	}
 
-export const createItem = ({ endpoint, id, data, secure = true }: RequestProps<any>) => async (dispatch: Dispatch): Promise<any> => {
-	const url = Url(endpoint, id)
-	return await axiosInstance(secure).post(url, { data }).then((response) => response.data)
-}
+export const createItem =
+	({ endpoint, id, data, secure = true }: RequestProps<any>) =>
+	async (dispatch: Dispatch): Promise<any> => {
+		const url = Url(endpoint, id)
+		return await axiosInstance(secure)
+			.post(url, { data })
+			.then((response) => response.data)
+	}
 
 function axiosInstance(secure: boolean) {
 	if (secure) {
@@ -66,12 +80,7 @@ function getQueryString(queries: any) {
 		.join('&')
 }
 
-
-
-function handleStatusCodeReturn({ }) {
-
-}
-
+function handleStatusCodeReturn({}) {}
 
 export default axios.create({
 	baseURL: BASE_URL,
@@ -82,7 +91,6 @@ export const axiosNonSecure = axios.create({
 	baseURL: BASE_URL,
 	headers: HEADERS,
 })
-
 
 export const axiosPrivate = axios.create({
 	baseURL: BASE_URL,

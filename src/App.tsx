@@ -1,11 +1,12 @@
 import { useEffect } from 'react'
+import { useAsync } from 'react-use'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { NavbarWrapper, RequireAuth } from 'components'
 import { AppBar, FilterToolbar } from 'widgets'
-import { useTheme } from 'hooks'
+import { useLocalStorage, useTheme } from 'hooks'
 import { AppState } from 'state'
 import { fetchAvailableThemes } from 'state/availableTheme'
 import { changeLanguage, changeTheme } from 'state/appConfig'
@@ -29,26 +30,30 @@ const App = () => {
 	const availableThemes = useSelector((state: AppState) => state.availableThemes)
 	const connectedUser = useSelector((state: AppState) => state.connectedUser)
 
-	useEffect(() => {
-		if (!availableThemes) {
-			dispatch<any>(fetchAvailableThemes())
-		}
-		if (!userConfig) {
-			dispatch<any>(fetchUserConfiguration())
-		}
-		dispatch<any>(fetchEvents())
+	const { loading } = useAsync(async () => {
+		dispatch<any>(fetchUserConfiguration)
 	}, [])
 
-	useEffect(() => {
-		if (connectedUser?.id === userConfig?.userId) {
-			dispatch<any>(changeTheme(userConfig?.defaultTheme?.value))
-			dispatch<any>(changeLanguage(userConfig?.locale))
-		}
-	}, [connectedUser, dispatch, userConfig])
+	// useEffect(() => {
+	// 	if (!availableThemes) {
+	// 		dispatch<any>(fetchAvailableThemes())
+	// 	}
+	// 	if (!userConfig) {
+	// 		dispatch<any>(fetchUserConfiguration())
+	// 	}
+	// 	dispatch<any>(fetchEvents())
+	// }, [])
 
-	useEffect(() => {
-		i18n.changeLanguage(appConfig.lang)
-	}, [appConfig.lang ,i18n])
+	// useEffect(() => {
+	// 	if (connectedUser?.id === userConfig?.userId) {
+	// 		dispatch<any>(changeTheme(userConfig?.defaultTheme?.value))
+	// 		dispatch<any>(changeLanguage(userConfig?.locale))
+	// 	}
+	// }, [connectedUser, dispatch, userConfig])
+
+	// useEffect(() => {
+	// 	i18n.changeLanguage(appConfig.lang)
+	// }, [appConfig.lang, i18n])
 
 	return (
 		<AuthProvider>
