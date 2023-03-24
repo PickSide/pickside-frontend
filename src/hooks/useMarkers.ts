@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo } from 'react'
+import { useMemo } from 'react'
 import { MarkerProps } from '@react-google-maps/api'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppState } from 'state'

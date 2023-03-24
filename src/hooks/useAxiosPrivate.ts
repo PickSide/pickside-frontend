@@ -1,16 +1,20 @@
 import { useEffect } from 'react'
-import { useAuth, useRefreshToken } from 'hooks'
+import { useLocalStorage, useRefreshToken } from 'hooks'
 import { axiosPrivate } from 'api'
+import { ACCESS_TOKEN } from 'utils/constants'
+import { useAccountContext } from 'context/AccountContext'
 
 const useAxiosPrivate = () => {
+	const { get } = useLocalStorage()
+	const { user } = useAccountContext()
 	const { refresh } = useRefreshToken()
-	const { auth } = useAuth()
 
 	useEffect(() => {
+		const accessToken = get(ACCESS_TOKEN)
 		const requestIntercept = axiosPrivate.interceptors.request.use(
 			(config) => {
 				if (config.headers && !config.headers['Authorization']) {
-					config.headers['Authorization'] = `Bearer ${auth?.connectedUser?.accessToken}`
+					config.headers['Authorization'] = `Bearer ${accessToken}`
 				}
 				return config
 			},
@@ -35,7 +39,7 @@ const useAxiosPrivate = () => {
 			axiosPrivate.interceptors.request.eject(requestIntercept)
 			axiosPrivate.interceptors.response.eject(responseIntercept)
 		}
-	}, [auth, refresh])
+	}, [get, refresh])
 }
 
 export default useAxiosPrivate

@@ -1,6 +1,5 @@
 import { useAsync } from 'react-use'
 import { lazyFetch } from 'api'
-import { useAuth } from 'hooks'
 
 interface UseRefreshTokenOutputs {
 	loading: boolean
@@ -8,8 +7,7 @@ interface UseRefreshTokenOutputs {
 }
 
 const useRefreshToken = (): UseRefreshTokenOutputs => {
-	const { auth, setAuthConfig } = useAuth()
-	const { loading, value } = useAsync(async () => await lazyFetch({ endpoint: 'refresh' }))
+	const { loading, value } = useAsync(async () => await lazyFetch({ endpoint: 'token' }))
 
 	const refresh = async () => {
 		// setConnectedUser &&

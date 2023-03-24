@@ -1,16 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export interface AppTheme {
-	theme?: 'dark' | 'light'
-}
+type Theme = 'dark' | 'light'
 
 const AppConfig = createSlice({
-	initialState: {
-		theme: 'light',
-	} as AppTheme,
+	initialState: 'light' as unknown as Theme,
 	name: 'appConfig',
 	reducers: {
-		setAppTheme: (state, action: PayloadAction<AppTheme>) => (state = { ...state, ...action.payload }),
+		setAppTheme: (state, action: PayloadAction<Theme>) => (state = action.payload),
 	},
 })
 

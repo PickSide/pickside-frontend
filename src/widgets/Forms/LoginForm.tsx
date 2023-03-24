@@ -4,9 +4,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Button, Container, DialogActions, Grid, TextField } from '@mui/material'
 
-import { LOCAL_AUTH_KEY } from 'utils/constants'
-import { login } from 'state/user'
-import { useLocalStorage } from 'hooks'
+import { useAuth, useLocalStorage } from 'hooks'
 
 interface LoginFormProps {
 	onClose: () => void
@@ -18,6 +16,7 @@ type FormData = {
 }
 
 const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
+	const { login } = useAuth()
 	const dispatch = useDispatch()
 	const { set: setLocalStorage } = useLocalStorage()
 	const { t } = useTranslation()
@@ -30,8 +29,8 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 	})
 
 	const onSubmit = async (values: any) => {
-		const data = await dispatch<any>(login(values))
-		setLocalStorage(LOCAL_AUTH_KEY, data)
+		await dispatch<any>(login(values))
+		//setLocalStorage(LOCAL_AUTH_KEY, data)
 		onClose()
 	}
 

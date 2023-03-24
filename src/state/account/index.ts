@@ -1,5 +1,4 @@
-import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
-import { createItem } from 'api'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface Account {
 	id?: string
@@ -38,21 +37,3 @@ const Account = createSlice({
 export const { setAccount } = Account.actions
 
 export default Account.reducer
-
-export const fetchAccountConfiguration =
-	(data: any) =>
-		async (dispatch: Dispatch): Promise<any> => {
-			const item = await createItem({
-				endpoint: 'auth',
-				data,
-				secure: false,
-			})(dispatch)
-			if (item) {
-			}
-		}
-
-export const disconnectUser =
-	() =>
-		async (dispatch: Dispatch): Promise<any> => {
-			dispatch(setAccount(null))
-		}

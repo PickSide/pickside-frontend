@@ -1,5 +1,4 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
-import { User } from 'state/user'
 import { Sport } from 'state/sport'
 import { Location } from 'types'
 import { createItem, fetchItems, updateItem } from 'api'
@@ -16,7 +15,7 @@ export interface SportEvent {
 	location: Location
 	maxPlayersCapacity: number
 	numberOfRegisteredPlayers: number
-	organiser?: User
+	organiser?: string
 	participants?: string[]
 	pricePerUnit?: number
 	registeredUserIds?: string[]
@@ -47,7 +46,7 @@ export const { addEvent, updateEvent, setEvents } = SportEvent.actions
 export const createEvent =
 	(data: any) =>
 		async (dispatch: Dispatch): Promise<any> => {
-			const userId = store.getState().connectedUser?.id
+			const userId = store.getState().account?.id
 			const updatedItem = await createItem({
 				endpoint: 'events',
 				data: { ...data, ...{ organiser: userId } },
@@ -75,7 +74,7 @@ export const fetchEvents =
 export const register =
 	(event: SportEvent) =>
 		async (dispatch: Dispatch): Promise<any> => {
-			const userId = store.getState().connectedUser?.id
+			const userId = store.getState().account?.id
 			const updatedItem = await updateItem({
 				endpoint: 'events',
 				id: event.id,

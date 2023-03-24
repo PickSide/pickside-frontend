@@ -1,3 +1,4 @@
+import useAuth from './useAuth'
 import useAxiosPrivate from './useAxiosPrivate'
 import useConnectedUserPosition from './useConnectedUserPosition'
 import useEnvVariables from './useEnvVariables'
@@ -8,6 +9,7 @@ import useTheme from './useTheme'
 import useRefreshToken from './useRefreshToken'
 
 export {
+	useAuth,
 	useAxiosPrivate,
 	useConnectedUserPosition,
 	useEnvVariables,

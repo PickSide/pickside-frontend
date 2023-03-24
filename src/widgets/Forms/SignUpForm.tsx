@@ -4,10 +4,8 @@ import { Alert, Button, DialogActions, Grid, MenuItem, TextField, Select, Contai
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { updateItem } from 'api'
-import { connectToPlatform } from 'state/user'
-import { omit } from 'lodash'
-import { AuthConfig } from 'utils/context/AuthContext'
 import { useAuth } from 'hooks'
+import { omit } from 'lodash'
 
 interface SignUpFormProps {
 	onClose: () => void
@@ -25,7 +23,7 @@ type FormData = {
 }
 
 const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
-	const { setAuthConfig } = useAuth()
+	const { login } = useAuth()
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 	const {
@@ -71,9 +69,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 		)
 
 		if (username && username) {
-			const { accessToken, connectedUser } = await dispatch<any>(connectToPlatform({ username, password }))
-			const auth = { accessToken, connectedUser } as AuthConfig
-			setAuthConfig(auth)
+			await dispatch<any>(login({ username, password }))
 			onClose()
 		} else {
 			setApiMessage(message)

@@ -1,7 +1,5 @@
-import { useAsync } from 'react-use'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { NavbarWrapper, RequireAuth } from 'components'
 import { AppBar, FilterToolbar } from 'widgets'
@@ -24,14 +22,14 @@ const App = () => {
 		<AccountContext.Provider value={{ user }}>
 			<ThemeProvider theme={palette}>
 				<CssBaseline />
-				<NavbarWrapper>
-					<AppBar />
-				</NavbarWrapper>
 				<BrowserRouter>
+					<NavbarWrapper>
+						<AppBar />
+					</NavbarWrapper>
+					<FilterToolbar />
 					<Routes>
 						<Route path="/" element={<HomePage />} />
 						<Route element={<RequireAuth />}>
-							<FilterToolbar />
 							<Route path="/user/" element={<UserPage />}>
 								<Route path="app-settings" element={<AppSettingsPage />} />
 								<Route path="history" element={<HistoryPage />} />

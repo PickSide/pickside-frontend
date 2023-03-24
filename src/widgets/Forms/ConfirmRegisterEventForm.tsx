@@ -15,10 +15,10 @@ interface ConfirmRegisterEventFormProps {
 const ConfirmRegisterEventForm: FC<ConfirmRegisterEventFormProps> = ({ event, onClose, ...props }) => {
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
-	const connectedUser = useSelector((state: AppState) => state.connectedUser)
+	const connectedUser = useSelector((state: AppState) => state.account)
 
 	const isLevelLessThanRequired = useMemo(
-		() => connectedUser && connectedUser.level && connectedUser.level < event.levelRequired,
+		() => connectedUser?.profile?.level || -1 < event.levelRequired || false,
 		[connectedUser, event],
 	)
 

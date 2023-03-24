@@ -1,6 +1,6 @@
 import account, { Account } from './account'
 import appLocale, { AppLocal } from './appLocale'
-import appTheme, { AppTheme } from './appTheme'
+import appTheme from './appTheme'
 import eventLocations, { EventLocations } from './eventLocation'
 import locales, { Locales } from './locales'
 import selectedContexts, { SelectedContexts } from './selectedContext'
@@ -10,9 +10,9 @@ import sportEvents, { SportEvents } from './sportEvent'
 export interface AppState {
 	account?: Account
 	appLocale?: AppLocal
-	appTheme?: AppTheme
+	appTheme?: string
 	eventLocations?: EventLocations
-	locale?: Locales
+	locales?: Locales
 	selectedContexts?: SelectedContexts
 	sports?: Sports
 	sportEvents?: SportEvents

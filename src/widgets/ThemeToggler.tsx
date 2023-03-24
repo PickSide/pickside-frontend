@@ -1,9 +1,7 @@
-import { useSelector } from 'react-redux'
 import { Brightness2 } from '@mui/icons-material'
 
 import { Switch } from 'components'
 import { useTheme } from 'hooks'
-import { AppState } from 'state'
 import { useTranslation } from 'react-i18next'
 
 const ThemeToggler = () => {

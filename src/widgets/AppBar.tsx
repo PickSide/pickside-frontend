@@ -7,10 +7,11 @@ import { AccountCircle, Home, Login, Logout, Person, Settings } from '@mui/icons
 import { Dialog, Popover } from 'components'
 import { Authentication, LanguageSwitcher, ThemeToggler } from 'widgets'
 import { AppState } from 'state'
-import { disconnectUser } from 'state/account'
+import { useAuth } from 'hooks'
 import { useTranslation } from 'react-i18next'
 
 const AppBar: FC<any> = ({ ...props }) => {
+	const { logout } = useAuth()
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
@@ -39,7 +40,7 @@ const AppBar: FC<any> = ({ ...props }) => {
 			label: t('Logout'),
 			icon: <Logout fontSize="small" />,
 			action: async () => {
-				await dispatch<any>(disconnectUser())
+				await dispatch<any>(logout())
 				navigate('/')
 			},
 		},

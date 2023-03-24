@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { AppState } from 'state'
 
 const useMapStyles = (): { mapStyles } => {
-	const theme = useSelector((state: AppState) => state.appConfig.theme)
+	const theme = useSelector((state: AppState) => state.appTheme)
 
 	const [mapStyles, setMapStyles] = useState<any>([])
 
