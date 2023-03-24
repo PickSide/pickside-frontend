@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Autocomplete as MuiAutocomplete, AutocompleteProps, TextField } from '@mui/material'
+import { Autocomplete as MuiAutocomplete, TextField } from '@mui/material'
 import { Search } from '@mui/icons-material'
 
 const Autocomplete: FC<any> = ({ ...props }) => {

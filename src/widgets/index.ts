@@ -1,4 +1,6 @@
 import AppBar from './AppBar'
+import Authentication from './Authentication'
+import EventCard from './EventCard'
 import EventList from './EventList'
 import FilterToolbar from './FilterToolbar'
 import LanguageSwitcher from './LanguageSwitcher'
@@ -12,6 +14,8 @@ import SignUpForm from './Forms/SignUpForm'
 
 export {
 	AppBar,
+	Authentication,
+	EventCard,
 	EventList,
 	FilterToolbar,
 	LanguageSwitcher,

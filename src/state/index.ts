@@ -1,33 +1,30 @@
-import userConfig, { UserConfig } from './userConfig'
-import appConfig, { AppConfig } from './appConfig'
-import availableThemes, { AvailableThemes } from './availableTheme'
+import account, { Account } from './account'
+import appLocale, { AppLocal } from './appLocale'
+import appTheme, { AppTheme } from './appTheme'
 import eventLocations, { EventLocations } from './eventLocation'
 import locales, { Locales } from './locales'
 import selectedContexts, { SelectedContexts } from './selectedContext'
 import sports, { Sports } from './sport'
 import sportEvents, { SportEvents } from './sportEvent'
-import user, { User } from './user'
 
 export interface AppState {
-	appConfig: AppConfig
-	availableThemes?: AvailableThemes
-	connectedUser?: User
+	account?: Account
+	appLocale?: AppLocal
+	appTheme?: AppTheme
 	eventLocations?: EventLocations
-	locales?: Locales
+	locale?: Locales
 	selectedContexts?: SelectedContexts
 	sports?: Sports
 	sportEvents?: SportEvents
-	userConfig: UserConfig
 }
 
 export const reducers = {
-	appConfig,
-	availableThemes,
-	connectedUser: user,
+	account,
+	appLocale,
+	appTheme,
 	eventLocations,
 	locales,
 	selectedContexts,
 	sports,
 	sportEvents,
-	userConfig,
 }

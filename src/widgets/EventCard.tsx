@@ -17,7 +17,7 @@ interface EventCardProps {
 const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 	const { t } = useTranslation()
 
-	const connectedUser = useSelector((state: AppState) => state.connectedUser)
+	const connectedUser = useSelector((state: AppState) => state.account)
 
 	const [openConfirmRegisterDialog, setOpenConfirmRegisterDialog] = useState<boolean>(false)
 

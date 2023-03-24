@@ -1,12 +1,13 @@
 import { FC } from 'react'
 import { useLocation, Outlet, Navigate } from 'react-router-dom'
-import { useAuth } from 'hooks'
+import { useSelector } from 'react-redux'
+import { AppState } from 'state'
 
 const RequireAuth: FC<any> = () => {
-	const { auth } = useAuth()
+	const user = useSelector((state: AppState) => state.account)
 	const location = useLocation()
 
-	return auth?.connectedUser ? <Outlet /> : <Navigate to="/" state={{ from: location }} replace />
+	return !!user ? <Outlet /> : <Navigate to="/" state={{ from: location }} replace />
 }
 
 export default RequireAuth

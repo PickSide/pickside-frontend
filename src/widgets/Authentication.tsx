@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, Box, Tab } from '@mui/material'
+import { Box, Tab } from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
 import { LoginForm, SignUpForm } from 'widgets'
 

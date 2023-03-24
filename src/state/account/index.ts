@@ -3,25 +3,28 @@ import { createItem } from 'api'
 
 export interface Account {
 	id?: string
-	sessionUser?: ConnectedUser
+	email?: string
+	username?: string
+	password?: string
+	configs?: IAccountConfigs
+	profile?: IAccountProfile
+}
+
+export interface IAccountConfigs {
 	defaultSport?: string
 	darkModeDefault?: boolean
 	locationTracking?: boolean
 }
 
-export interface ConnectedUser {
-	id?: string
+export interface IAccountProfile {
 	firstName?: string
 	lastName?: string
-	email?: string
-	phone?: string
-	groupIds?: string[]
-	area?: string
-	sexe?: 'male' | 'female'
-	eventIds?: string[]
 	level?: number
-	participated?: number
-	organized?: number
+	localeRegion?: string
+	matchOrganized?: number
+	matchPlayed?: number
+	reliability?: number
+	sexe?: 'male' | 'female'
 }
 
 const Account = createSlice({
@@ -34,20 +37,22 @@ const Account = createSlice({
 
 export const { setAccount } = Account.actions
 
+export default Account.reducer
+
 export const fetchAccountConfiguration =
 	(data: any) =>
-	async (dispatch: Dispatch): Promise<any> => {
-		const item = await createItem({
-			endpoint: 'auth',
-			data,
-			secure: false,
-		})(dispatch)
-		if (item) {
+		async (dispatch: Dispatch): Promise<any> => {
+			const item = await createItem({
+				endpoint: 'auth',
+				data,
+				secure: false,
+			})(dispatch)
+			if (item) {
+			}
 		}
-	}
 
 export const disconnectUser =
 	() =>
-	async (dispatch: Dispatch): Promise<any> => {
-		dispatch(setConnectedUser(null))
-	}
+		async (dispatch: Dispatch): Promise<any> => {
+			dispatch(setAccount(null))
+		}

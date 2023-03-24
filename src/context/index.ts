@@ -1,3 +1,3 @@
-import AuthContext from './AuthContext'
+import AccountContext from './AccountContext'
 
-export { AuthContext }
+export { AccountContext }

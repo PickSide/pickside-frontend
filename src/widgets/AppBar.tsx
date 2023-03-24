@@ -4,20 +4,18 @@ import { useNavigate } from 'react-router-dom'
 import { Grid, IconButton, ListItemIcon, MenuItem, Typography } from '@mui/material'
 import { AccountCircle, Home, Login, Logout, Person, Settings } from '@mui/icons-material'
 
-import { Authentication, Dialog, Popover } from 'components'
-import { LanguageSwitcher, ThemeToggler } from 'widgets'
+import { Dialog, Popover } from 'components'
+import { Authentication, LanguageSwitcher, ThemeToggler } from 'widgets'
 import { AppState } from 'state'
-import { disconnectUser } from 'state/user'
+import { disconnectUser } from 'state/account'
 import { useTranslation } from 'react-i18next'
-import { useAuth } from 'hooks'
 
 const AppBar: FC<any> = ({ ...props }) => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
-	const { setAuthConfig } = useAuth()
 	const { t } = useTranslation()
 
-	const connectedUser = useSelector((state: AppState) => state.connectedUser)
+	const connectedUser = useSelector((state: AppState) => state.account)
 
 	const [openAuthenticationDialog, setOpenAuthenticationDialog] = useState<boolean>(false)
 
@@ -42,7 +40,6 @@ const AppBar: FC<any> = ({ ...props }) => {
 			icon: <Logout fontSize="small" />,
 			action: async () => {
 				await dispatch<any>(disconnectUser())
-				setAuthConfig({})
 				navigate('/')
 			},
 		},
