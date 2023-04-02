@@ -1,11 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { NavbarWrapper, RequireAuth } from 'components'
 import { AppBar, FilterToolbar } from 'widgets'
 import { useTheme } from 'hooks'
-import { AppState } from 'state'
-import { AccountContext } from 'context'
+import { AccountProvider } from 'context/AccountContext'
 
 import HomePage from './pages/Home/HomePage'
 import UserPage from './pages/User/UserPage'
@@ -16,10 +14,8 @@ import ProfileSettingsPage from './pages/User/Sections/ProfileSettings'
 const App = () => {
 	const { palette } = useTheme()
 
-	const user = useSelector((state: AppState) => state.account)
-
 	return (
-		<AccountContext.Provider value={{ user }}>
+		<AccountProvider>
 			<ThemeProvider theme={palette}>
 				<CssBaseline />
 				<BrowserRouter>
@@ -39,7 +35,7 @@ const App = () => {
 					</Routes>
 				</BrowserRouter>
 			</ThemeProvider>
-		</AccountContext.Provider>
+		</AccountProvider>
 	)
 }
 

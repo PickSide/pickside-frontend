@@ -1,3 +1,4 @@
+import useApi from './useApi'
 import useAuth from './useAuth'
 import useAxiosPrivate from './useAxiosPrivate'
 import useConnectedUserPosition from './useConnectedUserPosition'
@@ -9,6 +10,7 @@ import useTheme from './useTheme'
 import useRefreshToken from './useRefreshToken'
 
 export {
+	useApi,
 	useAuth,
 	useAxiosPrivate,
 	useConnectedUserPosition,

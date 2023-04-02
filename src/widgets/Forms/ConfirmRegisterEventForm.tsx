@@ -2,9 +2,9 @@ import { FC, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
 import { Button, Container, DialogActions, Grid, Typography } from '@mui/material'
 import { SportEvent } from 'state/sportEvent'
-import { register } from 'state/sportEvent'
 import { useSelector } from 'react-redux'
 import { AppState } from 'state'
+import { useApi } from 'hooks'
 import { useTranslation } from 'react-i18next'
 
 interface ConfirmRegisterEventFormProps {
@@ -13,6 +13,7 @@ interface ConfirmRegisterEventFormProps {
 }
 
 const ConfirmRegisterEventForm: FC<ConfirmRegisterEventFormProps> = ({ event, onClose, ...props }) => {
+	const { registerToActivity } = useApi()
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
 	const connectedUser = useSelector((state: AppState) => state.account)
@@ -23,7 +24,7 @@ const ConfirmRegisterEventForm: FC<ConfirmRegisterEventFormProps> = ({ event, on
 	)
 
 	const onRegisterEvent = () => {
-		dispatch<any>(register(event))
+		dispatch<any>(registerToActivity(event))
 		onClose()
 	}
 

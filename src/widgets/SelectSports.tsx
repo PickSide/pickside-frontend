@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { MenuItem } from '@mui/material'
 import { Select } from 'components'
 import { AppState } from 'state'
-import { fetchSports } from 'state/sport'
+import { useApi } from 'hooks'
 
 const SelectSports: FC<any> = ({ ...props }) => {
+	const { getSports } = useApi()
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 
@@ -15,7 +16,7 @@ const SelectSports: FC<any> = ({ ...props }) => {
 
 	const { loading } = useAsync(async () => {
 		if (!sports) {
-			dispatch<any>(fetchSports())
+			dispatch<any>(getSports())
 		}
 	}, [])
 

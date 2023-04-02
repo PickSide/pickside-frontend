@@ -4,11 +4,11 @@ import { useDispatch } from 'react-redux'
 import { Language } from '@mui/icons-material'
 import { Grid, IconButton, MenuItem } from '@mui/material'
 import { Popover } from 'components'
-import { useLocaleSwitcher } from 'hooks'
-import { fetchLocales } from 'state/locales'
+import { useApi, useLocaleSwitcher } from 'hooks'
 import '/node_modules/flag-icons/css/flag-icons.min.css'
 
 const LanguageSwitcher: FC<any> = ({ ...props }) => {
+	const { getLocales } = useApi()
 	const dispatch = useDispatch()
 	const { appLocale, changeLocale, locales } = useLocaleSwitcher()
 
@@ -18,9 +18,9 @@ const LanguageSwitcher: FC<any> = ({ ...props }) => {
 
 	useEffect(() => {
 		if (!locales) {
-			dispatch<any>(fetchLocales())
+			dispatch<any>(getLocales())
 		}
-	}, [])
+	}, [dispatch, getLocales, locales])
 
 	return (
 		<Popover

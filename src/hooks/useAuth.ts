@@ -1,14 +1,33 @@
-import { useCallback } from 'react'
-import { lazyFetch } from 'api'
-import { useEnvVariables } from 'hooks'
-import { ENV_VARIABLES } from 'utils/constants'
+import { Dispatch } from '@reduxjs/toolkit'
+import { login, logout } from 'api'
+import { useLocalStorage } from 'hooks'
+import { setAccount } from 'state/account'
 
-const useAuth = () => {
-    const { appEnv } = useEnvVariables()
-    const { authURL } = ENV_VARIABLES[appEnv]
-    const login = useCallback(async (data: any) => await lazyFetch({ baseUrl: authURL, endpoint: 'login', data }), [authURL])
-    const logout = useCallback(async () => await lazyFetch({ baseUrl: authURL, endpoint: 'logout' }), [authURL])
-    return { login, logout }
+interface UseAuthOutput {
+    login: (d: any) => (d: Dispatch) => Promise<any>
+    logout: () => (d: Dispatch) => Promise<any>
+}
+
+const useAuth = (): UseAuthOutput => {
+    const { remove, set } = useLocalStorage()
+
+    return {
+        login: (data: any) => async (dispatch: Dispatch): Promise<any> => {
+            const items = await login(data)(dispatch)
+
+            if (items) {
+                dispatch<any>(setAccount(items.user))
+                remove('user')
+                set('user', items)
+            }
+        },
+        logout: () => async (dispatch: Dispatch): Promise<any> => {
+            const items = await logout()(dispatch)
+            if (items) {
+                console.log(items)
+            }
+        }
+    }
 }
 
 export default useAuth

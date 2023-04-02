@@ -30,7 +30,6 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 
 	const onSubmit = async (values: any) => {
 		await dispatch<any>(login(values))
-		//setLocalStorage(LOCAL_AUTH_KEY, data)
 		onClose()
 	}
 

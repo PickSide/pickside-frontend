@@ -1,8 +1,6 @@
-import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Sport } from 'state/sport'
 import { Location } from 'types'
-import { createItem, fetchItems, updateItem } from 'api'
-import store from 'store'
 
 export interface SportEvents {
 	results?: SportEvent[]
@@ -38,55 +36,10 @@ const SportEvent = createSlice({
 			}
 			return state
 		},
+
 	},
 })
 
 export const { addEvent, updateEvent, setEvents } = SportEvent.actions
-
-export const createEvent =
-	(data: any) =>
-		async (dispatch: Dispatch): Promise<any> => {
-			const userId = store.getState().account?.id
-			const updatedItem = await createItem({
-				endpoint: 'events',
-				data: { ...data, ...{ organiser: userId } },
-				secure: false
-			})(dispatch)
-
-			if (updatedItem) {
-				dispatch(addEvent({ ...data, id: updatedItem.response.id }))
-			}
-		}
-
-export const fetchEvents =
-	() =>
-		async (dispatch: Dispatch): Promise<any> => {
-			const data = await fetchItems({
-				endpoint: 'events',
-				secure: false
-			})(dispatch)
-
-			if (data) {
-				dispatch(setEvents(data))
-			}
-		}
-
-export const register =
-	(event: SportEvent) =>
-		async (dispatch: Dispatch): Promise<any> => {
-			const userId = store.getState().account?.id
-			const updatedItem = await updateItem({
-				endpoint: 'events',
-				id: event.id,
-				data: { userId },
-				secure: false
-			})(dispatch)
-
-			if (updatedItem) {
-				dispatch(updateEvent(updatedItem.data.response))
-			}
-		}
-
-
 
 export default SportEvent.reducer
