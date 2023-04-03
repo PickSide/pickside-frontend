@@ -10,7 +10,7 @@ const AppLocal = createSlice({
 	} as AppLocal,
 	name: 'appLocale',
 	reducers: {
-		setLocal: (state, action: PayloadAction<AppLocal>) => (state = { ...state, ...action.payload }),
+		setLocal: (state, action: PayloadAction<AppLocal>) => (state = action.payload),
 	},
 })
 

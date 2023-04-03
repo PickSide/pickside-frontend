@@ -9,7 +9,7 @@ interface UseAuthOutput {
 }
 
 const useAuth = (): UseAuthOutput => {
-    const { remove, set } = useLocalStorage()
+    const { remove, get, set } = useLocalStorage()
 
     return {
         login: (data: any) => async (dispatch: Dispatch): Promise<any> => {
@@ -22,9 +22,10 @@ const useAuth = (): UseAuthOutput => {
             }
         },
         logout: () => async (dispatch: Dispatch): Promise<any> => {
-            const items = await logout()(dispatch)
+            const items = await logout(get('user'))(dispatch)
             if (items) {
-                console.log(items)
+                setAccount({})
+                remove('user')
             }
         }
     }

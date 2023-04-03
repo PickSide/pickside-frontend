@@ -76,7 +76,7 @@ export const login =
 		}
 
 export const logout =
-	() =>
+	(data: any) =>
 		async (dispatch: Dispatch): Promise<any> => {
 			return await axiosAuth
 				.post('/logout')

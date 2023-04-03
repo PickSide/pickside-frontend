@@ -27,12 +27,6 @@ export const AccountProvider: FC<any> = ({ children }) => {
 		}
 	}, [])
 
-	// useEffect(() => {
-	// 	if (!stateAccount &&) {
-	// 		dispatch<any>(setAccount(connectedAccount))
-	// 	}
-	// }, [stateAccount])
-
 	return <Context.Provider value={connectedAccount}>{children}</Context.Provider>
 }
 

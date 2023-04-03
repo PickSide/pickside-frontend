@@ -3,6 +3,7 @@ import Authentication from './Authentication'
 import EventCard from './EventCard'
 import EventList from './EventList'
 import FilterToolbar from './FilterToolbar'
+import GlobalAppStatusAlert from './GlobalAppStatusAlert'
 import LanguageSwitcher from './LanguageSwitcher'
 import SelectSports from './SelectSports'
 import ThemeToggler from './ThemeToggler'
@@ -18,6 +19,7 @@ export {
 	EventCard,
 	EventList,
 	FilterToolbar,
+	GlobalAppStatusAlert,
 	LanguageSwitcher,
 	SelectSports,
 	ThemeToggler,
