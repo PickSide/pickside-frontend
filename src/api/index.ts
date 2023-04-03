@@ -79,7 +79,7 @@ export const logout =
 	(data: any) =>
 		async (dispatch: Dispatch): Promise<any> => {
 			return await axiosAuth
-				.post('/logout')
+				.post('/logout', { data })
 				.then((response) => response.data)
 		}
 function axiosInstance(secure: boolean = false) {
