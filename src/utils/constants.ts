@@ -10,7 +10,7 @@ export const CONNECTED_ACCOUNT = 'pickside-account'
 
 // Env
 export const ENV_VARIABLES = {
-    development: {
-        authURL: 'localhost:4000'
-    }
-} 
+	development: {
+		authURL: 'localhost:4000',
+	},
+}

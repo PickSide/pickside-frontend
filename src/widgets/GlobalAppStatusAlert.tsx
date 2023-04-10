@@ -1,6 +1,7 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Alert, AlertTitle, Box, BoxProps, Slide, Typography } from '@mui/material'
+import { Alert, AlertTitle, Box, BoxProps, IconButton, Slide, Typography } from '@mui/material'
+import { Close } from '@mui/icons-material'
 import { styled } from '@mui/material/styles'
 
 import { AppState } from 'state'
@@ -19,10 +20,26 @@ const AlertBox = styled(Box)<BoxProps>(({ theme }) => {
 
 const GlobalAppStatusAlert: FC<any> = () => {
 	const appStatus = useSelector((state: AppState) => state.appStatus)
+	const [open, setOpen] = useState(!!appStatus)
+
 	return (
 		<AlertBox>
 			<Slide direction="down" in={!!appStatus} mountOnEnter unmountOnExit>
-				<Alert severity={appStatus?.status}>
+				<Alert
+					severity={appStatus?.status}
+					action={
+						<IconButton
+							aria-label="close"
+							color="inherit"
+							size="small"
+							onClick={() => {
+								setOpen(false)
+							}}
+						>
+							<Close fontSize="inherit" />
+						</IconButton>
+					}
+				>
 					<AlertTitle>{toPascalCase(appStatus?.status)} </AlertTitle>
 					<Typography>{appStatus?.message}</Typography>
 				</Alert>

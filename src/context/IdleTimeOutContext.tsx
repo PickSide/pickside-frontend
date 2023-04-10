@@ -21,10 +21,10 @@ export const IdleTimeOutProvider: FC<any> = ({ children }) => {
 	const checkIfUserIdle = () => {
 		const diff = get(IDLE_TIMER_KEY) - Date.now()
 		if (diff <= 0) {
-			dispatch<any>(setStatus({ status: 'error', message: t('Your session has expired. Please relogin!') }))
+			dispatch<any>(setStatus({ status: 'error', message: t('Your session has expired. Reload the page!') }))
 			dispatch<any>(logout())
 		} else if (diff > 0 && diff <= IDLE_WARNING_THRESHOLD) {
-			dispatch<any>(setStatus({ status: 'warning', message: t('Your session is expiring soon. Reload the page!') }))
+			dispatch<any>(setStatus({ status: 'warning', message: t('Your session is expiring soon.') }))
 		} else {
 			dispatch<any>(setStatus(null))
 		}

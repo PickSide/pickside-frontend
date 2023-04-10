@@ -28,60 +28,63 @@ interface RequestProps<T> {
 	secure?: boolean
 }
 
-export const lazyFetch = async ({ baseUrl, endpoint, id, secure = true, method = 'GET' }: RequestProps<any>): Promise<any> => {
+export const lazyFetch = async ({
+	baseUrl,
+	endpoint,
+	id,
+	secure = true,
+	method = 'GET',
+}: RequestProps<any>): Promise<any> => {
 	const url = Url(baseUrl, endpoint, id)
 	return await axiosInstance(secure).get(url)
 }
 
 export const fetchItem =
 	({ baseUrl, endpoint, id, secure = true }: RequestProps<any>) =>
-		async (dispatch: Dispatch): Promise<any> => {
-			const url = Url(baseUrl, endpoint, id)
-			return await axiosInstance(secure)
-				.get(url)
-				.then((response) => response.data)
-		}
+	async (dispatch: Dispatch): Promise<any> => {
+		const url = Url(baseUrl, endpoint, id)
+		return await axiosInstance(secure)
+			.get(url)
+			.then((response) => response.data)
+	}
 
 export const fetchItems =
 	({ baseUrl, endpoint, id, params, queries, secure = true }: RequestProps<any>) =>
-		async (dispatch: Dispatch): Promise<any> => {
-			const url = Url(baseUrl, endpoint, id, params, queries)
-			return await axiosInstance(secure)
-				.get(url)
-				.then((response) => response.data)
-		}
+	async (dispatch: Dispatch): Promise<any> => {
+		const url = Url(baseUrl, endpoint, id, params, queries)
+		return await axiosInstance(secure)
+			.get(url)
+			.then((response) => response.data)
+	}
 
 export const updateItem =
 	({ baseUrl, endpoint, id, data, secure = true }: RequestProps<any>) =>
-		async (dispatch: Dispatch): Promise<any> => {
-			const url = Url(baseUrl, endpoint, id)
-			return await axiosInstance(secure).put(url, { data })
-		}
+	async (dispatch: Dispatch): Promise<any> => {
+		const url = Url(baseUrl, endpoint, id)
+		return await axiosInstance(secure).put(url, { data })
+	}
 
 export const createItem =
 	({ baseUrl, endpoint, id, data, secure = true }: RequestProps<any>) =>
-		async (dispatch: Dispatch): Promise<any> => {
-			const url = Url(baseUrl, endpoint, id)
-			return await axiosInstance(secure)
-				.post(url, { data })
-				.then((response) => response.data)
-		}
+	async (dispatch: Dispatch): Promise<any> => {
+		const url = Url(baseUrl, endpoint, id)
+		return await axiosInstance(secure)
+			.post(url, { data })
+			.then((response) => response.data)
+	}
 
 export const login =
 	(data: any) =>
-		async (dispatch: Dispatch): Promise<any> => {
-			return await axiosAuth
-				.post('/login', { data })
-				.then((response) => response.data)
-		}
+	async (dispatch: Dispatch): Promise<any> => {
+		return await axiosAuth.post('/login', { data }).then((response) => response.data)
+	}
 
 export const logout =
 	(data: any) =>
-		async (dispatch: Dispatch): Promise<any> => {
-			return await axiosAuth
-				.post('/logout', { data })
-				.then((response) => response.data)
-		}
+	async (dispatch: Dispatch): Promise<any> => {
+		return await axiosAuth.post('/logout', { data }).then((response) => response.data)
+	}
+
 function axiosInstance(secure: boolean = false) {
 	if (secure) {
 		return axiosPrivate
@@ -90,7 +93,9 @@ function axiosInstance(secure: boolean = false) {
 }
 
 function Url(baseUrl, endpoint, id?, params?, queries?) {
-	const url = `${endpoint}${id ? `/${id}` : ''}${params ? `/${new URLSearchParams({ ...params })}` : ''}${queries ? `?${getQueryString(queries)}` : ''}`
+	const url = `${endpoint}${id ? `/${id}` : ''}${params ? `/${new URLSearchParams({ ...params })}` : ''}${
+		queries ? `?${getQueryString(queries)}` : ''
+	}`
 	return url
 }
 
@@ -118,4 +123,4 @@ export const axiosAuth = axios.create({
 	headers: AUTH_HEADERS,
 })
 
-function handleStatusCodeReturn({ }) { }
+function handleStatusCodeReturn({}) {}
