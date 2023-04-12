@@ -1,6 +1,6 @@
 import useApi from './useApi'
 import useAuth from './useAuth'
-import useAxiosPrivate from './useAxiosPrivate'
+import useCalls from './useCalls'
 import useConnectedUserPosition from './useConnectedUserPosition'
 import useEnvVariables from './useEnvVariables'
 import useLocaleSwitcher from './useLocaleSwitcher'
@@ -12,7 +12,7 @@ import useRefreshToken from './useRefreshToken'
 export {
 	useApi,
 	useAuth,
-	useAxiosPrivate,
+	useCalls,
 	useConnectedUserPosition,
 	useEnvVariables,
 	useLocaleSwitcher,

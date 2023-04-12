@@ -19,7 +19,7 @@ export const AccountProvider: FC<any> = ({ children }) => {
 	const { get } = useLocalStorage()
 
 	const stateAccount = useSelector((state: AppState) => state.account)
-	const [connectedAccount, setConnectedAccount] = useState(get('user'))
+	const [connectedAccount, setConnectedAccount] = useState(get('auth'))
 
 	useEffect(() => {
 		if (!!connectedAccount) {

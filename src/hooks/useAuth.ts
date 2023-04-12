@@ -1,7 +1,6 @@
-import { useEffect } from 'react'
 import { Dispatch } from '@reduxjs/toolkit'
-import { login, logout, axiosPrivate } from 'api'
-import { useLocalStorage, useRefreshToken } from 'hooks'
+import { useCalls, useLocalStorage } from 'hooks'
+import { AUTH_URL } from 'api'
 import { setAccount } from 'state/account'
 
 interface UseAuthOutput {
@@ -10,30 +9,30 @@ interface UseAuthOutput {
 }
 
 const useAuth = (): UseAuthOutput => {
+	const { postItem } = useCalls({ baseURL: AUTH_URL })
 	const { remove, get, set } = useLocalStorage()
-	const { refresh } = useRefreshToken()
 
 	return {
 		login:
 			(data: any) =>
-			async (dispatch: Dispatch): Promise<any> => {
-				const items = await login(data)(dispatch)
+				async (dispatch: Dispatch): Promise<any> => {
+					const items = await postItem({ endpoint: 'login', data })(dispatch)
 
-				if (items) {
-					dispatch<any>(setAccount(items.user))
-					remove('user')
-					set('user', items)
-				}
-			},
+					if (items) {
+						dispatch<any>(setAccount(items.user))
+						remove('auth')
+						set('auth', items)
+					}
+				},
 		logout:
 			() =>
-			async (dispatch: Dispatch): Promise<any> => {
-				const items = await logout(get('user'))(dispatch)
-				if (items) {
-					setAccount(null)
-					remove('user')
-				}
-			},
+				async (dispatch: Dispatch): Promise<any> => {
+					const items = await postItem({ endpoint: 'logout' })(dispatch)
+					if (items) {
+						dispatch<any>(setAccount(null))
+						remove('auth')
+					}
+				},
 	}
 }
 

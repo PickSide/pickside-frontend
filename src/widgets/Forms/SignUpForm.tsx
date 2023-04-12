@@ -3,8 +3,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { Alert, Button, DialogActions, Grid, MenuItem, TextField, Select, Container } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
-import { updateItem } from 'api'
-import { useAuth } from 'hooks'
+import { useAuth, useCalls } from 'hooks'
 import { omit } from 'lodash'
 
 interface SignUpFormProps {
@@ -24,6 +23,7 @@ type FormData = {
 
 const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 	const { login } = useAuth()
+	const { putItem } = useCalls()
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 	const {
@@ -62,7 +62,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 
 	const onSubmit = async (data) => {
 		const { username, password, message } = await dispatch<any>(
-			updateItem({
+			putItem({
 				endpoint: 'users/create',
 				data: omit(data, ['confirmEmail', 'confirmPassword']),
 			}),

@@ -1,10 +1,11 @@
 import { Dispatch } from '@reduxjs/toolkit'
-import { fetchItems, updateItem } from 'api'
 import { useSelector } from 'react-redux'
 import { AppState } from 'state'
 import { setLocales } from 'state/locales'
 import { setSports } from 'state/sport'
 import { setEvents, updateEvent, SportEvent } from 'state/sportEvent'
+import { useCalls } from 'hooks'
+import { API_URL } from 'api'
 
 interface UseApiOutput {
 	/* account */
@@ -24,74 +25,72 @@ interface UseApiOutput {
 }
 
 const useApi = (): UseApiOutput => {
+	const { getItems, putItem } = useCalls({ baseURL: API_URL })
+
 	const account = useSelector((state: AppState) => state.account)
+
 	return {
 		getActivities:
 			() =>
-			async (dispatch: Dispatch): Promise<any> => {
-				const data = await fetchItems({
-					endpoint: 'activities',
-					secure: false,
-				})(dispatch)
+				async (dispatch: Dispatch): Promise<any> => {
+					const data = await getItems({
+						endpoint: 'activities',
+					})(dispatch)
 
-				if (data) {
-					dispatch(setEvents(data))
-				}
-			},
+					if (data) {
+						dispatch(setEvents(data))
+					}
+				},
 		createActivity:
 			(event: SportEvent) =>
-			async (dispatch: Dispatch): Promise<any> => {
-				const updatedItem = await updateItem({
-					endpoint: 'events',
-					id: account?.id,
-					data: { userId: account?.id },
-					secure: false,
-				})(dispatch)
+				async (dispatch: Dispatch): Promise<any> => {
+					const updatedItem = await putItem({
+						endpoint: 'events',
+						id: account?.id,
+						data: { userId: account?.id },
+					})(dispatch)
 
-				if (updatedItem) {
-					dispatch(updateEvent(updatedItem.data.response))
-				}
-			},
+					if (updatedItem) {
+						dispatch(updateEvent(updatedItem.data.response))
+					}
+				},
 		registerToActivity:
 			(event: SportEvent) =>
-			async (dispatch: Dispatch): Promise<any> => {
-				const updatedItem = await updateItem({
-					endpoint: 'events',
-					id: event.id,
-					data: { userId: account?.id },
-					secure: false,
-				})(dispatch)
+				async (dispatch: Dispatch): Promise<any> => {
+					const updatedItem = await putItem({
+						endpoint: 'events',
+						id: event.id,
+						data: { userId: account?.id },
+					})(dispatch)
 
-				if (updatedItem) {
-					dispatch(updateEvent(updatedItem.data.response))
-				}
-			},
+					if (updatedItem) {
+						dispatch(updateEvent(updatedItem.data.response))
+					}
+				},
 
 		getLocales:
 			() =>
-			async (dispatch: Dispatch): Promise<any> => {
-				const items = await fetchItems({
-					endpoint: 'locales',
-					secure: false,
-				})(dispatch)
+				async (dispatch: Dispatch): Promise<any> => {
+					const items = await getItems({
+						endpoint: 'locales',
+					})(dispatch)
 
-				if (items) {
-					dispatch(setLocales(items))
-				}
-			},
+					if (items) {
+						dispatch(setLocales(items))
+					}
+				},
 
 		getSports:
 			() =>
-			async (dispatch: Dispatch): Promise<any> => {
-				const items = await fetchItems({
-					endpoint: 'sports',
-					secure: false,
-				})(dispatch)
+				async (dispatch: Dispatch): Promise<any> => {
+					const items = await getItems({
+						endpoint: 'sports',
+					})(dispatch)
 
-				if (items) {
-					dispatch(setSports(items))
-				}
-			},
+					if (items) {
+						dispatch(setSports(items))
+					}
+				},
 	}
 }
 export default useApi
