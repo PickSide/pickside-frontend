@@ -8,7 +8,6 @@ import { useEnvVariables, useMapStyles } from 'hooks'
 import useMarkers from 'hooks/useMarkers'
 
 const Map: FC<any> = ({ ...props }) => {
-	const dispatch = useDispatch()
 	const theme = useTheme()
 	const { markerProps } = useMarkers()
 	const { googleAPIKey } = useEnvVariables()
@@ -34,9 +33,9 @@ const Map: FC<any> = ({ ...props }) => {
 		googleMapsApiKey: '', //process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '',
 	})
 
-	const onClickMarker = useCallback((props, marker, e) => {
-		console.log(props, marker, e)
-	}, [])
+	// const onClickMarker = useCallback((props, marker, e) => {
+	// 	console.log(props, marker, e)
+	// }, [])
 
 	const ActivityMap = (): JSX.Element => {
 		return (

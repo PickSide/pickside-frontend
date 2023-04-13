@@ -1,28 +1,26 @@
 // https://www.iso.org/obp/ui/#search
 import { FC, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Language } from '@mui/icons-material'
 import { Grid, IconButton, MenuItem } from '@mui/material'
 import { Popover } from 'components'
-import { AppState } from 'state'
-import { changeLanguage } from 'state/appConfig'
-import { fetchLocales } from 'state/locales'
+import { useApi, useLocaleSwitcher } from 'hooks'
 import '/node_modules/flag-icons/css/flag-icons.min.css'
 
 const LanguageSwitcher: FC<any> = ({ ...props }) => {
+	const { getLocales } = useApi()
 	const dispatch = useDispatch()
-	const locales = useSelector((state: AppState) => state.locales)
-	const appConfig = useSelector((state: AppState) => state.appConfig)
+	const { appLocale, changeLocale, locales } = useLocaleSwitcher()
 
 	const handleClick = (value) => {
-		dispatch<any>(changeLanguage(value))
+		changeLocale(value)
 	}
 
 	useEffect(() => {
 		if (!locales) {
-			dispatch<any>(fetchLocales())
+			dispatch<any>(getLocales())
 		}
-	}, [])
+	}, [dispatch, getLocales, locales])
 
 	return (
 		<Popover
@@ -37,7 +35,7 @@ const LanguageSwitcher: FC<any> = ({ ...props }) => {
 					key={idx}
 					id={`locale-${locale.id}`}
 					value={locale.value}
-					disabled={appConfig?.lang === locale.value}
+					disabled={appLocale === locale.value}
 					onClick={() => handleClick(locale.value)}
 				>
 					<Grid container wrap="nowrap" columnSpacing={2}>

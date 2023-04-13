@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 
 const FilterToolbar: FC<any> = ({ ...props }) => {
 	const { t } = useTranslation()
-	const connectedUser = useSelector((state: AppState) => state.connectedUser)
+	const connectedUser = useSelector((state: AppState) => state.account)
 	const [openCreateNewEventDialog, setOpenCreateNewEventDialog] = useState<boolean>(false)
 
 	return (

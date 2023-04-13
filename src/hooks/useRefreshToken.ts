@@ -1,6 +1,6 @@
 import { useAsync } from 'react-use'
-import { lazyFetch } from 'api'
-import { useAuth } from 'hooks'
+import { useCalls } from 'hooks'
+import useLocalStorage from './useLocalStorage'
 
 interface UseRefreshTokenOutputs {
 	loading: boolean
@@ -8,21 +8,12 @@ interface UseRefreshTokenOutputs {
 }
 
 const useRefreshToken = (): UseRefreshTokenOutputs => {
-	const { auth, setAuthConfig } = useAuth()
-	const { loading, value } = useAsync(async () => await lazyFetch({ endpoint: 'refresh' }))
+	const { getItem } = useCalls()
+	const { loading, value } = useAsync(async () => await getItem({ endpoint: 'token' }))
+	const { get, set } = useLocalStorage()
 
 	const refresh = async () => {
-		// setConnectedUser &&
-		// 	setConnectedUser((prev) => {
-		// 		console.log(JSON.stringify(prev))
-		// 		console.log(value.data.accessToken)
-		// 		return {
-		// 			...prev,
-		// 			roles: value.data.roles,
-		// 			accessToken: value.data.accessToken,
-		// 		}
-		// 	})
-		return value.data.accessToken
+		get('auth')
 	}
 	return { loading, refresh }
 }

@@ -1,12 +1,10 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { useDispatch } from 'react-redux'
 import { useForm, Controller } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Button, Container, DialogActions, Grid, TextField } from '@mui/material'
 
-import { connectToPlatform } from 'state/user'
-import { useAuth } from 'hooks'
-import { AuthConfig } from 'utils/context/AuthContext'
+import { useAuth, useLocalStorage } from 'hooks'
 
 interface LoginFormProps {
 	onClose: () => void
@@ -18,9 +16,10 @@ type FormData = {
 }
 
 const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
+	const { login } = useAuth()
 	const dispatch = useDispatch()
+	const { set: setLocalStorage } = useLocalStorage()
 	const { t } = useTranslation()
-	const { setAuthConfig } = useAuth()
 
 	const { control, handleSubmit } = useForm<FormData>({
 		defaultValues: {
@@ -30,9 +29,7 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 	})
 
 	const onSubmit = async (values: any) => {
-		const { accessToken, connectedUser } = await dispatch<any>(connectToPlatform(values))
-		const auth = { accessToken, connectedUser } as AuthConfig
-		setAuthConfig(auth)
+		await dispatch<any>(login(values))
 		onClose()
 	}
 

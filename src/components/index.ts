@@ -1,7 +1,6 @@
-import Authentication from './Authentication'
+
 import Autocomplete from './Autocomplete'
 import DatePicker from './DatePicker'
-import EventCard from './EventCard'
 import Dialog from './Dialog'
 import Marker from './Marker'
 import NavbarWrapper from './NavbarWrapper'
@@ -15,10 +14,8 @@ import Switch from './Switch'
 import TextField from './TextField'
 
 export {
-	Authentication,
 	Autocomplete,
 	DatePicker,
-	EventCard,
 	Dialog,
 	Marker,
 	NavbarWrapper,

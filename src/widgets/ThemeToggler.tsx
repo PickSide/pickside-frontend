@@ -1,14 +1,15 @@
-import { useSelector } from 'react-redux'
+import { useContext } from 'react'
 import { Brightness2 } from '@mui/icons-material'
-
 import { Switch } from 'components'
-import { useTheme } from 'hooks'
-import { AppState } from 'state'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import { AppState } from 'state'
+import AppThemeContext from 'context/AppThemeContext'
 
 const ThemeToggler = () => {
 	const { t } = useTranslation()
-	const { theme, toggleTheme } = useTheme()
+	const { toggleTheme } = useContext(AppThemeContext)
+	const theme = useSelector((state: AppState) => state.appTheme)
 
 	return (
 		<Switch

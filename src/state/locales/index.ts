@@ -1,5 +1,4 @@
-import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
-import { fetchItems } from 'api'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface Locales {
 	results?: Locale[]
@@ -21,30 +20,5 @@ const Locales = createSlice({
 })
 
 export const { setLocales } = Locales.actions
-
-export const fetchLocales =
-	() =>
-		async (dispatch: Dispatch): Promise<any> => {
-			const items = await fetchItems({
-				endpoint: 'locales',
-				secure: false
-			})(dispatch)
-
-			if (items) {
-				dispatch(setLocales(items))
-			}
-		}
-
-export const fetchSupportedLanguages =
-	() =>
-		async (dispatch: Dispatch): Promise<any> => {
-			const items = await fetchItems({
-				endpoint: 'languages',
-			})(dispatch)
-
-			if (items) {
-				dispatch(setLocales(items))
-			}
-		}
 
 export default Locales.reducer

@@ -1,6 +1,9 @@
 import AppBar from './AppBar'
+import Authentication from './Authentication'
+import EventCard from './EventCard'
 import EventList from './EventList'
 import FilterToolbar from './FilterToolbar'
+import GlobalAppStatusAlert from './GlobalAppStatusAlert'
 import LanguageSwitcher from './LanguageSwitcher'
 import SelectSports from './SelectSports'
 import ThemeToggler from './ThemeToggler'
@@ -12,8 +15,11 @@ import SignUpForm from './Forms/SignUpForm'
 
 export {
 	AppBar,
+	Authentication,
+	EventCard,
 	EventList,
 	FilterToolbar,
+	GlobalAppStatusAlert,
 	LanguageSwitcher,
 	SelectSports,
 	ThemeToggler,

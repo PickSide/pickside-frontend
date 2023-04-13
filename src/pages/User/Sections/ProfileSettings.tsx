@@ -8,7 +8,7 @@ import { AppState } from 'state'
 const ProfileSettings = () => {
 	const { t } = useTranslation()
 
-	const connectedUser = useSelector((state: AppState) => state.connectedUser)
+	const connectedUser = useSelector((state: AppState) => state.account)
 
 	const AppSettingsConfigurations = useMemo(
 		() => [
@@ -24,7 +24,7 @@ const ProfileSettings = () => {
 					sx: {
 						maxWidth: 200,
 					},
-					defaultValue: `${connectedUser?.firstName}`,
+					defaultValue: `${connectedUser?.profile?.firstName}`,
 				},
 			},
 			{
@@ -39,7 +39,7 @@ const ProfileSettings = () => {
 					sx: {
 						maxWidth: 200,
 					},
-					defaultValue: `${connectedUser?.lastName}`,
+					defaultValue: `${connectedUser?.profile?.lastName}`,
 				},
 			},
 			{

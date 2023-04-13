@@ -10,7 +10,7 @@
 			"widgets/*": ["./src/widgets/*"],
 			"api/*": ["./src/api/*"],
 			"utils/constants/*": ["./src/utils/constants/*"],
-			"utils/context/**": ["./src/utils/context/*"]
+			"context/**": ["./src/context/*"]
 		},
 		"target": "es6",
 		"lib": ["dom", "dom.iterable", "esnext"],

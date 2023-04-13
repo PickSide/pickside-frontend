@@ -1,20 +1,39 @@
-import { useContext, useEffect } from 'react'
-import { useLocalStorage } from 'hooks'
-import { AuthContext } from 'utils/context'
-import { AuthConfig } from 'utils/context/AuthContext'
+import { Dispatch } from '@reduxjs/toolkit'
+import { useCalls, useLocalStorage } from 'hooks'
+import { AUTH_URL } from 'api'
+import { setAccount } from 'state/account'
 
-const useAuth = () => {
-	const { auth, setAuth } = useContext(AuthContext)
-	const { set } = useLocalStorage()
+interface UseAuthOutput {
+	login: (d: any) => (d: Dispatch) => Promise<any>
+	logout: () => (d: Dispatch) => Promise<any>
+}
 
-	useEffect(() => {
-		set('auth', JSON.stringify(auth))
-	}, [auth])
+const useAuth = (): UseAuthOutput => {
+	const { postItem } = useCalls({ baseURL: AUTH_URL })
+	const { remove, get, set } = useLocalStorage()
 
-	const setAuthConfig = (authConfig: AuthConfig) => setAuth && setAuth(authConfig)
-	const removeAuthConfig = () => setAuth && setAuth({})
+	return {
+		login:
+			(data: any) =>
+				async (dispatch: Dispatch): Promise<any> => {
+					const items = await postItem({ endpoint: 'login', data })(dispatch)
 
-	return { auth, setAuthConfig, removeAuthConfig }
+					if (items) {
+						dispatch<any>(setAccount(items.user))
+						remove('auth')
+						set('auth', items)
+					}
+				},
+		logout:
+			() =>
+				async (dispatch: Dispatch): Promise<any> => {
+					const items = await postItem({ endpoint: 'logout' })(dispatch)
+					if (items) {
+						dispatch<any>(setAccount(null))
+						remove('auth')
+					}
+				},
+	}
 }
 
 export default useAuth

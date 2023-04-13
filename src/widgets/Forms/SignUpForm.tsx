@@ -3,11 +3,8 @@ import { useForm, Controller } from 'react-hook-form'
 import { Alert, Button, DialogActions, Grid, MenuItem, TextField, Select, Container } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
-import { updateItem } from 'api'
-import { connectToPlatform } from 'state/user'
+import { useAuth, useCalls } from 'hooks'
 import { omit } from 'lodash'
-import { AuthConfig } from 'utils/context/AuthContext'
-import { useAuth } from 'hooks'
 
 interface SignUpFormProps {
 	onClose: () => void
@@ -25,7 +22,8 @@ type FormData = {
 }
 
 const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
-	const { setAuthConfig } = useAuth()
+	const { login } = useAuth()
+	const { putItem } = useCalls()
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 	const {
@@ -64,16 +62,14 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 
 	const onSubmit = async (data) => {
 		const { username, password, message } = await dispatch<any>(
-			updateItem({
+			putItem({
 				endpoint: 'users/create',
 				data: omit(data, ['confirmEmail', 'confirmPassword']),
 			}),
 		)
 
 		if (username && username) {
-			const { accessToken, connectedUser } = await dispatch<any>(connectToPlatform({ username, password }))
-			const auth = { accessToken, connectedUser } as AuthConfig
-			setAuthConfig(auth)
+			await dispatch<any>(login({ username, password }))
 			onClose()
 		} else {
 			setApiMessage(message)
@@ -151,7 +147,6 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 								}}
 								control={control}
 								render={({ field, fieldState: { invalid, isTouched, isDirty, error } }) => {
-									console.log(error, invalid, isDirty, isTouched)
 									return (
 										<TextField
 											label={t('Confirm email')}

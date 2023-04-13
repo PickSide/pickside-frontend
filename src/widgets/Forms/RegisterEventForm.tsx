@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { TextField } from 'components'
 import { SelectSports } from 'widgets'
-import { createEvent, fetchEvents } from 'state/sportEvent'
+import { useApi } from 'hooks'
 
 interface RegisterEventFormProps {
 	onClose: () => void
@@ -33,9 +33,10 @@ type FormData = {
 }
 
 const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props }) => {
+	const { createActivity, getActivities } = useApi()
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
-	const { control, getValues, handleSubmit, watch } = useForm<FormData>({
+	const { control, handleSubmit, watch } = useForm<FormData>({
 		defaultValues: {
 			title: '',
 			sport: 'default',
@@ -48,8 +49,8 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 	})
 
 	const onSubmit = async (values) => {
-		await dispatch<any>(createEvent(values))
-		await dispatch<any>(fetchEvents())
+		await dispatch<any>(createActivity(values))
+		await dispatch<any>(getActivities())
 		onClose()
 	}
 
