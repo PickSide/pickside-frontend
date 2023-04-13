@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState, FC } from 'react'
 import { useLocalStorage } from 'hooks'
 import { setAccount, Account } from 'state/account'
+import { CssBaseline, ThemeProvider } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppState } from 'state'
 

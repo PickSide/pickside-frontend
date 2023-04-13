@@ -100,8 +100,6 @@ const useCalls = ({ baseURL = DEFAULT_URL }: UseCallsProps = {}): UseCallsOutput
 				.then((response) => response.data)
 		},
 		postItem: ({ endpoint, data, id }) => async (dispatch) => {
-
-			console.log(axios.defaults.headers)
 			const url = Url({ endpoint, id })
 			return await axiosInstance
 				.post(url, { data })

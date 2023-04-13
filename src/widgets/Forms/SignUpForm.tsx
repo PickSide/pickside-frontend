@@ -147,7 +147,6 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 								}}
 								control={control}
 								render={({ field, fieldState: { invalid, isTouched, isDirty, error } }) => {
-									console.log(error, invalid, isDirty, isTouched)
 									return (
 										<TextField
 											label={t('Confirm email')}

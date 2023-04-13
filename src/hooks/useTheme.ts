@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { deepmerge } from '@mui/utils'
 import { createTheme, Theme } from '@mui/material'
 import { getDesignTokens, getThemedComponents } from '../theme'
@@ -6,15 +6,16 @@ import { setAppTheme } from 'state/appTheme'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppState } from 'state'
 
-interface UseThemeOutput {
-	theme?: string
-	palette: Theme
-	toggleTheme?: Function
-}
-
-export const useTheme = (): UseThemeOutput => {
-	const theme = useSelector((state: AppState) => state.appTheme)
+export const useTheme = (): [palette: Theme, toggleTheme: Function] => {
+	const theme = useSelector((state: AppState) => state.appTheme) || 'light'
+	const defaultDarkModeIsON = useSelector((state: AppState) => state.account?.configs?.darkModeDefault)
 	const dispatch = useDispatch()
+
+	useEffect(() => {
+		if (defaultDarkModeIsON) {
+			dispatch<any>(setAppTheme('dark'))
+		}
+	}, [defaultDarkModeIsON, dispatch])
 
 	const palette = useMemo(() => {
 		console.log(theme)
@@ -22,11 +23,13 @@ export const useTheme = (): UseThemeOutput => {
 	}, [theme])
 
 	const toggleTheme = useCallback(async () => {
-		const nextTheme = theme === 'dark' ? 'light' : 'dark'
-		await dispatch<any>(setAppTheme(nextTheme))
+		const newTheme = theme === 'dark' ? 'light' : 'dark'
+		await dispatch<any>(setAppTheme(newTheme))
 	}, [dispatch, theme])
 
-	return { theme, palette, toggleTheme }
+	return [palette, toggleTheme]
 }
+
+
 
 export default useTheme

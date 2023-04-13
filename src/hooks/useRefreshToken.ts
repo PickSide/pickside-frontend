@@ -13,7 +13,6 @@ const useRefreshToken = (): UseRefreshTokenOutputs => {
 	const { get, set } = useLocalStorage()
 
 	const refresh = async () => {
-		console.log(value)
 		get('auth')
 	}
 	return { loading, refresh }

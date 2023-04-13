@@ -4,14 +4,12 @@ import { Map } from 'components'
 import { EventList } from 'widgets'
 
 const HomePage: FC<any> = ({ ...props }) => {
-	const theme = useTheme()
-
 	return (
 		<Grid
 			container
 			direction="column"
 			wrap="nowrap"
-			sx={{ maxHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)` }}
+			sx={{ maxHeight: (theme) => `calc(100vh - ${theme.mixins.toolbar.minHeight}px)` }}
 		>
 			<Grid container wrap="nowrap">
 				<Grid item xs={8}>

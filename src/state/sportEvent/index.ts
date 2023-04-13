@@ -28,7 +28,6 @@ const SportEvent = createSlice({
 		setEvents: (state, action: PayloadAction<SportEvents>) => (state = { ...state, ...action.payload }),
 		addEvent: (state, action: PayloadAction<SportEvent>) => { state.results = [...(state.results || []), action.payload] },
 		updateEvent: (state, action: PayloadAction<SportEvent>) => {
-			console.log(action.payload)
 			const idx = state.results?.findIndex(event => event.id === action.payload.id) || -1
 
 			if (idx > -1) {

@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { CssBaseline, ThemeProvider } from '@mui/material'
+import { CssBaseline } from '@mui/material'
 import { NavbarWrapper, RequireAuth } from 'components'
 import { AppBar, FilterToolbar, GlobalAppStatusAlert } from 'widgets'
-import { useTheme } from 'hooks'
 import { AccountProvider } from 'context/AccountContext'
+import { AppThemeProvider } from 'context/AppThemeContext'
 import { IdleTimeOutProvider } from 'context/IdleTimeOutContext'
 
 import HomePage from './pages/Home/HomePage'
@@ -13,12 +13,10 @@ import HistoryPage from './pages/User/Sections/History'
 import ProfileSettingsPage from './pages/User/Sections/ProfileSettings'
 
 const App = () => {
-	const { palette } = useTheme()
-
 	return (
 		<IdleTimeOutProvider>
 			<AccountProvider>
-				<ThemeProvider theme={palette}>
+				<AppThemeProvider>
 					<CssBaseline />
 					<GlobalAppStatusAlert />
 					<BrowserRouter>
@@ -37,7 +35,7 @@ const App = () => {
 							</Route>
 						</Routes>
 					</BrowserRouter>
-				</ThemeProvider>
+				</AppThemeProvider>
 			</AccountProvider>
 		</IdleTimeOutProvider>
 	)

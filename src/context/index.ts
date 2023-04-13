@@ -1,3 +1,4 @@
 import AccountContext from './AccountContext'
+import AppThemeContext from './AppThemeContext'
 
-export { AccountContext }
+export { AccountContext, AppThemeContext }
