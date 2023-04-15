@@ -1,20 +1,9 @@
 import React, { FC } from 'react'
-import {
-	Switch as MuiSwitch,
-	SwitchProps as MuiSwitchProps,
-	FormControl,
-	FormGroup,
-	FormControlLabel,
-	FormHelperText,
-} from '@mui/material'
+import { Switch as MuiSwitch, SwitchProps as MuiSwitchProps } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 interface SwitchProps extends MuiSwitchProps {
 	dense?: boolean
-	freeSolo?: boolean
-	helperText?: string
-	label?: string
-	labelPlacement?: 'bottom' | 'end' | 'start' | 'top' | undefined
 }
 
 const BaseSwitch = styled(({ dense = false, ...props }: SwitchProps) => (
@@ -73,22 +62,6 @@ const BaseSwitch = styled(({ dense = false, ...props }: SwitchProps) => (
 	},
 }))
 
-const Switch: FC<SwitchProps> = ({ freeSolo = false, helperText, label, labelPlacement = 'start', ...props }) => {
-	return freeSolo ? (
-		<BaseSwitch {...props} />
-	) : (
-		<FormControl component="fieldset">
-			<FormGroup aria-label="position">
-				<FormControlLabel
-					sx={{ justifyContent: 'space-between' }}
-					label={label}
-					labelPlacement={labelPlacement}
-					control={<BaseSwitch {...props} />}
-				/>
-				<FormHelperText>{helperText}</FormHelperText>
-			</FormGroup>
-		</FormControl>
-	)
-}
+const Switch: FC<SwitchProps> = ({ ...props }) => <BaseSwitch {...props} />
 
 export default Switch

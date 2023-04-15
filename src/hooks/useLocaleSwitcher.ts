@@ -15,7 +15,7 @@ const useLocaleSwitcher = (): { handleLocaleChange: (locale: any) => void, curre
 			await dispatch<any>(setLocale(value))
 			i18n.changeLanguage(value)
 		},
-		[dispatch, i18n],
+		[dispatch],
 	)
 
 	return { handleLocaleChange, current }

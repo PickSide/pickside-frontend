@@ -1,5 +1,5 @@
 import account, { Account } from './account'
-import appLocale, { AppLocal } from './appLocale'
+import appLocale from './appLocale'
 import appStatus, { AppStatus } from './appStatus'
 import appTheme from './appTheme'
 import areas, { Areas } from './areas'
@@ -16,7 +16,7 @@ export interface Resources {
 
 export interface AppState {
 	account?: Account
-	appLocale?: AppLocal
+	appLocale?: string
 	appStatus?: AppStatus
 	appTheme?: string
 	areas?: Areas

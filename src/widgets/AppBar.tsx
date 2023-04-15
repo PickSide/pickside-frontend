@@ -1,50 +1,27 @@
-import { FC, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { FC, useMemo, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { Grid, IconButton, ListItemIcon, MenuItem, Typography } from '@mui/material'
-import { AccountCircle, Home, Login, Logout, Person, Settings } from '@mui/icons-material'
-
-import { Dialog, Popover } from 'components'
-import { Authentication, LanguageSwitcher, ThemeToggler } from 'widgets'
-import { AppState } from 'state'
-import { useAuth } from 'hooks'
 import { useTranslation } from 'react-i18next'
+import { FormControlLabel, FormGroup, Grid, IconButton } from '@mui/material'
+import { Home, Login } from '@mui/icons-material'
+
+import { Dialog } from 'components'
+import { Authentication, LanguageSwitcher, ProfileMenu, ThemeSwitcher } from 'widgets'
+import { AppState } from 'state'
+import { startCase, upperCase } from 'lodash'
 
 const AppBar: FC<any> = ({ ...props }) => {
-	const { logout } = useAuth()
-	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
 
 	const connectedUser = useSelector((state: AppState) => state.account)
+	const appTheme = useSelector((state: AppState) => state.appTheme)
+	const appLocale = useSelector((state: AppState) => state.appLocale)
 
 	const [openAuthenticationDialog, setOpenAuthenticationDialog] = useState<boolean>(false)
 
-	const UserMenuItems = [
-		{
-			label: t('History'),
-			icon: <Settings fontSize="small" />,
-			action: () => navigate('/user/history'),
-		},
-		{
-			label: t('Profile'),
-			icon: <Person fontSize="small" />,
-			action: () => navigate('/user/profile'),
-		},
-		{
-			label: t('Settings'),
-			icon: <Settings fontSize="small" />,
-			action: () => navigate('/user/app-settings'),
-		},
-		{
-			label: t('Logout'),
-			icon: <Logout fontSize="small" />,
-			action: async () => {
-				await dispatch<any>(logout())
-				navigate('/')
-			},
-		},
-	]
+	const themeLabel = useMemo(() => startCase(appTheme), [appTheme])
+	const localeLabel = useMemo(() => upperCase(appLocale), [appLocale])
 
 	return (
 		<>
@@ -65,29 +42,18 @@ const AppBar: FC<any> = ({ ...props }) => {
 						<Home />
 					</IconButton>
 				</Grid>
-				<Grid item container justifyContent="flex-end" alignItems="center" columnSpacing={3} xs>
-					<Grid item>
-						<LanguageSwitcher />
-					</Grid>
-					<Grid item>
-						<ThemeToggler />
-					</Grid>
+				<Grid item container justifyContent="flex-end" alignItems="center" columnSpacing={4} xs>
+					<FormGroup row>
+						<Grid item>
+							<FormControlLabel label={t(localeLabel)} labelPlacement="start" control={<LanguageSwitcher />} />
+						</Grid>
+						<Grid item>
+							<FormControlLabel label={t(themeLabel)} labelPlacement="start" control={<ThemeSwitcher />} />
+						</Grid>
+					</FormGroup>
 					<Grid item>
 						{connectedUser ? (
-							<Popover
-								triggerElement={
-									<IconButton>
-										<AccountCircle />
-									</IconButton>
-								}
-							>
-								{UserMenuItems.map((item, idx) => (
-									<MenuItem key={idx} onClick={item.action}>
-										<ListItemIcon>{item.icon}</ListItemIcon>
-										<Typography>{item.label}</Typography>
-									</MenuItem>
-								))}
-							</Popover>
+							<ProfileMenu />
 						) : (
 							<IconButton onClick={() => setOpenAuthenticationDialog(true)}>
 								<Login />
