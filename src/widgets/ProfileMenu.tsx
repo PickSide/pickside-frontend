@@ -1,9 +1,9 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
-import { IconButton, ListItemIcon, MenuItem, Typography } from '@mui/material'
+import { IconButton, ListItemIcon, Menu, MenuItem, Typography } from '@mui/material'
 import { AccountCircle, Logout, Person, Settings } from '@mui/icons-material'
 import { Popover } from 'components'
 import { useAuth } from 'hooks'
@@ -13,6 +13,17 @@ const ProfileMenu: FC<any> = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
+
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+	const open = Boolean(anchorEl)
+
+	const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+		setAnchorEl(event.currentTarget)
+	}
+
+	const handleClose = () => {
+		setAnchorEl(null)
+	}
 
 	const UserMenuItems = [
 		{
@@ -41,20 +52,33 @@ const ProfileMenu: FC<any> = () => {
 	]
 
 	return (
-		<Popover
-			triggerElement={
-				<IconButton>
-					<AccountCircle />
-				</IconButton>
-			}
-		>
-			{UserMenuItems.map((item, idx) => (
-				<MenuItem key={idx} onClick={item.action}>
-					<ListItemIcon>{item.icon}</ListItemIcon>
-					<Typography>{item.label}</Typography>
-				</MenuItem>
-			))}
-		</Popover>
+		<div>
+			<IconButton id="locale-open-btn" onClick={handleOpen}>
+				<AccountCircle />
+			</IconButton>
+			<Menu
+				id="basic-menu"
+				anchorEl={anchorEl}
+				open={open}
+				onClose={handleClose}
+				MenuListProps={{
+					'aria-labelledby': 'basic-button',
+				}}
+			>
+				{UserMenuItems.map(({ action, label, icon }, idx) => (
+					<MenuItem
+						key={idx}
+						onClick={() => {
+							action()
+							handleClose()
+						}}
+					>
+						<ListItemIcon>{icon}</ListItemIcon>
+						<Typography>{label}</Typography>
+					</MenuItem>
+				))}
+			</Menu>
+		</div>
 	)
 }
 export default ProfileMenu
