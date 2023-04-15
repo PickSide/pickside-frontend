@@ -16,8 +16,6 @@ const ThemeToggler = () => {
 			freeSolo
 			checked={theme === 'dark'}
 			checkedIcon={<Brightness2 />}
-			tooltip
-			tooltipHelperText={theme === 'light' ? t('Toggle dark mode') : t('Toggle light mode')}
 			sx={{
 				'& .MuiSwitch-thumb': {
 					backgroundColor: (theme) => theme.palette.primary.main,

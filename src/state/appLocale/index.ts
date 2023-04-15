@@ -10,10 +10,10 @@ const AppLocal = createSlice({
 	} as AppLocal,
 	name: 'appLocale',
 	reducers: {
-		setLocal: (state, action: PayloadAction<AppLocal>) => (state = action.payload),
+		setLocale: (state, action: PayloadAction<AppLocal>) => (state = action.payload),
 	},
 })
 
-export const { setLocal } = AppLocal.actions
+export const { setLocale } = AppLocal.actions
 
 export default AppLocal.reducer

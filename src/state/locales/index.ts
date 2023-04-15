@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Resources } from 'state'
 
-export interface Locales {
+export interface Locales extends Resources {
 	results?: Locale[]
 }
 

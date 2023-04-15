@@ -67,7 +67,7 @@ export const getDesignTokens = (mode) => ({
 			}),
 	},
 	typography: {
-		fontFamily: ['--apple-system', 'Roboto'].join(','),
+		fontFamily: ['--apple-system', 'Roboto', 'Arial'].join(','),
 	},
 	icon: common.white,
 	breakpoints: {
