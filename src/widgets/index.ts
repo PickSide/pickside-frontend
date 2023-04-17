@@ -4,9 +4,11 @@ import EventCard from './EventCard'
 import EventList from './EventList'
 import FilterToolbar from './FilterToolbar'
 import GlobalAppStatusAlert from './GlobalAppStatusAlert'
+import NotificationMenu from './NotificationMenu'
 import LanguageSwitcher from './LanguageSwitcher'
+import ProfileMenu from './ProfileMenu'
 import SelectSports from './SelectSports'
-import ThemeToggler from './ThemeToggler'
+import ThemeSwitcher from './ThemeSwitcher'
 
 import ConfirmRegisterEventForm from './Forms/ConfirmRegisterEventForm'
 import LoginForm from './Forms/LoginForm'
@@ -20,9 +22,11 @@ export {
 	EventList,
 	FilterToolbar,
 	GlobalAppStatusAlert,
+	NotificationMenu,
 	LanguageSwitcher,
+	ProfileMenu,
 	SelectSports,
-	ThemeToggler,
+	ThemeSwitcher,
 	ConfirmRegisterEventForm,
 	LoginForm,
 	RegisterEventForm,

@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Grid, useTheme } from '@mui/material'
+import { Grid } from '@mui/material'
 import { Map } from 'components'
 import { EventList } from 'widgets'
 

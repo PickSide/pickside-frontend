@@ -67,7 +67,7 @@ export const getDesignTokens = (mode) => ({
 			}),
 	},
 	typography: {
-		fontFamily: ['--apple-system', 'Roboto'].join(','),
+		fontFamily: ['--apple-system', 'Roboto', 'Arial'].join(','),
 	},
 	icon: common.white,
 	breakpoints: {
@@ -142,6 +142,7 @@ export const getThemedComponents = (mode) => ({
 						overflow: 'hidden',
 						whiteSpace: 'nowrap',
 						textOverflow: 'ellipsis',
+						fontWeight: 700
 					},
 				},
 			},

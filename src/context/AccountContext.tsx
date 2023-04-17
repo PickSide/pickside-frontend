@@ -1,7 +1,6 @@
-import { createContext, useContext, useEffect, useState, FC } from 'react'
+import { createContext, useContext, useEffect, FC } from 'react'
 import { useLocalStorage } from 'hooks'
 import { setAccount, Account } from 'state/account'
-import { CssBaseline, ThemeProvider } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppState } from 'state'
 
@@ -19,16 +18,17 @@ export const AccountProvider: FC<any> = ({ children }) => {
 	const dispatch = useDispatch()
 	const { get } = useLocalStorage()
 
-	const stateAccount = useSelector((state: AppState) => state.account)
-	const [connectedAccount, setConnectedAccount] = useState(get('auth'))
+	const account = useSelector((state: AppState) => state.account)
 
 	useEffect(() => {
-		if (!!connectedAccount) {
-			dispatch<any>(setAccount(connectedAccount))
+		if (!account) {
+			if (!!get('auth')) {
+				dispatch<any>(setAccount(get('auth').user))
+			}
 		}
-	}, [])
+	}, [account, dispatch, get])
 
-	return <Context.Provider value={connectedAccount}>{children}</Context.Provider>
+	return <Context.Provider value={{ user: account }}>{children}</Context.Provider>
 }
 
 export default Context

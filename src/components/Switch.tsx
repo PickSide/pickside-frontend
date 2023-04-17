@@ -1,23 +1,9 @@
-import React, { FC, forwardRef } from 'react'
-import {
-	Switch as MuiSwitch,
-	SwitchProps as MuiSwitchProps,
-	FormControl,
-	FormGroup,
-	FormControlLabel,
-	FormHelperText,
-	Tooltip,
-} from '@mui/material'
+import React, { FC } from 'react'
+import { Switch as MuiSwitch, SwitchProps as MuiSwitchProps } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 interface SwitchProps extends MuiSwitchProps {
 	dense?: boolean
-	freeSolo?: boolean
-	helperText?: string
-	label?: string
-	labelPlacement?: 'bottom' | 'end' | 'start' | 'top' | undefined
-	tooltip?: boolean
-	tooltipHelperText?: string
 }
 
 const BaseSwitch = styled(({ dense = false, ...props }: SwitchProps) => (
@@ -30,7 +16,7 @@ const BaseSwitch = styled(({ dense = false, ...props }: SwitchProps) => (
 	'& .MuiSwitch-switchBase': {
 		padding: 0,
 		margin: 2,
-		transitionDuration: '300ms',
+		transitionDuration: '60ms',
 		'&.Mui-checked': {
 			transform: 'translateX(16px)',
 			color: '#fff',
@@ -76,43 +62,6 @@ const BaseSwitch = styled(({ dense = false, ...props }: SwitchProps) => (
 	},
 }))
 
-const BaseSwitchWrapper = forwardRef<HTMLButtonElement, SwitchProps>((props, ref) => {
-	return <BaseSwitch ref={ref} {...props} />
-})
-
-const Switch: FC<SwitchProps> = ({
-	freeSolo = false,
-	helperText,
-	label,
-	labelPlacement = 'start',
-	tooltip = false,
-	tooltipHelperText,
-	...props
-}) => {
-	const TooltippedSwitch = () =>
-		tooltip ? (
-			<Tooltip title={tooltipHelperText}>
-				<BaseSwitchWrapper {...props} />
-			</Tooltip>
-		) : (
-			<BaseSwitchWrapper {...props} />
-		)
-
-	return freeSolo ? (
-		<TooltippedSwitch />
-	) : (
-		<FormControl component="fieldset">
-			<FormGroup aria-label="position">
-				<FormControlLabel
-					sx={{ justifyContent: 'space-between' }}
-					label={label}
-					labelPlacement={labelPlacement}
-					control={<TooltippedSwitch />}
-				/>
-				<FormHelperText>{helperText}</FormHelperText>
-			</FormGroup>
-		</FormControl>
-	)
-}
+const Switch: FC<SwitchProps> = ({ ...props }) => <BaseSwitch {...props} />
 
 export default Switch

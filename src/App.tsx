@@ -7,6 +7,7 @@ import { AppThemeProvider } from 'context/AppThemeContext'
 import { IdleTimeOutProvider } from 'context/IdleTimeOutContext'
 
 import HomePage from './pages/Home/HomePage'
+import LandingPage from './pages/Home/LandingPage'
 import UserPage from './pages/User/UserPage'
 import AppSettingsPage from './pages/User/Sections/AppSettings'
 import HistoryPage from './pages/User/Sections/History'
@@ -23,9 +24,10 @@ const App = () => {
 						<NavbarWrapper>
 							<AppBar />
 						</NavbarWrapper>
-						<FilterToolbar />
+						{/* <FilterToolbar /> */}
 						<Routes>
-							<Route path="/" element={<HomePage />} />
+							<Route path="/" element={<LandingPage />} />
+							<Route path="/home" element={<HomePage />} />
 							<Route element={<RequireAuth />}>
 								<Route path="/user/" element={<UserPage />}>
 									<Route path="app-settings" element={<AppSettingsPage />} />

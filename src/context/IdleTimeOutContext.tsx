@@ -1,8 +1,9 @@
 import { createContext, useEffect, FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useAuth, useLocalStorage } from 'hooks'
 import { setStatus } from 'state/appStatus'
+import { AppState } from 'state'
 
 const EVENTS = ['click', 'keydown', 'load', 'scroll']
 const IDLE_TIMER_KEY = 'sessionTTL'
@@ -17,6 +18,8 @@ export const IdleTimeOutProvider: FC<any> = ({ children }) => {
 	const dispatch = useDispatch()
 	const { get, set } = useLocalStorage()
 	const { t } = useTranslation()
+
+	const account = useSelector((state: AppState) => state.account)
 
 	const checkIfUserIdle = () => {
 		const diff = get(IDLE_TIMER_KEY) - Date.now()
@@ -43,12 +46,16 @@ export const IdleTimeOutProvider: FC<any> = ({ children }) => {
 	}, [])
 
 	useEffect(() => {
+		if (!account) {
+			return
+		}
+
 		const interval = setInterval(() => {
 			checkIfUserIdle()
 		}, IDLE_CHECK_TIMER)
 
 		return () => clearInterval(interval)
-	}, [])
+	}, [account])
 
 	return <Context.Provider value={{}}>{children}</Context.Provider>
 }

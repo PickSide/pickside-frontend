@@ -1,20 +1,21 @@
 // https://www.iso.org/obp/ui/#search
-import { FC, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { FC, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Language } from '@mui/icons-material'
-import { Grid, IconButton, MenuItem } from '@mui/material'
-import { Popover } from 'components'
+import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Typography } from '@mui/material'
 import { useApi, useLocaleSwitcher } from 'hooks'
+import { AppState } from 'state'
 import '/node_modules/flag-icons/css/flag-icons.min.css'
 
 const LanguageSwitcher: FC<any> = ({ ...props }) => {
 	const { getLocales } = useApi()
 	const dispatch = useDispatch()
-	const { appLocale, changeLocale, locales } = useLocaleSwitcher()
+	const { current, handleLocaleChange } = useLocaleSwitcher()
 
-	const handleClick = (value) => {
-		changeLocale(value)
-	}
+	const locales = useSelector((state: AppState) => state.locales)
+
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+	const open = Boolean(anchorEl)
 
 	useEffect(() => {
 		if (!locales) {
@@ -22,31 +23,54 @@ const LanguageSwitcher: FC<any> = ({ ...props }) => {
 		}
 	}, [dispatch, getLocales, locales])
 
-	return (
-		<Popover
-			triggerElement={
-				<IconButton>
-					<Language />
-				</IconButton>
-			}
-		>
+	const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+		setAnchorEl(event.currentTarget)
+	}
+
+	const handleClose = () => {
+		setAnchorEl(null)
+	}
+
+	const LocalesEl = (): JSX.Element => (
+		<>
 			{locales?.results?.map((locale, idx) => (
 				<MenuItem
 					key={idx}
-					id={`locale-${locale.id}`}
+					disabled={current === locale.value}
+					onClick={() => {
+						handleLocaleChange(locale.value)
+						handleClose()
+					}}
 					value={locale.value}
-					disabled={appLocale === locale.value}
-					onClick={() => handleClick(locale.value)}
 				>
-					<Grid container wrap="nowrap" columnSpacing={2}>
-						<Grid item>
-							<span className={`fi fi-${locale.flagCode}`}></span>
-						</Grid>
-						<Grid item>{locale.description}</Grid>
-					</Grid>
+					<ListItemIcon>
+						<span className={`fi fi-${locale.flagCode}`}></span>
+					</ListItemIcon>
+					<ListItemText>
+						<Typography>{locale.description}</Typography>
+					</ListItemText>
 				</MenuItem>
 			))}
-		</Popover>
+		</>
+	)
+
+	return (
+		<div>
+			<IconButton id="locale-open-btn" onClick={handleOpen}>
+				<Language />
+			</IconButton>
+			<Menu
+				id="basic-menu"
+				anchorEl={anchorEl}
+				open={open}
+				onClose={handleClose}
+				MenuListProps={{
+					'aria-labelledby': 'basic-button',
+				}}
+			>
+				<LocalesEl />
+			</Menu>
+		</div>
 	)
 }
 

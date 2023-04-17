@@ -29,6 +29,8 @@ interface UseCallsProps {
 }
 
 interface UseCallsOutput {
+	lazyGetItem: (r: RequestProps<any>) => Promise<any>,
+	lazyGetItems: (r: RequestProps<any>) => Promise<any>,
 	getItem: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>,
 	getItems: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>,
 	postItem: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>,
@@ -87,6 +89,18 @@ const useCalls = ({ baseURL = DEFAULT_URL }: UseCallsProps = {}): UseCallsOutput
 	}, [axiosInstance, get])
 
 	return {
+		lazyGetItem: async ({ endpoint, id }) => {
+			const url = Url({ endpoint, id })
+			return await axiosInstance
+				.get(url)
+				.then((response) => response.data)
+		},
+		lazyGetItems: async ({ endpoint, id }) => {
+			const url = Url({ endpoint, id })
+			return await axiosInstance
+				.get(url)
+				.then((response) => response.data)
+		},
 		getItem: ({ endpoint, id }) => async (dispatch) => {
 			const url = Url({ endpoint, id })
 			return await axiosInstance

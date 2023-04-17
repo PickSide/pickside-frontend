@@ -18,7 +18,6 @@ export const useTheme = (): [palette: Theme, toggleTheme: Function] => {
 	}, [defaultDarkModeIsON, dispatch])
 
 	const palette = useMemo(() => {
-		console.log(theme)
 		return createTheme(deepmerge(getDesignTokens(theme), getThemedComponents(theme)))
 	}, [theme])
 
