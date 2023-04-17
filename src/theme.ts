@@ -142,6 +142,7 @@ export const getThemedComponents = (mode) => ({
 						overflow: 'hidden',
 						whiteSpace: 'nowrap',
 						textOverflow: 'ellipsis',
+						fontWeight: 700
 					},
 				},
 			},

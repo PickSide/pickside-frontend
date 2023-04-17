@@ -26,9 +26,9 @@ const App = () => {
 						</NavbarWrapper>
 						{/* <FilterToolbar /> */}
 						<Routes>
-							<Route path="/" element={<HomePage />} />
+							<Route path="/" element={<LandingPage />} />
+							<Route path="/home" element={<HomePage />} />
 							<Route element={<RequireAuth />}>
-								<Route path="/home" element={<HomePage />} />
 								<Route path="/user/" element={<UserPage />}>
 									<Route path="app-settings" element={<AppSettingsPage />} />
 									<Route path="history" element={<HistoryPage />} />

@@ -4,6 +4,7 @@ import EventCard from './EventCard'
 import EventList from './EventList'
 import FilterToolbar from './FilterToolbar'
 import GlobalAppStatusAlert from './GlobalAppStatusAlert'
+import NotificationMenu from './NotificationMenu'
 import LanguageSwitcher from './LanguageSwitcher'
 import ProfileMenu from './ProfileMenu'
 import SelectSports from './SelectSports'
@@ -21,6 +22,7 @@ export {
 	EventList,
 	FilterToolbar,
 	GlobalAppStatusAlert,
+	NotificationMenu,
 	LanguageSwitcher,
 	ProfileMenu,
 	SelectSports,

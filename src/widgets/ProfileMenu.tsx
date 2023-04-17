@@ -1,11 +1,11 @@
-import { FC, useState } from 'react'
+import { FC, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 import { IconButton, ListItemIcon, Menu, MenuItem, Typography } from '@mui/material'
 import { AccountCircle, Logout, Person, Settings } from '@mui/icons-material'
-import { Popover } from 'components'
+import { AppState } from 'state'
 import { useAuth } from 'hooks'
 
 const ProfileMenu: FC<any> = () => {
@@ -14,8 +14,15 @@ const ProfileMenu: FC<any> = () => {
 	const navigate = useNavigate()
 	const { t } = useTranslation()
 
+	const account = useSelector((state: AppState) => state.account)
+
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 	const open = Boolean(anchorEl)
+
+	const userInitials = useMemo(
+		() => `${account?.profile?.firstName?.charAt(0)}${account?.profile?.lastName?.charAt(0)}`,
+		[account],
+	)
 
 	const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget)
@@ -53,7 +60,7 @@ const ProfileMenu: FC<any> = () => {
 
 	return (
 		<div>
-			<IconButton id="locale-open-btn" onClick={handleOpen}>
+			<IconButton id="locale-open-btn" edge="start" onClick={handleOpen}>
 				<AccountCircle />
 			</IconButton>
 			<Menu
@@ -65,6 +72,9 @@ const ProfileMenu: FC<any> = () => {
 					'aria-labelledby': 'basic-button',
 				}}
 			>
+				<MenuItem disabled divider>
+					<Typography>{userInitials}</Typography>
+				</MenuItem>
 				{UserMenuItems.map(({ action, label, icon }, idx) => (
 					<MenuItem
 						key={idx}

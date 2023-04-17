@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLocale } from 'state/appLocale'
@@ -8,6 +8,7 @@ const useLocaleSwitcher = (): { handleLocaleChange: (locale: any) => void, curre
 	const dispatch = useDispatch()
 	const { i18n } = useTranslation()
 
+	const defaultLanguage = useSelector((state: AppState) => state.account?.configs?.defaultLanguage)
 	const current = useSelector((state: AppState) => state.appLocale)
 
 	const handleLocaleChange = useCallback(
@@ -15,8 +16,14 @@ const useLocaleSwitcher = (): { handleLocaleChange: (locale: any) => void, curre
 			await dispatch<any>(setLocale(value))
 			i18n.changeLanguage(value)
 		},
-		[dispatch],
+		[dispatch, i18n],
 	)
+
+	useEffect(() => {
+		if (!!defaultLanguage) {
+			handleLocaleChange(defaultLanguage)
+		}
+	}, [defaultLanguage, handleLocaleChange])
 
 	return { handleLocaleChange, current }
 }

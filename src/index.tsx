@@ -29,11 +29,13 @@ const Loading = (): JSX.Element => (
 )
 root.render(
 	<Suspense fallback={<Loading />}>
-		<StoreProvider store={store}>
-			<I18nextProvider i18n={i18n}>
-				<App />
-			</I18nextProvider>
-		</StoreProvider>
+		<React.StrictMode>
+			<StoreProvider store={store}>
+				<I18nextProvider i18n={i18n}>
+					<App />
+				</I18nextProvider>
+			</StoreProvider>
+		</React.StrictMode>
 	</Suspense>,
 )
 

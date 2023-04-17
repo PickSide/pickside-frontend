@@ -11,6 +11,7 @@ export interface Account {
 
 export interface IAccountConfigs {
 	defaultSport?: string
+	defaultLanguage?: string
 	darkModeDefault?: boolean
 	locationTracking?: boolean
 }

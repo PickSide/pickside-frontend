@@ -6,7 +6,7 @@ const AppLocal = createSlice({
 	initialState: 'en',
 	name: 'appLocale',
 	reducers: {
-		setLocale: (state, action: PayloadAction<Locale>) => (state = action.payload),
+		setLocale: (state, action: PayloadAction<string>) => (state = action.payload),
 	},
 })
 

@@ -6,7 +6,7 @@ import { FormControlLabel, FormGroup, Grid, IconButton } from '@mui/material'
 import { Home, Login } from '@mui/icons-material'
 
 import { Dialog } from 'components'
-import { Authentication, LanguageSwitcher, ProfileMenu, ThemeSwitcher } from 'widgets'
+import { Authentication, LanguageSwitcher, NotificationMenu, ProfileMenu, ThemeSwitcher } from 'widgets'
 import { AppState } from 'state'
 import { startCase, upperCase } from 'lodash'
 
@@ -36,30 +36,36 @@ const AppBar: FC<any> = ({ ...props }) => {
 				<Authentication />
 			</Dialog>
 
-			<Grid container justifyContent="space-around" alignItems="center" wrap="nowrap">
-				<Grid item xs>
+			<Grid container alignItems="center">
+				<Grid item>
 					<IconButton onClick={() => navigate('/')}>
 						<Home />
 					</IconButton>
 				</Grid>
-				<Grid item container justifyContent="flex-end" alignItems="center" columnSpacing={4} xs>
-					<FormGroup row>
-						<Grid item>
-							<FormControlLabel label={t(localeLabel)} labelPlacement="start" control={<LanguageSwitcher />} />
-						</Grid>
-						<Grid item>
-							<FormControlLabel label={t(themeLabel)} labelPlacement="start" control={<ThemeSwitcher />} />
-						</Grid>
-					</FormGroup>
+				<Grid item container justifyContent="flex-end" alignItems="center" columnSpacing={2} xs>
 					<Grid item>
-						{connectedUser ? (
-							<ProfileMenu />
-						) : (
+						<FormGroup row>
+							<FormControlLabel label={t(localeLabel)} labelPlacement="start" control={<LanguageSwitcher />} />
+							<FormControlLabel label={t(themeLabel)} labelPlacement="start" control={<ThemeSwitcher />} />
+						</FormGroup>
+					</Grid>
+
+					{connectedUser ? (
+						[
+							<Grid key="notification-menu-itm" item>
+								<NotificationMenu />
+							</Grid>,
+							<Grid key="profile-menu-itm" item>
+								<ProfileMenu />
+							</Grid>,
+						]
+					) : (
+						<Grid item>
 							<IconButton onClick={() => setOpenAuthenticationDialog(true)}>
 								<Login />
 							</IconButton>
-						)}
-					</Grid>
+						</Grid>
+					)}
 				</Grid>
 			</Grid>
 		</>
