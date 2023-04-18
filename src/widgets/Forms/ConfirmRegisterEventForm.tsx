@@ -1,14 +1,14 @@
 import { FC, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
 import { Button, Container, DialogActions, Grid, Typography } from '@mui/material'
-import { SportEvent } from 'state/sportEvent'
+import { Activity } from 'state/activity'
 import { useSelector } from 'react-redux'
 import { AppState } from 'state'
 import { useApi } from 'hooks'
 import { useTranslation } from 'react-i18next'
 
 interface ConfirmRegisterEventFormProps {
-	event: SportEvent
+	event: Activity
 	onClose: () => void
 }
 

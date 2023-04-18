@@ -2,7 +2,7 @@
 import Autocomplete from './Autocomplete'
 import DatePicker from './DatePicker'
 import Dialog from './Dialog'
-import Marker from './Marker'
+import MapMarker from './MapMarker'
 import NavbarWrapper from './NavbarWrapper'
 import Map from '../pages/Home/Map'
 import PageLayout from './PageLayout'
@@ -17,7 +17,7 @@ export {
 	Autocomplete,
 	DatePicker,
 	Dialog,
-	Marker,
+	MapMarker,
 	NavbarWrapper,
 	Map,
 	PageLayout,

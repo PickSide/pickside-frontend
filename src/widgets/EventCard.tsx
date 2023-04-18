@@ -5,13 +5,13 @@ import { times } from 'lodash'
 
 import { Dialog } from 'components'
 import { ConfirmRegisterEventForm } from 'widgets'
-import { SportEvent } from 'state/sportEvent'
+import { Activity } from 'state/activity'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { AppState } from 'state'
 
 interface EventCardProps {
-	event: SportEvent
+	event: Activity
 }
 
 const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
