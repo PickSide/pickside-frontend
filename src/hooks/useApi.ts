@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { AppState } from 'state'
 import { setLocales } from 'state/locales'
 import { setSports } from 'state/sport'
-import { setEvents, updateEvent, SportEvent } from 'state/sportEvent'
+import { setActivities, updateActivity, Activity } from 'state/activity'
 import { useCalls } from 'hooks'
 import { API_URL } from 'api'
 
@@ -38,11 +38,11 @@ const useApi = (): UseApiOutput => {
 					})(dispatch)
 
 					if (data) {
-						dispatch(setEvents(data))
+						dispatch(setActivities(data))
 					}
 				},
 		createActivity:
-			(event: SportEvent) =>
+			(event: Activity) =>
 				async (dispatch: Dispatch): Promise<any> => {
 					const updatedItem = await putItem({
 						endpoint: 'events',
@@ -51,11 +51,11 @@ const useApi = (): UseApiOutput => {
 					})(dispatch)
 
 					if (updatedItem) {
-						dispatch(updateEvent(updatedItem.data.response))
+						dispatch(updateActivity(updatedItem.data.response))
 					}
 				},
 		registerToActivity:
-			(event: SportEvent) =>
+			(event: Activity) =>
 				async (dispatch: Dispatch): Promise<any> => {
 					const updatedItem = await putItem({
 						endpoint: 'events',
@@ -64,7 +64,7 @@ const useApi = (): UseApiOutput => {
 					})(dispatch)
 
 					if (updatedItem) {
-						dispatch(updateEvent(updatedItem.data.response))
+						dispatch(updateActivity(updatedItem.data.response))
 					}
 				},
 

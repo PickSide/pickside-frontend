@@ -1,5 +1,5 @@
 import { createContext, useContext, FC, ReactNode } from 'react'
-import { ThemeProvider } from '@mui/material'
+import { CssBaseline, ThemeProvider } from '@mui/material'
 import { useTheme } from 'hooks'
 
 export interface AppThemeContextProps {
@@ -18,6 +18,7 @@ export const AppThemeProvider: FC<any> = ({ children }) => {
 
 	return (
 		<AppThemeContext.Provider value={{ toggleTheme }}>
+			<CssBaseline />
 			<ThemeProvider theme={palette}>{children}</ThemeProvider>
 		</AppThemeContext.Provider>
 	)

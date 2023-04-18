@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles'
 import { KeyboardArrowRight } from '@mui/icons-material'
 import { useCalls } from 'hooks'
 import { Area } from 'state/areas'
-import { setSelectedDistrict } from 'state/selectedDistrict'
+import { setSelectedLocation } from 'state/selectedLocation'
 import { orderBy } from 'lodash'
 import { useDispatch } from 'react-redux'
 
@@ -37,7 +37,8 @@ const LandingPage: FC<any> = () => {
 	const [selected, setSelected] = useState<Area | any>(null)
 
 	const handleClick = async () => {
-		await dispatch(setSelectedDistrict(selected.districtCode))
+		console.log(selected.coords)
+		await dispatch(setSelectedLocation(selected.coords))
 		await navigate('/home')
 	}
 

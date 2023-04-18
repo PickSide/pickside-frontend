@@ -1,15 +1,14 @@
 import account, { Account } from './account'
+import activities, { Activities } from './activity'
 import appLocale from './appLocale'
 import appStatus, { AppStatus } from './appStatus'
 import appTheme from './appTheme'
 import areas, { Areas } from './areas'
-import eventLocations, { EventLocations } from './eventLocation'
 import locales, { Locales } from './locales'
 import notifications, { Notifications } from './notifications'
-import selectedArea from './selectedDistrict'
+import selectedLocation from './selectedLocation'
 import selectedContexts, { SelectedContexts } from './selectedContext'
 import sports, { Sports } from './sport'
-import sportEvents, { SportEvents } from './sportEvent'
 
 export interface Resources {
 	messageResponse?: string
@@ -18,30 +17,28 @@ export interface Resources {
 
 export interface AppState {
 	account?: Account
+	activities?: Activities
 	appLocale?: string
 	appStatus?: AppStatus
 	appTheme?: string
 	areas?: Areas
-	eventLocations?: EventLocations
 	locales?: Locales
 	notifications?: Notifications
-	selectedArea?: string
+	selectedLocation?: any
 	selectedContexts?: SelectedContexts
 	sports?: Sports
-	sportEvents?: SportEvents
 }
 
 export const reducers = {
 	account,
+	activities,
 	appLocale,
 	appStatus,
 	appTheme,
 	areas,
-	eventLocations,
 	locales,
 	notifications,
-	selectedArea,
+	selectedLocation,
 	selectedContexts,
 	sports,
-	sportEvents,
 }

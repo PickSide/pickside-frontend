@@ -1,7 +1,7 @@
 import { FC, memo, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { Container, Grid, Typography, useTheme } from '@mui/material'
+import { Box, Container, Grid, Typography, useTheme } from '@mui/material'
 import { EventCard } from 'widgets'
 import { AppState } from 'state'
 import { useApi } from 'hooks'
@@ -14,35 +14,26 @@ const EventList: FC<EventListProps> = ({ horizontal = false }) => {
 	const { getActivities } = useApi()
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
-	const events = useSelector((state: AppState) => state.sportEvents)
-	const theme = useTheme()
+	const activities = useSelector((state: AppState) => state.activities)
 
 	useEffect(() => {
-		if (!events) {
+		if (!activities) {
 			dispatch<any>(getActivities())
 		}
-	}, [dispatch, events, getActivities])
+	}, [activities, dispatch, getActivities])
 
-	return events?.results ? (
-		<Container>
-			<Grid
-				container
-				direction={horizontal ? 'row' : 'column'}
-				wrap="nowrap"
-				maxHeight={`calc(100vh - 2 * ${theme.mixins.toolbar.minHeight}px)`}
-				sx={{ overflowY: 'scroll' }}
-			>
-				{events?.results?.map((event, idx) => (
-					<Grid item key={idx} marginTop={2} marginBottom={2}>
-						<EventCard event={event} />
-					</Grid>
-				))}
-			</Grid>
-		</Container>
+	return activities?.results ? (
+		<Box display="flex" flexDirection="column" sx={{ overflow: 'hiddenn', overflowY: 'scroll' }}>
+			{activities?.results?.map((event, idx) => (
+				<Box key={idx} p={2}>
+					<EventCard event={event} />
+				</Box>
+			))}
+		</Box>
 	) : (
-		<Container>
+		<Box justifyContent="center" alignContent="center">
 			<Typography variant="headerSmall">{t('No events in the area')}</Typography>
-		</Container>
+		</Box>
 	)
 }
 

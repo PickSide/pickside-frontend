@@ -42,7 +42,7 @@ const AppBar: FC<any> = ({ ...props }) => {
 						<Home />
 					</IconButton>
 				</Grid>
-				<Grid item container justifyContent="flex-end" alignItems="center" columnSpacing={2} xs>
+				<Grid item container justifyContent="flex-end" alignItems="center" columnSpacing={3} xs>
 					<Grid item>
 						<FormGroup row>
 							<FormControlLabel label={t(localeLabel)} labelPlacement="start" control={<LanguageSwitcher />} />
