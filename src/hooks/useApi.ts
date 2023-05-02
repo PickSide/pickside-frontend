@@ -6,6 +6,7 @@ import { setSports } from 'state/sport'
 import { setActivities, updateActivity, Activity } from 'state/activity'
 import { useCalls } from 'hooks'
 import { API_URL } from 'api'
+import { setPlayables } from 'state/playables'
 
 interface UseApiOutput {
 	/* account */
@@ -19,6 +20,9 @@ interface UseApiOutput {
 
 	/* locales */
 	getLocales: () => (d: Dispatch) => Promise<any>
+
+	/* Playables */
+	getPlayables: () => (d: Dispatch) => Promise<any>
 
 	/* sports */
 	getSports: () => (d: Dispatch) => Promise<any>
@@ -77,6 +81,18 @@ const useApi = (): UseApiOutput => {
 
 					if (items) {
 						dispatch(setLocales(items))
+					}
+				},
+
+		getPlayables:
+			() =>
+				async (dispatch: Dispatch): Promise<any> => {
+					const items = await getItems({
+						endpoint: 'playables',
+					})(dispatch)
+
+					if (items) {
+						dispatch(setPlayables(items))
 					}
 				},
 

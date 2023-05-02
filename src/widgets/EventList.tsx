@@ -1,7 +1,7 @@
 import { FC, memo, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { Box, Container, Grid, Typography, useTheme } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { EventCard } from 'widgets'
 import { AppState } from 'state'
 import { useApi } from 'hooks'
@@ -11,16 +11,20 @@ interface EventListProps {
 }
 
 const EventList: FC<EventListProps> = ({ horizontal = false }) => {
-	const { getActivities } = useApi()
+	const { getActivities, getPlayables } = useApi()
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
 	const activities = useSelector((state: AppState) => state.activities)
+	const playables = useSelector((state: AppState) => state.playables)
 
 	useEffect(() => {
 		if (!activities) {
 			dispatch<any>(getActivities())
 		}
-	}, [activities, dispatch, getActivities])
+		if (!playables) {
+			dispatch<any>(getPlayables())
+		}
+	}, [activities, playables, dispatch, getActivities, getPlayables])
 
 	return activities?.results ? (
 		<Box display="flex" flexDirection="column" sx={{ overflow: 'hiddenn', overflowY: 'scroll' }}>
