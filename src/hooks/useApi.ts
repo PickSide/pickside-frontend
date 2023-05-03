@@ -6,7 +6,7 @@ import { setSports } from 'state/sport'
 import { setActivities, updateActivity, Activity } from 'state/activity'
 import { useCalls } from 'hooks'
 import { API_URL } from 'api'
-import { setPlayables } from 'state/playables'
+import { setPlayables } from 'state/playable'
 
 interface UseApiOutput {
 	/* account */

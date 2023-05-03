@@ -8,8 +8,8 @@ import Map from '../pages/Home/Map'
 import PageLayout from './PageLayout'
 import Popover from './Popover'
 import RequireAuth from './RequireAuth'
-import SettingsInput from './SettingsInput'
 import Select from './Select'
+import SettingsInput from './SettingsInput'
 import Switch from './Switch'
 import TextField from './TextField'
 
@@ -23,8 +23,8 @@ export {
 	PageLayout,
 	Popover,
 	RequireAuth,
-	SettingsInput,
 	Select,
+	SettingsInput,
 	Switch,
 	TextField,
 }

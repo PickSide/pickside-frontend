@@ -1,16 +1,18 @@
 import { FC, useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-//import GoogleMapReact from 'google-map-react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 import { Box, CircularProgress, Typography } from '@mui/material'
+import { faPersonRunning, faSoccerBall } from '@fortawesome/free-solid-svg-icons'
 
 import { MapMarker } from 'components'
 import { useEnvVariables, useMapStyles } from 'hooks'
 import { AppState } from 'state'
+import { setSelectedActivity } from 'state/selectedActivity'
 
 const Map: FC<any> = ({ ...props }) => {
 	const { googleAPIKey } = useEnvVariables()
 	const { mapStyles } = useMapStyles()
+	const dispatch = useDispatch()
 
 	const activities = useSelector((state: AppState) => state.activities)
 	const playables = useSelector((state: AppState) => state.playables)
@@ -37,6 +39,13 @@ const Map: FC<any> = ({ ...props }) => {
 		googleMapsApiKey: '', //process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '',
 	})
 
+	const InfoWindow = ({ content, title }) => (
+		<Box display="flex" flexDirection="column">
+			<Typography>{title}</Typography>
+			<Typography>{content}</Typography>
+		</Box>
+	)
+
 	const ActivityMap = (): JSX.Element => {
 		return (
 			<Box
@@ -47,11 +56,43 @@ const Map: FC<any> = ({ ...props }) => {
 				}}
 			>
 				<GoogleMap key={googleAPIKey} zoom={12} mapContainerStyle={mapContainerStyle} center={center} options={options}>
-					{activities?.results?.map(({ id, location }, idx) => (
-						<MapMarker key={id} coords={location} {...props} />
+					{activities?.results?.map(({ id, location, title }, idx) => (
+						<MapMarker
+							id={id}
+							key={idx}
+							coords={location}
+							onToggleOpen={() => dispatch<any>(setSelectedActivity(id))}
+							onWindowClose={() => dispatch<any>(setSelectedActivity(null))}
+							icon={{
+								path: faSoccerBall.icon[4] as string,
+								fillColor: '#71fb00',
+								fillOpacity: 1,
+								strokeWeight: 0.5,
+								strokeColor: '#20e600',
+								scale: 0.05,
+							}}
+						>
+							<InfoWindow content="Current ongoing game" title={title} />
+						</MapMarker>
 					))}
-					{playables?.results?.map(({ id, coords }, idx) => (
-						<MapMarker key={id} coords={coords} {...props} />
+					{playables?.results?.map(({ id, coords, fieldName, type }, idx) => (
+						<MapMarker
+							id={id}
+							key={idx}
+							coords={coords}
+							onToggleOpen={() => dispatch<any>(setSelectedActivity(id))}
+							onWindowClose={() => dispatch<any>(setSelectedActivity(null))}
+							icon={{
+								path: faPersonRunning.icon[4] as string,
+								fillColor: '#0071fb',
+								fillOpacity: 1,
+								strokeWeight: 0.5,
+								strokeColor: '#0093ff',
+								scale: 0.05,
+							}}
+						>
+							<InfoWindow content="No games" title={fieldName} />
+						</MapMarker>
 					))}
 				</GoogleMap>
 			</Box>

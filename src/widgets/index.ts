@@ -1,3 +1,4 @@
+import ActivitySelectedSidenav from './ActivitySelectedSidenav'
 import AppBar from './AppBar'
 import Authentication from './Authentication'
 import EventCard from './EventCard'
@@ -16,6 +17,7 @@ import RegisterEventForm from './Forms/RegisterEventForm'
 import SignUpForm from './Forms/SignUpForm'
 
 export {
+	ActivitySelectedSidenav,
 	AppBar,
 	Authentication,
 	EventCard,
