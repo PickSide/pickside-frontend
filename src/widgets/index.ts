@@ -1,12 +1,14 @@
 import ActivitySelectedSidenav from './ActivitySelectedSidenav'
 import AppBar from './AppBar'
 import Authentication from './Authentication'
+import BackButton from './BackButton'
 import EventCard from './EventCard'
 import EventList from './EventList'
 import FilterToolbar from './FilterToolbar'
 import GlobalAppStatusAlert from './GlobalAppStatusAlert'
 import NotificationMenu from './NotificationMenu'
 import LanguageSwitcher from './LanguageSwitcher'
+import Map from './Map'
 import ProfileMenu from './ProfileMenu'
 import SelectSports from './SelectSports'
 import ThemeSwitcher from './ThemeSwitcher'
@@ -20,12 +22,14 @@ export {
 	ActivitySelectedSidenav,
 	AppBar,
 	Authentication,
+	BackButton,
 	EventCard,
 	EventList,
 	FilterToolbar,
 	GlobalAppStatusAlert,
 	NotificationMenu,
 	LanguageSwitcher,
+	Map,
 	ProfileMenu,
 	SelectSports,
 	ThemeSwitcher,

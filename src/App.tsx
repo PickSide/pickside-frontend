@@ -6,12 +6,15 @@ import { AccountProvider } from 'context/AccountContext'
 import { AppThemeProvider } from 'context/AppThemeContext'
 import { IdleTimeOutProvider } from 'context/IdleTimeOutContext'
 
-import HomePage from './pages/Home/HomePage'
-import LandingPage from './pages/Home/LandingPage'
+import HomePage from './pages/Listing/HomePage'
+import LandingPage from './pages/Home/Sections/LandingPage'
 import UserPage from './pages/User/UserPage'
 import AppSettingsPage from './pages/User/Sections/AppSettings'
 import HistoryPage from './pages/User/Sections/History'
 import ProfileSettingsPage from './pages/User/Sections/ProfileSettings'
+import SportSelection from './pages/Home/Sections/SportSelection'
+import About from './pages/Home/Sections/About'
+import Home from './pages/Home/Home'
 
 const App = () => {
 	return (
@@ -20,13 +23,15 @@ const App = () => {
 				<AppThemeProvider>
 					<GlobalAppStatusAlert />
 					<BrowserRouter>
-						<NavbarWrapper>
-							<AppBar />
-						</NavbarWrapper>
+						<AppBar />
 						{/* <FilterToolbar /> */}
 						<Routes>
-							<Route path="/" element={<LandingPage />} />
-							<Route path="/home" element={<HomePage />} />
+							<Route path="/" element={<Home />}>
+								<Route path="home" element={<LandingPage />} />
+								<Route path="selection" element={<SportSelection />} />
+								<Route path="about" element={<About />} />
+							</Route>
+							<Route path="/listing" element={<HomePage />} />
 							<Route element={<RequireAuth />}>
 								<Route path="/user/" element={<UserPage />}>
 									<Route path="app-settings" element={<AppSettingsPage />} />

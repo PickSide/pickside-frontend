@@ -1,12 +1,18 @@
+import React, { FC, useMemo, createRef, useRef } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { Box, Drawer } from '@mui/material'
 import { AppState } from 'state'
+import { Gallery, Sidenav } from 'components'
 import { setSelectedActivity } from 'state/selectedActivity'
 
-const ActivitySelectedSidenav = () => {
+const ActivitySelectedSidenav: FC<any> = (children) => {
 	const dispatch = useDispatch()
-
 	const selectedActivity = useSelector((state: AppState) => state.selectedActivity, shallowEqual)
+	const activities = useSelector((state: AppState) => state.activities, shallowEqual)
+
+	const currentActivityInfo = useMemo(
+		() => activities?.results?.find((activity) => activity.id === selectedActivity),
+		[activities, selectedActivity],
+	)
 
 	const handleClose = (event: React.KeyboardEvent | React.MouseEvent) => {
 		if (
@@ -20,9 +26,16 @@ const ActivitySelectedSidenav = () => {
 	}
 
 	return (
-		<Drawer anchor="right" open={!!selectedActivity} onClose={handleClose}>
-			<Box sx={{ width: 400 }}></Box>
-		</Drawer>
+		<Sidenav
+			className="bg-white"
+			open={!!selectedActivity}
+			onClose={handleClose}
+			from="left"
+			position="right"
+			title={currentActivityInfo?.title}
+		>
+			<Gallery />
+		</Sidenav>
 	)
 }
 

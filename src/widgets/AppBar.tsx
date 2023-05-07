@@ -1,24 +1,32 @@
-import { FC, useMemo, useState } from 'react'
+import { FC, useMemo, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { FormControlLabel, FormGroup, Grid, IconButton } from '@mui/material'
+import { IconButton } from '@mui/material'
 import { Home, Login } from '@mui/icons-material'
+import { BiMenu } from 'react-icons/bi'
 
-import { Dialog } from 'components'
-import { Authentication, LanguageSwitcher, NotificationMenu, ProfileMenu, ThemeSwitcher } from 'widgets'
+import { Dialog, Sidenav } from 'components'
+import { useIsMobile, useOnScreen } from 'hooks'
+import { motion } from 'framer-motion'
+import { Authentication, BackButton, LanguageSwitcher, NotificationMenu, ProfileMenu, ThemeSwitcher } from 'widgets'
 import { AppState } from 'state'
+import { fadeIn } from 'utils/variants'
 import { startCase, upperCase } from 'lodash'
 
-const AppBar: FC<any> = ({ ...props }) => {
+const AppBar: FC<any> = () => {
 	const navigate = useNavigate()
 	const { t } = useTranslation()
+	const ref = useRef() as React.MutableRefObject<HTMLInputElement>
+	const isMobile = useIsMobile()
+	const onScreen = useOnScreen(ref)
 
 	const connectedUser = useSelector((state: AppState) => state.account)
 	const appTheme = useSelector((state: AppState) => state.appTheme)
 	const appLocale = useSelector((state: AppState) => state.appLocale)
 
 	const [openAuthenticationDialog, setOpenAuthenticationDialog] = useState<boolean>(false)
+	const [openDrawer, setOpenDrawer] = useState<boolean>(false)
 
 	const themeLabel = useMemo(() => startCase(appTheme), [appTheme])
 	const localeLabel = useMemo(() => upperCase(appLocale), [appLocale])
@@ -35,39 +43,50 @@ const AppBar: FC<any> = ({ ...props }) => {
 			>
 				<Authentication />
 			</Dialog>
+			<div className="bg-primary flex overflow-hidden h-16 items-center px-5" ref={ref}>
+				{!isMobile
+					? [
+							<div className="flex-1 ">
+								<IconButton onClick={() => navigate('/')}>
+									<Home />
+								</IconButton>
+							</div>,
+							<div className="flex">
+								<LanguageSwitcher />
+								<ThemeSwitcher />
 
-			<Grid container alignItems="center">
-				<Grid item>
-					<IconButton onClick={() => navigate('/')}>
-						<Home />
-					</IconButton>
-				</Grid>
-				<Grid item container justifyContent="flex-end" alignItems="center" columnSpacing={3} xs>
-					<Grid item>
-						<FormGroup row>
-							<FormControlLabel label={t(localeLabel)} labelPlacement="start" control={<LanguageSwitcher />} />
-							<FormControlLabel label={t(themeLabel)} labelPlacement="start" control={<ThemeSwitcher />} />
-						</FormGroup>
-					</Grid>
+								{connectedUser ? (
+									[<NotificationMenu />, <ProfileMenu />]
+								) : (
+									<IconButton onClick={() => setOpenAuthenticationDialog(true)}>
+										<Login />
+									</IconButton>
+								)}
+							</div>,
+					  ]
+					: [
+							<div className="flex-1 ">
+								<IconButton onClick={() => setOpenDrawer(true)}>
+									<BiMenu />
+								</IconButton>
+							</div>,
+							<div className="flex">
+								<LanguageSwitcher />
+								<ThemeSwitcher />
 
-					{connectedUser ? (
-						[
-							<Grid key="notification-menu-itm" item>
-								<NotificationMenu />
-							</Grid>,
-							<Grid key="profile-menu-itm" item>
-								<ProfileMenu />
-							</Grid>,
-						]
-					) : (
-						<Grid item>
-							<IconButton onClick={() => setOpenAuthenticationDialog(true)}>
-								<Login />
-							</IconButton>
-						</Grid>
-					)}
-				</Grid>
-			</Grid>
+								{connectedUser ? (
+									[<NotificationMenu />, <ProfileMenu />]
+								) : (
+									<IconButton onClick={() => setOpenAuthenticationDialog(true)}>
+										<Login />
+									</IconButton>
+								)}
+							</div>,
+							openDrawer && <Sidenav className="bg-primary" open={openDrawer} onClose={() => setOpenDrawer(false)} />,
+					  ]}
+			</div>
+
+			{!onScreen && <BackButton />}
 		</>
 	)
 }

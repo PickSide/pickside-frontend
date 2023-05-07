@@ -6,7 +6,7 @@ import { setSports } from 'state/sport'
 import { setActivities, updateActivity, Activity } from 'state/activity'
 import { useCalls } from 'hooks'
 import { API_URL } from 'api'
-import { setPlayables } from 'state/playable'
+import { setPlayables } from 'state/playables'
 
 interface UseApiOutput {
 	/* account */
@@ -59,11 +59,11 @@ const useApi = (): UseApiOutput => {
 					}
 				},
 		registerToActivity:
-			(event: Activity) =>
+			(id: string) =>
 				async (dispatch: Dispatch): Promise<any> => {
 					const updatedItem = await putItem({
-						endpoint: 'events',
-						id: event.id,
+						endpoint: 'activities',
+						id,
 						data: { userId: account?.id },
 					})(dispatch)
 

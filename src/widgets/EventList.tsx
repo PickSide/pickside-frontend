@@ -27,13 +27,21 @@ const EventList: FC<EventListProps> = ({ horizontal = false }) => {
 	}, [activities, playables, dispatch, getActivities, getPlayables])
 
 	return activities?.results ? (
-		<Box display="flex" flexDirection="column" sx={{ overflow: 'hiddenn', overflowY: 'scroll' }}>
-			{activities?.results?.map((event, idx) => (
-				<Box key={idx} p={2}>
-					<EventCard event={event} />
-				</Box>
+		<div className="flex flex-col overflow-y-scroll min-w-[500px] h-[calc(100vh-64px)]">
+			{activities?.results?.map((activity, idx) => (
+				<div className="p-2" key={idx}>
+					<EventCard
+						id={activity.id}
+						levelRequired={activity.levelRequired}
+						location={playables?.results?.find((p) => p.id === activity.location)?.fieldName || ''}
+						title={activity.title}
+						participants={activity.participants}
+						maxPlayersCapacity={activity.maxPlayersCapacity}
+						numberOfRegisteredPlayers={activity.numberOfRegisteredPlayers}
+					/>
+				</div>
 			))}
-		</Box>
+		</div>
 	) : (
 		<Box justifyContent="center" alignContent="center">
 			<Typography variant="headerSmall">{t('No events in the area')}</Typography>

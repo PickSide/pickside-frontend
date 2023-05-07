@@ -1,62 +1,121 @@
 import React, { FC, useState, useMemo, useCallback } from 'react'
 import { EmojiEvents, DirectionsRun, LocationOn } from '@mui/icons-material'
-import { Box, Button, Card as MuiCard, CardContent as MuiCardContent, Grid, Link, Typography } from '@mui/material'
+import {
+	Box,
+	Button,
+	Card as MuiCard,
+	CardContent as MuiCardContent,
+	IconButton,
+	Grid,
+	Link,
+	Typography,
+	Paper,
+} from '@mui/material'
 import { times } from 'lodash'
 
 import { Dialog } from 'components'
 import { ConfirmRegisterEventForm } from 'widgets'
-import { Activity } from 'state/activity'
 import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { MdExpandLess, MdExpandMore } from 'react-icons/md'
 import { AppState } from 'state'
+import { Activity } from 'state/activity'
+import { setSelectedActivity } from 'state/selectedActivity'
 
-interface EventCardProps {
-	event: Activity
-}
-
-const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
+const EventCard: React.ElementType<Activity> = ({
+	id,
+	title,
+	participants,
+	levelRequired,
+	location,
+	maxPlayersCapacity,
+}) => {
 	const { t } = useTranslation()
-
-	const connectedUser = useSelector((state: AppState) => state.account)
+	const dispatch = useDispatch()
 
 	const [openConfirmRegisterDialog, setOpenConfirmRegisterDialog] = useState<boolean>(false)
+	const [expanded, setExpanded] = useState<boolean>(false)
 
-	const disableEvent = useMemo(
-		() => !connectedUser || event.participants?.includes(connectedUser.id!),
-		[connectedUser, event],
-	)
-
-	const combineAddress = useMemo(
-		() => `${event.location?.streetName} ${event.location?.city} ${event.location?.zipCode}`,
-		[event],
-	)
+	const account = useSelector((state: AppState) => state.account)
+	const accountLevel = account?.profile?.level
 
 	const Level = useCallback(() => {
-		const level = event.levelRequired
+		const level = levelRequired
 		return (
 			<Box component="span">
-				{times(event.levelRequired, (idx) => (
+				{times(levelRequired, (idx) => (
 					<EmojiEvents key={idx} color={level < 3 ? 'success' : level === 3 ? 'warning' : 'error'} />
 				))}
 			</Box>
 		)
-	}, [event.levelRequired])
+	}, [levelRequired])
 
 	return (
 		<>
 			<Dialog
-				title={`${t('Register for')} ${event.title}`}
+				title={`${t('Register for')} ${title}`}
 				open={openConfirmRegisterDialog}
 				onClose={() => setOpenConfirmRegisterDialog(false)}
 			>
-				<ConfirmRegisterEventForm event={event} onClose={() => setOpenConfirmRegisterDialog(false)} />
+				<ConfirmRegisterEventForm
+					id={id}
+					title={title}
+					isLevelLessThanRequired={(accountLevel || -1) < levelRequired}
+					onClose={() => setOpenConfirmRegisterDialog(false)}
+				/>
 			</Dialog>
-			<MuiCard>
+			<div className="relative">
+				<Paper
+					elevation={3}
+					className={`relative w-full p-5 cursor-pointer h-fit`}
+					onClick={() => dispatch<any>(setSelectedActivity(id))}
+				>
+					<div className="flex items-center justify-between">
+						<div className="flex flex-col gap-y-2">
+							<span className="text-[35px] font-semibold">{title}</span>
+							<span>
+								<Level />
+							</span>
+							<span className="text-[25px] font-normal">
+								{participants?.length}/{maxPlayersCapacity} players registered
+							</span>
+							<span className="text-[15px] font-normal">{location}</span>
+							{expanded && (
+								<>
+									<span className="text-[25px] font-normal">
+										{participants?.length}/{maxPlayersCapacity} players registered
+									</span>
+									<span className="text-[15px] font-normal">{location}</span>
+									<span className="text-[25px] font-normal">
+										{participants?.length}/{maxPlayersCapacity} players registered
+									</span>
+									<span className="text-[15px] font-normal">{location}</span>
+									<span className="text-[25px] font-normal">
+										{participants?.length}/{maxPlayersCapacity} players registered
+									</span>
+									<span className="text-[15px] font-normal">{location}</span>
+								</>
+							)}
+						</div>
+					</div>
+				</Paper>
+				<button
+					disabled={!account}
+					onClick={() => setOpenConfirmRegisterDialog(true)}
+					className={`absolute right-6 top-1/2 -translate-y-1/4 ${!account ? 'btn-disabled' : 'btn'}`}
+				>
+					<span>{t('Register')}</span>
+				</button>
+				<IconButton onClick={() => setExpanded(!expanded)} className={`absolute bottom-2 right-6`}>
+					{expanded ? <MdExpandLess size={20} /> : <MdExpandMore size={20} />}
+				</IconButton>
+			</div>
+			{/* <MuiCard>
 				<MuiCardContent>
 					<Grid container>
 						<Grid item container direction="column" xs={8} rowSpacing={3}>
 							<Grid item>
-								<Typography variant="h4">{event.title}</Typography>
+								<Typography variant="h4">{title}</Typography>
 							</Grid>
 							<Grid item>
 								<Typography>
@@ -69,7 +128,7 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 								</Grid>
 								<Grid item>
 									<Typography>
-										{event.participants?.length}/{event.maxPlayersCapacity}
+										{participants?.length}/{maxPlayersCapacity}
 									</Typography>
 								</Grid>
 							</Grid>
@@ -78,12 +137,8 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 									<LocationOn />
 								</Grid>
 								<Grid item>
-									<Link
-										href="#"
-										underline="hover"
-										//onClick={() => dispatch(setSelectedMarker(currentMarkerActivity?.activityId))}
-									>
-										<Typography>{combineAddress}</Typography>
+									<Link href="#" underline="hover" onClick={() => dispatch<any>(setSelectedActivity(id))}>
+										<Typography>{location}</Typography>
 									</Link>
 								</Grid>
 							</Grid>
@@ -92,7 +147,7 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 							<Button
 								variant="contained"
 								size="medium"
-								disabled={disableEvent}
+								disabled={!account}
 								onClick={() => setOpenConfirmRegisterDialog(true)}
 							>
 								{t('Register')}
@@ -100,7 +155,7 @@ const EventCard: React.ElementType<EventCardProps> = ({ event }) => {
 						</Grid>
 					</Grid>
 				</MuiCardContent>
-			</MuiCard>
+			</MuiCard> */}
 		</>
 	)
 }

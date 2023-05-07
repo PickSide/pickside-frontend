@@ -1,13 +1,70 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer base {
+	body {
+		margin: 0;
+		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+			'Droid Sans', 'Helvetica Neue', sans-serif;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	::-webkit-scrollbar {
+		width: 5px;
+		height: 5px;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+		box-shadow: inset 0 0 2px grey;
+		border-radius: 10px;
+	}
+
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+		background: #1f675f;
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+		background: #1f2767;
+	}
+
+	code {
+		font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+	}
+
+	section {
+		height: 100vh;
+	}
+
+	.h2 {
+		@apply font-primary text-[32px] mb-6 tracking-[10%] uppercase;
+	}
+
+	.h3 {
+		@apply font-primary font-semibold text-[26px] mb-6 leading-[46px];
+	}
+
+	.h4 {
+		@apply font-primary font-semibold text-[20px] leading-[30px];
+	}
+
+	.scrollable {
+		@apply scrollbar-thin scrollbar-thumb-accent scrollbar-track-gray-100;
+	}
+
+	.btn {
+		@apply rounded text-white font-semibold bg-[#156495] ease-linear transition-all duration-75 active:bg-[#47c2ed] focus:bg-[#2084b6] hover:bg-[#33b7ec] uppercase text-sm px-6 py-3;
+	}
+
+	.btn-disabled {
+		@apply rounded text-white font-semibold bg-slate-200 opacity-70 cursor-not-allowed uppercase text-sm px-6 py-3;
+	}
+
+	.section {
+		@apply py-8 px-6 items-center;
+	}
 }

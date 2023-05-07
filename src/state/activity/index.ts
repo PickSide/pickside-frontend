@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Resources } from 'state'
 import { Sport } from 'state/sport'
-import { Location } from 'types'
 
 export interface Activities extends Resources {
 	results?: Activity[]
@@ -11,7 +10,7 @@ export interface Activity {
 	id?: string
 	free?: boolean
 	levelRequired?: any
-	location: Location
+	location: string
 	maxPlayersCapacity: number
 	numberOfRegisteredPlayers: number
 	organiser?: string

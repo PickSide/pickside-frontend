@@ -1,5 +1,6 @@
 {
 	"compilerOptions": {
+		"composite": true,
 		"paths": {
 			"components/*": [
 				"./src/components/*"
@@ -30,7 +31,7 @@
 			],
 			"context/**": [
 				"./src/context/*"
-			]
+			],
 		},
 		"target": "es6",
 		"lib": [
@@ -45,7 +46,7 @@
 		"strict": true,
 		"forceConsistentCasingInFileNames": false,
 		"module": "esnext",
-		"rootDir": "src",
+		"rootDir": ".",
 		"baseUrl": "src",
 		"noImplicitReturns": false,
 		"noImplicitAny": false,
@@ -68,6 +69,7 @@
 		"scripts"
 	],
 	"include": [
-		"src/**/*"
+		"src/**/*",
+		"./tailwind.config.js"
 	]
 }
