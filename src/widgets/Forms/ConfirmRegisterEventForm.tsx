@@ -1,30 +1,28 @@
-import { FC, useMemo } from 'react'
+import { FC } from 'react'
 import { useDispatch } from 'react-redux'
 import { Button, Container, DialogActions, Grid, Typography } from '@mui/material'
-import { Activity } from 'state/activity'
-import { useSelector } from 'react-redux'
-import { AppState } from 'state'
 import { useApi } from 'hooks'
 import { useTranslation } from 'react-i18next'
 
 interface ConfirmRegisterEventFormProps {
-	event: Activity
+	id?: string
+	title?: string
+	isLevelLessThanRequired?: boolean
 	onClose: () => void
 }
 
-const ConfirmRegisterEventForm: FC<ConfirmRegisterEventFormProps> = ({ event, onClose, ...props }) => {
+const ConfirmRegisterEventForm: FC<ConfirmRegisterEventFormProps> = ({
+	id,
+	title,
+	isLevelLessThanRequired = false,
+	onClose,
+}) => {
 	const { registerToActivity } = useApi()
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
-	const connectedUser = useSelector((state: AppState) => state.account)
-
-	const isLevelLessThanRequired = useMemo(
-		() => connectedUser?.profile?.level || -1 < event.levelRequired || false,
-		[connectedUser, event],
-	)
 
 	const onRegisterEvent = () => {
-		dispatch<any>(registerToActivity(event))
+		dispatch<any>(registerToActivity(id))
 		onClose()
 	}
 

@@ -1,19 +1,44 @@
 {
 	"compilerOptions": {
+		"composite": true,
 		"paths": {
-			"components/*": ["./src/components/*"],
-			"icons/*": ["./node_modules/@mui/icons-material/*"],
-			"pages/*": ["./src/pages/*"],
-			"state/**": ["./src/state/*"],
-			"types/*": ["./src/types/*"],
-			"utils/**": ["./src/utils/*"],
-			"widgets/*": ["./src/widgets/*"],
-			"api/*": ["./src/api/*"],
-			"utils/constants/*": ["./src/utils/constants/*"],
-			"context/**": ["./src/context/*"]
+			"components/*": [
+				"./src/components/*"
+			],
+			"icons/*": [
+				"./node_modules/@mui/icons-material/*"
+			],
+			"pages/*": [
+				"./src/pages/*"
+			],
+			"state/**": [
+				"./src/state/*"
+			],
+			"types/*": [
+				"./src/types/*"
+			],
+			"utils/**": [
+				"./src/utils/*"
+			],
+			"widgets/*": [
+				"./src/widgets/*"
+			],
+			"api/*": [
+				"./src/api/*"
+			],
+			"utils/constants/*": [
+				"./src/utils/constants/*"
+			],
+			"context/**": [
+				"./src/context/*"
+			],
 		},
 		"target": "es6",
-		"lib": ["dom", "dom.iterable", "esnext"],
+		"lib": [
+			"dom",
+			"dom.iterable",
+			"esnext"
+		],
 		"allowJs": true,
 		"skipLibCheck": true,
 		"esModuleInterop": true,
@@ -21,7 +46,7 @@
 		"strict": true,
 		"forceConsistentCasingInFileNames": false,
 		"module": "esnext",
-		"rootDir": "src",
+		"rootDir": ".",
 		"baseUrl": "src",
 		"noImplicitReturns": false,
 		"noImplicitAny": false,
@@ -34,7 +59,17 @@
 		"noFallthroughCasesInSwitch": true,
 		"downlevelIteration": true
 	},
-	"typeRoots": ["node_modules/@types", "src/@types"],
-	"exclude": ["node_modules", "build", "scripts"],
-	"include": ["src/**/*"]
+	"typeRoots": [
+		"node_modules/@types",
+		"src/@types"
+	],
+	"exclude": [
+		"node_modules",
+		"build",
+		"scripts"
+	],
+	"include": [
+		"src/**/*",
+		"./tailwind.config.js"
+	]
 }

@@ -1,24 +1,15 @@
-import React, { FC } from 'react'
-import { useAsync } from 'react-use'
+import React, { FC, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { MenuItem } from '@mui/material'
 import { Select } from 'components'
 import { AppState } from 'state'
-import { useApi } from 'hooks'
+import InitialAppStateContext from 'context/InitialAppStateContext'
 
 const SelectSports: FC<any> = ({ ...props }) => {
-	const { getSports } = useApi()
-	const dispatch = useDispatch()
 	const { t } = useTranslation()
-
+	const { loading } = useContext(InitialAppStateContext)
 	const sports = useSelector((state: AppState) => state.sports)
-
-	const { loading } = useAsync(async () => {
-		if (!sports) {
-			dispatch<any>(getSports())
-		}
-	}, [])
 
 	return (
 		<Select freeSolo id="sport-select" label={t('Sport')}>

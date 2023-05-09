@@ -5,9 +5,13 @@ import appStatus, { AppStatus } from './appStatus'
 import appTheme from './appTheme'
 import areas, { Areas } from './areas'
 import locales, { Locales } from './locales'
+import playables, { Playables } from './playables'
 import notifications, { Notifications } from './notifications'
-import selectedLocation from './selectedLocation'
+import selectedActivity from './selectedActivity'
 import selectedContexts, { SelectedContexts } from './selectedContext'
+import selectedLocation from './selectedLocation'
+import selectedSport from './selectedSport'
+import settingsTemplate, { SettingsTemplate } from './settingsTemplate'
 import sports, { Sports } from './sport'
 
 export interface Resources {
@@ -23,9 +27,13 @@ export interface AppState {
 	appTheme?: string
 	areas?: Areas
 	locales?: Locales
+	playables?: Playables,
 	notifications?: Notifications
-	selectedLocation?: any
+	selectedActivity?: any,
 	selectedContexts?: SelectedContexts
+	selectedLocation?: any
+	selectedSport?: any
+	settingsTemplate?: SettingsTemplate
 	sports?: Sports
 }
 
@@ -37,8 +45,12 @@ export const reducers = {
 	appTheme,
 	areas,
 	locales,
+	playables,
 	notifications,
-	selectedLocation,
+	selectedActivity,
 	selectedContexts,
+	selectedLocation,
+	selectedSport,
+	settingsTemplate,
 	sports,
 }

@@ -8,6 +8,7 @@ export interface Sport {
 	id?: string
 	value?: string
 	description?: string
+	featureAvailable?: boolean,
 }
 
 const Sport = createSlice({

@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { Add } from '@mui/icons-material'
 import { Button, Grid } from '@mui/material'
-import { Autocomplete, DatePicker, Dialog } from 'components'
+import { DatePicker, Dialog } from 'components'
 import { RegisterEventForm, SelectSports } from 'widgets'
 import { useSelector } from 'react-redux'
 import { AppState } from 'state'
@@ -38,9 +38,7 @@ const FilterToolbar: FC<any> = ({ ...props }) => {
 					<Grid item>
 						<DatePicker />
 					</Grid>
-					<Grid item>
-						<Autocomplete />
-					</Grid>
+					<Grid item>{/* <Autocomplete /> */}</Grid>
 				</Grid>
 				<Grid item container justifyContent="flex-end" alignContent="center" xs>
 					<Grid item marginX={4}>

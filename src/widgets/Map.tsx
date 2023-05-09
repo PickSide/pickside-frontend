@@ -1,20 +1,21 @@
 import { FC, useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-//import GoogleMapReact from 'google-map-react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 import { Box, CircularProgress, Typography } from '@mui/material'
+import { faPersonRunning, faSoccerBall } from '@fortawesome/free-solid-svg-icons'
 
 import { MapMarker } from 'components'
 import { useEnvVariables, useMapStyles } from 'hooks'
-import useMarkers from 'hooks/useMarkers'
 import { AppState } from 'state'
+import { setSelectedActivity } from 'state/selectedActivity'
 
 const Map: FC<any> = ({ ...props }) => {
-	//const { markerProps } = useMarkers()
 	const { googleAPIKey } = useEnvVariables()
 	const { mapStyles } = useMapStyles()
+	const dispatch = useDispatch()
 
-	const activities = useSelector((state: AppState) => state.activities)
+	const playables = useSelector((state: AppState) => state.playables)
+	const selectedActivity = useSelector((state: AppState) => state.selectedActivity)
 	const selectedLocation = useSelector((state: AppState) => state.selectedLocation)
 
 	const options: google.maps.MapOptions = {
@@ -38,22 +39,41 @@ const Map: FC<any> = ({ ...props }) => {
 		googleMapsApiKey: '', //process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '',
 	})
 
-	// const onClickMarker = useCallback((props, marker, e) => {
-	// 	console.log(props, marker, e)
-	// }, [])
+	const InfoWindow = ({ content, title }) => (
+		<Box display="flex" flexDirection="column">
+			<Typography>{title}</Typography>
+			<Typography>{content}</Typography>
+		</Box>
+	)
 
 	const ActivityMap = (): JSX.Element => {
 		return (
 			<Box
 				sx={{
-					height: (theme) => `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
+					height: (theme) => `calc(100vh - 64px)`,
 					width: '100%',
 					overflow: 'hidden',
 				}}
 			>
 				<GoogleMap key={googleAPIKey} zoom={12} mapContainerStyle={mapContainerStyle} center={center} options={options}>
-					{activities?.results?.map(({ id, location }, idx) => (
-						<MapMarker key={id} coords={location} {...props} />
+					{playables?.results?.map(({ id, coords, fieldName }, idx) => (
+						<MapMarker
+							id={id}
+							key={idx}
+							coords={coords}
+							onToggleOpen={() => dispatch<any>(setSelectedActivity(id))}
+							onWindowClose={() => dispatch<any>(setSelectedActivity(null))}
+							icon={{
+								path: faSoccerBall.icon[4] as string,
+								fillColor: '#71fb00',
+								fillOpacity: 1,
+								strokeWeight: 0.5,
+								strokeColor: '#20e600',
+								scale: 0.05,
+							}}
+						>
+							{!!selectedActivity && <InfoWindow content="Current ongoing game" title={fieldName} />}
+						</MapMarker>
 					))}
 				</GoogleMap>
 			</Box>
