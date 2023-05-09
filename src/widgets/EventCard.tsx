@@ -2,7 +2,6 @@ import React, { FC, useState, useMemo, useCallback } from 'react'
 import { EmojiEvents, DirectionsRun, LocationOn } from '@mui/icons-material'
 import {
 	Box,
-	Button,
 	Card as MuiCard,
 	CardContent as MuiCardContent,
 	IconButton,
@@ -11,25 +10,25 @@ import {
 	Typography,
 	Paper,
 } from '@mui/material'
-import { times } from 'lodash'
+import { capitalize, times } from 'lodash'
 
-import { Dialog } from 'components'
+import { Button, Dialog } from 'components'
 import { ConfirmRegisterEventForm } from 'widgets'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { MdExpandLess, MdExpandMore } from 'react-icons/md'
+import { BsCheckCircleFill, BsXCircleFill } from 'react-icons/bs'
 import { AppState } from 'state'
 import { Activity } from 'state/activity'
 import { setSelectedActivity } from 'state/selectedActivity'
 
-const EventCard: React.ElementType<Activity> = ({
-	id,
-	title,
-	participants,
-	levelRequired,
-	location,
-	maxPlayersCapacity,
-}) => {
+interface ActivityProps {
+	activity: Activity
+}
+
+const EventCard: FC<ActivityProps> = ({ activity }) => {
+	const { id, title, description, participants, location, settings } = activity
+	console.log(settings)
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
 
@@ -37,18 +36,6 @@ const EventCard: React.ElementType<Activity> = ({
 	const [expanded, setExpanded] = useState<boolean>(false)
 
 	const account = useSelector((state: AppState) => state.account)
-	const accountLevel = account?.profile?.level
-
-	const Level = useCallback(() => {
-		const level = levelRequired
-		return (
-			<Box component="span">
-				{times(levelRequired, (idx) => (
-					<EmojiEvents key={idx} color={level < 3 ? 'success' : level === 3 ? 'warning' : 'error'} />
-				))}
-			</Box>
-		)
-	}, [levelRequired])
 
 	return (
 		<>
@@ -60,102 +47,77 @@ const EventCard: React.ElementType<Activity> = ({
 				<ConfirmRegisterEventForm
 					id={id}
 					title={title}
-					isLevelLessThanRequired={(accountLevel || -1) < levelRequired}
+					isLevelLessThanRequired={false}
 					onClose={() => setOpenConfirmRegisterDialog(false)}
 				/>
 			</Dialog>
-			<div className="relative">
-				<Paper
-					elevation={3}
-					className={`relative w-full p-5 cursor-pointer h-fit`}
-					onClick={() => dispatch<any>(setSelectedActivity(id))}
-				>
-					<div className="flex items-center justify-between">
-						<div className="flex flex-col gap-y-2">
-							<span className="text-[35px] font-semibold">{title}</span>
-							<span>
-								<Level />
+			<div
+				onClick={() => dispatch<any>(setSelectedActivity(id))}
+				className="relative bg-white rounded-md shadow-md w-full flex flex-col p-4"
+			>
+				<div className="flex flex-col items-center mb-7">
+					<span className="text-[25px] font-semibold">{title}</span>
+					<span className="text-[15px] font-normal">{description}</span>
+				</div>
+				<div className="m-auto grid grid-cols-3 gap-12 gap-y-6 text-[15px] text-center h-[120px]">
+					<div>
+						<span className="capitalize font-semibold flex flex-col items-center">
+							{(participants || []).length} / {settings.maxPlayers}
+						</span>
+						<span>{t('Players')}</span>
+					</div>
+					<div>
+						<span className="capitalize font-semibold flex flex-col items-center">
+							{settings.clothingColor.join(',')}
+						</span>
+						<span>{t('Clothing color')}</span>
+					</div>
+					<div>
+						<span className="font-semibold flex flex-col items-center">{settings.pricePp}$</span>
+						<span>{t('Price')}</span>
+					</div>
+					<div>
+						<span className="font-semibold flex flex-col items-center">{settings.level}</span>
+						<span>{t('Level')}</span>
+					</div>
+					<div>
+						<span className="font-semibold flex flex-col items-center">{settings.playTime}</span>
+						<span>{t('Play time')}</span>
+					</div>
+					<div className=" flex flex-col items-center justify-center">
+						<Button isLink>{t('Show on map')}</Button>
+					</div>
+					{/* <div className="flex flex-col items-center">
+						{settings.isBallProvided ? (
+							<span className="text-[#2bb75c]">
+								<BsCheckCircleFill size={20} />
 							</span>
-							<span className="text-[25px] font-normal">
-								{participants?.length}/{maxPlayersCapacity} players registered
+						) : (
+							<span className="text-[#d2333d]">
+								<BsXCircleFill size={20} />
 							</span>
-							<span className="text-[15px] font-normal">{location}</span>
-							{expanded && (
+						)}
+						<span>{t('Ball')}</span>
+					</div> */}
+				</div>
+				<div className="flex justify-center">
+					<IconButton onClick={() => setExpanded(!expanded)} disableRipple>
+						<div className="inline-flex items-center gap-x-1">
+							{expanded ? (
 								<>
-									<span className="text-[25px] font-normal">
-										{participants?.length}/{maxPlayersCapacity} players registered
-									</span>
-									<span className="text-[15px] font-normal">{location}</span>
-									<span className="text-[25px] font-normal">
-										{participants?.length}/{maxPlayersCapacity} players registered
-									</span>
-									<span className="text-[15px] font-normal">{location}</span>
-									<span className="text-[25px] font-normal">
-										{participants?.length}/{maxPlayersCapacity} players registered
-									</span>
-									<span className="text-[15px] font-normal">{location}</span>
+									<span className="text-[15px] font-normal">{t('Show less')}</span>
+									<MdExpandLess size={20} />
+								</>
+							) : (
+								<>
+									<span className="text-[15px] font-normal">{t('Show more')}</span>
+									<MdExpandMore size={20} />
 								</>
 							)}
 						</div>
-					</div>
-				</Paper>
-				<button
-					disabled={!account}
-					onClick={() => setOpenConfirmRegisterDialog(true)}
-					className={`absolute right-6 top-1/2 -translate-y-1/4 ${!account ? 'btn-disabled' : 'btn'}`}
-				>
-					<span>{t('Register')}</span>
-				</button>
-				<IconButton onClick={() => setExpanded(!expanded)} className={`absolute bottom-2 right-6`}>
-					{expanded ? <MdExpandLess size={20} /> : <MdExpandMore size={20} />}
-				</IconButton>
+					</IconButton>
+				</div>
 			</div>
-			{/* <MuiCard>
-				<MuiCardContent>
-					<Grid container>
-						<Grid item container direction="column" xs={8} rowSpacing={3}>
-							<Grid item>
-								<Typography variant="h4">{title}</Typography>
-							</Grid>
-							<Grid item>
-								<Typography>
-									<Level />
-								</Typography>
-							</Grid>
-							<Grid item container columnSpacing={2}>
-								<Grid item>
-									<DirectionsRun />
-								</Grid>
-								<Grid item>
-									<Typography>
-										{participants?.length}/{maxPlayersCapacity}
-									</Typography>
-								</Grid>
-							</Grid>
-							<Grid item container columnSpacing={2}>
-								<Grid item>
-									<LocationOn />
-								</Grid>
-								<Grid item>
-									<Link href="#" underline="hover" onClick={() => dispatch<any>(setSelectedActivity(id))}>
-										<Typography>{location}</Typography>
-									</Link>
-								</Grid>
-							</Grid>
-						</Grid>
-						<Grid item container justifyContent="center" alignItems="center" xs={4}>
-							<Button
-								variant="contained"
-								size="medium"
-								disabled={!account}
-								onClick={() => setOpenConfirmRegisterDialog(true)}
-							>
-								{t('Register')}
-							</Button>
-						</Grid>
-					</Grid>
-				</MuiCardContent>
-			</MuiCard> */}
 		</>
 	)
 }

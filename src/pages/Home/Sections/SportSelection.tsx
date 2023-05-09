@@ -1,21 +1,21 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { Paper } from '@mui/material'
-import { AppState } from 'state'
-import { useApi } from 'hooks'
 import { useTranslation } from 'react-i18next'
+import { AppState } from 'state'
+import { setSelectedSport } from 'state/selectedSport'
 
 const SportSelection = () => {
 	const dispatch = useDispatch()
-	const { getSports } = useApi()
+	const navigate = useNavigate()
 	const { t } = useTranslation()
 	const sports = useSelector((state: AppState) => state.sports)
 
-	useEffect(() => {
-		if (!sports) {
-			dispatch<any>(getSports())
-		}
-	}, [dispatch])
+	const handleClick = async (e, value) => {
+		await dispatch<any>(setSelectedSport(value))
+		await navigate('/listing')
+	}
 
 	return (
 		<section id="selection" className="flex flex-col section h-fit xl:h-[600px] gap-y-4">
@@ -29,6 +29,7 @@ const SportSelection = () => {
 						<Paper
 							key={idx}
 							elevation={3}
+							onClick={(e) => handleClick(e, sport.value)}
 							className="flex bg-primary text-white w-64 h-28 btn text-[20px] m-auto justify-center items-center hover:bg-accent cursor-pointer"
 						>
 							<span>{sport.description}</span>

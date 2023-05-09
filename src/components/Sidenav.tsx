@@ -1,4 +1,4 @@
-import { FC, cloneElement, forwardRef, useRef, useImperativeHandle, useMemo, useEffect } from 'react'
+import { cloneElement, forwardRef, useRef, useImperativeHandle, useMemo, useEffect } from 'react'
 import { IconButton } from '@mui/material'
 import { MdOutlineClose } from 'react-icons/md'
 import { motion } from 'framer-motion'

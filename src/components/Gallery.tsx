@@ -9,7 +9,7 @@ interface GalleryProps {
 	images?: any
 }
 
-const OFFSET = 500
+const OFFSET = 400
 const IMAGES = [
 	'https://lh3.googleusercontent.com/p/AF1QipMeu-K39F0mCeQiy9i5LP6Q4v_EV--h9fhfIbmO=s680-w680-h510',
 	'https://lh3.googleusercontent.com/p/AF1QipPrCPJasPCNXWK2ENeEKopYkFtvp6PyPSL6C08U=s680-w680-h510',
@@ -21,18 +21,19 @@ const IMAGES = [
 
 const Gallery = ({ images = IMAGES, ...props }, ref) => {
 	const [currentIdx, setCurrentIdx] = useState<number>(0)
-	//const [direction, setDirection] = useState<'left' | 'right'>()
+	const [direction, setDirection] = useState<'left' | 'right'>()
 
+	const parentWidth = useMemo(() => ref.current?.offsetWidth || 0, [ref])
 	const showLeft = useMemo(() => currentIdx > 0, [currentIdx])
 	const showRight = useMemo(() => currentIdx < images.length - 1, [images, currentIdx])
-	const translate = useMemo(() => `-translate-x-[${currentIdx * OFFSET}px]`, [currentIdx])
-	const containerWidth = useMemo(() => `w-[${images.length * OFFSET}px]`, [images.length])
+	const translate = useMemo(() => `-translate-x-[${currentIdx * parentWidth}px]`, [currentIdx, parentWidth])
+	const containerWidth = useMemo(() => `w-[${images.length * parentWidth}px]`, [images.length, parentWidth])
 
 	const goLeft = useCallback(() => {
 		if (currentIdx === 0) {
 			return
 		}
-		//setDirection('left')
+		setDirection('left')
 		setCurrentIdx(currentIdx - 1)
 	}, [currentIdx, setCurrentIdx])
 
@@ -40,17 +41,23 @@ const Gallery = ({ images = IMAGES, ...props }, ref) => {
 		if (currentIdx === images.length - 1) {
 			return
 		}
-		//setDirection('right')
+		setDirection('right')
 		setCurrentIdx(currentIdx + 1)
 	}, [currentIdx, images, setCurrentIdx])
 
 	const handleBottomNav = (e, idx) => setCurrentIdx(idx)
 
+	useEffect(() => {
+		console.log(ref.current.offsetWidth)
+		console.log('currentIdx: ', currentIdx)
+		console.log('direction: ', direction)
+	}, [currentIdx, direction, ref])
+
 	return (
 		<div className="relative w-full h-[300px] overflow-hidden">
 			<div className={`absolute ${containerWidth} h-full flex ${translate} z-0`}>
 				{images.map((image, idx) => (
-					<img key={idx} alt="" src={image} className={`bg-contain h-full w-[${OFFSET}px]`} />
+					<img key={idx} alt="" src={image} className="bg-contain w-full h-full" />
 				))}
 			</div>
 			<div className="absolute w-full h-full z-10"></div>

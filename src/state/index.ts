@@ -10,6 +10,8 @@ import notifications, { Notifications } from './notifications'
 import selectedActivity from './selectedActivity'
 import selectedContexts, { SelectedContexts } from './selectedContext'
 import selectedLocation from './selectedLocation'
+import selectedSport from './selectedSport'
+import settingsTemplate, { SettingsTemplate } from './settingsTemplate'
 import sports, { Sports } from './sport'
 
 export interface Resources {
@@ -28,8 +30,10 @@ export interface AppState {
 	playables?: Playables,
 	notifications?: Notifications
 	selectedActivity?: any,
-	selectedLocation?: any
 	selectedContexts?: SelectedContexts
+	selectedLocation?: any
+	selectedSport?: any
+	settingsTemplate?: SettingsTemplate
 	sports?: Sports
 }
 
@@ -46,5 +50,7 @@ export const reducers = {
 	selectedActivity,
 	selectedContexts,
 	selectedLocation,
+	selectedSport,
+	settingsTemplate,
 	sports,
 }

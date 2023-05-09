@@ -8,10 +8,8 @@ import { BiMenu } from 'react-icons/bi'
 
 import { Dialog, Sidenav } from 'components'
 import { useIsMobile, useOnScreen } from 'hooks'
-import { motion } from 'framer-motion'
 import { Authentication, BackButton, LanguageSwitcher, NotificationMenu, ProfileMenu, ThemeSwitcher } from 'widgets'
 import { AppState } from 'state'
-import { fadeIn } from 'utils/variants'
 import { startCase, upperCase } from 'lodash'
 
 const AppBar: FC<any> = () => {
@@ -44,46 +42,48 @@ const AppBar: FC<any> = () => {
 				<Authentication />
 			</Dialog>
 			<div className="bg-primary flex overflow-hidden h-16 items-center px-5" ref={ref}>
-				{!isMobile
-					? [
-							<div className="flex-1 ">
-								<IconButton onClick={() => navigate('/')}>
-									<Home />
-								</IconButton>
-							</div>,
-							<div className="flex">
-								<LanguageSwitcher />
-								<ThemeSwitcher />
+				{!isMobile ? (
+					<>
+						<div className="flex-1 ">
+							<IconButton onClick={() => navigate('/')}>
+								<Home />
+							</IconButton>
+						</div>
+						<div className="flex">
+							<LanguageSwitcher />
+							<ThemeSwitcher />
 
-								{connectedUser ? (
-									[<NotificationMenu />, <ProfileMenu />]
-								) : (
-									<IconButton onClick={() => setOpenAuthenticationDialog(true)}>
-										<Login />
-									</IconButton>
-								)}
-							</div>,
-					  ]
-					: [
-							<div className="flex-1 ">
-								<IconButton onClick={() => setOpenDrawer(true)}>
-									<BiMenu />
+							{connectedUser ? (
+								[<NotificationMenu />, <ProfileMenu />]
+							) : (
+								<IconButton onClick={() => setOpenAuthenticationDialog(true)}>
+									<Login />
 								</IconButton>
-							</div>,
-							<div className="flex">
-								<LanguageSwitcher />
-								<ThemeSwitcher />
+							)}
+						</div>
+					</>
+				) : (
+					<>
+						<div className="flex-1 ">
+							<IconButton onClick={() => setOpenDrawer(true)}>
+								<BiMenu />
+							</IconButton>
+						</div>
+						<div className="flex">
+							<LanguageSwitcher />
+							<ThemeSwitcher />
 
-								{connectedUser ? (
-									[<NotificationMenu />, <ProfileMenu />]
-								) : (
-									<IconButton onClick={() => setOpenAuthenticationDialog(true)}>
-										<Login />
-									</IconButton>
-								)}
-							</div>,
-							openDrawer && <Sidenav className="bg-primary" open={openDrawer} onClose={() => setOpenDrawer(false)} />,
-					  ]}
+							{connectedUser ? (
+								[<NotificationMenu />, <ProfileMenu />]
+							) : (
+								<IconButton onClick={() => setOpenAuthenticationDialog(true)}>
+									<Login />
+								</IconButton>
+							)}
+						</div>
+						{openDrawer && <Sidenav className="bg-primary" open={openDrawer} onClose={() => setOpenDrawer(false)} />}
+					</>
+				)}
 			</div>
 
 			{!onScreen && <BackButton />}

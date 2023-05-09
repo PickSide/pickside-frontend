@@ -1,14 +1,16 @@
-import { FC } from 'react'
-import { Button as MuiButton, ButtonProps } from '@mui/material'
+import { FC, useMemo } from 'react'
 
-const Button: FC<ButtonProps> = ({ children, ...props }) => {
-	const btnDisabledClass = 'btn-disabled'
-	const btnActiveClass = 'btn'
+const Button: FC<any> = ({ isLink = false, children, ...props }) => {
+	const btnClass = useMemo(() => {
+		if (props.disabled) return 'btn-disabled'
+		if (isLink) return 'btn-link'
+		return 'btn'
+	}, [isLink, props])
 
 	return (
-		<MuiButton {...props} className={props.disabled ? btnDisabledClass : btnActiveClass}>
+		<button className={btnClass} {...props}>
 			{children}
-		</MuiButton>
+		</button>
 	)
 }
 

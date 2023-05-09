@@ -74,13 +74,7 @@ const LandingPage: FC<any> = () => {
 								width: '80%',
 							}}
 						/>
-						<Button
-							className="btn bg-[#156495] text-white "
-							variant="contained"
-							disabled={!selected}
-							endIcon={<KeyboardArrowRight />}
-							onClick={handleClick}
-						>
+						<Button disabled={!selected} onClick={handleClick}>
 							<Typography>Go</Typography>
 						</Button>
 					</div>

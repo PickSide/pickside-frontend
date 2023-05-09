@@ -1,15 +1,13 @@
 // https://www.iso.org/obp/ui/#search
-import { FC, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { FC, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Language } from '@mui/icons-material'
 import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Typography } from '@mui/material'
-import { useApi, useLocaleSwitcher } from 'hooks'
+import { useLocaleSwitcher } from 'hooks'
 import { AppState } from 'state'
 import '/node_modules/flag-icons/css/flag-icons.min.css'
 
 const LanguageSwitcher: FC<any> = ({ ...props }) => {
-	const { getLocales } = useApi()
-	const dispatch = useDispatch()
 	const { current, handleLocaleChange } = useLocaleSwitcher()
 
 	const locales = useSelector((state: AppState) => state.locales)
@@ -17,11 +15,11 @@ const LanguageSwitcher: FC<any> = ({ ...props }) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 	const open = Boolean(anchorEl)
 
-	useEffect(() => {
-		if (!locales) {
-			dispatch<any>(getLocales())
-		}
-	}, [dispatch, getLocales, locales])
+	// useEffect(() => {
+	// 	if (!locales) {
+	// 		dispatch<any>(getLocales())
+	// 	}
+	// }, [dispatch, getLocales, locales])
 
 	const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget)

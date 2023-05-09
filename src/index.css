@@ -60,6 +60,10 @@
 		@apply rounded text-white font-semibold bg-[#156495] ease-linear transition-all duration-75 active:bg-[#47c2ed] focus:bg-[#2084b6] hover:bg-[#33b7ec] uppercase text-sm px-6 py-3;
 	}
 
+	.btn-link {
+		@apply text-[#33b7ec] font-semibold bg-none outline-none ease-linear transition-all duration-75 active:text-[#52c275] focus:text-[#52c275] hover:text-[#861595] text-[15px];
+	}
+
 	.btn-disabled {
 		@apply rounded text-white font-semibold bg-slate-200 opacity-70 cursor-not-allowed uppercase text-sm px-6 py-3;
 	}

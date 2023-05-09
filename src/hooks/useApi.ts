@@ -7,6 +7,7 @@ import { setActivities, updateActivity, Activity } from 'state/activity'
 import { useCalls } from 'hooks'
 import { API_URL } from 'api'
 import { setPlayables } from 'state/playables'
+import { setSettingsTemplate } from 'state/settingsTemplate'
 
 interface UseApiOutput {
 	/* account */
@@ -26,6 +27,9 @@ interface UseApiOutput {
 
 	/* sports */
 	getSports: () => (d: Dispatch) => Promise<any>
+
+	/* sports */
+	getSettingsTemplate: () => (d: Dispatch) => Promise<any>
 }
 
 const useApi = (): UseApiOutput => {
@@ -105,6 +109,18 @@ const useApi = (): UseApiOutput => {
 
 					if (items) {
 						dispatch(setSports(items))
+					}
+				},
+
+		getSettingsTemplate:
+			() =>
+				async (dispatch: Dispatch): Promise<any> => {
+					const items = await getItems({
+						endpoint: 'settings',
+					})(dispatch)
+
+					if (items) {
+						dispatch(setSettingsTemplate(items))
 					}
 				},
 	}

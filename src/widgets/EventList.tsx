@@ -1,47 +1,40 @@
-import { FC, memo, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { FC, memo, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { Box, Typography } from '@mui/material'
-import { EventCard } from 'widgets'
+import { Button, Dialog } from 'components'
+import { EventCard, RegisterEventForm } from 'widgets'
 import { AppState } from 'state'
-import { useApi } from 'hooks'
 
-interface EventListProps {
-	horizontal?: boolean
-}
-
-const EventList: FC<EventListProps> = ({ horizontal = false }) => {
-	const { getActivities, getPlayables } = useApi()
+const EventList: FC<any> = () => {
 	const { t } = useTranslation()
-	const dispatch = useDispatch()
+	const [openCreateNewEventDialog, setOpenCreateNewEventDialog] = useState<boolean>(false)
 	const activities = useSelector((state: AppState) => state.activities)
+	const account = useSelector((state: AppState) => state.account)
 	const playables = useSelector((state: AppState) => state.playables)
 
-	useEffect(() => {
-		if (!activities) {
-			dispatch<any>(getActivities())
-		}
-		if (!playables) {
-			dispatch<any>(getPlayables())
-		}
-	}, [activities, playables, dispatch, getActivities, getPlayables])
-
 	return activities?.results ? (
-		<div className="flex flex-col overflow-y-scroll min-w-[500px] h-[calc(100vh-64px)]">
-			{activities?.results?.map((activity, idx) => (
-				<div className="p-2" key={idx}>
-					<EventCard
-						id={activity.id}
-						levelRequired={activity.levelRequired}
-						location={playables?.results?.find((p) => p.id === activity.location)?.fieldName || ''}
-						title={activity.title}
-						participants={activity.participants}
-						maxPlayersCapacity={activity.maxPlayersCapacity}
-						numberOfRegisteredPlayers={activity.numberOfRegisteredPlayers}
-					/>
+		<>
+			<Dialog
+				title={t('Create a new event')}
+				open={openCreateNewEventDialog}
+				onClose={() => setOpenCreateNewEventDialog(false)}
+				size="sm"
+			>
+				<RegisterEventForm onClose={() => setOpenCreateNewEventDialog(false)} />
+			</Dialog>
+
+			<div className="flex flex-col bg-[#fafafa] min-w-[500px] h-[calc(100vh-64px)] py-2 px-4 gap-y-3">
+				<div className="flex flex-row-reverse">
+					<Button onClick={() => setOpenCreateNewEventDialog(true)}>{t('New event')}</Button>
 				</div>
-			))}
-		</div>
+				<div className="flex flex-col overflow-y-auto gap-y-5">
+					{activities?.results?.map((activity, idx) => (
+						<EventCard key={idx} activity={activity} />
+					))}
+				</div>
+			</div>
+		</>
 	) : (
 		<Box justifyContent="center" alignContent="center">
 			<Typography variant="headerSmall">{t('No events in the area')}</Typography>
