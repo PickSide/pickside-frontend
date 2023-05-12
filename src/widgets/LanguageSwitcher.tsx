@@ -1,8 +1,9 @@
 // https://www.iso.org/obp/ui/#search
 import { FC, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Language } from '@mui/icons-material'
-import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Typography } from '@mui/material'
+import { FaGlobe } from 'react-icons/fa'
+import { ListItemIcon, ListItemText, Menu, MenuItem, Typography } from '@mui/material'
+import { Button } from 'components'
 import { useLocaleSwitcher } from 'hooks'
 import { AppState } from 'state'
 import '/node_modules/flag-icons/css/flag-icons.min.css'
@@ -54,9 +55,9 @@ const LanguageSwitcher: FC<any> = ({ ...props }) => {
 
 	return (
 		<div>
-			<IconButton id="locale-open-btn" onClick={handleOpen}>
-				<Language />
-			</IconButton>
+			<Button id="locale-open-btn" isIcon onClick={handleOpen}>
+				<FaGlobe size={25} />
+			</Button>
 			<Menu
 				id="basic-menu"
 				anchorEl={anchorEl}

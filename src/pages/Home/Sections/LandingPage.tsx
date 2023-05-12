@@ -2,8 +2,7 @@ import { FC, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAsync } from 'react-use'
 import { Autocomplete, TextField, Typography } from '@mui/material'
-import { Button } from 'components'
-import { KeyboardArrowRight } from '@mui/icons-material'
+import { Autocomplete as AutocompleteV2, Button, TextFieldV2 } from 'components'
 import { useCalls } from 'hooks'
 import { Area } from 'state/areas'
 import { setSelectedLocation } from 'state/selectedLocation'
@@ -27,7 +26,7 @@ const LandingPage: FC<any> = () => {
 	const groupBy = useCallback((option: Area) => `${option.city}`, [])
 
 	const [options, setOptions] = useState<any>([])
-	const [selected, setSelected] = useState<Area | any>(null)
+	const [selected, setSelected] = useState<any>(null)
 
 	const handleClick = async () => {
 		await dispatch(setSelectedLocation(selected.coords))
@@ -51,28 +50,13 @@ const LandingPage: FC<any> = () => {
 						</span>
 					</div>
 					<div className="flex mx-auto w-[80%] lg:w-[50%] items-center justify-center gap-x-6">
-						<Autocomplete
-							id="combo-box-demo"
-							className=""
-							getOptionLabel={getOptionLabel}
-							disableClearable
-							groupBy={groupBy}
+						<AutocompleteV2
 							options={options}
+							getOptionLabel={getOptionLabel}
+							groupBy={groupBy}
+							onChange={(newValue) => setSelected(newValue)}
+							placeholder={t('Choose your region')}
 							loading={loading}
-							onChange={(event, newValue) => setSelected(newValue)}
-							renderInput={(params) => {
-								console.log(params)
-								return (
-									<TextField
-										className="bg-white border-primary rounded focused:outline-primary w-300px lg:w-2x1 text-primary"
-										label="Search for location or district"
-										{...params}
-									/>
-								)
-							}}
-							sx={{
-								width: '80%',
-							}}
 						/>
 						<Button disabled={!selected} onClick={handleClick}>
 							<Typography>Go</Typography>

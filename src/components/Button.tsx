@@ -1,14 +1,22 @@
-import { FC, useMemo } from 'react'
+import { FC, ReactNode, useMemo } from 'react'
 
-const Button: FC<any> = ({ isLink = false, children, ...props }) => {
+interface ButtonProps {
+	children?: ReactNode
+	disabled?: boolean
+	isIcon?: boolean
+	isLink?: boolean
+}
+
+const Button: FC<ButtonProps | any> = ({ isIcon = false, isLink = false, children, disabled = false, ...props }) => {
 	const btnClass = useMemo(() => {
-		if (props.disabled) return 'btn-disabled'
+		if (disabled) return 'btn-disabled'
+		if (isIcon) return 'btn-icon'
 		if (isLink) return 'btn-link'
 		return 'btn'
-	}, [isLink, props])
+	}, [disabled, isLink, isIcon])
 
 	return (
-		<button className={btnClass} {...props}>
+		<button className={btnClass} disabled={disabled} {...props}>
 			{children}
 		</button>
 	)

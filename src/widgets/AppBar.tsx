@@ -1,21 +1,25 @@
-import { FC, useMemo, useRef, useState } from 'react'
+import { FC, createRef, useMemo, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { IconButton } from '@mui/material'
 import { Home, Login } from '@mui/icons-material'
+import { AiFillHome, AiOutlineLogin } from 'react-icons/ai'
 import { BiMenu } from 'react-icons/bi'
 
-import { Dialog, Sidenav } from 'components'
+import { Button, Dialog, DialogV2, Sidenav } from 'components'
 import { useIsMobile, useOnScreen } from 'hooks'
 import { Authentication, BackButton, LanguageSwitcher, NotificationMenu, ProfileMenu, ThemeSwitcher } from 'widgets'
 import { AppState } from 'state'
 import { startCase, upperCase } from 'lodash'
 
+const ROUTES_TO_EXCLUDE_BAR = ['/login', '/signup']
+
 const AppBar: FC<any> = () => {
+	const { pathname } = useLocation()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
 	const ref = useRef() as React.MutableRefObject<HTMLInputElement>
+	const loginRef = useRef<any>(null)
 	const isMobile = useIsMobile()
 	const onScreen = useOnScreen(ref)
 
@@ -28,26 +32,24 @@ const AppBar: FC<any> = () => {
 
 	const themeLabel = useMemo(() => startCase(appTheme), [appTheme])
 	const localeLabel = useMemo(() => upperCase(appLocale), [appLocale])
+	const showAppBar = useMemo(() => !ROUTES_TO_EXCLUDE_BAR.includes(pathname), [pathname])
 
-	return (
+	return showAppBar ? (
 		<>
-			<Dialog
+			<DialogV2
 				open={openAuthenticationDialog}
-				onClose={() => setOpenAuthenticationDialog(false)}
 				title={t('Authentication')}
-				aria-labelledby="alert-dialog-title"
-				aria-describedby="alert-dialog-description"
-				size="sm"
+				onClose={() => setOpenAuthenticationDialog(false)}
 			>
-				<Authentication />
-			</Dialog>
+				<Authentication onClose={() => setOpenAuthenticationDialog(false)} />
+			</DialogV2>
 			<div className="bg-primary flex overflow-hidden h-16 items-center px-5" ref={ref}>
 				{!isMobile ? (
 					<>
 						<div className="flex-1 ">
-							<IconButton onClick={() => navigate('/')}>
-								<Home />
-							</IconButton>
+							<Button isIcon onClick={() => navigate('/')}>
+								<AiFillHome size={25} />
+							</Button>
 						</div>
 						<div className="flex">
 							<LanguageSwitcher />
@@ -56,18 +58,18 @@ const AppBar: FC<any> = () => {
 							{connectedUser ? (
 								[<NotificationMenu />, <ProfileMenu />]
 							) : (
-								<IconButton onClick={() => setOpenAuthenticationDialog(true)}>
-									<Login />
-								</IconButton>
+								<Button isIcon onClick={() => navigate('/login')}>
+									<AiOutlineLogin size={25} />
+								</Button>
 							)}
 						</div>
 					</>
 				) : (
 					<>
 						<div className="flex-1 ">
-							<IconButton onClick={() => setOpenDrawer(true)}>
-								<BiMenu />
-							</IconButton>
+							<Button isIcon onClick={() => setOpenDrawer(true)}>
+								<BiMenu size={25} />
+							</Button>
 						</div>
 						<div className="flex">
 							<LanguageSwitcher />
@@ -76,9 +78,9 @@ const AppBar: FC<any> = () => {
 							{connectedUser ? (
 								[<NotificationMenu />, <ProfileMenu />]
 							) : (
-								<IconButton onClick={() => setOpenAuthenticationDialog(true)}>
+								<Button isIcon ref={loginRef} onClick={() => navigate('/login')}>
 									<Login />
-								</IconButton>
+								</Button>
 							)}
 						</div>
 						{openDrawer && <Sidenav className="bg-primary" open={openDrawer} onClose={() => setOpenDrawer(false)} />}
@@ -88,7 +90,7 @@ const AppBar: FC<any> = () => {
 
 			{!onScreen && <BackButton />}
 		</>
-	)
+	) : null
 }
 
 export default AppBar

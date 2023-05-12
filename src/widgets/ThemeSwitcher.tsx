@@ -1,8 +1,10 @@
 import { FC, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Brightness4, DarkMode, LightMode } from '@mui/icons-material'
-import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Typography } from '@mui/material'
+import { DarkMode, LightMode } from '@mui/icons-material'
+import { CgDarkMode } from 'react-icons/cg'
+import { ListItemIcon, ListItemText, Menu, MenuItem, Typography } from '@mui/material'
 import { useSelector } from 'react-redux'
+import { Button } from 'components'
 import { AppState } from 'state'
 import AppThemeContext from 'context/AppThemeContext'
 
@@ -49,9 +51,9 @@ const ThemeSwitcher: FC<any> = () => {
 	)
 	return (
 		<div>
-			<IconButton id="locale-open-btn" onClick={handleOpen}>
-				<Brightness4 />
-			</IconButton>
+			<Button id="locale-open-btn" isIcon onClick={handleOpen}>
+				<CgDarkMode size={25} />
+			</Button>
 			<Menu
 				id="basic-menu"
 				anchorEl={anchorEl}

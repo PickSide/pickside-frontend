@@ -1,8 +1,10 @@
 
 import Autocomplete from './Autocomplete'
 import Button from './Button'
+import Checkbox from './Checkbox'
 import DatePicker from './DatePicker'
 import Dialog from './Dialog'
+import DialogV2 from './DialogV2'
 import Gallery from './Gallery'
 import MapMarker from './MapMarker'
 import NavbarWrapper from './NavbarWrapper'
@@ -12,14 +14,21 @@ import RequireAuth from './RequireAuth'
 import Select from './Select'
 import SettingsInput from './SettingsInput'
 import Sidenav from './Sidenav'
+import Spinner from './Spinner'
 import Switch from './Switch'
+import Tabs from './Tabs'
 import TextField from './TextField'
+import TextFieldV2 from './TextFieldV2'
+
+export * from './Tabs'
 
 export {
 	Autocomplete,
 	Button,
+	Checkbox,
 	DatePicker,
 	Dialog,
+	DialogV2,
 	Gallery,
 	MapMarker,
 	NavbarWrapper,
@@ -29,6 +38,10 @@ export {
 	Select,
 	SettingsInput,
 	Sidenav,
+	Spinner,
 	Switch,
+	Tabs,
 	TextField,
+	TextFieldV2,
 }
+

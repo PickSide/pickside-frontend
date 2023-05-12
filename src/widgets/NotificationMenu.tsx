@@ -2,9 +2,10 @@ import { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { MdOutlineNotifications } from 'react-icons/md'
 
-import { IconButton, Menu, MenuItem } from '@mui/material'
-import { Notifications } from '@mui/icons-material'
+import { Menu, MenuItem } from '@mui/material'
+import { Button } from 'components'
 import { useAuth } from 'hooks'
 import { AppState } from 'state'
 
@@ -29,9 +30,9 @@ const NotificationMenu: FC<any> = () => {
 
 	return (
 		<div>
-			<IconButton id="notifications-open-btn" onClick={handleOpen}>
-				<Notifications />
-			</IconButton>
+			<Button isIcon id="locale-open-btn" onClick={handleOpen}>
+				<MdOutlineNotifications size={25} />
+			</Button>
 			<Menu
 				id="basic-menu"
 				anchorEl={anchorEl}

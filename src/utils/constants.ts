@@ -8,6 +8,10 @@ export const ACCESS_TOKEN = 'pickside-access-token'
 export const REFRESH_TOKEN = 'pickside-refresh-token'
 export const CONNECTED_ACCOUNT = 'pickside-account'
 
+export const FULL_NAME_REGEX = /^[A-Za-z]*( [A-Za-z]+)*$/
+export const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/
+export const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+
 // Env
 export const ENV_VARIABLES = {
 	development: {

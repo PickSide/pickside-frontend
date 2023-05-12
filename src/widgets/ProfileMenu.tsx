@@ -5,8 +5,10 @@ import { useTranslation } from 'react-i18next'
 
 import { IconButton, ListItemIcon, Menu, MenuItem, Typography } from '@mui/material'
 import { AccountCircle, Logout, Person, Settings } from '@mui/icons-material'
+import { BiUserCircle } from 'react-icons/bi'
 import { AppState } from 'state'
 import { useAuth } from 'hooks'
+import { Button } from 'components'
 
 const ProfileMenu: FC<any> = () => {
 	const { logout } = useAuth()
@@ -60,9 +62,9 @@ const ProfileMenu: FC<any> = () => {
 
 	return (
 		<div>
-			<IconButton id="locale-open-btn" edge="start" onClick={handleOpen}>
-				<AccountCircle />
-			</IconButton>
+			<Button isIcon id="locale-open-btn" onClick={handleOpen}>
+				<BiUserCircle size={25} />
+			</Button>
 			<Menu
 				id="basic-menu"
 				anchorEl={anchorEl}
