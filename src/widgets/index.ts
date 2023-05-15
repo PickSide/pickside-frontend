@@ -4,7 +4,6 @@ import Authentication from './Authentication'
 import BackButton from './BackButton'
 import EventCard from './EventCard'
 import EventList from './EventList'
-import FilterToolbar from './FilterToolbar'
 import GlobalAppStatusAlert from './GlobalAppStatusAlert'
 import NotificationMenu from './NotificationMenu'
 import LanguageSwitcher from './LanguageSwitcher'
@@ -26,7 +25,6 @@ export {
 	BackButton,
 	EventCard,
 	EventList,
-	FilterToolbar,
 	GlobalAppStatusAlert,
 	NotificationMenu,
 	LanguageSwitcher,

@@ -1,8 +1,7 @@
 import { createContext, useContext, useEffect, FC } from 'react'
 import { useLocalStorage } from 'hooks'
-import { setAccount } from 'state/account'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppState } from 'state'
+import { setAccount, AppState } from 'state'
 
 export interface ApiErrorContext {
 	error?: any

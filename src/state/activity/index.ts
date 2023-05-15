@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Resources } from 'state'
-import { Sport } from 'state/sport'
+import { Resources, Sport } from 'state'
 import { SportSettings } from 'utils'
 
 export interface Activities extends Resources {

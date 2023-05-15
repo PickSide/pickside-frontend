@@ -1,8 +1,7 @@
 import { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { setLocale } from 'state/appLocale'
-import { AppState } from 'state'
+import { setLocale, AppState } from 'state'
 
 const useLocaleSwitcher = (): { handleLocaleChange: (locale: any) => void, current } => {
 	const dispatch = useDispatch()

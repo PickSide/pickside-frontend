@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useMemo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { deepmerge } from '@mui/utils'
 import { createTheme, Theme } from '@mui/material'
 import { getDesignTokens, getThemedComponents } from '../theme'
-import { setAppTheme } from 'state/appTheme'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppState } from 'state'
+import { AppState, setAppTheme } from 'state'
 
 export const useTheme = (): [palette: Theme, toggleTheme: Function] => {
 	const theme = useSelector((state: AppState) => state.appTheme) || 'light'

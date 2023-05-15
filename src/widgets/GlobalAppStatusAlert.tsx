@@ -4,7 +4,7 @@ import { Alert, AlertTitle, IconButton, Slide, Typography } from '@mui/material'
 import { Close } from '@mui/icons-material'
 
 import { AppState } from 'state'
-import { toPascalCase } from 'utils/common'
+import { toPascalCase } from 'utils'
 
 const GlobalAppStatusAlert: FC<any> = () => {
 	const appStatus = useSelector((state: AppState) => state.appStatus)

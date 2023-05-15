@@ -1,6 +1,6 @@
 import { FC, ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
-import { fadeIn } from 'utils/variants'
+import { fadeIn } from 'utils'
 import { Spinner } from 'components'
 import { useDebounce } from 'hooks'
 

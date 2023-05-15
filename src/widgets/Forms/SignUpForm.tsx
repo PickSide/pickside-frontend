@@ -7,7 +7,7 @@ import { useAuth, useCalls } from 'hooks'
 import { BiLockAlt, BiUser } from 'react-icons/bi'
 import { MdOutlineAlternateEmail } from 'react-icons/md'
 import { omit } from 'lodash'
-import { EMAIL_REGEX, PASSWORD_REGEX, FULL_NAME_REGEX } from 'utils/constants'
+import { EMAIL_REGEX, PASSWORD_REGEX, FULL_NAME_REGEX } from 'utils'
 import { useNavigate } from 'react-router'
 
 interface SignUpFormProps {

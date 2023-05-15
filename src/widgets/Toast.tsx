@@ -1,11 +1,10 @@
-import { FC, ReactNode, useMemo, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { FC, ReactNode } from 'react'
 import { BsX } from 'react-icons/bs'
 import { AiFillCheckCircle, AiFillWarning } from 'react-icons/ai'
 import { BsInfoCircleFill } from 'react-icons/bs'
 import { MdError } from 'react-icons/md'
 import { motion } from 'framer-motion'
-import { fadeIn } from 'utils/variants'
+import { fadeIn } from 'utils'
 
 interface ToastProps {
 	show?: boolean
@@ -17,9 +16,10 @@ interface ToastProps {
 const Toast: FC<ToastProps> = ({ type, show = false, onClose, children, ...props }) => {
 	return (
 		<motion.div
-			animate={['hidden', 'visible']}
 			variants={fadeIn('right', 0, 0.4)}
 			initial="hidden"
+			animate={['visible']}
+			exit={['hidden']}
 			whileInView={'show'}
 			className={`${
 				show ? 'visible' : 'hidden'

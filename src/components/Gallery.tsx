@@ -3,7 +3,7 @@ import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from 'react-i
 import { VscCircle, VscCircleFilled } from 'react-icons/vsc'
 import { IconButton } from '@mui/material'
 import { motion } from 'framer-motion'
-import { fadeIn } from 'utils/variants'
+import { fadeIn } from 'utils'
 
 interface GalleryProps {
 	images?: any

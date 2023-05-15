@@ -11,30 +11,12 @@ import './index.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
-const Loading = (): JSX.Element => (
-	<Grid
-		container
-		spacing={0}
-		direction="column"
-		alignContent="center"
-		justifyContent="center"
-		style={{
-			minHeight: '100vh',
-		}}
-	>
-		<Grid item xs={3}>
-			<CircularProgress />
-		</Grid>
-	</Grid>
-)
 root.render(
-	<Suspense fallback={<Loading />}>
-		<StoreProvider store={store}>
-			<I18nextProvider i18n={i18n}>
-				<App />
-			</I18nextProvider>
-		</StoreProvider>
-	</Suspense>,
+	<StoreProvider store={store}>
+		<I18nextProvider i18n={i18n}>
+			<App />
+		</I18nextProvider>
+	</StoreProvider>,
 )
 
 // If you want to start measuring performance in your app, pass a function

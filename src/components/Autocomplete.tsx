@@ -3,7 +3,6 @@ import { FaSearch } from 'react-icons/fa'
 import Spinner from './Spinner'
 import _groupBy from 'lodash/groupBy'
 import { useTranslation } from 'react-i18next'
-import { motion } from 'framer-motion'
 
 interface AutocompleteProps<T> {
 	placeholder?: string
@@ -83,16 +82,17 @@ const Autocomplete: FC<AutocompleteProps<any>> = ({
 					<div key={idx} className="flex flex-col w-full rounded-md">
 						<span className="w-full font-normal text-[20px] px-4 py-1 bg-[#e0f2f1]">{group}</span>
 						<div className="py-2 px-3">
-							{values?.map((option, idx) => (
-								<div key={idx} className="py-2 px-3">
-									<div
-										className="w-full px-4 py-3 cursor-pointer hover:bg-[#47c2ed] hover:text-[#e0f2f1] rounded-md"
-										onMouseDown={() => _onSelect(option)}
-									>
-										<span className="font-normal">{getOptionLabel && getOptionLabel(option)}</span>
+							{Array.isArray(values) &&
+								values.map((option, idx) => (
+									<div key={idx} className="py-2 px-3">
+										<div
+											className="w-full px-4 py-3 cursor-pointer hover:bg-[#47c2ed] hover:text-[#e0f2f1] rounded-md"
+											onMouseDown={() => _onSelect(option)}
+										>
+											<span className="font-normal">{getOptionLabel && getOptionLabel(option)}</span>
+										</div>
 									</div>
-								</div>
-							))}
+								))}
 						</div>
 					</div>
 				))}

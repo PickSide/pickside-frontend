@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Paper } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import { AppState } from 'state'
-import { setSelectedSport } from 'state/selectedSport'
+import { AppState, setSelectedSport } from 'state'
 
 const SportSelection = () => {
 	const dispatch = useDispatch()

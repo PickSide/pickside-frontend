@@ -2,7 +2,7 @@ import { cloneElement, forwardRef, useRef, useImperativeHandle, useMemo, useEffe
 import { IconButton } from '@mui/material'
 import { MdOutlineClose } from 'react-icons/md'
 import { motion } from 'framer-motion'
-import { fadeIn } from 'utils/variants'
+import { fadeIn } from 'utils'
 
 interface SidenavProps {
 	delay?: number

@@ -1,26 +1,9 @@
-import React, { FC, useState, useMemo, useCallback } from 'react'
-import { EmojiEvents, DirectionsRun, LocationOn } from '@mui/icons-material'
-import {
-	Box,
-	Card as MuiCard,
-	CardContent as MuiCardContent,
-	IconButton,
-	Grid,
-	Link,
-	Typography,
-	Paper,
-} from '@mui/material'
-import { capitalize, times } from 'lodash'
-
+import { FC, useState } from 'react'
 import { Button, Dialog } from 'components'
 import { ConfirmRegisterEventForm } from 'widgets'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { MdExpandLess, MdExpandMore } from 'react-icons/md'
-import { BsCheckCircleFill, BsXCircleFill } from 'react-icons/bs'
-import { AppState } from 'state'
-import { Activity } from 'state/activity'
-import { setSelectedActivity } from 'state/selectedActivity'
+import { AppState, Activity, setSelectedActivity } from 'state'
 
 interface ActivityProps {
 	activity: Activity

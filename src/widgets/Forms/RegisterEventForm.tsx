@@ -3,7 +3,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { Button, TextFieldV2, Toggle, Select } from 'components'
-import { NUMBERS_ONLY_REGEX } from 'utils/constants'
+import { NUMBERS_ONLY_REGEX } from 'utils'
 import { useApi } from 'hooks'
 import { AppState } from 'state'
 

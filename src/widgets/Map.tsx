@@ -1,13 +1,12 @@
-import { FC, useCallback, useMemo } from 'react'
+import { FC, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 import { Box, CircularProgress, Typography } from '@mui/material'
-import { faPersonRunning, faSoccerBall } from '@fortawesome/free-solid-svg-icons'
+import { faSoccerBall } from '@fortawesome/free-solid-svg-icons'
 
 import { MapMarker } from 'components'
 import { useEnvVariables, useMapStyles } from 'hooks'
-import { AppState } from 'state'
-import { setSelectedActivity } from 'state/selectedActivity'
+import { AppState, setSelectedActivity } from 'state'
 
 const Map: FC<any> = ({ ...props }) => {
 	const { googleAPIKey } = useEnvVariables()

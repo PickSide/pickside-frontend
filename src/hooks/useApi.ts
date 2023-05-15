@@ -1,13 +1,8 @@
 import { Dispatch } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
-import { AppState } from 'state'
-import { setLocales } from 'state/locales'
-import { setSports } from 'state/sport'
-import { setActivities, updateActivity, Activity } from 'state/activity'
+import { AppState, setLocales, setSports, setActivities, updateActivity, Activity, setSettingsTemplate, setPlayables } from 'state'
 import { useCalls } from 'hooks'
 import { API_URL } from 'api'
-import { setPlayables } from 'state/playables'
-import { setSettingsTemplate } from 'state/settingsTemplate'
 
 interface UseApiOutput {
 	/* account */

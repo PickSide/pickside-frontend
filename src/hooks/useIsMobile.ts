@@ -1,5 +1,5 @@
 import React from 'react'
-import { BREAKPOINTS } from 'utils/constants'
+import { BREAKPOINTS } from 'utils'
 
 const useIsMobile = () => {
     const [screenSize, setScreenSize] = React.useState<any>({})
