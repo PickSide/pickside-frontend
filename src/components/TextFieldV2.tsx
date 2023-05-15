@@ -6,8 +6,8 @@ interface TextFieldProps {
 	dense?: boolean
 	autofocus?: boolean
 	isPassword?: boolean
-	requireValidation?: boolean
 	error?: any
+	type?: string
 }
 
 const TextFieldV2 = (
@@ -16,13 +16,12 @@ const TextFieldV2 = (
 		dense = false,
 		autofocus = false,
 		isPassword = false,
-		requireValidation = true,
 		error,
+		type = 'text',
 		...props
 	}: TextFieldProps | any,
 	ref,
 ) => {
-	console.log(error)
 	const inputRef = useRef<any>(null)
 
 	const [value, setValue] = useState<any>()
@@ -44,11 +43,11 @@ const TextFieldV2 = (
 					!!error ? 'border-[#d2333d] text-[#d2333d]' : 'border-primary'
 				} border-2 focus-within:border-2 focus-within:border-[#82cac3]`}
 			>
-				<span className="text-[#82cac3] w-[15%] flex justify-center">{startContent}</span>
+				{startContent && <span className="text-[#82cac3] w-[15%] flex justify-center">{startContent}</span>}
 
 				<div className="px-2">
 					<input
-						type={isPassword && !showPassword ? 'password' : 'text'}
+						type={isPassword && !showPassword ? 'password' : type}
 						autoComplete="off"
 						value={value}
 						ref={inputRef}

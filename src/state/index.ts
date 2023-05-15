@@ -13,6 +13,7 @@ import selectedLocation from './selectedLocation'
 import selectedSport from './selectedSport'
 import settingsTemplate, { SettingsTemplate } from './settingsTemplate'
 import sports, { Sports } from './sport'
+import toast, { Toast } from './toast'
 
 export interface Resources {
 	messageResponse?: string
@@ -35,6 +36,7 @@ export interface AppState {
 	selectedSport?: any
 	settingsTemplate?: SettingsTemplate
 	sports?: Sports
+	toast?: Toast
 }
 
 export const reducers = {
@@ -53,4 +55,5 @@ export const reducers = {
 	selectedSport,
 	settingsTemplate,
 	sports,
+	toast
 }

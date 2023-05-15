@@ -12,6 +12,7 @@ import Map from './Map'
 import ProfileMenu from './ProfileMenu'
 import SelectSports from './SelectSports'
 import ThemeSwitcher from './ThemeSwitcher'
+import Toast from './Toast'
 
 import ConfirmRegisterEventForm from './Forms/ConfirmRegisterEventForm'
 import LoginForm from './Forms/LoginForm'
@@ -37,4 +38,5 @@ export {
 	LoginForm,
 	RegisterEventForm,
 	SignUpForm,
+	Toast
 }

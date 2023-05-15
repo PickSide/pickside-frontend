@@ -17,6 +17,9 @@
 			"types/*": [
 				"./src/types/*"
 			],
+			"middlewares/*": [
+				"./src/middlewares/*"
+			],
 			"utils/**": [
 				"./src/utils/*"
 			],

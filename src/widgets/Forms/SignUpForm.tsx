@@ -1,12 +1,14 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { Button, TextFieldV2 } from 'components'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useAuth, useCalls } from 'hooks'
 import { BiLockAlt, BiUser } from 'react-icons/bi'
-import { isEmpty, omit } from 'lodash'
+import { MdOutlineAlternateEmail } from 'react-icons/md'
+import { omit } from 'lodash'
 import { EMAIL_REGEX, PASSWORD_REGEX, FULL_NAME_REGEX } from 'utils/constants'
+import { useNavigate } from 'react-router'
 
 interface SignUpFormProps {
 	onClose: () => void
@@ -25,7 +27,8 @@ type FormData = {
 
 const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 	const { login } = useAuth()
-	const { putItem } = useCalls()
+	const { postItem } = useCalls()
+	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 	const {
@@ -72,16 +75,16 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 			return
 		}
 
-		const { username, password, message } = await dispatch<any>(
-			putItem({
-				endpoint: 'users/create',
+		const { username, password, message, status } = await dispatch<any>(
+			postItem({
+				endpoint: 'account/create',
 				data: omit(data, ['confirmEmail', 'confirmPassword']),
 			}),
 		)
 
-		if (username && username) {
+		if (username && status === 200) {
 			await dispatch<any>(login({ username, password }))
-			onClose()
+			navigate('/')
 		} else {
 			setApiMessage(message)
 		}
@@ -145,7 +148,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 						<TextFieldV2
 							label={t('Email')}
 							placeholder={t('Enter email')}
-							startContent={<BiLockAlt size={20} />}
+							startContent={<MdOutlineAlternateEmail size={20} />}
 							error={error}
 							dense
 							{...field}
@@ -198,158 +201,6 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 				</Button>
 			</form>
 		</div>
-		// <Container>
-		// 	<form onSubmit={handleSubmit(onSubmit, onError)}>
-		// 		<>
-		// 			<Grid container direction="column" rowSpacing={3}>
-		// 				<Grid item>
-		// 					{!!apiMessage && (
-		// 						<Alert variant="outlined" severity="error">
-		// 							{apiMessage}
-		// 						</Alert>
-		// 					)}
-		// 				</Grid>
-
-		// 				<Grid item>
-		// <Controller
-		// 	name="username"
-		// 	control={control}
-		// 	rules={{
-		// 		...baseRule,
-		// 	}}
-		// 	render={({ field, fieldState: { invalid, isTouched, isDirty, error }, formState }) => (
-		// 		<TextField label={t('Username')} placeholder={t('Enter username')} fullWidth {...field} />
-		// 	)}
-		// />
-		// 				</Grid>
-		// 				<Grid item>
-		// 					<Controller
-		// 						name="firstName"
-		// 						control={control}
-		// 						rules={{
-		// 							...baseRule,
-		// 						}}
-		// 						render={({ field, fieldState: { invalid, isTouched, isDirty, error }, formState }) => (
-		// 							<TextField label={t('First name')} placeholder={t('Enter first name')} fullWidth {...field} />
-		// 						)}
-		// 					/>
-		// 				</Grid>
-		// 				<Grid item>
-		// 					<Controller
-		// 						name="lastName"
-		// 						control={control}
-		// 						rules={{
-		// 							...baseRule,
-		// 						}}
-		// 						render={({ field, fieldState: { invalid, isTouched, isDirty, error }, formState }) => (
-		// 							<TextField label={t('Last name')} placeholder={t('Enter last name')} fullWidth {...field} />
-		// 						)}
-		// 					/>
-		// 				</Grid>
-		// 				<Grid item>
-		// 					<Controller
-		// 						name="email"
-		// 						control={control}
-		// 						rules={{
-		// 							...baseRule,
-		// 						}}
-		// 						render={({ field, fieldState: { invalid, isTouched, isDirty, error }, formState }) => (
-		// 							<TextField label={t('Email')} type="email" placeholder={t('Enter email')} fullWidth {...field} />
-		// 						)}
-		// 					/>
-		// 				</Grid>
-		// 				<Grid item>
-		// 					<Controller
-		// 						name="confirmEmail"
-		// 						rules={{
-		// 							...baseRule,
-		// 							...validationEmail,
-		// 						}}
-		// 						control={control}
-		// 						render={({ field, fieldState: { invalid, isTouched, isDirty, error } }) => {
-		// 							return (
-		// 								<TextField
-		// 									label={t('Confirm email')}
-		// 									error={!!error}
-		// 									placeholder={t('Confirm email')}
-		// 									fullWidth
-		// 									{...field}
-		// 								/>
-		// 							)
-		// 						}}
-		// 					/>
-		// 				</Grid>
-		// 				<Grid item>
-		// 					<Controller
-		// 						name="password"
-		// 						control={control}
-		// 						rules={{
-		// 							...baseRule,
-		// 						}}
-		// 						render={({ field, fieldState: { invalid, isTouched, isDirty, error }, formState }) => (
-		// 							<TextField
-		// 								label={t('Password')}
-		// 								type="password"
-		// 								placeholder={t('Enter password')}
-		// 								fullWidth
-		// 								{...field}
-		// 							/>
-		// 						)}
-		// 					/>
-		// 				</Grid>
-		// 				<Grid item>
-		// 					<Controller
-		// 						name="confirmPassword"
-		// 						control={control}
-		// 						rules={{
-		// 							...baseRule,
-		// 							...validationPassword,
-		// 						}}
-		// 						render={({ field, fieldState: { invalid, isTouched, isDirty, error }, formState: { errors } }) => (
-		// 							<TextField
-		// 								label={t('Confirm password')}
-		// 								error={!!error}
-		// 								type="password"
-		// 								placeholder={t('Confirm password')}
-		// 								fullWidth
-		// 								{...field}
-		// 							/>
-		// 						)}
-		// 					/>
-		// 				</Grid>
-		// 				<Grid item>
-		// 					<Controller
-		// 						name="sexe"
-		// 						control={control}
-		// 						rules={{
-		// 							...baseRule,
-		// 						}}
-		// 						render={({ field, fieldState: { invalid, isTouched, isDirty, error }, formState }) => (
-		// 							<Select label={t('Sexe')} defaultValue="DEFAULT" placeholder={t('Sexe')} fullWidth {...field}>
-		// 								<MenuItem value="DEFAULT">{t('Sexe')}</MenuItem>
-		// 								<MenuItem key="male" value="male">
-		// 									{t('Male')}
-		// 								</MenuItem>
-		// 								<MenuItem key="female" value="female">
-		// 									{t('Female')}
-		// 								</MenuItem>
-		// 							</Select>
-		// 						)}
-		// 					/>
-		// 				</Grid>
-
-		// 				<Grid item>
-		// 					<DialogActions>
-		// 						<Button onClick={() => onClose()}>{t('Cancel')}</Button>
-		// 						<Button disabled={!isValid} type="submit">
-		// 							{t('Register')}
-		// 						</Button>
-		// 					</DialogActions>
-		// 				</Grid>
-		// 			</Grid>
-		// 		</>
-		// 	</form>
-		// </Container>
 	)
 }
 

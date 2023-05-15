@@ -2,7 +2,7 @@ import { FC, memo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { Box, Typography } from '@mui/material'
-import { Button, Dialog } from 'components'
+import { Button, DialogV2 } from 'components'
 import { EventCard, RegisterEventForm } from 'widgets'
 import { AppState } from 'state'
 
@@ -15,20 +15,21 @@ const EventList: FC<any> = () => {
 
 	return activities?.results ? (
 		<>
-			<Dialog
+			<DialogV2
 				title={t('Create a new event')}
 				open={openCreateNewEventDialog}
 				onClose={() => setOpenCreateNewEventDialog(false)}
-				size="sm"
 			>
 				<RegisterEventForm onClose={() => setOpenCreateNewEventDialog(false)} />
-			</Dialog>
+			</DialogV2>
 
-			<div className="flex flex-col bg-[#fafafa] min-w-[500px] h-[calc(100vh-64px)] py-2 px-4 gap-y-3">
+			<div className="flex flex-col bg-[#fafafa] min-w-[500px] h-[calc(100vh-64px)] py-2 px-4 gap-y-3 overflow-y-auto">
 				<div className="flex flex-row-reverse">
-					<Button onClick={() => setOpenCreateNewEventDialog(true)}>{t('New event')}</Button>
+					<Button isLink onClick={() => setOpenCreateNewEventDialog(true)} className="h-[50px]">
+						{t('New event')}
+					</Button>
 				</div>
-				<div className="flex flex-col overflow-y-auto gap-y-5">
+				<div className="flex flex-col gap-y-5">
 					{activities?.results?.map((activity, idx) => (
 						<EventCard key={idx} activity={activity} />
 					))}

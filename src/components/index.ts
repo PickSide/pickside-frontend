@@ -19,6 +19,7 @@ import Switch from './Switch'
 import Tabs from './Tabs'
 import TextField from './TextField'
 import TextFieldV2 from './TextFieldV2'
+import Toggle from './Toggle'
 
 export * from './Tabs'
 
@@ -43,5 +44,6 @@ export {
 	Tabs,
 	TextField,
 	TextFieldV2,
+	Toggle
 }
 

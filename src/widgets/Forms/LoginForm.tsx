@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react'
+import { FC, useCallback, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useForm, Controller } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -24,6 +24,7 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 	const navigate = useNavigate()
 	const { set: setLocalStorage } = useLocalStorage()
 	const { t } = useTranslation()
+	const [loading, setLoading] = useState(false)
 
 	const { control, handleSubmit } = useForm<FormData>({
 		defaultValues: {
@@ -38,7 +39,9 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 	}
 
 	const onSubmit = async (values: any) => {
+		setLoading(true)
 		await dispatch<any>(login(values))
+		setLoading(false)
 		navigate('/home')
 	}
 
@@ -94,6 +97,7 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 				/>
 				<Button
 					type="submit"
+					isLoading={loading}
 					className="rounded-md bg-primary w-[300px] text-white font-semibold h-[50px] transition-all duration-75 ease-in hover:bg-secondary"
 				>
 					{t('Login')}

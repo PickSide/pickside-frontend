@@ -22,7 +22,7 @@ export interface Activity {
 
 const Activity = createSlice({
 	initialState: null as unknown as Activities,
-	name: 'sportActivitys',
+	name: 'activities',
 	reducers: {
 		setActivities: (state, action: PayloadAction<Activities>) => (state = { ...state, ...action.payload }),
 		addActivity: (state, action: PayloadAction<Activity>) => { state.results = [...(state.results || []), action.payload] },

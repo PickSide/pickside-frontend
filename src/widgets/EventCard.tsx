@@ -101,7 +101,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 					</div> */}
 				</div>
 				<div className="flex justify-center">
-					<IconButton onClick={() => setExpanded(!expanded)} disableRipple>
+					{/* <IconButton onClick={() => setExpanded(!expanded)} disableRipple>
 						<div className="inline-flex items-center gap-x-1">
 							{expanded ? (
 								<>
@@ -115,7 +115,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 								</>
 							)}
 						</div>
-					</IconButton>
+					</IconButton> */}
 				</div>
 			</div>
 		</>

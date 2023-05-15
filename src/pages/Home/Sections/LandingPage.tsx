@@ -1,8 +1,7 @@
 import { FC, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAsync } from 'react-use'
-import { Autocomplete, TextField, Typography } from '@mui/material'
-import { Autocomplete as AutocompleteV2, Button, TextFieldV2 } from 'components'
+import { Autocomplete, Button } from 'components'
 import { useCalls } from 'hooks'
 import { Area } from 'state/areas'
 import { setSelectedLocation } from 'state/selectedLocation'
@@ -50,7 +49,7 @@ const LandingPage: FC<any> = () => {
 						</span>
 					</div>
 					<div className="flex mx-auto w-[80%] lg:w-[50%] items-center justify-center gap-x-6">
-						<AutocompleteV2
+						<Autocomplete
 							options={options}
 							getOptionLabel={getOptionLabel}
 							groupBy={groupBy}
@@ -58,8 +57,8 @@ const LandingPage: FC<any> = () => {
 							placeholder={t('Choose your region')}
 							loading={loading}
 						/>
-						<Button disabled={!selected} onClick={handleClick}>
-							<Typography>Go</Typography>
+						<Button secondary disabled={!selected} onClick={handleClick}>
+							<span>Go</span>
 						</Button>
 					</div>
 				</div>
