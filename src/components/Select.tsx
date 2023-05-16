@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useState, useRef, forwardRef, useMemo } from 'react'
+import { ReactNode, useCallback, useState, useRef, forwardRef, useMemo } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
 interface SelectProps {
@@ -66,6 +66,7 @@ const Select = (
 						value={value}
 						onFocus={_onFocus}
 						onBlur={_onBlur}
+						placeholder="Select your sport"
 						readOnly
 						className="relative w-full rounded-md px-2 py-2 focus:border-primary outline-0 focus:outline-0"
 					/>
@@ -84,7 +85,7 @@ const Select = (
 										? 'bg-slate-200 text-white cursor-not-allowed'
 										: 'hover:bg-primary hover:text-white cursor-pointer'
 								}`}
-								onClick={() => _onSelect(option)}
+								onMouseDown={() => _onSelect(option)}
 							>
 								<span className="px-4 font-semibold leading-7">{getOptionLabel(option)}</span>
 							</div>

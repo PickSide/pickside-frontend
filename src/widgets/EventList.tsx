@@ -1,7 +1,6 @@
 import { FC, memo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { Box, Typography } from '@mui/material'
 import { Button, DialogV2 } from 'components'
 import { EventCard, RegisterEventForm } from 'widgets'
 import { AppState } from 'state'
@@ -37,9 +36,9 @@ const EventList: FC<any> = () => {
 			</div>
 		</>
 	) : (
-		<Box justifyContent="center" alignContent="center">
-			<Typography variant="headerSmall">{t('No events in the area')}</Typography>
-		</Box>
+		<div className="flex justify-center items-center">
+			<span className="text-[35px] font-semibold">{t('No events in the area')}</span>
+		</div>
 	)
 }
 

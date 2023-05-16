@@ -1,5 +1,4 @@
 import React from 'react'
-import { Box } from '@mui/material'
 import { FaArrowUp } from 'react-icons/fa'
 import { Link } from 'react-scroll'
 
@@ -12,9 +11,9 @@ const BackButton = () => {
 			spy={true}
 			className="fixed m-auto right-5 bottom-5 rounded-full bg-primary text-white w-[40px] h-[40px] drop-shadow-lg cursor-pointer ease-in-out duration-75 hover:scale-110"
 		>
-			<Box className="absolute top-[50%] left-[25%] -translate-y-[50%] w-full text-center">
+			<div className="absolute top-[50%] left-[25%] -translate-y-[50%] w-full text-center">
 				<FaArrowUp size={20} />
-			</Box>
+			</div>
 		</Link>
 	)
 }

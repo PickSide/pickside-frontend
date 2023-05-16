@@ -16,12 +16,6 @@ const LanguageSwitcher: FC<any> = ({ ...props }) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 	const open = Boolean(anchorEl)
 
-	// useEffect(() => {
-	// 	if (!locales) {
-	// 		dispatch<any>(getLocales())
-	// 	}
-	// }, [dispatch, getLocales, locales])
-
 	const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget)
 	}

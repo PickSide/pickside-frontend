@@ -3,8 +3,10 @@ import { useSelector } from 'react-redux'
 import { Alert, AlertTitle, IconButton, Slide, Typography } from '@mui/material'
 import { Close } from '@mui/icons-material'
 
+import { motion } from 'framer-motion'
+
 import { AppState } from 'state'
-import { toPascalCase } from 'utils'
+import { toPascalCase, fadeIn } from 'utils'
 
 const GlobalAppStatusAlert: FC<any> = () => {
 	const appStatus = useSelector((state: AppState) => state.appStatus)

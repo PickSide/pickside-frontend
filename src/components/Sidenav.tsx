@@ -1,5 +1,5 @@
 import { cloneElement, forwardRef, useRef, useImperativeHandle, useMemo, useEffect } from 'react'
-import { IconButton } from '@mui/material'
+import { Button } from 'components'
 import { MdOutlineClose } from 'react-icons/md'
 import { motion } from 'framer-motion'
 import { fadeIn } from 'utils'
@@ -52,9 +52,9 @@ const Sidenav = (props: SidenavProps | any, ref) => {
 				>
 					<div className="h-[80px] border-b flex items-center justify-between px-6">
 						<span className="uppercase text-[27px] font-semibold">{title}</span>
-						<IconButton onClick={onClose}>
+						<Button isIcon onClick={onClose}>
 							<MdOutlineClose size={20} />
-						</IconButton>
+						</Button>
 					</div>
 					{cloneElement(children, { ref: parentRef, ...props })}
 				</motion.div>

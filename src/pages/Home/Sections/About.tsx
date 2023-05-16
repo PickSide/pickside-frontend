@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Toggle } from 'components'
+import { Alert, Button, Toggle } from 'components'
 import { Toast } from 'widgets'
 
 const About = () => {
@@ -28,6 +28,20 @@ const About = () => {
 				<Toast show type="error">
 					Error toast
 				</Toast>
+			</div>
+			<div className="flex justify-center gap-x-4">
+				<Alert show type="info">
+					Info alert
+				</Alert>
+				<Alert show type="success">
+					Success alert
+				</Alert>
+				<Alert show type="warning">
+					Warning alert
+				</Alert>
+				<Alert show type="error">
+					Error alert
+				</Alert>
 			</div>
 		</section>
 	)

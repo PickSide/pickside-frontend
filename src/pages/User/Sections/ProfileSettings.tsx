@@ -1,8 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { Grid } from '@mui/material'
-import { PageLayout, SettingsInput } from 'components'
+import { SettingsInput } from 'components'
 import { AppState } from 'state'
 
 const ProfileSettings = () => {
@@ -95,19 +94,16 @@ const ProfileSettings = () => {
 				},
 			},
 		],
-		[connectedUser],
+		[connectedUser, t],
 	)
 
 	return (
-		<PageLayout title={t('Profile settings')}>
-			<Grid container direction="column">
-				{AppSettingsConfigurations.map((config, idx) => (
-					<Grid item key={idx}>
-						<SettingsInput type={config.inputType} extraProps={config.extraProps} />
-					</Grid>
-				))}
-			</Grid>
-		</PageLayout>
+		<div className="flex flex-col">
+			<span>{t('Profile settings')}</span>
+			{AppSettingsConfigurations.map((config, idx) => (
+				<SettingsInput type={config.inputType} extraProps={config.extraProps} />
+			))}
+		</div>
 	)
 }
 

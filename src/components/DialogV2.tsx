@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from 'react'
+import { FC, ReactNode } from 'react'
 import { BsX } from 'react-icons/bs'
 
 interface DialogProps {

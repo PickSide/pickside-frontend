@@ -79,13 +79,35 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 					)}
 				/>
 				<Controller
-					name="sport"
+					name="levelRequired"
 					control={control}
 					rules={{
 						...baseRule,
 						pattern: NUMBERS_ONLY_REGEX,
 					}}
 					render={({ field, fieldState: { error }, formState }) => (
+						<TextFieldV2 label={t('Level require')} placeholder={t('Enter price')} dense error={error} {...field} />
+					)}
+				/>
+				<Controller
+					name="maxPlayersCapacity"
+					control={control}
+					rules={{
+						...baseRule,
+						pattern: NUMBERS_ONLY_REGEX,
+					}}
+					render={({ field, fieldState: { error }, formState }) => (
+						<TextFieldV2 label={t('Max player')} placeholder={t('Enter price')} dense error={error} {...field} />
+					)}
+				/>
+				<Controller
+					name="sport"
+					control={control}
+					rules={{
+						...baseRule,
+						pattern: NUMBERS_ONLY_REGEX,
+					}}
+					render={({ field: { onChange }, fieldState: { error }, formState }) => (
 						<Select
 							label={t('Choose sport')}
 							placeholder={t('Enter sport')}
@@ -93,9 +115,9 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 							getOptionLabel={getOptionLabel}
 							getOptionValue={getOptionValue}
 							getOptionDisabled={getOptionDisabled}
+							onChange={onChange}
 							dense
 							error={error}
-							{...field}
 						/>
 					)}
 				/>

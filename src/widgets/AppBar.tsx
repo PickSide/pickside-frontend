@@ -2,7 +2,6 @@ import { FC, useMemo, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Login } from '@mui/icons-material'
 import { AiFillHome, AiOutlineLogin } from 'react-icons/ai'
 import { BiMenu } from 'react-icons/bi'
 
@@ -79,7 +78,7 @@ const AppBar: FC<any> = () => {
 								[<NotificationMenu />, <ProfileMenu />]
 							) : (
 								<Button isIcon ref={loginRef} onClick={() => navigate('/login')}>
-									<Login />
+									<AiOutlineLogin />
 								</Button>
 							)}
 						</div>

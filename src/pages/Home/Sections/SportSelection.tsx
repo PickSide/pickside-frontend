@@ -1,7 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { Paper } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { AppState, setSelectedSport } from 'state'
 
@@ -25,23 +24,21 @@ const SportSelection = () => {
 			<div className="flex flex-col xl:flex-row gap-x-10 gap-y-10 items-center m-auto">
 				{sports?.results?.map((sport, idx) =>
 					sport.featureAvailable ? (
-						<Paper
+						<div
 							key={idx}
-							elevation={3}
 							onClick={(e) => handleClick(e, sport.value)}
 							className="flex bg-primary text-white w-64 h-28 btn text-[20px] m-auto justify-center items-center hover:bg-accent cursor-pointer"
 						>
 							<span>{sport.description}</span>
-						</Paper>
+						</div>
 					) : (
-						<Paper
+						<div
 							key={idx}
-							elevation={3}
 							className="flex flex-col bg-primary opacity-30 text-white w-64 h-28 btn text-[20px] m-auto justify-center items-center cursor-not-allowed"
 						>
 							<span>{sport.description}</span>
 							<span className="text-[10px]">{t('Feature is not available yet')}</span>
-						</Paper>
+						</div>
 					),
 				)}
 			</div>

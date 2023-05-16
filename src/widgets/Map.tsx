@@ -1,10 +1,9 @@
 import { FC, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
-import { Box, CircularProgress, Typography } from '@mui/material'
 import { faSoccerBall } from '@fortawesome/free-solid-svg-icons'
 
-import { MapMarker } from 'components'
+import { MapMarker, Spinner } from 'components'
 import { useEnvVariables, useMapStyles } from 'hooks'
 import { AppState, setSelectedActivity } from 'state'
 
@@ -39,21 +38,15 @@ const Map: FC<any> = ({ ...props }) => {
 	})
 
 	const InfoWindow = ({ content, title }) => (
-		<Box display="flex" flexDirection="column">
-			<Typography>{title}</Typography>
-			<Typography>{content}</Typography>
-		</Box>
+		<div className="flex flex-col">
+			<span>{title}</span>
+			<span>{content}</span>
+		</div>
 	)
 
 	const ActivityMap = (): JSX.Element => {
 		return (
-			<Box
-				sx={{
-					height: (theme) => `calc(100vh - 64px)`,
-					width: '100%',
-					overflow: 'hidden',
-				}}
-			>
+			<div className="h-[calc(100vh - 64px)] w-full overflow-hidden">
 				<GoogleMap key={googleAPIKey} zoom={12} mapContainerStyle={mapContainerStyle} center={center} options={options}>
 					{playables?.results?.map(({ id, coords, fieldName }, idx) => (
 						<MapMarker
@@ -75,19 +68,19 @@ const Map: FC<any> = ({ ...props }) => {
 						</MapMarker>
 					))}
 				</GoogleMap>
-			</Box>
+			</div>
 		)
 	}
 
 	if (loadError) {
 		return (
-			<Box>
-				<Typography>There was an error loading the map</Typography>
-			</Box>
+			<div>
+				<span>There was an error loading the map</span>
+			</div>
 		)
 	}
 
-	return isLoaded ? <ActivityMap /> : <CircularProgress />
+	return isLoaded ? <ActivityMap /> : <Spinner />
 }
 
 export default Map
