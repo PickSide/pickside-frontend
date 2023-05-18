@@ -13,8 +13,55 @@ export const fadeIn = (direction, delay, duration) => {
         type: 'tween',
         duration: duration ? duration : 1.2,
         delay: delay,
-        ease: [0.25, 0.25, 0.25, 0.4],
       },
+    },
+    exit: {
+      y: direction === 'up' ? -80 : direction === 'down' ? -320 : 0,
+      opacity: 0,
+      x: direction === 'left' ? 1000 : direction === 'right' ? -320 : 0,
     },
   };
 };
+
+export const dropdownAnimation = {
+  closed: {
+    scale: 0,
+    opacity: 0,
+  },
+  open: {
+    scale: 1,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      mass: 1,
+      damping: 40,
+      stiffness: 500,
+    },
+  },
+  exit: {
+    scale: 0,
+    opacity: 0,
+  },
+}
+
+export const modaleDropIn = {
+  hidden: {
+    y: "-100vh",
+    opacity: 0,
+  },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.1,
+      type: 'spring',
+      mass: 1,
+      damping: 30,
+      stiffness: 500,
+    }
+  },
+  exit: {
+    y: '100vh',
+    opacity: 0,
+  }
+}

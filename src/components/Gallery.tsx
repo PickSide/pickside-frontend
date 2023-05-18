@@ -1,9 +1,9 @@
 import { FC, useCallback, forwardRef, useEffect, useMemo, useState } from 'react'
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from 'react-icons/md'
 import { VscCircle, VscCircleFilled } from 'react-icons/vsc'
-import { IconButton } from '@mui/material'
+import { Button } from 'components'
 import { motion } from 'framer-motion'
-import { fadeIn } from 'utils/variants'
+import { fadeIn } from 'utils'
 
 interface GalleryProps {
 	images?: any
@@ -63,24 +63,24 @@ const Gallery = ({ images = IMAGES, ...props }, ref) => {
 			<div className="absolute w-full h-full z-10"></div>
 			{showLeft && (
 				<div className="absolute left-5 top-1/2 -translate-y-1/4 z-10">
-					<IconButton onClick={goLeft}>
+					<Button isIcon onClick={goLeft}>
 						<MdOutlineKeyboardArrowLeft size={20} />
-					</IconButton>
+					</Button>
 				</div>
 			)}
 			{showRight && (
 				<div className="absolute right-5 top-1/2 -translate-y-1/4 z-10">
-					<IconButton onClick={goRight}>
+					<Button isIcon onClick={goRight}>
 						<MdOutlineKeyboardArrowRight size={20} />
-					</IconButton>
+					</Button>
 				</div>
 			)}
 			{images?.length > 1 && (
 				<div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10">
 					{images.map((x, idx) => (
-						<IconButton key={idx} onClick={(e) => handleBottomNav(e, idx)}>
+						<Button isIcon key={idx} onClick={(e) => handleBottomNav(e, idx)}>
 							{currentIdx === idx ? <VscCircleFilled size={20} /> : <VscCircle size={20} />}
-						</IconButton>
+						</Button>
 					))}
 				</div>
 			)}

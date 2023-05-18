@@ -1,3 +1,4 @@
+@import-normalize;
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,6 +10,11 @@
 			'Droid Sans', 'Helvetica Neue', sans-serif;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
+	}
+
+	input:-webkit-autofill {
+		background-color: transparent !important;
+		-webkit-box-shadow: 0 0 0 50px white inset;
 	}
 
 	::-webkit-scrollbar {
@@ -40,6 +46,25 @@
 		height: 100vh;
 	}
 
+	.animation-expand-scale {
+		animation: expandScale 0.05s alternate ease-in;
+		transform-origin: left top;
+	}
+
+	@keyframes expandScale {
+		0% {
+			transform: scale(0);
+		}
+		25% {
+			transform: scale(0.25);
+		}
+		75% {
+			transform: scale(0.75);
+		}
+		100% {
+			transform: scale(1);
+		}
+	}
 	.h2 {
 		@apply font-primary text-[32px] mb-6 tracking-[10%] uppercase;
 	}
@@ -56,16 +81,32 @@
 		@apply scrollbar-thin scrollbar-thumb-accent scrollbar-track-gray-100;
 	}
 
-	.btn {
-		@apply rounded text-white font-semibold bg-[#156495] ease-linear transition-all duration-75 active:bg-[#47c2ed] focus:bg-[#2084b6] hover:bg-[#33b7ec] uppercase text-sm px-6 py-3;
+	.btn-primary {
+		@apply rounded text-white font-semibold bg-[#159586] ease-linear transition-all duration-75 active:bg-[#47c2ed] focus:bg-[#2084b6] hover:bg-[#0e685b] uppercase text-sm px-6 py-3;
 	}
 
-	.btn-link {
-		@apply text-[#33b7ec] font-semibold bg-none outline-none ease-linear transition-all duration-75 active:text-[#52c275] focus:text-[#52c275] hover:text-[#861595] text-[15px];
+	.btn-secondary {
+		@apply rounded text-white font-semibold bg-[#2ca9dd] ease-linear transition-all duration-75 active:bg-[#47c2ed] focus:bg-[#2084b6] hover:bg-[#33b7ec] uppercase text-sm px-6 py-3;
+	}
+
+	.btn-tertiary {
+		@apply rounded text-secondary font-semibold bg-none outline-none ease-linear transition-all duration-100 hover:bg-slate-200 hover:text-white px-6 py-3 uppercase;
+	}
+
+	.btn-icon {
+		@apply rounded-md text-white ease-linear transition-all duration-75 p-3 hover:scale-125;
 	}
 
 	.btn-disabled {
 		@apply rounded text-white font-semibold bg-slate-200 opacity-70 cursor-not-allowed uppercase text-sm px-6 py-3;
+	}
+
+	.tab {
+		@apply text-[#51b5aa] cursor-pointer ease-linear transition-all duration-75 hover:scale-110 focus:text-[#47c2ed];
+	}
+
+	.active-tab {
+		@apply text-[#47c2ed] pointer-events-none;
 	}
 
 	.section {

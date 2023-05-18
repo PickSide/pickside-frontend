@@ -1,5 +1,4 @@
 import { createContext, useContext, FC, ReactNode } from 'react'
-import { CssBaseline, StyledEngineProvider, ThemeProvider } from '@mui/material'
 import { useTheme } from 'hooks'
 
 export interface AppThemeContextProps {
@@ -14,15 +13,9 @@ const AppThemeContext = createContext<AppThemeContextProps>({
 export const useThemeContext = () => useContext(AppThemeContext)
 
 export const AppThemeProvider: FC<any> = ({ children }) => {
-	const [palette, toggleTheme] = useTheme()
+	const [toggleTheme] = useTheme()
 
-	return (
-		<AppThemeContext.Provider value={{ toggleTheme }}>
-			<StyledEngineProvider injectFirst>
-				<ThemeProvider theme={palette}>{children}</ThemeProvider>
-			</StyledEngineProvider>
-		</AppThemeContext.Provider>
-	)
+	return <AppThemeContext.Provider value={{ toggleTheme }}>{children}</AppThemeContext.Provider>
 }
 
 export default AppThemeContext

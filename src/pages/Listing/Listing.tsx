@@ -2,7 +2,7 @@ import { useIsMobile } from 'hooks'
 import { FC } from 'react'
 import { ActivitySelectedSidenav, EventList, Map } from 'widgets'
 
-const HomePage: FC<any> = ({ ...props }) => {
+const Listing: FC<any> = ({ ...props }) => {
 	const isMobile = useIsMobile()
 	return !isMobile ? (
 		<div className="overflow-auto">
@@ -19,4 +19,4 @@ const HomePage: FC<any> = ({ ...props }) => {
 	)
 }
 
-export default HomePage
+export default Listing

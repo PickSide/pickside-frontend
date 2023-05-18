@@ -1,12 +1,10 @@
 import { FC, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAsync } from 'react-use'
-import { Autocomplete, TextField, Typography } from '@mui/material'
-import { Button } from 'components'
-import { KeyboardArrowRight } from '@mui/icons-material'
+import { Autocomplete, Button } from 'components'
 import { useCalls } from 'hooks'
-import { Area } from 'state/areas'
-import { setSelectedLocation } from 'state/selectedLocation'
+import { Area } from 'state'
+import { setSelectedLocation } from 'state'
 import { orderBy } from 'lodash'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
@@ -27,7 +25,7 @@ const LandingPage: FC<any> = () => {
 	const groupBy = useCallback((option: Area) => `${option.city}`, [])
 
 	const [options, setOptions] = useState<any>([])
-	const [selected, setSelected] = useState<Area | any>(null)
+	const [selected, setSelected] = useState<any>(null)
 
 	const handleClick = async () => {
 		await dispatch(setSelectedLocation(selected.coords))
@@ -39,7 +37,7 @@ const LandingPage: FC<any> = () => {
 			{/* <div className="absolute h-full w-full bg-landing bg-no-repeat bg-cover z-0 opacity-20"></div> */}
 			<section
 				id="home"
-				className="section z-10 inset h-fit lg:h-[650px] bg-primary flex flex-col xl:px-6 lg:flex-row items-center justify-center gap-y-5 gap-x-16"
+				className="section inset h-fit lg:h-[650px] bg-primary flex flex-col xl:px-6 lg:flex-row items-center justify-center gap-y-5 gap-x-16"
 			>
 				<div className="flex flex-col gap-y-6">
 					<div className="flex flex-col gap-y-2 items-center my-3">
@@ -52,30 +50,15 @@ const LandingPage: FC<any> = () => {
 					</div>
 					<div className="flex mx-auto w-[80%] lg:w-[50%] items-center justify-center gap-x-6">
 						<Autocomplete
-							id="combo-box-demo"
-							className=""
-							getOptionLabel={getOptionLabel}
-							disableClearable
-							groupBy={groupBy}
 							options={options}
+							getOptionLabel={getOptionLabel}
+							groupBy={groupBy}
+							onChange={(newValue) => setSelected(newValue)}
+							placeholder={t('Choose your region')}
 							loading={loading}
-							onChange={(event, newValue) => setSelected(newValue)}
-							renderInput={(params) => {
-								console.log(params)
-								return (
-									<TextField
-										className="bg-white border-primary rounded focused:outline-primary w-300px lg:w-2x1 text-primary"
-										label="Search for location or district"
-										{...params}
-									/>
-								)
-							}}
-							sx={{
-								width: '80%',
-							}}
 						/>
-						<Button disabled={!selected} onClick={handleClick}>
-							<Typography>Go</Typography>
+						<Button secondary disabled={!selected} onClick={handleClick}>
+							<span>Go</span>
 						</Button>
 					</div>
 				</div>

@@ -1,15 +1,42 @@
-import { FC, useMemo } from 'react'
+import { FC, ReactNode, useMemo } from 'react'
+import Spinner from './Spinner'
 
-const Button: FC<any> = ({ isLink = false, children, ...props }) => {
+interface ButtonProps {
+	children?: ReactNode
+	primary?: boolean
+	secondary?: boolean
+	tertiary?: boolean
+	disabled?: boolean
+	isLoading?: boolean
+	showTooltip?: boolean
+	isIcon?: boolean
+	isLink?: boolean
+}
+
+const Button: FC<ButtonProps | any> = ({
+	isLoading = false,
+	isIcon = false,
+	isLink = false,
+	primary = true,
+	secondary = false,
+	tertiary = false,
+	disabled = false,
+	showTooltip = false,
+	children,
+	...props
+}) => {
 	const btnClass = useMemo(() => {
-		if (props.disabled) return 'btn-disabled'
-		if (isLink) return 'btn-link'
-		return 'btn'
-	}, [isLink, props])
+		if (disabled) return 'btn-disabled'
+		if (isIcon) return 'btn-icon'
+		if (isLink) return 'btn-tertiary'
+		if (secondary) return 'btn-secondary'
+		if (tertiary) return 'btn-tertiary'
+		return 'btn-primary'
+	}, [disabled, isLink, isIcon, secondary, tertiary])
 
 	return (
-		<button className={btnClass} {...props}>
-			{children}
+		<button {...props} className={btnClass} disabled={disabled}>
+			{isLoading ? <Spinner /> : children}
 		</button>
 	)
 }

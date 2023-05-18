@@ -1,7 +1,7 @@
 import { Dispatch } from '@reduxjs/toolkit'
 import { useCalls, useLocalStorage } from 'hooks'
 import { AUTH_URL } from 'api'
-import { setAccount } from 'state/account'
+import { setAccount } from 'state'
 
 interface UseAuthOutput {
 	login: (d: any) => (d: Dispatch) => Promise<any>

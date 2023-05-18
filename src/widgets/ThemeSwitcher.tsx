@@ -1,8 +1,9 @@
-import { FC, useContext, useState } from 'react'
+import { FC, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Brightness4, DarkMode, LightMode } from '@mui/icons-material'
-import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Typography } from '@mui/material'
+import { CgDarkMode } from 'react-icons/cg'
+import { MdDarkMode, MdLightMode } from 'react-icons/md'
 import { useSelector } from 'react-redux'
+import { MenuItem, IconDropdown } from 'components'
 import { AppState } from 'state'
 import AppThemeContext from 'context/AppThemeContext'
 
@@ -11,20 +12,9 @@ const ThemeSwitcher: FC<any> = () => {
 	const { t } = useTranslation()
 	const current = useSelector((state: AppState) => state.appTheme)
 
-	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-	const open = Boolean(anchorEl)
-
-	const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
-		setAnchorEl(event.currentTarget)
-	}
-
-	const handleClose = () => {
-		setAnchorEl(null)
-	}
-
 	const ThemeIconMap = {
-		dark: { icon: <DarkMode />, label: t('Dark') },
-		light: { icon: <LightMode />, label: t('Light') },
+		dark: { icon: <MdDarkMode size={25} />, label: t('Dark') },
+		light: { icon: <MdLightMode size={25} />, label: t('Light') },
 	}
 
 	const ThemesEl = (): JSX.Element => (
@@ -33,37 +23,18 @@ const ThemeSwitcher: FC<any> = () => {
 				<MenuItem
 					key={idx}
 					disabled={current === theme}
-					onClick={() => {
-						toggleTheme(theme)
-						handleClose()
-					}}
-					value={theme}
+					onClick={() => toggleTheme(theme)}
+					icon={ThemeIconMap[theme].icon}
 				>
-					<ListItemIcon>{ThemeIconMap[theme].icon}</ListItemIcon>
-					<ListItemText>
-						<Typography>{ThemeIconMap[theme].label}</Typography>
-					</ListItemText>
+					{ThemeIconMap[theme].label}
 				</MenuItem>
 			))}
 		</>
 	)
 	return (
-		<div>
-			<IconButton id="locale-open-btn" onClick={handleOpen}>
-				<Brightness4 />
-			</IconButton>
-			<Menu
-				id="basic-menu"
-				anchorEl={anchorEl}
-				open={open}
-				onClose={handleClose}
-				MenuListProps={{
-					'aria-labelledby': 'basic-button',
-				}}
-			>
-				<ThemesEl />
-			</Menu>
-		</div>
+		<IconDropdown icon={<CgDarkMode size={25} />}>
+			<ThemesEl />
+		</IconDropdown>
 	)
 }
 

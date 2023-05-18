@@ -1,26 +1,9 @@
-import React, { FC, useState, useMemo, useCallback } from 'react'
-import { EmojiEvents, DirectionsRun, LocationOn } from '@mui/icons-material'
-import {
-	Box,
-	Card as MuiCard,
-	CardContent as MuiCardContent,
-	IconButton,
-	Grid,
-	Link,
-	Typography,
-	Paper,
-} from '@mui/material'
-import { capitalize, times } from 'lodash'
-
-import { Button, Dialog } from 'components'
+import { FC, useState } from 'react'
+import { Button, DialogV2 } from 'components'
 import { ConfirmRegisterEventForm } from 'widgets'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { MdExpandLess, MdExpandMore } from 'react-icons/md'
-import { BsCheckCircleFill, BsXCircleFill } from 'react-icons/bs'
-import { AppState } from 'state'
-import { Activity } from 'state/activity'
-import { setSelectedActivity } from 'state/selectedActivity'
+import { AppState, Activity, setSelectedActivity } from 'state'
 
 interface ActivityProps {
 	activity: Activity
@@ -28,7 +11,7 @@ interface ActivityProps {
 
 const EventCard: FC<ActivityProps> = ({ activity }) => {
 	const { id, title, description, participants, location, settings } = activity
-	console.log(settings)
+
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
 
@@ -39,7 +22,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 
 	return (
 		<>
-			<Dialog
+			<DialogV2
 				title={`${t('Register for')} ${title}`}
 				open={openConfirmRegisterDialog}
 				onClose={() => setOpenConfirmRegisterDialog(false)}
@@ -50,7 +33,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 					isLevelLessThanRequired={false}
 					onClose={() => setOpenConfirmRegisterDialog(false)}
 				/>
-			</Dialog>
+			</DialogV2>
 			<div
 				onClick={() => dispatch<any>(setSelectedActivity(id))}
 				className="relative bg-white rounded-md shadow-md w-full flex flex-col p-4"
@@ -101,7 +84,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 					</div> */}
 				</div>
 				<div className="flex justify-center">
-					<IconButton onClick={() => setExpanded(!expanded)} disableRipple>
+					{/* <IconButton onClick={() => setExpanded(!expanded)} disableRipple>
 						<div className="inline-flex items-center gap-x-1">
 							{expanded ? (
 								<>
@@ -115,7 +98,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 								</>
 							)}
 						</div>
-					</IconButton>
+					</IconButton> */}
 				</div>
 			</div>
 		</>

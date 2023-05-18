@@ -1,8 +1,7 @@
-import React, { FC, useMemo, createRef, useRef } from 'react'
+import React, { FC, useMemo } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { AppState } from 'state'
 import { Gallery, Sidenav } from 'components'
-import { setSelectedActivity } from 'state/selectedActivity'
+import { AppState, setSelectedActivity } from 'state'
 
 const ActivitySelectedSidenav: FC<any> = (children) => {
 	const dispatch = useDispatch()

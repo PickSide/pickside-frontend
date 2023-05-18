@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Resources } from 'state'
-import { Sport } from 'state/sport'
+import { Resources, Sport } from 'state'
 import { SportSettings } from 'utils'
 
 export interface Activities extends Resources {
@@ -22,7 +21,7 @@ export interface Activity {
 
 const Activity = createSlice({
 	initialState: null as unknown as Activities,
-	name: 'sportActivitys',
+	name: 'activities',
 	reducers: {
 		setActivities: (state, action: PayloadAction<Activities>) => (state = { ...state, ...action.payload }),
 		addActivity: (state, action: PayloadAction<Activity>) => { state.results = [...(state.results || []), action.payload] },

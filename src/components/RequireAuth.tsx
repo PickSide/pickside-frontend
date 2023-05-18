@@ -6,7 +6,6 @@ import { AppState } from 'state'
 const RequireAuth: FC<any> = () => {
 	const user = useSelector((state: AppState) => state.account)
 	const location = useLocation()
-	console.log(!!user, location)
 	return !!user ? <Outlet /> : <Navigate to="/" state={{ from: location }} replace />
 }
 

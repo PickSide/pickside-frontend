@@ -2,8 +2,7 @@ import { createContext, useEffect, FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { useAuth, useLocalStorage } from 'hooks'
-import { setStatus } from 'state/appStatus'
-import { AppState } from 'state'
+import { setStatus, AppState } from 'state'
 
 const EVENTS = ['click', 'keydown', 'load', 'scroll']
 const IDLE_TIMER_KEY = 'sessionTTL'

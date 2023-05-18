@@ -1,9 +1,7 @@
-import { Typography } from '@mui/material'
-
 const History = () => {
 	return (
 		<>
-			<Typography>HISTORY</Typography>
+			<span>HISTORY</span>
 		</>
 	)
 }

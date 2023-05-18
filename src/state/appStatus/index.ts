@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AlertColor } from '@mui/lab'
 
 export interface AppStatus {
-    status?: AlertColor
+    status?: 'success' | 'info' | 'warning' | 'error'
     message?: string
 }
 

@@ -5,12 +5,12 @@ import Footer from './Sections/Footer'
 
 const Home = () => {
 	return (
-		<div className=''>
+		<>
 			<LandingPage />
 			<SportSelection />
 			<About />
 			<Footer />
-		</div>
+		</>
 	)
 }
 

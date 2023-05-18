@@ -1,5 +1,5 @@
 import React, { FC, cloneElement } from 'react'
-import { DatePicker, Select, Switch, TextField } from 'components'
+import { Select, Toggle, TextFieldV2 } from 'components'
 
 interface SettingsInputProps {
 	extraProps?: any
@@ -9,16 +9,16 @@ interface SettingsInputProps {
 const SettingsInput: FC<SettingsInputProps> = ({ extraProps, type, ...props }) => {
 	const RenderElement = {
 		date: {
-			component: <DatePicker {...props} {...extraProps} />,
+			component: <></>,
 		},
 		select: {
 			component: <Select {...props} {...extraProps} />,
 		},
 		switch: {
-			component: <Switch {...props} {...extraProps} />,
+			component: <Toggle {...props} {...extraProps} />,
 		},
 		text: {
-			component: <TextField {...props} {...extraProps} />,
+			component: <TextFieldV2 {...props} {...extraProps} />,
 		},
 	}
 

@@ -29,7 +29,7 @@ export interface IAccountProfile {
 
 const Account = createSlice({
 	initialState: null as unknown as Account | null,
-	name: 'user',
+	name: 'account',
 	reducers: {
 		setAccount: (state, action: PayloadAction<Account | null>) => (state = action.payload),
 	},

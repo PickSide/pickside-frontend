@@ -1,5 +1,4 @@
-import { Grid } from '@mui/material'
-import { PageLayout, SettingsInput } from 'components'
+import { SettingsInput } from 'components'
 import { useTranslation } from 'react-i18next'
 
 const AppSettings = () => {
@@ -42,15 +41,13 @@ const AppSettings = () => {
 	]
 
 	return (
-		<PageLayout title={t('App settings')}>
-			<Grid container direction="column">
-				{AppSettingsConfigurations.map((config, idx) => (
-					<Grid item key={idx}>
-						<SettingsInput type={config.inputType} extraProps={config.extraProps} />
-					</Grid>
-				))}
-			</Grid>
-		</PageLayout>
+		<div className="flex flex-col">
+			{AppSettingsConfigurations.map((config, idx) => (
+				<div key={idx}>
+					<SettingsInput type={config.inputType} extraProps={config.extraProps} />
+				</div>
+			))}
+		</div>
 	)
 }
 

@@ -1,21 +1,11 @@
-import { FC } from 'react'
+import { FC, useCallback } from 'react'
 import { useForm, Controller } from 'react-hook-form'
-import {
-	Box,
-	Button,
-	Checkbox,
-	DialogActions,
-	FormControlLabel,
-	Grid,
-	FormControl,
-	InputAdornment,
-	Container,
-} from '@mui/material'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { TextField } from 'components'
-import { SelectSports } from 'widgets'
+import { Button, TextFieldV2, Toggle, Select } from 'components'
+import { NUMBERS_ONLY_REGEX } from 'utils'
 import { useApi } from 'hooks'
+import { AppState } from 'state'
 
 interface RegisterEventFormProps {
 	onClose: () => void
@@ -48,113 +38,104 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 		},
 	})
 
+	const sports = useSelector((state: AppState) => state.sports)
+
+	const getOptionLabel = useCallback((option) => option.description, [])
+	const getOptionValue = useCallback((option) => option.value, [])
+	const getOptionDisabled = useCallback((option) => !option.featureAvailable, [])
+
 	const onSubmit = async (values) => {
 		await dispatch<any>(createActivity(values))
 		await dispatch<any>(getActivities())
 		onClose()
 	}
 
+	const baseRule = {
+		required: { value: true, message: t('Field is required') },
+	}
+
 	return (
-		<Container maxWidth="lg">
-			<form onSubmit={handleSubmit(onSubmit)}>
-				<Grid container direction="column" rowSpacing={4}>
-					<Grid item container columnSpacing={2}>
-						<Grid item xs>
-							<Controller
-								name="title"
-								control={control}
-								render={({ field }) => <TextField label={t('Event Name')} fullWidth freeSolo {...field} />}
-							/>
-						</Grid>
-						<Grid item xs>
-							<Controller
-								name="maxPlayersCapacity"
-								control={control}
-								render={({ field }) => (
-									<TextField
-										type="number"
-										label={t('Capacity')}
-										freeSolo
-										fullWidth
-										placeholder={t('Enter capacity of players')}
-										{...field}
-									/>
-								)}
-							/>
-						</Grid>
-					</Grid>
-					<Grid item container columnSpacing={2}>
-						<Grid item xs>
-							<Controller
-								name="sport"
-								control={control}
-								render={({ field }) => (
-									<FormControl fullWidth>
-										<SelectSports {...field} />
-									</FormControl>
-								)}
-							/>
-						</Grid>
-						<Grid item xs>
-							<Controller
-								name="levelRequired"
-								control={control}
-								render={({ field }) => (
-									<TextField
-										type="number"
-										label={t('Level')}
-										freeSolo
-										placeholder={t('Choose level required for entry')}
-										fullWidth
-										{...field}
-									/>
-								)}
-							/>
-						</Grid>
-					</Grid>
-					<Grid item container columnSpacing={2}>
-						<Grid item>
-							<Controller
-								name="price"
-								control={control}
-								render={({ field }) => (
-									<TextField
-										disabled={watch('isFree')}
-										type="number"
-										label={t('Price')}
-										freeSolo
-										InputProps={{
-											startAdornment: <InputAdornment position="start">$</InputAdornment>,
-											endAdornment: <InputAdornment position="end">/ person</InputAdornment>,
-										}}
-										placeholder={t('Enter price')}
-										fullWidth
-										{...field}
-									/>
-								)}
-							/>
-						</Grid>
-					</Grid>
-					<Grid item>
-						<Controller
-							name="isFree"
-							control={control}
-							render={({ field }) => <FormControlLabel control={<Checkbox {...field} />} label={t('Free')} />}
+		<div className="p-6">
+			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
+				<Controller
+					name="title"
+					control={control}
+					rules={{
+						...baseRule,
+					}}
+					render={({ field, fieldState: { invalid, isTouched, isDirty, error }, formState }) => (
+						<TextFieldV2 autofocus label={t('Title')} placeholder={t('Enter title')} dense error={error} {...field} />
+					)}
+				/>
+				<Controller
+					name="price"
+					control={control}
+					rules={{
+						...baseRule,
+						pattern: NUMBERS_ONLY_REGEX,
+					}}
+					render={({ field, fieldState: { error }, formState }) => (
+						<TextFieldV2 label={t('Price per person')} placeholder={t('Enter price')} dense error={error} {...field} />
+					)}
+				/>
+				<Controller
+					name="levelRequired"
+					control={control}
+					rules={{
+						...baseRule,
+						pattern: NUMBERS_ONLY_REGEX,
+					}}
+					render={({ field, fieldState: { error }, formState }) => (
+						<TextFieldV2 label={t('Level require')} placeholder={t('Enter price')} dense error={error} {...field} />
+					)}
+				/>
+				<Controller
+					name="maxPlayersCapacity"
+					control={control}
+					rules={{
+						...baseRule,
+						pattern: NUMBERS_ONLY_REGEX,
+					}}
+					render={({ field, fieldState: { error }, formState }) => (
+						<TextFieldV2 label={t('Max player')} placeholder={t('Enter price')} dense error={error} {...field} />
+					)}
+				/>
+				<Controller
+					name="sport"
+					control={control}
+					rules={{
+						...baseRule,
+						pattern: NUMBERS_ONLY_REGEX,
+					}}
+					render={({ field: { onChange }, fieldState: { error }, formState }) => (
+						<Select
+							label={t('Choose sport')}
+							placeholder={t('Enter sport')}
+							options={sports?.results}
+							getOptionLabel={getOptionLabel}
+							getOptionValue={getOptionValue}
+							getOptionDisabled={getOptionDisabled}
+							onChange={onChange}
+							dense
+							error={error}
 						/>
-					</Grid>
-				</Grid>
-				<Box padding={1} mb={2}>
-					<DialogActions>
-						<Button size="medium" autoFocus onClick={() => onClose()}>
-							{t('Cancel')}
-						</Button>
-						<Button type="submit" size="medium" variant="contained">
-							{t('Create')}
-						</Button>
-					</DialogActions>
-				</Box>
+					)}
+				/>
+				<Controller
+					name="isFree"
+					control={control}
+					render={({ field, fieldState: { error }, formState }) => (
+						<Toggle label={t('No payment required')} dense {...field} />
+					)}
+				/>
+				<Button
+					type="submit"
+					className="rounded-md bg-primary w-[300px] text-white font-semibold h-[50px] transition-all duration-75 ease-in hover:bg-secondary"
+				>
+					{t('Login')}
+				</Button>
 			</form>
-		</Container>
+		</div>
 	)
 }
 
