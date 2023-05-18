@@ -11,7 +11,7 @@ interface ActivityProps {
 
 const EventCard: FC<ActivityProps> = ({ activity }) => {
 	const { id, title, description, participants, location, settings } = activity
-	console.log(settings)
+
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
 

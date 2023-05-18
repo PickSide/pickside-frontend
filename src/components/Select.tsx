@@ -49,7 +49,6 @@ const Select = (
 		[getOptionLabel, _onChange],
 	)
 
-	console.log(props)
 	return (
 		<div className={`relative flex w-fit ${dense ? 'mb-6' : ''}`}>
 			<div

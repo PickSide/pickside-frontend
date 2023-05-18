@@ -4,8 +4,11 @@ import Autocomplete from './Autocomplete'
 import Button from './Button'
 import Checkbox from './Checkbox'
 import DialogV2 from './DialogV2'
+import Dropdown from './Dropdown'
 import Gallery from './Gallery'
+import IconDropdown from './IconDropdown'
 import MapMarker from './MapMarker'
+import MenuItem from './MenuItem'
 import Map from '../widgets/Map'
 import RequireAuth from './RequireAuth'
 import Select from './Select'
@@ -24,8 +27,11 @@ export {
 	Button,
 	Checkbox,
 	DialogV2,
+	Dropdown,
 	Gallery,
+	IconDropdown,
 	MapMarker,
+	MenuItem,
 	Map,
 	RequireAuth,
 	Select,

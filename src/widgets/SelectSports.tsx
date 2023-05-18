@@ -1,8 +1,7 @@
 import React, { FC, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { MenuItem } from '@mui/material'
-import { Select } from 'components'
+import { Select, MenuItem } from 'components'
 import { AppState } from 'state'
 import InitialAppStateContext from 'context/InitialAppStateContext'
 
@@ -16,11 +15,7 @@ const SelectSports: FC<any> = ({ ...props }) => {
 			{loading ? (
 				<MenuItem>{`${t('Loading')}...`}</MenuItem>
 			) : (
-				sports?.results?.map((sport, idx) => (
-					<MenuItem key={idx} value={sport.id}>
-						{sport.description}
-					</MenuItem>
-				))
+				sports?.results?.map((sport, idx) => <MenuItem key={idx}>{sport.description}</MenuItem>)
 			)}
 		</Select>
 	)

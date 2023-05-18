@@ -1,14 +1,12 @@
-import { FC, useMemo, useState } from 'react'
+import { FC, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
-import { IconButton, ListItemIcon, Menu, MenuItem, Typography } from '@mui/material'
-import { AccountCircle, Logout, Person, Settings } from '@mui/icons-material'
-import { BiUserCircle } from 'react-icons/bi'
+import { MdAccountCircle, MdOutlineSettings, MdPersonOutline, MdLogout, MdOutlineHistory } from 'react-icons/md'
 import { AppState } from 'state'
 import { useAuth } from 'hooks'
-import { Button } from 'components'
+import { IconDropdown, MenuItem } from 'components'
 
 const ProfileMenu: FC<any> = () => {
 	const { logout } = useAuth()
@@ -18,41 +16,30 @@ const ProfileMenu: FC<any> = () => {
 
 	const account = useSelector((state: AppState) => state.account)
 
-	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-	const open = Boolean(anchorEl)
-
 	const userInitials = useMemo(
 		() => `${account?.profile?.firstName?.charAt(0)}${account?.profile?.lastName?.charAt(0)}`,
 		[account],
 	)
 
-	const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
-		setAnchorEl(event.currentTarget)
-	}
-
-	const handleClose = () => {
-		setAnchorEl(null)
-	}
-
 	const UserMenuItems = [
 		{
 			label: t('History'),
-			icon: <Settings fontSize="small" />,
+			icon: <MdOutlineHistory size={25} />,
 			action: () => navigate('/user/history'),
 		},
 		{
 			label: t('Profile'),
-			icon: <Person fontSize="small" />,
+			icon: <MdPersonOutline size={25} />,
 			action: () => navigate('/user/profile'),
 		},
 		{
 			label: t('Settings'),
-			icon: <Settings fontSize="small" />,
+			icon: <MdOutlineSettings size={25} />,
 			action: () => navigate('/user/app-settings'),
 		},
 		{
 			label: t('Logout'),
-			icon: <Logout fontSize="small" />,
+			icon: <MdLogout size={25} />,
 			action: async () => {
 				await dispatch<any>(logout())
 				navigate('/')
@@ -61,36 +48,14 @@ const ProfileMenu: FC<any> = () => {
 	]
 
 	return (
-		<div>
-			<Button isIcon id="locale-open-btn" onClick={handleOpen}>
-				<BiUserCircle size={25} />
-			</Button>
-			<Menu
-				id="basic-menu"
-				anchorEl={anchorEl}
-				open={open}
-				onClose={handleClose}
-				MenuListProps={{
-					'aria-labelledby': 'basic-button',
-				}}
-			>
-				<MenuItem disabled divider>
-					<Typography>{userInitials}</Typography>
+		<IconDropdown icon={<MdAccountCircle size={25} />}>
+			<MenuItem disabled>{userInitials}</MenuItem>
+			{UserMenuItems.map(({ action, label, icon }, idx) => (
+				<MenuItem key={idx} icon={icon} onClick={() => action()}>
+					{label}
 				</MenuItem>
-				{UserMenuItems.map(({ action, label, icon }, idx) => (
-					<MenuItem
-						key={idx}
-						onClick={() => {
-							action()
-							handleClose()
-						}}
-					>
-						<ListItemIcon>{icon}</ListItemIcon>
-						<Typography>{label}</Typography>
-					</MenuItem>
-				))}
-			</Menu>
-		</div>
+			))}
+		</IconDropdown>
 	)
 }
 export default ProfileMenu

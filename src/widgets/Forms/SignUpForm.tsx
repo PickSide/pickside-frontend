@@ -89,7 +89,6 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 			setApiMessage(message)
 		}
 	}
-	const onError = (error) => console.log(error)
 
 	return (
 		<div className="flex flex-col gap-y-20 items-center">

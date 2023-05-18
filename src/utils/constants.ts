@@ -13,6 +13,15 @@ export const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/
 export const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
 export const NUMBERS_ONLY_REGEX = /^\d+$/
 
+//Characters keycodes
+export enum KEY_CODES {
+	ESC = 27,
+	LEFT = 37,
+	UP = 38,
+	RIGHT = 39,
+	DOWN = 40
+}
+
 // Env
 export const ENV_VARIABLES = {
 	development: {
