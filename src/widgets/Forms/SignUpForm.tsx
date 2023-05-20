@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
-import { Button, TextFieldV2 } from 'components'
+import { Button, TextField } from 'components'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useAuth, useCalls } from 'hooks'
@@ -104,7 +104,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 						...baseRule,
 					}}
 					render={({ field, fieldState: { error }, formState }) => (
-						<TextFieldV2
+						<TextField
 							type="text"
 							autofocus
 							label={t('Username')}
@@ -124,7 +124,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 						pattern: FULL_NAME_REGEX,
 					}}
 					render={({ field, fieldState: { error }, formState }) => (
-						<TextFieldV2
+						<TextField
 							type="text"
 							autofocus
 							label={t('Full name')}
@@ -144,7 +144,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 						pattern: EMAIL_REGEX,
 					}}
 					render={({ field, fieldState: { error }, formState }) => (
-						<TextFieldV2
+						<TextField
 							label={t('Email')}
 							placeholder={t('Enter email')}
 							startContent={<MdOutlineAlternateEmail size={20} />}
@@ -162,7 +162,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 						pattern: PASSWORD_REGEX,
 					}}
 					render={({ field, fieldState: { error }, formState }) => (
-						<TextFieldV2
+						<TextField
 							label={t('Password')}
 							placeholder={t('Enter password')}
 							startContent={<BiLockAlt size={20} />}
@@ -181,7 +181,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 						...validationPassword,
 					}}
 					render={({ field, fieldState: { error }, formState }) => (
-						<TextFieldV2
+						<TextField
 							label={t('Confirm password')}
 							placeholder={t('Confirm password')}
 							startContent={<BiLockAlt size={20} />}

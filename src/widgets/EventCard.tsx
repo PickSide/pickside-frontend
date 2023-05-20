@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { Button, DialogV2 } from 'components'
+import { Button, Dialog } from 'components'
 import { ConfirmRegisterEventForm } from 'widgets'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -22,7 +22,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 
 	return (
 		<>
-			<DialogV2
+			<Dialog
 				title={`${t('Register for')} ${title}`}
 				open={openConfirmRegisterDialog}
 				onClose={() => setOpenConfirmRegisterDialog(false)}
@@ -33,7 +33,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 					isLevelLessThanRequired={false}
 					onClose={() => setOpenConfirmRegisterDialog(false)}
 				/>
-			</DialogV2>
+			</Dialog>
 			<div
 				onClick={() => dispatch<any>(setSelectedActivity(id))}
 				className="relative bg-white rounded-md shadow-md w-full flex flex-col p-4"

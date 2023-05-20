@@ -3,9 +3,10 @@ import Alert from './Alert'
 import Autocomplete from './Autocomplete'
 import Button from './Button'
 import Checkbox from './Checkbox'
-import DialogV2 from './DialogV2'
+import Dialog from './Dialog'
 import Dropdown from './Dropdown'
 import Gallery from './Gallery'
+import GroupRadio from './GroupRadio'
 import IconDropdown from './IconDropdown'
 import MapMarker from './MapMarker'
 import MenuItem from './MenuItem'
@@ -15,8 +16,9 @@ import Select from './Select'
 import SettingsInput from './SettingsInput'
 import Sidenav from './Sidenav'
 import Spinner from './Spinner'
+import Stepper from './Stepper'
 import Tabs from './Tabs'
-import TextFieldV2 from './TextFieldV2'
+import TextField from './TextField'
 import Toggle from './Toggle'
 
 export * from './Tabs'
@@ -26,9 +28,10 @@ export {
 	Autocomplete,
 	Button,
 	Checkbox,
-	DialogV2,
+	Dialog,
 	Dropdown,
 	Gallery,
+	GroupRadio,
 	IconDropdown,
 	MapMarker,
 	MenuItem,
@@ -38,8 +41,9 @@ export {
 	SettingsInput,
 	Sidenav,
 	Spinner,
+	Stepper,
 	Tabs,
-	TextFieldV2,
+	TextField,
 	Toggle
 }
 

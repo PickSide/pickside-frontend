@@ -9,7 +9,7 @@ interface CheckboxProps {
 	label?: string
 }
 
-const Checkbox = ({ dense = false, label, ...props }, ref) => {
+const Checkbox = ({ dense = false, label, ...props }: CheckboxProps | any, ref) => {
 	const inputRef = useRef<any>(null)
 
 	const [checked, setChecked] = useState<boolean>(false)

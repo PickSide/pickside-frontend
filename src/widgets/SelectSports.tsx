@@ -15,7 +15,7 @@ const SelectSports: FC<any> = ({ ...props }) => {
 			{loading ? (
 				<MenuItem>{`${t('Loading')}...`}</MenuItem>
 			) : (
-				sports?.results?.map((sport, idx) => <MenuItem key={idx}>{sport.description}</MenuItem>)
+				sports?.results?.map((sport, idx) => <MenuItem key={idx}>{sport.name}</MenuItem>)
 			)}
 		</Select>
 	)

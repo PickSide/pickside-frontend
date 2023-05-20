@@ -32,15 +32,16 @@ export const dropdownAnimation = {
     scale: 1,
     opacity: 1,
     transition: {
-      type: "spring",
-      mass: 1,
-      damping: 40,
-      stiffness: 500,
+      duration: 0.1,
+
     },
   },
   exit: {
     scale: 0,
     opacity: 0,
+    transition: {
+      duration: 0.1,
+    },
   },
 }
 
@@ -61,7 +62,23 @@ export const modaleDropIn = {
     }
   },
   exit: {
-    y: '100vh',
+    y: '-100vh',
     opacity: 0,
+  }
+}
+
+export const pageTransition = {
+  hidden: {
+    opacity: 0
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.1,
+      type: 'tween',
+    }
+  },
+  exit: {
+    opacity: 0
   }
 }

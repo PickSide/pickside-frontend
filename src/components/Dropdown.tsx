@@ -42,7 +42,8 @@ const Dropdown = ({ children, variant = 'primary', text }: DropdownProps, ref) =
 							aria-orientation="vertical"
 							aria-labelledby="menu-button"
 							initial="closed"
-							animate={isOpen ? 'open' : 'closed'}
+							animate='open'
+							exit='closed'
 							variants={dropdownAnimation}
 						>
 							{children}

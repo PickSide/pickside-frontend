@@ -2,7 +2,7 @@ import { FC, useCallback, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useForm, Controller } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { Button, Checkbox, TextFieldV2 } from 'components'
+import { Button, Checkbox, TextField } from 'components'
 import { useAuth, useLocalStorage } from 'hooks'
 import { BiLockAlt, BiUser } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
@@ -59,7 +59,7 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 						...baseRule,
 					}}
 					render={({ field, fieldState: { invalid, isTouched, isDirty, error }, formState }) => (
-						<TextFieldV2
+						<TextField
 							type="text"
 							autofocus
 							label={t('Username')}
@@ -77,7 +77,7 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 						...baseRule,
 					}}
 					render={({ field, fieldState: { invalid, isTouched, isDirty, error }, formState }) => (
-						<TextFieldV2
+						<TextField
 							autofocus
 							label={t('Password')}
 							placeholder={t('Enter password')}

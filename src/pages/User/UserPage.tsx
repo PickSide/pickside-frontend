@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 import AppSettings from './Sections/AppSettings'
 import History from './Sections/History'
 import ProfileSettings from './Sections/ProfileSettings'
+import { motion } from 'framer-motion'
+import { pageTransition } from 'utils'
 
 const UserPage = () => {
 	const { t } = useTranslation()

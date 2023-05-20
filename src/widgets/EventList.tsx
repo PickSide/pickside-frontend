@@ -1,7 +1,7 @@
 import { FC, memo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { Button, DialogV2 } from 'components'
+import { Button, Dialog } from 'components'
 import { EventCard, RegisterEventForm } from 'widgets'
 import { AppState } from 'state'
 
@@ -14,13 +14,13 @@ const EventList: FC<any> = () => {
 
 	return activities?.results ? (
 		<>
-			<DialogV2
+			<Dialog
 				title={t('Create a new event')}
 				open={openCreateNewEventDialog}
 				onClose={() => setOpenCreateNewEventDialog(false)}
 			>
 				<RegisterEventForm onClose={() => setOpenCreateNewEventDialog(false)} />
-			</DialogV2>
+			</Dialog>
 
 			<div className="flex flex-col bg-[#fafafa] min-w-[500px] h-[calc(100vh-64px)] py-2 px-4 gap-y-3 overflow-y-auto">
 				<div className="flex flex-row-reverse">

@@ -1,5 +1,5 @@
 import React, { FC, cloneElement } from 'react'
-import { Select, Toggle, TextFieldV2 } from 'components'
+import { Select, Toggle, TextField } from 'components'
 
 interface SettingsInputProps {
 	extraProps?: any
@@ -18,7 +18,7 @@ const SettingsInput: FC<SettingsInputProps> = ({ extraProps, type, ...props }) =
 			component: <Toggle {...props} {...extraProps} />,
 		},
 		text: {
-			component: <TextFieldV2 {...props} {...extraProps} />,
+			component: <TextField {...props} {...extraProps} />,
 		},
 	}
 

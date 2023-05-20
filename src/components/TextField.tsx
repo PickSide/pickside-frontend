@@ -10,7 +10,7 @@ interface TextFieldProps {
 	type?: string
 }
 
-const TextFieldV2 = (
+const TextField = (
 	{
 		startContent,
 		dense = false,
@@ -37,15 +37,15 @@ const TextFieldV2 = (
 	}, [inputRef])
 
 	return (
-		<div className={`relative flex w-fit ${dense ? 'mb-6' : ''}`}>
+		<div className={`relative flex ${dense ? 'mb-6' : ''}`}>
 			<div
-				className={`inline-flex items-center w-[300px] ${isPassword ? 'pr-[40px]' : ''} rounded-md h-[50px] bg-white ${
+				className={`inline-flex w-full items-center ${isPassword ? 'pr-[40px]' : ''} rounded-md h-[50px] bg-white ${
 					!!error ? 'border-[#d2333d] text-[#d2333d]' : 'border-primary'
 				} border-2 focus-within:border-2 focus-within:border-[#82cac3]`}
 			>
 				{startContent && <span className="text-[#82cac3] w-[15%] flex justify-center">{startContent}</span>}
 
-				<div className="px-2">
+				<div className="px-2 w-full">
 					<input
 						type={isPassword && !showPassword ? 'password' : type}
 						autoComplete="off"
@@ -74,4 +74,4 @@ const TextFieldV2 = (
 	)
 }
 
-export default forwardRef(TextFieldV2)
+export default forwardRef(TextField)

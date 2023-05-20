@@ -28,7 +28,7 @@ interface UseApiOutput {
 }
 
 const useApi = (): UseApiOutput => {
-	const { getItems, putItem } = useCalls({ baseURL: API_URL })
+	const { getItems, putItem, postItem } = useCalls({ baseURL: API_URL })
 
 	const account = useSelector((state: AppState) => state.account)
 
@@ -45,16 +45,16 @@ const useApi = (): UseApiOutput => {
 					}
 				},
 		createActivity:
-			(event: Activity) =>
+			(data: Activity) =>
 				async (dispatch: Dispatch): Promise<any> => {
-					const updatedItem = await putItem({
-						endpoint: 'events',
+					const createdActivity = await postItem({
+						endpoint: 'activities',
 						id: account?.id,
-						data: { userId: account?.id },
+						data: { ...data, organiser: account?.username },
 					})(dispatch)
 
-					if (updatedItem) {
-						dispatch(updateActivity(updatedItem.data.response))
+					if (createdActivity) {
+						dispatch(updateActivity(createdActivity.response))
 					}
 				},
 		registerToActivity:
