@@ -18,6 +18,7 @@ import About from './pages/Home/Sections/About'
 import Home from './pages/Home/Home'
 import Login from './pages/Authentication/Login'
 import SignUp from './pages/Authentication/SignUp'
+import CreateEvent from './pages/Event/CreateEvent'
 import { ToastProvider } from 'context/ToastContext'
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
 										<Route path="/login" element={<Login />} />
 										<Route path="/signup" element={<SignUp />} />
 										<Route path="/listing" element={<Listing />} />
+										<Route path="/new-event" element={<CreateEvent />} />
 										<Route element={<RequireAuth />}>
 											<Route path="/user/" element={<UserPage />}>
 												<Route path="app-settings" element={<AppSettingsPage />} />

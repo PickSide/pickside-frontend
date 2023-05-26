@@ -23,6 +23,25 @@ export const fadeIn = (direction, delay, duration) => {
   };
 };
 
+export const slideIn = (direction) => {
+  return {
+    hidden: {
+      x: direction === 'left' ? '-100vw' : direction === 'right' ? '200vw' : 0,
+    },
+    show: {
+      x: 0,
+      transition: {
+        type: 'tween',
+        duration: 0.3,
+      },
+    },
+    exit: {
+      x: direction === 'left' ? '-100vw' : direction === 'right' ? '200vw' : 0,
+    },
+  };
+};
+
+
 export const dropdownAnimation = {
   closed: {
     scale: 0,

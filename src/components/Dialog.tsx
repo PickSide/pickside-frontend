@@ -5,12 +5,13 @@ import { modaleDropIn } from 'utils'
 
 interface DialogProps {
 	open?: boolean
+	full?: boolean
 	title?: string
 	onClose?: () => void
 	children?: ReactNode
 }
 
-const Dialog: FC<DialogProps> = ({ open = false, title, onClose, children, ...props }) => {
+const Dialog: FC<DialogProps> = ({ open = false, full = false, title, onClose, children, ...props }) => {
 	return (
 		<AnimatePresence initial={false} mode="wait">
 			{open ? (
@@ -21,11 +22,11 @@ const Dialog: FC<DialogProps> = ({ open = false, title, onClose, children, ...pr
 						animate="visible"
 						exit="exit"
 						variants={modaleDropIn}
-						className="w-[95%] fixed m-auto md:top-0 max-h-fit md:w-fit z-40 inset-0 overflow-hidden"
+						className={`fixed z-40 inset-0 overflow-hidden ${full ? 'w-screen h-screen' : 'w-[95%] md:w-fit'}`}
 					>
-						<div className="max-h-full overflow-hidden flex flex-col bg-white border shadow-sm rounded-md">
+						<div className="translate-y-1/2 bg-white border shadow-sm rounded-md ">
 							<div className="flex justify-between items-center py-3 px-4 border-b space-x-5">
-								<h3 className="h3 text-primary mb-0">{title}</h3>
+								<h3 className="h3 mb-0">{title}</h3>
 								<button
 									type="button"
 									onClick={onClose}

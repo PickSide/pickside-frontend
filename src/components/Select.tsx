@@ -1,18 +1,19 @@
-import { ReactNode, useCallback, useState, useRef, forwardRef, useMemo } from 'react'
+import { ReactNode, useCallback, useState, forwardRef } from 'react'
 import { RiArrowDropDownLine } from 'react-icons/ri'
-import { AnimatePresence, motion } from 'framer-motion'
-import {} from 'utils'
+import { motion } from 'framer-motion'
 
 interface SelectProps {
 	startContent?: ReactNode
 	dense?: boolean
 	autofocus?: boolean
+	placeholder?: string
 	error?: any
 	options?: any
-	getOptionLabel?: (option) => string
-	getOptionValue?: (option) => any
+	getOptionLabel: (option) => string
 	getOptionDisabled?: (option) => boolean
 	onChange?: (v) => void
+	value?: any
+	label?: string
 }
 
 const Select = (
@@ -23,15 +24,16 @@ const Select = (
 		error,
 		options = [],
 		getOptionLabel,
-		getOptionValue,
 		getOptionDisabled,
+		placeholder,
+		onChange,
+		value,
+		label,
 		...props
-	}: SelectProps | any,
+	}: SelectProps,
 	ref,
 ) => {
-	const inputRef = useRef<any>(null)
-
-	const [value, setValue] = useState<any>('Choose your sport')
+	const [selected, setSelected] = useState<any>(value)
 	const [open, setOpen] = useState<boolean>(false)
 
 	const handleBlur = () => setOpen(false)
@@ -39,18 +41,17 @@ const Select = (
 
 	const handleSelected = useCallback(
 		(option) => {
-			if (getOptionLabel && getOptionValue) {
-				setValue(getOptionLabel(option))
-				props.onChange && props.onChange(option)
-			}
+			setSelected(option)
+			onChange && onChange(option)
+			setOpen(false)
 		},
-		[getOptionLabel, getOptionValue, props],
+		[onChange],
 	)
 
 	return (
 		<div className={`${dense ? 'mb-6' : ''}`}>
 			<label id="listbox-label" className="block text-sm font-medium leading-6 text-gray-900">
-				{props.label}
+				{label}
 			</label>
 			<div className="relative mt-2">
 				<button
@@ -61,10 +62,17 @@ const Select = (
 					aria-haspopup="listbox"
 					aria-expanded="true"
 					aria-labelledby="listbox-label"
+					{...props}
 				>
-					<span className="flex items-center">
-						<span className="ml-3 block truncate">{value}</span>
-					</span>
+					{!getOptionLabel(selected) ? (
+						<span className="flex items-center">
+							<span className="block truncate italic text-gray-500">{placeholder}</span>
+						</span>
+					) : (
+						<span className="flex items-center">
+							<span className="block truncate">{getOptionLabel(selected)}</span>
+						</span>
+					)}
 					<motion.span
 						animate={{
 							rotate: open ? 180 : 0,
@@ -88,13 +96,12 @@ const Select = (
 						tabIndex={-1}
 					>
 						{options.map((option, idx) =>
-							getOptionDisabled(option) ? (
+							getOptionDisabled && getOptionDisabled(option) ? (
 								<li
 									key={idx}
 									className="text-gray-300 relative pointer-events-none cursor-not-allowed select-none py-2 pl-3 pr-9 bg-slate-50"
 									id="listbox-option-0"
 									role="option"
-									onMouseDown={() => handleSelected(option)}
 									aria-selected
 								>
 									<div className="flex items-center">
@@ -107,14 +114,14 @@ const Select = (
 									className="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 hover:bg-indigo-600/50 hover:text-white"
 									id="listbox-option-0"
 									role="option"
-									onMouseDown={() => handleSelected(option)}
+									onClick={() => handleSelected(option)}
 									aria-selected
 								>
 									<div className="flex items-center">
 										<span className="font-normal ml-3 block truncate">{getOptionLabel(option)}</span>
 									</div>
 
-									{getOptionLabel(option) === value && (
+									{option === selected && (
 										<span className="text-indigo-600 absolute inset-y-0 right-0 flex items-center pr-4">
 											<svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
 												<path

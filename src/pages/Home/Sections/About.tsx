@@ -1,5 +1,16 @@
 import React from 'react'
-import { Alert, Button, Dropdown, IconDropdown, MenuItem, Toggle, Stepper, Select, GroupRadio } from 'components'
+import {
+	Alert,
+	Button,
+	Dropdown,
+	DatePicker,
+	IconDropdown,
+	MenuItem,
+	Toggle,
+	Stepper,
+	GroupRadio,
+	TimePicker,
+} from 'components'
 import { Toast } from 'widgets'
 import { BiAddToQueue } from 'react-icons/bi'
 
@@ -56,13 +67,13 @@ const About = () => {
 						{ value: 'a', label: 'Radio normal', description: 'This button is clickable', disabled: false },
 						{ value: 'b', label: 'Radio disabled', description: 'This button is disabled', disabled: true },
 					]}
-					getOptionDescription={(option) => option.description}
-					getOptionDisabled={(option) => option.disabled}
-					getOptionLabel={(option) => option.label}
-					getOptionValue={(option) => option.value}
+					onChange={(option) => console.log(option)}
+					getOptionDescription={(option) => option?.description}
+					getOptionDisabled={(option) => option?.disabled}
+					getOptionLabel={(option) => option?.label}
 				/>
 			</div>
-			<div className="flex justify-center gap-x-4">
+			<div className="flex justify-center gap-x-4 w-[50%] mx-auto">
 				<Stepper
 					steps={[
 						{
@@ -91,6 +102,12 @@ const About = () => {
 						},
 					]}
 				/>
+			</div>
+			<div className="flex justify-center gap-x-4">
+				<DatePicker onChange={(option) => console.log(option)} />
+			</div>
+			<div className="flex justify-center gap-x-4">
+				<TimePicker onChange={(option) => console.log(option)} />
 			</div>
 		</section>
 	)

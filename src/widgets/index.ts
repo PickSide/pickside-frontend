@@ -9,7 +9,6 @@ import NotificationMenu from './NotificationMenu'
 import LanguageSwitcher from './LanguageSwitcher'
 import Map from './Map'
 import ProfileMenu from './ProfileMenu'
-import SelectSports from './SelectSports'
 import ThemeSwitcher from './ThemeSwitcher'
 import Toast from './Toast'
 
@@ -30,7 +29,6 @@ export {
 	LanguageSwitcher,
 	Map,
 	ProfileMenu,
-	SelectSports,
 	ThemeSwitcher,
 	ConfirmRegisterEventForm,
 	LoginForm,

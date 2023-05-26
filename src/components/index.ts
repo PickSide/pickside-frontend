@@ -3,6 +3,7 @@ import Alert from './Alert'
 import Autocomplete from './Autocomplete'
 import Button from './Button'
 import Checkbox from './Checkbox'
+import DatePicker from './DatePicker'
 import Dialog from './Dialog'
 import Dropdown from './Dropdown'
 import Gallery from './Gallery'
@@ -19,6 +20,7 @@ import Spinner from './Spinner'
 import Stepper from './Stepper'
 import Tabs from './Tabs'
 import TextField from './TextField'
+import TimePicker from './TimePicker'
 import Toggle from './Toggle'
 
 export * from './Tabs'
@@ -28,6 +30,7 @@ export {
 	Autocomplete,
 	Button,
 	Checkbox,
+	DatePicker,
 	Dialog,
 	Dropdown,
 	Gallery,
@@ -44,6 +47,7 @@ export {
 	Stepper,
 	Tabs,
 	TextField,
+	TimePicker,
 	Toggle
 }
 

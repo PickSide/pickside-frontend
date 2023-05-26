@@ -1,91 +1,72 @@
-import { FC, useMemo, useState } from 'react'
+import { FC, useMemo, useState, forwardRef } from 'react'
+import { BiArrowBack } from 'react-icons/bi'
 import { StepConfiguration } from 'types'
-import { useIsMobile } from 'hooks'
+import { useMultistepForm } from 'hooks'
+import { motion } from 'framer-motion'
+import { slideIn } from 'utils'
 
 interface StepperProps {
 	steps: StepConfiguration[]
 }
 
-const Stepper: FC<StepperProps> = ({ steps }) => {
-	const isMobile = useIsMobile()
+const Stepper = ({ steps }: StepperProps, ref) => {
+	const { activeStep, isStepActive, isFirstStep, isLastStep, isStepCompleted, handlePreviousStep, handleNextStep } =
+		useMultistepForm(steps.map((x) => x.content))
 
-	const [activeStep, setActiveStep] = useState<number>(0)
-	const [completedSteps, setCompletedSteps] = useState<number[]>([])
-
-	const isStepCompleted = (idx) => completedSteps.includes(idx)
-	const isStepActive = (idx) => activeStep === idx
-
-	const isFirstStep = useMemo(() => activeStep === 0, [activeStep])
-	const isLastStep = useMemo(() => activeStep === steps.length - 1, [activeStep, steps])
-
-	const handlePreviousStep = () => {
-		setCompletedSteps((prevStepsCompleted) => {
-			if (prevStepsCompleted.includes(activeStep - 1)) {
-				prevStepsCompleted.splice(prevStepsCompleted.indexOf(activeStep), 1)
-				return prevStepsCompleted
-			}
-			return prevStepsCompleted
-		})
-		setActiveStep((prevStep) => prevStep - 1)
-	}
-
-	const handleNextStep = () => {
-		setCompletedSteps((prevStepsCompleted) => {
-			if (!prevStepsCompleted.includes(activeStep)) {
-				prevStepsCompleted.push(activeStep)
-				return prevStepsCompleted
-			}
-			return prevStepsCompleted
-		})
-		setActiveStep((prevStep) => prevStep + 1)
-	}
+	const [slide, setSlide] = useState<'right' | 'left' | 'none'>('none')
 
 	return (
-		<div className="flex flex-col p-4 bg-white gap-y-4 text-[#323B45]">
-			<div className="bg-[#F9FBFC] rounded-md w-full flex gap-x-3 px-4 py-2">
-				{steps?.map((step, idx) => (
-					<div key={idx} className="flex items-center gap-x-3">
+		<div className="rounded-md relative w-full flex flex-col py-8 px-10 bg-white gap-y-8 text-[#323B45]">
+			{!isFirstStep && (
+				<div
+					onClick={handlePreviousStep}
+					className="flex px-2 gap-x-3 text-secondary cursor-pointer ease-in hover:text-slate-500"
+				>
+					<BiArrowBack size={25} />
+				</div>
+			)}
+			<div className="w-full flex justify-between p-2 m-auto">
+				{steps.map((step, idx) => (
+					<div className={` flex ${idx !== steps.length - 1 ? 'flex-grow' : 'flex-shrink'}`}>
 						<div
-							className={`ease-in-out transition-all duration-150 rounded-full w-8 h-8 flex items-center justify-center shadow-sm ${
+							className={`relative rounded-full w-5 h-5 border-2 bg-none ease-in-out transition-all duration-75
+							${
 								isStepActive(idx)
-									? 'bg-[#4F46E5] text-white'
+									? 'border-[#14B8A6]'
 									: isStepCompleted(idx)
-									? 'bg-[#14B8A6] text-white'
-									: 'bg-white text-[#4F46E5]'
+									? 'border-[#14B8A6] bg-[#14B8A6]'
+									: 'border-[#E3E1E8] bg-none'
 							}`}
 						>
-							<span>{idx + 1}</span>
-						</div>
-						<div
-							className={`ease-in-out transition-all duration-150  ${
-								isStepActive(idx) ? 'text-[#4F46E5]' : isStepCompleted(idx) ? 'text-[#14B8A6]' : ''
-							} `}
-						>
-							{step.title}
+							<span
+								className={`absolute w-fit -translate-x-1/2 left-1/2 -top-7 mx-auto ${
+									isStepActive(idx) ? 'text-[#14B8A6] font-semibold' : 'text-[#cdcbd1]'
+								} ease-in-out transition-all duration-75`}
+							>
+								{step.title}
+							</span>
 						</div>
 						{idx !== steps.length - 1 && (
 							<div
-								className={`ease-in-out transition-all duration-150 w-10 border-t-2 ${
-									isStepCompleted(idx) ? 'border-[#14B8A6] border-solid' : 'border-[#9CA3AF] border-dotted'
-								} `}
+								className={`flex-1 border-t-2 border-solid mt-2 ease-in-out transition-all duration-75 ${
+									isStepCompleted(idx) ? 'border-[#14B8A6]' : 'border-[#E3E1E8]'
+								}`}
 							></div>
 						)}
 					</div>
 				))}
 			</div>
-			<div className="py-6">{steps[activeStep].content}</div>
-			<div className="flex justify-between">
+			<motion.div variants={slideIn(slide)} initial="hidden" animate="show" className="py-6 w-fit m-auto flex-1">
+				{steps[activeStep].content}
+			</motion.div>
+			<div className="flex flex-grow justify-center">
 				<button
-					onClick={handlePreviousStep}
-					disabled={isFirstStep}
-					className={`rounded-md p-3 ease-in-out transition-all duration-75 text-slate-900 bg-white border-2 border-slate-200 hover:enabled:bg-[#ececec] disabled:bg-slate-50 disabled:opacity-60 disabled:text-slate-400 disabled:cursor-not-allowed`}
-				>
-					<span>Previous</span>
-				</button>
-				<button
-					onClick={handleNextStep}
+					onClick={() => {
+						setSlide('right')
+						handleNextStep()
+					}}
 					disabled={isLastStep}
-					className="rounded-md p-3 ease-in-out transition-all duration-75 bg-[#4F46E5] text-white hover:enabled:bg-[#4841c6] disabled:bg-[#6f6ad2] disabled:opacity-90 disabled:text-slate-100 disabled:cursor-not-allowed"
+					className="w-[40%] rounded-md p-3 ease-in-out transition-all duration-75 bg-[#4F46E5] text-white hover:enabled:bg-[#4841c6] disabled:bg-[#6f6ad2] disabled:opacity-90 disabled:text-slate-100 disabled:cursor-not-allowed"
 				>
 					<span>Continue</span>
 				</button>
@@ -94,4 +75,4 @@ const Stepper: FC<StepperProps> = ({ steps }) => {
 	)
 }
 
-export default Stepper
+export default forwardRef(Stepper)

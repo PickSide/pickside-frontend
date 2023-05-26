@@ -1,7 +1,7 @@
 const { BREAKPOINTS } = require('./src/utils/constants')
 
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+  content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html',],
   important: '#root',
   theme: {
     fill: {
