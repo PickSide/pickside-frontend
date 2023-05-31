@@ -10,6 +10,7 @@ import {
 	Stepper,
 	GroupRadio,
 	TimePicker,
+	Map,
 } from 'components'
 import { Toast } from 'widgets'
 import { BiAddToQueue } from 'react-icons/bi'
@@ -108,6 +109,9 @@ const About = () => {
 			</div>
 			<div className="flex justify-center gap-x-4">
 				<TimePicker onChange={(option) => console.log(option)} />
+			</div>
+			<div className="flex justify-center gap-x-4">
+				<Map />
 			</div>
 		</section>
 	)

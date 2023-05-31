@@ -2,6 +2,7 @@ import { forwardRef, useState } from 'react'
 import { MdAccessTime } from 'react-icons/md'
 import { AnimatePresence, motion } from 'framer-motion'
 import { dropdownAnimation } from 'utils'
+import moment from 'moment'
 
 interface DatePickerProps {
 	value?: any
@@ -15,6 +16,8 @@ const TimePicker = ({ value, onChange }: DatePickerProps, ref) => {
 	const [open, setOpen] = useState<boolean>(false)
 
 	const handleOpen = () => setOpen(true)
+
+	console.log(moment().format('LT'))
 
 	return (
 		<div className="relative">
@@ -35,7 +38,7 @@ const TimePicker = ({ value, onChange }: DatePickerProps, ref) => {
 				</span>
 			</button>
 			<AnimatePresence mode="wait">
-				{!open && (
+				{open && (
 					<>
 						<div className="fixed inset-0 z-40" onClick={() => setOpen(false)}></div>
 						<motion.div
