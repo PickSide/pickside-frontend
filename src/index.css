@@ -46,10 +46,6 @@
 		font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 	}
 
-	section {
-		height: 100vh;
-	}
-
 	.h2 {
 		@apply font-primary text-[32px] mb-6 tracking-[10%] uppercase;
 	}
@@ -83,6 +79,22 @@
 	}
 
 	.btn-disabled {
+		@apply rounded text-white font-semibold bg-slate-200 opacity-70 cursor-not-allowed uppercase text-sm px-6 py-3;
+	}
+
+	.chip-primary {
+		@apply bg-[#159586];
+	}
+
+	.chip-secondary {
+		@apply bg-[#2ca9dd];
+	}
+
+	.chip-tertiary {
+		@apply bg-none outline-none;
+	}
+
+	.chip-disabled {
 		@apply rounded text-white font-semibold bg-slate-200 opacity-70 cursor-not-allowed uppercase text-sm px-6 py-3;
 	}
 

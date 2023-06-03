@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { DatePicker, Select, Stepper, GroupRadio } from 'components'
+import { DatePicker, Select, Stepper, GroupRadio, Map } from 'components'
 import { useApi } from 'hooks'
 import { AppState, Sport } from 'state'
 import dayjs from 'dayjs'
@@ -47,7 +47,7 @@ const CreateEvent = () => {
 		await dispatch<any>(getActivities())
 	}
 	return (
-		<div className="p-8 w-[50%] m-auto">
+		<div className="p-8 w-[50%] m-auto bg-[#e0f2f1] h-screen">
 			<div className="flex flex-col">
 				<Select
 					label="Choose sport"
@@ -69,9 +69,10 @@ const CreateEvent = () => {
 					{...register('mode')}
 					onChange={(mode) => setValue('mode', mode)}
 				/>
-				{!!sportModes && (
+				<div className="flex mb-6">
 					<DatePicker value={watch('date')} {...register('date')} onChange={(date) => setValue('date', date)} />
-				)}
+				</div>
+				<Map />
 			</div>
 		</div>
 	)

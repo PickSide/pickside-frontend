@@ -34,7 +34,8 @@ const Map: FC<any> = ({ ...props }) => {
 
 	const { isLoaded, loadError } = useJsApiLoader({
 		id: 'google-map-script',
-		googleMapsApiKey: 'AIzaSyC1kE8lsID_3YOeFEFfI5cI8PJVJIZPkyk', //process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '',
+		googleMapsApiKey: '', //process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '', //AIzaSyC1kE8lsID_3YOeFEFfI5cI8PJVJIZPkyks
+		libraries: ['places'],
 	})
 
 	const InfoWindow = ({ content, title }) => (

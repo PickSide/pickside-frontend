@@ -2,7 +2,7 @@ import { FC, useCallback, useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { DatePicker, Select, Stepper, GroupRadio } from 'components'
+import { DatePicker, Select, Stepper, GroupRadio, TimePicker, Map } from 'components'
 import { NUMBERS_ONLY_REGEX } from 'utils'
 import { useApi } from 'hooks'
 import { AppState, Sport } from 'state'
@@ -56,13 +56,13 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 			steps={[
 				{
 					id: 'sport-select',
-					title: t('Select your sport'),
+					title: t('Sport'),
 					required: true,
 					content: (
 						<>
 							<Select
 								value={watch('sport')}
-								placeholder={t('Enter sport')}
+								placeholder={t('Select sport')}
 								options={sports?.results}
 								getOptionLabel={(option) => option.name}
 								getOptionDisabled={(option) => !option.featureAvailable}
@@ -79,21 +79,26 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 								{...register('mode')}
 								onChange={(mode) => setValue('mode', mode)}
 							/>
-							{!!sportModes && (
+							<div className="mb-6 flex gap-x-2">
 								<DatePicker value={watch('date')} {...register('date')} onChange={(date) => setValue('date', date)} />
-							)}
+								<TimePicker />
+							</div>
 						</>
 					),
 				},
 				{
 					id: 'venu-select',
-					title: t('Select your venue'),
+					title: t('Location'),
 					required: true,
-					content: <></>,
+					content: (
+						<>
+							<Map />
+						</>
+					),
 				},
 				{
 					id: 'configuration',
-					title: t('Select your Configuration'),
+					title: t('Configuration'),
 					required: true,
 					content: <></>,
 				},

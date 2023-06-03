@@ -3,6 +3,7 @@ import Alert from './Alert'
 import Autocomplete from './Autocomplete'
 import Button from './Button'
 import Checkbox from './Checkbox'
+import Chip from './Chip'
 import DatePicker from './DatePicker'
 import Dialog from './Dialog'
 import Dropdown from './Dropdown'
@@ -30,6 +31,7 @@ export {
 	Autocomplete,
 	Button,
 	Checkbox,
+	Chip,
 	DatePicker,
 	Dialog,
 	Dropdown,

@@ -2,6 +2,7 @@ import React from 'react'
 import {
 	Alert,
 	Button,
+	Chip,
 	Dropdown,
 	DatePicker,
 	IconDropdown,
@@ -27,6 +28,11 @@ const About = () => {
 				<Toggle primary />
 				<Toggle secondary />
 				<Toggle tertiary />
+			</div>
+			<div className="flex justify-center gap-x-4">
+				<Chip primary label="Chip" />
+				<Chip secondary label="Chip" />
+				<Chip tertiary label="Chip" />
 			</div>
 			<div className="flex justify-center gap-x-4">
 				<Toast show type="info">
@@ -111,7 +117,9 @@ const About = () => {
 				<TimePicker onChange={(option) => console.log(option)} />
 			</div>
 			<div className="flex justify-center gap-x-4">
-				<Map />
+				<div className="relative w-72 h-44">
+					<Map />
+				</div>
 			</div>
 		</section>
 	)

@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { BsX } from 'react-icons/bs'
+import { twMerge } from 'tailwind-merge'
+import { motion, AnimatePresence } from 'framer-motion'
 import { modaleDropIn } from 'utils'
 
 interface DialogProps {
@@ -11,9 +12,9 @@ interface DialogProps {
 	children?: ReactNode
 }
 
-const Dialog: FC<DialogProps> = ({ open = false, full = false, title, onClose, children, ...props }) => {
+const Dialog: FC<DialogProps | any> = ({ open = false, full = false, title, onClose, children, ...props }) => {
 	return (
-		<AnimatePresence initial={false} mode="wait">
+		<AnimatePresence mode="wait">
 			{open ? (
 				<>
 					<div className="opacity-25 fixed inset-0 z-40 bg-black" onClick={onClose}></div>
@@ -22,9 +23,9 @@ const Dialog: FC<DialogProps> = ({ open = false, full = false, title, onClose, c
 						animate="visible"
 						exit="exit"
 						variants={modaleDropIn}
-						className={`fixed z-40 inset-0 overflow-hidden ${full ? 'w-screen h-screen' : 'w-[95%] md:w-fit'}`}
+						className={twMerge(`fixed h-fit z-40 m-auto inset-0 overflow-hidden w-[95%] md:w-fit`, props.className)}
 					>
-						<div className="translate-y-1/2 bg-white border shadow-sm rounded-md ">
+						<div className=" bg-white border shadow-sm rounded-md ">
 							<div className="flex justify-between items-center py-3 px-4 border-b space-x-5">
 								<h3 className="h3 mb-0">{title}</h3>
 								<button
