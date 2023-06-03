@@ -21,6 +21,7 @@ type FormData = {
 	maxPlayersCapacity: number
 	location: object
 	isFree: boolean
+	customLocation: boolean
 	date: any
 	mode: any
 }
@@ -39,10 +40,13 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 			isFree: false,
 			date: dayjs(),
 			mode: {},
+			customLocation: false,
 		},
 	})
 
 	const sports = useSelector((state: AppState) => state.sports)
+	const playables = useSelector((state: AppState) => state.playables)
+
 	const sportModes = watch('sport')?.modes
 
 	const onSubmit = async (values) => {
@@ -81,7 +85,6 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 							/>
 							<div className="mb-6 flex gap-x-2">
 								<DatePicker value={watch('date')} {...register('date')} onChange={(date) => setValue('date', date)} />
-								<TimePicker />
 							</div>
 						</>
 					),

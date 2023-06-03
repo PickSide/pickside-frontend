@@ -1,5 +1,6 @@
 import { FC, useMemo, useState, forwardRef } from 'react'
-import { BiArrowBack } from 'react-icons/bi'
+import { BiArrowBack, BiCheck } from 'react-icons/bi'
+import { AiOutlineCheck } from 'react-icons/ai'
 import { StepConfiguration } from 'types'
 import { useMultistepForm, useIsMobile } from 'hooks'
 import { motion } from 'framer-motion'
@@ -75,6 +76,11 @@ const Stepper = ({ steps }: StepperProps, ref) => {
 							: 'border-[#E3E1E8] bg-none'
 					}`}
 						>
+							{isStepCompleted(idx) && (
+								<span className="absolute text-white m-auto">
+									<BiCheck size={15} />
+								</span>
+							)}
 							<span
 								className={`absolute whitespace-nowrap -translate-x-1/2 left-1/2 -top-7 mx-auto ${
 									isStepActive(idx) ? 'text-[#14B8A6] font-semibold' : 'text-[#cdcbd1]'

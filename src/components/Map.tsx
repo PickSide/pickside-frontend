@@ -13,8 +13,8 @@ const Map: FC<MapProps> = ({ width = '100%', height = '100%', ...props }) => {
 	const autocompleteRef = useRef()
 
 	const mapContainerStyle = {
-		width: '100%',
-		height: `100%`,
+		width: '600px',
+		height: '300px',
 	}
 
 	const center = { lat: 45.5490424, lng: -73.6573323 }
@@ -35,10 +35,10 @@ const Map: FC<MapProps> = ({ width = '100%', height = '100%', ...props }) => {
 	}
 
 	return isLoaded ? (
-		<div className="relative inset-0 h-full">
+		<div className="flex flex-col gap-y-4">
 			<Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
 				<input
-					className="rounded-md h-full px-4 py-2 focus:border-primary focus:outline-primary"
+					className="rounded-md h-full px-4 py-2 border-solid border-2 focus:border-primary focus:outline-primary"
 					type="text"
 					placeholder="Search for location"
 				/>

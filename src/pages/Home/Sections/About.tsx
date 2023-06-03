@@ -112,8 +112,6 @@ const About = () => {
 			</div>
 			<div className="flex justify-center gap-x-4">
 				<DatePicker onChange={(option) => console.log(option)} />
-			</div>
-			<div className="flex justify-center gap-x-4">
 				<TimePicker onChange={(option) => console.log(option)} />
 			</div>
 			<div className="flex justify-center gap-x-4">
