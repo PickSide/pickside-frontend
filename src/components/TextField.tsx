@@ -2,29 +2,39 @@ import { ReactNode, useCallback, useState, useRef, useEffect, forwardRef } from 
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 
 interface TextFieldProps {
+	id?: string
+	label?: string
+	placeholder?: string
 	startContent?: ReactNode
 	dense?: boolean
 	autofocus?: boolean
 	isPassword?: boolean
+	readOnly?: boolean
 	error?: any
 	type?: string
+	defaultValue?: string
 }
 
 const TextField = (
 	{
+		id,
+		label,
 		startContent,
+		placeholder,
 		dense = false,
 		autofocus = false,
 		isPassword = false,
 		error,
 		type = 'text',
+		defaultValue,
+		readOnly = false,
 		...props
-	}: TextFieldProps | any,
+	}: TextFieldProps,
 	ref,
 ) => {
 	const inputRef = useRef<any>(null)
 
-	const [value, setValue] = useState<any>()
+	const [value, setValue] = useState<any>(defaultValue)
 	const [onFocus, setOnFocus] = useState<boolean>(autofocus)
 	const [showPassword, setShowPassword] = useState<boolean>(false)
 
@@ -37,7 +47,10 @@ const TextField = (
 	}, [inputRef])
 
 	return (
-		<div className={`relative flex ${dense ? 'mb-6' : ''}`}>
+		<div className={`relative flex flex-col mr-5 ${dense ? 'mb-6' : ''}`}>
+			<label htmlFor={id} className="">
+				<span className="text-[#82cac3]">{label}</span>
+			</label>
 			<div
 				className={`inline-flex w-full items-center ${isPassword ? 'pr-[40px]' : ''} rounded-md h-[50px] bg-white ${
 					!!error ? 'border-[#d2333d] text-[#d2333d]' : 'border-primary'
@@ -49,6 +62,7 @@ const TextField = (
 					<input
 						type={isPassword && !showPassword ? 'password' : type}
 						autoComplete="off"
+						disabled={readOnly}
 						value={value}
 						ref={inputRef}
 						onFocus={_onFocus}
@@ -66,9 +80,6 @@ const TextField = (
 						{showPassword ? <AiOutlineEyeInvisible size={20} /> : <AiOutlineEye size={20} />}
 					</span>
 				)}
-				<label htmlFor={props.id} className="absolute -top-7 left-1">
-					<span className="text-[#82cac3]">{props.label}</span>
-				</label>
 			</div>
 		</div>
 	)

@@ -43,13 +43,13 @@ const DatePicker = ({ onChange, value = dayjs(), ...props }: DatePickerProps | a
 			<AnimatePresence mode="wait">
 				{open && (
 					<>
-						<div className="fixed inset-0 z-40" onClick={() => setOpen(false)}></div>
+						<div className="fixed inset-0 z-50" onClick={() => setOpen(false)}></div>
 						<motion.div
 							variants={dropdownAnimation}
 							initial="closed"
 							animate="open"
 							exit="exit"
-							className="absolute z-40 mt-1 w-fit overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+							className="absolute z-50 mt-1 w-fit overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
 						>
 							<div className="flex items-center h-12 gap-x-3 p-3">
 								<button className="bg-gray-100 rounded-md border-none p-2 font-semibold hover:bg-gray-200 ease-in transition-all duration-75">

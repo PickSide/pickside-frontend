@@ -71,7 +71,7 @@
 	}
 
 	.btn-tertiary {
-		@apply rounded text-secondary font-semibold bg-none outline-none ease-linear transition-all duration-100 hover:bg-slate-200 hover:text-white px-6 py-3 uppercase;
+		@apply rounded text-[15px] text-secondary font-semibold bg-none outline-none ease-linear transition-all duration-100 hover:text-slate-400 px-6 py-3 uppercase;
 	}
 
 	.btn-icon {

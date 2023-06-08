@@ -1,4 +1,5 @@
 import { FC, ReactNode, useMemo } from 'react'
+import { twMerge } from 'tailwind-merge'
 import Spinner from './Spinner'
 
 interface ButtonProps {
@@ -35,7 +36,7 @@ const Button: FC<ButtonProps | any> = ({
 	}, [disabled, isLink, isIcon, secondary, tertiary])
 
 	return (
-		<button {...props} className={btnClass} disabled={disabled}>
+		<button {...props} className={twMerge('whitespace-nowrap', btnClass)} disabled={disabled}>
 			{isLoading ? <Spinner /> : children}
 		</button>
 	)

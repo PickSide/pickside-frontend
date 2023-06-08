@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+	Accordion,
 	Alert,
 	Button,
 	Chip,
@@ -7,14 +8,18 @@ import {
 	DatePicker,
 	IconDropdown,
 	MenuItem,
-	Toggle,
+	Switch,
 	Stepper,
 	GroupRadio,
 	TimePicker,
+	ToggleGroup,
 	Map,
 } from 'components'
 import { Toast } from 'widgets'
 import { BiAddToQueue } from 'react-icons/bi'
+import { MdDarkMode } from 'react-icons/md'
+import { CiLight } from 'react-icons/ci'
+import { FiSettings } from 'react-icons/fi'
 
 const About = () => {
 	return (
@@ -25,9 +30,9 @@ const About = () => {
 				<Button tertiary>Button</Button>
 			</div>
 			<div className="flex justify-center gap-x-4">
-				<Toggle primary />
-				<Toggle secondary />
-				<Toggle tertiary />
+				<Switch primary />
+				<Switch secondary />
+				<Switch tertiary />
 			</div>
 			<div className="flex justify-center gap-x-4">
 				<Chip primary label="Chip" />
@@ -72,6 +77,7 @@ const About = () => {
 				<GroupRadio
 					options={[
 						{ value: 'a', label: 'Radio normal', description: 'This button is clickable', disabled: false },
+						{ value: 'b', label: 'Radio disabled', description: 'This button is disabled', disabled: false },
 						{ value: 'b', label: 'Radio disabled', description: 'This button is disabled', disabled: true },
 					]}
 					onChange={(option) => console.log(option)}
@@ -115,10 +121,41 @@ const About = () => {
 				<TimePicker onChange={(option) => console.log(option)} />
 			</div>
 			<div className="flex justify-center gap-x-4">
+				<ToggleGroup
+					options={[
+						{ icon: <CiLight size={20} />, defaultChecked: true, name: 'lightmode' },
+						{ icon: <MdDarkMode size={20} />, name: 'darkmode' },
+					]}
+					onChange={(option) => console.log(option)}
+				/>
+			</div>
+			<div className="flex justify-center gap-x-4">
+				<Accordion
+					sections={[
+						{
+							title: 'Header',
+							icon: <FiSettings size={25} />,
+							expanded: true,
+							content: <p>Hello</p>,
+						},
+						{
+							title: 'Header',
+							icon: <FiSettings size={25} />,
+							content: <p>Hello</p>,
+						},
+						{
+							title: 'Header',
+							icon: <FiSettings size={25} />,
+							content: <p>Hello</p>,
+						},
+					]}
+				/>
+			</div>
+			{/* <div className="flex justify-center gap-x-4">
 				<div className="relative w-72 h-44">
 					<Map />
 				</div>
-			</div>
+			</div> */}
 		</section>
 	)
 }

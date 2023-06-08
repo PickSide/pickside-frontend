@@ -17,10 +17,10 @@ const TimePicker = ({ value, onChange }: DatePickerProps, ref) => {
 
 	const handleOpen = () => setOpen(true)
 	const handleClose = () => setOpen(false)
-
+	console.log(moment().format('LT'))
 	return (
 		<>
-			<div className="relative" tabIndex={0} onBlur={handleClose}>
+			<div className="relative z-[50]" tabIndex={0} onBlur={handleClose}>
 				<button
 					type="button"
 					className="flex gap-x-3 items-center cursor-default rounded-lg bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
@@ -34,7 +34,7 @@ const TimePicker = ({ value, onChange }: DatePickerProps, ref) => {
 					</span>
 					<span className="flex flex-col items-start justify-center">
 						<span className="text-[10px] text-[#A2A2A2] leading-4">Choose time</span>
-						<span className="font-semibold">{selectTime}</span>
+						<span className="font-semibold">{moment().format('LT')}</span>
 					</span>
 				</button>
 				<AnimatePresence mode="wait">
@@ -45,7 +45,7 @@ const TimePicker = ({ value, onChange }: DatePickerProps, ref) => {
 								initial="closed"
 								animate="open"
 								exit="exit"
-								className="max-h-40 overflow-y-scroll w-fit absolute p-3 right-0 mt-1 flex gap-x-2 rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+								className="max-h-40 overflow-y-scroll w-fit absolute p-3 mt-1 flex gap-x-2 rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
 							>
 								<div className="flex flex-col w-full">
 									{[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((time, idx) => (

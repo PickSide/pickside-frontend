@@ -14,6 +14,7 @@ const InitialAppStateContext = createContext<InitialAppStateContextProps>({
 })
 
 export const InitialAppStateProvider: FC<any> = ({ children }) => {
+	const areas = useSelector((state: AppState) => state.areas)
 	const activities = useSelector((state: AppState) => state.activities)
 	const locales = useSelector((state: AppState) => state.locales)
 	const playables = useSelector((state: AppState) => state.playables)
@@ -21,9 +22,12 @@ export const InitialAppStateProvider: FC<any> = ({ children }) => {
 	const sports = useSelector((state: AppState) => state.sports)
 
 	const dispatch = useDispatch()
-	const { getActivities, getLocales, getPlayables, getSettingsTemplate, getSports } = useApi()
+	const { getAreas, getActivities, getLocales, getPlayables, getSettingsTemplate, getSports } = useApi()
 
 	const { loading } = useAsync(async () => {
+		if (!areas) {
+			dispatch<any>(getAreas())
+		}
 		if (!activities) {
 			dispatch<any>(getActivities())
 		}

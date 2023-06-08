@@ -23,7 +23,7 @@ const Dialog: FC<DialogProps | any> = ({ open = false, full = false, title, onCl
 						animate="visible"
 						exit="exit"
 						variants={modaleDropIn}
-						className={twMerge(`fixed h-fit z-40 m-auto inset-0 overflow-hidden w-[95%] md:w-fit`, props.className)}
+						className={twMerge(`fixed h-fit z-50 m-auto inset-0 overflow-hidden w-[95%] md:w-fit`, props.className)}
 					>
 						<div className=" bg-white border shadow-sm rounded-md ">
 							<div className="flex justify-between items-center py-3 px-4 border-b space-x-5">

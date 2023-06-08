@@ -1,12 +1,15 @@
 import { Dispatch } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
-import { AppState, setLocales, setSports, setActivities, updateActivity, Activity, setSettingsTemplate, setPlayables } from 'state'
+import { AppState, setLocales, setSports, setActivities, updateActivity, Activity, setSettingsTemplate, setPlayables, setAreas } from 'state'
 import { useCalls } from 'hooks'
 import { API_URL } from 'api'
 
 interface UseApiOutput {
 	/* account */
 	updateAccount?: (data: any) => (d: Dispatch) => Promise<any>
+
+	/* area */
+	getAreas: () => (d: Dispatch) => Promise<any>
 
 	/* activites */
 	createActivity: (data: any) => (d: Dispatch) => Promise<any>
@@ -33,6 +36,17 @@ const useApi = (): UseApiOutput => {
 	const account = useSelector((state: AppState) => state.account)
 
 	return {
+		getAreas: () =>
+			async (dispatch: Dispatch): Promise<any> => {
+				const data = await getItems({
+					endpoint: 'areas',
+				})(dispatch)
+
+				if (data) {
+					dispatch(setAreas(data))
+				}
+			},
+
 		getActivities:
 			() =>
 				async (dispatch: Dispatch): Promise<any> => {

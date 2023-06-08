@@ -55,14 +55,6 @@ const Stepper = ({ steps }: StepperProps, ref) => {
 
 	const StepperScreen = () => (
 		<div className="rounded-md relative w-full flex flex-col py-8 px-10 bg-white gap-y-8 text-[#323B45] overflow-x-hidden">
-			{!isFirstStep && (
-				<div
-					onClick={handlePreviousStep}
-					className="flex px-2 gap-x-3 text-secondary cursor-pointer ease-in hover:text-slate-500"
-				>
-					<BiArrowBack size={25} />
-				</div>
-			)}
 			<div className="w-full flex justify-between p-2 m-auto">
 				{steps.map((step, idx) => (
 					<div key={idx} className={` flex ${idx !== steps.length - 1 ? 'flex-grow' : 'flex-shrink'}`}>
@@ -99,17 +91,27 @@ const Stepper = ({ steps }: StepperProps, ref) => {
 					</div>
 				))}
 			</div>
-			<div className="py-6 w-fit m-auto flex-1">{steps[activeStep].content}</div>
-			<div className="flex flex-grow justify-center">
+			<div className="py-6 w-[600px] h-[400px]">{steps[activeStep].content}</div>
+			<div className="flex flex-grow justify-between">
+				<button
+					onClick={() => {
+						setSlide('right')
+						handlePreviousStep()
+					}}
+					disabled={isFirstStep}
+					className="w-32 font-semibold rounded-md p-3 ease-in-out transition-all duration-75 bg-none text-gray-700 hover:enabled:text-gray-300 disabled:text-gray-200 disabled:opacity-90 disabled:cursor-not-allowed"
+				>
+					<span>Previous</span>
+				</button>
 				<button
 					onClick={() => {
 						setSlide('right')
 						handleNextStep()
 					}}
 					disabled={isLastStep}
-					className="w-[40%] rounded-md p-3 ease-in-out transition-all duration-75 bg-[#4F46E5] text-white hover:enabled:bg-[#4841c6] disabled:bg-[#6f6ad2] disabled:opacity-90 disabled:text-slate-100 disabled:cursor-not-allowed"
+					className="w-32 rounded-md p-3 ease-in-out transition-all duration-75 bg-[#4F46E5] text-white hover:enabled:bg-[#4841c6] disabled:bg-[#6f6ad2] disabled:opacity-90 disabled:text-slate-100 disabled:cursor-not-allowed"
 				>
-					<span>Continue</span>
+					<span>Next</span>
 				</button>
 			</div>
 		</div>

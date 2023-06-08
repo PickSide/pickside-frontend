@@ -36,7 +36,7 @@ const GroupRadio = (
 		<div className={`${dense ? 'mb-6' : ''}`}>
 			<ul className="flex flex-col ">
 				<span className="block text-sm font-medium leading-6 text-gray-900">{label}</span>
-				<div className="flex justify-between">
+				<div className="flex space-x-4">
 					{options.map((option, idx) => {
 						return (
 							<li key={idx}>

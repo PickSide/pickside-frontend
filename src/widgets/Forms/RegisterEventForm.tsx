@@ -2,7 +2,7 @@ import { FC, useCallback, useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { DatePicker, Select, Stepper, GroupRadio, TimePicker, Map } from 'components'
+import { DatePicker, Select, Stepper, GroupRadio, TimePicker, Map, Switch } from 'components'
 import { NUMBERS_ONLY_REGEX } from 'utils'
 import { useApi } from 'hooks'
 import { AppState, Sport } from 'state'
@@ -40,6 +40,7 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 			isFree: false,
 			date: dayjs(),
 			mode: {},
+			location: {},
 			customLocation: false,
 		},
 	})
@@ -48,6 +49,7 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 	const playables = useSelector((state: AppState) => state.playables)
 
 	const sportModes = watch('sport')?.modes
+	const isCustomLocation = watch('customLocation')
 
 	const onSubmit = async (values) => {
 		await dispatch<any>(createActivity(values))
@@ -94,9 +96,30 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 					title: t('Location'),
 					required: true,
 					content: (
-						<>
-							<Map />
-						</>
+						<div className="flex flex-col gap-y-4">
+							<Switch
+								defaultChecked={getValues('customLocation')}
+								label="Choose my own location"
+								onChange={(e) => {
+									console.log(e.target.checked)
+									setValue('customLocation', e.target.checked)
+								}}
+							/>
+							{!isCustomLocation && (
+								<Select
+									value={watch('location')}
+									placeholder={t('Select field')}
+									options={playables?.results}
+									getOptionLabel={(option) => option.fieldName}
+									getOptionDisabled={(option) => !option.available}
+									dense
+									fullWidth
+									{...register('location')}
+									onChange={(location) => setValue('location', location)}
+								/>
+							)}
+							{isCustomLocation && <Map />}
+						</div>
 					),
 				},
 				{

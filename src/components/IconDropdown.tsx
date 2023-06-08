@@ -20,7 +20,7 @@ const IconDropdown = ({ children, icon, ...props }: DropdownProps, forwardedRef)
 	}, [])
 
 	return (
-		<div className="relative inline-block text-left">
+		<div className="z-[60] relative inline-block text-left">
 			<button
 				type="button"
 				onClick={() => setIsOpen(true)}

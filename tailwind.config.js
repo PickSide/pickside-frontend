@@ -34,6 +34,7 @@ module.exports = {
       },
       backgroundImage: {
         landing: "url('./assets/sport-color.png')",
+        avatar: "url('./assets/avatar-placeholder.png')",
       },
     },
   },

@@ -1,4 +1,4 @@
-
+import Accordion from './Accordion'
 import Alert from './Alert'
 import Autocomplete from './Autocomplete'
 import Button from './Button'
@@ -15,18 +15,21 @@ import MenuItem from './MenuItem'
 import Map from './Map'
 import RequireAuth from './RequireAuth'
 import Select from './Select'
-import SettingsInput from './SettingsInput'
+import SettingField from './SettingField'
 import Sidenav from './Sidenav'
 import Spinner from './Spinner'
 import Stepper from './Stepper'
+import Switch from './Switch'
 import Tabs from './Tabs'
+import TextAreaField from './TextAreaField'
 import TextField from './TextField'
 import TimePicker from './TimePicker'
-import Toggle from './Toggle'
+import ToggleGroup from './ToggleGroup'
 
 export * from './Tabs'
 
 export {
+	Accordion,
 	Alert,
 	Autocomplete,
 	Button,
@@ -43,13 +46,15 @@ export {
 	Map,
 	RequireAuth,
 	Select,
-	SettingsInput,
+	SettingField,
 	Sidenav,
 	Spinner,
 	Stepper,
+	Switch,
 	Tabs,
+	TextAreaField,
 	TextField,
 	TimePicker,
-	Toggle
+	ToggleGroup
 }
 
