@@ -8,6 +8,7 @@ import useIsMobile from './useIsMobile'
 import useLocaleSwitcher from './useLocaleSwitcher'
 import useLocalStorage from './useLocalStorage'
 import useMapStyles from './useMapStyles'
+import useMultistepForm from './useMultistepForm'
 import useOnScreen from './useOnScreen'
 import useTheme from './useTheme'
 import useRefreshToken from './useRefreshToken'
@@ -23,6 +24,7 @@ export {
 	useLocaleSwitcher,
 	useLocalStorage,
 	useMapStyles,
+	useMultistepForm,
 	useOnScreen,
 	useTheme,
 	useRefreshToken,

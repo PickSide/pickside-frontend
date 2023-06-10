@@ -1,4 +1,3 @@
-import { SettingsInput } from 'components'
 import { useTranslation } from 'react-i18next'
 
 const AppSettings = () => {
@@ -40,15 +39,7 @@ const AppSettings = () => {
 		},
 	]
 
-	return (
-		<div className="flex flex-col">
-			{AppSettingsConfigurations.map((config, idx) => (
-				<div key={idx}>
-					<SettingsInput type={config.inputType} extraProps={config.extraProps} />
-				</div>
-			))}
-		</div>
-	)
+	return <div className="flex flex-col"></div>
 }
 
 export default AppSettings

@@ -29,14 +29,14 @@ const SportSelection = () => {
 							onClick={(e) => handleClick(e, sport.value)}
 							className="flex bg-primary text-white w-64 h-28 btn text-[20px] m-auto justify-center items-center hover:bg-accent cursor-pointer"
 						>
-							<span>{sport.description}</span>
+							<span>{sport.name}</span>
 						</div>
 					) : (
 						<div
 							key={idx}
 							className="flex flex-col bg-primary opacity-30 text-white w-64 h-28 btn text-[20px] m-auto justify-center items-center cursor-not-allowed"
 						>
-							<span>{sport.description}</span>
+							<span>{sport.name}</span>
 							<span className="text-[10px]">{t('Feature is not available yet')}</span>
 						</div>
 					),

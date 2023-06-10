@@ -20,7 +20,7 @@ const Dropdown = ({ children, variant = 'primary', text }: DropdownProps, ref) =
 	}
 
 	return (
-		<div className="relative inline-block text-left">
+		<div className="z-[60] relative inline-block text-left">
 			<button
 				type="button"
 				onClick={() => setIsOpen(true)}
@@ -42,7 +42,8 @@ const Dropdown = ({ children, variant = 'primary', text }: DropdownProps, ref) =
 							aria-orientation="vertical"
 							aria-labelledby="menu-button"
 							initial="closed"
-							animate={isOpen ? 'open' : 'closed'}
+							animate='open'
+							exit='closed'
 							variants={dropdownAnimation}
 						>
 							{children}

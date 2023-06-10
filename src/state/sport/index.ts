@@ -7,8 +7,16 @@ export interface Sports extends Resources {
 export interface Sport {
 	id?: string
 	value?: string
-	description?: string
+	name?: string
 	featureAvailable?: boolean,
+	modes?: Mode[]
+}
+
+export interface Mode {
+	value: string
+	name: string
+	description: string
+	defaultMaxPlayers: number
 }
 
 const Sport = createSlice({

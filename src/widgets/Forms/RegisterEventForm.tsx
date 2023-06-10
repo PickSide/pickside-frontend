@@ -1,11 +1,12 @@
-import { FC, useCallback } from 'react'
+import { FC, useCallback, useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { Button, TextFieldV2, Toggle, Select } from 'components'
+import { DatePicker, Select, Stepper, GroupRadio, TimePicker, Map, Switch } from 'components'
 import { NUMBERS_ONLY_REGEX } from 'utils'
 import { useApi } from 'hooks'
-import { AppState } from 'state'
+import { AppState, Sport } from 'state'
+import dayjs from 'dayjs'
 
 interface RegisterEventFormProps {
 	onClose: () => void
@@ -13,36 +14,42 @@ interface RegisterEventFormProps {
 
 type FormData = {
 	title: string
-	sport: string
+	sport: Sport
 	organiser: string
 	price: number
 	levelRequired: number
 	maxPlayersCapacity: number
 	location: object
 	isFree: boolean
+	customLocation: boolean
+	date: any
+	mode: any
 }
 
 const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props }) => {
 	const { createActivity, getActivities } = useApi()
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
-	const { control, handleSubmit, watch } = useForm<FormData>({
+	const { control, handleSubmit, getFieldState, watch, register, setValue, getValues, formState } = useForm<FormData>({
 		defaultValues: {
 			title: '',
-			sport: 'default',
-			organiser: '',
+			sport: {},
 			price: 0,
 			levelRequired: 1,
 			maxPlayersCapacity: 10,
 			isFree: false,
+			date: dayjs(),
+			mode: {},
+			location: {},
+			customLocation: false,
 		},
 	})
 
 	const sports = useSelector((state: AppState) => state.sports)
+	const playables = useSelector((state: AppState) => state.playables)
 
-	const getOptionLabel = useCallback((option) => option.description, [])
-	const getOptionValue = useCallback((option) => option.value, [])
-	const getOptionDisabled = useCallback((option) => !option.featureAvailable, [])
+	const sportModes = watch('sport')?.modes
+	const isCustomLocation = watch('customLocation')
 
 	const onSubmit = async (values) => {
 		await dispatch<any>(createActivity(values))
@@ -50,92 +57,79 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 		onClose()
 	}
 
-	const baseRule = {
-		required: { value: true, message: t('Field is required') },
-	}
-
 	return (
-		<div className="p-6">
-			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
-				<Controller
-					name="title"
-					control={control}
-					rules={{
-						...baseRule,
-					}}
-					render={({ field, fieldState: { invalid, isTouched, isDirty, error }, formState }) => (
-						<TextFieldV2 autofocus label={t('Title')} placeholder={t('Enter title')} dense error={error} {...field} />
-					)}
-				/>
-				<Controller
-					name="price"
-					control={control}
-					rules={{
-						...baseRule,
-						pattern: NUMBERS_ONLY_REGEX,
-					}}
-					render={({ field, fieldState: { error }, formState }) => (
-						<TextFieldV2 label={t('Price per person')} placeholder={t('Enter price')} dense error={error} {...field} />
-					)}
-				/>
-				<Controller
-					name="levelRequired"
-					control={control}
-					rules={{
-						...baseRule,
-						pattern: NUMBERS_ONLY_REGEX,
-					}}
-					render={({ field, fieldState: { error }, formState }) => (
-						<TextFieldV2 label={t('Level require')} placeholder={t('Enter price')} dense error={error} {...field} />
-					)}
-				/>
-				<Controller
-					name="maxPlayersCapacity"
-					control={control}
-					rules={{
-						...baseRule,
-						pattern: NUMBERS_ONLY_REGEX,
-					}}
-					render={({ field, fieldState: { error }, formState }) => (
-						<TextFieldV2 label={t('Max player')} placeholder={t('Enter price')} dense error={error} {...field} />
-					)}
-				/>
-				<Controller
-					name="sport"
-					control={control}
-					rules={{
-						...baseRule,
-						pattern: NUMBERS_ONLY_REGEX,
-					}}
-					render={({ field: { onChange }, fieldState: { error }, formState }) => (
-						<Select
-							label={t('Choose sport')}
-							placeholder={t('Enter sport')}
-							options={sports?.results}
-							getOptionLabel={getOptionLabel}
-							getOptionValue={getOptionValue}
-							getOptionDisabled={getOptionDisabled}
-							onChange={onChange}
-							dense
-							error={error}
-						/>
-					)}
-				/>
-				<Controller
-					name="isFree"
-					control={control}
-					render={({ field, fieldState: { error }, formState }) => (
-						<Toggle label={t('No payment required')} dense {...field} />
-					)}
-				/>
-				<Button
-					type="submit"
-					className="rounded-md bg-primary w-[300px] text-white font-semibold h-[50px] transition-all duration-75 ease-in hover:bg-secondary"
-				>
-					{t('Login')}
-				</Button>
-			</form>
-		</div>
+		<Stepper
+			steps={[
+				{
+					id: 'sport-select',
+					title: t('Sport'),
+					required: true,
+					content: (
+						<>
+							<Select
+								value={watch('sport')}
+								placeholder={t('Select sport')}
+								options={sports?.results}
+								getOptionLabel={(option) => option.name}
+								getOptionDisabled={(option) => !option.featureAvailable}
+								dense
+								{...register('sport')}
+								onChange={(value) => setValue('sport', value)}
+							/>
+							<GroupRadio
+								defaultValue={watch('mode')}
+								options={sportModes}
+								getOptionLabel={(option) => option.name}
+								getOptionDescription={(option) => option.description}
+								dense
+								{...register('mode')}
+								onChange={(mode) => setValue('mode', mode)}
+							/>
+							<div className="mb-6 flex gap-x-2">
+								<DatePicker value={watch('date')} {...register('date')} onChange={(date) => setValue('date', date)} />
+							</div>
+						</>
+					),
+				},
+				{
+					id: 'venu-select',
+					title: t('Location'),
+					required: true,
+					content: (
+						<div className="flex flex-col gap-y-4">
+							<Switch
+								defaultChecked={getValues('customLocation')}
+								label="Choose my own location"
+								onChange={(e) => {
+									console.log(e.target.checked)
+									setValue('customLocation', e.target.checked)
+								}}
+							/>
+							{!isCustomLocation && (
+								<Select
+									value={watch('location')}
+									placeholder={t('Select field')}
+									options={playables?.results}
+									getOptionLabel={(option) => option.fieldName}
+									getOptionDisabled={(option) => !option.available}
+									dense
+									fullWidth
+									{...register('location')}
+									onChange={(location) => setValue('location', location)}
+								/>
+							)}
+							{isCustomLocation && <Map />}
+						</div>
+					),
+				},
+				{
+					id: 'configuration',
+					title: t('Configuration'),
+					required: true,
+					content: <></>,
+				},
+			]}
+		/>
 	)
 }
 

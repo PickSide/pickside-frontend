@@ -6,7 +6,7 @@
 @layer base {
 	body {
 		margin: 0;
-		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+		font-family: -apple-system, BlinkMacSystemFont, 'Futura', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
 			'Droid Sans', 'Helvetica Neue', sans-serif;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
@@ -26,45 +26,26 @@
 	::-webkit-scrollbar-track {
 		box-shadow: inset 0 0 2px grey;
 		border-radius: 10px;
+		-webkit-box-shadow: inset 0 0 2px grey;
+		-webkit-border-radius: 10px;
 	}
 
 	/* Handle */
 	::-webkit-scrollbar-thumb {
-		background: #1f675f;
+		-webkit-border-radius: 10px;
+		-webkit-border: 10px;
+		background: #038676;
 	}
 
 	/* Handle on hover */
 	::-webkit-scrollbar-thumb:hover {
-		background: #1f2767;
+		background: #1f675f;
 	}
 
 	code {
 		font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 	}
 
-	section {
-		height: 100vh;
-	}
-
-	.animation-expand-scale {
-		animation: expandScale 0.05s alternate ease-in;
-		transform-origin: left top;
-	}
-
-	@keyframes expandScale {
-		0% {
-			transform: scale(0);
-		}
-		25% {
-			transform: scale(0.25);
-		}
-		75% {
-			transform: scale(0.75);
-		}
-		100% {
-			transform: scale(1);
-		}
-	}
 	.h2 {
 		@apply font-primary text-[32px] mb-6 tracking-[10%] uppercase;
 	}
@@ -74,7 +55,7 @@
 	}
 
 	.h4 {
-		@apply font-primary font-semibold text-[20px] leading-[30px];
+		@apply font-primary font-semibold text-[20px] mb-6 leading-[30px];
 	}
 
 	.scrollable {
@@ -90,14 +71,30 @@
 	}
 
 	.btn-tertiary {
-		@apply rounded text-secondary font-semibold bg-none outline-none ease-linear transition-all duration-100 hover:bg-slate-200 hover:text-white px-6 py-3 uppercase;
+		@apply rounded text-[15px] text-secondary font-semibold bg-none outline-none ease-linear transition-all duration-100 hover:text-slate-400 px-6 py-3 uppercase;
 	}
 
 	.btn-icon {
-		@apply rounded-md text-white ease-linear transition-all duration-75 p-3 hover:scale-125;
+		@apply rounded-md text-white ease-linear transition-all duration-75 p-1 m-2 hover:scale-110 hover:bg-gray-200/70;
 	}
 
 	.btn-disabled {
+		@apply rounded text-white font-semibold bg-slate-200 opacity-70 cursor-not-allowed uppercase text-sm px-6 py-3;
+	}
+
+	.chip-primary {
+		@apply bg-[#159586];
+	}
+
+	.chip-secondary {
+		@apply bg-[#2ca9dd];
+	}
+
+	.chip-tertiary {
+		@apply bg-none outline-none;
+	}
+
+	.chip-disabled {
 		@apply rounded text-white font-semibold bg-slate-200 opacity-70 cursor-not-allowed uppercase text-sm px-6 py-3;
 	}
 

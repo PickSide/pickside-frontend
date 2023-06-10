@@ -1,31 +1,32 @@
 import { FC, ReactNode } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { BsX } from 'react-icons/bs'
+import { motion, AnimatePresence } from 'framer-motion'
 import { modaleDropIn } from 'utils'
 
 interface DialogProps {
 	open?: boolean
+	full?: boolean
 	title?: string
 	onClose?: () => void
 	children?: ReactNode
 }
 
-const DialogV2: FC<DialogProps> = ({ open = false, title, onClose, children, ...props }) => {
+const Dialog: FC<DialogProps> = ({ open = false, full = false, title, onClose, children, ...props }) => {
 	return (
-		<AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
+		<AnimatePresence mode="wait">
 			{open ? (
 				<>
-					<div className="opacity-25 fixed inset-0 z-40 bg-black" onClick={onClose}></div>
+					<div className="opacity-25 fixed inset-0 z-[90] bg-black" onClick={onClose}></div>
 					<motion.div
 						initial="hidden"
 						animate="visible"
 						exit="exit"
 						variants={modaleDropIn}
-						className="w-[95%] fixed m-auto md:top-0 max-h-[85%] md:w-fit z-[60] inset-0 overflow-hidden"
+						className={`fixed h-fit z-[100] m-auto inset-0 overflow-hidden w-[95%] md:w-fit`}
 					>
-						<div className="max-h-full overflow-hidden flex flex-col bg-white border shadow-sm rounded-md">
-							<div className="flex justify-between items-center py-3 pl-8 pr-4 border-b ">
-								<h3 className="h3 text-primary mb-0">{title}</h3>
+						<div className=" bg-white border shadow-sm rounded-md ">
+							<div className="flex justify-between items-center py-3 px-4 border-b space-x-5">
+								<h3 className="h3 mb-0">{title}</h3>
 								<button
 									type="button"
 									onClick={onClose}
@@ -36,8 +37,7 @@ const DialogV2: FC<DialogProps> = ({ open = false, title, onClose, children, ...
 									<BsX size={30} />
 								</button>
 							</div>
-							<div className="p-4 overflow-y-auto scrollbar">{children}</div>
-							<div className="flex justify-end items-center border-t">{}</div>
+							<div className="p-4 overflow-y-auto">{children}</div>
 						</div>
 					</motion.div>
 				</>
@@ -48,4 +48,4 @@ const DialogV2: FC<DialogProps> = ({ open = false, title, onClose, children, ...
 	)
 }
 
-export default DialogV2
+export default Dialog

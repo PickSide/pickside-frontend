@@ -1,7 +1,25 @@
 import React from 'react'
-import { Alert, Button, Dropdown, IconDropdown, MenuItem, Toggle } from 'components'
+import {
+	Accordion,
+	Alert,
+	Button,
+	Chip,
+	Dropdown,
+	DatePicker,
+	IconDropdown,
+	MenuItem,
+	Switch,
+	Stepper,
+	GroupRadio,
+	TimePicker,
+	ToggleGroup,
+	Map,
+} from 'components'
 import { Toast } from 'widgets'
 import { BiAddToQueue } from 'react-icons/bi'
+import { MdDarkMode } from 'react-icons/md'
+import { CiLight } from 'react-icons/ci'
+import { FiSettings } from 'react-icons/fi'
 
 const About = () => {
 	return (
@@ -12,9 +30,14 @@ const About = () => {
 				<Button tertiary>Button</Button>
 			</div>
 			<div className="flex justify-center gap-x-4">
-				<Toggle primary />
-				<Toggle secondary />
-				<Toggle tertiary />
+				<Switch primary />
+				<Switch secondary />
+				<Switch tertiary />
+			</div>
+			<div className="flex justify-center gap-x-4">
+				<Chip primary label="Chip" />
+				<Chip secondary label="Chip" />
+				<Chip tertiary label="Chip" />
 			</div>
 			<div className="flex justify-center gap-x-4">
 				<Toast show type="info">
@@ -51,19 +74,88 @@ const About = () => {
 				</IconDropdown>
 			</div>
 			<div className="flex justify-center gap-x-4">
-				<Dropdown text="Dropdown">
-					<MenuItem icon={<BiAddToQueue size={25} />}>With icon</MenuItem>
-					<MenuItem>No icon</MenuItem>
-					<MenuItem disabled>Disabled</MenuItem>
-					<MenuItem>Option with elipsis text yessssss</MenuItem>
-				</Dropdown>
-				<IconDropdown icon={<BiAddToQueue size={25} />}>
-					<MenuItem icon={<BiAddToQueue size={25} />}>With icon</MenuItem>
-					<MenuItem>No icon</MenuItem>
-					<MenuItem disabled>Disabled</MenuItem>
-					<MenuItem>Option with elipsis text yessssss</MenuItem>
-				</IconDropdown>
+				<GroupRadio
+					options={[
+						{ value: 'a', label: 'Radio normal', description: 'This button is clickable', disabled: false },
+						{ value: 'b', label: 'Radio disabled', description: 'This button is disabled', disabled: false },
+						{ value: 'b', label: 'Radio disabled', description: 'This button is disabled', disabled: true },
+					]}
+					onChange={(option) => console.log(option)}
+					getOptionDescription={(option) => option?.description}
+					getOptionDisabled={(option) => option?.disabled}
+					getOptionLabel={(option) => option?.label}
+				/>
 			</div>
+			<div className="flex justify-center gap-x-4 w-[50%] mx-auto">
+				<Stepper
+					steps={[
+						{
+							id: 'cabin',
+							title: 'Cabin',
+							required: false,
+							content: <p>This is step one</p>,
+						},
+						{
+							id: 'means',
+							title: 'Meals',
+							required: false,
+							content: <p>This is step two</p>,
+						},
+						{
+							id: 'upgrades',
+							title: 'Upgrades',
+							required: false,
+							content: <p>This is step three</p>,
+						},
+						{
+							id: 'payment',
+							title: 'Payment',
+							required: false,
+							content: <p>This is step four</p>,
+						},
+					]}
+				/>
+			</div>
+			<div className="flex justify-center gap-x-4">
+				<DatePicker onChange={(option) => console.log(option)} />
+				<TimePicker onChange={(option) => console.log(option)} />
+			</div>
+			<div className="flex justify-center gap-x-4">
+				<ToggleGroup
+					options={[
+						{ icon: <CiLight size={20} />, defaultChecked: true, name: 'lightmode' },
+						{ icon: <MdDarkMode size={20} />, name: 'darkmode' },
+					]}
+					onChange={(option) => console.log(option)}
+				/>
+			</div>
+			<div className="flex justify-center gap-x-4">
+				<Accordion
+					sections={[
+						{
+							title: 'Header',
+							icon: <FiSettings size={25} />,
+							expanded: true,
+							content: <p>Hello</p>,
+						},
+						{
+							title: 'Header',
+							icon: <FiSettings size={25} />,
+							content: <p>Hello</p>,
+						},
+						{
+							title: 'Header',
+							icon: <FiSettings size={25} />,
+							content: <p>Hello</p>,
+						},
+					]}
+				/>
+			</div>
+			{/* <div className="flex justify-center gap-x-4">
+				<div className="relative w-72 h-44">
+					<Map />
+				</div>
+			</div> */}
 		</section>
 	)
 }
