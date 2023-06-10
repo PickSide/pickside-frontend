@@ -41,19 +41,19 @@ const TextField = (
 	const _onFocus = useCallback(() => setOnFocus(true), [])
 	const _onBlur = useCallback(() => setOnFocus(false), [])
 	const _onChange = useCallback((e) => setValue(e.target.value), [])
-
+	console.log(defaultValue)
 	useEffect(() => {
 		inputRef.current.focus()
 	}, [inputRef])
 
 	return (
-		<div className={`relative flex flex-col mr-5 ${dense ? 'mb-6' : ''}`}>
+		<div className={`relative flex flex-col ${dense ? 'mb-6' : ''}`}>
 			<label htmlFor={id} className="">
 				<span className="text-[#82cac3]">{label}</span>
 			</label>
 			<div
 				className={`inline-flex w-full items-center ${isPassword ? 'pr-[40px]' : ''} rounded-md h-[50px] bg-white ${
-					!!error ? 'border-[#d2333d] text-[#d2333d]' : 'border-primary'
+					!!error ? 'border-[#d2333d] text-[#d2333d]' : readOnly ? 'border-gray-300' : 'border-primary'
 				} border-2 focus-within:border-2 focus-within:border-[#82cac3]`}
 			>
 				{startContent && <span className="text-[#82cac3] w-[15%] flex justify-center">{startContent}</span>}
@@ -68,7 +68,7 @@ const TextField = (
 						onFocus={_onFocus}
 						onBlur={_onBlur}
 						onChange={_onChange}
-						className="relative rounded-md w-[95%] h-[90%] px-2 py-2 focus:border-primary outline-0 focus:outline-0"
+						className="relative rounded-md w-[95%] h-[90%] px-2 py-2 focus:border-primary outline-0 focus:outline-0 disabled:bg-white disabled:cursor-not-allowed disabled:text-gray-300"
 						{...props}
 					/>
 				</div>

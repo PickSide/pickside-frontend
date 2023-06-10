@@ -35,10 +35,6 @@ const CreateEvent = () => {
 
 	const playables = useSelector((state: AppState) => state.playables)
 
-	console.log(playables)
-
-	const Header = ({ value }) => <p className="text-[25px] text-gray-500 font-semibold">{value}</p>
-
 	const onSubmit = async (values) => {
 		await dispatch<any>(createActivity(values))
 		await dispatch<any>(getActivities())

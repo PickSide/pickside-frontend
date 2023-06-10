@@ -29,7 +29,7 @@ const ToggleGroup = ({ multiple = false, onChange, options, value }: ToggleGroup
 	}
 
 	return (
-		<ul className="inline-flex rounded-lg overflow-hidden divide-x-[1px] mr-5 border-[1px]">
+		<ul className="inline-flex rounded-lg overflow-hidden divide-x-[1px] border-[1px]">
 			{options.map(({ icon, name, text, defaultChecked = false, disabled = false }, idx) => (
 				<li key={idx}>
 					<input

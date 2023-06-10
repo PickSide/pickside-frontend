@@ -36,7 +36,7 @@ const Button: FC<ButtonProps | any> = ({
 	}, [disabled, isLink, isIcon, secondary, tertiary])
 
 	return (
-		<button {...props} className={twMerge('whitespace-nowrap', btnClass)} disabled={disabled}>
+		<button {...props} className={twMerge(btnClass, props.className)} disabled={disabled}>
 			{isLoading ? <Spinner /> : children}
 		</button>
 	)

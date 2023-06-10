@@ -51,7 +51,7 @@ const Select = (
 	)
 
 	return (
-		<div className={`relative mr-5 min-w-[200px] ${dense ? 'mb-6' : ''} ${fullWidth ? 'w-full' : ''}`}>
+		<div className={`relative min-w-[200px] ${dense ? 'mb-6' : ''} ${fullWidth ? 'w-full' : ''}`}>
 			<label id="listbox-label" className="block text-sm font-medium leading-6 text-gray-900">
 				{label}
 			</label>

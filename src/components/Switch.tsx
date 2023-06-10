@@ -24,7 +24,7 @@ const Toggle = (
 	)
 
 	return (
-		<label className="inline-flex items-center relative mr-5 cursor-pointer">
+		<label className="inline-flex items-center relative cursor-pointer">
 			<input className="sr-only peer" type="checkbox" checked={checked} onChange={handleChange} />
 			<div
 				className="w-11 h-6 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full

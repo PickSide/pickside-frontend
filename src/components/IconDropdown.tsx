@@ -1,14 +1,15 @@
-import { ReactNode, forwardRef, useEffect, useState } from 'react'
+import React, { ReactNode, forwardRef, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { dropdownAnimation } from 'utils'
-import { KEY_CODES } from 'utils'
+import { twMerge } from 'tailwind-merge'
 
 interface DropdownProps {
+	className?: string
 	children?: ReactNode
 	icon?: ReactNode
 }
 
-const IconDropdown = ({ children, icon, ...props }: DropdownProps, forwardedRef) => {
+const IconDropdown = ({ className, children, icon, ...props }: DropdownProps, ref) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 
 	useEffect(() => {
@@ -20,14 +21,12 @@ const IconDropdown = ({ children, icon, ...props }: DropdownProps, forwardedRef)
 	}, [])
 
 	return (
-		<div className="z-[60] relative inline-block text-left">
+		<div className="z-[60] relative">
 			<button
 				type="button"
 				onClick={() => setIsOpen(true)}
-				className="btn-icon inline-flex items-center space-x-2"
+				className={twMerge('btn-icon inline-flex items-center', className)}
 				id="menu-button"
-				aria-expanded="true"
-				aria-haspopup="true"
 			>
 				{icon}
 			</button>
@@ -37,10 +36,8 @@ const IconDropdown = ({ children, icon, ...props }: DropdownProps, forwardedRef)
 					<>
 						<div className="fixed inset-0 w-screen h-screen z-50" onClick={() => setIsOpen(false)}></div>
 						<motion.div
-							className="absolute top-10 right-6 mt-2 origin-top-right z-50 divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+							className="absolute min-w-6 min-h-6 top-10 right-6 mt-2 origin-top-right z-50 rounded-md bg-white shadow-lg ring-black ring-opacity-5 focus:outline-none"
 							role="menu"
-							aria-orientation="vertical"
-							aria-labelledby="menu-button"
 							initial="closed"
 							animate="open"
 							exit="exit"

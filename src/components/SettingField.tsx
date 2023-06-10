@@ -1,4 +1,4 @@
-import { cloneElement, forwardRef } from 'react'
+import React, { cloneElement, forwardRef } from 'react'
 import { BiLock } from 'react-icons/bi'
 
 interface SettingFieldProps {
@@ -6,7 +6,7 @@ interface SettingFieldProps {
 	helperText?: string
 	value?: any
 	readOnly?: boolean
-	children?: any
+	children?: any | any[]
 }
 
 const SettingField = ({ settingName, helperText, value, children, readOnly = false }: SettingFieldProps, ref) => {
@@ -15,11 +15,11 @@ const SettingField = ({ settingName, helperText, value, children, readOnly = fal
 			<div className="flex flex-col">
 				<p className="inline-flex items-center gap-x-2 text-[18px] font-semibold">
 					{settingName}
-					{readOnly && <BiLock className='text-gray-400' size={15} />}
+					{readOnly && <BiLock className="text-gray-400" size={15} />}
 				</p>
 				<span className="text-[14px] font-normal text-gray-400">{helperText}</span>
 			</div>
-			{cloneElement(children, { readOnly })}
+			{React.Children.map(children, (child) => cloneElement(child, { readOnly }))}
 		</div>
 	)
 }

@@ -75,7 +75,7 @@
 	}
 
 	.btn-icon {
-		@apply rounded-md text-white ease-linear transition-all duration-75 p-3 hover:scale-125;
+		@apply rounded-md text-white ease-linear transition-all duration-75 p-1 m-2 hover:scale-110 hover:bg-gray-200/70;
 	}
 
 	.btn-disabled {

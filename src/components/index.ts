@@ -13,6 +13,7 @@ import IconDropdown from './IconDropdown'
 import MapMarker from './MapMarker'
 import MenuItem from './MenuItem'
 import Map from './Map'
+import Popover from './Popover'
 import RequireAuth from './RequireAuth'
 import Select from './Select'
 import SettingField from './SettingField'
@@ -44,6 +45,7 @@ export {
 	MapMarker,
 	MenuItem,
 	Map,
+	Popover,
 	RequireAuth,
 	Select,
 	SettingField,

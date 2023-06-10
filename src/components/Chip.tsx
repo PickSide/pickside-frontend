@@ -30,8 +30,7 @@ const Chip: FC<ChipProps> = ({
 	return (
 		<div
 			className={twMerge(
-				'rounded-xl text-white text-[15px] ease-linear transition-all duration-75 uppercase text-sm px-2 py-1',
-				btnClass,
+				'rounded-xl border-[1px] border-primary text-primary text-[13px] ease-linear transition-all duration-75 text-sm px-2 py-1 cursor-pointer hover:bg-primary hover:text-white',
 			)}
 		>
 			<span>{label}</span>
