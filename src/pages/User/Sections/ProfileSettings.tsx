@@ -1,5 +1,17 @@
 import { useState } from 'react'
-import { SettingField, Switch, Select, ToggleGroup, TextField, Button, Dialog, Chip } from 'components'
+import {
+	SettingField,
+	Switch,
+	Select,
+	PhoneField,
+	ToggleGroup,
+	TextField,
+	Button,
+	Dialog,
+	Chip,
+	EditField,
+	EmailField,
+} from 'components'
 import { useAsync } from 'react-use'
 import { useApi, useCalls } from 'hooks'
 import { useTranslation } from 'react-i18next'
@@ -19,23 +31,23 @@ const ProfileSettings = () => {
 	const connectedUser = useSelector((state: AppState) => state.account)
 	const areas = useSelector((state: AppState) => state.areas)
 
+	const [openEmailChangeDialog, setOpenEmailChangeDialog] = useState<boolean>(false)
 	const [openPasswordChangeDialog, setOpenPasswordChangeDialog] = useState<boolean>(false)
+	const [openPhoneChangeDialog, setOpenPhoneChangeDialog] = useState<boolean>(false)
 
 	const Settings = [
+		{
+			name: t('Email'),
+			control: <EditField value={connectedUser?.email} onClick={() => setOpenEmailChangeDialog(true)} />,
+		},
+		{
+			name: t('Phone'),
+			control: <EditField value={connectedUser?.phone} onClick={() => setOpenPhoneChangeDialog(true)} />,
+		},
 		{
 			name: t('Username'),
 			readOnly: true,
 			control: <TextField defaultValue={connectedUser?.username} />,
-		},
-		{
-			name: t('Email'),
-			readOnly: false,
-			control: <TextField defaultValue={connectedUser?.email} {...register('email')} />,
-		},
-		{
-			name: t('Phone'),
-			readOnly: false,
-			control: <TextField defaultValue="" {...register('phone')} />,
 		},
 		{
 			name: t('Password'),
@@ -51,21 +63,19 @@ const ProfileSettings = () => {
 		},
 		{
 			name: t('Sexe'),
-			readOnly: false,
 			control: (
 				<ToggleGroup
 					options={[
 						{ text: 'Male', defaultChecked: connectedUser?.sexe === 'male', name: 'male' },
 						{ text: 'Female', defaultChecked: connectedUser?.sexe === 'female', name: 'female' },
 					]}
-					onChange={(option) => console.log(option)}
+					onChange={(option) => dispatch<any>(updateAccountSettings({ sexe: option.name }))}
 				/>
 			),
 		},
 		{
 			name: t('Default theme'),
 			helperText: t('Choose your default theme'),
-			readOnly: false,
 			control: (
 				<ToggleGroup
 					options={[
@@ -87,7 +97,6 @@ const ProfileSettings = () => {
 		{
 			name: t('Preferred language'),
 			helperText: t('Choose your default app language'),
-			readOnly: false,
 			control: (
 				<ToggleGroup
 					options={[
@@ -101,7 +110,6 @@ const ProfileSettings = () => {
 		{
 			name: t('Preferred region'),
 			helperText: t('Choose your default region (for areas to play)'),
-			readOnly: false,
 			control: (
 				<Select
 					placeholder={t('Select region')}
@@ -115,7 +123,6 @@ const ProfileSettings = () => {
 		{
 			name: t('Fitness level'),
 			helperText: t('Set your fitness level (this is not your sport level)'),
-			readOnly: false,
 			control: (
 				<div className="flex space-x-4">
 					<Chip label="Retired" />
@@ -128,7 +135,6 @@ const ProfileSettings = () => {
 		{
 			name: t('Hide age'),
 			helperText: t('Hide your age from other users'),
-			readOnly: false,
 			control: (
 				<Switch
 					defaultChecked={connectedUser?.configs?.hideAge}
@@ -139,7 +145,6 @@ const ProfileSettings = () => {
 		{
 			name: t('Hide email'),
 			helperText: t('Hide your email from other users'),
-			readOnly: false,
 			control: (
 				<Switch
 					defaultChecked={connectedUser?.configs?.hideEmail}
@@ -150,7 +155,6 @@ const ProfileSettings = () => {
 		{
 			name: t('Hide phone'),
 			helperText: t('Hide your phone from other users'),
-			readOnly: false,
 			control: (
 				<Switch
 					defaultChecked={connectedUser?.configs?.hidePhone}
@@ -161,7 +165,6 @@ const ProfileSettings = () => {
 		{
 			name: t('Hide username'),
 			helperText: t('Hide your username from other users'),
-			readOnly: false,
 			control: (
 				<Switch
 					defaultChecked={connectedUser?.configs?.hideUsername}
@@ -182,8 +185,18 @@ const ProfileSettings = () => {
 				<TextField label="New password" isPassword />
 				<TextField label="Confirm new password" isPassword />
 			</Dialog>
+			<Dialog title={t('Change email')} open={openEmailChangeDialog} onClose={() => setOpenEmailChangeDialog(false)}>
+				<EmailField label={t('Emai')} defaultValue={connectedUser?.email} />
+			</Dialog>
+			<Dialog
+				title={t('Change phone number')}
+				open={openPhoneChangeDialog}
+				onClose={() => setOpenPhoneChangeDialog(false)}
+			>
+				<PhoneField label={t('Phone number')} defaultValue={connectedUser?.phone} />
+			</Dialog>
 			<div className="flex flex-col gap-y-6">
-				{Settings.map(({ name, helperText, readOnly, control }, idx) => (
+				{Settings.map(({ name, helperText, readOnly = false, control }, idx) => (
 					<SettingField key={idx} settingName={name} helperText={helperText} readOnly={readOnly}>
 						{control}
 					</SettingField>

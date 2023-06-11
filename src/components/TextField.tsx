@@ -12,6 +12,7 @@ interface TextFieldProps {
 	readOnly?: boolean
 	error?: any
 	type?: string
+	fullWidth?: boolean
 	defaultValue?: string
 }
 
@@ -28,6 +29,7 @@ const TextField = (
 		type = 'text',
 		defaultValue,
 		readOnly = false,
+		fullWidth = false,
 		...props
 	}: TextFieldProps,
 	ref,
@@ -41,13 +43,12 @@ const TextField = (
 	const _onFocus = useCallback(() => setOnFocus(true), [])
 	const _onBlur = useCallback(() => setOnFocus(false), [])
 	const _onChange = useCallback((e) => setValue(e.target.value), [])
-	console.log(defaultValue)
+
 	useEffect(() => {
 		inputRef.current.focus()
 	}, [inputRef])
-
 	return (
-		<div className={`relative flex flex-col ${dense ? 'mb-6' : ''}`}>
+		<div className={`${!fullWidth ? 'max-w-[230px]' : ''} relative flex flex-col ${dense ? 'mb-6' : ''}`}>
 			<label htmlFor={id} className="">
 				<span className="text-[#82cac3]">{label}</span>
 			</label>
