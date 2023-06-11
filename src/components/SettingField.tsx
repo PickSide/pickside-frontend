@@ -6,12 +6,16 @@ interface SettingFieldProps {
 	helperText?: string
 	value?: any
 	readOnly?: boolean
+	disabled?: boolean
 	children?: any | any[]
 }
 
-const SettingField = ({ settingName, helperText, value, children, readOnly = false }: SettingFieldProps, ref) => {
+const SettingField = (
+	{ settingName, helperText, value, children, readOnly = false, disabled = false }: SettingFieldProps,
+	ref,
+) => {
 	return (
-		<div className="w-full flex justify-between items-center">
+		<div aria-disabled={disabled} className="w-full flex justify-between items-center">
 			<div className="flex flex-col">
 				<p className="inline-flex items-center gap-x-2 text-[18px] font-semibold">
 					{settingName}
@@ -19,7 +23,7 @@ const SettingField = ({ settingName, helperText, value, children, readOnly = fal
 				</p>
 				<span className="text-[14px] font-normal text-gray-400">{helperText}</span>
 			</div>
-			{React.Children.map(children, (child) => cloneElement(child, { readOnly }))}
+			{React.Children.map(children, (child) => cloneElement(child, { readOnly, disabled }))}
 		</div>
 	)
 }

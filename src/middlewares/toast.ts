@@ -11,6 +11,10 @@ export const toastMiddleware = (store) => (next) => (action) => {
         'account/setAccount': {
             message: 'Successfully logged in',
             type: 'success'
+        },
+        'account/updateConfig': {
+            message: 'Updated settings',
+            type: 'success'
         }
     }
 

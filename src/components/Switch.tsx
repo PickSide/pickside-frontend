@@ -14,7 +14,7 @@ const Toggle = (
 	ref,
 ) => {
 	const [checked, setChecked] = useState<boolean>(defaultChecked)
-
+	console.log(label, checked)
 	const handleChange = useCallback(
 		(e) => {
 			setChecked((prev) => !prev)
