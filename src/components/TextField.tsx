@@ -36,7 +36,7 @@ const TextField = (
 ) => {
 	const inputRef = useRef<any>(null)
 
-	const [value, setValue] = useState<any>(defaultValue)
+	const [value, setValue] = useState<any>(defaultValue || '')
 	const [onFocus, setOnFocus] = useState<boolean>(autofocus)
 	const [showPassword, setShowPassword] = useState<boolean>(false)
 
@@ -48,16 +48,16 @@ const TextField = (
 		inputRef.current.focus()
 	}, [inputRef])
 	return (
-		<div className={`${!fullWidth ? 'max-w-[230px]' : ''} relative flex flex-col ${dense ? 'mb-6' : ''}`}>
+		<div className={`${!fullWidth ? 'max-w-[230px]' : ''} relative flex flex-col text-gray-400 ${dense ? 'mb-6' : ''}`}>
 			<label htmlFor={id} className="">
-				<span className="text-[#82cac3]">{label}</span>
+				<span className="text-gray-400">{label}</span>
 			</label>
 			<div
 				className={`inline-flex w-full items-center ${isPassword ? 'pr-[40px]' : ''} rounded-md h-[50px] bg-white ${
-					!!error ? 'border-[#d2333d] text-[#d2333d]' : readOnly ? 'border-gray-300' : 'border-primary'
+					!!error ? 'border-[#d2333d] text-[#d2333d]' : readOnly ? 'border-gray-100' : 'border-gray-200'
 				} border-2 focus-within:border-2 focus-within:border-[#82cac3]`}
 			>
-				{startContent && <span className="text-[#82cac3] w-[15%] flex justify-center">{startContent}</span>}
+				{startContent && <span className="text-gray-500 w-[15%] flex justify-center">{startContent}</span>}
 
 				<div className="px-2 w-full">
 					<input
@@ -66,6 +66,7 @@ const TextField = (
 						disabled={readOnly}
 						value={value}
 						ref={inputRef}
+						placeholder={placeholder}
 						onFocus={_onFocus}
 						onBlur={_onBlur}
 						onChange={_onChange}
@@ -76,7 +77,7 @@ const TextField = (
 				{isPassword && (
 					<span
 						onClick={() => setShowPassword(!showPassword)}
-						className="absolute right-0 text-[#82cac3] btn-icon cursor-pointer "
+						className="absolute right-0 text-gray-500 btn-icon cursor-pointer "
 					>
 						{showPassword ? <AiOutlineEyeInvisible size={20} /> : <AiOutlineEye size={20} />}
 					</span>

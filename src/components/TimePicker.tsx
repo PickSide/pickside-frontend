@@ -17,7 +17,7 @@ const TimePicker = ({ value, onChange }: DatePickerProps, ref) => {
 
 	const handleOpen = () => setOpen(true)
 	const handleClose = () => setOpen(false)
-	console.log(moment().format('LT'))
+
 	return (
 		<>
 			<div className="relative z-[50]" tabIndex={0} onBlur={handleClose}>

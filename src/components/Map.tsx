@@ -31,7 +31,6 @@ const Map: FC<MapProps> = ({ width = '100%', height = '100%', ...props }) => {
 
 	const onPlaceChanged = () => {
 		//setSearchResult(place)
-		console.log(searchResult)
 	}
 
 	return isLoaded ? (

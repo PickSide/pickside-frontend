@@ -46,12 +46,12 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 	}
 
 	return (
-		<div className="flex flex-col gap-y-20 items-center">
+		<div className="flex flex-col gap-y-10 items-center">
 			<div className="flex flex-col items-center">
-				<span className="text-[50px]">{t('Welcome back')}</span>
-				<span className="text-[15px]">{t('Welcome back! Please enter your details')}</span>
+				<span className="text-[40px] font-semibold text-cyan-950">{t('Hi, Welcome back!')}</span>
+				<span className="text-[15px] text-gray-300">{t('Start connecting in our sport community right away!')}</span>
 			</div>
-			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
+			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4 w-full">
 				<Controller
 					name="username"
 					control={control}
@@ -100,14 +100,14 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 				<Button
 					type="submit"
 					isLoading={loading}
-					className="rounded-md bg-primary w-[300px] text-white font-semibold h-[50px] transition-all duration-75 ease-in hover:bg-secondary"
+					className="rounded-md bg-primary text-white font-semibold h-[50px] transition-all duration-75 ease-in hover:bg-secondary"
 				>
 					{t('Login')}
 				</Button>
 			</form>
 			<div className="flex gap-x-2">
-				<span>{t(`Don't have an account?`)}</span>
-				<Link to="/signup" className="font-semibold text-primary">
+				<span className="text-gray-500">{t(`Don't have an account?`)}</span>
+				<Link to="/signup" className="font-semibold text-primary hover:text-gray-400/90 hover:scale-105">
 					{t('Sign in')}
 				</Link>
 			</div>

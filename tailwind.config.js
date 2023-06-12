@@ -35,6 +35,8 @@ module.exports = {
       backgroundImage: {
         landing: "url('./assets/sport-color.png')",
         avatar: "url('./assets/avatar-placeholder.png')",
+        templogo: "url('./assets/temp-logo.png')",
+        templogo2: "url('./assets/temp-logo-2.png')",
       },
     },
   },

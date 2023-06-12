@@ -1,12 +1,13 @@
 import { FC, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
-import { Button, TextField } from 'components'
+import { Button, Checkbox, TextField } from 'components'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useAuth, useCalls } from 'hooks'
 import { BiLockAlt, BiUser } from 'react-icons/bi'
 import { MdOutlineAlternateEmail } from 'react-icons/md'
-import { omit } from 'lodash'
+import { AiFillPhone } from 'react-icons/ai'
+import { omit, isEmpty } from 'lodash'
 import { EMAIL_REGEX, PASSWORD_REGEX, FULL_NAME_REGEX } from 'utils'
 import { useNavigate } from 'react-router'
 
@@ -14,20 +15,9 @@ interface SignUpFormProps {
 	onClose: () => void
 }
 
-type FormData = {
-	username: string
-	firstName: string
-	lastName: string
-	email: string
-	confirmEmail: string
-	password: string
-	confirmPassword: string
-	sexe: 'male' | 'female' | undefined
-}
-
 const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 	const { login } = useAuth()
-	const { postItem } = useCalls()
+	const { postItem, apiErrors } = useCalls()
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
@@ -46,14 +36,15 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 			username: '',
 			fullName: '',
 			email: '',
-			//confirmEmail: '',
+			phone: '',
+			confirmEmail: '',
 			password: '',
 			confirmPassword: '',
-			//sexe: undefined,
+			sexe: undefined,
 		},
 	})
-
-	const [apiMessage, setApiMessage] = useState(null)
+	console.log(errors)
+	const [apiError, setApiError] = useState(null)
 
 	const baseRule = {
 		required: { value: true, message: t('Field is required') },
@@ -75,28 +66,37 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 			return
 		}
 
-		const { username, password, message, status } = await dispatch<any>(
+		const response = await dispatch<any>(
 			postItem({
 				endpoint: 'account/create',
 				data: omit(data, ['confirmEmail', 'confirmPassword']),
 			}),
 		)
-
-		if (username && status === 200) {
-			await dispatch<any>(login({ username, password }))
-			navigate('/')
-		} else {
-			setApiMessage(message)
+		console.log(response)
+		if (response.payload) {
+			await dispatch<any>(login({ username: response.payload.username, password: response.payload.password }))
+			navigate('/home')
+		}
+		if (response.error) {
+			setApiError(response.error)
 		}
 	}
 
 	return (
-		<div className="flex flex-col gap-y-20 items-center">
+		<div className="flex flex-col gap-y-5 items-center">
 			<div className="flex flex-col items-center">
-				<span className="text-[50px]">{t('Welcome back')}</span>
-				<span className="text-[15px]">{t('Welcome back! Please enter your details')}</span>
+				<span className="text-[40px] font-semibold text-cyan-950">{t('Hi, Welcome back!')}</span>
+				<span className="text-[15px] text-gray-300">{t('Start connecting in our sport community right away!')}</span>
 			</div>
-			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
+			{(!isEmpty(errors) || !!apiError) && (
+				<div className="rounded-sm border-[1px] w-full text-center p-2 border-error text-red-900 bg-red-200 text-[15px]">
+					{Object.values(errors).map((error) => (
+						<p>{String(error?.message)}</p>
+					))}
+					{apiError && <p>{apiError}</p>}
+				</div>
+			)}
+			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-1 w-full">
 				<Controller
 					name="username"
 					control={control}
@@ -111,6 +111,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 							placeholder={t('Enter username')}
 							startContent={<BiUser size={20} />}
 							error={error}
+							fullWidth
 							dense
 							{...field}
 						/>
@@ -131,6 +132,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 							placeholder={t('Enter your full name')}
 							startContent={<BiUser size={20} />}
 							error={error}
+							fullWidth
 							dense
 							{...field}
 						/>
@@ -149,6 +151,25 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 							placeholder={t('Enter email')}
 							startContent={<MdOutlineAlternateEmail size={20} />}
 							error={error}
+							fullWidth
+							dense
+							{...field}
+						/>
+					)}
+				/>
+				<Controller
+					name="phone"
+					control={control}
+					rules={{
+						...baseRule,
+					}}
+					render={({ field, fieldState: { error }, formState }) => (
+						<TextField
+							label={t('Phone number')}
+							placeholder={t('Enter phone')}
+							startContent={<AiFillPhone size={20} />}
+							error={error}
+							fullWidth
 							dense
 							{...field}
 						/>
@@ -167,6 +188,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 							placeholder={t('Enter password')}
 							startContent={<BiLockAlt size={20} />}
 							error={error}
+							fullWidth
 							isPassword
 							dense
 							{...field}
@@ -186,15 +208,23 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 							placeholder={t('Confirm password')}
 							startContent={<BiLockAlt size={20} />}
 							error={error}
+							fullWidth
 							isPassword
 							dense
 							{...field}
 						/>
 					)}
 				/>
+				<Controller
+					name="agreement"
+					control={control}
+					render={({ field, fieldState: { invalid, isTouched, isDirty, error }, formState }) => (
+						<Checkbox label={t('I agree to the terms of service and privacy policy.')} dense {...field} />
+					)}
+				/>
 				<Button
 					type="submit"
-					className="rounded-md bg-primary w-[300px] text-white font-semibold h-[50px] transition-all duration-75 ease-in hover:bg-secondary"
+					className="rounded-md bg-primary text-white font-semibold h-[50px] transition-all duration-75 ease-in hover:bg-secondary"
 				>
 					{t('Sign up')}
 				</Button>

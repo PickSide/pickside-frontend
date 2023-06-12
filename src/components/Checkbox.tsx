@@ -39,7 +39,7 @@ const Checkbox = ({ dense = false, label, ...props }: CheckboxProps | any, ref) 
 					{...props}
 				/>
 				<label htmlFor={props.id}>
-					<span className="">{label}</span>
+					<span className="text-gray-300">{label}</span>
 				</label>
 			</div>
 		</div>

@@ -1,6 +1,6 @@
+import { useEffect, useMemo, useState } from 'react'
 import { Dispatch } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { useEffect, useMemo } from 'react'
 import { useLocalStorage } from 'hooks'
 import { v4 as uuidv4 } from 'uuid'
 import { API_URL } from 'api'
@@ -29,6 +29,7 @@ interface UseCallsProps {
 }
 
 interface UseCallsOutput {
+	apiErrors: string[]
 	lazyGetItem: (r: RequestProps<any>) => Promise<any>,
 	lazyGetItems: (r: RequestProps<any>) => Promise<any>,
 	getItem: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>,
@@ -44,7 +45,9 @@ interface UseCallsOutput {
 const DEFAULT_URL = API_URL
 
 const useCalls = ({ baseURL = DEFAULT_URL }: UseCallsProps = {}): UseCallsOutput => {
+
 	const { get } = useLocalStorage()
+	const [errors, setErrors] = useState<any>()
 
 	const axiosInstance = useMemo(() => axios.create({
 		baseURL,
@@ -54,6 +57,10 @@ const useCalls = ({ baseURL = DEFAULT_URL }: UseCallsProps = {}): UseCallsOutput
 			Authorization: `Bearer ${get('auth')?.accessToken}`,
 		},
 	}), [baseURL, get])
+
+	const handleResponseError = (axiosError: any) => {
+		return { error: axiosError.response.data.message }
+	}
 
 	useEffect(() => {
 		const accessToken = get('auth.accessToken')
@@ -89,35 +96,41 @@ const useCalls = ({ baseURL = DEFAULT_URL }: UseCallsProps = {}): UseCallsOutput
 	}, [axiosInstance, get])
 
 	return {
+		apiErrors: errors,
 		lazyGetItem: async ({ endpoint, id }) => {
 			const url = Url({ endpoint, id })
 			return await axiosInstance
 				.get(url)
 				.then((response) => response.data)
+				.catch((error) => handleResponseError(error))
 		},
 		lazyGetItems: async ({ endpoint, id }) => {
 			const url = Url({ endpoint, id })
 			return await axiosInstance
 				.get(url)
 				.then((response) => response.data)
+				.catch((error) => handleResponseError(error))
 		},
 		getItem: ({ endpoint, id }) => async (dispatch) => {
 			const url = Url({ endpoint, id })
 			return await axiosInstance
 				.get(url)
 				.then((response) => response.data)
+				.catch((error) => handleResponseError(error))
 		},
 		getItems: ({ endpoint, id }) => async (dispatch) => {
 			const url = Url({ endpoint, id })
 			return await axiosInstance
 				.get(url)
 				.then((response) => response.data)
+				.catch((error) => handleResponseError(error))
 		},
 		postItem: ({ endpoint, data, id }) => async (dispatch) => {
 			const url = Url({ endpoint, id })
 			return await axiosInstance
 				.post(url, { data })
 				.then((response) => response.data)
+				.catch((error) => handleResponseError(error))
 		},
 		postItems: ({ endpoint, params, queries }) => async (dispatch) => { },
 		putItem: ({ endpoint, id, data }) => async (dispatch) => {
@@ -131,7 +144,6 @@ const useCalls = ({ baseURL = DEFAULT_URL }: UseCallsProps = {}): UseCallsOutput
 }
 
 function Url({ endpoint, id, params, queries }: UrlProps) {
-	console.log(id)
 	const url = `${endpoint}${id ? `/${id}` : ''}${params ? `/${new URLSearchParams({ ...params })}` : ''}${queries ? `?${getQueryString(queries)}` : ''
 		}`
 	return url

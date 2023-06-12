@@ -1,13 +1,10 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { SignUpForm } from 'widgets'
-import { BiArrowBack } from 'react-icons/bi'
 import { motion } from 'framer-motion'
 import { pageTransition } from 'utils'
 
 const SignUp = () => {
-	const navigate = useNavigate()
-
 	return (
 		<motion.div
 			initial="hidden"
@@ -16,17 +13,22 @@ const SignUp = () => {
 			variants={pageTransition}
 			className="relative w-screen h-screen flex"
 		>
-			<div className="flex-1 p-20 m-auto">
+			<div className="flex flex-col gap-y-10 p-20">
+				<div className="inline-flex items-center">
+					<NavLink
+						to="/home"
+						className="outline-none border-none bg-templogo2 bg-contain bg-no-repeat w-72 h-10 flex-grow"
+					></NavLink>
+					<NavLink
+						to="/login"
+						className="font-semibold text-[15px] text-primary hover:scale-105 hover:text-gray-400/80"
+					>
+						Login
+					</NavLink>
+				</div>
 				<SignUpForm onClose={() => {}} />
 			</div>
 			<div className="flex-1 bg-primary p-20"></div>
-			<div
-				onClick={() => navigate('/login')}
-				className="absolute top-5 left-5 flex gap-x-3 text-secondary cursor-pointer ease-in hover:text-slate-500 hover:scale-110 duration-[30] transition-all"
-			>
-				<BiArrowBack size={25} />
-				<span>Back to login</span>
-			</div>
 		</motion.div>
 	)
 }
