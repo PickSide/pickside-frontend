@@ -65,6 +65,7 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 							label={t('Username')}
 							placeholder={t('Enter username')}
 							startContent={<BiUser size={20} />}
+							fullWidth
 							dense
 							{...field}
 						/>
@@ -83,6 +84,7 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 							placeholder={t('Enter password')}
 							startContent={<BiLockAlt size={20} />}
 							isPassword
+							fullWidth
 							dense
 							{...field}
 						/>

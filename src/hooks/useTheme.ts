@@ -4,14 +4,14 @@ import { AppState, setAppTheme } from 'state'
 
 export const useTheme = (): [toggleTheme: Function] => {
 	const theme = useSelector((state: AppState) => state.appTheme) || 'light'
-	const defaultDarkModeIsON = useSelector((state: AppState) => state.account?.configs?.darkModeDefault)
+	const defaultTheme = useSelector((state: AppState) => state.account?.defaultTheme)
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		if (defaultDarkModeIsON) {
+		if (defaultTheme === 'dark') {
 			dispatch<any>(setAppTheme('dark'))
 		}
-	}, [defaultDarkModeIsON, dispatch])
+	}, [defaultTheme, dispatch])
 
 	// const palette = useMemo(() => {
 	// 	return createTheme(deepmerge(getDesignTokens(theme), getThemedComponents(theme)))

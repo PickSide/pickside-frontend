@@ -1,12 +1,12 @@
 import { Dispatch } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
-import { AppState, setLocales, setSports, setActivities, updateActivity, Activity, setSettingsTemplate, setPlayables, setAreas } from 'state'
-import { useCalls } from 'hooks'
+import { AppState, setLocales, setSports, setActivities, updateActivity, Activity, setSettingsTemplate, setPlayables, setAreas, updateConfig } from 'state'
+import { useCalls, useLocalStorage } from 'hooks'
 import { API_URL } from 'api'
 
 interface UseApiOutput {
 	/* account */
-	updateAccount?: (data: any) => (d: Dispatch) => Promise<any>
+	updateAccountSettings: (data: any) => (d: Dispatch) => Promise<any>
 
 	/* area */
 	getAreas: () => (d: Dispatch) => Promise<any>
@@ -32,6 +32,7 @@ interface UseApiOutput {
 
 const useApi = (): UseApiOutput => {
 	const { getItems, putItem, postItem } = useCalls({ baseURL: API_URL })
+	const { set } = useLocalStorage()
 
 	const account = useSelector((state: AppState) => state.account)
 
@@ -132,6 +133,17 @@ const useApi = (): UseApiOutput => {
 						dispatch(setSettingsTemplate(items))
 					}
 				},
+
+		updateAccountSettings: (data) => async (dispatch: Dispatch): Promise<any> => {
+			const items = await putItem({
+				endpoint: `account/${account?._id}/settings`,
+				data
+			})(dispatch)
+
+			if (items) {
+				dispatch(updateConfig(data))
+			}
+		},
 	}
 }
 export default useApi

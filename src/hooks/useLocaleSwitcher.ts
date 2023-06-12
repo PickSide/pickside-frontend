@@ -7,7 +7,7 @@ const useLocaleSwitcher = (): { handleLocaleChange: (locale: any) => void, curre
 	const dispatch = useDispatch()
 	const { i18n } = useTranslation()
 
-	const defaultLanguage = useSelector((state: AppState) => state.account?.configs?.defaultLanguage)
+	const defaultLanguage = useSelector((state: AppState) => state.account?.defaultLanguage)
 	const current = useSelector((state: AppState) => state.appLocale)
 
 	const handleLocaleChange = useCallback(

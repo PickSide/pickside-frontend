@@ -7,12 +7,15 @@ import Chip from './Chip'
 import DatePicker from './DatePicker'
 import Dialog from './Dialog'
 import Dropdown from './Dropdown'
+import EditField from './EditField'
+import EmailField from './EmailField'
 import Gallery from './Gallery'
 import GroupRadio from './GroupRadio'
 import IconDropdown from './IconDropdown'
 import MapMarker from './MapMarker'
 import MenuItem from './MenuItem'
 import Map from './Map'
+import PhoneField from './PhoneField'
 import Popover from './Popover'
 import RequireAuth from './RequireAuth'
 import Select from './Select'
@@ -39,12 +42,15 @@ export {
 	DatePicker,
 	Dialog,
 	Dropdown,
+	EditField,
+	EmailField,
 	Gallery,
 	GroupRadio,
 	IconDropdown,
 	MapMarker,
 	MenuItem,
 	Map,
+	PhoneField,
 	Popover,
 	RequireAuth,
 	Select,

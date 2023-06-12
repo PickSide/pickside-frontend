@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, FC } from 'react'
 import { useLocalStorage } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAccount, Account, AppState } from 'state'
+import { isEqual } from 'lodash'
 
 export interface AccountContext {
 	user?: Account
@@ -15,7 +16,7 @@ export const useAccountContext = () => useContext(Context)
 
 export const AccountProvider: FC<any> = ({ children }) => {
 	const dispatch = useDispatch()
-	const { get } = useLocalStorage()
+	const { get, set } = useLocalStorage()
 
 	const account = useSelector((state: AppState) => state.account)
 
@@ -25,7 +26,11 @@ export const AccountProvider: FC<any> = ({ children }) => {
 				dispatch<any>(setAccount(get('auth').user))
 			}
 		}
-	}, [account, dispatch, get])
+
+		if (account && !isEqual(get('auth.user'), account)) {
+			set('auth', { ...get('auth'), ...{ user: account } })
+		}
+	}, [account, dispatch, get, set])
 
 	return <Context.Provider value={{ user: account }}>{children}</Context.Provider>
 }

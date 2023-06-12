@@ -131,6 +131,7 @@ const useCalls = ({ baseURL = DEFAULT_URL }: UseCallsProps = {}): UseCallsOutput
 }
 
 function Url({ endpoint, id, params, queries }: UrlProps) {
+	console.log(id)
 	const url = `${endpoint}${id ? `/${id}` : ''}${params ? `/${new URLSearchParams({ ...params })}` : ''}${queries ? `?${getQueryString(queries)}` : ''
 		}`
 	return url

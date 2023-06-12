@@ -16,10 +16,7 @@ const ProfileMenu: FC<any> = () => {
 
 	const account = useSelector((state: AppState) => state.account)
 
-	const userInitials = useMemo(
-		() => `${account?.profile?.firstName?.charAt(0)}${account?.profile?.lastName?.charAt(0)}`,
-		[account],
-	)
+	const userInitials = useMemo(() => `${account?.firstName?.charAt(0)}${account?.lastName?.charAt(0)}`, [account])
 
 	const UserMenuItems = [
 		{
