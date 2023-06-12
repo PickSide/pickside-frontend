@@ -34,9 +34,7 @@ const TextField = (
 	}: TextFieldProps,
 	ref,
 ) => {
-	const inputRef = useRef<any>(null)
-
-	const [value, setValue] = useState<any>(defaultValue || '')
+	const [value, setValue] = useState<any>(defaultValue)
 	const [onFocus, setOnFocus] = useState<boolean>(autofocus)
 	const [showPassword, setShowPassword] = useState<boolean>(false)
 
@@ -44,9 +42,6 @@ const TextField = (
 	const _onBlur = useCallback(() => setOnFocus(false), [])
 	const _onChange = useCallback((e) => setValue(e.target.value), [])
 
-	useEffect(() => {
-		inputRef.current.focus()
-	}, [inputRef])
 	return (
 		<div className={`${!fullWidth ? 'max-w-[230px]' : ''} relative flex flex-col text-gray-400 ${dense ? 'mb-6' : ''}`}>
 			<label htmlFor={id} className="">
@@ -57,7 +52,7 @@ const TextField = (
 					!!error ? 'border-[#d2333d] text-[#d2333d]' : readOnly ? 'border-gray-100' : 'border-gray-200'
 				} border-2 focus-within:border-2 focus-within:border-[#82cac3]`}
 			>
-				{startContent && <span className="text-gray-500 w-[15%] flex justify-center">{startContent}</span>}
+				{startContent && <span className="text-gray-500 w-12 flex justify-center">{startContent}</span>}
 
 				<div className="px-2 w-full">
 					<input
@@ -65,7 +60,7 @@ const TextField = (
 						autoComplete="off"
 						disabled={readOnly}
 						value={value}
-						ref={inputRef}
+						ref={ref}
 						placeholder={placeholder}
 						onFocus={_onFocus}
 						onBlur={_onBlur}
@@ -83,6 +78,11 @@ const TextField = (
 					</span>
 				)}
 			</div>
+			{error && (
+				<label htmlFor={id} className="">
+					<span className="text-[#d2333d]">{error}</span>
+				</label>
+			)}
 		</div>
 	)
 }
