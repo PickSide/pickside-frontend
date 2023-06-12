@@ -48,9 +48,6 @@ const Gallery = ({ images = IMAGES, ...props }, ref) => {
 	const handleBottomNav = (e, idx) => setCurrentIdx(idx)
 
 	useEffect(() => {
-		console.log(ref.current.offsetWidth)
-		console.log('currentIdx: ', currentIdx)
-		console.log('direction: ', direction)
 	}, [currentIdx, direction, ref])
 
 	return (

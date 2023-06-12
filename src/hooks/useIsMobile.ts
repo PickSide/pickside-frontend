@@ -23,7 +23,7 @@ const useIsMobile = () => {
         window.addEventListener("resize", handleResize);
 
         handleResize()
-        console.log(screenSize)
+
         return () => window.removeEventListener('resize', handleResize)
     }, [])
 

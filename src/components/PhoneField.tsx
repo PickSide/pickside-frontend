@@ -11,7 +11,7 @@ interface PhoneFieldProps {
 	defaultValue?: string
 }
 const PhoneField = ({ id, defaultValue, readOnly = false, error, autofocus = false, label }: PhoneFieldProps, ref) => {
-	const [value, setValue] = useState<any>(defaultValue)
+	const [value, setValue] = useState<any>(defaultValue || '')
 	const [onFocus, setOnFocus] = useState<boolean>(autofocus)
 
 	const _onFocus = useCallback(() => setOnFocus(true), [])
@@ -34,7 +34,7 @@ const PhoneField = ({ id, defaultValue, readOnly = false, error, autofocus = fal
 
 				<div className="px-2 w-full">
 					<input
-						type="text"
+						type="tel"
 						autoComplete="off"
 						value={value}
 						disabled={readOnly}

@@ -13,7 +13,6 @@ interface PopoverProps {
 
 const Popover = ({ children, trigger, onClose, positionX = 'left', positionY = 'bottom' }: PopoverProps, ref) => {
 	const [open, setOpen] = useState(false)
-	console.log(ref)
 	return (
 		<div className="relative">
 			{trigger && React.cloneElement(trigger, { onClick: () => setOpen(true) })}

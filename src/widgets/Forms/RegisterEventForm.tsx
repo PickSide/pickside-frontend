@@ -100,10 +100,7 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 							<Switch
 								defaultChecked={getValues('customLocation')}
 								label="Choose my own location"
-								onChange={(e) => {
-									console.log(e.target.checked)
-									setValue('customLocation', e.target.checked)
-								}}
+								onChange={(e) => setValue('customLocation', e.target.checked)}
 							/>
 							{!isCustomLocation && (
 								<Select
