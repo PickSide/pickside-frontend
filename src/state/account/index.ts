@@ -49,6 +49,7 @@ const Account = createSlice({
 	name: 'account',
 	reducers: {
 		setAccount: (state, action: PayloadAction<Account | null>) => (state = action.payload),
+		logout: (state) => (state = null),
 		updateConfig: (state, action: PayloadAction<any>) => {
 			if (state) {
 				state = { ...state, ...action.payload }
@@ -58,6 +59,6 @@ const Account = createSlice({
 	},
 })
 
-export const { setAccount, updateConfig } = Account.actions
+export const { setAccount, logout, updateConfig } = Account.actions
 
 export default Account.reducer

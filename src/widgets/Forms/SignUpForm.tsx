@@ -3,11 +3,11 @@ import { useForm, Controller } from 'react-hook-form'
 import { Button, Checkbox, TextField } from 'components'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
-import { useAuth, useCalls } from 'hooks'
+import { useAuth } from 'hooks'
 import { BiLockAlt, BiUser } from 'react-icons/bi'
 import { MdOutlineAlternateEmail } from 'react-icons/md'
 import { AiFillPhone } from 'react-icons/ai'
-import { omit, isEmpty } from 'lodash'
+import { isEmpty } from 'lodash'
 import { EMAIL_REGEX, PASSWORD_REGEX, FULL_NAME_REGEX } from 'utils'
 import { useNavigate } from 'react-router'
 
@@ -15,9 +15,8 @@ interface SignUpFormProps {
 	onClose: () => void
 }
 
-const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
-	const { login } = useAuth()
-	const { postItem, apiErrors } = useCalls()
+const SignUpForm: FC<SignUpFormProps> = () => {
+	const { create, login } = useAuth()
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
@@ -45,6 +44,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 	})
 	console.log(errors)
 	const [apiError, setApiError] = useState(null)
+	const [loading, setLoading] = useState(false)
 
 	const baseRule = {
 		required: { value: true, message: t('Field is required') },
@@ -65,21 +65,20 @@ const SignUpForm: FC<SignUpFormProps> = ({ onClose }) => {
 		if (!isValid) {
 			return
 		}
+		setLoading(true)
 
-		const response = await dispatch<any>(
-			postItem({
-				endpoint: 'account/create',
-				data: omit(data, ['confirmEmail', 'confirmPassword']),
-			}),
-		)
-		console.log(response)
+		const response = await dispatch<any>(create(data))
+
 		if (response.payload) {
 			await dispatch<any>(login({ username: response.payload.username, password: response.payload.password }))
 			navigate('/home')
 		}
+
 		if (response.error) {
 			setApiError(response.error)
 		}
+
+		setLoading(false)
 	}
 
 	return (

@@ -39,7 +39,7 @@ const ProfileMenu: FC<any> = () => {
 			icon: <MdLogout size={25} />,
 			action: async () => {
 				await dispatch<any>(logout())
-				navigate('/')
+				navigate('/login')
 			},
 		},
 	]

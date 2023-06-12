@@ -22,8 +22,8 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 	const { login } = useAuth()
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
-	const { set: setLocalStorage } = useLocalStorage()
 	const { t } = useTranslation()
+	const [apiError, setApiError] = useState(null)
 	const [loading, setLoading] = useState(false)
 
 	const { control, handleSubmit } = useForm<FormData>({
@@ -38,11 +38,18 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 		required: { value: true, message: t('Field is required') },
 	}
 
-	const onSubmit = async (values: any) => {
+	const onSubmit = async (data: any) => {
 		setLoading(true)
-		await dispatch<any>(login(values))
+
+		const response = await dispatch<any>(login(data))
+
+		if (response.error) {
+			setApiError(response.error)
+		} else {
+			navigate('/home')
+		}
+
 		setLoading(false)
-		navigate('/home')
 	}
 
 	return (
@@ -51,6 +58,11 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 				<span className="text-[40px] font-semibold text-cyan-950">{t('Hi, Welcome back!')}</span>
 				<span className="text-[15px] text-gray-300">{t('Start connecting in our sport community right away!')}</span>
 			</div>
+			{!!apiError && (
+				<div className="rounded-sm border-[1px] w-full text-center p-2 border-error text-red-900 bg-red-200 text-[15px]">
+					{apiError && <p>{apiError}</p>}
+				</div>
+			)}
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4 w-full">
 				<Controller
 					name="username"
