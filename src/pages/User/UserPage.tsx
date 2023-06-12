@@ -93,8 +93,8 @@ const UserPage = () => {
 					</div>
 					<div className="flex-col my-8">
 						<p className="text-[30px] font-semibold">{connectedUser?.firstName + ' ' + connectedUser?.lastName}</p>
-						<p className="text-[15px] font-normal text-gray-400">Plays near {connectedUser?.configs?.localeRegion}</p>
-						<p className="text-[15px] font-normal text-gray-400">Reliability: {connectedUser?.configs?.reliability}%</p>
+						<p className="text-[15px] font-normal text-gray-400">Plays near {connectedUser?.localeRegion}</p>
+						<p className="text-[15px] font-normal text-gray-400">Reliability: {connectedUser?.reliability}%</p>
 					</div>
 					<div className="flex flex-grow my-8 justify-end text-primary pr-2">
 						<Popover

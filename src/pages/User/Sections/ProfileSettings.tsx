@@ -81,12 +81,12 @@ const ProfileSettings = () => {
 					options={[
 						{
 							icon: <HiOutlineLightBulb size={20} />,
-							defaultChecked: connectedUser?.configs?.defaultTheme === 'light',
+							defaultChecked: connectedUser?.defaultTheme === 'light',
 							name: 'light',
 						},
 						{
 							icon: <MdDarkMode size={20} />,
-							defaultChecked: connectedUser?.configs?.defaultTheme === 'dark',
+							defaultChecked: connectedUser?.defaultTheme === 'dark',
 							name: 'dark',
 						},
 					]}
@@ -100,8 +100,8 @@ const ProfileSettings = () => {
 			control: (
 				<ToggleGroup
 					options={[
-						{ text: 'FR', defaultChecked: connectedUser?.configs?.defaultLanguage === 'fr', name: 'fr' },
-						{ text: 'EN', defaultChecked: connectedUser?.configs?.defaultLanguage === 'en', name: 'en' },
+						{ text: 'FR', defaultChecked: connectedUser?.defaultLanguage === 'fr', name: 'fr' },
+						{ text: 'EN', defaultChecked: connectedUser?.defaultLanguage === 'en', name: 'en' },
 					]}
 					onChange={(option) => dispatch<any>(updateAccountSettings({ defaultLanguage: option.name }))}
 				/>
@@ -116,7 +116,7 @@ const ProfileSettings = () => {
 					options={orderBy<Area>(areas?.results, ['city', 'country', 'state'], ['asc', 'desc'])}
 					getOptionLabel={(option) => option?.district.join(' / ')}
 					onChange={(value) => dispatch<any>(updateAccountSettings({ preferredRegion: value.districtCode }))}
-					value={areas?.results?.find((area) => area.districtCode === connectedUser?.configs?.preferredRegion)}
+					value={areas?.results?.find((area) => area.districtCode === connectedUser?.preferredRegion)}
 				/>
 			),
 		},
@@ -137,7 +137,7 @@ const ProfileSettings = () => {
 			helperText: t('Hide your age from other users'),
 			control: (
 				<Switch
-					defaultChecked={connectedUser?.configs?.hideAge}
+					defaultChecked={connectedUser?.hideAge}
 					onChange={(e) => dispatch<any>(updateAccountSettings({ hideAge: e.target.checked }))}
 				/>
 			),
@@ -147,7 +147,7 @@ const ProfileSettings = () => {
 			helperText: t('Hide your email from other users'),
 			control: (
 				<Switch
-					defaultChecked={connectedUser?.configs?.hideEmail}
+					defaultChecked={connectedUser?.hideEmail}
 					onChange={(e) => dispatch<any>(updateAccountSettings({ hideEmail: e.target.checked }))}
 				/>
 			),
@@ -157,7 +157,7 @@ const ProfileSettings = () => {
 			helperText: t('Hide your phone from other users'),
 			control: (
 				<Switch
-					defaultChecked={connectedUser?.configs?.hidePhone}
+					defaultChecked={connectedUser?.hidePhone}
 					onChange={(e) => dispatch<any>(updateAccountSettings({ hidePhone: e.target.checked }))}
 				/>
 			),
@@ -167,7 +167,7 @@ const ProfileSettings = () => {
 			helperText: t('Hide your username from other users'),
 			control: (
 				<Switch
-					defaultChecked={connectedUser?.configs?.hideUsername}
+					defaultChecked={connectedUser?.hideUsername}
 					onChange={(e) => dispatch<any>(updateAccountSettings({ hideUsername: e.target.checked }))}
 				/>
 			),

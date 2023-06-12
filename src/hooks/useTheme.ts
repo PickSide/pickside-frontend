@@ -4,7 +4,7 @@ import { AppState, setAppTheme } from 'state'
 
 export const useTheme = (): [toggleTheme: Function] => {
 	const theme = useSelector((state: AppState) => state.appTheme) || 'light'
-	const defaultTheme = useSelector((state: AppState) => state.account?.configs?.defaultTheme)
+	const defaultTheme = useSelector((state: AppState) => state.account?.defaultTheme)
 	const dispatch = useDispatch()
 
 	useEffect(() => {
