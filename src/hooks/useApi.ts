@@ -139,7 +139,7 @@ const useApi = (): UseApiOutput => {
 				endpoint: `account/${account?._id}/settings`,
 				data
 			})(dispatch)
-
+			console.log(data)
 			if (items) {
 				dispatch(updateConfig(data))
 			}

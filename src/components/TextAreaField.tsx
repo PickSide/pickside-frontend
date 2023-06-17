@@ -5,14 +5,14 @@ interface TextAreaFieldProps {
 	id?: string
 	label?: string
 	placeholder?: string
-	dense?: boolean
 	autofocus?: boolean
 	error?: any
 	type?: string
+	fullWidth?: boolean
 }
 
 const TextAreaField = (
-	{ id, label, placeholder, dense = false, autofocus = false, error, ...props }: TextAreaFieldProps,
+	{ id, label, placeholder, autofocus = false, fullWidth = false, error, ...props }: TextAreaFieldProps,
 	ref,
 ) => {
 	const inputRef = useRef<any>(null)
@@ -30,7 +30,7 @@ const TextAreaField = (
 	}, [inputRef])
 
 	return (
-		<div className={`relative flex flex-col ${dense ? 'mb-6' : ''}`}>
+		<div className={`relative flex flex-col ${fullWidth ? 'w-full' : 'w-[230px]'}`}>
 			<label htmlFor={id} className="">
 				<span className="text-[#82cac3]">{label}</span>
 			</label>

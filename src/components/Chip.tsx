@@ -1,41 +1,88 @@
-import { FC, ReactNode, useMemo, useState } from 'react'
+import React, { ReactNode, forwardRef, useId, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 interface ChipProps {
-	closable?: boolean
-	disabled?: boolean
 	icon?: ReactNode
-	label?: string
-	primary?: boolean
-	secondary?: boolean
-	tertiary?: boolean
+	name?: string
+	text?: string
+	value?: any
+	defaultValue?: any
+	checked?: boolean
+	disabled?: boolean
+	readonly isCheckbox?: boolean
+	closable?: boolean
+	chipColor?: 'primary' | 'secondary' | 'tertiary' | 'blue' | 'purple' | 'green' | 'red'
 }
 
-const Chip: FC<ChipProps> = ({
-	icon,
-	label,
-	primary = true,
-	secondary = false,
-	tertiary = false,
-	closable = false,
-	disabled = false,
-}) => {
-	const btnClass = useMemo(() => {
-		if (disabled) return 'chip-disabled'
-		if (secondary) return 'chip-secondary'
-		if (tertiary) return 'chip-tertiary'
-		return 'btn-primary'
-	}, [disabled, secondary, tertiary])
+interface ChipGroupProps {
+	id?: any
+	children?: any
+	label?: string
+	defaultValue?: any
+	name?: string
+	onChange?: (e, v?) => void
+	multiple?: boolean
+}
 
+const chipClasses = {
+	primary:
+		'text-primary border-primary hover:bg-primary hover:text-white peer-checked:bg-primary peer-checked:text-white',
+	secondary:
+		'text-secondary border-secondary hover:bg-secondary hover:text-white peer-checked:bg-secondary peer-checked:text-white',
+	tertiary:
+		'text-tertiary border-tertiary hover:bg-tertiary hover:text-white peer-checked:bg-tertiary peer-checked:text-white',
+	blue: 'text-blue-400 border-blue-400 hover:bg-blue-400 hover:text-white peer-checked:bg-blue-400 peer-checked:text-white',
+	purple:
+		'text-purple-400 border-purple-400 hover:bg-purple-400 hover:text-white peer-checked:bg-purple-400 peer-checked:text-white',
+	green:
+		'text-green-400 border-green-400 hover:bg-green-400 hover:text-white peer-checked:bg-green-400 peer-checked:text-white',
+	red: 'text-red-400 border-red-400 hover:bg-red-400 hover:text-white peer-checked:bg-red-400 peer-checked:text-white',
+}
+
+const Chip = (
+	{ chipColor = 'primary', icon, text, value, defaultValue, disabled = false, isCheckbox = false, ...rest }: ChipProps,
+	ref,
+) => {
+	const id = useId()
+	console.log(rest)
 	return (
-		<div
-			className={twMerge(
-				'rounded-xl border-[1px] border-primary text-primary text-[13px] ease-linear transition-all duration-75 text-sm px-2 py-1 cursor-pointer hover:bg-primary hover:text-white',
-			)}
-		>
-			<span>{label}</span>
+		<div className={twMerge(`min-w-[70px] text-sm`)}>
+			<input
+				id={id}
+				type={isCheckbox ? 'checkbox' : 'radio'}
+				defaultChecked={defaultValue === value}
+				value={value}
+				disabled={disabled}
+				className="hidden peer"
+				{...rest}
+			/>
+			<label
+				htmlFor={id}
+				className={twMerge(
+					`inline-flex justify-center border-2 rounded-xl items-center p-2 gap-x-1 w-full h-full font-semibold border-1 cursor-pointer  ease-linear transition-all duration-75`,
+					chipClasses[chipColor],
+				)}
+			>
+				{icon}
+				{text}
+			</label>
 		</div>
 	)
 }
 
-export default Chip
+export const ChipGroup = forwardRef(
+	({ children, defaultValue, label, multiple = false, name, onChange }: ChipGroupProps, ref) => {
+		return (
+			<div className="flex flex-col gap-y-2">
+				{label && <span className="text-gray-400">{label}</span>}
+				<div className="inline-flex gap-x-4">
+					{React.Children.map(children, (child) =>
+						React.cloneElement(child, { defaultValue, onChange, isCheckbox: multiple, name }),
+					)}
+				</div>
+			</div>
+		)
+	},
+)
+
+export default forwardRef(Chip)

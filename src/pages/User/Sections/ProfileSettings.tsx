@@ -5,6 +5,7 @@ import {
 	Select,
 	PhoneField,
 	ToggleGroup,
+	Toggle,
 	TextField,
 	Button,
 	Dialog,
@@ -12,8 +13,7 @@ import {
 	EditField,
 	EmailField,
 } from 'components'
-import { useAsync } from 'react-use'
-import { useApi, useCalls } from 'hooks'
+import { useApi } from 'hooks'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppState, Area } from 'state'
@@ -21,12 +21,10 @@ import { MdDarkMode } from 'react-icons/md'
 import { HiOutlineLightBulb } from 'react-icons/hi'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 import { orderBy } from 'lodash'
-import { useForm } from 'react-hook-form'
 
 const ProfileSettings = () => {
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
-	const { register } = useForm()
 	const { updateAccountSettings } = useApi()
 	const connectedUser = useSelector((state: AppState) => state.account)
 	const areas = useSelector((state: AppState) => state.areas)
@@ -65,12 +63,13 @@ const ProfileSettings = () => {
 			name: t('Sexe'),
 			control: (
 				<ToggleGroup
-					options={[
-						{ text: 'Male', defaultChecked: connectedUser?.sexe === 'male', name: 'male' },
-						{ text: 'Female', defaultChecked: connectedUser?.sexe === 'female', name: 'female' },
-					]}
-					onChange={(option) => dispatch<any>(updateAccountSettings({ sexe: option.name }))}
-				/>
+					name="sexe"
+					defaultValue={connectedUser?.sexe}
+					onChange={(e) => dispatch<any>(updateAccountSettings({ sexe: e.target.value }))}
+				>
+					<Toggle text="Male" value="male" />
+					<Toggle text="Female" value="female" />
+				</ToggleGroup>
 			),
 		},
 		{
@@ -78,20 +77,13 @@ const ProfileSettings = () => {
 			helperText: t('Choose your default theme'),
 			control: (
 				<ToggleGroup
-					options={[
-						{
-							icon: <HiOutlineLightBulb size={20} />,
-							defaultChecked: connectedUser?.defaultTheme === 'light',
-							name: 'light',
-						},
-						{
-							icon: <MdDarkMode size={20} />,
-							defaultChecked: connectedUser?.defaultTheme === 'dark',
-							name: 'dark',
-						},
-					]}
-					onChange={(option) => dispatch<any>(updateAccountSettings({ defaultTheme: option.name }))}
-				/>
+					name="theme"
+					defaultValue={connectedUser?.defaultTheme}
+					onChange={(e) => dispatch<any>(updateAccountSettings({ defaultTheme: e.target.value }))}
+				>
+					<Toggle icon={<HiOutlineLightBulb size={20} />} value="light" />
+					<Toggle icon={<MdDarkMode size={20} />} value="dark" />
+				</ToggleGroup>
 			),
 		},
 		{
@@ -99,12 +91,13 @@ const ProfileSettings = () => {
 			helperText: t('Choose your default app language'),
 			control: (
 				<ToggleGroup
-					options={[
-						{ text: 'FR', defaultChecked: connectedUser?.defaultLanguage === 'fr', name: 'fr' },
-						{ text: 'EN', defaultChecked: connectedUser?.defaultLanguage === 'en', name: 'en' },
-					]}
-					onChange={(option) => dispatch<any>(updateAccountSettings({ defaultLanguage: option.name }))}
-				/>
+					name="locale"
+					defaultValue={connectedUser?.defaultLanguage}
+					onChange={(e) => dispatch<any>(updateAccountSettings({ defaultLanguage: e.target.value }))}
+				>
+					<Toggle text="FR" value="fr" />
+					<Toggle text="EN" value="en" />
+				</ToggleGroup>
 			),
 		},
 		{
@@ -125,10 +118,10 @@ const ProfileSettings = () => {
 			helperText: t('Set your fitness level (this is not your sport level)'),
 			control: (
 				<div className="flex space-x-4">
-					<Chip label="Retired" />
-					<Chip label="Average" />
-					<Chip label="Athletic" />
-					<Chip label="Very athetlic" />
+					<Chip text="Retired" />
+					<Chip text="Average" />
+					<Chip text="Athletic" />
+					<Chip text="Very athetlic" />
 				</div>
 			),
 		},

@@ -6,7 +6,6 @@ interface TextFieldProps {
 	label?: string
 	placeholder?: string
 	startContent?: ReactNode
-	dense?: boolean
 	autofocus?: boolean
 	isPassword?: boolean
 	readOnly?: boolean
@@ -22,7 +21,6 @@ const TextField = (
 		label,
 		startContent,
 		placeholder,
-		dense = false,
 		autofocus = false,
 		isPassword = false,
 		error,
@@ -43,7 +41,7 @@ const TextField = (
 	const _onChange = useCallback((e) => setValue(e.target.value), [])
 
 	return (
-		<div className={`${!fullWidth ? 'max-w-[230px]' : ''} relative flex flex-col text-gray-400 ${dense ? 'mb-6' : ''}`}>
+		<div className={`${!fullWidth ? 'max-w-[230px]' : ''} relative flex flex-col text-gray-400`}>
 			<label htmlFor={id} className="">
 				<span className="text-gray-400">{label}</span>
 			</label>

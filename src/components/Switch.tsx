@@ -9,7 +9,7 @@ interface ToggleProps {
 	tertiary?: boolean
 }
 
-const Toggle = (
+const Switch = (
 	{ defaultChecked = false, label, onChange, primary = true, secondary = false, tertiary = false }: ToggleProps,
 	ref,
 ) => {
@@ -37,4 +37,4 @@ const Toggle = (
 	)
 }
 
-export default forwardRef(Toggle)
+export default forwardRef(Switch)

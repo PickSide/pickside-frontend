@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 
 interface SelectProps {
 	startContent?: ReactNode
-	dense?: boolean
 	autofocus?: boolean
 	placeholder?: string
 	error?: any
@@ -20,7 +19,6 @@ interface SelectProps {
 const Select = (
 	{
 		startContent,
-		dense = false,
 		autofocus = false,
 		error,
 		options = [],
@@ -51,7 +49,7 @@ const Select = (
 	)
 
 	return (
-		<div className={`relative min-w-[200px] ${dense ? 'mb-6' : ''} ${fullWidth ? 'w-full' : ''}`}>
+		<div className={`relative min-w-[200px] ${fullWidth ? 'w-full' : ''}`}>
 			<label id="listbox-label" className="block text-sm font-medium leading-6 text-gray-900">
 				{label}
 			</label>
