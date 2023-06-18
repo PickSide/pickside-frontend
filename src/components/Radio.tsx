@@ -6,8 +6,7 @@ interface RadioGroupProps {
 	label?: string
 	display?: 'row' | 'col'
 	defaultValue?: any
-	name: string
-	onChange?: (e) => void
+	name?: string
 }
 
 interface RadioProps {
@@ -23,13 +22,14 @@ interface RadioProps {
 
 const Radio = ({ icon, description, text, value, defaultValue, disabled = false, ...rest }: RadioProps, ref) => {
 	const id = useId()
+
 	return (
 		<div>
 			<input
 				id={`${id}`}
 				defaultChecked={defaultValue === value}
-				value={value}
 				type="radio"
+				value={value}
 				disabled={disabled}
 				className="hidden peer"
 				{...rest}
@@ -49,11 +49,11 @@ const Radio = ({ icon, description, text, value, defaultValue, disabled = false,
 }
 
 export const RadioGroup = forwardRef(
-	({ children, defaultValue, display = 'row', label, name, onChange }: RadioGroupProps, ref) => (
+	({ children, defaultValue, display = 'row', label, ...rest }: RadioGroupProps | any, ref) => (
 		<div className="flex flex-col gap-y-2">
 			{label && <span className="text-[20px] text-gray-400 font-semibold">{label}</span>}
-			<div className={`${display === 'col' ? 'flex flex-col' : 'inline-flex'} gap-4`} onChange={onChange}>
-				{React.Children.map(children, (child) => React.cloneElement(child, { name, defaultValue }))}
+			<div className={`${display === 'col' ? 'flex flex-col' : 'inline-flex'} gap-4`} {...rest}>
+				{React.Children.map(children, (child) => React.cloneElement(child, { defaultValue, ...rest }))}
 			</div>
 		</div>
 	),

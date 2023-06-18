@@ -12,23 +12,10 @@ interface TextAreaFieldProps {
 }
 
 const TextAreaField = (
-	{ id, label, placeholder, autofocus = false, fullWidth = false, error, ...props }: TextAreaFieldProps,
+	{ id, label, placeholder, autofocus = false, fullWidth = false, error, ...rest }: TextAreaFieldProps,
 	ref,
 ) => {
-	const inputRef = useRef<any>(null)
-
-	const [value, setValue] = useState<any>()
-	const [onFocus, setOnFocus] = useState<boolean>(autofocus)
-	const [showPassword, setShowPassword] = useState<boolean>(false)
-
-	const _onFocus = useCallback(() => setOnFocus(true), [])
-	const _onBlur = useCallback(() => setOnFocus(false), [])
-	const _onChange = useCallback((e) => setValue(e.target.value), [])
-
-	useEffect(() => {
-		inputRef.current.focus()
-	}, [inputRef])
-
+	console.log(rest)
 	return (
 		<div className={`relative flex flex-col ${fullWidth ? 'w-full' : 'w-[230px]'}`}>
 			<label htmlFor={id} className="">
@@ -41,13 +28,9 @@ const TextAreaField = (
 			>
 				<div className="px-2 w-full">
 					<textarea
-						value={value}
-						ref={inputRef}
-						onFocus={_onFocus}
-						onBlur={_onBlur}
-						onChange={_onChange}
+						ref={ref}
 						className="relative rounded-md w-[100%] h-[90%] px-2 py-2 focus:border-primary outline-0 focus:outline-0"
-						{...props}
+						{...rest}
 					/>
 				</div>
 			</div>

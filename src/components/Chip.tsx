@@ -20,7 +20,6 @@ interface ChipGroupProps {
 	label?: string
 	defaultValue?: any
 	name?: string
-	onChange?: (e, v?) => void
 	multiple?: boolean
 }
 
@@ -49,8 +48,8 @@ const Chip = (
 		<div className={twMerge(`min-w-[70px] text-sm`)}>
 			<input
 				id={id}
-				type={isCheckbox ? 'checkbox' : 'radio'}
 				defaultChecked={defaultValue === value}
+				type="radio"
 				value={value}
 				disabled={disabled}
 				className="hidden peer"
@@ -70,19 +69,13 @@ const Chip = (
 	)
 }
 
-export const ChipGroup = forwardRef(
-	({ children, defaultValue, label, multiple = false, name, onChange }: ChipGroupProps, ref) => {
-		return (
-			<div className="flex flex-col gap-y-2">
-				{label && <span className="text-gray-400">{label}</span>}
-				<div className="inline-flex gap-x-4">
-					{React.Children.map(children, (child) =>
-						React.cloneElement(child, { defaultValue, onChange, isCheckbox: multiple, name }),
-					)}
-				</div>
-			</div>
-		)
-	},
-)
+export const ChipGroup = forwardRef(({ children, defaultValue, label, ...rest }: ChipGroupProps | any, ref) => (
+	<div className="flex flex-col gap-y-2">
+		{label && <span className="text-gray-400">{label}</span>}
+		<div className="inline-flex gap-x-4">
+			{React.Children.map(children, (child) => React.cloneElement(child, { defaultValue, ...rest }))}
+		</div>
+	</div>
+))
 
 export default forwardRef(Chip)

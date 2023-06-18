@@ -1,17 +1,15 @@
-import { forwardRef, useState } from 'react'
+import { forwardRef, useId, useState } from 'react'
 import { MdAccessTime } from 'react-icons/md'
 import { AnimatePresence, motion } from 'framer-motion'
 import { dropdownAnimation } from 'utils'
+import { times } from 'lodash'
 import moment from 'moment'
+import dayjs from 'dayjs'
 
-interface DatePickerProps {
-	value?: any
-	onChange?: (o) => void
-}
-
-const TimePicker = ({ value, onChange }: DatePickerProps, ref) => {
-	const [today, setToday] = useState<any>(value)
-	const [selectTime, setSelectTime] = useState<any>(value)
+const TimePicker = ({ ...rest }, ref) => {
+	const id = useId()
+	const [today, setToday] = useState<any>(rest.value)
+	const [selectTime, setSelectTime] = useState<any>(rest.value)
 	const [selectedDaytime, setSelectedDaytime] = useState<string>('am')
 	const [open, setOpen] = useState<boolean>(false)
 
@@ -21,6 +19,7 @@ const TimePicker = ({ value, onChange }: DatePickerProps, ref) => {
 	return (
 		<div className="relative" tabIndex={0} onBlur={handleClose}>
 			<button
+				id={id}
 				type="button"
 				className="flex gap-x-3 items-center cursor-default rounded-lg bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
 				onClick={handleOpen}
@@ -48,28 +47,14 @@ const TimePicker = ({ value, onChange }: DatePickerProps, ref) => {
 							className="absolute z-[90] max-h-72 overflow-y-scroll w-full p-3 mt-1 flex gap-x-2 rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
 						>
 							<div className="flex flex-col w-full">
-								{[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((time, idx) => (
+								{times(dayjs().endOf('day').hour(), (hour, idx) => (
 									<button
 										key={idx}
-										onClick={(e) => console.log(e)}
+										type="button"
+										onClick={(hour) => setSelectTime(hour)}
 										className={`text-[#B8C0C8] border-none bg-none outline-none my-1 hover:text-indigo-500 hover:font-semibold ease-in transition-all duration-75`}
 									>
-										{time + 1}:00
-									</button>
-								))}
-							</div>
-							<div className="flex flex-col w-full items-center">
-								{['am', 'pm'].map((daytime, idx) => (
-									<button
-										key={idx}
-										onClick={() => setSelectedDaytime(daytime)}
-										className={` my-1 w-8 h-6 text-[10px] p-auto align-middle rounded-md uppercase ease-in transition-all duration-75 border-2 ${
-											selectedDaytime === daytime
-												? 'border-indigo-500 bg-indigo-500 text-white'
-												: 'border-[#B8C0C8] bg-none text-[#B8C0C8]'
-										}`}
-									>
-										{daytime}
+										{hour + 1}:00 {hour < 11 ? 'AM' : 'PM'}
 									</button>
 								))}
 							</div>

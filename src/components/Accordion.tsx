@@ -25,9 +25,12 @@ export const AccordionSection = ({ children, title, expanded = false, icon }: Ac
 	const [expand, setExpand] = useState<boolean>(expanded)
 
 	return (
-		<div className=" p-4 shadow-md rounded-md ">
+		<div className=" p-4 shadow-md rounded-md">
 			<div className="flex min-w-[200px] justify-between items-center">
-				<div className="flex items-center space-x-3">
+				<div
+					className="flex flex-grow items-center space-x-3 cursor-pointer"
+					onClick={() => setExpand((prev) => !prev)}
+				>
 					{icon}
 					<p className="text-[20px] font-semibold">{title}</p>
 				</div>

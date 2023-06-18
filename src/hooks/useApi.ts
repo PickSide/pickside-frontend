@@ -64,7 +64,6 @@ const useApi = (): UseApiOutput => {
 				async (dispatch: Dispatch): Promise<any> => {
 					const createdActivity = await postItem({
 						endpoint: 'activities',
-						id: account?.id,
 						data: { ...data, organiser: account?.username },
 					})(dispatch)
 

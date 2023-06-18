@@ -1,42 +1,44 @@
-import { forwardRef, useState } from 'react'
+import { forwardRef, useId, useState } from 'react'
 import { IoIosAdd, IoIosRemove } from 'react-icons/io'
 import { NUMBERS_ONLY_REGEX } from 'utils'
 
 interface TextFieldProps {
-	id?: string
 	label?: string
 	placeholder?: string
 	autofocus?: boolean
-	isPassword?: boolean
 	readOnly?: boolean
 	error?: any
 	type?: string
 	fullWidth?: boolean
 	defaultValue?: number
 	maxValue?: any
+	onChange?: (e) => void
 }
 
 const NumberField = (
 	{
-		id,
 		label,
 		placeholder,
 		autofocus = false,
-		isPassword = false,
 		error,
 		type = 'text',
 		defaultValue,
 		readOnly = false,
 		fullWidth = false,
 		maxValue,
-		...props
-	}: TextFieldProps,
+		onChange,
+		...rest
+	}: TextFieldProps | any,
 	ref,
 ) => {
-	const [value, setValue] = useState<any>(0)
+	const id = useId()
+	const [value, setValue] = useState<number>(0)
+
+	const onFocus = (e) => e.target.select()
 
 	const increase = () =>
 		setValue((prev) => {
+			console.log(typeof prev)
 			if (maxValue && prev === maxValue) {
 				return prev
 			}
@@ -51,6 +53,11 @@ const NumberField = (
 			return prev - 1
 		})
 
+	const handleChange = (e) => {
+		setValue(Number(e.target.value))
+		onChange && onChange(e)
+	}
+
 	return (
 		<div className={`${!fullWidth ? 'max-w-[230px]' : ''} relative flex flex-col justify-center text-gray-400 py-2`}>
 			<label htmlFor={id} className="">
@@ -61,31 +68,34 @@ const NumberField = (
 					!!error ? 'border-[#d2333d] text-[#d2333d]' : readOnly ? 'border-gray-100' : 'border-gray-200'
 				} border-2 `}
 			>
-				<button
+				{/* <button
+					type="button"
 					className="rounded-md text-[20px] text-primary w-5 h-5 m-auto leading-5 disabled:text-gray-200 disabled:pointer-events-none hover:bg-gray-300"
 					onClick={decrease}
-					disabled={value == 0}
+					disabled={value === 0}
 				>
 					<IoIosRemove size={20} />
-				</button>
+				</button> */}
 				<input
-					type="text"
+					type="number"
 					disabled={readOnly}
 					ref={ref}
-					value={value}
 					placeholder={placeholder}
 					pattern={`${NUMBERS_ONLY_REGEX}`}
-					onChange={(e) => setValue(e.target.value)}
+					value={value}
+					onFocus={onFocus}
+					onChange={handleChange}
 					className="relative rounded-sm w-[60%] h-[80%] m-auto px-2 py-2 text-center outline-gray-200 focus:outline-primary disabled:bg-white disabled:cursor-not-allowed disabled:text-gray-300"
-					{...props}
+					{...rest}
 				/>
-				<button
+				{/* <button
+					type="button"
 					className="rounded-md text-[20px] text-primary w-5 h-5 m-auto leading-5 disabled:text-gray-200 disabled:pointer-events-none hover:bg-gray-300"
 					onClick={increase}
-					disabled={value == maxValue}
+					disabled={value === maxValue}
 				>
 					<IoIosAdd size={20} />
-				</button>
+				</button> */}
 			</div>
 		</div>
 	)
