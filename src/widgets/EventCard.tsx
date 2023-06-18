@@ -10,7 +10,7 @@ interface ActivityProps {
 }
 
 const EventCard: FC<ActivityProps> = ({ activity }) => {
-	const { id, title, description, participants, location, settings } = activity
+	const { id, title, participants, price, playTime, time, level, location, players } = activity
 
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
@@ -19,7 +19,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 	const [expanded, setExpanded] = useState<boolean>(false)
 
 	const account = useSelector((state: AppState) => state.account)
-
+	console.log(price)
 	return (
 		<>
 			<Dialog
@@ -40,31 +40,32 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 			>
 				<div className="flex flex-col items-center mb-7">
 					<span className="text-[25px] font-semibold">{title}</span>
-					<span className="text-[15px] font-normal">{description}</span>
 				</div>
 				<div className="m-auto grid grid-cols-3 gap-12 gap-y-6 text-[15px] text-center h-[120px]">
 					<div>
 						<span className="capitalize font-semibold flex flex-col items-center">
-							{(participants || []).length} / {settings.maxPlayers}
+							{(participants || []).length} / {players}
 						</span>
 						<span>{t('Players')}</span>
 					</div>
 					<div>
-						<span className="capitalize font-semibold flex flex-col items-center">
+						{/* <span className="capitalize font-semibold flex flex-col items-center">
 							{settings.clothingColor.join(',')}
-						</span>
+						</span> */}
 						<span>{t('Clothing color')}</span>
 					</div>
 					<div>
-						<span className="font-semibold flex flex-col items-center">{settings.pricePp}$</span>
+						<span className="font-semibold flex flex-col items-center uppercase">
+							{price === 0 ? 'Free' : `${price}$`}
+						</span>
 						<span>{t('Price')}</span>
 					</div>
 					<div>
-						<span className="font-semibold flex flex-col items-center">{settings.level}</span>
+						<span className="font-semibold flex flex-col items-center">{level}</span>
 						<span>{t('Level')}</span>
 					</div>
 					<div>
-						<span className="font-semibold flex flex-col items-center">{settings.playTime}</span>
+						<span className="font-semibold flex flex-col items-center">{playTime + 1}</span>
 						<span>{t('Play time')}</span>
 					</div>
 					<div className=" flex flex-col items-center justify-center">

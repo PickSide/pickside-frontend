@@ -64,7 +64,6 @@ const useApi = (): UseApiOutput => {
 				async (dispatch: Dispatch): Promise<any> => {
 					const createdActivity = await postItem({
 						endpoint: 'activities',
-						id: account?.id,
 						data: { ...data, organiser: account?.username },
 					})(dispatch)
 
@@ -139,7 +138,7 @@ const useApi = (): UseApiOutput => {
 				endpoint: `account/${account?._id}/settings`,
 				data
 			})(dispatch)
-
+			console.log(data)
 			if (items) {
 				dispatch(updateConfig(data))
 			}

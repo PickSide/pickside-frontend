@@ -78,7 +78,6 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 							placeholder={t('Enter username')}
 							startContent={<BiUser size={20} />}
 							fullWidth
-							dense
 							{...field}
 						/>
 					)}
@@ -97,7 +96,6 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 							startContent={<BiLockAlt size={20} />}
 							isPassword
 							fullWidth
-							dense
 							{...field}
 						/>
 					)}
@@ -106,7 +104,7 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 					name="remeberMe"
 					control={control}
 					render={({ field, fieldState: { invalid, isTouched, isDirty, error }, formState }) => (
-						<Checkbox label={t('Remember me')} dense {...field} />
+						<Checkbox label={t('Remember me')} {...field} />
 					)}
 				/>
 				<Button

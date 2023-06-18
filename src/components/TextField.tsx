@@ -6,7 +6,6 @@ interface TextFieldProps {
 	label?: string
 	placeholder?: string
 	startContent?: ReactNode
-	dense?: boolean
 	autofocus?: boolean
 	isPassword?: boolean
 	readOnly?: boolean
@@ -22,7 +21,6 @@ const TextField = (
 		label,
 		startContent,
 		placeholder,
-		dense = false,
 		autofocus = false,
 		isPassword = false,
 		error,
@@ -30,20 +28,14 @@ const TextField = (
 		defaultValue,
 		readOnly = false,
 		fullWidth = false,
-		...props
+		...rest
 	}: TextFieldProps,
 	ref,
 ) => {
-	const [value, setValue] = useState<any>(defaultValue)
-	const [onFocus, setOnFocus] = useState<boolean>(autofocus)
 	const [showPassword, setShowPassword] = useState<boolean>(false)
 
-	const _onFocus = useCallback(() => setOnFocus(true), [])
-	const _onBlur = useCallback(() => setOnFocus(false), [])
-	const _onChange = useCallback((e) => setValue(e.target.value), [])
-
 	return (
-		<div className={`${!fullWidth ? 'max-w-[230px]' : ''} relative flex flex-col text-gray-400 ${dense ? 'mb-6' : ''}`}>
+		<div className={`${!fullWidth ? 'max-w-[230px]' : ''} relative flex flex-col text-gray-400`}>
 			<label htmlFor={id} className="">
 				<span className="text-gray-400">{label}</span>
 			</label>
@@ -59,14 +51,11 @@ const TextField = (
 						type={isPassword && !showPassword ? 'password' : type}
 						autoComplete="off"
 						disabled={readOnly}
-						value={value}
+						value={defaultValue}
 						ref={ref}
 						placeholder={placeholder}
-						onFocus={_onFocus}
-						onBlur={_onBlur}
-						onChange={_onChange}
 						className="relative rounded-md w-[95%] h-[90%] px-2 py-2 focus:border-primary outline-0 focus:outline-0 disabled:bg-white disabled:cursor-not-allowed disabled:text-gray-300"
-						{...props}
+						{...rest}
 					/>
 				</div>
 				{isPassword && (

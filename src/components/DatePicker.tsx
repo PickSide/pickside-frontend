@@ -4,18 +4,12 @@ import dayjs from 'dayjs'
 import { AnimatePresence, motion } from 'framer-motion'
 import { generateDate, weeks, months, dropdownAnimation } from 'utils'
 
-interface DatePickerProps {
-	value?: dayjs.Dayjs
-	onChange?: (o) => void
-}
-
-const DatePicker = ({ onChange, value = dayjs(), ...props }: DatePickerProps | any, ref) => {
+const DatePicker = ({ value = dayjs(), onChange, ...rest }, ref) => {
 	const [today, setToday] = useState<dayjs.Dayjs>(value)
 	const [selectDate, setSelectDate] = useState<dayjs.Dayjs>(value)
 	const [open, setOpen] = useState<boolean>(false)
 
 	const handleOpen = () => setOpen(true)
-
 	const handleSelect = (date) => {
 		setSelectDate(date)
 		onChange(date)
@@ -23,7 +17,7 @@ const DatePicker = ({ onChange, value = dayjs(), ...props }: DatePickerProps | a
 	}
 
 	return (
-		<>
+		<div className="relative" tabIndex={0}>
 			<button
 				type="button"
 				className="flex gap-x-3 items-center cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
@@ -49,18 +43,19 @@ const DatePicker = ({ onChange, value = dayjs(), ...props }: DatePickerProps | a
 							initial="closed"
 							animate="open"
 							exit="exit"
-							className="absolute z-50 mt-1 w-fit overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+							className="absolute z-[90] mt-1 w-72 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
 						>
-							<div className="flex items-center h-12 gap-x-3 p-3">
+							{/* <div className="flex items-center h-12 gap-x-3 p-3">
 								<button className="bg-gray-100 rounded-md border-none p-2 font-semibold hover:bg-gray-200 ease-in transition-all duration-75">
 									Today
 								</button>
 								<button className="bg-gray-100 rounded-md border-none p-2 font-semibold hover:bg-gray-200">
 									Tomorrow
 								</button>
-							</div>
+							</div> */}
 							<div className="flex justify-between px-4">
 								<button
+									type="button"
 									disabled={today.month() <= 0}
 									className="rounded-md hover:bg-gray-200 shadow-sm outline-none font-primary m-2 p-1"
 									onClick={() => setToday(today.month(today.month() - 1))}
@@ -71,6 +66,7 @@ const DatePicker = ({ onChange, value = dayjs(), ...props }: DatePickerProps | a
 									{months[today.month()]}
 								</span>
 								<button
+									type="button"
 									disabled={today.month() >= 11}
 									className="rounded-md hover:bg-gray-200 shadow-sm outline-none font-primary m-2 p-1"
 									onClick={() => setToday(today.month(today.month() + 1))}
@@ -89,6 +85,7 @@ const DatePicker = ({ onChange, value = dayjs(), ...props }: DatePickerProps | a
 								{generateDate(today.month(), today.year()).map(({ date, currentMonth, today, afterToday }, idx) =>
 									today ? (
 										<button
+											type="button"
 											key={idx}
 											className="rounded-md block w-6 h-6 pointer-events-none bg-indigo-500 text-white border-none outline-none font-primary m-2"
 										>
@@ -96,6 +93,7 @@ const DatePicker = ({ onChange, value = dayjs(), ...props }: DatePickerProps | a
 										</button>
 									) : selectDate?.toDate().toDateString() === date.toDate().toDateString() ? (
 										<button
+											type="button"
 											key={idx}
 											disabled={true}
 											onClick={() => handleSelect(date)}
@@ -105,6 +103,7 @@ const DatePicker = ({ onChange, value = dayjs(), ...props }: DatePickerProps | a
 										</button>
 									) : (
 										<button
+											type="button"
 											key={idx}
 											disabled={!currentMonth || !afterToday}
 											onClick={() => handleSelect(date)}
@@ -119,7 +118,7 @@ const DatePicker = ({ onChange, value = dayjs(), ...props }: DatePickerProps | a
 					</>
 				)}
 			</AnimatePresence>
-		</>
+		</div>
 	)
 }
 

@@ -1,17 +1,12 @@
-import { FC, ReactNode, useCallback, useState, useRef, useEffect, forwardRef } from 'react'
-
-import { Button } from 'components'
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
-import { BsCheckCircleFill, BsXCircleFill } from 'react-icons/bs'
+import { forwardRef } from 'react'
 
 interface CheckboxProps {
-	dense?: boolean
 	label?: string
 }
 
-const Checkbox = ({ dense = false, label, ...props }: CheckboxProps | any, ref) => {
+const Checkbox = ({ label, ...props }: CheckboxProps | any, ref) => {
 	return (
-		<div className={`relative flex w-fit ${dense ? 'mb-6' : ''}`}>
+		<div className={`relative flex w-fit`}>
 			<div className="inline-flex items-center gap-x-3">
 				<input
 					type="checkbox"

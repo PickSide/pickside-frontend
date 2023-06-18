@@ -1,24 +1,29 @@
 import React from 'react'
 import {
 	Accordion,
+	AccordionSection,
 	Alert,
 	Button,
 	Chip,
+	ChipGroup,
 	Dropdown,
 	DatePicker,
 	IconDropdown,
 	MenuItem,
 	Switch,
 	Stepper,
-	GroupRadio,
+	Radio,
+	RadioGroup,
 	TimePicker,
+	Toggle,
 	ToggleGroup,
 	Map,
+	NumberField,
 } from 'components'
 import { Toast } from 'widgets'
 import { BiAddToQueue } from 'react-icons/bi'
-import { MdDarkMode } from 'react-icons/md'
 import { CiLight } from 'react-icons/ci'
+import { TfiSharethis } from 'react-icons/tfi'
 import { FiSettings } from 'react-icons/fi'
 
 const About = () => {
@@ -35,9 +40,12 @@ const About = () => {
 				<Switch tertiary />
 			</div>
 			<div className="flex justify-center gap-x-4">
-				<Chip primary label="Chip" />
-				<Chip secondary label="Chip" />
-				<Chip tertiary label="Chip" />
+				<ChipGroup defaultValue="green" label="Chip labels" name="test" onChange={(e) => console.log(e)}>
+					<Chip text="Primary" value="primary" />
+					<Chip text="Green" value="green" icon={<CiLight size={15} />} chipColor="green" />
+					<Chip text="Blue" value="blue" chipColor="blue" />
+					<Chip text="Red" value="red" chipColor="red" />
+				</ChipGroup>
 			</div>
 			<div className="flex justify-center gap-x-4">
 				<Toast show type="info">
@@ -74,17 +82,16 @@ const About = () => {
 				</IconDropdown>
 			</div>
 			<div className="flex justify-center gap-x-4">
-				<GroupRadio
-					options={[
-						{ value: 'a', label: 'Radio normal', description: 'This button is clickable', disabled: false },
-						{ value: 'b', label: 'Radio disabled', description: 'This button is disabled', disabled: false },
-						{ value: 'b', label: 'Radio disabled', description: 'This button is disabled', disabled: true },
-					]}
-					onChange={(option) => console.log(option)}
-					getOptionDescription={(option) => option?.description}
-					getOptionDisabled={(option) => option?.disabled}
-					getOptionLabel={(option) => option?.label}
-				/>
+				<RadioGroup name="test" label="A group radio button" onChange={(option) => console.log(option)}>
+					<Radio text="Radio Normal" value="a" description="This button is clickable" />
+					<Radio
+						text="Radio with icon"
+						value="b"
+						icon={<TfiSharethis size={30} />}
+						description="This button is clickable"
+					/>
+					<Radio text="Radio disabled" value="c" description="This button is disabled" disabled />
+				</RadioGroup>
 			</div>
 			<div className="flex justify-center gap-x-4 w-[50%] mx-auto">
 				<Stepper
@@ -121,35 +128,26 @@ const About = () => {
 				<TimePicker onChange={(option) => console.log(option)} />
 			</div>
 			<div className="flex justify-center gap-x-4">
-				<ToggleGroup
-					options={[
-						{ icon: <CiLight size={20} />, defaultChecked: true, name: 'lightmode' },
-						{ icon: <MdDarkMode size={20} />, name: 'darkmode' },
-					]}
-					onChange={(option) => console.log(option)}
-				/>
+				<ToggleGroup name="test" onChange={(e) => console.log('checked', e.target.checked)} defaultValue="hi">
+					<Toggle text="Hi" value="hi" />
+					<Toggle text="Bye" value="bye" />
+				</ToggleGroup>
 			</div>
 			<div className="flex justify-center gap-x-4">
-				<Accordion
-					sections={[
-						{
-							title: 'Header',
-							icon: <FiSettings size={25} />,
-							expanded: true,
-							content: <p>Hello</p>,
-						},
-						{
-							title: 'Header',
-							icon: <FiSettings size={25} />,
-							content: <p>Hello</p>,
-						},
-						{
-							title: 'Header',
-							icon: <FiSettings size={25} />,
-							content: <p>Hello</p>,
-						},
-					]}
-				/>
+				<Accordion>
+					<AccordionSection title="Header" icon={<FiSettings size={25} />} expanded={true}>
+						<p>Hello</p>
+					</AccordionSection>
+					<AccordionSection title="Header" icon={<FiSettings size={25} />}>
+						<p>Hello</p>
+					</AccordionSection>
+					<AccordionSection title="Header" icon={<FiSettings size={25} />}>
+						<p>Hello</p>
+					</AccordionSection>
+				</Accordion>
+			</div>
+			<div className="flex justify-center gap-x-4">
+				<NumberField label="Input stepper" />
 			</div>
 			{/* <div className="flex justify-center gap-x-4">
 				<div className="relative w-72 h-44">

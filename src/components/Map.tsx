@@ -1,21 +1,19 @@
-import { FC, useRef, useState } from 'react'
+import { FC, useMemo, useRef, useState, forwardRef } from 'react'
 import { Autocomplete, GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 
-interface MapProps {
-	width?: string
-	height?: string
-}
-
-const Map: FC<MapProps> = ({ width = '100%', height = '100%', ...props }) => {
+const Map = (props, ref) => {
 	//	const [selected, setSelected] = useState<any>()
 
 	const [searchResult, setSearchResult] = useState('')
 	const autocompleteRef = useRef()
 
-	const mapContainerStyle = {
-		width: '600px',
-		height: '300px',
-	}
+	const mapContainerStyle = useMemo(
+		() => ({
+			width: ref?.current?.offsetWidth || '600px',
+			height: ref?.current?.offsetWidth || '300px',
+		}),
+		[ref],
+	)
 
 	const center = { lat: 45.5490424, lng: -73.6573323 }
 
@@ -28,7 +26,7 @@ const Map: FC<MapProps> = ({ width = '100%', height = '100%', ...props }) => {
 	const onLoad = () => {
 		const autocomplete = autocompleteRef.current
 	}
-
+	console.log('-->', ref?.current)
 	const onPlaceChanged = () => {
 		//setSearchResult(place)
 	}
@@ -42,11 +40,11 @@ const Map: FC<MapProps> = ({ width = '100%', height = '100%', ...props }) => {
 					placeholder="Search for location"
 				/>
 			</Autocomplete>
-			<GoogleMap zoom={12} mapContainerStyle={mapContainerStyle} center={center}></GoogleMap>
+			{/* <GoogleMap zoom={12} mapContainerStyle={mapContainerStyle} center={center}></GoogleMap> */}
 		</div>
 	) : (
 		<></>
 	)
 }
 
-export default Map
+export default forwardRef(Map)

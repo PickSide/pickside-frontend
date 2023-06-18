@@ -2,7 +2,7 @@ import { FC, useCallback, useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { DatePicker, Select, Stepper, GroupRadio, TimePicker, Map, Switch } from 'components'
+import { DatePicker, Select, Stepper, RadioGroup, Radio, TimePicker, Map, Switch } from 'components'
 import { NUMBERS_ONLY_REGEX } from 'utils'
 import { useApi } from 'hooks'
 import { AppState, Sport } from 'state'
@@ -72,19 +72,18 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 								options={sports?.results}
 								getOptionLabel={(option) => option.name}
 								getOptionDisabled={(option) => !option.featureAvailable}
-								dense
 								{...register('sport')}
 								onChange={(value) => setValue('sport', value)}
 							/>
-							<GroupRadio
+							<RadioGroup
 								defaultValue={watch('mode')}
-								options={sportModes}
-								getOptionLabel={(option) => option.name}
-								getOptionDescription={(option) => option.description}
-								dense
 								{...register('mode')}
 								onChange={(mode) => setValue('mode', mode)}
-							/>
+							>
+								{sportModes?.map((mode, idx) => (
+									<Radio key={idx} text={mode.name} description={mode.description} value={mode.value} />
+								))}
+							</RadioGroup>
 							<div className="mb-6 flex gap-x-2">
 								<DatePicker value={watch('date')} {...register('date')} onChange={(date) => setValue('date', date)} />
 							</div>
@@ -109,7 +108,6 @@ const RegisterEventForm: FC<RegisterEventFormProps | any> = ({ onClose, ...props
 									options={playables?.results}
 									getOptionLabel={(option) => option.fieldName}
 									getOptionDisabled={(option) => !option.available}
-									dense
 									fullWidth
 									{...register('location')}
 									onChange={(location) => setValue('location', location)}

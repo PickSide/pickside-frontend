@@ -36,7 +36,7 @@ const IconDropdown = ({ className, children, icon, ...props }: DropdownProps, re
 					<>
 						<div className="fixed inset-0 w-screen h-screen z-50" onClick={() => setIsOpen(false)}></div>
 						<motion.div
-							className="absolute min-w-6 min-h-6 top-10 right-6 mt-2 origin-top-right z-50 rounded-md bg-white shadow-lg ring-black ring-opacity-5 focus:outline-none"
+							className="absolute z-[90] min-w-6 min-h-6 top-10 right-6 mt-2 p-2 origin-top-right rounded-md bg-white shadow-lg ring-black ring-opacity-5 focus:outline-none"
 							role="menu"
 							initial="closed"
 							animate="open"
