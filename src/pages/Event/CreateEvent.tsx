@@ -88,7 +88,7 @@ const CreateEvent = () => {
 						<SoccerConfigs form={form} />
 					</AccordionSection>
 				</Accordion>
-				<Button type="submit" loading={loading}>
+				<Button type="submit" isLoading={loading} disabled={loading}>
 					{t('Create')}
 				</Button>
 			</form>
