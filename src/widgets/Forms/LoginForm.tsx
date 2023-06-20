@@ -117,7 +117,7 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 			<div className="flex gap-x-2">
 				<span className="text-gray-500">{t(`Don't have an account?`)}</span>
 				<Link to="/signup" className="font-semibold text-primary hover:text-gray-400/90 hover:scale-105">
-					{t('Sign in')}
+					{t('Sign up')}
 				</Link>
 			</div>
 		</div>

@@ -4,6 +4,7 @@ import { ButtonVariant } from 'utils'
 
 interface ButtonProps {
 	variant?: ButtonVariant
+	className?: string
 	icon?: ReactNode
 	disabled?: boolean
 	isLoading?: boolean
@@ -23,7 +24,12 @@ const Button = (
 	}
 
 	return (
-		<button className={twMerge('icon-btn', `${variants[variant]}`)} disabled={disabled} onClick={onClick} {...rest}>
+		<button
+			className={twMerge('icon-btn', [rest.className, variants[variant]].join(' '))}
+			disabled={disabled}
+			onClick={onClick}
+			{...rest}
+		>
 			{icon}
 		</button>
 	)

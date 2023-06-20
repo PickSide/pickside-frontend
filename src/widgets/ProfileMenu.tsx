@@ -20,11 +20,6 @@ const ProfileMenu: FC<any> = () => {
 
 	const UserMenuItems = [
 		{
-			label: t('History'),
-			icon: <MdOutlineHistory size={20} />,
-			action: () => navigate('/user/history'),
-		},
-		{
 			label: t('Profile'),
 			icon: <MdPersonOutline size={20} />,
 			action: () => navigate('/user/profile'),
@@ -33,6 +28,11 @@ const ProfileMenu: FC<any> = () => {
 			label: t('Settings'),
 			icon: <MdOutlineSettings size={20} />,
 			action: () => navigate('/user/app-settings'),
+		},
+		{
+			label: t('History'),
+			icon: <MdOutlineHistory size={20} />,
+			action: () => navigate('/user/history'),
 		},
 		{
 			label: t('Logout'),

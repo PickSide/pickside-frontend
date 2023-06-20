@@ -58,9 +58,10 @@ const TextField = (
 				/>
 				{isPassword && (
 					<button
+						tabIndex={-1}
 						type="button"
 						onClick={() => setShowPassword(!showPassword)}
-						className="text-gray-500 cursor-pointer w-12 h-5 flex justify-center"
+						className="rounded-md text-gray-500 cursor-pointer w-12 h-12 p-2 m-auto outline-none peer-hover:bg-gray-200"
 					>
 						{showPassword ? <AiOutlineEyeInvisible size={20} /> : <AiOutlineEye size={20} />}
 					</button>

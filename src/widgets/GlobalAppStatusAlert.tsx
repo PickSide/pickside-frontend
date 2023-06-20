@@ -17,7 +17,7 @@ const GlobalAppStatusAlert: FC<any> = () => {
 				<div className="fixed z-[200] w-full xl:w-fit xl:left-1/2 xl:-translate-x-1/2">
 					<Alert
 						severity={appStatus?.status}
-						action={<IconButton onClick={() => dispatch<any>(setStatus(null))} icon={<BsX size={25} />} />}
+						action={<IconButton className='text-white' onClick={() => dispatch<any>(setStatus(null))} icon={<BsX size={25} />} />}
 					>
 						<span>{appStatus?.message}</span>
 					</Alert>
