@@ -108,12 +108,11 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 					)}
 				/>
 				<Button
+					text={t('Login')}
 					type="submit"
 					isLoading={loading}
 					className="rounded-md bg-primary text-white font-semibold h-[50px] transition-all duration-75 ease-in hover:bg-secondary"
-				>
-					{t('Login')}
-				</Button>
+				/>
 			</form>
 			<div className="flex gap-x-2">
 				<span className="text-gray-500">{t(`Don't have an account?`)}</span>

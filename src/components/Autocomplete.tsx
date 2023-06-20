@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo, useState } from 'react'
+import { FC, useCallback, useId, useMemo, useState } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import { useTranslation } from 'react-i18next'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -10,6 +10,8 @@ interface AutocompleteProps<T> {
 	placeholder?: string
 	options?: any[T]
 	loading?: boolean
+	fullWidth?: boolean
+	label?: string
 	onChange?: (v) => void
 	getOptionLabel?: (o) => string
 	groupBy?: (o) => string
@@ -25,13 +27,16 @@ const KEYS_BINDS = {
 
 const Autocomplete: FC<AutocompleteProps<any>> = ({
 	placeholder,
-	loading,
+	loading = false,
+	fullWidth = false,
+	label,
 	getOptionLabel,
 	groupBy,
 	options,
 	onChange,
 	...props
 }) => {
+	const id = useId()
 	const { t } = useTranslation()
 	const [query, setQuery] = useState<any>()
 	const [value, setValue] = useState<string>('')
@@ -135,11 +140,15 @@ const Autocomplete: FC<AutocompleteProps<any>> = ({
 	}
 
 	return (
-		<div className="relative flex flex-col w-fit">
-			<div className="relative min-w-[300px] pl-2 pr-[40px] py-2 rounded-md h-[50px] bg-white outline-slate-800 focus-within:border-2 focus-within:border-none">
+		<div className={`${!fullWidth ? 'max-w-[400px]' : ''} relative flex flex-col text-gray-400`}>
+			<label htmlFor={id} className="">
+				<span className="text-gray-400">{label}</span>
+			</label>
+			<div className="inline-flex w-full items-center rounded-md h-[50px] bg-white border-gray-200 border-2 focus-within:border-2 focus-within:border-primary">
 				<input
-					className="relative rounded-md w-[90%] h-full px-2 py-2 focus:border-primary outline-0 focus:outline-0"
-					id="autocomplete"
+					className="relative rounded-md w-[95%] h-[90%] px-2 py-2 focus:border-primary outline-0 focus:outline-0"
+					id={id}
+					autoComplete="on"
 					type="text"
 					value={value}
 					placeholder={placeholder}
@@ -147,14 +156,19 @@ const Autocomplete: FC<AutocompleteProps<any>> = ({
 					onBlur={_onBlur}
 					onKeyDown={_onKeyDown}
 					onChange={_onInputChange}
-					autoComplete="off"
 					{...props}
 				/>
-				<label htmlFor="autocomplete" className="absolute rounder right-2 top-3 hover:bg-slate-100 cursor-pointer">
-					<span className="text-[#82cac3]">
-						{showOptions ? <MdArrowDropUp size={25} /> : <MdArrowDropDown size={25} />}
-					</span>
-				</label>
+				<button
+					type="button"
+					onClick={() => setOnFocus(!showOptions)}
+					className="text-gray-500 btn-icon cursor-pointer w-12 flex justify-center"
+				>
+					{showOptions ? (
+						<MdArrowDropUp className="hover:bg-gray-200" size={25} />
+					) : (
+						<MdArrowDropDown className="hover:bg-gray-200" size={25} />
+					)}
+				</button>
 			</div>
 
 			<AnimatePresence initial={false} mode="wait">

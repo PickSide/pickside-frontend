@@ -2,15 +2,25 @@ import { ReactNode, forwardRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { dropdownAnimation } from 'utils'
 import { KEY_CODES } from 'utils'
+import { twMerge } from 'tailwind-merge'
 
 interface DropdownProps {
 	children?: ReactNode
-	noIcon?: ReactNode
+	className?: string
+	start?: ReactNode
 	text?: string
+	type?: 'button' | 'reset' | 'submit'
 	variant?: 'primary' | 'secondary' | 'tertiary'
 }
 
-const Dropdown = ({ children, variant = 'primary', text }: DropdownProps, ref) => {
+const Dropdown = ({ children, start, variant = 'primary', type = 'button', text, ...rest }: DropdownProps, ref) => {
+	const variants = {
+		primary: 'text-white bg-primary hover:bg-gray-200',
+		secondary: 'text-primary',
+		tertiary: 'text-primary hover:bg-gray-200',
+		danger: 'text-danger',
+	}
+
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 
 	const handler = (e) => {
@@ -22,15 +32,16 @@ const Dropdown = ({ children, variant = 'primary', text }: DropdownProps, ref) =
 	return (
 		<div className="z-[60] relative inline-block text-left">
 			<button
-				type="button"
 				onClick={() => setIsOpen(true)}
 				onKeyDown={handler}
-				className={`btn-${variant} flex  items-center space-x-2`}
+				className={twMerge('btn-base inline-flex items-center gap-x-2', [variants[variant]].join(' '))}
 				id="menu-button"
 				aria-expanded="true"
 				aria-haspopup="true"
+				{...rest}
 			>
-				{text && <span>{text}</span>}
+				{start}
+				{text}
 			</button>
 			<AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
 				{isOpen && (
@@ -42,8 +53,8 @@ const Dropdown = ({ children, variant = 'primary', text }: DropdownProps, ref) =
 							aria-orientation="vertical"
 							aria-labelledby="menu-button"
 							initial="closed"
-							animate='open'
-							exit='closed'
+							animate="open"
+							exit="closed"
 							variants={dropdownAnimation}
 						>
 							{children}

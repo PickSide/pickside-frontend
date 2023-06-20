@@ -16,7 +16,7 @@
 		background-color: transparent !important;
 		-webkit-box-shadow: 0 0 0 50px white inset;
 	}
-	
+
 	/* Chrome, Safari, Edge, Opera */
 	input::-webkit-outer-spin-button,
 	input::-webkit-inner-spin-button {
@@ -46,7 +46,7 @@
 	::-webkit-scrollbar-thumb {
 		-webkit-border-radius: 10px;
 		-webkit-border: 10px;
-		background: #038676;
+		background: #adadad;
 	}
 
 	/* Handle on hover */
@@ -74,42 +74,6 @@
 		@apply scrollbar-thin scrollbar-thumb-accent scrollbar-track-gray-100;
 	}
 
-	.btn-primary {
-		@apply rounded text-white font-semibold bg-[#159586] ease-linear transition-all duration-75 active:bg-[#47c2ed] focus:bg-[#2084b6] hover:bg-[#0e685b] uppercase text-sm px-6 py-3;
-	}
-
-	.btn-secondary {
-		@apply rounded text-white font-semibold bg-[#2ca9dd] ease-linear transition-all duration-75 active:bg-[#47c2ed] focus:bg-[#2084b6] hover:bg-[#33b7ec] uppercase text-sm px-6 py-3;
-	}
-
-	.btn-tertiary {
-		@apply rounded text-[15px] text-secondary font-semibold bg-none outline-none ease-linear transition-all duration-100 hover:text-slate-400 px-6 py-3 uppercase;
-	}
-
-	.btn-icon {
-		@apply rounded-md text-white ease-linear transition-all duration-75 p-1 m-2 hover:scale-110 hover:bg-gray-200/70;
-	}
-
-	.btn-disabled {
-		@apply rounded text-white font-semibold bg-slate-200 opacity-70 cursor-not-allowed uppercase text-sm px-6 py-3;
-	}
-
-	.chip-primary {
-		@apply bg-[#159586];
-	}
-
-	.chip-secondary {
-		@apply bg-[#2ca9dd];
-	}
-
-	.chip-tertiary {
-		@apply bg-none outline-none;
-	}
-
-	.chip-disabled {
-		@apply rounded text-white font-semibold bg-slate-200 opacity-70 cursor-not-allowed uppercase text-sm px-6 py-3;
-	}
-
 	.tab {
 		@apply text-[#51b5aa] cursor-pointer ease-linear transition-all duration-75 hover:scale-110 focus:text-[#47c2ed];
 	}
@@ -119,6 +83,21 @@
 	}
 
 	.section {
-		@apply py-8 px-6 items-center;
+		@apply p-2 w-1/2 mx-auto items-center;
+	}
+
+	/* BUTTONS */
+	.btn-base {
+		@apply rounded font-semibold ease-linear transition-all duration-75 uppercase text-sm p-6 py-3 disabled:bg-slate-200 disabled:opacity-70 disabled:cursor-not-allowed;
+	}
+
+	/* CHIPS */
+	.chip-base {
+		@apply rounded font-semibold uppercase text-sm px-6 py-3 disabled:bg-slate-200 diabled:opacity-70 disabled:cursor-not-allowed;
+	}
+
+	/* ICONS */
+	.icon-btn {
+		@apply rounded-md ease-linear transition-all duration-75 p-1 m-2 hover:scale-110 hover:bg-gray-200/70;
 	}
 }

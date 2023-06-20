@@ -10,6 +10,7 @@ import Dropdown from './Dropdown'
 import EditField from './EditField'
 import EmailField from './EmailField'
 import Gallery from './Gallery'
+import IconButton from './IconButton'
 import IconDropdown from './IconDropdown'
 import MapMarker from './MapMarker'
 import MenuItem from './MenuItem'
@@ -48,6 +49,7 @@ export {
 	EditField,
 	EmailField,
 	Gallery,
+	IconButton,
 	IconDropdown,
 	MapMarker,
 	MenuItem,

@@ -21,22 +21,22 @@ const ProfileMenu: FC<any> = () => {
 	const UserMenuItems = [
 		{
 			label: t('History'),
-			icon: <MdOutlineHistory size={25} />,
+			icon: <MdOutlineHistory size={20} />,
 			action: () => navigate('/user/history'),
 		},
 		{
 			label: t('Profile'),
-			icon: <MdPersonOutline size={25} />,
+			icon: <MdPersonOutline size={20} />,
 			action: () => navigate('/user/profile'),
 		},
 		{
 			label: t('Settings'),
-			icon: <MdOutlineSettings size={25} />,
+			icon: <MdOutlineSettings size={20} />,
 			action: () => navigate('/user/app-settings'),
 		},
 		{
 			label: t('Logout'),
-			icon: <MdLogout size={25} />,
+			icon: <MdLogout size={20} />,
 			action: async () => {
 				await dispatch<any>(logout())
 				navigate('/login')
@@ -45,7 +45,7 @@ const ProfileMenu: FC<any> = () => {
 	]
 
 	return (
-		<IconDropdown icon={<MdAccountCircle size={25} />}>
+		<IconDropdown icon={<MdAccountCircle size={20} />}>
 			<MenuItem disabled>{userInitials}</MenuItem>
 			{UserMenuItems.map(({ action, label, icon }, idx) => (
 				<MenuItem key={idx} icon={icon} onClick={() => action()}>

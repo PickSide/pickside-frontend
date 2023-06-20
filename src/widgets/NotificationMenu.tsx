@@ -9,7 +9,7 @@ const NotificationMenu: FC<any> = () => {
 
 	return (
 		<div>
-			<IconDropdown icon={<MdOutlineNotifications size={25} />}>
+			<IconDropdown icon={<MdOutlineNotifications size={20} />}>
 				{notifications?.results?.map((notification, idx) => (
 					<MenuItem
 						key={idx}

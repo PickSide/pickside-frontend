@@ -1,7 +1,7 @@
 import { FC, useCallback, forwardRef, useEffect, useMemo, useState } from 'react'
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from 'react-icons/md'
 import { VscCircle, VscCircleFilled } from 'react-icons/vsc'
-import { Button } from 'components'
+import { Button, IconButton } from 'components'
 import { motion } from 'framer-motion'
 import { fadeIn } from 'utils'
 
@@ -47,8 +47,7 @@ const Gallery = ({ images = IMAGES, ...props }, ref) => {
 
 	const handleBottomNav = (e, idx) => setCurrentIdx(idx)
 
-	useEffect(() => {
-	}, [currentIdx, direction, ref])
+	useEffect(() => {}, [currentIdx, direction, ref])
 
 	return (
 		<div className="relative w-full h-[300px] overflow-hidden">
@@ -60,24 +59,22 @@ const Gallery = ({ images = IMAGES, ...props }, ref) => {
 			<div className="absolute w-full h-full z-10"></div>
 			{showLeft && (
 				<div className="absolute left-5 top-1/2 -translate-y-1/4 z-10">
-					<Button isIcon onClick={goLeft}>
-						<MdOutlineKeyboardArrowLeft size={20} />
-					</Button>
+					<IconButton icon={<MdOutlineKeyboardArrowLeft size={20} />} onClick={goLeft} />
 				</div>
 			)}
 			{showRight && (
 				<div className="absolute right-5 top-1/2 -translate-y-1/4 z-10">
-					<Button isIcon onClick={goRight}>
-						<MdOutlineKeyboardArrowRight size={20} />
-					</Button>
+					<IconButton icon={<MdOutlineKeyboardArrowRight size={20} />} onClick={goRight} />
 				</div>
 			)}
 			{images?.length > 1 && (
 				<div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10">
 					{images.map((x, idx) => (
-						<Button isIcon key={idx} onClick={(e) => handleBottomNav(e, idx)}>
-							{currentIdx === idx ? <VscCircleFilled size={20} /> : <VscCircle size={20} />}
-						</Button>
+						<IconButton
+							key={idx}
+							icon={currentIdx === idx ? <VscCircleFilled size={20} /> : <VscCircle size={20} />}
+							onClick={(e) => handleBottomNav(e, idx)}
+						/>
 					))}
 				</div>
 			)}

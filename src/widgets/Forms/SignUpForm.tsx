@@ -157,13 +157,12 @@ const SignUpForm: FC<SignUpFormProps> = () => {
 				<Checkbox label={t('I agree to the terms of service and privacy policy.')} {...register('agreement')} />
 
 				<Button
+					text={t('Sign up')}
 					type="submit"
 					disabled={!watch('agreement')}
 					isLoading={loading}
 					className="rounded-md bg-primary text-white font-semibold h-[50px] transition-all duration-75 ease-in hover:bg-secondary"
-				>
-					{t('Sign up')}
-				</Button>
+				/>
 			</form>
 		</div>
 	)

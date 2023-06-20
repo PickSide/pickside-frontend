@@ -40,31 +40,30 @@ const TextField = (
 				<span className="text-gray-400">{label}</span>
 			</label>
 			<div
-				className={`inline-flex w-full items-center ${isPassword ? 'pr-[40px]' : ''} rounded-md h-[50px] bg-white ${
+				className={`inline-flex w-full items-center rounded-md h-[50px] bg-white ${
 					!!error ? 'border-[#d2333d] text-[#d2333d]' : readOnly ? 'border-gray-100' : 'border-gray-200'
 				} border-2 focus-within:border-2 focus-within:border-[#82cac3]`}
 			>
 				{startContent && <span className="text-gray-500 w-12 flex justify-center">{startContent}</span>}
 
-				<div className="px-2 w-full">
-					<input
-						type={isPassword && !showPassword ? 'password' : type}
-						autoComplete="off"
-						disabled={readOnly}
-						value={defaultValue}
-						ref={ref}
-						placeholder={placeholder}
-						className="relative rounded-md w-[95%] h-[90%] px-2 py-2 focus:border-primary outline-0 focus:outline-0 disabled:bg-white disabled:cursor-not-allowed disabled:text-gray-300"
-						{...rest}
-					/>
-				</div>
+				<input
+					type={isPassword && !showPassword ? 'password' : type}
+					autoComplete="off"
+					disabled={readOnly}
+					value={defaultValue}
+					ref={ref}
+					placeholder={placeholder}
+					className="relative rounded-md w-[95%] h-[90%] px-2 py-2 focus:border-primary outline-0 focus:outline-0 disabled:bg-white disabled:cursor-not-allowed disabled:text-gray-300"
+					{...rest}
+				/>
 				{isPassword && (
-					<span
+					<button
+						type="button"
 						onClick={() => setShowPassword(!showPassword)}
-						className="absolute right-0 text-gray-500 btn-icon cursor-pointer "
+						className="text-gray-500 cursor-pointer w-12 h-5 flex justify-center"
 					>
 						{showPassword ? <AiOutlineEyeInvisible size={20} /> : <AiOutlineEye size={20} />}
-					</span>
+					</button>
 				)}
 			</div>
 			{error && (

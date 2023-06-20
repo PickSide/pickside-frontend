@@ -54,9 +54,12 @@ const ProfileSettings = () => {
 				<Button
 					className="flex whitespace-nowrap gap-x-4 text-[13px] items-center"
 					onClick={() => setOpenPasswordChangeDialog(true)}
-				>
-					{t('Change')} <FaExternalLinkAlt size={15} />
-				</Button>
+					text={
+						<>
+							{t('Change')} <FaExternalLinkAlt size={15} />
+						</>
+					}
+				/>
 			),
 		},
 		{

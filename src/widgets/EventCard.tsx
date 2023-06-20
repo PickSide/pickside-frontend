@@ -69,7 +69,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 						<span>{t('Play time')}</span>
 					</div>
 					<div className=" flex flex-col items-center justify-center">
-						<Button isLink>{t('Show on map')}</Button>
+						<Button variant="tertiary" text={t('Show on map')} />
 					</div>
 					{/* <div className="flex flex-col items-center">
 						{settings.isBallProvided ? (
