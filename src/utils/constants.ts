@@ -37,3 +37,6 @@ export const BREAKPOINTS = {
 	lg: '960px',
 	xl: '1200px',
 }
+
+export type IconVariant = 'primary' | 'secondary' | 'tertiary' | 'danger'
+export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'danger'

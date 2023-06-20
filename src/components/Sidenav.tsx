@@ -1,5 +1,5 @@
 import { cloneElement, forwardRef, useRef, useImperativeHandle, useMemo, useEffect } from 'react'
-import { Button } from 'components'
+import { Button, IconButton } from 'components'
 import { MdOutlineClose } from 'react-icons/md'
 import { AnimatePresence, motion } from 'framer-motion'
 import { fadeIn } from 'utils'
@@ -39,29 +39,28 @@ const Sidenav = (props: SidenavProps | any, ref) => {
 	)
 
 	return (
-		<AnimatePresence initial={false} mode="sync" onExitComplete={() => null}>
-			{open && (
-				<>
-					<div className="opacity-25 fixed inset-0 z-10 bg-black h-full overflow-hidden" onClick={onClose}></div>
+		open && (
+			<>
+				<div className="opacity-25 fixed inset-0 z-10 bg-black h-full overflow-hidden" onClick={onClose}></div>
+
+				<AnimatePresence initial={false} mode="wait">
 					<motion.div
 						ref={parentRef}
 						variants={fadeIn(from, delay, speed)}
 						initial="hidden"
 						animate="show"
 						exit="exit"
-						className={`fixed ${positionOnScreen} w-[500px] h-screen z-20 ${props.className}`}
+						className={`fixed ${positionOnScreen} w-[500px] h-screen z-[400] ${props.className}`}
 					>
 						<div className="h-[80px] border-b flex items-center justify-between px-6">
 							<span className="uppercase text-[27px] font-semibold">{title}</span>
-							<Button isIcon onClick={onClose}>
-								<MdOutlineClose size={20} />
-							</Button>
+							<IconButton icon={<MdOutlineClose size={20} />} onClick={onClose} />
 						</div>
 						{cloneElement(children, { ref: parentRef, ...props })}
 					</motion.div>
-				</>
-			)}
-		</AnimatePresence>
+				</AnimatePresence>
+			</>
+		)
 	)
 }
 

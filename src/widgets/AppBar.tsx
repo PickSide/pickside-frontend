@@ -6,7 +6,7 @@ import { AiFillHome, AiOutlineLogin } from 'react-icons/ai'
 import { motion } from 'framer-motion'
 import { pageTransition } from 'utils'
 
-import { Button } from 'components'
+import { Button, IconButton } from 'components'
 import { useIsMobile, useLocaleSwitcher, useOnScreen } from 'hooks'
 import { BackButton, LanguageSwitcher, NotificationMenu, ProfileMenu, ThemeSwitcher } from 'widgets'
 import { AppState } from 'state'
@@ -18,7 +18,6 @@ const AppBar = (props) => {
 	const navigate = useNavigate()
 	const { t } = useTranslation()
 	const ref = useRef<any>()
-	const ref2 = useRef<any>()
 	const isMobile = useIsMobile()
 	const onScreen = useOnScreen(ref)
 	const { current, handleLocaleChange } = useLocaleSwitcher()
@@ -26,7 +25,6 @@ const AppBar = (props) => {
 	const connectedUser = useSelector((state: AppState) => state.account)
 	const locales = useSelector((state: AppState) => state.locales)
 
-	const [openAuthenticationDialog, setOpenAuthenticationDialog] = useState<boolean>(false)
 	const [openDrawer, setOpenDrawer] = useState<boolean>(false)
 
 	const showAppBar = useMemo(() => !ROUTES_TO_EXCLUDE_BAR.includes(pathname), [pathname])
@@ -38,16 +36,14 @@ const AppBar = (props) => {
 				animate="visible"
 				exit="exit"
 				variants={pageTransition}
-				className="relative bg-primary h-16 px-5"
+				className="relative h-16 px-5 shadow-md"
 				ref={ref}
 			>
 				<div className="flex items-center justify-between h-full">
 					<div className="flex">
-						<Button isIcon onClick={() => navigate('/')}>
-							<AiFillHome size={25} />
-						</Button>
+						<IconButton onClick={() => navigate('/')} icon={<AiFillHome size={20} />} />
 					</div>
-					<div className="flex">
+					<div className="flex items-center gap-x-3">
 						<LanguageSwitcher />
 						<ThemeSwitcher />
 						{connectedUser ? (
@@ -56,9 +52,7 @@ const AppBar = (props) => {
 								<ProfileMenu />
 							</>
 						) : (
-							<Button isIcon onClick={() => navigate('/login')}>
-								<AiOutlineLogin size={25} />
-							</Button>
+							<Button onClick={() => navigate('/login')} text={t('Login')} />
 						)}
 					</div>
 				</div>

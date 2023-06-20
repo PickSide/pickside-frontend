@@ -13,7 +13,7 @@ const MenuItem: FC<MenuItemsProps> = ({ children, icon, disabled = false, onClic
 			className={`flex items-center font-normal p-3 max-w-56 truncate ${
 				disabled
 					? 'bg-slate-50 text-slate-300 cursor-not-allowed pointer-events-none'
-					: 'hover:bg-secondary hover:text-white text-slate-800 cursor-pointer'
+					: 'hover:bg-primary hover:text-white text-slate-800 cursor-pointer'
 			} ${icon ? 'gap-x-4' : ''}`}
 			onClick={onClick}
 		>

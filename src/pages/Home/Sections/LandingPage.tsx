@@ -33,38 +33,31 @@ const LandingPage: FC<any> = () => {
 	}
 
 	return (
-		<>
-			{/* <div className="absolute h-full w-full bg-landing bg-no-repeat bg-cover z-0 opacity-20"></div> */}
-			<section
-				id="home"
-				className="section inset h-fit lg:h-[650px] bg-primary flex flex-col xl:px-6 lg:flex-row items-center justify-center gap-y-5 gap-x-16"
-			>
-				<div className="flex flex-col gap-y-6">
-					<div className="flex flex-col gap-y-2 items-center my-3">
-						<span className="text-[30px] lg:text-[45px] text-white font-semibold">
-							{t('The best sporting app for people like you')}
-						</span>
-						<span className="text-[15px] lg:text-[22px] text-white font-normal">
-							{t('Connect across your location and find the nearest sport event of your choice planned')}
-						</span>
-					</div>
-					<div className="flex mx-auto w-[80%] lg:w-[50%] items-center justify-center gap-x-6">
-						<Autocomplete
-							options={options}
-							getOptionLabel={getOptionLabel}
-							groupBy={groupBy}
-							onChange={(newValue) => setSelected(newValue)}
-							placeholder={t('Choose your region')}
-							loading={loading}
-						/>
-						<Button secondary disabled={!selected} onClick={handleClick}>
-							<span>Go</span>
-						</Button>
-					</div>
+		<section
+			id="home"
+			className="section inset h-fit lg:h-[650px] text-black bg-white flex flex-col lg:flex-row items-center justify-center gap-y-5 gap-x-4"
+		>
+			<div className="flex flex-col gap-y-6">
+				<div className="flex flex-col gap-y-2 items-center my-3">
+					<span className="text-[30px] lg:text-[45px] font-semibold">{t('The best sporting app')}</span>
+					<span className="text-[15px] lg:text-[22px] text-gray-500 font-normal">
+						{t('Connect across your area and find the nearest sport events of your choice')}
+					</span>
 				</div>
-				<div className="bg-landing bg-no-repeat bg-cover w-[200px] h-[200px] mb-16"></div>
-			</section>
-		</>
+				<div className="flex mx-auto w-[80%] lg:w-[50%] items-center justify-center gap-x-6">
+					<Autocomplete
+						options={options}
+						getOptionLabel={getOptionLabel}
+						groupBy={groupBy}
+						onChange={(newValue) => setSelected(newValue)}
+						placeholder={t('Choose your region')}
+						loading={loading}
+					/>
+					<Button disabled={!selected} onClick={handleClick} text={t('Go')} />
+				</div>
+			</div>
+			<div className="bg-landing bg-no-repeat bg-cover w-[200px] h-[200px] mb-16"></div>
+		</section>
 	)
 }
 

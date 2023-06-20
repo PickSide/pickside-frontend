@@ -5,7 +5,7 @@ module.exports = {
   important: '#root',
   theme: {
     fill: {
-      primary: '#F1F4F3',
+      primary: 'white',
       secondary: '#D3F9F6',
       tertiary: 'black',
     },
@@ -24,7 +24,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: '#159585',
+        primary: 'black',
         secondary: '#208D91',
         tertiary: '#F4FF81',
         accent: '#159546',

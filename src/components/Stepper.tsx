@@ -26,15 +26,15 @@ const Stepper = ({ steps }: StepperProps, ref) => {
 							className={`relative rounded-full w-5 h-5 border-2 bg-none ease-in-out transition-all duration-75
 							${
 								isStepActive(idx)
-									? 'border-[#14B8A6]'
+									? 'border-primary'
 									: isStepCompleted(idx)
-									? 'border-[#14B8A6] bg-[#14B8A6]'
+									? 'border-primary bg-primary'
 									: 'border-[#E3E1E8] bg-none'
 							}`}
 						>
 							<span
 								className={`absolute w-fit -translate-x-1/2 left-1/2 -top-7 mx-auto ${
-									isStepActive(idx) ? 'text-[#14B8A6] font-semibold' : 'text-[#cdcbd1]'
+									isStepActive(idx) ? 'text-primary font-semibold' : 'text-[#cdcbd1]'
 								} ease-in-out transition-all duration-75`}
 							>
 								{step.title}
@@ -43,7 +43,7 @@ const Stepper = ({ steps }: StepperProps, ref) => {
 						{idx !== steps.length - 1 && (
 							<div
 								className={`flex-1 border-t-2 border-solid mt-2 ease-in-out transition-all duration-75 ${
-									isStepCompleted(idx) ? 'border-[#14B8A6]' : 'border-[#E3E1E8]'
+									isStepCompleted(idx) ? 'border-primary' : 'border-[#E3E1E8]'
 								}`}
 							></div>
 						)}
@@ -62,9 +62,9 @@ const Stepper = ({ steps }: StepperProps, ref) => {
 							className={`relative rounded-full w-5 h-5 border-2 bg-none ease-in-out transition-all duration-75
 					${
 						isStepActive(idx)
-							? 'border-[#14B8A6]'
+							? 'border-primary'
 							: isStepCompleted(idx)
-							? 'border-[#14B8A6] bg-[#14B8A6]'
+							? 'border-primary bg-primary'
 							: 'border-[#E3E1E8] bg-none'
 					}`}
 						>
@@ -75,7 +75,7 @@ const Stepper = ({ steps }: StepperProps, ref) => {
 							)}
 							<span
 								className={`absolute whitespace-nowrap -translate-x-1/2 left-1/2 -top-7 mx-auto ${
-									isStepActive(idx) ? 'text-[#14B8A6] font-semibold' : 'text-[#cdcbd1]'
+									isStepActive(idx) ? 'text-primary font-semibold' : 'text-[#cdcbd1]'
 								} ease-in-out transition-all duration-75`}
 							>
 								{step.title}
@@ -84,7 +84,7 @@ const Stepper = ({ steps }: StepperProps, ref) => {
 						{idx !== steps.length - 1 && (
 							<div
 								className={`flex-1 border-t-2 border-solid mt-2 ease-in-out transition-all duration-75 ${
-									isStepCompleted(idx) ? 'border-[#14B8A6]' : 'border-[#E3E1E8]'
+									isStepCompleted(idx) ? 'border-primary' : 'border-[#E3E1E8]'
 								}`}
 							></div>
 						)}
@@ -109,7 +109,7 @@ const Stepper = ({ steps }: StepperProps, ref) => {
 						handleNextStep()
 					}}
 					disabled={isLastStep}
-					className="w-32 rounded-md p-3 ease-in-out transition-all duration-75 bg-[#4F46E5] text-white hover:enabled:bg-[#4841c6] disabled:bg-[#6f6ad2] disabled:opacity-90 disabled:text-slate-100 disabled:cursor-not-allowed"
+					className="w-32 rounded-md p-3 ease-in-out transition-all duration-75 bg-black text-white hover:enabled:bg-gray-200 disabled:opacity-90 disabled:text-slate-100 disabled:cursor-not-allowed"
 				>
 					<span>Next</span>
 				</button>

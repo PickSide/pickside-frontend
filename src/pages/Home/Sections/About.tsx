@@ -30,9 +30,9 @@ const About = () => {
 	return (
 		<section id="about" className="bg-[#e0f2f1] flex flex-col gap-y-4">
 			<div className="flex justify-center gap-x-4">
-				<Button primary>Button</Button>
-				<Button secondary>Button</Button>
-				<Button tertiary>Button</Button>
+				<Button text="Button" />
+				<Button variant="secondary" text="Button" />
+				<Button variant="tertiary" text="Button" />
 			</div>
 			<div className="flex justify-center gap-x-4">
 				<Switch primary />

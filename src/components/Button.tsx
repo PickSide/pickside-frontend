@@ -1,45 +1,50 @@
-import { FC, ReactNode, useMemo } from 'react'
+import { ReactNode, forwardRef } from 'react'
 import { twMerge } from 'tailwind-merge'
 import Spinner from './Spinner'
+import { ButtonVariant } from 'utils'
 
 interface ButtonProps {
-	children?: ReactNode
-	primary?: boolean
-	secondary?: boolean
-	tertiary?: boolean
+	variant?: ButtonVariant
+	text?: ReactNode
 	disabled?: boolean
 	isLoading?: boolean
 	showTooltip?: boolean
-	isIcon?: boolean
-	isLink?: boolean
+	onClick?: (e?) => void
+	className?: string
+	type?: 'button' | 'reset' | 'submit'
 }
 
-const Button: FC<ButtonProps | any> = ({
-	isLoading = false,
-	isIcon = false,
-	isLink = false,
-	primary = true,
-	secondary = false,
-	tertiary = false,
-	disabled = false,
-	showTooltip = false,
-	children,
-	...props
-}) => {
-	const btnClass = useMemo(() => {
-		if (disabled) return 'btn-disabled'
-		if (isIcon) return 'btn-icon'
-		if (isLink) return 'btn-tertiary'
-		if (secondary) return 'btn-secondary'
-		if (tertiary) return 'btn-tertiary'
-		return 'btn-primary'
-	}, [disabled, isLink, isIcon, secondary, tertiary])
+const Button = (
+	{
+		className,
+		onClick,
+		isLoading = false,
+		disabled = false,
+		showTooltip = false,
+		text,
+		variant = 'primary',
+		type = 'button',
+		...rest
+	}: ButtonProps,
+	ref,
+) => {
+	const variants = {
+		primary: 'text-white bg-primary hover:bg-gray-300',
+		secondary: 'text-primary',
+		tertiary: 'text-primary',
+		danger: 'text-danger bg-danger hover:bg-red-400',
+	}
 
 	return (
-		<button {...props} className={twMerge(btnClass, props.className)} disabled={disabled}>
-			{isLoading ? <Spinner /> : children}
+		<button
+			className={twMerge('btn-base', [className, variants[variant]].join(' '))}
+			disabled={disabled}
+			onClick={onClick}
+			{...rest}
+		>
+			{isLoading ? <Spinner /> : text}
 		</button>
 	)
 }
 
-export default Button
+export default forwardRef(Button)

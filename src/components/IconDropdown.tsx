@@ -1,15 +1,16 @@
 import React, { ReactNode, forwardRef, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { dropdownAnimation } from 'utils'
+import { dropdownAnimation, IconVariant } from 'utils'
 import { twMerge } from 'tailwind-merge'
 
 interface DropdownProps {
 	className?: string
 	children?: ReactNode
 	icon?: ReactNode
+	variant?: IconVariant
 }
 
-const IconDropdown = ({ className, children, icon, ...props }: DropdownProps, ref) => {
+const IconDropdown = ({ className, children, icon, variant = 'primary' }: DropdownProps, ref) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 
 	useEffect(() => {
@@ -25,7 +26,7 @@ const IconDropdown = ({ className, children, icon, ...props }: DropdownProps, re
 			<button
 				type="button"
 				onClick={() => setIsOpen(true)}
-				className={twMerge('btn-icon inline-flex items-center', className)}
+				className={twMerge(`icon-btn inline-flex items-center`, [className, `icon-${variant}`].join(' '))}
 				id="menu-button"
 			>
 				{icon}
