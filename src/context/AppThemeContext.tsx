@@ -1,4 +1,4 @@
-import { createContext, useContext, FC, ReactNode, useEffect } from 'react'
+import { createContext, useContext, FC, ReactNode, useEffect, useState } from 'react'
 import { useLocalStorage } from 'react-use'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTheme } from 'hooks'
@@ -6,37 +6,30 @@ import { AppState } from 'state'
 
 export interface AppThemeContextProps {
 	children?: ReactNode
-	toggleTheme: Function
 }
 
-const AppThemeContext = createContext<AppThemeContextProps>({
-	toggleTheme: () => {},
-})
+const AppThemeContext = createContext<AppThemeContextProps>({})
 
 export const useThemeContext = () => useContext(AppThemeContext)
 
 export const AppThemeProvider: FC<any> = ({ children }) => {
-	const [toggleTheme] = useTheme()
-	const dispatch = useDispatch()
-	const [currentTheme, setCurrentTheme, removeCurrentTheme] = useLocalStorage('currentTheme', 'light')
-	const [preferredTheme, setPreferredTheme, removePreferredTheme] = useLocalStorage('preferredTheme', 'light')
-
-	const appTheme = useSelector((state: AppState) => state.appTheme)
 	const account = useSelector((state: AppState) => state.account)
+	const appTheme = useSelector((state: AppState) => state.appTheme)
+	const [currentThemeClass, setCurrentThemeClass] = useState<any>(account?.defaultTheme || 'light')
+
+	useEffect(() => window.document.documentElement.classList.add(currentThemeClass), [])
 
 	useEffect(() => {
-		if (account) {
-			setPreferredTheme(account.defaultTheme)
-		}
-	}, [account, setPreferredTheme])
-
-	useEffect(() => {
+		console.log(currentThemeClass)
 		if (appTheme) {
-			setCurrentTheme(appTheme)
+			const root = window.document.documentElement
+			root.classList.remove(currentThemeClass)
+			root.classList.add(appTheme)
+			setCurrentThemeClass(appTheme)
 		}
-	}, [appTheme, dispatch, setCurrentTheme])
+	}, [appTheme])
 
-	return <AppThemeContext.Provider value={{ toggleTheme }}>{children}</AppThemeContext.Provider>
+	return <AppThemeContext.Provider value={{}}>{children}</AppThemeContext.Provider>
 }
 
 export default AppThemeContext

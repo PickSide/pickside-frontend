@@ -48,10 +48,11 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 			setApiError(response.error)
 		} else {
 			if (response.user.defaultTheme) {
-				setAppTheme(response.user.defaultTheme)
+				console.log(response.user.defaultTheme)
+				await dispatch<any>(setAppTheme(response.user.defaultTheme))
 			}
 			if (response.user.defaultLanguage) {
-				setLocale(response.user.defaultLanguage)
+				await dispatch<any>(setLocale(response.user.defaultLanguage))
 			}
 			navigate('/home')
 		}

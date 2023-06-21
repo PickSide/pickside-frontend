@@ -8,7 +8,7 @@ i18n
 	.use(LanguageDetector)
 	.use(HttpApi)
 	.init({
-		debug: true,
+		debug: false,
 		backend: {
 			loadPath: `/assets/locales/{{lng}}/translations.json`,
 		},

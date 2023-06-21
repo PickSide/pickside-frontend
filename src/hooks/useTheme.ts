@@ -7,6 +7,7 @@ export const useTheme = (): [toggleTheme: Function] => {
 	const dispatch = useDispatch()
 
 	const toggleTheme = useCallback(async () => {
+
 		const newTheme = theme === 'dark' ? 'light' : 'dark'
 		const root = window.document.documentElement
 		root.classList.remove(theme)

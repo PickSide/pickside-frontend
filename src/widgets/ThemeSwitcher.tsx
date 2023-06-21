@@ -1,14 +1,13 @@
-import { FC, useContext } from 'react'
+import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CgDarkMode } from 'react-icons/cg'
 import { MdDarkMode, MdLightMode } from 'react-icons/md'
-import { useSelector } from 'react-redux'
-import { MenuItem, IconDropdown, Dropdown } from 'components'
-import { AppState } from 'state'
-import AppThemeContext from 'context/AppThemeContext'
+import { useDispatch, useSelector } from 'react-redux'
+import { MenuItem, Dropdown } from 'components'
+import { AppState, setAppTheme } from 'state'
 
 const ThemeSwitcher: FC<any> = () => {
-	const { toggleTheme } = useContext(AppThemeContext)
+	const dispatch = useDispatch()
 	const { t } = useTranslation()
 	const current = useSelector((state: AppState) => state.appTheme)
 
@@ -23,7 +22,7 @@ const ThemeSwitcher: FC<any> = () => {
 				<MenuItem
 					key={idx}
 					disabled={current === theme}
-					onClick={() => toggleTheme(theme)}
+					onClick={() => dispatch<any>(setAppTheme(theme))}
 					icon={ThemeIconMap[theme].icon}
 				>
 					{ThemeIconMap[theme].label}
