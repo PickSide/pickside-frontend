@@ -18,8 +18,7 @@ const EventList: FC<any> = () => {
 
 	return activities?.results ? (
 		<div className="flex flex-col bg-[#fafafa] min-w-[500px] h-[calc(100vh-64px)] py-2 px-4 gap-y-3 overflow-y-auto">
-			<div className="flex flex-row-reverse gap-x-3 items-center z-50">
-				<Button className='max-h-[36px]' disabled={!get('sportPreference')} onClick={() => navigate('/new-event')} text={t('Create')} />
+			{/* <div className="inline-flex gap-x-3 z-50 h-14">
 				<Select
 					value={get('sportPreference')}
 					placeholder={t('Select sport')}
@@ -29,7 +28,8 @@ const EventList: FC<any> = () => {
 					onChange={(value) => set('sportPreference', value)}
 					fullWidth
 				/>
-			</div>
+				<Button disabled={!get('sportPreference')} onClick={() => navigate('/new-event')} text={t('Create')} />
+			</div> */}
 			<div className="flex flex-col gap-y-5">
 				{activities?.results?.map((activity, idx) => (
 					<EventCard key={idx} activity={activity} />

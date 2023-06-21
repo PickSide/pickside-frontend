@@ -35,7 +35,7 @@ const LandingPage: FC<any> = () => {
 	return (
 		<section
 			id="home"
-			className="section inset h-fit lg:h-[650px] text-black bg-white flex flex-col lg:flex-row items-center justify-center gap-y-5 gap-x-4"
+			className="section inset text-black bg-white flex flex-col lg:flex-row items-center justify-center gap-y-5 gap-x-4"
 		>
 			<div className="flex flex-col gap-y-6">
 				<div className="flex flex-col gap-y-2 items-center my-3">

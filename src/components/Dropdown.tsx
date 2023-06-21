@@ -1,4 +1,4 @@
-import { ReactNode, forwardRef, useState } from 'react'
+import { ReactNode, forwardRef, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { dropdownAnimation } from 'utils'
 import { KEY_CODES } from 'utils'
@@ -28,6 +28,13 @@ const Dropdown = ({ children, start, variant = 'primary', type = 'button', text,
 			setIsOpen(false)
 		}
 	}
+
+	useEffect(() => {
+		const handler = () => setIsOpen(false)
+		document.addEventListener('mouseup', handler)
+		
+		return () => document.removeEventListener('mouseup', handler)
+	}, [])
 
 	return (
 		<div className="relative inline-block text-left">

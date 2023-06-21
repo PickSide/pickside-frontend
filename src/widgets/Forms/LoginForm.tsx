@@ -1,12 +1,13 @@
-import { FC, useCallback, useState } from 'react'
+import { FC, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useForm, Controller } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Button, Checkbox, TextField } from 'components'
-import { useAuth, useLocalStorage } from 'hooks'
+import { useAuth } from 'hooks'
 import { BiLockAlt, BiUser } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router'
+import { setAppTheme, setLocale } from 'state'
 
 interface LoginFormProps {
 	onClose: () => void
@@ -46,6 +47,12 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 		if (response.error) {
 			setApiError(response.error)
 		} else {
+			if (response.user.defaultTheme) {
+				setAppTheme(response.user.defaultTheme)
+			}
+			if (response.user.defaultLanguage) {
+				setLocale(response.user.defaultLanguage)
+			}
 			navigate('/home')
 		}
 

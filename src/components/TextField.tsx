@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useState, useRef, useEffect, forwardRef } from 'react'
+import { ReactNode, useState, forwardRef } from 'react'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 
 interface TextFieldProps {
@@ -42,7 +42,7 @@ const TextField = (
 			<div
 				className={`inline-flex w-full items-center rounded-md h-[50px] bg-white ${
 					!!error ? 'border-[#d2333d] text-[#d2333d]' : readOnly ? 'border-gray-100' : 'border-gray-200'
-				} border-2 focus-within:border-2 focus-within:border-[#82cac3]`}
+				} border-2 focus-within:border-2 focus-within:border-primary`}
 			>
 				{startContent && <span className="text-gray-500 w-12 flex justify-center">{startContent}</span>}
 
@@ -53,7 +53,7 @@ const TextField = (
 					value={defaultValue}
 					ref={ref}
 					placeholder={placeholder}
-					className="relative rounded-md w-[95%] h-[90%] px-2 py-2 focus:border-primary outline-0 focus:outline-0 disabled:bg-white disabled:cursor-not-allowed disabled:text-gray-300"
+					className="relative rounded-md w-[95%] h-[90%] px-2 py-2 focus-visible:outline-none disabled:bg-white disabled:cursor-not-allowed disabled:text-gray-300"
 					{...rest}
 				/>
 				{isPassword && (

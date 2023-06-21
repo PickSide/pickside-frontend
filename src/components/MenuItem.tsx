@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 interface MenuItemsProps {
 	icon?: ReactNode
@@ -7,7 +7,14 @@ interface MenuItemsProps {
 	onClick?: () => void
 }
 
-const MenuItem: FC<MenuItemsProps> = ({ children, icon, disabled = false, onClick }) => {
+const MenuItem = ({ children, icon, disabled = false, onClick, ...rest }: MenuItemsProps | any, ref) => {
+	const handleClick = () => {
+		onClick()
+		if (rest.onClose) {
+			rest.onClose()
+		}
+	}
+
 	return (
 		<div
 			className={`flex items-center font-normal p-3 max-w-56 truncate ${
@@ -15,7 +22,7 @@ const MenuItem: FC<MenuItemsProps> = ({ children, icon, disabled = false, onClic
 					? 'bg-slate-50 text-slate-300 cursor-not-allowed pointer-events-none'
 					: 'hover:bg-primary hover:text-white text-slate-800 cursor-pointer'
 			} ${icon ? 'gap-x-4' : ''}`}
-			onClick={onClick}
+			onClick={handleClick}
 		>
 			<span>{icon}</span>
 			<span className="overflow-hidden text-ellipsis">{children}</span>

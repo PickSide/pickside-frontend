@@ -3,7 +3,7 @@ const { BREAKPOINTS } = require('./src/utils/constants')
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html',],
   important: '#root',
-  darkMode: 'media',
+  darkMode: 'class',
   theme: {
     fill: {
       primary: 'white',

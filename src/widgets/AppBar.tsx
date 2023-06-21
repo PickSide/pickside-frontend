@@ -1,13 +1,13 @@
 import { useMemo, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { AiFillHome, AiOutlineLogin } from 'react-icons/ai'
 import { motion } from 'framer-motion'
 import { pageTransition } from 'utils'
 
 import { Button, IconButton } from 'components'
-import { useIsMobile, useLocaleSwitcher, useOnScreen } from 'hooks'
+import { useLocalStorage, useOnScreen } from 'hooks'
 import { BackButton, LanguageSwitcher, NotificationMenu, ProfileMenu, ThemeSwitcher } from 'widgets'
 import { AppState } from 'state'
 
@@ -18,14 +18,9 @@ const AppBar = (props) => {
 	const navigate = useNavigate()
 	const { t } = useTranslation()
 	const ref = useRef<any>()
-	const isMobile = useIsMobile()
 	const onScreen = useOnScreen(ref)
-	const { current, handleLocaleChange } = useLocaleSwitcher()
-
+	const { get, set } = useLocalStorage()
 	const connectedUser = useSelector((state: AppState) => state.account)
-	const locales = useSelector((state: AppState) => state.locales)
-
-	const [openDrawer, setOpenDrawer] = useState<boolean>(false)
 
 	const showAppBar = useMemo(() => !ROUTES_TO_EXCLUDE_BAR.includes(pathname), [pathname])
 
@@ -36,14 +31,24 @@ const AppBar = (props) => {
 				animate="visible"
 				exit="exit"
 				variants={pageTransition}
-				className="relative h-16 px-5 shadow-md"
+				className="relative h-16 px-5 shadow-md dark:bg-black"
 				ref={ref}
 			>
 				<div className="flex items-center justify-between h-full">
 					<div className="flex">
-						<IconButton onClick={() => navigate('/')} icon={<AiFillHome size={20} />} />
+						<NavLink
+							to="/home"
+							className="w-12 outline-none border-none bg-templogo2 bg-contain bg-no-repeat h-10"
+						></NavLink>
 					</div>
 					<div className="flex items-center gap-x-3">
+						{connectedUser && (
+							<Button
+								disabled={!get('sportPreference')}
+								onClick={() => navigate('/new-event')}
+								text={t('Post event')}
+							/>
+						)}
 						<LanguageSwitcher />
 						<ThemeSwitcher />
 						{connectedUser ? (

@@ -39,7 +39,7 @@ const TextAreaField = (
 				<div className="px-2 w-full">
 					<textarea
 						ref={ref}
-						className="relative rounded-md w-[100%] h-[90%] px-2 py-2 focus:border-primary outline-0 focus:outline-0"
+						className="relative rounded-md w-[100%] h-[90%] px-2 py-2 focus-visible:outline-none"
 						{...rest}
 					/>
 				</div>
