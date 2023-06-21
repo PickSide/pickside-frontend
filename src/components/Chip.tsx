@@ -43,7 +43,7 @@ const Chip = (
 	ref,
 ) => {
 	const id = useId()
-	console.log(rest)
+
 	return (
 		<div className={twMerge(`min-w-[70px] text-sm`)}>
 			<input

@@ -1,12 +1,13 @@
-import { FC, useCallback, useState } from 'react'
+import { FC, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useForm, Controller } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Button, Checkbox, TextField } from 'components'
-import { useAuth, useLocalStorage } from 'hooks'
+import { useAuth } from 'hooks'
 import { BiLockAlt, BiUser } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router'
+import { setAppTheme, setLocale } from 'state'
 
 interface LoginFormProps {
 	onClose: () => void
@@ -46,6 +47,13 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 		if (response.error) {
 			setApiError(response.error)
 		} else {
+			if (response.user.defaultTheme) {
+				console.log(response.user.defaultTheme)
+				await dispatch<any>(setAppTheme(response.user.defaultTheme))
+			}
+			if (response.user.defaultLanguage) {
+				await dispatch<any>(setLocale(response.user.defaultLanguage))
+			}
 			navigate('/home')
 		}
 
@@ -117,7 +125,7 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 			<div className="flex gap-x-2">
 				<span className="text-gray-500">{t(`Don't have an account?`)}</span>
 				<Link to="/signup" className="font-semibold text-primary hover:text-gray-400/90 hover:scale-105">
-					{t('Sign in')}
+					{t('Sign up')}
 				</Link>
 			</div>
 		</div>

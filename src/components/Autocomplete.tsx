@@ -3,6 +3,7 @@ import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import { useTranslation } from 'react-i18next'
 import { AnimatePresence, motion } from 'framer-motion'
 import { dropdownAnimation } from 'utils'
+import { twMerge } from 'tailwind-merge'
 import Spinner from './Spinner'
 import _groupBy from 'lodash/groupBy'
 
@@ -140,13 +141,13 @@ const Autocomplete: FC<AutocompleteProps<any>> = ({
 	}
 
 	return (
-		<div className={`${!fullWidth ? 'max-w-[400px]' : ''} relative flex flex-col text-gray-400`}>
+		<div className={`${!fullWidth ? 'min-w-[400px]' : ''} relative flex flex-col text-gray-400`}>
 			<label htmlFor={id} className="">
 				<span className="text-gray-400">{label}</span>
 			</label>
 			<div className="inline-flex w-full items-center rounded-md h-[50px] bg-white border-gray-200 border-2 focus-within:border-2 focus-within:border-primary">
 				<input
-					className="relative rounded-md w-[95%] h-[90%] px-2 py-2 focus:border-primary outline-0 focus:outline-0"
+					className="relative rounded-md w-[95%] h-[90%] px-2 py-2 focus-visible:outline-none"
 					id={id}
 					autoComplete="on"
 					type="text"

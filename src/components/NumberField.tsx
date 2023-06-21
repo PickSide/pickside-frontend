@@ -47,7 +47,7 @@ const NumberField = (
 				<span className="text-gray-400">{label}</span>
 			</label>
 			<div
-				className={`inline-flex w-full items-center rounded-md h-[50px] bg-white ${
+				className={`inline-flex w-full items-center rounded-md h-[50px] bg-white focus-within:border-2 focus-within:border-primary ${
 					!!error ? 'border-[#d2333d] text-[#d2333d]' : readOnly ? 'border-gray-100' : 'border-gray-200'
 				} border-2 `}
 			>
@@ -60,7 +60,7 @@ const NumberField = (
 					value={value}
 					onFocus={onFocus}
 					onChange={handleChange}
-					className="relative rounded-sm px-2 py-2 text-center outline-gray-200 focus:outline-primary disabled:bg-white disabled:cursor-not-allowed disabled:text-gray-300"
+					className="relative rounded-md w-[95%] h-[90%] px-2 py-2 focus-visible:outline-none"
 					{...rest}
 				/>
 			</div>

@@ -1,4 +1,4 @@
-import { ReactNode, forwardRef, useState } from 'react'
+import { ReactNode, forwardRef, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { dropdownAnimation } from 'utils'
 import { KEY_CODES } from 'utils'
@@ -29,8 +29,15 @@ const Dropdown = ({ children, start, variant = 'primary', type = 'button', text,
 		}
 	}
 
+	useEffect(() => {
+		const handler = () => setIsOpen(false)
+		document.addEventListener('mouseup', handler)
+		
+		return () => document.removeEventListener('mouseup', handler)
+	}, [])
+
 	return (
-		<div className="z-[60] relative inline-block text-left">
+		<div className="relative inline-block text-left">
 			<button
 				onClick={() => setIsOpen(true)}
 				onKeyDown={handler}
@@ -46,9 +53,9 @@ const Dropdown = ({ children, start, variant = 'primary', type = 'button', text,
 			<AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
 				{isOpen && (
 					<>
-						<div className="fixed inset-0 w-screen h-screen z-50 " onClick={() => setIsOpen(false)}></div>
+						<div className="fixed inset-0 w-screen h-screen z-[1000]" onClick={() => setIsOpen(false)}></div>
 						<motion.div
-							className="absolute right-0 mt-2 origin-top-right z-50 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+							className="absolute right-0 mt-2 origin-top-right z-[1000] divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
 							role="menu"
 							aria-orientation="vertical"
 							aria-labelledby="menu-button"

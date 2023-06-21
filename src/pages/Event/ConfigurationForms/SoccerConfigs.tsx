@@ -1,4 +1,4 @@
-import { TextAreaField, NumberField, ChipGroup, Chip, Checkbox } from 'components'
+import { TextAreaField, NumberField, ChipGroup, Chip, Checkbox, Switch } from 'components'
 import { useTranslation } from 'react-i18next'
 
 const SoccerConfigs = ({ form }) => {
@@ -20,7 +20,7 @@ const SoccerConfigs = ({ form }) => {
 			<NumberField label={t('Max. player')} {...form.register('players')} />
 			<div className="inline-flex gap-x-4 items-center">
 				<NumberField label={t('Price per person')} disabled={form.watch('isFree')} {...form.register('price')} />
-				<Checkbox label={t('Free')} {...form.register('isFree')} />
+				<Switch label={t('Free')} {...form.register('isFree')} />
 			</div>
 			<TextAreaField label={t('Rules')} {...form.register('rules')} />
 		</div>

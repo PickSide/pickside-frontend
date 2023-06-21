@@ -51,7 +51,7 @@
 
 	/* Handle on hover */
 	::-webkit-scrollbar-thumb:hover {
-		background: #1f675f;
+		background: #171717;
 	}
 
 	code {
@@ -83,12 +83,12 @@
 	}
 
 	.section {
-		@apply p-2 w-1/2 mx-auto items-center;
+		@apply p-2 w-full mx-auto items-center overflow-x-hidden h-screen;
 	}
 
 	/* BUTTONS */
 	.btn-base {
-		@apply rounded font-semibold ease-linear transition-all duration-75 uppercase text-sm p-6 py-3 disabled:bg-slate-200 disabled:opacity-70 disabled:cursor-not-allowed;
+		@apply rounded font-semibold ease-linear transition-all duration-75 uppercase text-sm py-2 px-4 disabled:bg-slate-200 disabled:opacity-70 disabled:cursor-not-allowed dark:bg-white dark:text-black;
 	}
 
 	/* CHIPS */
@@ -98,6 +98,6 @@
 
 	/* ICONS */
 	.icon-btn {
-		@apply rounded-md ease-linear transition-all duration-75 p-1 m-2 hover:scale-110 hover:bg-gray-200/70;
+		@apply rounded-md ease-linear transition-all duration-75 p-1 m-2 hover:scale-110 hover:bg-gray-200/70 dark:text-white;
 	}
 }

@@ -59,7 +59,7 @@ const CreateEvent = () => {
 				<Accordion>
 					<AccordionSection title={t('Mode')} icon={<GrMultiple size={25} />} expanded={true}>
 						<div className="flex flex-col gap-y-4">
-							<TextField {...form.register('title')} label="Title" fullWidth />
+							<TextField {...form.register('title')} placeholder='Enter title' label="Title" fullWidth />
 							<RadioGroup
 								defaultValue={form.getValues('mode')}
 								{...form.register('mode')}
