@@ -31,10 +31,10 @@ export const ENV_VARIABLES = {
 }
 
 export const BREAKPOINTS = {
-	xs: '430px',
-	sm: '640px',
-	md: '768px',
-	lg: '960px',
+	xs: '320px',
+	sm: '360px',
+	md: '768px', //ipad
+	lg: '1024px',
 	xl: '1200px',
 }
 

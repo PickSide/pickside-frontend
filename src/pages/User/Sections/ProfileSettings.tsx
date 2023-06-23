@@ -13,7 +13,7 @@ import {
 	EditField,
 	EmailField,
 } from 'components'
-import { useApi } from 'hooks'
+import { useApi, useDevice } from 'hooks'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppState, Area } from 'state'
@@ -25,6 +25,7 @@ import { orderBy } from 'lodash'
 const ProfileSettings = () => {
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
+	const { isMobile } = useDevice()
 	const { updateAccountSettings } = useApi()
 	const connectedUser = useSelector((state: AppState) => state.account)
 	const areas = useSelector((state: AppState) => state.areas)
@@ -169,6 +170,14 @@ const ProfileSettings = () => {
 			),
 		},
 	]
+
+	const MobileProfileSettings = () => (
+		<div className="flex flex-col">
+			<div className=""></div>
+			<div></div>
+			<div></div>
+		</div>
+	)
 
 	return (
 		<>

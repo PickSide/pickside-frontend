@@ -19,7 +19,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 	const [expanded, setExpanded] = useState<boolean>(false)
 
 	const account = useSelector((state: AppState) => state.account)
-	console.log(price)
+
 	return (
 		<>
 			<Dialog

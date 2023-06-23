@@ -11,9 +11,9 @@ const SignUp = () => {
 			animate="visible"
 			exit="exit"
 			variants={pageTransition}
-			className="relative w-screen h-screen flex"
+			className="relative w-screen h-screen flex overflow-y-auto"
 		>
-			<div className="flex flex-col gap-y-10 p-20">
+			<div className="flex flex-col gap-y-10 p-20 mx-auto">
 				<div className="inline-flex items-center">
 					<NavLink
 						to="/home"
@@ -26,9 +26,9 @@ const SignUp = () => {
 						Login
 					</NavLink>
 				</div>
-				<SignUpForm onClose={() => {}} />
+				<SignUpForm />
 			</div>
-			<div className="flex-1 bg-primary p-20"></div>
+			<div className="hidden lg:flex lg:flex-grow lg:bg-primary p-20"></div>
 		</motion.div>
 	)
 }

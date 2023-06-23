@@ -2,7 +2,7 @@ import { FC, useMemo, useState, forwardRef } from 'react'
 import { BiArrowBack, BiCheck } from 'react-icons/bi'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { StepConfiguration } from 'types'
-import { useMultistepForm, useIsMobile } from 'hooks'
+import { useMultistepForm, useDevice } from 'hooks'
 import { motion } from 'framer-motion'
 import { slideIn } from 'utils'
 
@@ -11,7 +11,7 @@ interface StepperProps {
 }
 
 const Stepper = ({ steps }: StepperProps, ref) => {
-	const isMobile = useIsMobile()
+	const isMobile = useDevice()
 	const { activeStep, isStepActive, isFirstStep, isLastStep, isStepCompleted, handlePreviousStep, handleNextStep } =
 		useMultistepForm(steps.map((x) => x.content))
 

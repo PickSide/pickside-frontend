@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 const SoccerConfigs = ({ form }) => {
 	const { t } = useTranslation()
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col flex-wrap gap-y-2">
 			<ChipGroup
 				label="Entry level"
 				defaultValue={soccerSettings.level}
@@ -17,11 +17,9 @@ const SoccerConfigs = ({ form }) => {
 				<Chip text="Very Good" value="vgood" />
 				<Chip text="Pro" value="pro" />
 			</ChipGroup>
+			<Switch label={t('Free')} {...form.register('isFree')} />
+			<NumberField label={t('Price per person')} disabled={form.watch('isFree')} {...form.register('price')} />
 			<NumberField label={t('Max. player')} {...form.register('players')} />
-			<div className="inline-flex gap-x-4 items-center">
-				<NumberField label={t('Price per person')} disabled={form.watch('isFree')} {...form.register('price')} />
-				<Switch label={t('Free')} {...form.register('isFree')} />
-			</div>
 			<TextAreaField label={t('Rules')} {...form.register('rules')} />
 		</div>
 	)

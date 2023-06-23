@@ -37,7 +37,7 @@ const IconDropdown = ({ className, children, icon, variant = 'primary' }: Dropdo
 					<>
 						<div className="fixed inset-0 w-screen h-screen z-[100]" onClick={() => setIsOpen(false)}></div>
 						<motion.div
-							className="absolute z-[150] min-w-6 min-h-6 top-10 right-6 mt-2 p-2 origin-top-right rounded-md bg-white shadow-lg ring-black ring-opacity-5 focus:outline-none"
+							className="absolute z-[150] min-w-6 min-h-6 top-10 right-6 mt-2 origin-top-right rounded-md bg-white shadow-lg ring-black ring-opacity-5 focus:outline-none overflow-clip"
 							role="menu"
 							initial="closed"
 							animate="open"

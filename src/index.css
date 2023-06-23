@@ -88,7 +88,7 @@
 
 	/* BUTTONS */
 	.btn-base {
-		@apply rounded font-semibold ease-linear transition-all duration-75 uppercase text-sm py-2 px-4 disabled:bg-slate-200 disabled:opacity-70 disabled:cursor-not-allowed dark:bg-white dark:text-black;
+		@apply rounded font-semibold ease-linear transition-all capitalize duration-75 text-sm py-2 px-4;
 	}
 
 	/* CHIPS */

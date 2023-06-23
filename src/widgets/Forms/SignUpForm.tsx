@@ -1,5 +1,5 @@
-import { FC, useState } from 'react'
-import { useForm, Controller } from 'react-hook-form'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { Button, Checkbox, TextField } from 'components'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
@@ -7,15 +7,10 @@ import { useAuth } from 'hooks'
 import { BiLockAlt, BiUser } from 'react-icons/bi'
 import { MdOutlineAlternateEmail } from 'react-icons/md'
 import { AiFillPhone } from 'react-icons/ai'
-import { isEmpty } from 'lodash'
-import { EMAIL_REGEX, PASSWORD_REGEX, FULL_NAME_REGEX, PHONE_REGEX } from 'utils'
+import { EMAIL_REGEX, PASSWORD_REGEX, PHONE_REGEX } from 'utils'
 import { useNavigate } from 'react-router'
 
-interface SignUpFormProps {
-	onClose: () => void
-}
-
-const SignUpForm: FC<SignUpFormProps> = () => {
+const SignUpForm = () => {
 	const { create, login } = useAuth()
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
@@ -81,7 +76,7 @@ const SignUpForm: FC<SignUpFormProps> = () => {
 					{...register('username', { required: t('Field is required') })}
 				/>
 
-				<div className="inline-flex gap-x-4">
+				<div className="inline-flex flex-col lg:flex-row lg:gap-x-4 gap-y-4">
 					<TextField
 						type="text"
 						label={t('First name')}

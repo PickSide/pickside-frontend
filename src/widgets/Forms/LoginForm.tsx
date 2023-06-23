@@ -48,7 +48,6 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 			setApiError(response.error)
 		} else {
 			if (response.user.defaultTheme) {
-				console.log(response.user.defaultTheme)
 				await dispatch<any>(setAppTheme(response.user.defaultTheme))
 			}
 			if (response.user.defaultLanguage) {

@@ -13,7 +13,7 @@ interface AlertProps {
 const AlertIcons = {
 	info: { icon: <AiFillInfoCircle size={25} />, class: 'bg-[#156495]' },
 	success: { icon: <AiFillCheckCircle size={25} />, class: 'bg-[#74cd8d]' },
-	warning: { icon: <AiFillWarning size={25} />, class: 'bg-[#FFFF00]' },
+	warning: { icon: <AiFillWarning size={25} />, class: 'bg-yellow-400' },
 	error: { icon: <BiErrorAlt size={25} />, class: 'bg-[#c96972]' },
 }
 
@@ -25,10 +25,10 @@ const Alert: FC<AlertProps> = ({ children, action, severity = 'info' }) => {
 			animate="show"
 			exit="exit"
 			whileInView="show"
-			className={`min-w-[200px] min-h-[50px] items-center flex rounded p-4 space-x-4 shadow-lg text-white z-50 ${AlertIcons[severity].class}`}
+			className={`w-full lg:min-w-[200px] min-h-[50px] flex justify-between xl:justify-normal items-center p-4 space-x-4 shadow-lg text-white z-50 ${AlertIcons[severity].class}`}
 		>
-			<span className="">{AlertIcons[severity].icon}</span>
-			<span className="">{children}</span>
+			{AlertIcons[severity].icon}
+			{children}
 			{action}
 		</motion.div>
 	)

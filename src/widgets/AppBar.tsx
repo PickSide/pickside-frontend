@@ -1,28 +1,40 @@
-import { useMemo, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useMemo, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate, NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { AiFillHome, AiOutlineLogin } from 'react-icons/ai'
+import { AiOutlineLogin } from 'react-icons/ai'
+import { BsCalendar2Event } from 'react-icons/bs'
+import { GiHamburgerMenu } from 'react-icons/gi'
+import { MdOutlineSettings, MdPersonOutline, MdLogout, MdOutlineHistory } from 'react-icons/md'
 import { motion } from 'framer-motion'
 import { pageTransition } from 'utils'
 
-import { Button, IconButton } from 'components'
-import { useLocalStorage, useOnScreen } from 'hooks'
+import { Button, IconDropdown, MenuItem } from 'components'
+import { useAuth, useDevice, useLocalStorage, useOnScreen } from 'hooks'
 import { BackButton, LanguageSwitcher, NotificationMenu, ProfileMenu, ThemeSwitcher } from 'widgets'
 import { AppState } from 'state'
 
 const ROUTES_TO_EXCLUDE_BAR = ['/login', '/signup']
+const ROUTES_TO_INCLUDE_BACK_BUTTON = ['/home']
 
-const AppBar = (props) => {
+const AppBar = () => {
+	const { logout } = useAuth()
+	const dispatch = useDispatch()
 	const { pathname } = useLocation()
+	const { get } = useLocalStorage()
+	const { isMobile } = useDevice()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
 	const ref = useRef<any>()
-	const onScreen = useOnScreen(ref)
-	const { get, set } = useLocalStorage()
+	const onScreen = useOnScreen(ref, '60px')
+
 	const connectedUser = useSelector((state: AppState) => state.account)
 
 	const showAppBar = useMemo(() => !ROUTES_TO_EXCLUDE_BAR.includes(pathname), [pathname])
+	const showBackButton = useMemo(
+		() => !onScreen && ROUTES_TO_INCLUDE_BACK_BUTTON.includes(pathname),
+		[onScreen, pathname],
+	)
 
 	return showAppBar ? (
 		<>
@@ -34,35 +46,80 @@ const AppBar = (props) => {
 				className="relative h-16 px-5 shadow-md dark:bg-black"
 				ref={ref}
 			>
-				<div className="flex items-center justify-between h-full">
-					<div className="flex">
+				{isMobile ? (
+					<div className="flex items-center justify-between h-full">
 						<NavLink
 							to="/home"
 							className="w-12 outline-none border-none bg-templogo2 bg-contain bg-no-repeat h-10"
 						></NavLink>
+						<div className="inline-flex items-center">
+							<LanguageSwitcher />
+							<ThemeSwitcher />
+
+							<IconDropdown icon={<GiHamburgerMenu size={20} />}>
+								<MenuItem icon={<BsCalendar2Event size={20} />} onClick={() => navigate('/new-event')}>
+									{t('Post event')}
+								</MenuItem>
+								{connectedUser ? (
+									<>
+										<MenuItem icon={<MdPersonOutline size={20} />} onClick={() => navigate('/user/profile')}>
+											{t('Profile')}
+										</MenuItem>
+										<MenuItem icon={<MdOutlineSettings size={20} />} onClick={() => navigate('/user/app-settings')}>
+											{t('Settings')}
+										</MenuItem>
+										<MenuItem icon={<MdOutlineHistory size={20} />} onClick={() => navigate('/user/history')}>
+											{t('History')}
+										</MenuItem>
+										<MenuItem
+											icon={<MdLogout size={20} />}
+											onClick={async () => {
+												await dispatch<any>(logout())
+												navigate('/login')
+											}}
+										>
+											{t('Logout')}
+										</MenuItem>
+									</>
+								) : (
+									<MenuItem icon={<AiOutlineLogin size={20} />} onClick={() => navigate('/login')}>
+										{t('Login')}
+									</MenuItem>
+								)}
+							</IconDropdown>
+						</div>
 					</div>
-					<div className="flex items-center gap-x-3">
-						{connectedUser && (
-							<Button
-								disabled={!get('sportPreference')}
-								onClick={() => navigate('/new-event')}
-								text={t('Post event')}
-							/>
-						)}
-						<LanguageSwitcher />
-						<ThemeSwitcher />
-						{connectedUser ? (
-							<>
-								<NotificationMenu />
-								<ProfileMenu />
-							</>
-						) : (
-							<Button onClick={() => navigate('/login')} text={t('Login')} />
-						)}
+				) : (
+					<div className="flex items-center justify-between h-full">
+						<div className="flex">
+							<NavLink
+								to="/home"
+								className="w-12 outline-none border-none bg-templogo2 bg-contain bg-no-repeat h-10"
+							></NavLink>
+						</div>
+						<div className="flex items-center gap-x-3">
+							{connectedUser && (
+								<Button
+									disabled={!get('sportPreference') || pathname === '/new-event'}
+									onClick={() => navigate('/new-event')}
+									text={t('Post event')}
+								/>
+							)}
+							<LanguageSwitcher />
+							<ThemeSwitcher />
+							{connectedUser ? (
+								<>
+									<NotificationMenu />
+									<ProfileMenu />
+								</>
+							) : (
+								<Button onClick={() => navigate('/login')} text={t('Login')} />
+							)}
+						</div>
 					</div>
-				</div>
+				)}
 			</motion.div>
-			{!onScreen && <BackButton />}
+			{showBackButton && <BackButton />}
 		</>
 	) : null
 }

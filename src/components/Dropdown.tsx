@@ -15,9 +15,9 @@ interface DropdownProps {
 
 const Dropdown = ({ children, start, variant = 'primary', type = 'button', text, ...rest }: DropdownProps, ref) => {
 	const variants = {
-		primary: 'text-white bg-primary hover:bg-gray-200',
+		primary: 'text-white bg-primaryhover:bg-gray-300 disabled:bg-gray-100/60 dark:bg-white dark:text-black',
 		secondary: 'text-primary',
-		tertiary: 'text-primary hover:bg-gray-200',
+		tertiary: 'dark:text-white hover:bg-gray-200 focus',
 		danger: 'text-danger',
 	}
 
@@ -32,7 +32,7 @@ const Dropdown = ({ children, start, variant = 'primary', type = 'button', text,
 	useEffect(() => {
 		const handler = () => setIsOpen(false)
 		document.addEventListener('mouseup', handler)
-		
+
 		return () => document.removeEventListener('mouseup', handler)
 	}, [])
 
@@ -55,7 +55,7 @@ const Dropdown = ({ children, start, variant = 'primary', type = 'button', text,
 					<>
 						<div className="fixed inset-0 w-screen h-screen z-[1000]" onClick={() => setIsOpen(false)}></div>
 						<motion.div
-							className="absolute right-0 mt-2 origin-top-right z-[1000] divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+							className="absolute right-0 mt-2 origin-top-right z-[1000] divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-clip"
 							role="menu"
 							aria-orientation="vertical"
 							aria-labelledby="menu-button"

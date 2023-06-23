@@ -145,9 +145,9 @@ const Autocomplete: FC<AutocompleteProps<any>> = ({
 			<label htmlFor={id} className="">
 				<span className="text-gray-400">{label}</span>
 			</label>
-			<div className="inline-flex w-full items-center rounded-md h-[50px] bg-white border-gray-200 border-2 focus-within:border-2 focus-within:border-primary">
+			<div className="relative inline-flex w-full items-center rounded-md h-[50px] pr-[40px] bg-white border-gray-200 border-2 focus-within:border-2 focus-within:border-primary">
 				<input
-					className="relative rounded-md w-[95%] h-[90%] px-2 py-2 focus-visible:outline-none"
+					className="relative rounded-md px-2 py-2 focus-visible:outline-none"
 					id={id}
 					autoComplete="on"
 					type="text"
@@ -162,7 +162,7 @@ const Autocomplete: FC<AutocompleteProps<any>> = ({
 				<button
 					type="button"
 					onClick={() => setOnFocus(!showOptions)}
-					className="text-gray-500 btn-icon cursor-pointer w-12 flex justify-center"
+					className="absolute right-[8px] text-gray-500 btn-icon cursor-pointer m-auto"
 				>
 					{showOptions ? (
 						<MdArrowDropUp className="hover:bg-gray-200" size={25} />

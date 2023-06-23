@@ -16,17 +16,17 @@ const MenuItem = ({ children, icon, disabled = false, onClick, ...rest }: MenuIt
 	}
 
 	return (
-		<div
-			className={`flex items-center font-normal p-3 max-w-56 truncate ${
-				disabled
-					? 'bg-slate-50 text-slate-300 cursor-not-allowed pointer-events-none'
-					: 'hover:bg-primary hover:text-white text-slate-800 cursor-pointer'
-			} ${icon ? 'gap-x-4' : ''}`}
+		<button
+			disabled={disabled}
+			className="w-full flex items-center font-normal p-3 max-w-56 truncate outline-none
+			disabled:bg-slate-50 disabled:text-slate-300 disabled:pointer-events-none 
+			hover:bg-primary hover:text-white 
+			text-slate-800 cursor-pointer gap-x-4"
 			onClick={handleClick}
 		>
 			<span>{icon}</span>
-			<span className="overflow-hidden text-ellipsis">{children}</span>
-		</div>
+			<span className="text-ellipsis">{children}</span>
+		</button>
 	)
 }
 

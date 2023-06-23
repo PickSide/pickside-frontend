@@ -54,7 +54,7 @@ const CreateEvent = () => {
 	}
 
 	return (
-		<div className="p-8 w-[50%] m-auto h-screen">
+		<div className="p-8 lg:w-[50%] m-auto h-screen">
 			<form className="flex flex-col space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
 				<Accordion>
 					<AccordionSection title={t('Mode')} icon={<GrMultiple size={25} />} expanded={true}>
