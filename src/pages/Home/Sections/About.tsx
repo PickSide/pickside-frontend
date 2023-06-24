@@ -17,7 +17,6 @@ import {
 	TimePicker,
 	Toggle,
 	ToggleGroup,
-	Map,
 	NumberField,
 } from 'components'
 import { Toast } from 'widgets'
@@ -149,11 +148,6 @@ const About = () => {
 			<div className="flex justify-center gap-x-4">
 				<NumberField label="Input stepper" />
 			</div>
-			{/* <div className="flex justify-center gap-x-4">
-				<div className="relative w-72 h-44">
-					<Map />
-				</div>
-			</div> */}
 		</section>
 	)
 }

@@ -10,10 +10,10 @@ import { InitialAppStateProvider } from 'context/InitialAppStateContext'
 import Listing from './pages/Listing/Listing'
 import LandingPage from './pages/Home/Sections/LandingPage'
 import UserPage from './pages/User/UserPage'
-import AppSettingsPage from './pages/User/Sections/AppSettings'
+import SettingsPage from './pages/User/Sections/Settings'
 import HistoryPage from './pages/User/Sections/History'
 import ProfileSettingsPage from './pages/User/Sections/ProfileSettings'
-import SportSelection from './pages/Home/Sections/SportSelection'
+import SportSelection from './pages/Home/Sections/ServiceDescription'
 import About from './pages/Home/Sections/About'
 import Home from './pages/Home/Home'
 import Login from './pages/Authentication/Login'
@@ -44,7 +44,7 @@ const App = () => {
 										<Route path="/new-event" element={<CreateEvent />} />
 										<Route element={<RequireAuth />}>
 											<Route path="/user/" element={<UserPage />}>
-												<Route path="app-settings" element={<AppSettingsPage />} />
+												<Route path="app-settings" element={<SettingsPage />} />
 												<Route path="history" element={<HistoryPage />} />
 												<Route path="profile" element={<ProfileSettingsPage />} />
 											</Route>

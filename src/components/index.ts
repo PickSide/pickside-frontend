@@ -14,7 +14,6 @@ import IconButton from './IconButton'
 import IconDropdown from './IconDropdown'
 import MapMarker from './MapMarker'
 import MenuItem from './MenuItem'
-import Map from './Map'
 import NumberField from './NumberField'
 import PhoneField from './PhoneField'
 import Popover from './Popover'
@@ -26,13 +25,11 @@ import Sidenav from './Sidenav'
 import Spinner from './Spinner'
 import Stepper from './Stepper'
 import Switch from './Switch'
-import Tabs from './Tabs'
+import Tab, { Tabs } from './Tabs'
 import TextAreaField from './TextAreaField'
 import TextField from './TextField'
 import TimePicker from './TimePicker'
 import Toggle, { ToggleGroup } from './Toggle'
-
-export * from './Tabs'
 
 export {
 	Accordion,
@@ -53,7 +50,6 @@ export {
 	IconDropdown,
 	MapMarker,
 	MenuItem,
-	Map,
 	NumberField,
 	PhoneField,
 	Popover,
@@ -66,6 +62,7 @@ export {
 	Spinner,
 	Stepper,
 	Switch,
+	Tab,
 	Tabs,
 	TextAreaField,
 	TextField,

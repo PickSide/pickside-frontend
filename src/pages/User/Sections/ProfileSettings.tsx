@@ -13,7 +13,7 @@ import {
 	EditField,
 	EmailField,
 } from 'components'
-import { useApi } from 'hooks'
+import { useApi, useDevice } from 'hooks'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppState, Area } from 'state'
@@ -25,6 +25,7 @@ import { orderBy } from 'lodash'
 const ProfileSettings = () => {
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
+	const { isMobile } = useDevice()
 	const { updateAccountSettings } = useApi()
 	const connectedUser = useSelector((state: AppState) => state.account)
 	const areas = useSelector((state: AppState) => state.areas)
@@ -128,47 +129,15 @@ const ProfileSettings = () => {
 				</div>
 			),
 		},
-		{
-			name: t('Hide age'),
-			helperText: t('Hide your age from other users'),
-			control: (
-				<Switch
-					defaultChecked={connectedUser?.hideAge}
-					onChange={(e) => dispatch<any>(updateAccountSettings({ hideAge: e.target.checked }))}
-				/>
-			),
-		},
-		{
-			name: t('Hide email'),
-			helperText: t('Hide your email from other users'),
-			control: (
-				<Switch
-					defaultChecked={connectedUser?.hideEmail}
-					onChange={(e) => dispatch<any>(updateAccountSettings({ hideEmail: e.target.checked }))}
-				/>
-			),
-		},
-		{
-			name: t('Hide phone'),
-			helperText: t('Hide your phone from other users'),
-			control: (
-				<Switch
-					defaultChecked={connectedUser?.hidePhone}
-					onChange={(e) => dispatch<any>(updateAccountSettings({ hidePhone: e.target.checked }))}
-				/>
-			),
-		},
-		{
-			name: t('Hide username'),
-			helperText: t('Hide your username from other users'),
-			control: (
-				<Switch
-					defaultChecked={connectedUser?.hideUsername}
-					onChange={(e) => dispatch<any>(updateAccountSettings({ hideUsername: e.target.checked }))}
-				/>
-			),
-		},
 	]
+
+	const MobileProfileSettings = () => (
+		<div className="flex flex-col">
+			<div className=""></div>
+			<div></div>
+			<div></div>
+		</div>
+	)
 
 	return (
 		<>

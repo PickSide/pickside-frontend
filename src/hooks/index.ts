@@ -4,13 +4,12 @@ import useCalls from './useCalls'
 import useConnectedUserPosition from './useConnectedUserPosition'
 import useDebounce from './useDebounce'
 import useEnvVariables from './useEnvVariables'
-import useIsMobile from './useIsMobile'
+import useDevice from './useDevice'
 import useLocaleSwitcher from './useLocaleSwitcher'
 import useLocalStorage from './useLocalStorage'
 import useMapStyles from './useMapStyles'
 import useMultistepForm from './useMultistepForm'
 import useOnScreen from './useOnScreen'
-import useTheme from './useTheme'
 import useRefreshToken from './useRefreshToken'
 
 export {
@@ -20,12 +19,11 @@ export {
 	useConnectedUserPosition,
 	useDebounce,
 	useEnvVariables,
-	useIsMobile,
+	useDevice,
 	useLocaleSwitcher,
 	useLocalStorage,
 	useMapStyles,
 	useMultistepForm,
 	useOnScreen,
-	useTheme,
 	useRefreshToken,
 }

@@ -2,17 +2,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import {
-	DatePicker,
-	Accordion,
-	AccordionSection,
-	RadioGroup,
-	Radio,
-	Map,
-	TimePicker,
-	Button,
-	TextField,
-} from 'components'
+import { DatePicker, Accordion, AccordionSection, RadioGroup, Radio, TimePicker, Button, TextField } from 'components'
 import { useApi, useLocalStorage } from 'hooks'
 import { BiTime } from 'react-icons/bi'
 import { GrMultiple } from 'react-icons/gr'
@@ -54,12 +44,12 @@ const CreateEvent = () => {
 	}
 
 	return (
-		<div className="p-8 w-[50%] m-auto h-screen">
+		<div className="p-8 lg:w-[50%] m-auto h-screen">
 			<form className="flex flex-col space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
 				<Accordion>
 					<AccordionSection title={t('Mode')} icon={<GrMultiple size={25} />} expanded={true}>
 						<div className="flex flex-col gap-y-4">
-							<TextField {...form.register('title')} placeholder='Enter title' label="Title" fullWidth />
+							<TextField {...form.register('title')} placeholder="Enter title" label="Title" fullWidth />
 							<RadioGroup
 								defaultValue={form.getValues('mode')}
 								{...form.register('mode')}
@@ -81,7 +71,6 @@ const CreateEvent = () => {
 								/>
 								<TimePicker {...form.register('time')} />
 							</div>
-							<Map {...form.register('location')} />
 						</div>
 					</AccordionSection>
 					<AccordionSection title={t('Configurations')} icon={<FiSettings size={25} />}>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { BREAKPOINTS } from 'utils'
 
-const useIsMobile = () => {
+const useDevice = () => {
     const [screenSize, setScreenSize] = React.useState<any>({})
 
     const getNumber = (value) => Number.parseInt(value.replace('px', ''))
@@ -11,6 +11,19 @@ const useIsMobile = () => {
         const { width } = screenSize
         return width <= getNumber(md)
     }, [screenSize])
+
+    const isTablet = React.useMemo(() => {
+        const { md, lg } = BREAKPOINTS
+        const { width } = screenSize
+        return width >= getNumber(md) && width < getNumber(lg)
+    }, [screenSize])
+
+    const isPc = React.useMemo(() => {
+        const { lg } = BREAKPOINTS
+        const { width } = screenSize
+        return width >= getNumber(lg)
+    }, [screenSize])
+
 
     React.useEffect(() => {
         function handleResize() {
@@ -27,7 +40,7 @@ const useIsMobile = () => {
         return () => window.removeEventListener('resize', handleResize)
     }, [])
 
-    return isMobile
+    return { isMobile, isTablet, isPc }
 }
 
-export default useIsMobile
+export default useDevice

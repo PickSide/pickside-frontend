@@ -25,7 +25,7 @@ interface ChipGroupProps {
 
 const chipClasses = {
 	primary:
-		'text-primary border-primary hover:bg-primary hover:text-white peer-checked:bg-primary peer-checked:text-white',
+		'bg-gray-300 text-primary border-primary hover:bg-primary hover:text-white peer-checked:bg-primary peer-checked:text-white',
 	secondary:
 		'text-secondary border-secondary hover:bg-secondary hover:text-white peer-checked:bg-secondary peer-checked:text-white',
 	tertiary:
@@ -58,7 +58,8 @@ const Chip = (
 			<label
 				htmlFor={id}
 				className={twMerge(
-					`inline-flex justify-center border-2 rounded-xl items-center p-2 gap-x-1 w-full h-full font-semibold border-1 cursor-pointer  ease-linear transition-all duration-75`,
+					`inline-flex justify-center border-2 rounded-full items-center p-2 gap-x-1 w-full h-full border-none cursor-pointer ease-linear transition-all duration-75
+					md:p-3`,
 					chipClasses[chipColor],
 				)}
 			>
@@ -70,7 +71,7 @@ const Chip = (
 }
 
 export const ChipGroup = forwardRef(({ children, defaultValue, label, ...rest }: ChipGroupProps | any, ref) => (
-	<div className="flex flex-col gap-y-2">
+	<div className="flex flex-col flex-wrap gap-y-2">
 		{label && <span className="text-gray-400">{label}</span>}
 		<div className="inline-flex gap-x-4">
 			{React.Children.map(children, (child) => React.cloneElement(child, { defaultValue, ...rest }))}

@@ -1,6 +1,6 @@
 import About from './Sections/About'
 import LandingPage from './Sections/LandingPage'
-import SportSelection from './Sections/SportSelection'
+import SportSelection from './Sections/ServiceDescription'
 import Footer from './Sections/Footer'
 import { motion } from 'framer-motion'
 import { pageTransition } from 'utils'
@@ -10,7 +10,7 @@ const Home = () => {
 		<motion.div initial="hidden" animate="visible" exit="exit" variants={pageTransition}>
 			<LandingPage />
 			<SportSelection />
-			<About />
+			{/* <About /> */}
 			<Footer />
 		</motion.div>
 	)

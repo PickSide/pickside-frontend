@@ -29,9 +29,9 @@ const Button = (
 	ref,
 ) => {
 	const variants = {
-		primary: 'text-white bg-primary hover:bg-gray-300',
+		primary: 'text-white bg-primary hover:bg-gray-300 disabled:bg-gray-100/60 dark:bg-white dark:text-black',
 		secondary: 'text-primary',
-		tertiary: 'text-primary',
+		tertiary: 'text-primary dak:bg-none dark:text-white',
 		danger: 'text-danger bg-danger hover:bg-red-400',
 	}
 

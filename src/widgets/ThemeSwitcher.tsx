@@ -3,11 +3,13 @@ import { useTranslation } from 'react-i18next'
 import { CgDarkMode } from 'react-icons/cg'
 import { MdDarkMode, MdLightMode } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
-import { MenuItem, Dropdown } from 'components'
+import { useDevice } from 'hooks'
+import { MenuItem, Dropdown, IconDropdown } from 'components'
 import { AppState, setAppTheme } from 'state'
 
 const ThemeSwitcher: FC<any> = () => {
 	const dispatch = useDispatch()
+	const { isMobile } = useDevice()
 	const { t } = useTranslation()
 	const current = useSelector((state: AppState) => state.appTheme)
 
@@ -30,7 +32,11 @@ const ThemeSwitcher: FC<any> = () => {
 			))}
 		</>
 	)
-	return (
+	return isMobile ? (
+		<IconDropdown icon={<CgDarkMode size={20} />}>
+			<ThemesEl />
+		</IconDropdown>
+	) : (
 		<Dropdown variant="tertiary" text={t(`${current}`)} start={<CgDarkMode size={20} />}>
 			<ThemesEl />
 		</Dropdown>
