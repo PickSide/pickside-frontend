@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react'
+import { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 import { faSoccerBall } from '@fortawesome/free-solid-svg-icons'
@@ -19,7 +19,7 @@ const Map: FC<any> = ({ ...props }) => {
 	const options: google.maps.MapOptions = {
 		styles: mapStyles,
 		disableDefaultUI: true,
-		zoomControl: true,
+		zoomControl: false,
 	}
 
 	const mapContainerStyle = {
@@ -27,14 +27,11 @@ const Map: FC<any> = ({ ...props }) => {
 		height: `100%`,
 	}
 
-	const center = useMemo(
-		() => (!!selectedLocation ? selectedLocation : { lat: 45.5490424, lng: -73.6573323 }),
-		[selectedLocation],
-	)
+	const center = !!selectedLocation ? selectedLocation : { lat: 45.5490424, lng: -73.6573323 }
 
 	const { isLoaded, loadError } = useJsApiLoader({
-		id: 'google-map-script',
-		googleMapsApiKey: '', //process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '', //AIzaSyC1kE8lsID_3YOeFEFfI5cI8PJVJIZPkyks
+		//id: 'google-map-script',
+		googleMapsApiKey: 'AIzaSyC1kE8lsID_3YOeFEFfI5cI8PJVJIZPkyk', //process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '', //AIzaSyC1kE8lsID_3YOeFEFfI5cI8PJVJIZPkyks
 		libraries: ['places'],
 	})
 
@@ -48,7 +45,7 @@ const Map: FC<any> = ({ ...props }) => {
 	const ActivityMap = (): JSX.Element => {
 		return (
 			<div className="h-[calc(100vh - 64px)] w-full overflow-hidden">
-				<GoogleMap key={googleAPIKey} zoom={12} mapContainerStyle={mapContainerStyle} center={center} options={options}>
+				<GoogleMap zoom={12} mapContainerStyle={mapContainerStyle} center={center} options={options}>
 					{playables?.results?.map(({ id, coords, fieldName }, idx) => (
 						<MapMarker
 							id={id}

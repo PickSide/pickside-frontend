@@ -1,9 +1,9 @@
 import { FC, useCallback, useId, useMemo, useState } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
+import { BiSearch } from 'react-icons/bi'
 import { useTranslation } from 'react-i18next'
 import { AnimatePresence, motion } from 'framer-motion'
 import { dropdownAnimation } from 'utils'
-import { twMerge } from 'tailwind-merge'
 import Spinner from './Spinner'
 import _groupBy from 'lodash/groupBy'
 
@@ -41,7 +41,7 @@ const Autocomplete: FC<AutocompleteProps<any>> = ({
 	const { t } = useTranslation()
 	const [query, setQuery] = useState<any>()
 	const [value, setValue] = useState<string>('')
-	const [onFocus, setOnFocus] = useState<boolean>(false)
+	const [focus, setFocus] = useState<boolean>(false)
 
 	const filteredOptions = useMemo(() => {
 		return options?.filter((option) => {
@@ -54,21 +54,21 @@ const Autocomplete: FC<AutocompleteProps<any>> = ({
 		})
 	}, [getOptionLabel, options, query])
 
-	const showOptions = useMemo(() => onFocus, [onFocus])
+	const showOptions = useMemo(() => focus, [focus])
 
-	const _onKeyDown = useCallback((e: any) => {
+	const onKeyDown = useCallback((e: any) => {
 		if (KEYS_BINDS[e.keyCode] === 'close') {
-			setOnFocus(false)
+			setFocus(false)
 			return
 		}
 	}, [])
 
-	const _onInputChange = useCallback((e) => {
+	const onInputChange = useCallback((e) => {
 		setQuery(e.target.value)
 		setValue(e.target.value)
 	}, [])
 
-	const _onSelect = useCallback(
+	const onSelect = useCallback(
 		(option) => {
 			if (getOptionLabel) {
 				setValue(getOptionLabel(option))
@@ -78,9 +78,8 @@ const Autocomplete: FC<AutocompleteProps<any>> = ({
 		[getOptionLabel, onChange],
 	)
 
-	const _onFocus = () => setOnFocus(true)
-
-	const _onBlur = () => setOnFocus(false)
+	const onFocus = () => setFocus(true)
+	const onBlur = () => setFocus(false)
 
 	const groupedOptions = _groupBy(filteredOptions, groupBy) || {}
 
@@ -89,13 +88,13 @@ const Autocomplete: FC<AutocompleteProps<any>> = ({
 			<>
 				{Object.entries(groupedOptions).map(([group, values], idx) => (
 					<div key={idx} className="flex flex-col w-full rounded-md">
-						<span className="w-full font-normal text-[20px] px-4 py-1 ">{group}</span>
+						<span className="w-full font-normal text-[20px] px-4 py-1">{group}</span>
 						{Array.isArray(values) &&
 							values.map((option, idx) => (
 								<div
 									key={idx}
 									className="w-full cursor-pointer py-2 hover:bg-slate-50 "
-									onMouseDown={() => _onSelect(option)}
+									onMouseDown={() => onSelect(option)}
 								>
 									<span className="font-normal py-2 px-6">{getOptionLabel && getOptionLabel(option)}</span>
 								</div>
@@ -111,7 +110,7 @@ const Autocomplete: FC<AutocompleteProps<any>> = ({
 			{filteredOptions?.map((option, idx) => (
 				<div
 					className="w-full px-4 py-3 hover:bg-[#47c2ed] hover:text-[#e0f2f1] rounded-md"
-					onMouseDown={() => _onSelect(option)}
+					onMouseDown={() => onSelect(option)}
 				>
 					<span className="font-semibold py-2 px-6">{getOptionLabel && getOptionLabel(option)}</span>
 				</div>
@@ -147,21 +146,25 @@ const Autocomplete: FC<AutocompleteProps<any>> = ({
 			</label>
 			<div className="relative inline-flex w-full items-center rounded-md h-[50px] pr-[40px] bg-white border-gray-200 border-2 focus-within:border-2 focus-within:border-primary">
 				<input
-					className="relative rounded-md px-2 py-2 focus-visible:outline-none"
+					tabIndex={1}
+					className="relative rounded-md px-4 py-2 focus-visible:outline-none"
 					id={id}
 					autoComplete="on"
 					type="text"
 					value={value}
 					placeholder={placeholder}
-					onFocus={_onFocus}
-					onBlur={_onBlur}
-					onKeyDown={_onKeyDown}
-					onChange={_onInputChange}
+					onFocus={onFocus}
+					onBlur={onBlur}
+					onKeyDown={onKeyDown}
+					onChange={onInputChange}
 					{...props}
 				/>
-				<button
+				<span className="absolute right-[8px] text-gray-300 btn-icon m-auto">
+					<BiSearch size={20} />
+				</span>
+				{/* <button
 					type="button"
-					onClick={() => setOnFocus(!showOptions)}
+					onClick={() => setFocus(!showOptions)}
 					className="absolute right-[8px] text-gray-500 btn-icon cursor-pointer m-auto"
 				>
 					{showOptions ? (
@@ -169,7 +172,7 @@ const Autocomplete: FC<AutocompleteProps<any>> = ({
 					) : (
 						<MdArrowDropDown className="hover:bg-gray-200" size={25} />
 					)}
-				</button>
+				</button> */}
 			</div>
 
 			<AnimatePresence initial={false} mode="wait">

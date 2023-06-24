@@ -13,7 +13,6 @@ import Toast from './Toast'
 
 import ConfirmRegisterEventForm from './Forms/ConfirmRegisterEventForm'
 import LoginForm from './Forms/LoginForm'
-import RegisterEventForm from './Forms/RegisterEventForm'
 import SignUpForm from './Forms/SignUpForm'
 
 export {
@@ -30,7 +29,6 @@ export {
 	ThemeSwitcher,
 	ConfirmRegisterEventForm,
 	LoginForm,
-	RegisterEventForm,
 	SignUpForm,
 	Toast
 }

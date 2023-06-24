@@ -74,14 +74,6 @@
 		@apply scrollbar-thin scrollbar-thumb-accent scrollbar-track-gray-100;
 	}
 
-	.tab {
-		@apply text-[#51b5aa] cursor-pointer ease-linear transition-all duration-75 hover:scale-110 focus:text-[#47c2ed];
-	}
-
-	.active-tab {
-		@apply text-[#47c2ed] pointer-events-none;
-	}
-
 	.section {
 		@apply p-2 w-full mx-auto items-center overflow-x-hidden h-screen;
 	}

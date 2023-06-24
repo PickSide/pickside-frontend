@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import AppSettings from './Sections/AppSettings'
+import AppSettings from './Sections/Settings'
 import History from './Sections/History'
 import ProfileSettings from './Sections/ProfileSettings'
 import { AiOutlineTeam, AiFillEdit } from 'react-icons/ai'
@@ -11,7 +11,7 @@ import { FiSettings, FiMoreVertical } from 'react-icons/fi'
 import { MdHistory } from 'react-icons/md'
 import { BiTime } from 'react-icons/bi'
 import { AppState } from 'state'
-import { Button, Dialog, IconDropdown, MenuItem, Popover } from 'components'
+import { Button, Dialog, IconDropdown, MenuItem, Popover, Tabs, Tab, Chip } from 'components'
 import { useDevice } from 'hooks'
 
 const UserPage = () => {
@@ -67,26 +67,19 @@ const UserPage = () => {
 	const UserPageMobile = () => (
 		<div className="flex flex-col text-slate-950">
 			<div className="relative h-[100px] bg-gray-200">
-				<div className="absolute left-4 top-full -translate-y-1/2 w-16 h-16 overflow-hidden border-white border-4 rounded-full bg-gray-100 cursor-pointer">
-					{/* <svg
-						className="absolute w-10 h-10 text-gray-400 m-auto inset-0 z-10"
-						fill="currentColor"
-						viewBox="0 0 20 20"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path>
-					</svg> */}
-				</div>
+				<div className="absolute left-4 top-full -translate-y-1/2 w-16 h-16 overflow-hidden border-white border-4 rounded-full bg-gray-100 cursor-pointer"></div>
 			</div>
 			<div className="p-4 mt-6 flex flex-col">
 				<p className="text-2xl font-semibold">
 					{connectedUser?.firstName} {connectedUser?.lastName}
 				</p>
 				<p className="text-sm text-gray-500">@{connectedUser?.username}</p>
-
 				<p className="text-sm text-gray-500">
 					{t('Reliability')}: {connectedUser?.reliability}%
 				</p>
+			</div>
+			<div className="p-4 flex flex-col">
+				<Outlet />
 			</div>
 		</div>
 	)

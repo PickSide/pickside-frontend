@@ -25,7 +25,7 @@ interface ChipGroupProps {
 
 const chipClasses = {
 	primary:
-		'text-primary border-primary hover:bg-primary hover:text-white peer-checked:bg-primary peer-checked:text-white',
+		'bg-gray-300 text-primary border-primary hover:bg-primary hover:text-white peer-checked:bg-primary peer-checked:text-white',
 	secondary:
 		'text-secondary border-secondary hover:bg-secondary hover:text-white peer-checked:bg-secondary peer-checked:text-white',
 	tertiary:
@@ -58,7 +58,8 @@ const Chip = (
 			<label
 				htmlFor={id}
 				className={twMerge(
-					`inline-flex justify-center border-2 rounded-xl items-center p-2 gap-x-1 w-full h-full font-semibold border-1 cursor-pointer  ease-linear transition-all duration-75`,
+					`inline-flex justify-center border-2 rounded-full items-center p-2 gap-x-1 w-full h-full border-none cursor-pointer ease-linear transition-all duration-75
+					md:p-3`,
 					chipClasses[chipColor],
 				)}
 			>
