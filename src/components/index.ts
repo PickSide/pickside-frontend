@@ -10,6 +10,7 @@ import Dropdown from './Dropdown'
 import EditField from './EditField'
 import EmailField from './EmailField'
 import Gallery from './Gallery'
+import GoogleAutocomplete from './GoogleAutocomplete'
 import IconButton from './IconButton'
 import IconDropdown from './IconDropdown'
 import MapMarker from './MapMarker'
@@ -46,6 +47,7 @@ export {
 	EditField,
 	EmailField,
 	Gallery,
+	GoogleAutocomplete,
 	IconButton,
 	IconDropdown,
 	MapMarker,
@@ -68,6 +70,5 @@ export {
 	TextField,
 	TimePicker,
 	Toggle,
-	ToggleGroup
+	ToggleGroup,
 }
-

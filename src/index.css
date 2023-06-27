@@ -54,6 +54,10 @@
 		background: #171717;
 	}
 
+	.pac-container > .pac-item::after {
+		height: 70px !important;
+	}
+
 	code {
 		font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 	}

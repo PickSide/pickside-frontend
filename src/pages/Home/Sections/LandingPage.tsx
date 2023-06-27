@@ -1,7 +1,7 @@
 import { FC, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAsync } from 'react-use'
-import { Autocomplete, Button } from 'components'
+import { Autocomplete, Button, GoogleAutocomplete } from 'components'
 import { useCalls } from 'hooks'
 import { Area } from 'state'
 import { setSelectedLocation } from 'state'
@@ -45,7 +45,8 @@ const LandingPage: FC<any> = () => {
 					</span>
 				</div>
 				<div className="flex mx-auto  items-center justify-center gap-x-6">
-					<Autocomplete
+					<GoogleAutocomplete />
+					{/* <Autocomplete
 						options={options}
 						getOptionLabel={getOptionLabel}
 						groupBy={groupBy}
@@ -53,7 +54,7 @@ const LandingPage: FC<any> = () => {
 						placeholder={t('Choose your region')}
 						loading={loading}
 						fullWidth
-					/>
+					/> */}
 					<Button disabled={!selected} onClick={handleClick} text={t('Go')} />
 				</div>
 			</div>
