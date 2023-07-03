@@ -1,9 +1,10 @@
-import { FC, useState } from 'react'
+import { Activity, AppState, setSelectedActivity } from 'state'
 import { Button, Dialog } from 'components'
+import { FC, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
 import { ConfirmRegisterEventForm } from 'widgets'
 import { useTranslation } from 'react-i18next'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppState, Activity, setSelectedActivity } from 'state'
 
 interface ActivityProps {
 	activity: Activity
@@ -18,7 +19,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 	const [openConfirmRegisterDialog, setOpenConfirmRegisterDialog] = useState<boolean>(false)
 	const [expanded, setExpanded] = useState<boolean>(false)
 
-	const account = useSelector((state: AppState) => state.account)
+	const user = useSelector((state: AppState) => state.user)
 
 	return (
 		<>

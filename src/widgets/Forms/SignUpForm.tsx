@@ -1,17 +1,18 @@
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Button, Checkbox, TextField } from 'components'
-import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
-import { useAuth } from 'hooks'
 import { BiLockAlt, BiUser } from 'react-icons/bi'
-import { MdOutlineAlternateEmail } from 'react-icons/md'
-import { AiFillPhone } from 'react-icons/ai'
+import { Button, Checkbox, TextField } from 'components'
 import { EMAIL_REGEX, PASSWORD_REGEX, PHONE_REGEX } from 'utils'
+
+import { AiFillPhone } from 'react-icons/ai'
+import { MdOutlineAlternateEmail } from 'react-icons/md'
+import { useApi } from 'hooks'
+import { useDispatch } from 'react-redux'
+import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const SignUpForm = () => {
-	const { create, login } = useAuth()
+	const { createUser, login } = useApi()
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
@@ -38,7 +39,7 @@ const SignUpForm = () => {
 		}
 		setLoading(true)
 
-		const response = await dispatch<any>(create(data))
+		const response = await dispatch<any>(createUser(data))
 
 		if (response.payload) {
 			await dispatch<any>(login({ username: data.username, password: data.password }))
@@ -51,7 +52,7 @@ const SignUpForm = () => {
 
 		setLoading(false)
 	}
-	console.log(errors)
+
 	return (
 		<div className="flex flex-col gap-y-5 items-center">
 			<div className="flex flex-col items-center">

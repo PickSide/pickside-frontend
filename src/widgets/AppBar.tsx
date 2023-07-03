@@ -1,34 +1,34 @@
-import { useMemo, useRef } from 'react'
+import { BackButton, LanguageSwitcher, NotificationMenu, ProfileMenu, ThemeSwitcher } from 'widgets'
+import { Button, IconDropdown, MenuItem } from 'components'
+import { MdLogout, MdOutlineHistory, MdOutlineSettings, MdPersonOutline } from 'react-icons/md'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { useApi, useDevice, useLocalStorage, useOnScreen } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation, useNavigate, NavLink } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
+import { useMemo, useRef } from 'react'
+
 import { AiOutlineLogin } from 'react-icons/ai'
+import { AppState } from 'state'
 import { BsCalendar2Event } from 'react-icons/bs'
 import { GiHamburgerMenu } from 'react-icons/gi'
-import { MdOutlineSettings, MdPersonOutline, MdLogout, MdOutlineHistory } from 'react-icons/md'
 import { motion } from 'framer-motion'
 import { pageTransition } from 'utils'
-
-import { Button, IconDropdown, MenuItem } from 'components'
-import { useAuth, useDevice, useLocalStorage, useOnScreen } from 'hooks'
-import { BackButton, LanguageSwitcher, NotificationMenu, ProfileMenu, ThemeSwitcher } from 'widgets'
-import { AppState } from 'state'
+import { useTranslation } from 'react-i18next'
 
 const ROUTES_TO_EXCLUDE_BAR = ['/login', '/signup']
 const ROUTES_TO_INCLUDE_BACK_BUTTON = ['/home']
 
 const AppBar = () => {
-	const { logout } = useAuth()
-	const dispatch = useDispatch()
-	const { pathname } = useLocation()
 	const { get } = useLocalStorage()
 	const { isMobile } = useDevice()
-	const navigate = useNavigate()
+	const { logout } = useApi()
+	const { pathname } = useLocation()
 	const { t } = useTranslation()
+	const dispatch = useDispatch()
+	const navigate = useNavigate()
 	const ref = useRef<any>()
 	const onScreen = useOnScreen(ref, '60px')
 
-	const connectedUser = useSelector((state: AppState) => state.account)
+	const connectedUser = useSelector((state: AppState) => state.user)
 
 	const showAppBar = useMemo(() => !ROUTES_TO_EXCLUDE_BAR.includes(pathname), [pathname])
 	const showBackButton = useMemo(
@@ -65,7 +65,7 @@ const AppBar = () => {
 										<MenuItem icon={<MdPersonOutline size={20} />} onClick={() => navigate('/user/profile')}>
 											{t('Profile')}
 										</MenuItem>
-										<MenuItem icon={<MdOutlineSettings size={20} />} onClick={() => navigate('/user/app-settings')}>
+										<MenuItem icon={<MdOutlineSettings size={20} />} onClick={() => navigate('/user/settings/')}>
 											{t('Settings')}
 										</MenuItem>
 										<MenuItem icon={<MdOutlineHistory size={20} />} onClick={() => navigate('/user/history')}>
@@ -100,7 +100,7 @@ const AppBar = () => {
 						<div className="flex items-center gap-x-3">
 							{connectedUser && (
 								<Button
-									disabled={!get('sportPreference') || pathname === '/new-event'}
+									disabled={pathname === '/new-event'}
 									onClick={() => navigate('/new-event')}
 									text={t('Post event')}
 								/>

@@ -1,5 +1,7 @@
-import { ReactNode, useCallback, useState, forwardRef } from 'react'
+import { ReactNode, forwardRef, useCallback, useState } from 'react'
+
 import { HiSelector } from 'react-icons/hi'
+import ReactSelect from 'react-select'
 import { motion } from 'framer-motion'
 
 interface SelectProps {
@@ -18,42 +20,43 @@ interface SelectProps {
 
 const Select = (
 	{
-		startContent,
-		autofocus = false,
-		error,
-		options = [],
-		getOptionLabel,
-		getOptionDisabled,
-		placeholder,
-		onChange,
-		value,
+		//startContent,
+		// autofocus = false,
+		// error,
+		// options = [],
+		// getOptionLabel,
+		// getOptionDisabled,
+		// placeholder,
+		// onChange,
+		// value,
 		label,
 		fullWidth = false,
-		...props
-	}: SelectProps,
+		...rest
+	}: SelectProps | any,
 	ref,
 ) => {
-	const [selected, setSelected] = useState<any>(value)
-	const [open, setOpen] = useState<boolean>(false)
+	// const [selected, setSelected] = useState<any>(value)
+	// const [open, setOpen] = useState<boolean>(false)
 
-	const handleClose = () => setOpen(false)
-	const handleOpen = () => setOpen(true)
+	// const handleClose = () => setOpen(false)
+	// const handleOpen = () => setOpen(true)
 
-	const handleSelected = useCallback(
-		(option) => {
-			setSelected(option)
-			onChange && onChange(option)
-			setOpen(false)
-		},
-		[onChange],
-	)
+	// const handleSelected = useCallback(
+	// 	(option) => {
+	// 		setSelected(option)
+	// 		onChange && onChange(option)
+	// 		setOpen(false)
+	// 	},
+	// 	[onChange],
+	// )
 
 	return (
 		<div className={`relative min-w-[200px] ${fullWidth ? 'w-full' : ''}`}>
-			<label id="listbox-label" className="block text-sm font-medium leading-6 text-gray-900">
+			<label id="listbox-label" className="block text-sm font-medium leading-6 text-gray-400">
 				{label}
 			</label>
-			<div className="relative mt-2" onBlur={handleClose}>
+			<ReactSelect {...rest} ref={ref} />
+			{/* <div className="relative mt-2" onBlur={handleClose}>
 				<button
 					tabIndex={0}
 					type="button"
@@ -62,7 +65,7 @@ const Select = (
 					aria-haspopup="listbox"
 					aria-expanded="true"
 					aria-labelledby="listbox-label"
-					{...props}
+					{...rest}
 				>
 					{!getOptionLabel(selected) ? (
 						<span className="block truncate italic text-gray-500">{placeholder}</span>
@@ -123,7 +126,7 @@ const Select = (
 						)}
 					</ul>
 				)}
-			</div>
+			</div> */}
 		</div>
 	)
 }

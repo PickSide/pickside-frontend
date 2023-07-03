@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
+
+import { API_URL } from 'api'
 import { Dispatch } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { useLocalStorage } from 'hooks'
 import { v4 as uuidv4 } from 'uuid'
-import { API_URL } from 'api'
 
 interface RequestProps<T> {
 	id?: string
@@ -42,21 +43,19 @@ interface UseCallsOutput {
 	deleteItems?: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>,
 }
 
-const DEFAULT_URL = API_URL
-
-const useCalls = ({ baseURL = DEFAULT_URL }: UseCallsProps = {}): UseCallsOutput => {
+const useApiHelpers = (): UseCallsOutput => {
 
 	const { get } = useLocalStorage()
 	const [errors, setErrors] = useState<any>()
 
 	const axiosInstance = useMemo(() => axios.create({
-		baseURL,
+		baseURL: API_URL,
 		headers: {
 			'Content-Type': 'application/json',
 			'X-Request-Id': uuidv4(),
 			Authorization: `Bearer ${get('auth')?.accessToken}`,
 		},
-	}), [baseURL, get])
+	}), [get])
 
 	const handleResponseError = (axiosError: any) => {
 		return { error: axiosError.response.data.message }
@@ -157,4 +156,4 @@ function getQueryString(queries: any) {
 		.join('&')
 }
 
-export default useCalls
+export default useApiHelpers

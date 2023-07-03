@@ -1,9 +1,10 @@
-import { ReactNode, useCallback, useState, useRef, useEffect, forwardRef } from 'react'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
+import { ReactNode, forwardRef, useCallback, useEffect, useRef, useState } from 'react'
 
 interface TextAreaFieldProps {
 	id?: string
 	label?: string
+	defaultValue?: string
 	placeholder?: string
 	autofocus?: boolean
 	error?: any
@@ -17,6 +18,7 @@ const TextAreaField = (
 		id,
 		label,
 		placeholder,
+		defaultValue,
 		autofocus = false,
 		fullWidth = false,
 		error,
@@ -25,7 +27,6 @@ const TextAreaField = (
 	}: TextAreaFieldProps,
 	ref,
 ) => {
-	console.log(rest)
 	return (
 		<div className={`relative flex flex-col ${fullWidth ? 'w-full' : 'w-[230px]'}`}>
 			<label htmlFor={id} className="">
@@ -39,6 +40,7 @@ const TextAreaField = (
 				<div className="px-2 w-full">
 					<textarea
 						ref={ref}
+						value={defaultValue}
 						className="relative rounded-md w-[100%] h-[90%] px-2 py-2 focus-visible:outline-none"
 						{...rest}
 					/>

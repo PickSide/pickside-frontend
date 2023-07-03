@@ -1,6 +1,7 @@
-import { createContext, useContext, FC, ReactNode, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { FC, ReactNode, createContext, useContext, useEffect, useState } from 'react'
+
 import { AppState } from 'state'
+import { useSelector } from 'react-redux'
 
 export interface AppThemeContextProps {
 	children?: ReactNode
@@ -11,9 +12,9 @@ const AppThemeContext = createContext<AppThemeContextProps>({})
 export const useThemeContext = () => useContext(AppThemeContext)
 
 export const AppThemeProvider: FC<any> = ({ children }) => {
-	const account = useSelector((state: AppState) => state.account)
+	const user = useSelector((state: AppState) => state.user)
 	const appTheme = useSelector((state: AppState) => state.appTheme)
-	const [currentThemeClass, setCurrentThemeClass] = useState<any>(account?.defaultTheme || 'light')
+	const [currentThemeClass, setCurrentThemeClass] = useState<any>(user?.preferredTheme || 'light')
 
 	useEffect(() => window.document.documentElement.classList.add(currentThemeClass), [])
 

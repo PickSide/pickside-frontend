@@ -1,7 +1,8 @@
-import { createContext, useContext, useEffect, FC } from 'react'
-import { useLocalStorage } from 'hooks'
+import { AppState, setUser } from 'state'
+import { FC, createContext, useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setAccount, AppState } from 'state'
+
+import { useLocalStorage } from 'hooks'
 
 export interface ApiErrorContext {
 	error?: any
@@ -15,15 +16,15 @@ export const ApiErrorProvider: FC<any> = ({ children }) => {
 	const dispatch = useDispatch()
 	const { get } = useLocalStorage()
 
-	const account = useSelector((state: AppState) => state.account)
+	const user = useSelector((state: AppState) => state.user)
 
 	useEffect(() => {
-		if (!account) {
+		if (!user) {
 			if (!!get('auth')) {
-				dispatch<any>(setAccount(get('auth').user))
+				dispatch<any>(setUser(get('auth').user))
 			}
 		}
-	}, [account, dispatch, get])
+	}, [user, dispatch, get])
 
 	return <Context.Provider value={{}}>{children}</Context.Provider>
 }

@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+
 import { Resources } from 'state'
 
 export interface Areas extends Resources {
@@ -6,6 +7,7 @@ export interface Areas extends Resources {
 }
 
 export interface Area {
+    id?: string
     country?: string
     state?: string
     city?: string

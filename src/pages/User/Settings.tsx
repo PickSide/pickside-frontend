@@ -1,24 +1,25 @@
-import { useMemo, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { AiFillEdit, AiOutlineTeam } from 'react-icons/ai'
+import { Button, Chip, Dialog, IconDropdown, MenuItem, Popover, Tab, Tabs } from 'components'
+import { FiMoreVertical, FiSettings } from 'react-icons/fi'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import AppSettings from './Sections/Settings'
-import History from './Sections/History'
-import ProfileSettings from './Sections/ProfileSettings'
-import { AiOutlineTeam, AiFillEdit } from 'react-icons/ai'
-import { CgProfile } from 'react-icons/cg'
-import { FiSettings, FiMoreVertical } from 'react-icons/fi'
-import { MdHistory } from 'react-icons/md'
-import { BiTime } from 'react-icons/bi'
-import { AppState } from 'state'
-import { Button, Dialog, IconDropdown, MenuItem, Popover, Tabs, Tab, Chip } from 'components'
-import { useDevice } from 'hooks'
+import { useMemo, useState } from 'react'
 
-const UserPage = () => {
+import AppSettings from './Sections/PersonalInfo'
+import { AppState } from 'state'
+import { BiTime } from 'react-icons/bi'
+import { CgProfile } from 'react-icons/cg'
+import EditProfile from './Sections/EditProfile'
+import History from './Sections/ActivityHistory'
+import { MdHistory } from 'react-icons/md'
+import { useDevice } from 'hooks'
+import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+
+const Settings = () => {
 	const { t } = useTranslation()
 	const { pathname } = useLocation()
 	const { isMobile } = useDevice()
-	const connectedUser = useSelector((state: AppState) => state.account)
+	const connectedUser = useSelector((state: AppState) => state.user)
 	const [activeSection, setActiveSection] = useState<string>(pathname)
 	const [openChangeAvatarDialog, setOpenChangeAvatarDialog] = useState<boolean>(false)
 	const [openPopover, setOpenPopover] = useState<boolean>(false)
@@ -26,38 +27,45 @@ const UserPage = () => {
 	const MenuItems = useMemo(
 		() => [
 			{
-				description: t('Profile'),
-				ref: 'profile',
-				value: 'profile',
-				icon: <CgProfile size={25} />,
-				content: <ProfileSettings />,
+				description: t('Edit Profile'),
+				ref: 'edit-profile',
+				value: 'edit-profile',
+				icon: <CgProfile size={20} />,
+				content: <EditProfile />,
 			},
 			{
-				description: t('Settings'),
-				ref: 'app-settings',
-				value: 'appsettings',
-				icon: <FiSettings size={25} />,
+				description: t('Personal Info'),
+				ref: 'personal-info',
+				value: 'personal-info',
+				icon: <FiSettings size={20} />,
 				content: <AppSettings />,
 			},
 			{
-				description: t('Team'),
-				ref: 'team',
-				value: 'team',
-				icon: <AiOutlineTeam size={25} />,
+				description: t('Account Management'),
+				ref: 'account-management',
+				value: 'account-management',
+				icon: <FiSettings size={20} />,
+				content: <AppSettings />,
+			},
+			{
+				description: t('Social Media'),
+				ref: 'social-media',
+				value: 'social-media',
+				icon: <MdHistory size={20} />,
 				content: <History />,
 			},
 			{
-				description: t('Recently'),
-				ref: 'recently',
-				value: 'recently',
-				icon: <MdHistory size={25} />,
+				description: t('Privacy'),
+				ref: 'privacy',
+				value: 'privacy',
+				icon: <MdHistory size={20} />,
 				content: <History />,
 			},
 			{
-				description: t('History'),
-				ref: 'history',
-				value: 'history',
-				icon: <BiTime size={25} />,
+				description: t('Activity history'),
+				ref: 'activity-history',
+				value: 'activity-history',
+				icon: <BiTime size={20} />,
 				content: <History />,
 			},
 		],
@@ -125,7 +133,7 @@ const UserPage = () => {
 							<Popover
 								trigger={
 									<button className="text-primary">
-										<FiMoreVertical size={25} />
+										<FiMoreVertical size={20} />
 									</button>
 								}
 							>
@@ -136,7 +144,7 @@ const UserPage = () => {
 									>
 										Change avatar
 									</button>
-									<button className="text-error cursor-pointer hover:text-red-200">Delete account</button>
+									<button className="text-error cursor-pointer hover:text-red-200">Delete user</button>
 								</div>
 							</Popover>
 						</div>
@@ -151,7 +159,11 @@ const UserPage = () => {
 									}`}
 								>
 									{icon}
-									<NavLink className="flex-grow" to={ref} onClick={() => setActiveSection(`/user/${ref}`)}>
+									<NavLink
+										className="flex-grow text-[15px] whitespace-nowrap"
+										to={ref}
+										onClick={() => setActiveSection(`/user/${ref}`)}
+									>
 										{description}
 									</NavLink>
 								</div>
@@ -167,4 +179,4 @@ const UserPage = () => {
 	)
 }
 
-export default UserPage
+export default Settings

@@ -1,12 +1,11 @@
 import useApi from './useApi'
-import useAuth from './useAuth'
-import useCalls from './useCalls'
+import useApiHelpers from './useApiHelpers'
 import useConnectedUserPosition from './useConnectedUserPosition'
 import useDebounce from './useDebounce'
-import useEnvVariables from './useEnvVariables'
 import useDevice from './useDevice'
-import useLocaleSwitcher from './useLocaleSwitcher'
+import useEnvVariables from './useEnvVariables'
 import useLocalStorage from './useLocalStorage'
+import useLocaleSwitcher from './useLocaleSwitcher'
 import useMapStyles from './useMapStyles'
 import useMultistepForm from './useMultistepForm'
 import useOnScreen from './useOnScreen'
@@ -14,8 +13,7 @@ import useRefreshToken from './useRefreshToken'
 
 export {
 	useApi,
-	useAuth,
-	useCalls,
+	useApiHelpers,
 	useConnectedUserPosition,
 	useDebounce,
 	useEnvVariables,

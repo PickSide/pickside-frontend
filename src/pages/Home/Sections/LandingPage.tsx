@@ -1,21 +1,21 @@
-import { FC, useCallback, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useAsync } from 'react-use'
 import { Autocomplete, Button } from 'components'
-import { useCalls } from 'hooks'
+import { FC, useCallback, useState } from 'react'
+
 import { Area } from 'state'
-import { setSelectedLocation } from 'state'
+import { lazyGetItems } from 'utils'
 import { orderBy } from 'lodash'
+import { setSelectedLocation } from 'state'
+import { useAsync } from 'react-use'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 const LandingPage: FC<any> = () => {
-	const { lazyGetItems } = useCalls()
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
 	const { loading } = useAsync(async () => {
-		const items = await lazyGetItems({ endpoint: 'areas' })
+		const items = await lazyGetItems({ endpoint: 'predefined-areas' })
 		if (items) {
 			setOptions(orderBy<Area>(items.results, ['city', 'country', 'state'], ['asc', 'desc']))
 		}

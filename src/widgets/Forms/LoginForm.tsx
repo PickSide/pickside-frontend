@@ -1,13 +1,14 @@
-import { FC, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useForm, Controller } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
-import { Button, Checkbox, TextField } from 'components'
-import { useAuth } from 'hooks'
 import { BiLockAlt, BiUser } from 'react-icons/bi'
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router'
+import { Button, Checkbox, TextField } from 'components'
+import { Controller, useForm } from 'react-hook-form'
+import { FC, useState } from 'react'
 import { setAppTheme, setLocale } from 'state'
+
+import { Link } from 'react-router-dom'
+import { useApi } from 'hooks'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router'
+import { useTranslation } from 'react-i18next'
 
 interface LoginFormProps {
 	onClose: () => void
@@ -20,7 +21,7 @@ type FormData = {
 }
 
 const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
-	const { login } = useAuth()
+	const { login } = useApi()
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
@@ -47,11 +48,11 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 		if (response.error) {
 			setApiError(response.error)
 		} else {
-			if (response.user.defaultTheme) {
-				await dispatch<any>(setAppTheme(response.user.defaultTheme))
+			if (response.user.preferredTheme) {
+				await dispatch<any>(setAppTheme(response.user.preferredTheme))
 			}
-			if (response.user.defaultLanguage) {
-				await dispatch<any>(setLocale(response.user.defaultLanguage))
+			if (response.user.preferredLocale) {
+				await dispatch<any>(setLocale(response.user.preferredLocale.value))
 			}
 			navigate('/home')
 		}
@@ -122,7 +123,7 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 				/>
 			</form>
 			<div className="flex gap-x-2">
-				<span className="text-gray-500">{t(`Don't have an account?`)}</span>
+				<span className="text-gray-500">{t(`Don't have an user?`)}</span>
 				<Link to="/signup" className="font-semibold text-primary hover:text-gray-400/90 hover:scale-105">
 					{t('Sign up')}
 				</Link>

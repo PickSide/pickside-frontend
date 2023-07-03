@@ -1,7 +1,8 @@
 import { ReactNode, forwardRef } from 'react'
-import { twMerge } from 'tailwind-merge'
-import Spinner from './Spinner'
+
 import { ButtonVariant } from 'utils'
+import Spinner from './Spinner'
+import { twMerge } from 'tailwind-merge'
 
 interface ButtonProps {
 	variant?: ButtonVariant
@@ -29,7 +30,7 @@ const Button = (
 	ref,
 ) => {
 	const variants = {
-		primary: 'text-white bg-primary hover:bg-gray-300 disabled:bg-gray-100/60 dark:bg-white dark:text-black',
+		primary: 'text-white bg-primary hover:bg-gray-300 disabled:bg-gray-300/60 dark:bg-white dark:text-black',
 		secondary: 'text-primary',
 		tertiary: 'text-primary dak:bg-none dark:text-white',
 		danger: 'text-danger bg-danger hover:bg-red-400',

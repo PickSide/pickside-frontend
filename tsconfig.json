@@ -79,6 +79,7 @@
 		"src/**/*",
 		"src/utis/**/*",
 		"src/state/**/*",
-		"./tailwind.config.js"
+		"./tailwind.config.js",
+		"sw.js",
 	]
 }
