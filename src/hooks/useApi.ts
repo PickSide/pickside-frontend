@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux'
 
 interface UseApiOutput {
 	/* Auth */
+	deactivate: () => (d: Dispatch) => Promise<any>
+	reactivate: (id: any) => (d: Dispatch) => Promise<any>
 	login: (data: any) => (d: Dispatch) => Promise<any>
 	logout: () => (d: Dispatch) => Promise<any>
 	token?: (data: any) => (d: Dispatch) => Promise<any>
@@ -63,6 +65,25 @@ const useApi = (): UseApiOutput => {
 	const { getItems, putItem, postItem } = useApiHelpers()
 
 	return {
+		deactivate:
+			() =>
+				async (dispatch: Dispatch): Promise<any> => {
+					return await putItem({ endpoint: 'deactivate', id: user?.id })(dispatch)
+						.then((response) => {
+							if (response.user) {
+								dispatch<any>(logout())
+								remove('auth')
+							}
+							return response
+						})
+
+				},
+		reactivate:
+			(id: any) =>
+				async (dispatch: Dispatch): Promise<any> => {
+					return await putItem({ endpoint: 'reactivate', id })(dispatch)
+
+				},
 		login:
 			(data: any) =>
 				async (dispatch: Dispatch): Promise<any> => {

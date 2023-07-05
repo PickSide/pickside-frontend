@@ -1,7 +1,10 @@
 import ActivitySelectedSidenav from './ActivitySelectedSidenav'
 import AppBar from './AppBar'
 import BackButton from './BackButton'
+import BottomDrawer from './BottomDrawer'
+import ChangePasswordForm from './Forms/ChangePasswordForm'
 import ConfirmRegisterEventForm from './Forms/ConfirmRegisterEventForm'
+import DeactivationForm from './Forms/DeactivationForm'
 import EditField from './EditField'
 import EventCard from './EventCard'
 import EventList from './EventList'
@@ -19,7 +22,10 @@ export {
 	ActivitySelectedSidenav,
 	AppBar,
 	BackButton,
+	BottomDrawer,
+	ChangePasswordForm,
 	ConfirmRegisterEventForm,
+	DeactivationForm,
 	EditField,
 	EventCard,
 	EventList,

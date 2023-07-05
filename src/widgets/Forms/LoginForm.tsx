@@ -2,9 +2,9 @@ import { BiLockAlt, BiUser } from 'react-icons/bi'
 import { Button, Checkbox, TextField } from 'components'
 import { Controller, useForm } from 'react-hook-form'
 import { FC, useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 import { setAppTheme, setLocale } from 'state'
 
-import { Link } from 'react-router-dom'
 import { useApi } from 'hooks'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
@@ -21,11 +21,11 @@ type FormData = {
 }
 
 const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
-	const { login } = useApi()
+	const { login, reactivate } = useApi()
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
-	const [apiError, setApiError] = useState(null)
+	const [apiError, setApiError] = useState<any>(null)
 	const [loading, setLoading] = useState(false)
 
 	const { control, handleSubmit } = useForm<FormData>({
@@ -44,9 +44,24 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 		setLoading(true)
 
 		const response = await dispatch<any>(login(data))
-
 		if (response.error) {
-			setApiError(response.error)
+			const errorMsg = response.error.message
+			if (response.error.failReason === 'userinactive') {
+				setApiError(
+					<>
+						<p>{errorMsg}</p>
+						<p
+							className="underline cursor-pointer"
+							onClick={() => {
+								const re = dispatch<any>(reactivate(response.error.userId))
+								console.log(re)
+							}}
+						>
+							{t('Click here to reactivate')}
+						</p>
+					</>,
+				)
+			}
 		} else {
 			if (response.user.preferredTheme) {
 				await dispatch<any>(setAppTheme(response.user.preferredTheme))
@@ -68,7 +83,7 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 			</div>
 			{!!apiError && (
 				<div className="rounded-sm border-[1px] w-full text-center p-2 border-error text-red-900 bg-red-200 text-[15px]">
-					{apiError && <p>{apiError}</p>}
+					{apiError}
 				</div>
 			)}
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4 w-full">

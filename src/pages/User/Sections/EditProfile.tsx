@@ -1,10 +1,10 @@
 import { AppState, Area } from 'state'
-import { Button, Chip, Select, TextAreaField, TextField, Toggle, ToggleGroup } from 'components'
+import { BottomDrawer, EditField } from 'widgets'
+import { Chip, Select, TextAreaField, TextField, Toggle, ToggleGroup } from 'components'
 import { Controller, useForm } from 'react-hook-form'
 import { useApi, useDevice } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { EditField } from 'widgets'
 import { HiOutlineLightBulb } from 'react-icons/hi'
 import { MdDarkMode } from 'react-icons/md'
 import { orderBy } from 'lodash'
@@ -52,15 +52,15 @@ const EditProfile = () => {
 		// 	name: t('Password'),
 		// 	readOnly: true,
 		// 	control: (
-		// 		<Button
-		// 			className="flex whitespace-nowrap gap-x-4 text-[13px] items-center"
-		// 			onClick={() => setOpenPasswordChangeDialog(true)}
-		// 			text={
-		// 				<>
-		// 					{t('Change')} <FaExternalLinkAlt size={15} />
-		// 				</>
-		// 			}
-		// 		/>
+		// <Button
+		// 	className="flex whitespace-nowrap gap-x-4 text-[13px] items-center"
+		// 	onClick={() => setOpenPasswordChangeDialog(true)}
+		// 	text={
+		// 		<>
+		// 			{t('Change')} <FaExternalLinkAlt size={15} />
+		// 		</>
+		// 	}
+		// />
 		// 	),
 		// },
 		{
@@ -173,10 +173,7 @@ const EditProfile = () => {
 					)}
 				/>
 
-				<div className="absolute bottom-0 inline-flex gap-x-3">
-					<Button type="reset" variant="tertiary" text={t('Reset')} disabled={!isDirty} />
-					<Button type="submit" text={t('Save changes')} disabled={!isDirty} />
-				</div>
+				<BottomDrawer show={isDirty} onReset={reset} />
 			</form>
 		</div>
 	)

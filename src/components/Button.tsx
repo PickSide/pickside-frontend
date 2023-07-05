@@ -33,7 +33,7 @@ const Button = (
 		primary: 'text-white bg-primary hover:bg-gray-300 disabled:bg-gray-300/60 dark:bg-white dark:text-black',
 		secondary: 'text-primary',
 		tertiary: 'text-primary dak:bg-none dark:text-white',
-		danger: 'text-danger bg-danger hover:bg-red-400',
+		danger: 'text-white bg-red-600 hover:bg-red-400',
 	}
 
 	return (
