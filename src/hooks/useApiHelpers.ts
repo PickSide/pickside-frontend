@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
 
-import { API_URL } from 'api'
 import { Dispatch } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { useLocalStorage } from 'hooks'
@@ -49,7 +48,9 @@ const useApiHelpers = (): UseCallsOutput => {
 	const [errors, setErrors] = useState<any>()
 
 	const axiosInstance = useMemo(() => axios.create({
-		baseURL: API_URL,
+		baseURL: process.env.NODE_ENV === "production"
+			? "/api/v1"
+			: "http://localhost:8000/api/v1",
 		headers: {
 			'Content-Type': 'application/json',
 			'X-Request-Id': uuidv4(),
