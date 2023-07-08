@@ -49,8 +49,8 @@ const useApiHelpers = (): UseCallsOutput => {
 
 	const axiosInstance = useMemo(() => axios.create({
 		baseURL: process.env.NODE_ENV === "production"
-			? ""
-			: "http://localhost:8000",
+			? "/api/v1"
+			: "http://localhost:8000/api/v1",
 		headers: {
 			'Content-Type': 'application/json',
 			'X-Request-Id': uuidv4(),
