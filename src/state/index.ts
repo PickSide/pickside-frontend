@@ -1,36 +1,35 @@
-import account, { Account } from './account'
 import activities, { Activities } from './activity'
-import appLocale from './appLocale'
 import appStatus, { AppStatus } from './appStatus'
-import appTheme from './appTheme'
 import areas, { Areas } from './areas'
 import locales, { Locales } from './locales'
-import playables, { Playables } from './playables'
 import notifications, { Notifications } from './notifications'
-import selectedActivity from './selectedActivity'
+import playables, { Playables } from './playables'
 import selectedContexts, { SelectedContexts } from './selectedContext'
-import selectedLocation from './selectedLocation'
-import selectedSport from './selectedSport'
-import settingsTemplate, { SettingsTemplate } from './settingsTemplate'
 import sports, { Sports } from './sport'
 import toast, { Toast } from './toast'
+import user, { User } from './user'
 
-export * from './account'
+import appLocale from './appLocale'
+import appTheme from './appTheme'
+import selectedActivity from './selectedActivity'
+import selectedLocation from './selectedLocation'
+import selectedSport from './selectedSport'
+
 export * from './activity'
 export * from './appLocale'
 export * from './appStatus'
 export * from './appTheme'
 export * from './areas'
 export * from './locales'
-export * from './playables'
 export * from './notifications'
+export * from './playables'
 export * from './selectedActivity'
 export * from './selectedContext'
 export * from './selectedLocation'
 export * from './selectedSport'
-export * from './settingsTemplate'
 export * from './sport'
 export * from './toast'
+export * from './user'
 
 export interface Resources {
 	messageResponse?: string
@@ -38,39 +37,37 @@ export interface Resources {
 }
 
 export interface AppState {
-	account?: Account
 	activities?: Activities
 	appLocale?: string
 	appStatus?: AppStatus
 	appTheme?: string
 	areas?: Areas
 	locales?: Locales
-	playables?: Playables,
 	notifications?: Notifications
+	playables?: Playables,
 	selectedActivity?: any,
 	selectedContexts?: SelectedContexts
 	selectedLocation?: any
 	selectedSport?: any
-	settingsTemplate?: SettingsTemplate
 	sports?: Sports
 	toast?: Toast
+	user?: User
 }
 
 export const reducers = {
-	account,
 	activities,
 	appLocale,
 	appStatus,
 	appTheme,
 	areas,
 	locales,
-	playables,
 	notifications,
+	playables,
 	selectedActivity,
 	selectedContexts,
 	selectedLocation,
 	selectedSport,
-	settingsTemplate,
 	sports,
-	toast
+	toast,
+	user
 }

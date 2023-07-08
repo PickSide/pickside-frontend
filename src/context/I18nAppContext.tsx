@@ -1,6 +1,7 @@
-import { createContext, useContext, FC, ReactNode, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { FC, ReactNode, createContext, useContext, useEffect, useState } from 'react'
+
 import { AppState } from 'state'
+import { useSelector } from 'react-redux'
 
 export interface I18nAppContextProps {
 	children?: ReactNode
@@ -11,9 +12,9 @@ const I18nAppContext = createContext<I18nAppContextProps>({})
 export const useThemeContext = () => useContext(I18nAppContext)
 
 export const AppThemeProvider: FC<any> = ({ children }) => {
-	const account = useSelector((state: AppState) => state.account)
+	const user = useSelector((state: AppState) => state.user)
 	const appLocale = useSelector((state: AppState) => state.appLocale)
-	const [currentLocalClass, setCurrentLocalClass] = useState<any>(account?.defaultLanguage || 'en')
+	const [currentLocalClass, setCurrentLocalClass] = useState<any>(user?.preferredLocale || 'en')
 
 	useEffect(() => window.document.documentElement.classList.add(currentLocalClass), [])
 

@@ -1,5 +1,5 @@
+import { getItem } from 'utils'
 import { useAsync } from 'react-use'
-import { useCalls } from 'hooks'
 import useLocalStorage from './useLocalStorage'
 
 interface UseRefreshTokenOutputs {
@@ -8,7 +8,6 @@ interface UseRefreshTokenOutputs {
 }
 
 const useRefreshToken = (): UseRefreshTokenOutputs => {
-	const { getItem } = useCalls()
 	const { loading, value } = useAsync(async () => await getItem({ endpoint: 'token' }))
 	const { get, set } = useLocalStorage()
 

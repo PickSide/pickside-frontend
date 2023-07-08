@@ -6,7 +6,7 @@ export const FILTERS = 'filters'
 //Local storage keys
 export const ACCESS_TOKEN = 'pickside-access-token'
 export const REFRESH_TOKEN = 'pickside-refresh-token'
-export const CONNECTED_ACCOUNT = 'pickside-account'
+export const CONNECTED_ACCOUNT = 'pickside-user'
 
 export const FULL_NAME_REGEX = /^[A-Za-z]*( [A-Za-z]+)*$/
 export const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/

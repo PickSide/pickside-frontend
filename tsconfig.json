@@ -41,9 +41,10 @@
 		},
 		"target": "es6",
 		"lib": [
-			"dom",
-			"dom.iterable",
-			"esnext"
+			"DOM",
+			"DOM.Iterable",
+			"ES2020",
+			"ESNext"
 		],
 		"outDir": "./dist",
 		"allowJs": true,
@@ -79,6 +80,7 @@
 		"src/**/*",
 		"src/utis/**/*",
 		"src/state/**/*",
-		"./tailwind.config.js"
+		"./tailwind.config.js",
+		"sw.js",
 	]
 }

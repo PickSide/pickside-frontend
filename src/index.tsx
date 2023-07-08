@@ -1,12 +1,27 @@
+import './index.css'
+
 import React, { Suspense } from 'react'
+
+import App from './App'
+import { I18nextProvider } from 'react-i18next'
 import ReactDOM from 'react-dom/client'
 import { Provider as StoreProvider } from 'react-redux'
-import { I18nextProvider } from 'react-i18next'
-import { store } from './store'
-import App from './App'
 import i18n from './i18n'
 import reportWebVitals from './reportWebVitals'
-import './index.css'
+import { store } from './store'
+
+if ('serviceWorker' in navigator) {
+	navigator.serviceWorker
+		.register('./sw.js')
+		.then((registration) => {
+			console.log('SW Registered!')
+			console.log(registration)
+		})
+		.catch((error) => {
+			console.warn('SW Registration Failed!')
+			console.warn(error)
+		})
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 

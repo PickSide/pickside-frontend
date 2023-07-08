@@ -1,7 +1,8 @@
-import { createContext, useContext, FC, ReactNode, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Toast } from 'widgets'
 import { AppState, toastMessage } from 'state'
+import { FC, ReactNode, createContext, useContext, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { Toast } from 'widgets'
 
 export interface ToastContextProps {
 	children?: ReactNode
@@ -27,7 +28,7 @@ export const ToastProvider: FC<any> = ({ children }) => {
 	return (
 		<ToastContext.Provider value={{}}>
 			{children}
-			<div className="fixed bottom-5 left-5">
+			<div className="fixed bottom-5 left-5 z-[1000]">
 				<Toast type={toast?.type} show={!!toast} onClose={() => dispatch<any>(toastMessage(null))}>
 					{toast?.message}
 				</Toast>

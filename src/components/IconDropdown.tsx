@@ -1,6 +1,7 @@
-import React, { ReactNode, forwardRef, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { dropdownAnimation, IconVariant } from 'utils'
+import { IconVariant, dropdownAnimation } from 'utils'
+import React, { ReactNode, forwardRef, useEffect, useState } from 'react'
+
 import { twMerge } from 'tailwind-merge'
 
 interface DropdownProps {
@@ -8,9 +9,10 @@ interface DropdownProps {
 	children?: ReactNode
 	icon?: ReactNode
 	variant?: IconVariant
+	badge?: ReactNode
 }
 
-const IconDropdown = ({ className, children, icon, variant = 'primary' }: DropdownProps, ref) => {
+const IconDropdown = ({ badge, className, children, icon, variant = 'primary' }: DropdownProps, ref) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 
 	useEffect(() => {
@@ -26,10 +28,11 @@ const IconDropdown = ({ className, children, icon, variant = 'primary' }: Dropdo
 			<button
 				type="button"
 				onClick={() => setIsOpen(true)}
-				className={twMerge(`icon-btn inline-flex items-center`, [className, `icon-${variant}`].join(' '))}
+				className={twMerge(`relative icon-btn inline-flex items-center`, [className, `icon-${variant}`].join(' '))}
 				id="menu-button"
 			>
 				{icon}
+				{badge && <span className="absolute top-0 -right-1 rounded-full">{badge}</span>}
 			</button>
 
 			<AnimatePresence initial={false} mode="wait">

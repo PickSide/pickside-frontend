@@ -1,13 +1,14 @@
-import { FC, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useForm, Controller } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
-import { Button, Checkbox, TextField } from 'components'
-import { useAuth } from 'hooks'
 import { BiLockAlt, BiUser } from 'react-icons/bi'
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router'
+import { Button, Checkbox, TextField } from 'components'
+import { Controller, useForm } from 'react-hook-form'
+import { FC, useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 import { setAppTheme, setLocale } from 'state'
+
+import { useApi } from 'hooks'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router'
+import { useTranslation } from 'react-i18next'
 
 interface LoginFormProps {
 	onClose: () => void
@@ -20,11 +21,11 @@ type FormData = {
 }
 
 const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
-	const { login } = useAuth()
+	const { login, reactivate } = useApi()
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
-	const [apiError, setApiError] = useState(null)
+	const [apiError, setApiError] = useState<any>(null)
 	const [loading, setLoading] = useState(false)
 
 	const { control, handleSubmit } = useForm<FormData>({
@@ -43,15 +44,30 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 		setLoading(true)
 
 		const response = await dispatch<any>(login(data))
-
 		if (response.error) {
-			setApiError(response.error)
-		} else {
-			if (response.user.defaultTheme) {
-				await dispatch<any>(setAppTheme(response.user.defaultTheme))
+			const errorMsg = response.error.message
+			if (response.error.failReason === 'userinactive') {
+				setApiError(
+					<>
+						<p>{errorMsg}</p>
+						<p
+							className="underline cursor-pointer"
+							onClick={() => {
+								const re = dispatch<any>(reactivate(response.error.userId))
+								console.log(re)
+							}}
+						>
+							{t('Click here to reactivate')}
+						</p>
+					</>,
+				)
 			}
-			if (response.user.defaultLanguage) {
-				await dispatch<any>(setLocale(response.user.defaultLanguage))
+		} else {
+			if (response.user.preferredTheme) {
+				await dispatch<any>(setAppTheme(response.user.preferredTheme))
+			}
+			if (response.user.preferredLocale) {
+				await dispatch<any>(setLocale(response.user.preferredLocale.value))
 			}
 			navigate('/home')
 		}
@@ -67,7 +83,7 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 			</div>
 			{!!apiError && (
 				<div className="rounded-sm border-[1px] w-full text-center p-2 border-error text-red-900 bg-red-200 text-[15px]">
-					{apiError && <p>{apiError}</p>}
+					{apiError}
 				</div>
 			)}
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4 w-full">
@@ -122,7 +138,7 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 				/>
 			</form>
 			<div className="flex gap-x-2">
-				<span className="text-gray-500">{t(`Don't have an account?`)}</span>
+				<span className="text-gray-500">{t(`Don't have an user?`)}</span>
 				<Link to="/signup" className="font-semibold text-primary hover:text-gray-400/90 hover:scale-105">
 					{t('Sign up')}
 				</Link>

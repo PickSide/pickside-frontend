@@ -1,46 +1,117 @@
+import { Activity, AppState, markAsRead, setActivities, setAreas, setLocales, setNotifications, setPlayables, setSports, updateActivity, updateConfig } from 'state'
+import { logout, setUser } from 'state'
+import { useApiHelpers, useLocalStorage } from 'hooks'
+
 import { Dispatch } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
-import { AppState, setLocales, setSports, setActivities, updateActivity, Activity, setSettingsTemplate, setPlayables, setAreas, updateConfig } from 'state'
-import { useCalls, useLocalStorage } from 'hooks'
-import { API_URL } from 'api'
 
 interface UseApiOutput {
-	/* account */
-	updateAccountSettings: (data: any) => (d: Dispatch) => Promise<any>
-
-	/* area */
-	getAreas: () => (d: Dispatch) => Promise<any>
+	/* Auth */
+	deactivate: () => (d: Dispatch) => Promise<any>
+	reactivate: (id: any) => (d: Dispatch) => Promise<any>
+	login: (data: any) => (d: Dispatch) => Promise<any>
+	logout: () => (d: Dispatch) => Promise<any>
+	token?: (data: any) => (d: Dispatch) => Promise<any>
 
 	/* activites */
-	createActivity: (data: any) => (d: Dispatch) => Promise<any>
-	getActivity?: (id: any) => (d: Dispatch) => Promise<any>
 	getActivities: () => (d: Dispatch) => Promise<any>
-	registerToActivity: (data: any) => (d: Dispatch) => Promise<any>
+	createActivity: (data: any) => (d: Dispatch) => Promise<any>
+	getActivity?: (activityId: any) => (d: Dispatch) => Promise<any>
+	updateActivity?: (activityId: any) => (d: Dispatch) => Promise<any>
+	deleteActivity?: (activityId: any) => (d: Dispatch) => Promise<any>
+	getActivitiesByGroup?: (groupId: any) => (d: Dispatch) => Promise<any>
+	registerToActivity: (activityId: any) => (d: Dispatch) => Promise<any>
+
+	/* predefined areas */
+	getPredefinedAreas: () => (d: Dispatch) => Promise<any>
+
+	/* Courts */
+	getCourts: () => (d: Dispatch) => Promise<any>
+
+	/* Custom Courts */
+	getCustomCourts?: () => (d: Dispatch) => Promise<any>
+	addCustomCourt?: (data: any) => (d: Dispatch) => Promise<any>
+	getCustomCourtById?: (courtId: any) => (d: Dispatch) => Promise<any>
+	deleteCustomCourt?: (courtId: any) => (d: Dispatch) => Promise<any>
+	getCustomCourtsCreatedByUser?: (userId: any) => (d: Dispatch) => Promise<any>
+	deleteCustomCourtsCreatedByUser?: (userId: any) => (d: Dispatch) => Promise<any>
+
+	/* email */
+	verifyEmail?: (data: any) => (d: Dispatch) => Promise<any>
 
 	/* locales */
 	getLocales: () => (d: Dispatch) => Promise<any>
 
-	/* Playables */
-	getPlayables: () => (d: Dispatch) => Promise<any>
+	/* notifications */
+	getNotifications: () => (d: Dispatch) => Promise<any>
+	markNotificationAsRead: (notificationId: any) => (d: Dispatch) => Promise<any>
+
+	/* user */
+	getUsers?: () => (d: Dispatch) => Promise<any>
+	createUser: (data: any) => (d: Dispatch) => Promise<any>
+	getUserById?: (userId: any) => (d: Dispatch) => Promise<any>
+	updateUser: (data: any) => (d: Dispatch) => Promise<any>
+	deleteUser?: (userId: any) => (d: Dispatch) => Promise<any>
+	getUsersByGroupId?: (groupId: any) => (d: Dispatch) => Promise<any>
+	getUsersByActivityId?: (activityId: any) => (d: Dispatch) => Promise<any>
 
 	/* sports */
 	getSports: () => (d: Dispatch) => Promise<any>
-
-	/* sports */
-	getSettingsTemplate: () => (d: Dispatch) => Promise<any>
 }
 
 const useApi = (): UseApiOutput => {
-	const { getItems, putItem, postItem } = useCalls({ baseURL: API_URL })
-	const { set } = useLocalStorage()
-
-	const account = useSelector((state: AppState) => state.account)
+	const user = useSelector((state: AppState) => state.user)
+	const { remove, set } = useLocalStorage()
+	const { getItems, putItem, postItem } = useApiHelpers()
 
 	return {
-		getAreas: () =>
+		deactivate:
+			() =>
+				async (dispatch: Dispatch): Promise<any> => {
+					return await putItem({ endpoint: 'deactivate', id: user?.id })(dispatch)
+						.then((response) => {
+							if (response.user) {
+								dispatch<any>(logout())
+								remove('auth')
+							}
+							return response
+						})
+
+				},
+		reactivate:
+			(id: any) =>
+				async (dispatch: Dispatch): Promise<any> => {
+					return await putItem({ endpoint: 'reactivate', id })(dispatch)
+
+				},
+		login:
+			(data: any) =>
+				async (dispatch: Dispatch): Promise<any> => {
+					return await postItem({ endpoint: 'login', data })(dispatch)
+						.then((response) => {
+							if (response.user) {
+								dispatch<any>(setUser(response.user))
+								remove('auth')
+								set('auth', response)
+							}
+							return response
+						})
+
+				},
+		logout:
+			() =>
+				async (dispatch: Dispatch): Promise<any> => {
+					const items = await postItem({ endpoint: 'logout' })(dispatch)
+					if (items) {
+						dispatch<any>(logout())
+						remove('auth')
+					}
+				},
+
+		getPredefinedAreas: () =>
 			async (dispatch: Dispatch): Promise<any> => {
 				const data = await getItems({
-					endpoint: 'areas',
+					endpoint: 'predefined-areas',
 				})(dispatch)
 
 				if (data) {
@@ -64,7 +135,7 @@ const useApi = (): UseApiOutput => {
 				async (dispatch: Dispatch): Promise<any> => {
 					const createdActivity = await postItem({
 						endpoint: 'activities',
-						data: { ...data, organiser: account?.username },
+						data: { ...data, organiser: user?.username },
 					})(dispatch)
 
 					if (createdActivity) {
@@ -77,7 +148,7 @@ const useApi = (): UseApiOutput => {
 					const updatedItem = await putItem({
 						endpoint: 'activities',
 						id,
-						data: { userId: account?.id },
+						data: { userId: user?.id },
 					})(dispatch)
 
 					if (updatedItem) {
@@ -97,11 +168,35 @@ const useApi = (): UseApiOutput => {
 					}
 				},
 
-		getPlayables:
+		getNotifications: () =>
+			async (dispatch: Dispatch): Promise<any> => {
+				const items = await getItems({
+					endpoint: 'notifications',
+					id: user?.id
+				})(dispatch)
+
+				if (items) {
+					dispatch(setNotifications(items))
+				}
+			},
+
+		markNotificationAsRead: (notificationId: string) =>
+			async (dispatch: Dispatch): Promise<any> => {
+				const items = await putItem({
+					endpoint: `notifications/${notificationId}/users/${user?.id}`
+				})(dispatch)
+
+				if (items) {
+					dispatch(markAsRead(notificationId))
+				}
+			},
+
+
+		getCourts:
 			() =>
 				async (dispatch: Dispatch): Promise<any> => {
 					const items = await getItems({
-						endpoint: 'playables',
+						endpoint: 'courts',
 					})(dispatch)
 
 					if (items) {
@@ -121,21 +216,21 @@ const useApi = (): UseApiOutput => {
 					}
 				},
 
-		getSettingsTemplate:
-			() =>
-				async (dispatch: Dispatch): Promise<any> => {
-					const items = await getItems({
-						endpoint: 'settings',
-					})(dispatch)
-
-					if (items) {
-						dispatch(setSettingsTemplate(items))
+		createUser: (data: any) =>
+			async (dispatch: Dispatch): Promise<any> => {
+				return await postItem({ endpoint: 'user/create', data })(dispatch).then((response) => {
+					if (response.payload) {
+						dispatch<any>(setUser(response.user))
+						remove('auth')
+						set('auth', response)
 					}
-				},
+					return response
+				})
+			},
 
-		updateAccountSettings: (data) => async (dispatch: Dispatch): Promise<any> => {
+		updateUser: (data) => async (dispatch: Dispatch): Promise<any> => {
 			const items = await putItem({
-				endpoint: `account/${account?._id}/settings`,
+				endpoint: `users/${user?.id}/settings`,
 				data
 			})(dispatch)
 			console.log(data)

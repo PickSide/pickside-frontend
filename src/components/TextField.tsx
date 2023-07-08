@@ -1,5 +1,5 @@
-import { ReactNode, useState, forwardRef } from 'react'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
+import { ReactNode, forwardRef, useState } from 'react'
 
 interface TextFieldProps {
 	id?: string
@@ -35,7 +35,7 @@ const TextField = (
 	const [showPassword, setShowPassword] = useState<boolean>(false)
 
 	return (
-		<div className={`${!fullWidth ? 'max-w-[230px]' : ''} relative flex flex-col text-gray-400`}>
+		<div className={`${!fullWidth ? 'max-w-[230px]' : ''} relative flex flex-col`}>
 			<label htmlFor={id} className="">
 				<span className="text-gray-400">{label}</span>
 			</label>
