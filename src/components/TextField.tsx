@@ -13,6 +13,7 @@ interface TextFieldProps {
 	type?: string
 	fullWidth?: boolean
 	defaultValue?: string
+	onChange?: (e?) => void
 }
 
 const TextField = (

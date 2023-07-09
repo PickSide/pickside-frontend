@@ -2,6 +2,7 @@ import { Autocomplete, Button } from 'components'
 import { FC, useCallback, useState } from 'react'
 
 import { Area } from 'state'
+import { GoogleAutocomplete } from 'widgets'
 import { lazyGetItems } from 'utils'
 import { orderBy } from 'lodash'
 import { setSelectedLocation } from 'state'
@@ -28,7 +29,7 @@ const LandingPage: FC<any> = () => {
 	const [selected, setSelected] = useState<any>(null)
 
 	const handleClick = async () => {
-		await dispatch(setSelectedLocation(selected.coords))
+		await dispatch(setSelectedLocation(selected[0]))
 		await navigate('/listing')
 	}
 
@@ -44,16 +45,8 @@ const LandingPage: FC<any> = () => {
 						{t('Connect across your area and find the nearest sport events of your choice')}
 					</span>
 				</div>
-				<div className="flex mx-auto  items-center justify-center gap-x-6">
-					<Autocomplete
-						options={options}
-						getOptionLabel={getOptionLabel}
-						groupBy={groupBy}
-						onChange={(newValue) => setSelected(newValue)}
-						placeholder={t('Choose your region')}
-						loading={loading}
-						fullWidth
-					/>
+				<div className="flex mx-auto justify-center gap-x-6">
+					<GoogleAutocomplete onSelectPlace={(value) => setSelected(value)} />
 					<Button disabled={!selected} onClick={handleClick} text={t('Go')} />
 				</div>
 			</div>
