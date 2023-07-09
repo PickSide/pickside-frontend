@@ -14,7 +14,9 @@ const Map: FC<any> = ({ ...props }) => {
 
 	const playables = useSelector((state: AppState) => state.playables)
 	const selectedActivity = useSelector((state: AppState) => state.selectedActivity)
-	const selectedLocation = useSelector((state: AppState) => state.selectedLocation)
+	const selectedLocation = useSelector((state: AppState) => state.selectedLocation?.geometry.location)
+
+	console.log(selectedLocation)
 
 	const options: google.maps.MapOptions = {
 		styles: mapStyles,
@@ -27,7 +29,9 @@ const Map: FC<any> = ({ ...props }) => {
 		height: `100%`,
 	}
 
-	const center = !!selectedLocation ? selectedLocation : { lat: 45.5490424, lng: -73.6573323 }
+	const center = !!selectedLocation
+		? { lat: selectedLocation.lat(), lng: selectedLocation.lng() }
+		: { lat: 45.5490424, lng: -73.6573323 }
 
 	const { isLoaded, loadError } = useJsApiLoader({
 		googleMapsApiKey: 'AIzaSyC1kE8lsID_3YOeFEFfI5cI8PJVJIZPkyk',
