@@ -29,7 +29,9 @@ const LandingPage: FC<any> = () => {
 	const [selected, setSelected] = useState<any>(null)
 
 	const handleClick = async () => {
-		await dispatch(setSelectedLocation(selected[0]))
+		const lat = selected[0].geometry.location.lat()
+		const lng = selected[0].geometry.location.lat()
+		await dispatch(setSelectedLocation({ lat, lng }))
 		await navigate('/listing')
 	}
 
