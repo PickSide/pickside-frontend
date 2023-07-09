@@ -8,6 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-22.04
+    environment: myenvironment
 
     steps:
       - name: Checkout code
@@ -16,11 +17,34 @@ jobs:
       - name: SSH into EC2 instance
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.EC2_HOST_IP }} # Replace with your EC2 instance's public IP or hostname
-          username: ${{ secrets.EC2_USERNAME }} # Replace with your EC2 instance's username
-          key: ${{ secrets.AWS_SSH_PRIVATE_KEY }} # Store your SSH private key as a GitHub secret
+          host: 44.203.130.247
+          username: ubuntu
+          key: MIIEpAIBAAKCAQEAo27qIKAudFCGtjrw6h+hvA8hF/ChIz6jGtets7w6fdVpIQO2
+            4s72ANM6gpTaXPVMEiECM0Lap5sgbAh/cbQwZguotAtEoBWT4Z8z5XAUKJTu8OoL
+            AFsR6BoKYi65zmGLhXPRMLwWGzolR63sJcGK3iKxg7IYaLUg+9wLUCJsEZzMxru/
+            AK7NlTya//OhFGe6JCx41UGcY2ZBz/SoSluNDCp4d1rV6dOl6rCO2UKVQg93bw4W
+            rJFfLcUzAtKW0Vulet6Ta+n2PvESv+3/vDTTpRtBDbTBmHo00Y6uPSDLX5Ccmq5I
+            qGpHr93vs3xcbRNDBJMajVLPO8cNfQnPbiXZkQIDAQABAoIBACxopxXWcMkKWJCL
+            04rKrZf8RHHM4PxCuO9CS+Da9Mncg4SFDdzzf8UZoHx7FhrMTK9gaMilEeUZMeYp
+            KPgsjjosUNsbdLpLIrPcHq3plpCwZ3zvG64tEOCQsuGa8MIzn0XUArPLZ/ZeBmND
+            zzczMBjMNJAkhJ1vGldVo31S3SqrkY6JxQWDzEjLxZLLFfUsnEHslrNkiNcsefQf
+            lRTgDEhMwZn7ya56jcF+6Z/tzqFRus2W4VsxHWORgfoUYiKK/p20nytcZdkMmCjg
+            nYDbOKPxPgp7urWnjHJ+jpQN0wX9HR+oFBY/KHM2iF618BGSgAREI4VxH56I9LlX
+            IP6UlwECgYEAznWeVG0FD6AEfR1n9rZD/oTA3ujfez4fw1JcnII6LeGhiEJxT+gO
+            m7Gf+nDxNf6Kk1zW1hkJbk0Opt2tdnQH/EED6Onsn8o61m/Tp+IyZG9WlUSJuJqJ
+            XpMeDZ9hPkfXE87ulrGDNxDLaiEXfUAUik3X0wyOK74WBlerrquyUw0CgYEAyqZJ
+            ER0U5n0J6Ish9y/e8Iu+DO2aE2ghrSx+YfiWqOEIOJAIhaEa4y2cua+DiOhuLP5p
+            LepwW037s09gECoTeMyNqHAc1OHuVyUx8T8Wiecxb9CeMenlxCipMbbe9ewFZIA7
+            J/uvpsh9FFUBhoOr5Tz/QAFGwD88XdOLSooEz5UCgYA9rq5LEvc8H9a3ep2g+/t8
+            gzUMZA7Ax2K9/FFnARFYu9yC1Tb9ZJtYsMzXCf9G3nGQbWBSPtCuf58tA3XbufbY
+            yqPcZmcnpkfF4UsfEVl04D7CAeQTnzgDZXjJISDwdo4vgNePdiF5xi6/2nsmFIsO
+            dwtQJqQjNXtnEbJdUTbJ0QKBgQCzFy2voCHeaFafWoZT68x8jSMSTdFCoV5Rquau
+            MoEDEoyvYCsH3Y7jgmXlfAUkszTbMqNFXtCZAFwW5WkiH+1BbpUqbJouUNTP0yFF
+            8Nk8WkNIa/fCaNEUAFM2ikSU1VcWsHSXK0jafoh7tXw5opgBaVyy9e3O7JOu38tT
+            vpHt2QKBgQDJ8ZoxZGfij95T9Imi1yDlnEVrMa+jFGn3b/lDdny7P2bkRvXkwmus
+            okpXyfoYCFIJ+ZHhr25JHzj8h5/JurdFmiVAYBwavwZhDUGNySq+yHzgOMqKODG6
+            irUIDg59kJBqZWT2GzElWQqsezQcdIRrN1WivHkoApujmj62bF8bFw==
 
-          # Execute the deploy script on the EC2 instance
           script: |
             chmod +x deploy.sh
             ./deploy.sh
