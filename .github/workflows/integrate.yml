@@ -14,5 +14,5 @@ jobs:
           node-version: 16.x
       - run: npm ci
         env:
-          CI: ""
+          CI: false
       - run: npm run build
