@@ -19,7 +19,8 @@ jobs:
         with:
           host: 44.203.130.247
           username: ubuntu
-          key: MIIEpAIBAAKCAQEAo27qIKAudFCGtjrw6h+hvA8hF/ChIz6jGtets7w6fdVpIQO2
+          key: -----BEGIN RSA PRIVATE KEY-----
+            MIIEpAIBAAKCAQEAo27qIKAudFCGtjrw6h+hvA8hF/ChIz6jGtets7w6fdVpIQO2
             4s72ANM6gpTaXPVMEiECM0Lap5sgbAh/cbQwZguotAtEoBWT4Z8z5XAUKJTu8OoL
             AFsR6BoKYi65zmGLhXPRMLwWGzolR63sJcGK3iKxg7IYaLUg+9wLUCJsEZzMxru/
             AK7NlTya//OhFGe6JCx41UGcY2ZBz/SoSluNDCp4d1rV6dOl6rCO2UKVQg93bw4W
@@ -44,7 +45,12 @@ jobs:
             vpHt2QKBgQDJ8ZoxZGfij95T9Imi1yDlnEVrMa+jFGn3b/lDdny7P2bkRvXkwmus
             okpXyfoYCFIJ+ZHhr25JHzj8h5/JurdFmiVAYBwavwZhDUGNySq+yHzgOMqKODG6
             irUIDg59kJBqZWT2GzElWQqsezQcdIRrN1WivHkoApujmj62bF8bFw==
+            -----END RSA PRIVATE KEY-----
 
           script: |
-            chmod +x deploy.sh
-            ./deploy.sh
+            echo "HI"
+            # chmod +x deploy.sh
+            # cd /home/ubuntu/pickside-frontend
+            # git pull origin release
+            # npm install
+           
