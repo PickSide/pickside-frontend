@@ -2,9 +2,10 @@ import { BiLockAlt, BiUser } from 'react-icons/bi'
 import { Button, Checkbox, TextField } from 'components'
 import { Controller, useForm } from 'react-hook-form'
 import { FC, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
 import { setAppTheme, setLocale } from 'state'
 
+import { GoogleLogin } from '@react-oauth/google'
+import { Link } from 'react-router-dom'
 import { useApi } from 'hooks'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
@@ -38,6 +39,11 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 
 	const baseRule = {
 		required: { value: true, message: t('Field is required') },
+	}
+
+	const onGoogleLoginSuccess = (response) => {
+		console.log(response)
+		navigate('/home')
 	}
 
 	const onSubmit = async (data: any) => {
@@ -136,6 +142,9 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 					isLoading={loading}
 					className="rounded-md bg-primary text-white font-semibold h-[50px] transition-all duration-75 ease-in hover:bg-secondary"
 				/>
+				<div className="w-full">
+					<GoogleLogin onSuccess={onGoogleLoginSuccess} onError={() => console.log('error')} />
+				</div>
 			</form>
 			<div className="flex gap-x-2">
 				<span className="text-gray-500">{t(`Don't have an user?`)}</span>
