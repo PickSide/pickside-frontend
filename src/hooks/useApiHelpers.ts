@@ -59,7 +59,6 @@ const useApiHelpers = (): UseCallsOutput => {
 	}), [get])
 
 	const handleResponseError = (axiosError: any) => {
-		console.log(axiosError.response)
 		return { error: axiosError.response.data }
 	}
 

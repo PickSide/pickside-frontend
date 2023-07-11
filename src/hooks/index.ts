@@ -4,6 +4,7 @@ import useConnectedUserPosition from './useConnectedUserPosition'
 import useDebounce from './useDebounce'
 import useDevice from './useDevice'
 import useEnvVariables from './useEnvVariables'
+import useGeolocation from './useGeolocation'
 import useLocalStorage from './useLocalStorage'
 import useLocaleSwitcher from './useLocaleSwitcher'
 import useMapStyles from './useMapStyles'
@@ -17,6 +18,7 @@ export {
 	useConnectedUserPosition,
 	useDebounce,
 	useEnvVariables,
+	useGeolocation,
 	useDevice,
 	useLocaleSwitcher,
 	useLocalStorage,

@@ -1,11 +1,11 @@
-import { FC } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
-import { faSoccerBall } from '@fortawesome/free-solid-svg-icons'
-
-import { MapMarker, Spinner } from 'components'
-import { useEnvVariables, useMapStyles } from 'hooks'
 import { AppState, setSelectedActivity } from 'state'
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
+import { MapMarker, Spinner } from 'components'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEnvVariables, useMapStyles } from 'hooks'
+
+import { FC } from 'react'
+import { faSoccerBall } from '@fortawesome/free-solid-svg-icons'
 
 const Map: FC<any> = ({ ...props }) => {
 	const { googleAPIKey } = useEnvVariables()
@@ -30,8 +30,7 @@ const Map: FC<any> = ({ ...props }) => {
 	const center = !!selectedLocation ? selectedLocation : { lat: 45.5490424, lng: -73.6573323 }
 
 	const { isLoaded, loadError } = useJsApiLoader({
-		//id: 'google-map-script',
-		googleMapsApiKey: 'AIzaSyC1kE8lsID_3YOeFEFfI5cI8PJVJIZPkyk', //process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '', //AIzaSyC1kE8lsID_3YOeFEFfI5cI8PJVJIZPkyks
+		googleMapsApiKey: 'AIzaSyC1kE8lsID_3YOeFEFfI5cI8PJVJIZPkyk',
 		libraries: ['places'],
 	})
 

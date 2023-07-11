@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 const SelectedLocation = createSlice({
-    initialState: '',
+    initialState: null as unknown as {},
     name: 'selectedLocation',
     reducers: {
         setSelectedLocation: (state, action: PayloadAction<any>) => (state = action.payload),

@@ -9,6 +9,7 @@ import EditField from './EditField'
 import EventCard from './EventCard'
 import EventList from './EventList'
 import GlobalAppStatusAlert from './GlobalAppStatusAlert'
+import GoogleAutocomplete from './GoogleAutocomplete'
 import LanguageSwitcher from './LanguageSwitcher'
 import LoginForm from './Forms/LoginForm'
 import Map from './Map'
@@ -30,6 +31,7 @@ export {
 	EventCard,
 	EventList,
 	GlobalAppStatusAlert,
+	GoogleAutocomplete,
 	LanguageSwitcher,
 	LoginForm,
 	Map,

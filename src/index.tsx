@@ -3,6 +3,7 @@ import './index.css'
 import React, { Suspense } from 'react'
 
 import App from './App'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 import { I18nextProvider } from 'react-i18next'
 import ReactDOM from 'react-dom/client'
 import { Provider as StoreProvider } from 'react-redux'
@@ -26,11 +27,13 @@ if ('serviceWorker' in navigator) {
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
-	<StoreProvider store={store}>
-		<I18nextProvider i18n={i18n}>
-			<App />
-		</I18nextProvider>
-	</StoreProvider>,
+	<GoogleOAuthProvider clientId="338570194901-r505e57p0fg288am30ld2viin19jm036.apps.googleusercontent.com">
+		<StoreProvider store={store}>
+			<I18nextProvider i18n={i18n}>
+				<App />
+			</I18nextProvider>
+		</StoreProvider>
+	</GoogleOAuthProvider>,
 )
 
 // If you want to start measuring performance in your app, pass a function

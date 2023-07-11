@@ -24,7 +24,7 @@ const useEnvVariables = () => {
 		development: {
 			BASE_AUTH_URL: 'http://localhost:4000',
 			BASE_API_URL: 'http://localhost:8000',
-			googleAPIKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '',
+			googleAPIKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
 		},
 		production: {
 			BASE_AUTH_URL: '',
@@ -37,3 +37,7 @@ const useEnvVariables = () => {
 }
 
 export default useEnvVariables
+
+// OAuth
+// Client Id: 338570194901-r505e57p0fg288am30ld2viin19jm036.apps.googleusercontent.com
+// Client secret: GGOCSPX-Zs9xrMdVy8q_N8Zv6ui5nvT3Fg23

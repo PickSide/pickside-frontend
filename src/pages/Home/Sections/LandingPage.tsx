@@ -1,11 +1,9 @@
-import { Autocomplete, Button } from 'components'
-import { FC, useCallback, useState } from 'react'
+import { Button, IconButton } from 'components'
+import { FC, useState } from 'react'
 
-import { Area } from 'state'
-import { lazyGetItems } from 'utils'
-import { orderBy } from 'lodash'
+import { FaLocationArrow } from 'react-icons/fa'
+import { GoogleAutocomplete } from 'widgets'
 import { setSelectedLocation } from 'state'
-import { useAsync } from 'react-use'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -14,22 +12,24 @@ const LandingPage: FC<any> = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
-	const { loading } = useAsync(async () => {
-		const items = await lazyGetItems({ endpoint: 'predefined-areas' })
-		if (items) {
-			setOptions(orderBy<Area>(items.results, ['city', 'country', 'state'], ['asc', 'desc']))
-		}
-	}, [])
 
-	const getOptionLabel = useCallback((option: Area) => `${option.district?.join(' / ')}`, [])
-	const groupBy = useCallback((option: Area) => `${option.city}`, [])
-
-	const [options, setOptions] = useState<any>([])
 	const [selected, setSelected] = useState<any>(null)
 
 	const handleClick = async () => {
-		await dispatch(setSelectedLocation(selected.coords))
+		const lat = selected[0].geometry.location.lat()
+		const lng = selected[0].geometry.location.lng()
+		await dispatch(setSelectedLocation({ lat, lng }))
 		await navigate('/listing')
+	}
+
+	const goToListing = async () => {
+		console.log(window.location.protocol)
+		if (window.location.protocol === 'http:' && navigator.geolocation) {
+			await navigator.geolocation.getCurrentPosition(async ({ coords }) => {
+				await dispatch(setSelectedLocation({ lat: coords.latitude, lng: coords.longitude }))
+				await navigate('/listing')
+			})
+		}
 	}
 
 	return (
@@ -44,16 +44,15 @@ const LandingPage: FC<any> = () => {
 						{t('Connect across your area and find the nearest sport events of your choice')}
 					</span>
 				</div>
-				<div className="flex mx-auto  items-center justify-center gap-x-6">
-					<Autocomplete
-						options={options}
-						getOptionLabel={getOptionLabel}
-						groupBy={groupBy}
-						onChange={(newValue) => setSelected(newValue)}
-						placeholder={t('Choose your region')}
-						loading={loading}
-						fullWidth
-					/>
+				<div className="flex mx-auto justify-center items-center gap-x-6">
+					<p className="text-gray-500 font-normal">{t('Check events in my region')}</p>
+					<IconButton onClick={goToListing} icon={<FaLocationArrow size={25} />} />
+				</div>
+				<div className="flex mx-auto justify-center items-center gap-x-6">
+					<p className="text-gray-500 font-normal">{t('Or you can search a custom location')}</p>
+				</div>
+				<div className="flex mx-auto justify-center gap-x-6">
+					<GoogleAutocomplete onSelectPlace={(value) => setSelected(value)} />
 					<Button disabled={!selected} onClick={handleClick} text={t('Go')} />
 				</div>
 			</div>
