@@ -1,35 +1,56 @@
-name: Deploy
+name: Push-to-EC2
 
-on:
-  pull_request:
-    branches: [release]
+on: push
 
 jobs:
-  Deploy:
-    name: Deploy to EC2
-    runs-on: ubuntu-22.04
+  deploy:
+    name: Push to EC2 Instance
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Build & Deploy
+      - name: Checkout the code
+        uses: actions/checkout@v1
+
+      - name: Deploy to my EC2 instance
+        uses: easingthemes/ssh-deploy@v2.1.5
         env:
-          PRIVATE_KEY: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
-          HOSTNAME: ${{secrets.EC2_HOST_IP}}
-          USER_NAME: ${secrets.EC2_USERNAME}
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          SOURCE: "./"
+          REMOTE_HOST: "ec2-34-213-48-149.us-west-2.compute.amazonaws.com"
+          REMOTE_USER: "ec2-user"
+          TARGET: "/home/ec2-user/SampleExpressApp"
+# name: Deploy
 
-        run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+# on:
+#   pull_request:
+#     branches: [release]
 
-              # Now we have got the access of EC2 and we will start the deploy .
-              cd /home/ubuntu/pickside-frontend &&
-              git checkout release &&
-              git fetch --all &&
-              git reset --hard origin/release &&
-              git pull origin release &&
-              sudo npm i &&
-              sudo npm run build
-              '
+# jobs:
+#   Deploy:
+#     name: Deploy to EC2
+#     runs-on: ubuntu-22.04
+
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Build & Deploy
+#         env:
+#           PRIVATE_KEY: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
+#           HOSTNAME: ${{secrets.EC2_HOST_IP}}
+#           USER_NAME: ${secrets.EC2_USERNAME}
+
+#         run: |
+#           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+#           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+
+#               # Now we have got the access of EC2 and we will start the deploy .
+#               cd /home/ubuntu/pickside-frontend &&
+#               git checkout release &&
+#               git fetch --all &&
+#               git reset --hard origin/release &&
+#               git pull origin release &&
+#               sudo npm i &&
+#               sudo npm run build
+#              '
 
 # name: Deploy to EC2
 
