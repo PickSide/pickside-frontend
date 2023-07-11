@@ -1,30 +1,63 @@
-name: Deploy to EC2
+name: Deploy
 
 on:
   pull_request:
-    branches:
-      - release
+    branches: [release]
 
 jobs:
-  deploy:
+  Deploy:
+    name: Deploy to EC2
     runs-on: ubuntu-22.04
-    environment: myenvironment
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Build project
-        run: |
-          npm ci
-          npm run build
-          tar -cvf build.tar ./build/
+      - uses: actions/checkout@v2
+      - name: Build & Deploy
+        env:
+          PRIVATE_KEY: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
+          HOSTNAME: ${{secrets.EC2_HOST_IP}}
+          USER_NAME: ${secrets.EC2_USERNAME}
 
-      - name: Copy via SSH and deploy on server
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.EC2_HOST_IP }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SCP_PORT }}
-          source: "build.tar"
-          target: "/home/ubuntu"
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+
+              # Now we have got the access of EC2 and we will start the deploy .
+              cd /home/ubuntu/pickside-frontend &&
+              git checkout release &&
+              git fetch --all &&
+              git reset --hard origin/release &&
+              git pull origin release &&
+              sudo npm i &&
+              sudo npm run build
+              '
+
+# name: Deploy to EC2
+
+# on:
+#   pull_request:
+#     branches:
+#       - release
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-22.04
+#     environment: myenvironment
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+#       - name: Build project
+#         run: |
+#           npm ci
+#           npm run build
+#           tar -cvf build.tar ./build/
+
+#       - name: Copy via SSH and deploy on server
+#         uses: appleboy/scp-action@master
+#         with:
+#           host: ${{ secrets.EC2_HOST_IP }}
+#           username: ${{ secrets.EC2_USERNAME }}
+#           key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
+#           port: ${{ secrets.SCP_PORT }}
+#           source: "build.tar"
+#           target: "/home/ubuntu"
