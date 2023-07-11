@@ -24,7 +24,7 @@ const LandingPage: FC<any> = () => {
 
 	const goToListing = async () => {
 		console.log(window.location.protocol)
-		if (window.location.protocol === 'http:' && navigator.geolocation) {
+		if ((window.location.protocol === 'http:' || window.location.protocol === 'https:') && navigator.geolocation) {
 			await navigator.geolocation.getCurrentPosition(async ({ coords }) => {
 				await dispatch(setSelectedLocation({ lat: coords.latitude, lng: coords.longitude }))
 				await navigate('/listing')
