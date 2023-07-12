@@ -68,7 +68,7 @@ const useApi = (): UseApiOutput => {
 		deactivate:
 			() =>
 				async (dispatch: Dispatch): Promise<any> => {
-					return await putItem({ endpoint: 'deactivate', id: user?.id })(dispatch)
+					return await putItem({ endpoint: '/users/deactivate', id: user?.id })(dispatch)
 						.then((response) => {
 							if (response.user) {
 								dispatch<any>(logout())
@@ -81,7 +81,7 @@ const useApi = (): UseApiOutput => {
 		reactivate:
 			(id: any) =>
 				async (dispatch: Dispatch): Promise<any> => {
-					return await putItem({ endpoint: 'reactivate', id })(dispatch)
+					return await putItem({ endpoint: '/users/reactivate', id })(dispatch)
 
 				},
 		login:

@@ -68,6 +68,11 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 					</>,
 				)
 			}
+			if (response.error.failReason === 'badrequest') {
+				setApiError(<p>{errorMsg}</p>)
+			}
+			if (response.error.failReason === 'userexists') {
+			}
 		} else {
 			if (response.user.preferredTheme) {
 				await dispatch<any>(setAppTheme(response.user.preferredTheme))

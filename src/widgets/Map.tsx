@@ -30,7 +30,7 @@ const Map: FC<any> = ({ ...props }) => {
 	const center = !!selectedLocation ? selectedLocation : { lat: 45.5490424, lng: -73.6573323 }
 
 	const { isLoaded, loadError } = useJsApiLoader({
-		googleMapsApiKey: 'AIzaSyC1kE8lsID_3YOeFEFfI5cI8PJVJIZPkyk',
+		googleMapsApiKey: 'AIzaSyArwZs7J2C8Pj03okuJe-6bvEFm9QLCLCI',
 		libraries: ['places'],
 	})
 

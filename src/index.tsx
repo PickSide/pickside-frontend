@@ -27,7 +27,7 @@ if ('serviceWorker' in navigator) {
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
-	<GoogleOAuthProvider clientId="338570194901-r505e57p0fg288am30ld2viin19jm036.apps.googleusercontent.com">
+	<GoogleOAuthProvider clientId="359254662454-ffurd0v9cpjeh6rqtko2vr6545lhk71q.apps.googleusercontent.com">
 		<StoreProvider store={store}>
 			<I18nextProvider i18n={i18n}>
 				<App />
