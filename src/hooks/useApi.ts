@@ -218,7 +218,7 @@ const useApi = (): UseApiOutput => {
 
 		createUser: (data: any) =>
 			async (dispatch: Dispatch): Promise<any> => {
-				return await postItem({ endpoint: 'user/create', data })(dispatch).then((response) => {
+				return await postItem({ endpoint: 'users/create', data })(dispatch).then((response) => {
 					if (response.payload) {
 						dispatch<any>(setUser(response.user))
 						remove('auth')
