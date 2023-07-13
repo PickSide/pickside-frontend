@@ -26,8 +26,12 @@ if ('serviceWorker' in navigator) {
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
+const clientId =
+	process.env.REACT_APP_GOOGLE_MAPS_OAUTH_CLIENT_ID ||
+	'887391938268-4h0g0rtk529tfpc5jcfl8dutj0f9eonc.apps.googleusercontent.com'
+
 root.render(
-	<GoogleOAuthProvider clientId="359254662454-ffurd0v9cpjeh6rqtko2vr6545lhk71q.apps.googleusercontent.com">
+	<GoogleOAuthProvider clientId={clientId}>
 		<StoreProvider store={store}>
 			<I18nextProvider i18n={i18n}>
 				<App />
