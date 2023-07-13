@@ -48,21 +48,6 @@ const EditProfile = () => {
 			readOnly: true,
 			control: <TextField defaultValue={connectedUser?.username} />,
 		},
-		// {
-		// 	name: t('Password'),
-		// 	readOnly: true,
-		// 	control: (
-		// <Button
-		// 	className="flex whitespace-nowrap gap-x-4 text-[13px] items-center"
-		// 	onClick={() => setOpenPasswordChangeDialog(true)}
-		// 	text={
-		// 		<>
-		// 			{t('Change')} <FaExternalLinkAlt size={15} />
-		// 		</>
-		// 	}
-		// />
-		// 	),
-		// },
 		{
 			name: t('Sexe'),
 			control: (
@@ -154,7 +139,7 @@ const EditProfile = () => {
 		<div className="relative h-full">
 			<form className="flex flex-col gap-y-4 w-[600px]" onSubmit={handleSubmit(onSubmit)}>
 				<p className="text-2xl font-semibold">{t('Edit profile')}</p>
-				<TextField label={t('Username')} fullWidth {...register('username')} />
+				{!connectedUser?.isExternalAccount && <TextField label={t('Username')} fullWidth {...register('username')} />}
 				<TextAreaField label={t('Bio')} fullWidth {...register('bio')} />
 				<Controller
 					name="preferredRegion"

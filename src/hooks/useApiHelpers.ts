@@ -55,6 +55,7 @@ interface UseCallsOutput {
 	apiErrors: string[]
 	lazyGetItem: (r: RequestProps<any>) => Promise<any>,
 	lazyGetItems: (r: RequestProps<any>) => Promise<any>,
+	getCustom: (r) => Promise<any>,
 	getItem: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>,
 	getItems: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>,
 	postItem: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>,
@@ -142,6 +143,14 @@ const useApiHelpers = (): UseCallsOutput => {
 			const url = Url({ endpoint, id })
 			return await axiosInstance
 				.get(url)
+				.then((response) => response.data)
+				.catch((error) => handleResponseError(error))
+		},
+		getCustom: async ({ url, headers, data, params }) => {
+			return await axiosInstance
+				.get(url, {
+					headers
+				})
 				.then((response) => response.data)
 				.catch((error) => handleResponseError(error))
 		},

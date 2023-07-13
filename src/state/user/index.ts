@@ -9,14 +9,16 @@ export interface User {
 	id?: string
 	address?: string
 	attendedEventsCount?: number
-	avatar?: string
+	avatar?: any
 	bio?: string
 	city?: string
 	email?: string
+	emailVerified: boolean
 	eventsRegistered?: any[]
 	firstName?: string
 	fitnessLevel?: 'retired' | 'average' | 'athletic' | 'very athletic'
 	groups?: any[]
+	isExternalAccount: boolean,
 	isOrganizer?: boolean
 	joinDate?: string
 	lastName?: string
