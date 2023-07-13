@@ -17,7 +17,14 @@ const DeactivationForm = ({ onClose }) => {
 			</p>
 			<div className="inline-flex items-center justify-end h-16 space-x-4">
 				<Button type="submit" text={t('Cancel')} onClick={onClose} />
-				<Button variant="danger" text={t('Continue')} onClick={() => dispatch<any>(deactivate())} />
+				<Button
+					variant="danger"
+					text={t('Continue')}
+					onClick={() => {
+						dispatch<any>(deactivate())
+						onClose()
+					}}
+				/>
 			</div>
 		</div>
 	)

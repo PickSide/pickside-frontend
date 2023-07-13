@@ -20,6 +20,7 @@ export * from './appLocale'
 export * from './appStatus'
 export * from './appTheme'
 export * from './areas'
+export * from './deactivated'
 export * from './locales'
 export * from './notifications'
 export * from './playables'
@@ -42,6 +43,7 @@ export interface AppState {
 	appStatus?: AppStatus
 	appTheme?: string
 	areas?: Areas
+	deactivated?: boolean
 	locales?: Locales
 	notifications?: Notifications
 	playables?: Playables,

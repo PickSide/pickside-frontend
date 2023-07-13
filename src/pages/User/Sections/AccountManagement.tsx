@@ -59,7 +59,7 @@ const AccountManagement = () => {
 				title={t('Account deactivation')}
 				onClose={() => setOpenDeactivationDialog(false)}
 			>
-				<DeactivationForm onClose={() => setOpenPasswordChangeDialog(false)} />
+				<DeactivationForm onClose={() => setOpenDeactivationDialog(false)} />
 			</Dialog>
 			<form className="flex flex-col gap-y-4 w-[600px]" onSubmit={handleSubmit(onSubmit)}>
 				<p className="text-2xl font-semibold">{t('Account Management')}</p>

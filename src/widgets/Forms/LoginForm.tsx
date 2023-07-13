@@ -56,15 +56,7 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 				setApiError(
 					<>
 						<p>{errorMsg}</p>
-						<p
-							className="underline cursor-pointer"
-							onClick={() => {
-								const re = dispatch<any>(reactivate(response.error.userId))
-								console.log(re)
-							}}
-						>
-							{t('Click here to reactivate')}
-						</p>
+						<p>{t('An email was sent to your email. Follow the instructions')}</p>
 					</>,
 				)
 			}
