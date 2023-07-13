@@ -23,6 +23,7 @@ interface UseApiOutput {
 	deactivate: () => (d: Dispatch) => Promise<any>
 	reactivate: (id: any) => (d: Dispatch) => Promise<any>
 	login: (data: any) => (d: Dispatch) => Promise<any>
+	loginWithGoogle: (data: any) => (d: Dispatch) => Promise<any>
 	logout: () => (d: Dispatch) => Promise<any>
 	token?: (data: any) => (d: Dispatch) => Promise<any>
 
@@ -100,6 +101,18 @@ const useApi = (): UseApiOutput => {
 			(data: any) =>
 				async (dispatch: Dispatch): Promise<any> => {
 					return await postItem({ endpoint: 'login', data })(dispatch).then((response) => {
+						if (response.user) {
+							dispatch<any>(setUser(response.user))
+							remove('auth')
+							set('auth', response)
+						}
+						return response
+					})
+				},
+		loginWithGoogle:
+			(data: any) =>
+				async (dispatch: Dispatch): Promise<any> => {
+					return await postItem({ endpoint: 'googlelogin', data })(dispatch).then((response) => {
 						if (response.user) {
 							dispatch<any>(setUser(response.user))
 							remove('auth')

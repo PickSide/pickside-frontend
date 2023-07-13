@@ -24,6 +24,17 @@ const Settings = () => {
 	const [openChangeAvatarDialog, setOpenChangeAvatarDialog] = useState<boolean>(false)
 	const [openPopover, setOpenPopover] = useState<boolean>(false)
 
+	const avatar = useMemo(() => {
+		if (connectedUser?.avatar) {
+			const bufferImgArr = new Uint8Array(connectedUser.avatar.data)
+			const blob = new Blob([bufferImgArr], { type: 'image/jpeg' })
+			const urlCreator = window.URL || window.webkitURL
+			const imageUrl = urlCreator.createObjectURL(blob)
+			console.log(blob, imageUrl)
+			return imageUrl
+		}
+	}, [connectedUser])
+
 	const MenuItems = useMemo(
 		() => [
 			{
@@ -110,7 +121,8 @@ const Settings = () => {
 								<AiFillEdit className=" m-auto" size={15} />
 							</button>
 							<div className="w-16 h-16 overflow-hidden border-primary border-2 rounded-full bg-gray-100">
-								<svg
+								<img alt="" src={connectedUser?.avatar} />
+								{/* <svg
 									className="absolute w-10 h-10 text-gray-400 m-auto inset-0 z-10"
 									fill="currentColor"
 									viewBox="0 0 20 20"
@@ -121,7 +133,7 @@ const Settings = () => {
 										d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
 										clipRule="evenodd"
 									></path>
-								</svg>
+								</svg> */}
 							</div>
 						</div>
 						<div className="flex-col my-8">

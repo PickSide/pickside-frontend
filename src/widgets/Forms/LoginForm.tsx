@@ -2,18 +2,16 @@ import { BiLockAlt, BiUser } from 'react-icons/bi'
 import { Button, Checkbox, TextField } from 'components'
 import { Controller, useForm } from 'react-hook-form'
 import { FC, useState } from 'react'
+import { GoogleLogin, useGoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google'
 import { setAppTheme, setLocale } from 'state'
+import { useApi, useApiHelpers } from 'hooks'
 
-import { GoogleLogin } from '@react-oauth/google'
+import { FcGoogle } from 'react-icons/fc'
 import { Link } from 'react-router-dom'
-import { useApi } from 'hooks'
+import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { useTranslation } from 'react-i18next'
-
-interface LoginFormProps {
-	onClose: () => void
-}
 
 type FormData = {
 	username: string
@@ -21,8 +19,8 @@ type FormData = {
 	remeberMe: boolean
 }
 
-const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
-	const { login, reactivate } = useApi()
+const LoginForm = () => {
+	const { login, loginWithGoogle } = useApi()
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
@@ -41,26 +39,46 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 		required: { value: true, message: t('Field is required') },
 	}
 
-	const onGoogleLoginSuccess = (response) => {
-		console.log(response)
-		navigate('/home')
+	const onLogin = async (data: any) => {
+		setLoading(true)
+		const response = await dispatch<any>(login(data))
+		handleLogin(response)
+		setLoading(false)
 	}
 
-	const onSubmit = async (data: any) => {
-		setLoading(true)
+	const onGoogleLogin = useGoogleLogin({
+		onSuccess: async ({ access_token }) => {
+			setLoading(true)
+			await axios
+				.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${access_token}`, {
+					headers: {
+						Authorization: `Bearer ${access_token}`,
+						Accept: 'application/json',
+					},
+				})
+				.then(async (profileInfo) => {
+					const response = await dispatch<any>(loginWithGoogle(profileInfo.data))
+					handleLogin(response)
+					setLoading(false)
+				})
+				.catch((err) => console.log(err))
+		},
 
-		const response = await dispatch<any>(login(data))
+		onError: () => console.log('error'),
+		flow: 'implicit',
+	})
+
+	const handleLogin = async (response) => {
 		if (response.error) {
-			const errorMsg = response.error.message
 			if (response.error.failReason === 'userinactive') {
 				setApiError(
 					<>
-						<p>{errorMsg}</p>
+						<p>{response.error.message}</p>
 						<p>{t('An email was sent to your email. Follow the instructions')}</p>
 					</>,
 				)
 			} else {
-				setApiError(<p>{errorMsg}</p>)
+				setApiError(<p>{response.error.message}</p>)
 			}
 		} else {
 			if (response.user.preferredTheme) {
@@ -71,8 +89,6 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 			}
 			navigate('/home')
 		}
-
-		setLoading(false)
 	}
 
 	return (
@@ -86,7 +102,7 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 					{apiError}
 				</div>
 			)}
-			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4 w-full">
+			<form onSubmit={handleSubmit(onLogin)} className="flex flex-col gap-y-4 w-full">
 				<Controller
 					name="username"
 					control={control}
@@ -136,15 +152,26 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 					isLoading={loading}
 					className="rounded-md bg-primary text-white font-semibold h-[50px] transition-all duration-75 ease-in hover:bg-secondary"
 				/>
-				<div className="w-full">
-					<GoogleLogin onSuccess={onGoogleLoginSuccess} onError={() => console.log('error')} />
-				</div>
+				<Button
+					type="button"
+					variant="secondary"
+					isLoading={loading}
+					onClick={() => onGoogleLogin()}
+					className="h-[50px] flex whitespace-nowrap gap-x-4 text-[13px] items-center justify-center"
+					text={
+						<>
+							<FcGoogle size={20} />
+							{t('Continue with google')}
+						</>
+					}
+				/>
 			</form>
 			<div className="flex gap-x-2">
 				<span className="text-gray-500">{t(`Don't have an user?`)}</span>
 				<Link to="/signup" className="font-semibold text-primary hover:text-gray-400/90 hover:scale-105">
 					{t('Sign up')}
 				</Link>
+				<span>{t('Or login with')}</span>
 			</div>
 		</div>
 	)

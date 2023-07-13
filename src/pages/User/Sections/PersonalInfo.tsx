@@ -14,8 +14,6 @@ const PersonalInfo = () => {
 	const { updateUser } = useApi()
 
 	const connectedUser = useSelector((state: AppState) => state.user)
-	const locales = useSelector((state: AppState) => state.locales)
-	//const connectedUser = useSelector((state: AppState) => state.timezones)
 
 	const [openPasswordChangeDialog, setOpenPasswordChangeDialog] = useState<boolean>(false)
 

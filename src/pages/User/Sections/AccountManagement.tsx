@@ -84,22 +84,24 @@ const AccountManagement = () => {
 				/>
 				<BottomDrawer show={isDirty} onReset={reset} />
 			</form>
-			<div className="mt-5 space-y-4">
-				<p className="text-[20px] font-semibold">{t('Change your password')}</p>
-				<Button
-					type="button"
-					className="flex whitespace-nowrap gap-x-4 text-[13px] items-center"
-					onClick={() => setOpenPasswordChangeDialog(true)}
-					text={
-						<>
-							{t('Change')} <FaExternalLinkAlt size={15} />
-						</>
-					}
-				/>
-				<p className="text-[15px] fo">
-					{t('When you change your password, you will be automatically signed out from your other sessions')}
-				</p>
-			</div>
+			{!connectedUser?.isExternalAccount && (
+				<div className="mt-5 space-y-4">
+					<p className="text-[20px] font-semibold">{t('Change your password')}</p>
+					<Button
+						type="button"
+						className="flex whitespace-nowrap gap-x-4 text-[13px] items-center"
+						onClick={() => setOpenPasswordChangeDialog(true)}
+						text={
+							<>
+								{t('Change')} <FaExternalLinkAlt size={15} />
+							</>
+						}
+					/>
+					<p className="text-[15px] fo">
+						{t('When you change your password, you will be automatically signed out from your other sessions')}
+					</p>
+				</div>
+			)}
 			<div className="mt-5 space-y-4">
 				<p className="text-[20px] font-semibold">{t('Deactivate your account')}</p>
 				<Button

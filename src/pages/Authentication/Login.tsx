@@ -1,6 +1,6 @@
-import { NavLink } from 'react-router-dom'
-import { LoginForm } from 'widgets'
 import { BiArrowBack } from 'react-icons/bi'
+import { LoginForm } from 'widgets'
+import { NavLink } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { pageTransition } from 'utils'
 
@@ -18,7 +18,7 @@ const Login = () => {
 					to="/home"
 					className="w-12 outline-none border-none bg-templogo2 bg-contain bg-no-repeat h-10"
 				></NavLink>
-				<LoginForm onClose={() => {}} />
+				<LoginForm />
 			</div>
 			<div className="hidden lg:flex lg:flex-grow lg:bg-primary p-20"></div>
 		</motion.div>
