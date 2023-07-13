@@ -59,11 +59,8 @@ const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
 						<p>{t('An email was sent to your email. Follow the instructions')}</p>
 					</>,
 				)
-			}
-			if (response.error.failReason === 'badrequest') {
+			} else {
 				setApiError(<p>{errorMsg}</p>)
-			}
-			if (response.error.failReason === 'userexists') {
 			}
 		} else {
 			if (response.user.preferredTheme) {
