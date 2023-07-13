@@ -1,4 +1,17 @@
-import { Activity, AppState, markAsRead, setActivities, setAreas, setLocales, setNotifications, setPlayables, setSports, updateActivity, updateConfig } from 'state'
+import {
+	Activity,
+	AppState,
+	deactivate,
+	markAsRead,
+	setActivities,
+	setAreas,
+	setLocales,
+	setNotifications,
+	setPlayables,
+	setSports,
+	updateActivity,
+	updateConfig,
+} from 'state'
 import { logout, setUser } from 'state'
 import { useApiHelpers, useLocalStorage } from 'hooks'
 
@@ -62,41 +75,38 @@ interface UseApiOutput {
 const useApi = (): UseApiOutput => {
 	const user = useSelector((state: AppState) => state.user)
 	const { remove, set } = useLocalStorage()
-	const { getItems, putItem, postItem } = useApiHelpers()
+	const { getItem, getItems, putItem, postItem } = useApiHelpers()
 
 	return {
 		deactivate:
 			() =>
 				async (dispatch: Dispatch): Promise<any> => {
-					return await putItem({ endpoint: 'deactivate', id: user?.id })(dispatch)
-						.then((response) => {
-							if (response.user) {
-								dispatch<any>(logout())
-								remove('auth')
-							}
-							return response
-						})
-
+					await getItem({ endpoint: '/users/deactivate', id: user?.id })(dispatch).then((response) => {
+						if (response) {
+							dispatch<any>(deactivate())
+							remove('auth')
+						}
+						return response
+					})
 				},
+
 		reactivate:
 			(id: any) =>
 				async (dispatch: Dispatch): Promise<any> => {
-					return await putItem({ endpoint: 'reactivate', id })(dispatch)
-
+					return await putItem({ endpoint: '/users/reactivate', id })(dispatch)
 				},
+
 		login:
 			(data: any) =>
 				async (dispatch: Dispatch): Promise<any> => {
-					return await postItem({ endpoint: 'login', data })(dispatch)
-						.then((response) => {
-							if (response.user) {
-								dispatch<any>(setUser(response.user))
-								remove('auth')
-								set('auth', response)
-							}
-							return response
-						})
-
+					return await postItem({ endpoint: 'login', data })(dispatch).then((response) => {
+						if (response.user) {
+							dispatch<any>(setUser(response.user))
+							remove('auth')
+							set('auth', response)
+						}
+						return response
+					})
 				},
 		logout:
 			() =>
@@ -108,16 +118,17 @@ const useApi = (): UseApiOutput => {
 					}
 				},
 
-		getPredefinedAreas: () =>
-			async (dispatch: Dispatch): Promise<any> => {
-				const data = await getItems({
-					endpoint: 'predefined-areas',
-				})(dispatch)
+		getPredefinedAreas:
+			() =>
+				async (dispatch: Dispatch): Promise<any> => {
+					const data = await getItems({
+						endpoint: 'predefined-areas',
+					})(dispatch)
 
-				if (data) {
-					dispatch(setAreas(data))
-				}
-			},
+					if (data) {
+						dispatch(setAreas(data))
+					}
+				},
 
 		getActivities:
 			() =>
@@ -130,6 +141,7 @@ const useApi = (): UseApiOutput => {
 						dispatch(setActivities(data))
 					}
 				},
+
 		createActivity:
 			(data: Activity) =>
 				async (dispatch: Dispatch): Promise<any> => {
@@ -142,6 +154,7 @@ const useApi = (): UseApiOutput => {
 						dispatch(updateActivity(createdActivity.response))
 					}
 				},
+
 		registerToActivity:
 			(id: string) =>
 				async (dispatch: Dispatch): Promise<any> => {
@@ -168,29 +181,30 @@ const useApi = (): UseApiOutput => {
 					}
 				},
 
-		getNotifications: () =>
-			async (dispatch: Dispatch): Promise<any> => {
-				const items = await getItems({
-					endpoint: 'notifications',
-					id: user?.id
-				})(dispatch)
+		getNotifications:
+			() =>
+				async (dispatch: Dispatch): Promise<any> => {
+					const items = await getItems({
+						endpoint: 'notifications',
+						id: user?.id,
+					})(dispatch)
 
-				if (items) {
-					dispatch(setNotifications(items))
-				}
-			},
+					if (items) {
+						dispatch(setNotifications(items))
+					}
+				},
 
-		markNotificationAsRead: (notificationId: string) =>
-			async (dispatch: Dispatch): Promise<any> => {
-				const items = await putItem({
-					endpoint: `notifications/${notificationId}/users/${user?.id}`
-				})(dispatch)
+		markNotificationAsRead:
+			(notificationId: string) =>
+				async (dispatch: Dispatch): Promise<any> => {
+					const items = await putItem({
+						endpoint: `notifications/${notificationId}/users/${user?.id}`,
+					})(dispatch)
 
-				if (items) {
-					dispatch(markAsRead(notificationId))
-				}
-			},
-
+					if (items) {
+						dispatch(markAsRead(notificationId))
+					}
+				},
 
 		getCourts:
 			() =>
@@ -216,28 +230,31 @@ const useApi = (): UseApiOutput => {
 					}
 				},
 
-		createUser: (data: any) =>
-			async (dispatch: Dispatch): Promise<any> => {
-				return await postItem({ endpoint: 'users/create', data })(dispatch).then((response) => {
-					if (response.payload) {
-						dispatch<any>(setUser(response.user))
-						remove('auth')
-						set('auth', response)
-					}
-					return response
-				})
-			},
+		createUser:
+			(data: any) =>
+				async (dispatch: Dispatch): Promise<any> => {
+					return await postItem({ endpoint: 'users/create', data })(dispatch).then((response) => {
+						if (response.payload) {
+							dispatch<any>(setUser(response.user))
+							remove('auth')
+							set('auth', response)
+						}
+						return response
+					})
+				},
 
-		updateUser: (data) => async (dispatch: Dispatch): Promise<any> => {
-			const items = await putItem({
-				endpoint: `users/${user?.id}/settings`,
-				data
-			})(dispatch)
-			console.log(data)
-			if (items) {
-				dispatch(updateConfig(data))
-			}
-		},
+		updateUser:
+			(data) =>
+				async (dispatch: Dispatch): Promise<any> => {
+					const items = await putItem({
+						endpoint: `users/${user?.id}/settings`,
+						data,
+					})(dispatch)
+					console.log(data)
+					if (items) {
+						dispatch(updateConfig(data))
+					}
+				},
 	}
 }
 export default useApi

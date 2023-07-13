@@ -10,7 +10,7 @@ const GoogleAutocomplete = ({ onSelectPlace }, ref) => {
 	const [searchBoxRef, setSearchBoxRef] = useState<any>(null)
 
 	const { isLoaded } = useJsApiLoader({
-		googleMapsApiKey: 'AIzaSyC1kE8lsID_3YOeFEFfI5cI8PJVJIZPkyk',
+		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY || 'AIzaSyA3AlB-88t03MwvxPMuvJKT34EMm9Pp9BM',
 		libraries: ['places'],
 	})
 

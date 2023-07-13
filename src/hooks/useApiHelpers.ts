@@ -5,6 +5,34 @@ import axios from 'axios'
 import { useLocalStorage } from 'hooks'
 import { v4 as uuidv4 } from 'uuid'
 
+enum JobType {
+	Login = 'login',
+	Logout = 'logout',
+	Register = 'register',
+	GetAccessToken = 'getaccesstoken',
+	GetCourt = 'getcourt',
+	UpdateUser = 'updateuser',
+	GetCustomCourts = 'getcustomcourts',
+	GetCustomCourt = 'getcustomcourt',
+	AddCutomCourt = 'addcustomcourt',
+	DeleteCustomCourt = 'deletecustomcourt',
+	VerifyEmail = 'vertifyemail',
+	DeactivateAccount = 'deactivateaccount',
+	ReactivateAccount = 'deactivateaccount',
+}
+
+enum FailReason {
+	TokenExpired = 'tokenexpired',
+	TokenError = 'tokenerror',
+	UserDeactivateAccount = 'userdeactivateaccount',
+	UserReactivateAccount = 'userreactivateaccount',
+	UserInactive = 'userinactive',
+	UserExists = 'userexists',
+	UserFailedToUpdate = 'userfailtoupdate',
+	UserWrongCredentials = 'userbadcredentials',
+	UserLogout = 'userlogout'
+}
+
 interface RequestProps<T> {
 	id?: string
 	baseUrl?: string
@@ -23,11 +51,6 @@ interface UrlProps {
 	queries?: any
 }
 
-interface UseCallsProps {
-	baseURL?: string
-	secureEachRequest?: boolean
-}
-
 interface UseCallsOutput {
 	apiErrors: string[]
 	lazyGetItem: (r: RequestProps<any>) => Promise<any>,
@@ -40,6 +63,19 @@ interface UseCallsOutput {
 	putItems?: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>,
 	deleteItem?: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>,
 	deleteItems?: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>,
+}
+
+interface ErrorResponse {
+	callback?: string
+	context?: any
+	extra?: any
+	failReason?: FailReason
+	jobStatus?: 'FAILED' | 'COMPLETED'
+	jobType?: JobType
+	message?: string
+	res: any
+	status: any
+	timeStamp?: Date
 }
 
 const useApiHelpers = (): UseCallsOutput => {
@@ -58,9 +94,7 @@ const useApiHelpers = (): UseCallsOutput => {
 		},
 	}), [get])
 
-	const handleResponseError = (axiosError: any) => {
-		return { error: axiosError.response.data }
-	}
+	const handleResponseError = (axiosError: any): ErrorResponse => ({ ...axiosError.response.data })
 
 	useEffect(() => {
 		const accessToken = get('auth.accessToken')
