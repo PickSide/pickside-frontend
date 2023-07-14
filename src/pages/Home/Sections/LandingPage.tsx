@@ -41,8 +41,17 @@ const LandingPage: FC<any> = () => {
 						{t('Are you looking for your sport team? this place is for you just search your neighborhood.')}
 					</span>
 				</div>
-				<div className="flex mx-auto justify-center items-center gap-x-6">
+				<div className="flex flex-col mx-auto justify-center items-center gap-y-6">
 					<Button className="w-full h-12" onClick={handleClick} text={t('Join Your Team Now')} />
+					<div className="inline-flex w-full justify-between gap-x-6">
+						<GoogleAutocomplete onSelectPlace={(value) => setSelected(value)} />
+						<Button disabled={!selected} onClick={handleClick} text={t('Search')} />
+						<IconButton
+							onClick={goToListing}
+							icon={<FaLocationArrow size={25} />}
+							tooltipText={t('Show activities in my area')}
+						/>
+					</div>
 				</div>
 				{/* <div className="flex mx-auto justify-center items-center gap-x-6">
 					<p className="text-gray-500 font-normal">{t('Check events in my region')}</p>
@@ -58,7 +67,6 @@ const LandingPage: FC<any> = () => {
 			</div>
 			<div className="absolute bottom-10 left-24 z-[50] bg-landing bg-no-repeat bg-contain w-[1100px] h-[1100px]"></div>
 			<div className="absolute -bottom-40 -left-60 w-[1000px] h-[1000px] z-[40] rounded-full bg-blue-500"></div>
-			<div className="absolute top-[200px] left-[117px] w-[200px] h-[200px] z-[40] rounded-full border-[2px] border-dashed border-gray-400"></div>
 		</section>
 	)
 }
