@@ -1,9 +1,10 @@
-import { FC, useCallback, forwardRef, useEffect, useMemo, useState } from 'react'
+import { Button, IconButton } from 'components'
+import { FC, forwardRef, useCallback, useEffect, useMemo, useState } from 'react'
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from 'react-icons/md'
 import { VscCircle, VscCircleFilled } from 'react-icons/vsc'
-import { Button, IconButton } from 'components'
-import { motion } from 'framer-motion'
+
 import { fadeIn } from 'utils'
+import { motion } from 'framer-motion'
 
 interface GalleryProps {
 	images?: any
@@ -12,10 +13,10 @@ interface GalleryProps {
 const OFFSET = 400
 const IMAGES = [
 	'https://lh3.googleusercontent.com/p/AF1QipMeu-K39F0mCeQiy9i5LP6Q4v_EV--h9fhfIbmO=s680-w680-h510',
-	'https://lh3.googleusercontent.com/p/AF1QipPrCPJasPCNXWK2ENeEKopYkFtvp6PyPSL6C08U=s680-w680-h510',
-	'https://lh3.googleusercontent.com/p/AF1QipPRr8lZHn604W2YLsjRlTlWKe9LwW9wJd1n8Zef=s680-w680-h510',
-	'https://lh3.googleusercontent.com/p/AF1QipMhIH2YG_PHedEK9I74P6ceYUQsiLsnkF5mYdbJ=s680-w680-h510',
-	'https://lh3.googleusercontent.com/p/AF1QipNpguHBmYePWBkVN0wBplguMwhUxqAJVktmDehF=s680-w680-h510',
+	// 'https://lh3.googleusercontent.com/p/AF1QipPrCPJasPCNXWK2ENeEKopYkFtvp6PyPSL6C08U=s680-w680-h510',
+	// 'https://lh3.googleusercontent.com/p/AF1QipPRr8lZHn604W2YLsjRlTlWKe9LwW9wJd1n8Zef=s680-w680-h510',
+	// 'https://lh3.googleusercontent.com/p/AF1QipMhIH2YG_PHedEK9I74P6ceYUQsiLsnkF5mYdbJ=s680-w680-h510',
+	// 'https://lh3.googleusercontent.com/p/AF1QipNpguHBmYePWBkVN0wBplguMwhUxqAJVktmDehF=s680-w680-h510',
 	//'https://lh3.googleusercontent.com/p/AF1QipN684P0RNdX2TvWv873Ad1NSa9aILGyiX4w2wBT=s680-w680-h510',
 ]
 
@@ -23,7 +24,7 @@ const Gallery = ({ images = IMAGES, ...props }, ref) => {
 	const [currentIdx, setCurrentIdx] = useState<number>(0)
 	const [direction, setDirection] = useState<'left' | 'right'>()
 
-	const parentWidth = useMemo(() => ref.current?.offsetWidth || 0, [ref])
+	const parentWidth = useMemo(() => ref?.current?.offsetWidth || 0, [ref])
 	const showLeft = useMemo(() => currentIdx > 0, [currentIdx])
 	const showRight = useMemo(() => currentIdx < images.length - 1, [images, currentIdx])
 	const translate = useMemo(() => `-translate-x-[${currentIdx * parentWidth}px]`, [currentIdx, parentWidth])
@@ -47,13 +48,15 @@ const Gallery = ({ images = IMAGES, ...props }, ref) => {
 
 	const handleBottomNav = (e, idx) => setCurrentIdx(idx)
 
-	useEffect(() => {}, [currentIdx, direction, ref])
+	useEffect(() => {
+		console.log(parentWidth)
+	}, [currentIdx, parentWidth, ref])
 
 	return (
-		<div className="relative w-full h-[300px] overflow-hidden">
-			<div className={`absolute ${containerWidth} h-full flex ${translate} z-0`}>
+		<div className="relative w-full h-full overflow-hidden">
+			<div className={`absolute w-full h-full flex ${translate} z-0`}>
 				{images.map((image, idx) => (
-					<img key={idx} alt="" src={image} className="bg-contain w-full h-full" />
+					<img key={idx} alt="" src={image} className="object-cover h-full w-full" />
 				))}
 			</div>
 			<div className="absolute w-full h-full z-10"></div>

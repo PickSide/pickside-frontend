@@ -1,9 +1,14 @@
 import { Activity, AppState, setSelectedActivity } from 'state'
-import { Button, Dialog } from 'components'
+import { BsBookmark, BsBookmarksFill, BsPeople } from 'react-icons/bs'
+import { Button, Dialog, Gallery, IconButton } from 'components'
 import { FC, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { BiTime } from 'react-icons/bi'
 import { ConfirmRegisterEventForm } from 'widgets'
+import { FaLocationArrow } from 'react-icons/fa'
+import dayjs from 'dayjs'
+import placeholder from '../assets/avatar-placeholder.jpg'
 import { useTranslation } from 'react-i18next'
 
 interface ActivityProps {
@@ -11,7 +16,7 @@ interface ActivityProps {
 }
 
 const EventCard: FC<ActivityProps> = ({ activity }) => {
-	const { id, title, participants, price, playTime, time, level, location, players } = activity
+	const { id, title, participants, time } = activity
 
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
@@ -20,7 +25,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 	const [expanded, setExpanded] = useState<boolean>(false)
 
 	const user = useSelector((state: AppState) => state.user)
-
+	console.log(activity.date)
 	return (
 		<>
 			<Dialog
@@ -35,72 +40,56 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 					onClose={() => setOpenConfirmRegisterDialog(false)}
 				/>
 			</Dialog>
-			<div
-				onClick={() => dispatch<any>(setSelectedActivity(id))}
-				className="relative bg-white rounded-md shadow-md w-full flex flex-col p-4"
-			>
-				<div className="flex flex-col items-center mb-7">
-					<span className="text-[25px] font-semibold">{title}</span>
-				</div>
-				<div className="m-auto grid grid-cols-3 gap-12 gap-y-6 text-[15px] text-center h-[120px]">
-					<div>
-						<span className="capitalize font-semibold flex flex-col items-center">
-							{(participants || []).length} / {players}
-						</span>
-						<span>{t('Players')}</span>
-					</div>
-					<div>
-						{/* <span className="capitalize font-semibold flex flex-col items-center">
-							{settings.clothingColor.join(',')}
-						</span> */}
-						<span>{t('Clothing color')}</span>
-					</div>
-					<div>
-						<span className="font-semibold flex flex-col items-center uppercase">
-							{price === 0 ? 'Free' : `${price}$`}
-						</span>
-						<span>{t('Price')}</span>
-					</div>
-					<div>
-						<span className="font-semibold flex flex-col items-center">{level}</span>
-						<span>{t('Level')}</span>
-					</div>
-					<div>
-						<span className="font-semibold flex flex-col items-center">{playTime + 1}</span>
-						<span>{t('Play time')}</span>
-					</div>
-					<div className=" flex flex-col items-center justify-center">
-						<Button variant="tertiary" text={t('Show on map')} />
-					</div>
-					{/* <div className="flex flex-col items-center">
-						{settings.isBallProvided ? (
-							<span className="text-[#2bb75c]">
-								<BsCheckCircleFill size={20} />
-							</span>
-						) : (
-							<span className="text-[#d2333d]">
-								<BsXCircleFill size={20} />
-							</span>
-						)}
-						<span>{t('Ball')}</span>
-					</div> */}
-				</div>
-				<div className="flex justify-center">
-					{/* <IconButton onClick={() => setExpanded(!expanded)} disableRipple>
-						<div className="inline-flex items-center gap-x-1">
-							{expanded ? (
-								<>
-									<span className="text-[15px] font-normal">{t('Show less')}</span>
-									<MdExpandLess size={20} />
-								</>
-							) : (
-								<>
-									<span className="text-[15px] font-normal">{t('Show more')}</span>
-									<MdExpandMore size={20} />
-								</>
-							)}
+			<div className="relative bg-white rounded-md shadow-md w-full flex flex-col">
+				{/* CARD HEADER */}
+				<div className="block p-4">
+					<div className="float-left align-middle">
+						<div className="flex space-x-3 items-center">
+							<div className="flex-1 rounded-full overflow-clip w-8 h-8">
+								<img alt={`organiser-of-${activity.id}`} src={activity.organiser?.avatar || placeholder} />
+							</div>
+							<div className="flex flex-col">
+								<p className="text-[18px] font-semibold">{t('Header')}</p>
+								<p className="text-[14px] text-gray-400">{t('Subhead')}</p>
+							</div>
 						</div>
-					</IconButton> */}
+					</div>
+					<div className="float-right">
+						<IconButton icon={<BsBookmark size={20} />} onClick={() => console.log('activity to bookmark', activity)} />
+					</div>
+				</div>
+				{/* CARD BODY */}
+				<div className="h-[200px]">
+					<Gallery />
+				</div>
+				{/* CARD CONTENT */}
+				<div className="p-4 space-y-1">
+					<div className="flex justify-between">
+						<p className="text-[16px] font-normal">{activity.title}</p>
+						<div className="flex items-center space-x-2">
+							<p>{activity.participants.length}/22</p>
+							<BsPeople size={15} className="text-gray-600" />
+						</div>
+					</div>
+					<div className="flex items-center space-x-1 ">
+						<BiTime size={15} className="text-gray-600" />
+						<p className="text-[14px] font-normal text-gray-400">{activity.date.stringFormat}</p>
+					</div>
+					<div className="flex items-center space-x-1">
+						<FaLocationArrow size={15} className="text-gray-600" />
+						<p className="text-[14px] font-normal text-gray-400 underline cursor-pointer hover:text-gray-700">
+							420 Rue de la poitrie
+						</p>
+					</div>
+					<div className="flex items-center">
+						<p className="text-[14px] font-normal text-gray-400 mt-4">{activity.description}</p>
+					</div>
+					<p></p>
+				</div>
+				{/* CARD FOOTER */}
+				<div className="flex p-4 space-x-2 justify-end">
+					<Button variant="secondary" text={t('Read More')} className="rounded-3xl" />
+					<Button variant="primary" text={t('Join')} className="rounded-3xl" />
 				</div>
 			</div>
 		</>

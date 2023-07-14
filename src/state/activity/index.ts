@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Resources } from 'state'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { Resources, Sport, User } from 'state'
 
 export interface Activities extends Resources {
 	results?: Activity[]
@@ -7,19 +7,22 @@ export interface Activities extends Resources {
 
 export interface Activity {
 	id?: string
-	title?: string
-	mode?: string
-	date?: any
-	location?: any
-	time?: any
-	playTime?: any
-	players?: number
-	level?: string
-	price?: number
-	rules?: string
-	sport?: string
-	participants?: any[]
-	organiser?: string
+	address: string
+	date: {
+		stringFormat: string,
+		unixFormat: number
+	}
+	description: string,
+	duration: number,
+	mode: string,
+	organiser: User,
+	participants: User[],
+	recommandedLevel: string,
+	rules: string,
+	sport: Sport,
+	time: string,
+	title: string,
+	unitPrice: number,
 }
 
 const Activity = createSlice({
