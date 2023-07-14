@@ -1,6 +1,7 @@
-import { ReactNode, forwardRef } from 'react'
-import { twMerge } from 'tailwind-merge'
+import { ReactNode, forwardRef, useId } from 'react'
+
 import { ButtonVariant } from 'utils'
+import { twMerge } from 'tailwind-merge'
 
 interface ButtonProps {
 	variant?: ButtonVariant
@@ -8,12 +9,13 @@ interface ButtonProps {
 	icon?: ReactNode
 	disabled?: boolean
 	isLoading?: boolean
-	showTooltip?: boolean
+	tooltipText?: string
+	type?: 'button' | 'reset' | 'submit'
 	onClick: (e?) => void
 }
 
 const Button = (
-	{ onClick, disabled = false, showTooltip = false, icon, variant = 'primary', ...rest }: ButtonProps,
+	{ onClick, disabled = false, tooltipText, icon, variant = 'primary', type = 'button', ...rest }: ButtonProps,
 	ref,
 ) => {
 	const variants = {
@@ -23,15 +25,21 @@ const Button = (
 		danger: 'text-danger',
 	}
 
+	const id = useId()
+
 	return (
-		<button
-			className={twMerge('icon-btn', [rest.className, variants[variant]].join(' '))}
-			disabled={disabled}
-			onClick={onClick}
-			{...rest}
-		>
-			{icon}
-		</button>
+		<div className="relative">
+			<button
+				type={type}
+				className={twMerge('icon-btn', [rest.className, variants[variant]].join(' '))}
+				disabled={disabled}
+				data-tooltip-target={id}
+				onClick={onClick}
+				{...rest}
+			>
+				{icon}
+			</button>
+		</div>
 	)
 }
 

@@ -67,7 +67,9 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 					<div className="flex justify-between">
 						<p className="text-[16px] font-normal">{activity.title}</p>
 						<div className="flex items-center space-x-2">
-							<p>{activity.participants.length}/22</p>
+							<p>
+								{activity.participants.length}/{activity.maxPlayers}
+							</p>
 							<BsPeople size={15} className="text-gray-600" />
 						</div>
 					</div>
@@ -89,7 +91,12 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 				{/* CARD FOOTER */}
 				<div className="flex p-4 space-x-2 justify-end">
 					<Button variant="secondary" text={t('Read More')} className="rounded-3xl" />
-					<Button variant="primary" text={t('Join')} className="rounded-3xl" />
+					<Button
+						variant="primary"
+						disabled={activity.participants.length >= activity.maxPlayers}
+						text={activity.participants.length < activity.maxPlayers ? t('Join') : t('Full')}
+						className="rounded-3xl"
+					/>
 				</div>
 			</div>
 		</>

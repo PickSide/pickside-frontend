@@ -34,7 +34,7 @@ module.exports = {
         dark: '#0C1615'
       },
       backgroundImage: {
-        landing: "url('./assets/sport-color.png')",
+        landing: "url('./assets/landing-page-background.png')",
         avatar: "url('./assets/avatar-placeholder.png')",
         templogo: "url('./assets/temp-logo.png')",
         templogo2: "url('./assets/temp-logo-2.png')",
