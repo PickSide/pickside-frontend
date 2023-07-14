@@ -1,152 +1,55 @@
-import React from 'react'
-import {
-	Accordion,
-	AccordionSection,
-	Alert,
-	Button,
-	Chip,
-	ChipGroup,
-	Dropdown,
-	DatePicker,
-	IconDropdown,
-	MenuItem,
-	Switch,
-	Stepper,
-	Radio,
-	RadioGroup,
-	TimePicker,
-	Toggle,
-	ToggleGroup,
-	NumberField,
-} from 'components'
-import { Toast } from 'widgets'
-import { BiAddToQueue } from 'react-icons/bi'
-import { CiLight } from 'react-icons/ci'
-import { TfiSharethis } from 'react-icons/tfi'
-import { FiSettings } from 'react-icons/fi'
+import { AppState } from 'state'
+import { EventCard } from 'widgets'
+import { NavLink } from 'react-router-dom'
+import friendship from '../../../assets/friendship.png'
+import onTime from '../../../assets/on-time.png'
+import touchscreen from '../../../assets/touchscreen.png'
+import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
 const About = () => {
+	const { t } = useTranslation()
+	const activities = useSelector((state: AppState) => state.activities)
+
 	return (
-		<section id="about" className="bg-[#e0f2f1] flex flex-col gap-y-4">
-			<div className="flex justify-center gap-x-4">
-				<Button text="Button" />
-				<Button variant="secondary" text="Button" />
-				<Button variant="tertiary" text="Button" />
-			</div>
-			<div className="flex justify-center gap-x-4">
-				<Switch primary />
-				<Switch secondary />
-				<Switch tertiary />
-			</div>
-			<div className="flex justify-center gap-x-4">
-				<ChipGroup defaultValue="green" label="Chip labels" name="test" onChange={(e) => console.log(e)}>
-					<Chip text="Primary" value="primary" />
-					<Chip text="Green" value="green" icon={<CiLight size={15} />} chipColor="green" />
-					<Chip text="Blue" value="blue" chipColor="blue" />
-					<Chip text="Red" value="red" chipColor="red" />
-				</ChipGroup>
-			</div>
-			<div className="flex justify-center gap-x-4">
-				<Toast show type="info">
-					Successful toast
-				</Toast>
-				<Toast show type="success">
-					Toast info
-				</Toast>
-				<Toast show type="warning">
-					Warningtoast
-				</Toast>
-				<Toast show type="error">
-					Error toast
-				</Toast>
-			</div>
-			<div className="flex justify-center gap-x-4">
-				<Alert severity="info">Info alert</Alert>
-				<Alert severity="success">Success alert</Alert>
-				<Alert severity="warning">Warning alert</Alert>
-				<Alert severity="error">Error alert</Alert>
-			</div>
-			<div className="flex justify-center gap-x-4">
-				<Dropdown text="Dropdown">
-					<MenuItem icon={<BiAddToQueue size={25} />}>With icon</MenuItem>
-					<MenuItem>No icon</MenuItem>
-					<MenuItem disabled>Disabled</MenuItem>
-					<MenuItem>Option with elipsis text yessssss</MenuItem>
-				</Dropdown>
-				<IconDropdown icon={<BiAddToQueue size={25} />}>
-					<MenuItem icon={<BiAddToQueue size={25} />}>With icon</MenuItem>
-					<MenuItem>No icon</MenuItem>
-					<MenuItem disabled>Disabled</MenuItem>
-					<MenuItem>Option with elipsis text yessssss</MenuItem>
-				</IconDropdown>
-			</div>
-			<div className="flex justify-center gap-x-4">
-				<RadioGroup name="test" label="A group radio button" onChange={(option) => console.log(option)}>
-					<Radio text="Radio Normal" value="a" description="This button is clickable" />
-					<Radio
-						text="Radio with icon"
-						value="b"
-						icon={<TfiSharethis size={30} />}
-						description="This button is clickable"
-					/>
-					<Radio text="Radio disabled" value="c" description="This button is disabled" disabled />
-				</RadioGroup>
-			</div>
-			<div className="flex justify-center gap-x-4 w-[50%] mx-auto">
-				<Stepper
-					steps={[
-						{
-							id: 'cabin',
-							title: 'Cabin',
-							required: false,
-							content: <p>This is step one</p>,
-						},
-						{
-							id: 'means',
-							title: 'Meals',
-							required: false,
-							content: <p>This is step two</p>,
-						},
-						{
-							id: 'upgrades',
-							title: 'Upgrades',
-							required: false,
-							content: <p>This is step three</p>,
-						},
-						{
-							id: 'payment',
-							title: 'Payment',
-							required: false,
-							content: <p>This is step four</p>,
-						},
-					]}
-				/>
-			</div>
-			<div className="flex justify-center gap-x-4">
-				<DatePicker onChange={(option) => console.log(option)} />
-				<TimePicker onChange={(option) => console.log(option)} />
-			</div>
-			<div className="flex justify-center gap-x-4">
-				<ToggleGroup name="test" onChange={(e) => console.log('checked', e.target.checked)} defaultValue="hi">
-					<Toggle text="Hi" value="hi" />
-					<Toggle text="Bye" value="bye" />
-				</ToggleGroup>
-			</div>
-			<div className="flex justify-center gap-x-4">
-				<Accordion>
-					<AccordionSection title="Header" icon={<FiSettings size={25} />} expanded={true}>
-						<p>Hello</p>
-					</AccordionSection>
-					<AccordionSection title="Header" icon={<FiSettings size={25} />}>
-						<p>Hello</p>
-					</AccordionSection>
-					<AccordionSection title="Header" icon={<FiSettings size={25} />}>
-						<p>Hello</p>
-					</AccordionSection>
-				</Accordion>
-			</div>
-			<div className="flex justify-center gap-x-4">
-				<NumberField label="Input stepper" />
+		<section id="about" className="section px-20 py-10">
+			<div className="flex flex-col space-y-10">
+				<div className="flex justify-between">
+					<p className="text-[30px]">{t('Upcoming Events')}</p>
+					<NavLink to="listing" className="text-[20px] text-blue-800 hover:text-blue-500">
+						{t('Explore more Events')}
+					</NavLink>
+				</div>
+				<div className="flex space-x-7">
+					{activities?.results?.map((activity, idx) => (
+						<EventCard key={idx} activity={activity} />
+					))}
+				</div>
+				<div className="flex border rounded-sm border-gray-200 shadow-md p-20 space-y-10">
+					<div className="flex flex-col w-1/2 space-y-6">
+						<p className="text-[25px] font-semibold">{t('How the app works?')}</p>
+						<p className="text-[20px] font-normal ">
+							{t(
+								`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Donec et odio pellentesque diam volutpat commodo sed egestas. dipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque.
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Donec et odio pellentesque diam volutpat commodo sed egestas. dipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque.`,
+							)}
+						</p>
+					</div>
+					<div className="flex flex-col group space-y-5 mx-auto">
+						<div className="text-[20px] flex items-center space-x-10">
+							<img alt="on-time" src={onTime} className="w-[90px] h-[90px]" />
+							{t('Respect your time')}
+						</div>
+						<div className="text-[20px] flex items-center space-x-10">
+							<img alt="touchscreen" src={touchscreen} className="w-[90px] h-[90px]" />
+							{t('One click away')}
+						</div>
+						<div className="text-[20px] flex items-center space-x-10">
+							<img alt="friendship" src={friendship} className="w-[90px] h-[90px]" />
+							{t('Make friends')}
+						</div>
+					</div>
+				</div>
 			</div>
 		</section>
 	)

@@ -22,7 +22,6 @@ import { RequireAuth } from 'components'
 import Settings from './pages/User/Settings'
 import SignUp from './pages/Authentication/SignUp'
 import SocialMedia from './pages/User/Sections/SocialMedia'
-import SportSelection from './pages/Home/Sections/ServiceDescription'
 import { ToastProvider } from 'context/ToastContext'
 import UpcomingEvents from './pages/User/UpcomingEvents'
 
@@ -40,7 +39,6 @@ const App = () => {
 									<Routes>
 										<Route path="/" element={<Home />}>
 											<Route path="home" element={<LandingPage />} />
-											<Route path="selection" element={<SportSelection />} />
 											<Route path="about" element={<About />} />
 										</Route>
 										<Route path="/login" element={<Login />} />

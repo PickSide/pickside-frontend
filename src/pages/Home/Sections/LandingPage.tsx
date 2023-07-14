@@ -33,18 +33,18 @@ const LandingPage: FC<any> = () => {
 	}
 
 	return (
-		<section
-			id="home"
-			className="section inset text-black bg-white flex flex-col lg:flex-row items-center justify-center gap-y-5 gap-x-4"
-		>
-			<div className="flex flex-col gap-y-6 w-[80%] lg:w-[50%] text-center">
+		<section id="home" className="relative section text-black bg-white flex flex-col lg:block overflow-hidden">
+			<div className="absolute right-20 top-20 gap-y-6 w-[80%] lg:w-[400px] z-[80]">
 				<div className="flex flex-col gap-y-2 items-center my-3">
-					<span className="text-[30px] lg:text-[45px] font-semibold">{t('The best sporting app')}</span>
+					<span className="text-[30px] lg:text-[45px] font-semibold">{t('Book Your Next Match Now')}</span>
 					<span className="text-[15px] lg:text-[22px] text-gray-500 font-normal">
-						{t('Connect across your area and find the nearest sport events of your choice')}
+						{t('Are you looking for your sport team? this place is for you just search your neighborhood.')}
 					</span>
 				</div>
 				<div className="flex mx-auto justify-center items-center gap-x-6">
+					<Button className="w-full h-12" onClick={handleClick} text={t('Join Your Team Now')} />
+				</div>
+				{/* <div className="flex mx-auto justify-center items-center gap-x-6">
 					<p className="text-gray-500 font-normal">{t('Check events in my region')}</p>
 					<IconButton onClick={goToListing} icon={<FaLocationArrow size={25} />} />
 				</div>
@@ -54,9 +54,11 @@ const LandingPage: FC<any> = () => {
 				<div className="flex mx-auto justify-center gap-x-6">
 					<GoogleAutocomplete onSelectPlace={(value) => setSelected(value)} />
 					<Button disabled={!selected} onClick={handleClick} text={t('Go')} />
-				</div>
+				</div> */}
 			</div>
-			<div className="bg-landing bg-no-repeat bg-cover w-[200px] h-[200px] mb-16"></div>
+			<div className="absolute bottom-10 left-24 z-[50] bg-landing bg-no-repeat bg-contain w-[1100px] h-[1100px]"></div>
+			<div className="absolute -bottom-40 -left-60 w-[1000px] h-[1000px] z-[40] rounded-full bg-blue-500"></div>
+			<div className="absolute top-[200px] left-[117px] w-[200px] h-[200px] z-[40] rounded-full border-[2px] border-dashed border-gray-400"></div>
 		</section>
 	)
 }

@@ -39,7 +39,7 @@ const Button = (
 
 	return (
 		<button
-			className={twMerge('btn-base', [className, variants[variant]].join(' '))}
+			className={twMerge('btn-base', [variants[variant], className].join(' '))}
 			disabled={disabled}
 			onClick={onClick}
 			{...rest}
