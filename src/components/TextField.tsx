@@ -30,13 +30,13 @@ const TextField = (
 		readOnly = false,
 		fullWidth = false,
 		...rest
-	}: TextFieldProps,
+	}: TextFieldProps | any,
 	ref,
 ) => {
 	const [showPassword, setShowPassword] = useState<boolean>(false)
 
 	return (
-		<div className={`${!fullWidth ? 'max-w-[230px]' : ''} relative flex flex-col`}>
+		<div className={`${!fullWidth ? 'max-w-[230px]' : ''} relative flex flex-col disabled:text-gray-400`}>
 			<label htmlFor={id} className="text-gray-800">
 				{label}
 			</label>

@@ -30,7 +30,13 @@ const GoogleAutocomplete = ({ label, onSelectPlace, ...rest }, ref) => {
 			/>
 		</StandaloneSearchBox>
 	) : (
-		<></>
+		<TextField
+			disabled={true}
+			label={label}
+			startContent={<HiOutlineLocationMarker size={20} />}
+			placeholder={t('Google API did not load')}
+			{...rest}
+		/>
 	)
 }
 
