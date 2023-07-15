@@ -43,7 +43,7 @@ const AppBar = () => {
 				animate="visible"
 				exit="exit"
 				variants={pageTransition}
-				className="relative h-16 px-5 shadow-md dark:bg-black"
+				className="relative h-16 px-5 bg-[#F1F4F3] dark:bg-black"
 				ref={ref}
 			>
 				{isMobile ? (

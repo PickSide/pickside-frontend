@@ -1,10 +1,9 @@
-import { ReactNode, forwardRef } from 'react'
+import { ReactNode, forwardRef, useId } from 'react'
 
 import { ButtonVariant } from 'utils'
-import Spinner from './Spinner'
 import { twMerge } from 'tailwind-merge'
 
-interface ButtonProps {
+interface UploadProps {
 	variant?: ButtonVariant
 	text?: ReactNode
 	disabled?: boolean
@@ -12,25 +11,24 @@ interface ButtonProps {
 	showTooltip?: boolean
 	onClick?: (e?) => void
 	className?: string
-	type?: 'button' | 'reset' | 'submit'
 }
 
-const Button = (
+const Upload = (
 	{
 		className,
-		onClick,
+		onChange,
 		isLoading = false,
 		disabled = false,
 		showTooltip = false,
 		text,
 		variant = 'primary',
-		type = 'button',
 		...rest
-	}: ButtonProps,
+	}: UploadProps | any,
 	ref,
 ) => {
+	const id = useId()
 	const variants = {
-		primary: 'text-white bg-primary hover:bg-gray-300 disabled:bg-gray-300/60 dark:bg-white dark:text-black max-h-[50px]',
+		primary: 'text-white bg-primary hover:bg-gray-300 disabled:bg-gray-300/60 dark:bg-white dark:text-black',
 		secondary:
 			'text-primary border-2 border-primary hover:bg-gray-300 disabled:text-gray-400 disabled:border-gray-200/30 disabled:bg-gray-200/60 dark:bg-white dark:text-black',
 		tertiary: 'text-primary dak:bg-none dark:text-white',
@@ -38,15 +36,19 @@ const Button = (
 	}
 
 	return (
-		<button
-			className={twMerge('btn-base', [variants[variant], className].join(' '))}
-			disabled={disabled}
-			onClick={onClick}
-			{...rest}
-		>
-			{isLoading ? <Spinner /> : text}
-		</button>
+		<label htmlFor={id} className={twMerge('btn-base flex justify-center', [variants[variant], className].join(' '))}>
+			<p>{text}</p>
+			<input
+				type="file"
+				accept="image/*"
+				id={id}
+				className="hidden"
+				disabled={disabled}
+				onChange={onChange}
+				{...rest}
+			/>
+		</label>
 	)
 }
 
-export default forwardRef(Button)
+export default forwardRef(Upload)

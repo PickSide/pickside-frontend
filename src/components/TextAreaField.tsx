@@ -29,8 +29,8 @@ const TextAreaField = (
 ) => {
 	return (
 		<div className={`relative flex flex-col ${fullWidth ? 'w-full' : 'w-[230px]'}`}>
-			<label htmlFor={id} className="">
-				<span className="text-gray-400">{label}</span>
+			<label htmlFor={id} className="text-gray-800">
+				{label}
 			</label>
 			<div
 				className={`inline-flex w-full items-center rounded-md bg-white ${

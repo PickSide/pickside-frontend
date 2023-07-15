@@ -6,7 +6,7 @@ module.exports = {
   darkMode: 'class',
   theme: {
     fill: {
-      primary: 'white',
+      primary: '#68737D',
       secondary: '#D3F9F6',
       tertiary: 'black',
     },
@@ -25,10 +25,10 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: 'black',
+        primary: '#144A75', // --blue-blue-700
         secondary: '#208D91',
-        tertiary: '#F4FF81',
-        accent: '#159546',
+        tertiary: '#68737D', // --grey-grey-600
+        accent: '#FFFFFF',
         sucess: '#46D339',
         error: '#D50000',
         dark: '#0C1615'
@@ -39,6 +39,9 @@ module.exports = {
         templogo: "url('./assets/temp-logo.png')",
         templogo2: "url('./assets/temp-logo-2.png')",
       },
+      flexGrow: {
+        2: '2'
+      }
     },
   },
   plugins: [

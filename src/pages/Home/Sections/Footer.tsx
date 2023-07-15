@@ -8,9 +8,9 @@ const Footer = () => {
 	const { t } = useTranslation()
 
 	return (
-		<div className="bg-primary text-white h-72">
-			<div className="flex flex-col p-10">
-				<div className="flex items-center space-x-4">
+		<div className="bg-primary text-white">
+			<div className="flex flex-col px-40 py-10">
+				<div className="flex items-center space-x-6">
 					<p className="text-[20px] font-semibold">{t('Post your sport event')}</p>
 					<Button
 						type="button"
@@ -49,7 +49,7 @@ const Footer = () => {
 						</NavLink>
 						<NavLink to="" className="flex items-center gap-x-3">
 							<AiOutlineTwitter size={20} />
-							{t('TWitter')}
+							{t('Twitter')}
 						</NavLink>
 					</div>
 				</div>

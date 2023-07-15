@@ -1,13 +1,16 @@
-import { useState, forwardRef } from 'react'
-import { MdOutlineChevronLeft, MdOutlineChevronRight, MdCalendarToday } from 'react-icons/md'
-import dayjs from 'dayjs'
 import { AnimatePresence, motion } from 'framer-motion'
-import { generateDate, weeks, months, dropdownAnimation } from 'utils'
+import { MdCalendarToday, MdOutlineChevronLeft, MdOutlineChevronRight } from 'react-icons/md'
+import { dropdownAnimation, generateDate, months, weeks } from 'utils'
+import { forwardRef, useId, useState } from 'react'
+
+import dayjs from 'dayjs'
 
 const DatePicker = ({ value = dayjs(), onChange, ...rest }, ref) => {
 	const [today, setToday] = useState<dayjs.Dayjs>(value)
 	const [selectDate, setSelectDate] = useState<dayjs.Dayjs>(value)
 	const [open, setOpen] = useState<boolean>(false)
+
+	const id = useId()
 
 	const handleOpen = () => setOpen(true)
 	const handleSelect = (date) => {
@@ -17,10 +20,14 @@ const DatePicker = ({ value = dayjs(), onChange, ...rest }, ref) => {
 	}
 
 	return (
-		<div className="relative" tabIndex={0}>
+		<div className="relative w-full" tabIndex={0}>
+			<label htmlFor={id} className="text-gray-800 leading-4">
+				{rest.label}
+			</label>
 			<button
+				id={id}
 				type="button"
-				className="flex gap-x-3 items-center cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
+				className="flex gap-x-3 items-center cursor-default rounded-md w-full h-[50px] bg-white py-1.5 pl-3 pr-10 text-left text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-primary sm:text-sm sm:leading-6"
 				onClick={handleOpen}
 				aria-haspopup="listbox"
 				aria-expanded="true"
@@ -30,7 +37,6 @@ const DatePicker = ({ value = dayjs(), onChange, ...rest }, ref) => {
 					<MdCalendarToday size={20} />
 				</span>
 				<span className="flex flex-col items-start justify-center">
-					<span className="text-[10px] text-[#A2A2A2] leading-4">Choose date</span>
 					<span className="font-semibold">{selectDate?.toDate().toDateString()}</span>
 				</span>
 			</button>
@@ -45,14 +51,6 @@ const DatePicker = ({ value = dayjs(), onChange, ...rest }, ref) => {
 							exit="exit"
 							className="absolute z-[90] mt-1 w-72 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
 						>
-							{/* <div className="flex items-center h-12 gap-x-3 p-3">
-								<button className="bg-gray-100 rounded-md border-none p-2 font-semibold hover:bg-gray-200 ease-in transition-all duration-75">
-									Today
-								</button>
-								<button className="bg-gray-100 rounded-md border-none p-2 font-semibold hover:bg-gray-200">
-									Tomorrow
-								</button>
-							</div> */}
 							<div className="flex justify-between px-4">
 								<button
 									type="button"
@@ -87,7 +85,7 @@ const DatePicker = ({ value = dayjs(), onChange, ...rest }, ref) => {
 										<button
 											type="button"
 											key={idx}
-											className="rounded-md block w-6 h-6 pointer-events-none bg-indigo-500 text-white border-none outline-none font-primary m-2"
+											className="rounded-md block w-6 h-6 pointer-events-none bg-primary text-white border-none outline-none font-primary m-2"
 										>
 											{date.date()}
 										</button>

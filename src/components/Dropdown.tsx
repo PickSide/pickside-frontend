@@ -1,7 +1,8 @@
-import { ReactNode, forwardRef, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { dropdownAnimation } from 'utils'
+import { ReactNode, forwardRef, useEffect, useState } from 'react'
+
 import { KEY_CODES } from 'utils'
+import { dropdownAnimation } from 'utils'
 import { twMerge } from 'tailwind-merge'
 
 interface DropdownProps {
@@ -9,13 +10,17 @@ interface DropdownProps {
 	className?: string
 	start?: ReactNode
 	text?: string
+	badge?: ReactNode
 	type?: 'button' | 'reset' | 'submit'
 	variant?: 'primary' | 'secondary' | 'tertiary'
 }
 
-const Dropdown = ({ children, start, variant = 'primary', type = 'button', text, ...rest }: DropdownProps, ref) => {
+const Dropdown = (
+	{ badge, children, start, variant = 'primary', type = 'button', text, ...rest }: DropdownProps,
+	ref,
+) => {
 	const variants = {
-		primary: 'text-white bg-primaryhover:bg-gray-300 disabled:bg-gray-100/60 dark:bg-white dark:text-black',
+		primary: 'text-white bg-primary hover:bg-gray-300 disabled:bg-gray-100/60 dark:bg-white dark:text-black',
 		secondary: 'text-primary',
 		tertiary: 'dark:text-white hover:bg-gray-200 focus',
 		danger: 'text-danger',
@@ -41,7 +46,10 @@ const Dropdown = ({ children, start, variant = 'primary', type = 'button', text,
 			<button
 				onClick={() => setIsOpen(true)}
 				onKeyDown={handler}
-				className={twMerge('btn-base inline-flex items-center gap-x-2', [variants[variant]].join(' '))}
+				className={twMerge(
+					'relative  hover:scale-110 btn-base flex flex-col items-center gap-x-2',
+					[variants[variant]].join(' '),
+				)}
 				id="menu-button"
 				aria-expanded="true"
 				aria-haspopup="true"
@@ -49,6 +57,7 @@ const Dropdown = ({ children, start, variant = 'primary', type = 'button', text,
 			>
 				{start}
 				{text}
+				{badge && <span className="absolute top-0 right-8 rounded-full">{badge}</span>}
 			</button>
 			<AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
 				{isOpen && (

@@ -1,10 +1,10 @@
 import { AppState, setSelectedActivity } from 'state'
+import { FC, useState } from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 import { MapMarker, Spinner } from 'components'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEnvVariables, useMapStyles } from 'hooks'
 
-import { FC } from 'react'
 import { faSoccerBall } from '@fortawesome/free-solid-svg-icons'
 
 const Map: FC<any> = ({ ...props }) => {
@@ -15,6 +15,8 @@ const Map: FC<any> = ({ ...props }) => {
 	const playables = useSelector((state: AppState) => state.playables)
 	const selectedActivity = useSelector((state: AppState) => state.selectedActivity)
 	const selectedLocation = useSelector((state: AppState) => state.selectedLocation)
+
+	const [libraries] = useState<any>(['places'])
 
 	const options: google.maps.MapOptions = {
 		styles: mapStyles,
@@ -31,7 +33,7 @@ const Map: FC<any> = ({ ...props }) => {
 
 	const { isLoaded, loadError } = useJsApiLoader({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY || 'AIzaSyA3AlB-88t03MwvxPMuvJKT34EMm9Pp9BM',
-		libraries: ['places'],
+		libraries,
 	})
 
 	const InfoWindow = ({ content, title }) => (

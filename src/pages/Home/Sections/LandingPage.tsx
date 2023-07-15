@@ -43,7 +43,7 @@ const LandingPage: FC<any> = () => {
 				</div>
 				<div className="flex flex-col mx-auto justify-center items-center gap-y-6">
 					<Button className="w-full h-12" onClick={handleClick} text={t('Join Your Team Now')} />
-					<div className="inline-flex w-full justify-between gap-x-6">
+					<div className="inline-flex w-full items-center justify-between gap-x-6">
 						<GoogleAutocomplete onSelectPlace={(value) => setSelected(value)} />
 						<Button disabled={!selected} onClick={handleClick} text={t('Search')} />
 						<IconButton
