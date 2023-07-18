@@ -33,40 +33,31 @@ const LandingPage: FC<any> = () => {
 	}
 
 	return (
-		<section id="home" className="relative section text-black bg-white flex flex-col lg:block overflow-hidden">
-			<div className="absolute right-20 top-20 gap-y-6 w-[80%] lg:w-[400px] z-[80]">
-				<div className="flex flex-col gap-y-2 items-center my-3">
-					<span className="text-[30px] lg:text-[45px] font-semibold">{t('Book Your Next Match Now')}</span>
-					<span className="text-[15px] lg:text-[22px] text-gray-500 font-normal">
-						{t('Are you looking for your sport team? this place is for you just search your neighborhood.')}
-					</span>
-				</div>
-				<div className="flex flex-col mx-auto justify-center items-center gap-y-6">
-					<Button className="w-full h-12" onClick={handleClick} text={t('Join Your Team Now')} />
-					<div className="inline-flex w-full items-center justify-between gap-x-6">
-						<GoogleAutocomplete onSelectPlace={(value) => setSelected(value)} />
-						<Button disabled={!selected} onClick={handleClick} text={t('Search')} />
-						<IconButton
-							onClick={goToListing}
-							icon={<FaLocationArrow size={25} />}
-							tooltipText={t('Show activities in my area')}
-						/>
+		<section id="home" className="section text-black bg-landing-texture lg:block overflow-hidden">
+			<div className="relative flex justify-center">
+				<div className="absolute bg-landing bg-no-repeat bg-contain w-[1100px] h-[1100px]"></div>
+				<div className="absolute translate-x-[100%] gap-y-6 w-[80%] lg:w-[400px] z-[80]">
+					<div className="flex flex-col gap-y-2 items-center my-3">
+						<span className="text-[30px] lg:text-[45px] font-semibold">{t('Book Your Next Match Now')}</span>
+						<span className="text-[15px] lg:text-[22px] text-gray-500 font-normal">
+							{t('Are you looking for your sport team? this place is for you just search your neighborhood.')}
+						</span>
+					</div>
+					<div className="flex flex-col mx-auto justify-center items-center gap-y-6">
+						<Button className="w-full h-12" onClick={handleClick} text={t('Join Your Team Now')} />
+						<div className="inline-flex w-full items-center justify-between gap-x-6">
+							<GoogleAutocomplete onSelectPlace={(value) => setSelected(value)} />
+							<Button disabled={!selected} onClick={handleClick} text={t('Search')} />
+							<IconButton
+								onClick={goToListing}
+								icon={<FaLocationArrow size={25} />}
+								tooltipText={t('Show activities in my area')}
+							/>
+						</div>
 					</div>
 				</div>
-				{/* <div className="flex mx-auto justify-center items-center gap-x-6">
-					<p className="text-gray-500 font-normal">{t('Check events in my region')}</p>
-					<IconButton onClick={goToListing} icon={<FaLocationArrow size={25} />} />
-				</div>
-				<div className="flex mx-auto justify-center items-center gap-x-6">
-					<p className="text-gray-500 font-normal">{t('Or you can search a custom location')}</p>
-				</div>
-				<div className="flex mx-auto justify-center gap-x-6">
-					<GoogleAutocomplete onSelectPlace={(value) => setSelected(value)} />
-					<Button disabled={!selected} onClick={handleClick} text={t('Go')} />
-				</div> */}
+				{/* <div className="absolute -bottom-40 -left-60 w-[1000px] h-[1000px] z-[40] rounded-full bg-blue-500"></div> */}
 			</div>
-			<div className="absolute bottom-10 left-24 z-[50] bg-landing bg-no-repeat bg-contain w-[1100px] h-[1100px]"></div>
-			<div className="absolute -bottom-40 -left-60 w-[1000px] h-[1000px] z-[40] rounded-full bg-blue-500"></div>
 		</section>
 	)
 }

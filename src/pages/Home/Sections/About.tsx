@@ -12,7 +12,7 @@ const About = () => {
 	const activities = useSelector((state: AppState) => state.activities)
 
 	return (
-		<section id="about" className="section px-20 py-10">
+		<section id="about" className="px-20 py-10">
 			<div className="flex flex-col space-y-10">
 				<div className="flex justify-between">
 					<p className="text-[30px]">{t('Upcoming Events')}</p>
