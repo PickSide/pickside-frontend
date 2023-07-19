@@ -1,5 +1,5 @@
 import { Button, IconButton } from 'components'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { FaLocationArrow } from 'react-icons/fa'
 import { GoogleAutocomplete } from 'widgets'
@@ -16,11 +16,15 @@ const LandingPage: FC<any> = () => {
 	const [selected, setSelected] = useState<any>(null)
 
 	const handleClick = async () => {
-		const lat = selected[0].geometry.location.lat()
-		const lng = selected[0].geometry.location.lng()
+		const lat = selected.geometry.location.lat()
+		const lng = selected.geometry.location.lng()
 		await dispatch(setSelectedLocation({ lat, lng }))
 		await navigate('/listing')
 	}
+
+	useEffect(() => {
+		console.log(selected)
+	}, [selected])
 
 	const goToListing = async () => {
 		if ((window.location.protocol === 'http:' || window.location.protocol === 'https:') && navigator.geolocation) {

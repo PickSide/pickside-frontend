@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useId, useState } from 'react'
+import { forwardRef, useId, useState } from 'react'
 
 import { Upload } from 'components'
 import uploadPlaceholder from '../assets/upload_placeholder.png'
@@ -10,7 +10,13 @@ const ImageUploader = ({ onChange, ...rest }, ref) => {
 
 	const [selectedImages, setSelectedImages] = useState<any>([])
 
-	const handleSelect = (e) => setSelectedImages([...selectedImages, e.target.files])
+	const handleSelect = (e) => {
+		setSelectedImages((prev) => {
+			const next = [...prev, e.target.files]
+			onChange(next)
+			return next
+		})
+	}
 
 	const removeFile = (idx) => setSelectedImages(selectedImages.toSpliced(idx, 1))
 
@@ -22,10 +28,6 @@ const ImageUploader = ({ onChange, ...rest }, ref) => {
 			</button>
 		</div>
 	)
-
-	useEffect(() => {
-		onChange(selectedImages)
-	}, [onChange, selectedImages])
 
 	return (
 		<div className="block text-gray-400">
@@ -44,7 +46,7 @@ const ImageUploader = ({ onChange, ...rest }, ref) => {
 				) : (
 					<div className="flex flex-col">
 						{selectedImages.map((img, idx) => (
-							<File file={img} idx={idx} />
+							<File key={idx} file={img} idx={idx} />
 						))}
 					</div>
 				)}

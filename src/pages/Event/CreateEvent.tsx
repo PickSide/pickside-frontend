@@ -34,9 +34,9 @@ const CreateEvent = () => {
 		watch,
 	} = useForm({
 		defaultValues: {
+			address: '',
 			date: dayjs(),
 			images: [],
-			location: '',
 			maxPlayers: 0,
 			mode: '',
 			price: 0,
@@ -56,11 +56,16 @@ const CreateEvent = () => {
 
 	const onSubmit = async (data) => {
 		console.log(data)
-		// setLoading(true)
-		// await dispatch<any>(createActivity(data))
-		// await dispatch<any>(getActivities())
-		// setLoading(false)
-		// navigate('/listing')
+		const toSend = {
+			...data,
+			date: data.date.toDate(),
+			time: undefined,
+		}
+		setLoading(true)
+		await dispatch<any>(createActivity(toSend))
+		await dispatch<any>(getActivities())
+		setLoading(false)
+		navigate('/listing')
 	}
 
 	const Divider = () => <div className="border border-gray-200 my-6"></div>
@@ -68,8 +73,8 @@ const CreateEvent = () => {
 	const steps = [
 		{
 			id: 'time',
-			title: t('Time & Location'),
-			description: t('Set your time and location'),
+			title: t('Time & address'),
+			description: t('Set your time and address'),
 			content: (
 				<div className="flex flex-col">
 					<Controller
@@ -77,7 +82,6 @@ const CreateEvent = () => {
 						control={control}
 						render={({ field }) => (
 							<DatePicker
-								{...field}
 								onChange={(value) => setValue('date', value)}
 								placeholder="Select date"
 								label="Date"
@@ -91,7 +95,6 @@ const CreateEvent = () => {
 						control={control}
 						render={({ field }) => (
 							<TimePicker
-								{...field}
 								onChange={(value) => setValue('time', value)}
 								placeholder="Choose time"
 								label="Time"
@@ -101,13 +104,12 @@ const CreateEvent = () => {
 					/>
 					<Divider />
 					<Controller
-						name="location"
+						name="address"
 						control={control}
 						render={({ field }) => (
 							<GoogleAutocomplete
-								{...field}
-								label={t('Location')}
-								onSelectPlace={(value) => setValue('location', value)}
+								label={t('Address')}
+								onSelectPlace={(value) => setValue('address', value)}
 								fullWidth
 							/>
 						)}
@@ -127,14 +129,13 @@ const CreateEvent = () => {
 						control={control}
 						render={({ field }) => (
 							<Select
-								{...field}
 								label={t('Sport')}
 								placeholder={t('Select sport')}
 								options={sports?.results}
 								getOptionLabel={(option) => option?.name}
 								isOptionDisabled={(option) => !option?.featureAvailable}
 								onChange={(value) => setValue('sport', value)}
-								defaultValue=""
+								defaultValue={sports?.results?.find((sport) => sport.featureAvailable) || ''}
 							/>
 						)}
 					/>
@@ -146,7 +147,6 @@ const CreateEvent = () => {
 								control={control}
 								render={({ field }) => (
 									<Select
-										{...field}
 										label={t('Mode')}
 										placeholder={t('Select mode')}
 										options={getValues('sport.modes')}
@@ -162,13 +162,21 @@ const CreateEvent = () => {
 					<Controller
 						name="price"
 						control={control}
-						render={({ field }) => <NumberField {...field} label={t('Price')} fullWidth />}
+						render={({ field }) => (
+							<NumberField label={t('Price')} onChange={(e) => setValue('price', e.target.value)} fullWidth />
+						)}
 					/>
 					<Divider />
 					<Controller
 						name="maxPlayers"
 						control={control}
-						render={({ field }) => <NumberField {...field} label={t('Number of players')} fullWidth />}
+						render={({ field }) => (
+							<NumberField
+								label={t('Number of players')}
+								onChange={(e) => setValue('maxPlayers', e.target.value)}
+								fullWidth
+							/>
+						)}
 					/>
 				</div>
 			),
@@ -184,8 +192,8 @@ const CreateEvent = () => {
 					control={control}
 					render={({ field }) => (
 						<TextAreaField
-							{...field}
 							label={t('Rules')}
+							onChange={(e) => setValue('rules', e.target.value)}
 							placeholder={t('Let your teammates know wht you expect of them ...')}
 							fullWidth
 						/>
@@ -201,17 +209,22 @@ const CreateEvent = () => {
 			content: (
 				<div className="flex flex-col">
 					<Controller
-						name="title"
 						control={control}
+						name="title"
 						render={({ field }) => (
-							<TextField {...field} label={t('Title')} placeholder={t('Type your title')} fullWidth />
+							<TextField
+								label={t('Title')}
+								placeholder={t('Type your title')}
+								onChange={(e) => setValue('title', e.target.value)}
+								fullWidth
+							/>
 						)}
 					/>
 					<Divider />
 					<Controller
-						name="images"
 						control={control}
-						render={({ field }) => <ImageUploader {...field} onChange={(value) => setValue('images', value)} />}
+						name="images"
+						render={({ field }) => <ImageUploader onChange={(value) => setValue('images', value)} />}
 					/>
 				</div>
 			),

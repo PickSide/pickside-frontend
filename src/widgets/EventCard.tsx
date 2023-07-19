@@ -25,7 +25,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 	const [expanded, setExpanded] = useState<boolean>(false)
 
 	const user = useSelector((state: AppState) => state.user)
-	console.log(activity.date)
+	console.log(dayjs(activity.date))
 	return (
 		<>
 			<Dialog
@@ -75,7 +75,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 					</div>
 					<div className="flex items-center space-x-1 ">
 						<BiTime size={15} className="text-gray-600" />
-						<p className="text-[14px] font-normal text-gray-400">{activity.date.stringFormat}</p>
+						<p className="text-[14px] font-normal text-gray-400">{dayjs(activity.date).toDate().toDateString()}</p>
 					</div>
 					<div className="flex items-center space-x-1">
 						<FaLocationArrow size={15} className="text-gray-600" />

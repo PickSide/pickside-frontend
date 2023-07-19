@@ -1,6 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { Resources, Sport, User } from 'state'
 
+import dayjs from 'dayjs'
+import moment from 'moment'
+
 export interface Activities extends Resources {
 	results?: Activity[]
 }
@@ -8,22 +11,19 @@ export interface Activities extends Resources {
 export interface Activity {
 	id?: string
 	address: string
-	date: {
-		stringFormat: string,
-		unixFormat: number
-	}
-	description: string,
-	duration: number,
+	date: Date
+	description: string
+	duration: number
 	maxPlayers: number
-	mode: string,
-	organiser: User,
-	participants: User[],
-	recommandedLevel: string,
-	rules: string,
-	sport: Sport,
-	time: string,
-	title: string,
-	unitPrice: number,
+	mode: string
+	organiser: User
+	participants: User[]
+	recommandedLevel: string
+	rules: string
+	sport: Sport
+	time: Date
+	title: string
+	price: number
 }
 
 const Activity = createSlice({
