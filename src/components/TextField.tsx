@@ -30,22 +30,22 @@ const TextField = (
 		readOnly = false,
 		fullWidth = false,
 		...rest
-	}: TextFieldProps,
+	}: TextFieldProps | any,
 	ref,
 ) => {
 	const [showPassword, setShowPassword] = useState<boolean>(false)
 
 	return (
-		<div className={`${!fullWidth ? 'max-w-[230px]' : ''} relative flex flex-col`}>
-			<label htmlFor={id} className="">
-				<span className="text-gray-400">{label}</span>
+		<div className={`${!fullWidth ? 'max-w-[230px]' : ''} relative flex flex-col disabled:text-gray-400`}>
+			<label htmlFor={id} className="text-gray-800">
+				{label}
 			</label>
 			<div
 				className={`inline-flex w-full items-center rounded-md h-[50px] bg-white ${
 					!!error ? 'border-[#d2333d] text-[#d2333d]' : readOnly ? 'border-gray-100' : 'border-gray-200'
 				} border-2 focus-within:border-2 focus-within:border-primary`}
 			>
-				{startContent && <span className="text-gray-500 w-12 flex justify-center">{startContent}</span>}
+				{startContent && <span className="text-gray-500 w-10 flex justify-center">{startContent}</span>}
 
 				<input
 					type={isPassword && !showPassword ? 'password' : type}

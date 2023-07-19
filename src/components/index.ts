@@ -26,11 +26,11 @@ import Select from './Select'
 import SettingField from './SettingField'
 import Sidenav from './Sidenav'
 import Spinner from './Spinner'
-import Stepper from './Stepper'
 import Switch from './Switch'
 import TextAreaField from './TextAreaField'
 import TextField from './TextField'
 import TimePicker from './TimePicker'
+import Upload from './Upload'
 
 export {
 	Accordion,
@@ -62,7 +62,6 @@ export {
 	SettingField,
 	Sidenav,
 	Spinner,
-	Stepper,
 	Switch,
 	Tab,
 	Tabs,
@@ -70,6 +69,7 @@ export {
 	TextField,
 	TimePicker,
 	Toggle,
-	ToggleGroup
+	ToggleGroup,
+	Upload
 }
 

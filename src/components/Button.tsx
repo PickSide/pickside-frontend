@@ -30,9 +30,10 @@ const Button = (
 	ref,
 ) => {
 	const variants = {
-		primary: 'text-white bg-primary hover:bg-gray-300 disabled:bg-gray-300/60 dark:bg-white dark:text-black',
+		primary:
+			'text-white bg-primary hover:bg-gray-300 disabled:bg-gray-200 dark:bg-white dark:text-black max-h-[50px]',
 		secondary:
-			'text-primary border-2 border-primary hover:bg-gray-300 disabled:bg-gray-300/60 dark:bg-white dark:text-black',
+			'text-primary border-2 border-primary hover:bg-gray-300 disabled:text-gray-400 disabled:border-gray-200/30 disabled:bg-gray-200/60 dark:bg-white dark:text-black',
 		tertiary: 'text-primary dak:bg-none dark:text-white',
 		danger: 'text-white bg-red-600 hover:bg-red-400',
 	}

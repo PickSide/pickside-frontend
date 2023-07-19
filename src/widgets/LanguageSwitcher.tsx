@@ -8,13 +8,15 @@ import { useDevice, useLocaleSwitcher } from 'hooks'
 import { AppState } from 'state'
 import { FaGlobe } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
 const LanguageSwitcher = ({ ...rest }) => {
 	const { current, handleLocaleChange } = useLocaleSwitcher()
 	const { isMobile } = useDevice()
+	const { t } = useTranslation()
 
 	const locales = useSelector((state: AppState) => state.locales)
-	console.log(current)
+
 	const LocalesEl = (): JSX.Element => (
 		<>
 			{locales?.results?.map((locale, idx) => (
@@ -35,7 +37,7 @@ const LanguageSwitcher = ({ ...rest }) => {
 			<LocalesEl />
 		</IconDropdown>
 	) : (
-		<Dropdown variant="tertiary" text={current} start={<FaGlobe size={20} />}>
+		<Dropdown variant="secondary" text={t('Language') /*current*/} start={<FaGlobe size={20} />}>
 			<LocalesEl />
 		</Dropdown>
 	)

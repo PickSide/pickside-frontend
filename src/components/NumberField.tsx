@@ -1,5 +1,6 @@
-import { forwardRef, useId, useState } from 'react'
 import { IoIosAdd, IoIosRemove } from 'react-icons/io'
+import { forwardRef, useId, useState } from 'react'
+
 import { NUMBERS_ONLY_REGEX } from 'utils'
 
 interface TextFieldProps {
@@ -42,9 +43,9 @@ const NumberField = (
 	}
 
 	return (
-		<div className={`${!fullWidth ? 'max-w-[230px]' : ''} relative flex flex-col justify-center text-gray-400 py-2`}>
-			<label htmlFor={id} className="">
-				<span className="text-gray-400">{label}</span>
+		<div className={`${!fullWidth ? 'max-w-[230px]' : ''} relative flex flex-col justify-center py-2`}>
+			<label htmlFor={id} className="text-gray-800">
+				{label}
 			</label>
 			<div
 				className={`inline-flex w-full items-center rounded-md h-[50px] bg-white focus-within:border-2 focus-within:border-primary ${

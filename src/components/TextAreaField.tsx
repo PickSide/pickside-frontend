@@ -3,25 +3,27 @@ import { ReactNode, forwardRef, useCallback, useEffect, useRef, useState } from 
 
 interface TextAreaFieldProps {
 	id?: string
-	label?: string
-	defaultValue?: string
-	placeholder?: string
 	autofocus?: boolean
+	defaultValue?: string
 	error?: any
-	type?: string
 	fullWidth?: boolean
+	label?: string
+	onChange?: (e?) => void
+	placeholder?: string
 	readOnly?: boolean
+	type?: string
 }
 
 const TextAreaField = (
 	{
 		id,
-		label,
-		placeholder,
-		defaultValue,
 		autofocus = false,
-		fullWidth = false,
+		defaultValue,
 		error,
+		fullWidth = false,
+		label,
+		onChange,
+		placeholder,
 		readOnly = false,
 		...rest
 	}: TextAreaFieldProps,
@@ -29,8 +31,8 @@ const TextAreaField = (
 ) => {
 	return (
 		<div className={`relative flex flex-col ${fullWidth ? 'w-full' : 'w-[230px]'}`}>
-			<label htmlFor={id} className="">
-				<span className="text-gray-400">{label}</span>
+			<label htmlFor={id} className="text-gray-800">
+				{label}
 			</label>
 			<div
 				className={`inline-flex w-full items-center rounded-md bg-white ${
@@ -41,6 +43,7 @@ const TextAreaField = (
 					<textarea
 						ref={ref}
 						value={defaultValue}
+						onChange={onChange}
 						className="relative rounded-md w-[100%] h-[90%] px-2 py-2 focus-visible:outline-none"
 						{...rest}
 					/>
