@@ -25,7 +25,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 	const [expanded, setExpanded] = useState<boolean>(false)
 
 	const user = useSelector((state: AppState) => state.user)
-	console.log(dayjs(activity.date))
+
 	return (
 		<>
 			<Dialog
@@ -40,7 +40,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 					onClose={() => setOpenConfirmRegisterDialog(false)}
 				/>
 			</Dialog>
-			<div className="relative bg-white rounded-md shadow-md w-full flex flex-col">
+			<div className="relative bg-white rounded-md shadow-md w-full flex flex-col m-2">
 				{/* CARD HEADER */}
 				<div className="block p-4">
 					<div className="float-left align-middle">
@@ -63,7 +63,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 					<Gallery />
 				</div>
 				{/* CARD CONTENT */}
-				<div className="p-4 space-y-1">
+				<div className="p-4 space-y-1 grow-2">
 					<div className="flex justify-between">
 						<p className="text-[16px] font-normal">{activity.title}</p>
 						<div className="flex items-center space-x-2">
@@ -73,18 +73,18 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 							<BsPeople size={15} className="text-gray-600" />
 						</div>
 					</div>
-					<div className="flex items-center space-x-1 ">
+					<div className="flex items-center space-x-1">
 						<BiTime size={15} className="text-gray-600" />
 						<p className="text-[14px] font-normal text-gray-400">{dayjs(activity.date).toDate().toDateString()}</p>
 					</div>
 					<div className="flex items-center space-x-1">
 						<FaLocationArrow size={15} className="text-gray-600" />
-						<p className="text-[14px] font-normal text-gray-400 underline cursor-pointer hover:text-gray-700">
-							420 Rue de la poitrie
+						<p className="text-[14px] font-normal text-gray-400 underline cursor-pointer max-w-[200px] hover:text-gray-700 truncate text-ellipsis">
+							{activity.address.formatted_address || '420 Rue de la poitrie'}
 						</p>
 					</div>
 					<div className="flex items-center">
-						<p className="text-[14px] font-normal text-gray-400 mt-4">{activity.description}</p>
+						<p className="text-[14px] font-normal text-gray-400 mt-4">{activity.description || 'No Description'}</p>
 					</div>
 					<p></p>
 				</div>

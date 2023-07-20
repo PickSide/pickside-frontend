@@ -48,10 +48,6 @@ const Gallery = ({ images = IMAGES, ...props }, ref) => {
 
 	const handleBottomNav = (e, idx) => setCurrentIdx(idx)
 
-	useEffect(() => {
-		console.log(parentWidth)
-	}, [currentIdx, parentWidth, ref])
-
 	return (
 		<div className="relative w-full h-full overflow-hidden">
 			<div className={`absolute w-full h-full flex ${translate} z-0`}>
