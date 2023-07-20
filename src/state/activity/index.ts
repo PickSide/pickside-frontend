@@ -10,7 +10,7 @@ export interface Activities extends Resources {
 
 export interface Activity {
 	id?: string
-	address: string
+	address: any
 	date: Date
 	description: string
 	duration: number
