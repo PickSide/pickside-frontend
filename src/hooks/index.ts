@@ -5,7 +5,6 @@ import useDebounce from './useDebounce'
 import useDevice from './useDevice'
 import useEnvVariables from './useEnvVariables'
 import useGeolocation from './useGeolocation'
-import useLocalStorage from './useLocalStorage'
 import useLocaleSwitcher from './useLocaleSwitcher'
 import useMapStyles from './useMapStyles'
 import useMultistepForm from './useMultistepForm'
@@ -21,7 +20,6 @@ export {
 	useGeolocation,
 	useDevice,
 	useLocaleSwitcher,
-	useLocalStorage,
 	useMapStyles,
 	useMultistepForm,
 	useOnScreen,

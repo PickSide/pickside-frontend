@@ -1,8 +1,10 @@
 import { AppState, User, setUser } from 'state'
 import { FC, createContext, useContext, useEffect } from 'react'
-import { isEqual, merge } from 'lodash'
-import { useApi, useLocalStorage } from 'hooks'
+import { isEmpty, isEqual, merge } from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
+
+import { useApi } from 'hooks'
+import { useLocalStorage } from 'react-use'
 
 export interface AccountContext {
 	user?: User
@@ -16,29 +18,25 @@ export const useAccountContext = () => useContext(Context)
 
 export const AccountProvider: FC<any> = ({ children }) => {
 	const dispatch = useDispatch()
-	const { get, set } = useLocalStorage()
+	const [previousCachedUser] = useLocalStorage('user')
 	const { getNotifications } = useApi()
 
-	const user = useSelector((state: AppState) => state.user)
+	const connectedUser = useSelector((state: AppState) => state.user)
 
 	useEffect(() => {
-		const auth = get('auth')
-		if (!user && !!auth) {
-			dispatch<any>(setUser(auth.user))
+		if (previousCachedUser) {
+			console.log(previousCachedUser)
+			dispatch<any>(setUser(previousCachedUser))
 		}
+	}, [])
 
-		if (user && !isEqual(auth.user, user)) {
-			set('auth', merge(auth, { user }))
-		}
-	}, [user, dispatch, get, set])
+	// useEffect(() => {
+	// 	if (connectedUser) {
+	// 		dispatch<any>(getNotifications())
+	// 	}
+	// }, [])
 
-	useEffect(() => {
-		if (user) {
-			dispatch<any>(getNotifications())
-		}
-	}, [user])
-
-	return <Context.Provider value={{ user: user }}>{children}</Context.Provider>
+	return <Context.Provider value={{ user: connectedUser }}>{children}</Context.Provider>
 }
 
 export default Context

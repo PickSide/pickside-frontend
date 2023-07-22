@@ -2,7 +2,6 @@ import { Controller, useForm } from 'react-hook-form'
 import { DatePicker, NumberField, Select, TextAreaField, TextField, TimePicker } from 'components'
 import { GoogleAutocomplete, ImageUploader, Stepper } from 'widgets'
 import { Mode, Sport } from 'state'
-import { useApi, useLocalStorage } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { AppState } from 'state'
@@ -10,12 +9,12 @@ import Footer from '../../pages/Home/Sections/Footer'
 import dayjs from 'dayjs'
 import { features } from 'process'
 import moment from 'moment'
+import { useApi } from 'hooks'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const CreateEvent = () => {
-	const { get } = useLocalStorage()
 	const navigate = useNavigate()
 	const { createActivity, getActivities } = useApi()
 	const dispatch = useDispatch()

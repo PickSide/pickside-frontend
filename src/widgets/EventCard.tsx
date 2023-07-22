@@ -9,6 +9,7 @@ import { ConfirmRegisterEventForm } from 'widgets'
 import { FaLocationArrow } from 'react-icons/fa'
 import dayjs from 'dayjs'
 import placeholder from '../assets/avatar-placeholder.jpg'
+import { useApi } from 'hooks'
 import { useTranslation } from 'react-i18next'
 
 interface ActivityProps {
@@ -18,14 +19,16 @@ interface ActivityProps {
 const EventCard: FC<ActivityProps> = ({ activity }) => {
 	const { id, title, participants, time } = activity
 
+	const { updateFavorite } = useApi()
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
 
 	const [openConfirmRegisterDialog, setOpenConfirmRegisterDialog] = useState<boolean>(false)
 	const [expanded, setExpanded] = useState<boolean>(false)
 
-	const user = useSelector((state: AppState) => state.user)
-
+	const connectedUser = useSelector((state: AppState) => state.user)
+	console.log('user favorites', connectedUser?.favorites)
+	console.log('activity id', activity.id)
 	return (
 		<>
 			<Dialog
@@ -55,7 +58,14 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 						</div>
 					</div>
 					<div className="float-right">
-						<IconButton icon={<BsBookmark size={20} />} onClick={() => console.log('activity to bookmark', activity)} />
+						{connectedUser?.favorites?.includes(activity.id) ? (
+							<IconButton
+								icon={<BsBookmarksFill size={20} />}
+								onClick={() => dispatch<any>(updateFavorite(activity.id))}
+							/>
+						) : (
+							<IconButton icon={<BsBookmark size={20} />} onClick={() => dispatch<any>(updateFavorite(activity.id))} />
+						)}
 					</div>
 				</div>
 				{/* CARD BODY */}
