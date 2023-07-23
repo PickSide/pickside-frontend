@@ -1,4 +1,4 @@
-import { Activity, AppState, setSelectedActivity } from 'state'
+import { Activity, AppState } from 'state'
 import { BsBookmark, BsBookmarksFill, BsPeople } from 'react-icons/bs'
 import { Button, Dialog, Gallery, IconButton } from 'components'
 import { FC, useState } from 'react'
@@ -53,16 +53,21 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 							</div>
 						</div>
 					</div>
-					<div className="float-right">
-						{connectedUser?.favorites?.includes(activity.id) ? (
-							<IconButton
-								icon={<BsBookmarksFill size={20} />}
-								onClick={() => dispatch<any>(updateFavorite(activity.id))}
-							/>
-						) : (
-							<IconButton icon={<BsBookmark size={20} />} onClick={() => dispatch<any>(updateFavorite(activity.id))} />
-						)}
-					</div>
+					{connectedUser && (
+						<div className="float-right">
+							{connectedUser?.favorites?.includes(activity.id) ? (
+								<IconButton
+									icon={<BsBookmarksFill size={20} />}
+									onClick={() => dispatch<any>(updateFavorite(activity.id))}
+								/>
+							) : (
+								<IconButton
+									icon={<BsBookmark size={20} />}
+									onClick={() => dispatch<any>(updateFavorite(activity.id))}
+								/>
+							)}
+						</div>
+					)}
 				</div>
 				{/* CARD BODY */}
 				<div className="h-[200px]">
