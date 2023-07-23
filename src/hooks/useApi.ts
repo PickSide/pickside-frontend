@@ -98,8 +98,8 @@ const useApi = (): UseApiOutput => {
 					await getItem({ endpoint: '/users/deactivate', id: user?.id })(dispatch).then((response) => {
 						if (response) {
 							dispatch<any>(deactivate())
-							removeCachedTokens()
-							removeCachedUser()
+							// removeCachedTokens()
+							// removeCachedUser()
 						}
 						return response
 					})
@@ -118,9 +118,9 @@ const useApi = (): UseApiOutput => {
 						const accessToken = response.payload.accessToken
 						const refreshToken = response.payload.refreshToken
 						const user = response.payload.user
-						if (response.payload) {
-							dispatch<any>(setUser(user))
-							cacheUserResponse(user, accessToken, refreshToken)
+						if (response) {
+							dispatch<any>(setUser(response))
+							//cacheUserResponse(user, accessToken, refreshToken)
 						}
 						return response
 					})
@@ -133,9 +133,9 @@ const useApi = (): UseApiOutput => {
 						const accessToken = response.accessToken
 						const refreshToken = response.refreshToken
 						const user = response.user
-						if (accessToken && refreshToken && user) {
-							dispatch<any>(setUser(user))
-							cacheUserResponse(user, accessToken, refreshToken)
+						if (response) {
+							dispatch<any>(setUser(response))
+							//cacheUserResponse(user, accessToken, refreshToken)
 						}
 						return response
 					})
@@ -148,9 +148,9 @@ const useApi = (): UseApiOutput => {
 						const accessToken = response.accessToken
 						const refreshToken = response.refreshToken
 						const user = response.user
-						if (accessToken && refreshToken && user) {
-							dispatch<any>(setUser(user))
-							cacheUserResponse(user, accessToken, refreshToken)
+						if (response) {
+							dispatch<any>(setUser(response))
+							//cacheUserResponse(user, accessToken, refreshToken)
 						}
 						return response
 					})

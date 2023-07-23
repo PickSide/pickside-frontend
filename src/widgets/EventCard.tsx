@@ -17,28 +17,24 @@ interface ActivityProps {
 }
 
 const EventCard: FC<ActivityProps> = ({ activity }) => {
-	const { id, title, participants, time } = activity
-
 	const { updateFavorite } = useApi()
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
 
-	const [openConfirmRegisterDialog, setOpenConfirmRegisterDialog] = useState<boolean>(false)
-	const [expanded, setExpanded] = useState<boolean>(false)
-
 	const connectedUser = useSelector((state: AppState) => state.user)
-	console.log('user favorites', connectedUser?.favorites)
-	console.log('activity id', activity.id)
+
+	const [openConfirmRegisterDialog, setOpenConfirmRegisterDialog] = useState<boolean>(false)
+
 	return (
 		<>
 			<Dialog
-				title={`${t('Register for')} ${title}`}
+				title={`${t('Register for')} ${activity.title}`}
 				open={openConfirmRegisterDialog}
 				onClose={() => setOpenConfirmRegisterDialog(false)}
 			>
 				<ConfirmRegisterEventForm
-					id={id}
-					title={title}
+					id={activity.id}
+					title={activity.title}
 					isLevelLessThanRequired={false}
 					onClose={() => setOpenConfirmRegisterDialog(false)}
 				/>

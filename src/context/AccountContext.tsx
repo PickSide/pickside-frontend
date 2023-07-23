@@ -1,9 +1,8 @@
-import { AppState, User, setUser } from 'state'
+import { AppState, User, setCachedUser } from 'state'
 import { FC, createContext, useContext, useEffect } from 'react'
-import { isEmpty, isEqual, merge } from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { useApi } from 'hooks'
+import { isEqual } from 'lodash'
 import { useLocalStorage } from 'react-use'
 
 export interface AccountContext {
@@ -18,23 +17,21 @@ export const useAccountContext = () => useContext(Context)
 
 export const AccountProvider: FC<any> = ({ children }) => {
 	const dispatch = useDispatch()
-	const [previousCachedUser] = useLocalStorage('user')
-	const { getNotifications } = useApi()
+	const [previousCachedUser, setPreviousCachedUser] = useLocalStorage('user')
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
 	useEffect(() => {
 		if (previousCachedUser) {
-			console.log(previousCachedUser)
-			dispatch<any>(setUser(previousCachedUser))
+			dispatch<any>(setCachedUser(previousCachedUser))
 		}
 	}, [])
 
-	// useEffect(() => {
-	// 	if (connectedUser) {
-	// 		dispatch<any>(getNotifications())
-	// 	}
-	// }, [])
+	useEffect(() => {
+		if (!isEqual(previousCachedUser, connectedUser)) {
+			setPreviousCachedUser(connectedUser)
+		}
+	}, [connectedUser])
 
 	return <Context.Provider value={{ user: connectedUser }}>{children}</Context.Provider>
 }

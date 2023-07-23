@@ -52,11 +52,11 @@ export interface User {
 }
 
 const User = createSlice({
-	initialState: null as unknown as User | null,
+	initialState: null as unknown as User | null | undefined,
 	name: 'user',
 	reducers: {
-		setUser: (state, action: PayloadAction<User | null>) => (state = action.payload),
-		setCachedUser: (state, action: PayloadAction<User | null>) => (state = action.payload),
+		setUser: (state, action: PayloadAction<User | null | undefined>) => (state = action.payload),
+		setCachedUser: (state, action: PayloadAction<User | null | undefined>) => (state = action.payload),
 		setUserEmpty: (state) => (state = null),
 		updateConfig: (state, action: PayloadAction<any>) => {
 			if (state) {
@@ -73,6 +73,6 @@ const User = createSlice({
 	},
 })
 
-export const { setUser, setUserEmpty, updateConfig, updateFavorite } = User.actions
+export const { setUser, setCachedUser, setUserEmpty, updateConfig, updateFavorite } = User.actions
 
 export default User.reducer
