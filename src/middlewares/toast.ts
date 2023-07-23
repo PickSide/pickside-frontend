@@ -16,6 +16,10 @@ export const toastMiddleware = (store) => (next) => (action) => {
             message: 'Successfully logged in',
             type: 'success'
         },
+        'user/setUserEmpty': {
+            message: 'Successfully logged out',
+            type: 'success'
+        },
         'user/updateConfig': {
             message: 'Updated settings',
             type: 'success'

@@ -9,13 +9,16 @@ import {
 	setNotifications,
 	setPlayables,
 	setSports,
+	setUser,
+	setUserEmpty,
 	updateActivity,
 	updateConfig,
+	updateFavorite,
 } from 'state'
-import { logout, setUser } from 'state'
-import { useApiHelpers, useLocalStorage } from 'hooks'
 
 import { Dispatch } from '@reduxjs/toolkit'
+import { useApiHelpers } from 'hooks'
+import { useLocalStorage } from 'react-use'
 import { useSelector } from 'react-redux'
 
 interface UseApiOutput {
@@ -35,6 +38,7 @@ interface UseApiOutput {
 	deleteActivity?: (activityId: any) => (d: Dispatch) => Promise<any>
 	getActivitiesByGroup?: (groupId: any) => (d: Dispatch) => Promise<any>
 	registerToActivity: (activityId: any) => (d: Dispatch) => Promise<any>
+	updateFavorite: (activityId: any) => (d: Dispatch) => Promise<any>
 
 	/* predefined areas */
 	getPredefinedAreas: () => (d: Dispatch) => Promise<any>
@@ -75,8 +79,17 @@ interface UseApiOutput {
 
 const useApi = (): UseApiOutput => {
 	const user = useSelector((state: AppState) => state.user)
-	const { remove, set } = useLocalStorage()
+	const [_, setCachedTokens, removeCachedTokens] = useLocalStorage('auth')
+	const [__, setCachedUser, removeCachedUser] = useLocalStorage('user')
 	const { getItem, getItems, putItem, postItem } = useApiHelpers()
+
+
+	const cacheUserResponse = (user, accessToken, refreshToken) => {
+		removeCachedTokens()
+		removeCachedUser()
+		setCachedTokens({ accessToken, refreshToken })
+		setCachedUser({ ...user })
+	}
 
 	return {
 		deactivate:
@@ -85,7 +98,8 @@ const useApi = (): UseApiOutput => {
 					await getItem({ endpoint: '/users/deactivate', id: user?.id })(dispatch).then((response) => {
 						if (response) {
 							dispatch<any>(deactivate())
-							remove('auth')
+							// removeCachedTokens()
+							// removeCachedUser()
 						}
 						return response
 					})
@@ -97,37 +111,59 @@ const useApi = (): UseApiOutput => {
 					return await putItem({ endpoint: '/users/reactivate', id })(dispatch)
 				},
 
+		createUser:
+			(data: any) =>
+				async (dispatch: Dispatch): Promise<any> => {
+					return await postItem({ endpoint: 'users/create', data })(dispatch).then((response) => {
+						const accessToken = response.payload.accessToken
+						const refreshToken = response.payload.refreshToken
+						const user = response.payload.user
+						if (response) {
+							dispatch<any>(setUser(response))
+							//cacheUserResponse(user, accessToken, refreshToken)
+						}
+						return response
+					})
+				},
+
 		login:
 			(data: any) =>
 				async (dispatch: Dispatch): Promise<any> => {
 					return await postItem({ endpoint: 'login', data })(dispatch).then((response) => {
-						if (response.user) {
-							dispatch<any>(setUser(response.user))
-							remove('auth')
-							set('auth', response)
+						const accessToken = response.accessToken
+						const refreshToken = response.refreshToken
+						const user = response.user
+						if (response) {
+							dispatch<any>(setUser(response))
+							//cacheUserResponse(user, accessToken, refreshToken)
 						}
 						return response
 					})
 				},
+
 		loginWithGoogle:
 			(data: any) =>
 				async (dispatch: Dispatch): Promise<any> => {
 					return await postItem({ endpoint: 'googlelogin', data })(dispatch).then((response) => {
-						if (response.user) {
-							dispatch<any>(setUser(response.user))
-							remove('auth')
-							set('auth', response)
+						const accessToken = response.accessToken
+						const refreshToken = response.refreshToken
+						const user = response.user
+						if (response) {
+							dispatch<any>(setUser(response))
+							//cacheUserResponse(user, accessToken, refreshToken)
 						}
 						return response
 					})
 				},
+
 		logout:
 			() =>
 				async (dispatch: Dispatch): Promise<any> => {
 					const items = await postItem({ endpoint: 'logout' })(dispatch)
 					if (items) {
-						dispatch<any>(logout())
-						remove('auth')
+						dispatch<any>(setUserEmpty())
+						removeCachedTokens()
+						removeCachedUser()
 					}
 				},
 
@@ -181,6 +217,20 @@ const useApi = (): UseApiOutput => {
 						dispatch(updateActivity(updatedItem.data.response))
 					}
 				},
+
+		updateFavorite: (id: string) =>
+			async (dispatch: Dispatch): Promise<any> => {
+				const updatedItem = await putItem({
+					endpoint: 'activities',
+					id,
+					extra: 'favorites',
+					data: { userId: user?.id },
+				})(dispatch)
+
+				if (updatedItem) {
+					dispatch(updateFavorite(updatedItem.data.result))
+				}
+			},
 
 		getLocales:
 			() =>
@@ -243,19 +293,6 @@ const useApi = (): UseApiOutput => {
 					}
 				},
 
-		createUser:
-			(data: any) =>
-				async (dispatch: Dispatch): Promise<any> => {
-					return await postItem({ endpoint: 'users/create', data })(dispatch).then((response) => {
-						if (response.payload) {
-							dispatch<any>(setUser(response.user))
-							remove('auth')
-							set('auth', response)
-						}
-						return response
-					})
-				},
-
 		updateUser:
 			(data) =>
 				async (dispatch: Dispatch): Promise<any> => {
@@ -263,11 +300,12 @@ const useApi = (): UseApiOutput => {
 						endpoint: `users/${user?.id}/settings`,
 						data,
 					})(dispatch)
-					console.log(data)
+
 					if (items) {
 						dispatch(updateConfig(data))
 					}
 				},
 	}
 }
+
 export default useApi

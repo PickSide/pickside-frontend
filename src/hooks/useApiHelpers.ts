@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 
 import { Dispatch } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { useLocalStorage } from 'hooks'
+import { useLocalStorage } from 'react-use'
 import { v4 as uuidv4 } from 'uuid'
 
 enum JobType {
@@ -37,6 +37,7 @@ interface RequestProps<T> {
 	id?: string
 	baseUrl?: string
 	data?: T
+	extra?: string
 	endpoint: string
 	method?: 'GET' | 'PUT' | 'POST' | 'DELETE' | 'PATCH'
 	params?: any
@@ -47,6 +48,7 @@ interface RequestProps<T> {
 interface UrlProps {
 	id?: string | number
 	endpoint?: string
+	extra?: string
 	params?: any
 	queries?: any
 }
@@ -81,7 +83,7 @@ interface ErrorResponse {
 
 const useApiHelpers = (): UseCallsOutput => {
 
-	const { get } = useLocalStorage()
+	const [previousCachedTokens] = useLocalStorage<{ accessToken?: string, refreshToken?: string }>('auth')
 	const [errors, setErrors] = useState<any>()
 
 	const axiosInstance = useMemo(() => axios.create({
@@ -91,14 +93,14 @@ const useApiHelpers = (): UseCallsOutput => {
 		headers: {
 			'Content-Type': 'application/json',
 			'X-Request-Id': uuidv4(),
-			Authorization: `Bearer ${get('auth')?.accessToken}`,
+			Authorization: `Bearer ${previousCachedTokens?.accessToken}`,
 		},
-	}), [get])
+	}), [])
 
 	const handleResponseError = (axiosError: any): ErrorResponse => ({ ...axiosError.response.data })
 
 	useEffect(() => {
-		const accessToken = get('auth.accessToken')
+		const accessToken = previousCachedTokens?.accessToken
 		const requestIntercept = axios.interceptors.request.use(
 			(config) => {
 				if (config.headers && !config.headers['Authorization']) {
@@ -128,7 +130,7 @@ const useApiHelpers = (): UseCallsOutput => {
 			axiosInstance.interceptors.request.eject(requestIntercept)
 			axiosInstance.interceptors.response.eject(responseIntercept)
 		}
-	}, [axiosInstance, get])
+	}, [axiosInstance, previousCachedTokens])
 
 	return {
 		apiErrors: errors,
@@ -176,8 +178,8 @@ const useApiHelpers = (): UseCallsOutput => {
 				.catch((error) => handleResponseError(error))
 		},
 		postItems: ({ endpoint, params, queries }) => async (dispatch) => { },
-		putItem: ({ endpoint, id, data }) => async (dispatch) => {
-			const url = Url({ endpoint, id })
+		putItem: ({ endpoint, extra, id, data }) => async (dispatch) => {
+			const url = Url({ endpoint, extra, id })
 			return await axiosInstance.put(url, { data })
 		},
 		putItems: ({ endpoint, params, queries }) => async (dispatch) => { },
@@ -186,8 +188,8 @@ const useApiHelpers = (): UseCallsOutput => {
 	}
 }
 
-function Url({ endpoint, id, params, queries }: UrlProps) {
-	const url = `${endpoint}${id ? `/${id}` : ''}${params ? `/${new URLSearchParams({ ...params })}` : ''}${queries ? `?${getQueryString(queries)}` : ''
+function Url({ endpoint, id, extra, params, queries }: UrlProps) {
+	const url = `${endpoint}${id ? `/${id}` : ''}${extra ? `/${extra}` : ''}${params ? `/${new URLSearchParams({ ...params })}` : ''}${queries ? `?${getQueryString(queries)}` : ''
 		}`
 	return url
 }

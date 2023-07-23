@@ -1,4 +1,4 @@
-import { Activity, AppState, setSelectedActivity } from 'state'
+import { Activity, AppState } from 'state'
 import { BsBookmark, BsBookmarksFill, BsPeople } from 'react-icons/bs'
 import { Button, Dialog, Gallery, IconButton } from 'components'
 import { FC, useState } from 'react'
@@ -9,6 +9,7 @@ import { ConfirmRegisterEventForm } from 'widgets'
 import { FaLocationArrow } from 'react-icons/fa'
 import dayjs from 'dayjs'
 import placeholder from '../assets/avatar-placeholder.jpg'
+import { useApi } from 'hooks'
 import { useTranslation } from 'react-i18next'
 
 interface ActivityProps {
@@ -16,26 +17,24 @@ interface ActivityProps {
 }
 
 const EventCard: FC<ActivityProps> = ({ activity }) => {
-	const { id, title, participants, time } = activity
-
+	const { updateFavorite } = useApi()
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
 
-	const [openConfirmRegisterDialog, setOpenConfirmRegisterDialog] = useState<boolean>(false)
-	const [expanded, setExpanded] = useState<boolean>(false)
+	const connectedUser = useSelector((state: AppState) => state.user)
 
-	const user = useSelector((state: AppState) => state.user)
+	const [openConfirmRegisterDialog, setOpenConfirmRegisterDialog] = useState<boolean>(false)
 
 	return (
 		<>
 			<Dialog
-				title={`${t('Register for')} ${title}`}
+				title={`${t('Register for')} ${activity.title}`}
 				open={openConfirmRegisterDialog}
 				onClose={() => setOpenConfirmRegisterDialog(false)}
 			>
 				<ConfirmRegisterEventForm
-					id={id}
-					title={title}
+					id={activity.id}
+					title={activity.title}
 					isLevelLessThanRequired={false}
 					onClose={() => setOpenConfirmRegisterDialog(false)}
 				/>
@@ -54,9 +53,21 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 							</div>
 						</div>
 					</div>
-					<div className="float-right">
-						<IconButton icon={<BsBookmark size={20} />} onClick={() => console.log('activity to bookmark', activity)} />
-					</div>
+					{connectedUser && (
+						<div className="float-right">
+							{connectedUser?.favorites?.includes(activity.id) ? (
+								<IconButton
+									icon={<BsBookmarksFill size={20} />}
+									onClick={() => dispatch<any>(updateFavorite(activity.id))}
+								/>
+							) : (
+								<IconButton
+									icon={<BsBookmark size={20} />}
+									onClick={() => dispatch<any>(updateFavorite(activity.id))}
+								/>
+							)}
+						</div>
+					)}
 				</div>
 				{/* CARD BODY */}
 				<div className="h-[200px]">

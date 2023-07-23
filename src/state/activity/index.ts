@@ -31,7 +31,6 @@ const Activity = createSlice({
 	name: 'activities',
 	reducers: {
 		setActivities: (state, action: PayloadAction<Activities>) => (state = { ...state, ...action.payload }),
-		addActivity: (state, action: PayloadAction<Activity>) => { state.results = [...(state.results || []), action.payload] },
 		updateActivity: (state, action: PayloadAction<Activity>) => {
 			const idx = state.results?.findIndex(Activity => Activity.id === action.payload.id) || -1
 
@@ -44,6 +43,6 @@ const Activity = createSlice({
 	},
 })
 
-export const { addActivity, updateActivity, setActivities } = Activity.actions
+export const { updateActivity, setActivities } = Activity.actions
 
 export default Activity.reducer

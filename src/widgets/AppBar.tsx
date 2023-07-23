@@ -2,7 +2,7 @@ import { BackButton, LanguageSwitcher, NotificationMenu, ProfileMenu, ThemeSwitc
 import { Button, IconDropdown, MenuItem } from 'components'
 import { MdLogout, MdOutlineHistory, MdOutlineSettings, MdPersonOutline } from 'react-icons/md'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { useApi, useDevice, useLocalStorage, useOnScreen } from 'hooks'
+import { useApi, useDevice, useOnScreen } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMemo, useRef } from 'react'
 
@@ -18,7 +18,6 @@ const ROUTES_TO_EXCLUDE_BAR = ['/login', '/signup']
 const ROUTES_TO_INCLUDE_BACK_BUTTON = ['/home']
 
 const AppBar = () => {
-	const { get } = useLocalStorage()
 	const { isMobile } = useDevice()
 	const { logout } = useApi()
 	const { pathname } = useLocation()

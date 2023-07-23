@@ -1,6 +1,6 @@
+import { useAsync, useLocalStorage } from 'react-use'
+
 import { getItem } from 'utils'
-import { useAsync } from 'react-use'
-import useLocalStorage from './useLocalStorage'
 
 interface UseRefreshTokenOutputs {
 	loading: boolean
@@ -9,11 +9,12 @@ interface UseRefreshTokenOutputs {
 
 const useRefreshToken = (): UseRefreshTokenOutputs => {
 	const { loading, value } = useAsync(async () => await getItem({ endpoint: 'token' }))
-	const { get, set } = useLocalStorage()
+	const [previousCachedTokens] = useLocalStorage('auth')
 
-	const refresh = async () => {
-		get('auth')
-	}
+	const refresh = async () => ({
+		previousCachedTokens
+	})
+
 	return { loading, refresh }
 }
 

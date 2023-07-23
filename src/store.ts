@@ -1,12 +1,13 @@
+import { authMiddleware, toastMiddleware } from 'middlewares'
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
-import { reducers } from 'state'
-import { toastMiddleware } from 'middlewares'
 
+import { reducers } from 'state'
 
 const middleware = [
 	...getDefaultMiddleware({
 		serializableCheck: false,
 	}),
+	authMiddleware,
 	toastMiddleware
 ]
 

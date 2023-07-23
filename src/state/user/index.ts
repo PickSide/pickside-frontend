@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice, current } from '@reduxjs/toolkit'
 
 import { Area } from '../areas'
 import { Locale } from '../locales'
@@ -13,12 +13,13 @@ export interface User {
 	bio?: string
 	city?: string
 	email?: string
-	emailVerified: boolean
+	emailVerified?: boolean
 	eventsRegistered?: any[]
+	favorites?: any[]
 	firstName?: string
 	fitnessLevel?: 'retired' | 'average' | 'athletic' | 'very athletic'
 	groups?: any[]
-	isExternalAccount: boolean,
+	isExternalAccount?: boolean,
 	isOrganizer?: boolean
 	joinDate?: string
 	lastName?: string
@@ -51,21 +52,27 @@ export interface User {
 }
 
 const User = createSlice({
-	initialState: null as unknown as User | null,
+	initialState: null as unknown as User | null | undefined,
 	name: 'user',
 	reducers: {
-		setUser: (state, action: PayloadAction<User | null>) => (state = action.payload),
-		logout: (state) => (state = null),
+		setUser: (state, action: PayloadAction<User | null | undefined>) => (state = action.payload),
+		setCachedUser: (state, action: PayloadAction<User | null | undefined>) => (state = action.payload),
+		setUserEmpty: (state) => (state = null),
 		updateConfig: (state, action: PayloadAction<any>) => {
 			if (state) {
-				console.log(action.payload)
 				state = merge(state, action.payload)
+			}
+			return state
+		},
+		updateFavorite: (state, action: PayloadAction<any>) => {
+			if (state && action.payload.favorites) {
+				state['favorites'] = action.payload.favorites
 			}
 			return state
 		},
 	},
 })
 
-export const { setUser, logout, updateConfig } = User.actions
+export const { setUser, setCachedUser, setUserEmpty, updateConfig, updateFavorite } = User.actions
 
 export default User.reducer
