@@ -104,34 +104,39 @@ const useApi = (): UseApiOutput => {
 		createUser:
 			(data: any) =>
 				async (dispatch: Dispatch): Promise<any> => {
-					return await postItem({ endpoint: 'users/create', data })(dispatch).then((response) => {
-						if (response) {
-							dispatch<any>(setUser(response))
-						}
-						return response
-					})
+					return await postItem({ endpoint: 'users/create', data })(dispatch)
+						.then((response) => {
+							if (response) {
+								dispatch<any>(setUser(response))
+							}
+							return response
+						})
 				},
 
 		login:
 			(data: any) =>
 				async (dispatch: Dispatch): Promise<any> => {
-					return await postItem({ endpoint: 'login', data })(dispatch).then((response) => {
-						if (response) {
-							dispatch<any>(setUser(response))
-						}
-						return response
-					})
+					return await postItem({ endpoint: 'login', data })(dispatch)
+						.then((response) => {
+							console.log(response)
+							if (response) {
+								dispatch<any>(setUser(response))
+							}
+							return response
+						})
+						.catch((error) => console.log(error))
 				},
 
 		loginWithGoogle:
 			(data: any) =>
 				async (dispatch: Dispatch): Promise<any> => {
-					return await postItem({ endpoint: 'googlelogin', data })(dispatch).then((response) => {
-						if (response) {
-							dispatch<any>(setUser(response))
-						}
-						return response
-					})
+					return await postItem({ endpoint: 'googlelogin', data })(dispatch)
+						.then((response) => {
+							if (response) {
+								dispatch<any>(setUser(response))
+							}
+							return response
+						})
 				},
 
 		logout:
@@ -172,7 +177,7 @@ const useApi = (): UseApiOutput => {
 				async (dispatch: Dispatch): Promise<any> => {
 					const createdActivity = await postItem({
 						endpoint: 'activities',
-						data: { ...data, organiser: user?.username },
+						data: { ...data, organiser: user?.id },
 					})(dispatch)
 
 					if (createdActivity) {
