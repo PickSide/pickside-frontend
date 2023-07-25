@@ -51,6 +51,14 @@ const Activity = createSlice({
 
 			return state
 		},
+		addNewActivity: (state, action: PayloadAction<Activity>) => {
+			const idx = state.results?.findIndex(Activity => Activity.id === action.payload.id) || -1
+
+			if (idx > -1) {
+				state.results?.splice(idx, 1, action.payload)
+			}
+			return state
+		},
 		updateActivity: (state, action: PayloadAction<Activity>) => {
 			const idx = state.results?.findIndex(Activity => Activity.id === action.payload.id) || -1
 
@@ -63,6 +71,6 @@ const Activity = createSlice({
 	},
 })
 
-export const { updateActivity, addSelfToActivity, removeSelfFromActivity, setActivities } = Activity.actions
+export const { addNewActivity, updateActivity, addSelfToActivity, removeSelfFromActivity, setActivities } = Activity.actions
 
 export default Activity.reducer
