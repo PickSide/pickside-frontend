@@ -1,8 +1,10 @@
 import {
 	Activity,
 	AppState,
+	addParticipants,
 	deactivate,
 	markAsRead,
+	removeParticipants,
 	setActivities,
 	setAreas,
 	setLocales,
@@ -13,12 +15,11 @@ import {
 	setUserEmpty,
 	updateActivity,
 	updateConfig,
-	updateFavorite,
+	updateFavorite
 } from 'state'
 
 import { Dispatch } from '@reduxjs/toolkit'
 import { useApiHelpers } from 'hooks'
-import { useLocalStorage } from 'react-use'
 import { useSelector } from 'react-redux'
 
 interface UseApiOutput {
@@ -37,7 +38,8 @@ interface UseApiOutput {
 	updateActivity?: (activityId: any) => (d: Dispatch) => Promise<any>
 	deleteActivity?: (activityId: any) => (d: Dispatch) => Promise<any>
 	getActivitiesByGroup?: (groupId: any) => (d: Dispatch) => Promise<any>
-	registerToActivity: (activityId: any) => (d: Dispatch) => Promise<any>
+	registerSelfToActivity: (activityId: any) => (d: Dispatch) => Promise<any>
+	unregisterSelfFromActivity: (activityId: any) => (d: Dispatch) => Promise<any>
 	updateFavorite: (activityId: any) => (d: Dispatch) => Promise<any>
 
 	/* predefined areas */
@@ -79,27 +81,15 @@ interface UseApiOutput {
 
 const useApi = (): UseApiOutput => {
 	const user = useSelector((state: AppState) => state.user)
-	const [_, setCachedTokens, removeCachedTokens] = useLocalStorage('auth')
-	const [__, setCachedUser, removeCachedUser] = useLocalStorage('user')
 	const { getItem, getItems, putItem, postItem } = useApiHelpers()
-
-
-	const cacheUserResponse = (user, accessToken, refreshToken) => {
-		removeCachedTokens()
-		removeCachedUser()
-		setCachedTokens({ accessToken, refreshToken })
-		setCachedUser({ ...user })
-	}
 
 	return {
 		deactivate:
 			() =>
 				async (dispatch: Dispatch): Promise<any> => {
-					await getItem({ endpoint: '/users/deactivate', id: user?.id })(dispatch).then((response) => {
+					await getItem({ endpoint: 'users/deactivate', id: user?.id })(dispatch).then((response) => {
 						if (response) {
 							dispatch<any>(deactivate())
-							// removeCachedTokens()
-							// removeCachedUser()
 						}
 						return response
 					})
@@ -108,19 +98,15 @@ const useApi = (): UseApiOutput => {
 		reactivate:
 			(id: any) =>
 				async (dispatch: Dispatch): Promise<any> => {
-					return await putItem({ endpoint: '/users/reactivate', id })(dispatch)
+					return await putItem({ endpoint: 'users/reactivate', id })(dispatch)
 				},
 
 		createUser:
 			(data: any) =>
 				async (dispatch: Dispatch): Promise<any> => {
 					return await postItem({ endpoint: 'users/create', data })(dispatch).then((response) => {
-						const accessToken = response.payload.accessToken
-						const refreshToken = response.payload.refreshToken
-						const user = response.payload.user
 						if (response) {
 							dispatch<any>(setUser(response))
-							//cacheUserResponse(user, accessToken, refreshToken)
 						}
 						return response
 					})
@@ -130,12 +116,8 @@ const useApi = (): UseApiOutput => {
 			(data: any) =>
 				async (dispatch: Dispatch): Promise<any> => {
 					return await postItem({ endpoint: 'login', data })(dispatch).then((response) => {
-						const accessToken = response.accessToken
-						const refreshToken = response.refreshToken
-						const user = response.user
 						if (response) {
 							dispatch<any>(setUser(response))
-							//cacheUserResponse(user, accessToken, refreshToken)
 						}
 						return response
 					})
@@ -145,12 +127,8 @@ const useApi = (): UseApiOutput => {
 			(data: any) =>
 				async (dispatch: Dispatch): Promise<any> => {
 					return await postItem({ endpoint: 'googlelogin', data })(dispatch).then((response) => {
-						const accessToken = response.accessToken
-						const refreshToken = response.refreshToken
-						const user = response.user
 						if (response) {
 							dispatch<any>(setUser(response))
-							//cacheUserResponse(user, accessToken, refreshToken)
 						}
 						return response
 					})
@@ -162,8 +140,6 @@ const useApi = (): UseApiOutput => {
 					const items = await postItem({ endpoint: 'logout' })(dispatch)
 					if (items) {
 						dispatch<any>(setUserEmpty())
-						removeCachedTokens()
-						removeCachedUser()
 					}
 				},
 
@@ -204,17 +180,33 @@ const useApi = (): UseApiOutput => {
 					}
 				},
 
-		registerToActivity:
-			(id: string) =>
+		registerSelfToActivity:
+			(activityId: string) =>
 				async (dispatch: Dispatch): Promise<any> => {
 					const updatedItem = await putItem({
 						endpoint: 'activities',
-						id,
+						id: activityId,
 						data: { userId: user?.id },
+						extra: 'register'
 					})(dispatch)
 
 					if (updatedItem) {
-						dispatch(updateActivity(updatedItem.data.response))
+						await dispatch(addParticipants({ activityId, userId: user?.id }))
+					}
+				},
+
+		unregisterSelfFromActivity:
+			(activityId: string) =>
+				async (dispatch: Dispatch): Promise<any> => {
+					const updatedItem = await putItem({
+						endpoint: 'activities',
+						id: activityId,
+						data: { userId: user?.id },
+						extra: 'unregister'
+					})(dispatch)
+
+					if (updatedItem) {
+						await dispatch(removeParticipants({ activityId, userId: user?.id }))
 					}
 				},
 

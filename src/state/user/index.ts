@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice, current } from '@reduxjs/toolkit'
 
+import { Activity } from '../activity'
 import { Area } from '../areas'
 import { Locale } from '../locales'
 import { Sport } from '../sport'
@@ -14,7 +15,7 @@ export interface User {
 	city?: string
 	email?: string
 	emailVerified?: boolean
-	eventsRegistered?: any[]
+	//eventsRegistered?: Activity[]
 	favorites?: any[]
 	firstName?: string
 	fitnessLevel?: 'retired' | 'average' | 'athletic' | 'very athletic'
@@ -64,6 +65,7 @@ const User = createSlice({
 			}
 			return state
 		},
+
 		updateFavorite: (state, action: PayloadAction<any>) => {
 			if (state && action.payload.favorites) {
 				state['favorites'] = action.payload.favorites

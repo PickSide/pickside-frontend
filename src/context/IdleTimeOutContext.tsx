@@ -15,10 +15,10 @@ const IDLE_WARNING_THRESHOLD = 300000
 const Context = createContext({})
 
 export const IdleTimeOutProvider: FC<any> = ({ children }) => {
-	const { logout } = useApi()
-	const dispatch = useDispatch()
 	const [IDLE_TIMER, setIdleTimer] = useLocalStorage<number>(IDLE_TIMER_KEY)
+	const { logout } = useApi()
 	const { t } = useTranslation()
+	const dispatch = useDispatch()
 
 	const user = useSelector((state: AppState) => state.user)
 
