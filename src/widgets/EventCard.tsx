@@ -17,13 +17,28 @@ interface ActivityProps {
 }
 
 const EventCard: FC<ActivityProps> = ({ activity }) => {
-	const { updateFavorite } = useApi()
+	const { registerSelfToActivity, unregisterSelfFromActivity, updateFavorite } = useApi()
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
 	const [openConfirmRegisterDialog, setOpenConfirmRegisterDialog] = useState<boolean>(false)
+	const [isRegistering, setIsRegistering] = useState<boolean>(false)
+	const [isUnregistering, setIsUnregistering] = useState<boolean>(false)
+
+	const handleRegister = async () => {
+		setIsRegistering(true)
+		console.log(activity)
+		await dispatch<any>(registerSelfToActivity(activity.id))
+		setIsRegistering(false)
+	}
+
+	const handleUnregister = async () => {
+		setIsUnregistering(true)
+		await dispatch<any>(unregisterSelfFromActivity(activity.id))
+		setIsUnregistering(false)
+	}
 
 	return (
 		<>
@@ -102,12 +117,29 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 				{/* CARD FOOTER */}
 				<div className="flex p-4 space-x-2 justify-end">
 					<Button variant="secondary" text={t('Read More')} className="rounded-3xl" />
-					<Button
-						variant="primary"
-						disabled={activity.participants.length >= activity.maxPlayers}
-						text={activity.participants.length < activity.maxPlayers ? t('Join') : t('Full')}
-						className="rounded-3xl"
-					/>
+					{connectedUser &&
+						activity &&
+						(activity.participants?.find((participant) => participant.id === connectedUser.id) ? (
+							<Button
+								variant="primary"
+								disabled={isUnregistering}
+								isLoading={isUnregistering}
+								text={t('Uneregister')}
+								onClick={handleUnregister}
+								className="rounded-3xl"
+							/>
+						) : activity.organiser.id === connectedUser.id ? (
+							<Button variant="primary" text={t('Manage event')} className="rounded-3xl" />
+						) : (
+							<Button
+								variant="primary"
+								disabled={activity.participants.length >= activity.maxPlayers || isRegistering}
+								isLoading={isRegistering}
+								text={activity.participants.length < activity.maxPlayers ? t('Join') : t('Full')}
+								onClick={handleRegister}
+								className="rounded-3xl"
+							/>
+						))}
 				</div>
 			</div>
 		</>

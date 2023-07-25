@@ -1,8 +1,5 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice, current } from '@reduxjs/toolkit'
 import { Resources, Sport, User } from 'state'
-
-import dayjs from 'dayjs'
-import moment from 'moment'
 
 export interface Activities extends Resources {
 	results?: Activity[]
@@ -31,6 +28,29 @@ const Activity = createSlice({
 	name: 'activities',
 	reducers: {
 		setActivities: (state, action: PayloadAction<Activities>) => (state = { ...state, ...action.payload }),
+		addSelfToActivity: (state, action: PayloadAction<{ activityId?: string, userId?: string }>) => {
+			if (!action.payload.userId || !action.payload.activityId) return
+
+			const idx = state.results?.findIndex(a => a.id === action.payload.activityId) || -1
+
+			if (state && state.results && idx > -1) {
+				state.results[idx].participants.push({ id: action.payload.userId })
+			}
+
+			return state
+		},
+		removeSelfFromActivity: (state, action: PayloadAction<{ activityId?: string, userId?: string }>) => {
+			if (!action.payload.userId || !action.payload.activityId) return
+
+			const idx = state.results?.findIndex(x => x.id === action.payload.activityId)
+
+			if (state && state.results && idx && idx > -1) {
+				const participantIdx = state.results[idx].participants.findIndex(x => x.id === action.payload.userId)
+				state.results[idx].participants.splice(participantIdx, 1)
+			}
+
+			return state
+		},
 		updateActivity: (state, action: PayloadAction<Activity>) => {
 			const idx = state.results?.findIndex(Activity => Activity.id === action.payload.id) || -1
 
@@ -43,6 +63,6 @@ const Activity = createSlice({
 	},
 })
 
-export const { updateActivity, setActivities } = Activity.actions
+export const { updateActivity, addSelfToActivity, removeSelfFromActivity, setActivities } = Activity.actions
 
 export default Activity.reducer

@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import { useDispatch } from 'react-redux'
 import { useApi } from 'hooks'
+import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 interface ConfirmRegisterEventFormProps {
@@ -11,12 +11,12 @@ interface ConfirmRegisterEventFormProps {
 }
 
 const ConfirmRegisterEventForm: FC<ConfirmRegisterEventFormProps> = ({ id, onClose }) => {
-	const { registerToActivity } = useApi()
+	const { registerSelfToActivity } = useApi()
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
 
 	const onRegisterEvent = () => {
-		dispatch<any>(registerToActivity(id))
+		dispatch<any>(registerSelfToActivity(id))
 		onClose()
 	}
 
