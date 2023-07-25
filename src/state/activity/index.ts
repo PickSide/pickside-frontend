@@ -28,21 +28,18 @@ const Activity = createSlice({
 	name: 'activities',
 	reducers: {
 		setActivities: (state, action: PayloadAction<Activities>) => (state = { ...state, ...action.payload }),
-		addParticipants: (state, action: PayloadAction<{ activityId?: string, userId?: string }>) => {
+		addSelfToActivity: (state, action: PayloadAction<{ activityId?: string, userId?: string }>) => {
 			if (!action.payload.userId || !action.payload.activityId) return
 
 			const idx = state.results?.findIndex(a => a.id === action.payload.activityId) || -1
-			console.log('current', current(state))
-			console.log('payload', action.payload.activityId)
-			console.log('idx', idx)
-			console.log('found it', current(state).results?.some(x => x.id === action.payload.activityId))
+
 			if (state && state.results && idx > -1) {
 				state.results[idx].participants.push({ id: action.payload.userId })
 			}
 
 			return state
 		},
-		removeParticipants: (state, action: PayloadAction<{ activityId?: string, userId?: string }>) => {
+		removeSelfFromActivity: (state, action: PayloadAction<{ activityId?: string, userId?: string }>) => {
 			if (!action.payload.userId || !action.payload.activityId) return
 
 			const idx = state.results?.findIndex(x => x.id === action.payload.activityId)
@@ -66,6 +63,6 @@ const Activity = createSlice({
 	},
 })
 
-export const { updateActivity, addParticipants, removeParticipants, setActivities } = Activity.actions
+export const { updateActivity, addSelfToActivity, removeSelfFromActivity, setActivities } = Activity.actions
 
 export default Activity.reducer

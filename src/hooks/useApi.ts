@@ -1,10 +1,10 @@
 import {
 	Activity,
 	AppState,
-	addParticipants,
+	addSelfToActivity,
 	deactivate,
 	markAsRead,
-	removeParticipants,
+	removeSelfFromActivity,
 	setActivities,
 	setAreas,
 	setLocales,
@@ -191,7 +191,7 @@ const useApi = (): UseApiOutput => {
 					})(dispatch)
 
 					if (updatedItem) {
-						await dispatch(addParticipants({ activityId, userId: user?.id }))
+						await dispatch(addSelfToActivity({ activityId, userId: user?.id }))
 					}
 				},
 
@@ -206,7 +206,7 @@ const useApi = (): UseApiOutput => {
 					})(dispatch)
 
 					if (updatedItem) {
-						await dispatch(removeParticipants({ activityId, userId: user?.id }))
+						await dispatch(removeSelfFromActivity({ activityId, userId: user?.id }))
 					}
 				},
 

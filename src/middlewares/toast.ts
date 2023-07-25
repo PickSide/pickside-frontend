@@ -4,6 +4,14 @@ export const toastMiddleware = (store) => (next) => (action) => {
             message: 'Successfully created activity',
             type: 'success'
         },
+        'activities/addSelfToActivity': {
+            message: 'You registered to activity',
+            type: 'success'
+        },
+        'activities/removeSelfFromActivity': {
+            message: 'You removed yourself from activity',
+            type: 'success'
+        },
         'activities/updateActivity': {
             message: 'Updated activity',
             type: 'success'
