@@ -1,4 +1,3 @@
-import { BiArrowBack } from 'react-icons/bi'
 import { LoginForm } from 'widgets'
 import { NavLink } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -13,7 +12,7 @@ const Login = () => {
 			variants={pageTransition}
 			className="relative w-screen h-screen flex overflow-y-auto"
 		>
-			<div className="flex flex-col gap-y-10 p-20 mx-auto">
+			<div className="flex flex-col gap-y-10 p-10 lg:p-20 mx-auto">
 				<NavLink
 					to="/home"
 					className="w-12 outline-none border-none bg-templogo2 bg-contain bg-no-repeat h-10"

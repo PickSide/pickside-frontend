@@ -54,7 +54,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 					onClose={() => setOpenConfirmRegisterDialog(false)}
 				/>
 			</Dialog>
-			<div className="relative bg-white rounded-md shadow-md w-full flex flex-col m-2">
+			<div className="relative bg-white rounded-md shadow-md w-full flex flex-col lg:m-2">
 				{/* CARD HEADER */}
 				<div className="block p-4">
 					<div className="float-left align-middle">
@@ -91,7 +91,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 				{/* CARD CONTENT */}
 				<div className="p-4 space-y-1 grow-2">
 					<div className="flex justify-between">
-						<p className="text-[16px] font-normal">{activity.title}</p>
+						<p className="text-[14px] lg:text-[16px] font-normal">{activity.title}</p>
 						<div className="flex items-center space-x-2">
 							<p>
 								{activity.participants.length}/{activity.maxPlayers}
@@ -101,22 +101,30 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 					</div>
 					<div className="flex items-center space-x-1">
 						<BiTime size={15} className="text-gray-600" />
-						<p className="text-[14px] font-normal text-gray-400">{dayjs(activity.date).toDate().toDateString()}</p>
+						<p className="text-[12px] lg:text-[14px] font-normal text-gray-400">
+							{dayjs(activity.date).toDate().toDateString()}
+						</p>
 					</div>
 					<div className="flex items-center space-x-1">
 						<FaLocationArrow size={15} className="text-gray-600" />
-						<p className="text-[14px] font-normal text-gray-400 underline cursor-pointer max-w-[200px] hover:text-gray-700 truncate text-ellipsis">
+						<p className="text-[12px] lg:text-[14px] font-normal text-gray-400 underline cursor-pointer max-w-[200px] hover:text-gray-700 truncate text-ellipsis">
 							{activity.address.formatted_address || '420 Rue de la poitrie'}
 						</p>
 					</div>
 					<div className="flex items-center">
-						<p className="text-[14px] font-normal text-gray-400 mt-4">{activity.description || 'No Description'}</p>
+						<p className="text-[12px] lg:text-[14px] font-normal text-gray-400 mt-4">
+							{activity.description || 'No Description'}
+						</p>
 					</div>
 					<p></p>
 				</div>
 				{/* CARD FOOTER */}
 				<div className="flex p-4 space-x-2 justify-end">
-					<Button variant="secondary" text={t('Read More')} className="rounded-3xl" />
+					<Button
+						variant="secondary"
+						text={t('Read More')}
+						className="rounded-3xl text-[12px] lg:text-[14px] lg:text-current"
+					/>
 					{connectedUser &&
 						activity &&
 						(activity.participants?.find((participant) => participant.id === connectedUser.id) ? (
@@ -126,10 +134,10 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 								isLoading={isUnregistering}
 								text={t('Uneregister')}
 								onClick={handleUnregister}
-								className="rounded-3xl"
+								className="rounded-3xl text-[12px] lg:text-current"
 							/>
 						) : activity.organiser.id === connectedUser.id ? (
-							<Button variant="primary" text={t('Manage event')} className="rounded-3xl" />
+							<Button variant="primary" text={t('Manage event')} className="rounded-3xl text-[12px] lg:text-[14px]" />
 						) : (
 							<Button
 								variant="primary"
@@ -137,7 +145,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 								isLoading={isRegistering}
 								text={activity.participants.length < activity.maxPlayers ? t('Join') : t('Full')}
 								onClick={handleRegister}
-								className="rounded-3xl"
+								className="rounded-3xl text-[12px] lg:text-current"
 							/>
 						))}
 				</div>

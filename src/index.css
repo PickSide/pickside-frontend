@@ -85,7 +85,7 @@
 
 	/* CHIPS */
 	.chip-base {
-		@apply rounded font-semibold uppercase text-sm px-6 py-3 disabled:bg-slate-200 diabled:opacity-70 disabled:cursor-not-allowed;
+		@apply rounded font-semibold uppercase text-sm px-6 py-3 disabled:bg-slate-200 disabled:opacity-70 disabled:cursor-not-allowed;
 	}
 
 	/* ICONS */

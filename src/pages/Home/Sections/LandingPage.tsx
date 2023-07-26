@@ -4,6 +4,7 @@ import { FC, useState } from 'react'
 import { FaLocationArrow } from 'react-icons/fa'
 import { GoogleAutocomplete } from 'widgets'
 import { setSelectedLocation } from 'state'
+import { useDevice } from 'hooks'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -12,7 +13,7 @@ const LandingPage: FC<any> = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
-
+	const { isMobile } = useDevice()
 	const [selected, setSelected] = useState<any>(null)
 
 	const handleClick = async () => {
@@ -32,7 +33,37 @@ const LandingPage: FC<any> = () => {
 		}
 	}
 
-	return (
+	const MobileLandingPage = () => (
+		<section id="home" className="section text-black bg-landing-texture lg:block overflow-hidden">
+			<div className="relative flex flex-col justify-center items-center">
+				<div className="bg-landing bg-no-repeat bg-contain w-[80%] h-[300px]"></div>
+				<div className="gap-y-6 w-[80%] z-[80]">
+					<div className="flex flex-col gap-y-2 items-center my-3">
+						<span className="text-[30px] lg:text-[45px] font-semibold">{t('Book Your Next Match Now')}</span>
+						<span className="text-[15px] lg:text-[22px] text-gray-500 font-normal">
+							{t('Are you looking for your sport team? this place is for you just search your neighborhood.')}
+						</span>
+					</div>
+					<div className="flex flex-col mx-auto justify-center items-center gap-y-6">
+						<Button className="w-full h-12" onClick={handleClick} text={t('Join Your Team Now')} />
+						<GoogleAutocomplete fullWidth onSelectPlace={(value) => setSelected(value)} />
+						<div className="inline-flex w-full justify-center items-center gap-x-6">
+							<Button disabled={!selected} onClick={handleClick} text={t('Search')} />
+							<IconButton
+								onClick={goToListing}
+								icon={<FaLocationArrow size={25} />}
+								tooltipText={t('Show activities in my area')}
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	)
+
+	return isMobile ? (
+		<MobileLandingPage />
+	) : (
 		<section id="home" className="section text-black bg-landing-texture lg:block overflow-hidden">
 			<div className="relative flex justify-center">
 				<div className="absolute bg-landing bg-no-repeat bg-contain w-[1100px] h-[1100px]"></div>

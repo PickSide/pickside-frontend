@@ -35,6 +35,45 @@ const AppBar = () => {
 		[onScreen, pathname],
 	)
 
+	const MobileAppBar = () => (
+		<div className="flex items-center justify-between h-full">
+			<NavLink to="/home" className="w-12 outline-none border-none bg-templogo2 bg-contain bg-no-repeat h-10"></NavLink>
+			<div className="inline-flex items-center">
+				<IconDropdown icon={<GiHamburgerMenu size={20} />}>
+					<MenuItem icon={<BsCalendar2Event size={20} />} onClick={() => navigate('/new-event')}>
+						{t('Post event')}
+					</MenuItem>
+					{connectedUser ? (
+						<>
+							<MenuItem icon={<MdPersonOutline size={20} />} onClick={() => navigate('/user/profile')}>
+								{t('Profile')}
+							</MenuItem>
+							<MenuItem icon={<MdOutlineSettings size={20} />} onClick={() => navigate('/user/settings/')}>
+								{t('Settings')}
+							</MenuItem>
+							<MenuItem icon={<MdOutlineHistory size={20} />} onClick={() => navigate('/user/history')}>
+								{t('History')}
+							</MenuItem>
+							<MenuItem
+								icon={<MdLogout size={20} />}
+								onClick={async () => {
+									await dispatch<any>(logout())
+									navigate('/login')
+								}}
+							>
+								{t('Logout')}
+							</MenuItem>
+						</>
+					) : (
+						<MenuItem icon={<AiOutlineLogin size={20} />} onClick={() => navigate('/login')}>
+							{t('Login')}
+						</MenuItem>
+					)}
+				</IconDropdown>
+			</div>
+		</div>
+	)
+
 	return showAppBar ? (
 		<>
 			<motion.div
@@ -48,48 +87,7 @@ const AppBar = () => {
 				ref={ref}
 			>
 				{isMobile ? (
-					<div className="flex items-center justify-between h-full">
-						<NavLink
-							to="/home"
-							className="w-12 outline-none border-none bg-templogo2 bg-contain bg-no-repeat h-10"
-						></NavLink>
-						<div className="inline-flex items-center">
-							<LanguageSwitcher />
-							<ThemeSwitcher />
-
-							<IconDropdown icon={<GiHamburgerMenu size={20} />}>
-								<MenuItem icon={<BsCalendar2Event size={20} />} onClick={() => navigate('/new-event')}>
-									{t('Post event')}
-								</MenuItem>
-								{connectedUser ? (
-									<>
-										<MenuItem icon={<MdPersonOutline size={20} />} onClick={() => navigate('/user/profile')}>
-											{t('Profile')}
-										</MenuItem>
-										<MenuItem icon={<MdOutlineSettings size={20} />} onClick={() => navigate('/user/settings/')}>
-											{t('Settings')}
-										</MenuItem>
-										<MenuItem icon={<MdOutlineHistory size={20} />} onClick={() => navigate('/user/history')}>
-											{t('History')}
-										</MenuItem>
-										<MenuItem
-											icon={<MdLogout size={20} />}
-											onClick={async () => {
-												await dispatch<any>(logout())
-												navigate('/login')
-											}}
-										>
-											{t('Logout')}
-										</MenuItem>
-									</>
-								) : (
-									<MenuItem icon={<AiOutlineLogin size={20} />} onClick={() => navigate('/login')}>
-										{t('Login')}
-									</MenuItem>
-								)}
-							</IconDropdown>
-						</div>
-					</div>
+					<MobileAppBar />
 				) : (
 					<div className="flex items-center justify-between h-full">
 						<div className="flex">

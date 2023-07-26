@@ -1,12 +1,18 @@
-import { useDevice } from 'hooks'
-import { FC } from 'react'
 import { ActivitySelectedSidenav, EventList, Map } from 'widgets'
+
+import { FC } from 'react'
 import { motion } from 'framer-motion'
 import { pageTransition } from 'utils'
+import { useDevice } from 'hooks'
 
 const Listing: FC<any> = ({ ...props }) => {
-	const { isPc } = useDevice()
-	return isPc ? (
+	const { isMobile } = useDevice()
+
+	return isMobile ? (
+		<motion.div initial="hidden" animate="visible" exit="exit" variants={pageTransition} className="overflow">
+			<EventList />
+		</motion.div>
+	) : (
 		<motion.div initial="hidden" animate="visible" exit="exit" variants={pageTransition} className="overflow-auto">
 			<div id="listing" className="flex">
 				<Map />
@@ -14,10 +20,6 @@ const Listing: FC<any> = ({ ...props }) => {
 			</div>
 			<ActivitySelectedSidenav />
 		</motion.div>
-	) : (
-		<div className="overflow-auto">
-			<EventList />
-		</div>
 	)
 }
 

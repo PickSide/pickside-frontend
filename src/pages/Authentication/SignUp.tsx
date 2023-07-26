@@ -1,4 +1,3 @@
-import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { SignUpForm } from 'widgets'
 import { motion } from 'framer-motion'
@@ -13,11 +12,11 @@ const SignUp = () => {
 			variants={pageTransition}
 			className="relative w-screen h-screen flex overflow-y-auto"
 		>
-			<div className="flex flex-col gap-y-10 p-20 mx-auto">
+			<div className="flex flex-col gap-y-10 p-10 lg:p-20 mx-auto">
 				<div className="inline-flex items-center">
 					<NavLink
 						to="/home"
-						className="outline-none border-none bg-templogo2 bg-contain bg-no-repeat w-72 h-10 flex-grow"
+						className="outline-none border-none bg-templogo2 bg-contain bg-no-repeat lg:w-72 h-10 flex-grow"
 					></NavLink>
 					<NavLink
 						to="/login"
