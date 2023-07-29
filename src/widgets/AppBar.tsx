@@ -25,18 +25,17 @@ const AppBar = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const ref = useRef<any>()
-	const onScreen = useOnScreen(ref, '60px')
+	const onScreen = useOnScreen(ref, '80px')
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
 	const showAppBar = useMemo(() => !ROUTES_TO_EXCLUDE_BAR.includes(pathname), [pathname])
-	const showBackButton = useMemo(
-		() => !onScreen && ROUTES_TO_INCLUDE_BACK_BUTTON.includes(pathname),
-		[onScreen, pathname],
-	)
+	const showBackButton = useMemo(() => {
+		return !onScreen && ROUTES_TO_INCLUDE_BACK_BUTTON.includes(pathname)
+	}, [onScreen, pathname])
 
 	const MobileAppBar = () => (
-		<div className="flex items-center justify-between h-full">
+		<div className="flex items-center justify-between h-full" ref={ref}>
 			<NavLink to="/home" className="w-12 outline-none border-none bg-templogo2 bg-contain bg-no-repeat h-10"></NavLink>
 			<div className="inline-flex items-center">
 				<IconDropdown icon={<GiHamburgerMenu size={20} />}>
@@ -84,12 +83,11 @@ const AppBar = () => {
 				className={`relative h-16 px-5 ${
 					pathname === '/' || pathname === '/home' ? 'bg-landing-texture' : 'bg-[#F1F4F3]'
 				} dark:bg-black`}
-				ref={ref}
 			>
 				{isMobile ? (
 					<MobileAppBar />
 				) : (
-					<div className="flex items-center justify-between h-full">
+					<div className="flex items-center justify-between h-full" ref={ref}>
 						<div className="flex">
 							<NavLink
 								to="/home"
