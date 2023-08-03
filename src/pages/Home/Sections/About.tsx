@@ -15,13 +15,14 @@ import { useAsync } from 'react-use'
 import { useTranslation } from 'react-i18next'
 
 const MAX_CAROUSEL_LENGTH = 3
+const MAX_CAROUSEL_TABLET_LENGTH = 2
 const MAX_CAROUSEL_MOBILE_LENGTH = 1
 
 const About = () => {
 	const { getActivities } = useApi()
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
-	const { isMobile } = useDevice()
+	const { isMobile, isTablet } = useDevice()
 	const activities = useSelector((state: AppState) => state.activities)
 
 	const { loading } = useAsync(async () => {
@@ -37,14 +38,14 @@ const About = () => {
 	}, [activities, slidingWindow])
 
 	useEffect(() => {
-		console.log('isMobile', isMobile)
 		if (isMobile) {
 			setSlidingWindow(times(MAX_CAROUSEL_MOBILE_LENGTH, Number))
+		} else if (isTablet) {
+			setSlidingWindow(times(MAX_CAROUSEL_TABLET_LENGTH, Number))
 		} else {
-			console.log(times(MAX_CAROUSEL_LENGTH, Number))
 			setSlidingWindow(times(MAX_CAROUSEL_LENGTH, Number))
 		}
-	}, [isMobile])
+	}, [isMobile, isTablet])
 
 	const goLeft = () => {
 		if (slidingWindow && !!activities && !!activities.results) {

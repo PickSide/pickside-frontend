@@ -2,11 +2,13 @@ import { forwardRef, useId, useState } from 'react'
 
 import { Upload } from 'components'
 import uploadPlaceholder from '../assets/upload_placeholder.png'
+import { useDevice } from 'hooks'
 import { useTranslation } from 'react-i18next'
 
 const ImageUploader = ({ onChange, ...rest }, ref) => {
 	const id = useId()
 	const { t } = useTranslation()
+	const { isMobile } = useDevice()
 
 	const [selectedImages, setSelectedImages] = useState<any>([])
 
@@ -37,7 +39,7 @@ const ImageUploader = ({ onChange, ...rest }, ref) => {
 			<div id={id} className="rounded-lg flex justify-between border border-gray-500 border-dashed w-full p-6">
 				{!selectedImages.length ? (
 					<div className="flex space-x-4">
-						<img alt="img_upload" src={uploadPlaceholder} />
+						{!isMobile && <img alt="img_upload" src={uploadPlaceholder} />}
 						<div className="flex flex-col">
 							<p>{t('Upload a picture of your venue.')}</p>
 							<p>{t('PNG, JPG or GIF')}</p>
@@ -51,7 +53,7 @@ const ImageUploader = ({ onChange, ...rest }, ref) => {
 					</div>
 				)}
 				<div className="flex flex-col space-y-4">
-					<Upload variant="secondary" text={t('My images')} onChange={handleSelect} multiple />
+					<Upload variant="secondary" text={t('Your images')} onChange={handleSelect} multiple />
 					<Upload variant="secondary" text={t('Our collection')} onChange={handleSelect} multiple />
 				</div>
 			</div>

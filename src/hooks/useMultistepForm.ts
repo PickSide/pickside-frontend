@@ -1,5 +1,4 @@
 import { ReactNode, useMemo, useState } from 'react'
-import { StepConfiguration } from 'types'
 
 const useMultistepForm = (steps: ReactNode[]) => {
     const [activeStep, setActiveStep] = useState<number>(0)

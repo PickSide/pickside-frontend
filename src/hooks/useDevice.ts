@@ -1,5 +1,5 @@
-import React from 'react'
 import { BREAKPOINTS } from 'utils'
+import React from 'react'
 
 const useDevice = () => {
     const [screenSize, setScreenSize] = React.useState<any>({})
@@ -15,7 +15,7 @@ const useDevice = () => {
     const isTablet = React.useMemo(() => {
         const { md, lg } = BREAKPOINTS
         const { width } = screenSize
-        return width >= getNumber(md) && width < getNumber(lg)
+        return width > getNumber(md) && width < getNumber(lg)
     }, [screenSize])
 
     const isPc = React.useMemo(() => {

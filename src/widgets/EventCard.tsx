@@ -54,7 +54,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 					onClose={() => setOpenConfirmRegisterDialog(false)}
 				/>
 			</Dialog>
-			<div className="relative bg-white rounded-md shadow-md w-full flex flex-col lg:m-2">
+			<div className="relative bg-white rounded-md shadow-md w-full flex flex-col m-2">
 				{/* CARD HEADER */}
 				<div className="block p-4">
 					<div className="float-left align-middle">
@@ -134,7 +134,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 								isLoading={isUnregistering}
 								text={t('Uneregister')}
 								onClick={handleUnregister}
-								className="rounded-3xl text-[12px] lg:text-current"
+								className="rounded-3xl text-[12px]"
 							/>
 						) : activity.organiser.id === connectedUser.id ? (
 							<Button variant="primary" text={t('Manage event')} className="rounded-3xl text-[12px] lg:text-[14px]" />
@@ -145,7 +145,7 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 								isLoading={isRegistering}
 								text={activity.participants.length < activity.maxPlayers ? t('Join') : t('Full')}
 								onClick={handleRegister}
-								className="rounded-3xl text-[12px] lg:text-current"
+								className="rounded-3xl text-[12px]"
 							/>
 						))}
 				</div>

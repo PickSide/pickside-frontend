@@ -13,6 +13,7 @@ import DatePicker from './DatePicker'
 import Dropdown from './Dropdown'
 import EditField from './EditField'
 import EmailField from './EmailField'
+import FormDivider from './FormDivider'
 import Gallery from './Gallery'
 import IconButton from './IconButton'
 import IconDropdown from './IconDropdown'
@@ -47,6 +48,7 @@ export {
 	Dropdown,
 	EditField,
 	EmailField,
+	FormDivider,
 	Gallery,
 	IconButton,
 	IconDropdown,
