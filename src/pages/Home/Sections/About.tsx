@@ -1,10 +1,10 @@
 import { Activity, AppState } from 'state'
+import { ActivityCard, EventCard } from 'widgets'
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from 'react-icons/md'
 import { useApi, useDevice } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
-import { EventCard } from 'widgets'
 import { NavLink } from 'react-router-dom'
 import { Spinner } from 'components'
 import friendship from '../../../assets/friendship.png'
@@ -86,7 +86,8 @@ const About = () => {
 				{/* CONTENT */}
 				<div className="w-full h-full flex">
 					{upcomingEvents?.map((event, idx) => (
-						<EventCard key={idx} activity={event} />
+						<ActivityCard key={idx} activity={event} />
+						// <EventCard key={idx} activity={event} />
 					))}
 				</div>
 				{/* LEFT BUTTON */}

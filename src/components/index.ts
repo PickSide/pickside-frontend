@@ -1,4 +1,5 @@
 import Accordion, { AccordionSection } from './Accordion'
+import Card, { CardBody, CardCTA, CardHeader, CardImage } from './Card'
 import Chip, { ChipGroup } from './Chip'
 import Dialog, { DialogCTA } from './Dialog'
 import Radio, { RadioGroup } from './Radio'
@@ -39,6 +40,11 @@ export {
 	Alert,
 	Autocomplete,
 	Button,
+	Card,
+	CardBody,
+	CardCTA,
+	CardHeader,
+	CardImage,
 	Checkbox,
 	Chip,
 	ChipGroup,
@@ -72,6 +78,5 @@ export {
 	TimePicker,
 	Toggle,
 	ToggleGroup,
-	Upload
+	Upload,
 }
-

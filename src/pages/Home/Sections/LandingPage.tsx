@@ -1,22 +1,22 @@
 import { Button, IconButton } from 'components'
 import { FC, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { FaLocationArrow } from 'react-icons/fa'
 import { GoogleAutocomplete } from 'widgets'
 import { setSelectedLocation } from 'state'
 import { useDevice } from 'hooks'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 const LandingPage: FC<any> = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
-	const { isMobile } = useDevice()
+	const { isPc } = useDevice()
 	const [selected, setSelected] = useState<any>(null)
 
-	const handleClick = async () => {
+	const navigateToListing = async () => {
 		const lat = selected.geometry.location.lat()
 		const lng = selected.geometry.location.lng()
 		await dispatch(setSelectedLocation({ lat, lng }))
@@ -26,7 +26,6 @@ const LandingPage: FC<any> = () => {
 	const goToListing = async () => {
 		if ((window.location.protocol === 'http:' || window.location.protocol === 'https:') && navigator.geolocation) {
 			await navigator.geolocation.getCurrentPosition(async ({ coords }) => {
-				console.log(coords)
 				await dispatch(setSelectedLocation({ lat: coords.latitude, lng: coords.longitude }))
 				await navigate('/listing')
 			})
@@ -36,7 +35,7 @@ const LandingPage: FC<any> = () => {
 	const MobileLandingPage = () => (
 		<section id="home" className="section text-black bg-landing-texture lg:block overflow-hidden">
 			<div className="relative flex flex-col justify-center items-center">
-				<div className="bg-landing bg-no-repeat bg-contain w-[80%] h-[300px]"></div>
+				<div className="bg-landing bg-no-repeat bg-contain bg-center w-[80%] h-[300px]"></div>
 				<div className="gap-y-6 w-[80%] z-[80]">
 					<div className="flex flex-col gap-y-2 items-center my-3">
 						<span className="text-[30px] lg:text-[45px] font-semibold">{t('Book Your Next Match Now')}</span>
@@ -45,15 +44,19 @@ const LandingPage: FC<any> = () => {
 						</span>
 					</div>
 					<div className="flex flex-col mx-auto justify-center items-center gap-y-6">
-						<Button className="w-full h-12" onClick={handleClick} text={t('Join Your Team Now')} />
-						<GoogleAutocomplete fullWidth onSelectPlace={(value) => setSelected(value)} />
+						<Button className="w-full h-12" onClick={navigateToListing}>
+							{t('Join Your Team Now')}
+						</Button>
+						<div className="inline-flex gap-x-4">
+							<GoogleAutocomplete fullWidth onSelectPlace={(value) => setSelected(value)} />
+							<Button disabled={!selected} onClick={navigateToListing}>
+								{t('Search')}
+							</Button>
+						</div>
 						<div className="inline-flex w-full justify-center items-center gap-x-6">
-							<Button disabled={!selected} onClick={handleClick} text={t('Search')} />
-							<IconButton
-								onClick={goToListing}
-								icon={<FaLocationArrow size={25} />}
-								tooltipText={t('Show activities in my area')}
-							/>
+							<span className="text-blue-400 font-semibold cursor-pointer hover:text-blue-800" onClick={goToListing}>
+								{t('Or use your current location')}
+							</span>
 						</div>
 					</div>
 				</div>
@@ -61,7 +64,7 @@ const LandingPage: FC<any> = () => {
 		</section>
 	)
 
-	return isMobile ? (
+	return !isPc ? (
 		<MobileLandingPage />
 	) : (
 		<section id="home" className="section text-black bg-landing-texture lg:block overflow-hidden">
@@ -75,15 +78,15 @@ const LandingPage: FC<any> = () => {
 						</span>
 					</div>
 					<div className="flex flex-col mx-auto justify-center items-center gap-y-6">
-						<Button className="w-full h-12" onClick={handleClick} text={t('Join Your Team Now')} />
+						<Button className="w-full h-12" onClick={navigateToListing}>
+							{t('Join Your Team Now')}{' '}
+						</Button>
 						<div className="inline-flex w-full items-center justify-between gap-x-6">
 							<GoogleAutocomplete onSelectPlace={(value) => setSelected(value)} />
-							<Button disabled={!selected} onClick={handleClick} text={t('Search')} />
-							<IconButton
-								onClick={goToListing}
-								icon={<FaLocationArrow size={25} />}
-								tooltipText={t('Show activities in my area')}
-							/>
+							<Button disabled={!selected} onClick={navigateToListing}>
+								{t('Search')}
+							</Button>
+							<IconButton onClick={goToListing} icon={<FaLocationArrow size={25} />} />
 						</div>
 					</div>
 				</div>

@@ -1,9 +1,4 @@
-import React, { FC, ReactNode, cloneElement, forwardRef, useCallback, useEffect, useMemo, useState } from 'react'
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
-import { motion } from 'framer-motion'
-import { fadeIn } from 'utils'
-import { Spinner } from 'components'
-import { useDebounce } from 'hooks'
+import React, { ReactNode, cloneElement, forwardRef, useState } from 'react'
 
 export interface TabProps {
 	children?: ReactNode

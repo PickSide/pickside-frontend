@@ -8,21 +8,19 @@ import { useTranslation } from 'react-i18next'
 
 const EventList: FC<any> = () => {
 	const { t } = useTranslation()
-	const { isMobile } = useDevice()
+	const { isPc } = useDevice()
 	const activities = useSelector((state: AppState) => state.activities)
 
 	const MobileEventList = () => (
-		<div className="flex flex-col bg-[#fafafa] mx-auto p-2 w-full h-[calc(100vh-64px)] gap-y-3 overflow-y-auto">
-			<div className="flex flex-col gap-y-5">
-				{activities?.results?.map((activity, idx) => (
-					<EventCard key={idx} activity={activity} />
-				))}
-			</div>
+		<div className="flex bg-[#fafafa] h-full mx-auto p-2 w-full gap-y-3 overflow-x-auto">
+			{activities?.results?.map((activity, idx) => (
+				<EventCard key={idx} activity={activity} minWidth={300} />
+			))}
 		</div>
 	)
 
 	return activities?.results ? (
-		isMobile ? (
+		!isPc ? (
 			<MobileEventList />
 		) : (
 			<div className="flex flex-col bg-[#fafafa] min-w-[500px] h-[calc(100vh-64px)] py-2 px-4 gap-y-3 overflow-y-auto">

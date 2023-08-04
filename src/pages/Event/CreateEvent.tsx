@@ -1,7 +1,3 @@
-import { Button, DatePicker, NumberField, Select, TextAreaField, TextField, TimePicker } from 'components'
-import { Controller, useForm } from 'react-hook-form'
-import { GoogleAutocomplete, ImageUploader, Stepper } from 'widgets'
-import { Mode, Sport } from 'state'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { AppState } from 'state'
@@ -10,10 +6,11 @@ import Step1 from './Forms/Step1'
 import Step2 from './Forms/Step2'
 import Step3 from './Forms/Step3'
 import Step4 from './Forms/Step4'
+import { Stepper } from 'widgets'
 import dayjs from 'dayjs'
-import { features } from 'process'
 import moment from 'moment'
 import { useApi } from 'hooks'
+import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -25,34 +22,6 @@ const CreateEvent = () => {
 	const { t } = useTranslation()
 
 	const sports = useSelector((state: AppState) => state.sports)
-
-	const {
-		formState: { isDirty, dirtyFields },
-		control,
-		setValue,
-		getValues,
-		register,
-		handleSubmit,
-		watch,
-	} = useForm({
-		defaultValues: {
-			address: '',
-			date: dayjs(),
-			images: [],
-			maxPlayers: 0,
-			mode: '',
-			price: 0,
-			rules: '',
-			sport: sports?.results?.find((sport) => sport.featureAvailable),
-			time: moment(),
-			title: '',
-		},
-		reValidateMode: 'onSubmit',
-		resetOptions: {
-			keepDirtyValues: false,
-			keepErrors: false,
-		},
-	})
 
 	const form = useForm({
 		defaultValues: {
@@ -90,8 +59,6 @@ const CreateEvent = () => {
 		navigate('/listing')
 	}
 
-	const Divider = () => <div className="border border-gray-200 my-6"></div>
-
 	const steps = [
 		{
 			id: 'time',
@@ -101,21 +68,21 @@ const CreateEvent = () => {
 			required: true,
 		},
 		{
-			id: 'time',
+			id: 'price',
 			title: t('Price'),
 			description: t('Tell us more about your event'),
 			content: <Step2 form={form} t={t} />,
 			required: true,
 		},
 		{
-			id: 'time',
+			id: 'rules',
 			title: t('Rules'),
 			description: t('Set rules for your event'),
 			content: <Step3 form={form} t={t} />,
 			required: true,
 		},
 		{
-			id: 'time',
+			id: 'post',
 			title: t('Post'),
 			description: t('Choose a title and image for your event'),
 			content: <Step4 form={form} t={t} />,
@@ -123,9 +90,14 @@ const CreateEvent = () => {
 		},
 	]
 	return (
-		<div className="flex flex-col justify-between h-[calc(100vh-64px)]">
-			<form className="flex-1 py-8 lg:px-8 lg:w-[70%] w-[80%] mx-auto h-full" onSubmit={handleSubmit(onSubmit)}>
-				<Stepper steps={steps} submitDisabled={!isDirty} submitText="Post" nextText="Continue" />
+		<div className="flex flex-col h-screen">
+			<form className="flex-1 py-8 lg:px-8 lg:w-[70%] w-[80%] mx-auto" onSubmit={form.handleSubmit(onSubmit)}>
+				<Stepper
+					steps={steps}
+					submitDisabled={!form.formState.isDirty}
+					submitText={t('Post')}
+					nextText={t('Continue')}
+				/>
 			</form>
 			<Footer />
 		</div>

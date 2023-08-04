@@ -14,17 +14,18 @@ import { motion } from 'framer-motion'
 import { pageTransition } from 'utils'
 import { useTranslation } from 'react-i18next'
 
-const ROUTES_TO_EXCLUDE_BAR = ['/login', '/signup']
+const ROUTES_TO_EXCLUDE_BAR: any = []
 const ROUTES_TO_INCLUDE_BACK_BUTTON = ['/home']
 
 const AppBar = () => {
+	const ref = useRef<any>()
+
 	const { isMobile } = useDevice()
 	const { logout } = useApi()
 	const { pathname } = useLocation()
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
-	const ref = useRef<any>()
 	const onScreen = useOnScreen(ref, '80px')
 
 	const connectedUser = useSelector((state: AppState) => state.user)
@@ -39,11 +40,11 @@ const AppBar = () => {
 			<NavLink to="/home" className="w-12 outline-none border-none bg-templogo2 bg-contain bg-no-repeat h-10"></NavLink>
 			<div className="inline-flex items-center">
 				<IconDropdown icon={<GiHamburgerMenu size={20} />}>
-					<MenuItem icon={<BsCalendar2Event size={20} />} onClick={() => navigate('/new-event')}>
-						{t('Post event')}
-					</MenuItem>
 					{connectedUser ? (
 						<>
+							<MenuItem icon={<BsCalendar2Event size={20} />} onClick={() => navigate('/new-event')}>
+								{t('Post event')}
+							</MenuItem>
 							<MenuItem icon={<MdPersonOutline size={20} />} onClick={() => navigate('/user/profile')}>
 								{t('Profile')}
 							</MenuItem>
@@ -96,11 +97,9 @@ const AppBar = () => {
 						</div>
 						<div className="flex items-center gap-x-3">
 							{connectedUser && (
-								<Button
-									disabled={pathname === '/new-event'}
-									onClick={() => navigate('/new-event')}
-									text={t('Post event')}
-								/>
+								<Button disabled={pathname === '/new-event'} onClick={() => navigate('/new-event')}>
+									{t('Post event')}
+								</Button>
 							)}
 							<LanguageSwitcher />
 							<ThemeSwitcher />
@@ -110,7 +109,7 @@ const AppBar = () => {
 									<ProfileMenu />
 								</>
 							) : (
-								<Button onClick={() => navigate('/login')} text={t('Login')} />
+								<Button onClick={() => navigate('/login')}>{t('Login')}</Button>
 							)}
 						</div>
 					</div>

@@ -9,14 +9,16 @@ import { ConfirmRegisterEventForm } from 'widgets'
 import { FaLocationArrow } from 'react-icons/fa'
 import dayjs from 'dayjs'
 import placeholder from '../assets/avatar-placeholder.jpg'
+import { twMerge } from 'tailwind-merge'
 import { useApi } from 'hooks'
 import { useTranslation } from 'react-i18next'
 
 interface ActivityProps {
 	activity: Activity
+	minWidth?: number | string
 }
 
-const EventCard: FC<ActivityProps> = ({ activity }) => {
+const EventCard: FC<ActivityProps> = ({ activity, minWidth }) => {
 	const { registerSelfToActivity, unregisterSelfFromActivity, updateFavorite } = useApi()
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
@@ -54,7 +56,12 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 					onClose={() => setOpenConfirmRegisterDialog(false)}
 				/>
 			</Dialog>
-			<div className="relative bg-white rounded-md shadow-md w-full flex flex-col m-2">
+			<div
+				className={twMerge(
+					'relative bg-white rounded-md shadow-md w-full flex flex-col m-2',
+					minWidth ? `min-w-[${minWidth}px]` : '',
+				)}
+			>
 				{/* CARD HEADER */}
 				<div className="block p-4">
 					<div className="float-left align-middle">
@@ -120,11 +127,9 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 				</div>
 				{/* CARD FOOTER */}
 				<div className="flex p-4 space-x-2 justify-end">
-					<Button
-						variant="secondary"
-						text={t('Read More')}
-						className="rounded-3xl text-[12px] lg:text-[14px] lg:text-current"
-					/>
+					<Button variant="secondary" className="rounded-3xl text-[12px] lg:text-[14px] lg:text-current">
+						{t('Read More')}
+					</Button>
 					{connectedUser &&
 						activity &&
 						(activity.participants?.find((participant) => participant.id === connectedUser.id) ? (
@@ -132,21 +137,26 @@ const EventCard: FC<ActivityProps> = ({ activity }) => {
 								variant="primary"
 								disabled={isUnregistering}
 								isLoading={isUnregistering}
-								text={t('Uneregister')}
 								onClick={handleUnregister}
 								className="rounded-3xl text-[12px]"
-							/>
+							>
+								{t('Uneregister')}
+							</Button>
 						) : activity.organiser.id === connectedUser.id ? (
-							<Button variant="primary" text={t('Manage event')} className="rounded-3xl text-[12px] lg:text-[14px]" />
+							<Button variant="primary" className="rounded-3xl text-[12px] lg:text-[14px]">
+								{' '}
+								{t('Manage event')}
+							</Button>
 						) : (
 							<Button
 								variant="primary"
 								disabled={activity.participants.length >= activity.maxPlayers || isRegistering}
 								isLoading={isRegistering}
-								text={activity.participants.length < activity.maxPlayers ? t('Join') : t('Full')}
 								onClick={handleRegister}
 								className="rounded-3xl text-[12px]"
-							/>
+							>
+								{activity.participants.length < activity.maxPlayers ? t('Join') : t('Full')}
+							</Button>
 						))}
 				</div>
 			</div>

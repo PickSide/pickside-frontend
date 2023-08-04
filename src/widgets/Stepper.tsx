@@ -1,4 +1,4 @@
-import { Fragment, forwardRef, useState } from 'react'
+import { Fragment, forwardRef } from 'react'
 import { useDevice, useMultistepForm } from 'hooks'
 
 import { BiCheck } from 'react-icons/bi'
@@ -43,7 +43,7 @@ const Stepper = (
 	)
 
 	const StepperScreen = () => (
-		<div className="relative w-full h-full flex flex-col lg:py-8 lg:px-10 bg-white gap-y-8 text-[#323B45] overflow-x-hidden">
+		<div className="w-full flex flex-col lg:py-8 lg:px-10 bg-white gap-y-8 text-[#323B45] overflow-x-hidden">
 			<div className="w-full flex items-center lg:p-2">
 				{steps.map((step, idx) => (
 					<Fragment key={idx}>
@@ -55,30 +55,29 @@ const Stepper = (
 			</div>
 			<div className="flex flex-col h-full justify-between w-full lg:w-fit mx-auto">
 				{/* CONTENT TITLE */}
-				<div className="flex flex-col justify-between py-6 mx-auto">
+				<div className="mx-auto">
 					<p className="text-[20px] lg:text-[30px] font-semibold text-gray-800">{steps[activeStep].description}</p>
 				</div>
 
 				{/* CONTENT */}
-				<div className="flex flex-col grow-[2] py-6">{steps[activeStep].content}</div>
+				<div className="flex flex-col py-3 lg:py-6">{steps[activeStep].content}</div>
 
 				{/* STEPPER BUTTONS */}
-				<div className="flex justify-between">
-					<Button
-						variant="secondary"
-						disabled={isFirstStep}
-						type="button"
-						text={t(previousText)}
-						onClick={() => handlePreviousStep()}
-					/>
+				<div className="flex justify-between  py-6">
+					<Button variant="secondary" disabled={isFirstStep} type="button" onClick={() => handlePreviousStep()}>
+						{t(previousText)}
+					</Button>
 					{isLastStep ? (
 						<Button
 							//disabled={submitDisabled}
 							type="submit"
-							text={submitText}
-						/>
+						>
+							{submitText}
+						</Button>
 					) : (
-						<Button onClick={() => handleNextStep()} type="button" text={nextText} />
+						<Button onClick={() => handleNextStep()} type="button">
+							{nextText}
+						</Button>
 					)}
 				</div>
 			</div>

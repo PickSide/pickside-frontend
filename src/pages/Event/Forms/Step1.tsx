@@ -1,12 +1,12 @@
-import { Controller, UseFormReturn } from 'react-hook-form'
 import { DatePicker, FormDivider, TimePicker } from 'components'
 
+import { Controller } from 'react-hook-form'
 import { GoogleAutocomplete } from 'widgets'
 import React from 'react'
 import { TFunction } from 'i18next'
 
 interface FormProps {
-	form: UseFormReturn
+	form: any
 	t: TFunction
 }
 

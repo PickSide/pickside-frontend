@@ -133,12 +133,13 @@ const SignUpForm = () => {
 			<Checkbox label={t('I agree to the terms of service and privacy policy.')} {...register('agreement')} />
 
 			<Button
-				text={t('Sign up')}
 				type="submit"
 				disabled={!watch('agreement')}
 				isLoading={loading}
 				className="rounded-md bg-primary text-white font-semibold h-[50px] transition-all duration-75 ease-in hover:bg-secondary"
-			/>
+			>
+				{t('Sign up')}
+			</Button>
 		</form>
 	)
 
@@ -146,7 +147,6 @@ const SignUpForm = () => {
 		<div className="flex flex-col gap-y-10 items-center">
 			<div className="flex flex-col items-center">
 				<span className="text-[25px] font-semibold text-cyan-950">{t('Hi, Welcome back!')}</span>
-				<span className="text-[15px] text-gray-300">{t('Start connecting in our sport community right away!')}</span>
 			</div>
 			{!!apiError && (
 				<div className="rounded-sm border-[1px] w-full text-center p-2 border-error text-red-900 bg-red-200 text-[15px]">

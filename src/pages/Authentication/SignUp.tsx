@@ -15,10 +15,6 @@ const SignUp = () => {
 			<div className="flex flex-col gap-y-10 p-10 lg:p-20 mx-auto">
 				<div className="inline-flex items-center">
 					<NavLink
-						to="/home"
-						className="outline-none border-none bg-templogo2 bg-contain bg-no-repeat lg:w-72 h-10 flex-grow"
-					></NavLink>
-					<NavLink
 						to="/login"
 						className="font-semibold text-[15px] text-primary hover:scale-105 hover:text-gray-400/80"
 					>

@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 
 const Footer = () => {
 	const { t } = useTranslation()
-	const { isMobile } = useDevice()
+	const { isPc } = useDevice()
 
 	const MobileFooter = () => (
 		<div className="bg-primary text-white">
@@ -57,19 +57,16 @@ const Footer = () => {
 		</div>
 	)
 
-	return isMobile ? (
+	return !isPc ? (
 		<MobileFooter />
 	) : (
 		<div className="bg-primary text-white">
 			<div className="flex flex-col px-40 py-10">
 				<div className="flex items-center space-x-6">
 					<p className="text-[20px] font-semibold">{t('Post your sport event')}</p>
-					<Button
-						type="button"
-						variant="secondary"
-						text={t('Get Started')}
-						className="border border-white text-white"
-					/>
+					<Button type="button" variant="secondary" className="border border-white text-white">
+						{t('Get Started')}
+					</Button>
 				</div>
 				<div className="border border-white my-4"></div>
 				<div className="flex space-x-56">

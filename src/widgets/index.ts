@@ -1,3 +1,4 @@
+import ActivityCard from './ActivityCard'
 import ActivitySelectedSidenav from './ActivitySelectedSidenav'
 import AppBar from './AppBar'
 import BackButton from './BackButton'
@@ -23,6 +24,7 @@ import ThemeSwitcher from './ThemeSwitcher'
 import Toast from './Toast'
 
 export {
+	ActivityCard,
 	ActivitySelectedSidenav,
 	AppBar,
 	BackButton,
@@ -45,5 +47,5 @@ export {
 	SignUpForm,
 	Stepper,
 	ThemeSwitcher,
-	Toast
+	Toast,
 }

@@ -1,13 +1,11 @@
-import { Controller, UseFormReturn } from 'react-hook-form'
+import { FormDivider, TextField } from 'components'
 
+import { Controller } from 'react-hook-form'
 import { ImageUploader } from 'widgets'
 import { TFunction } from 'i18next'
-import { TextField } from 'components'
-
-const Divider = () => <div className="border border-gray-200 my-6"></div>
 
 interface FormProps {
-	form: UseFormReturn
+	form: any
 	t: TFunction
 }
 
@@ -25,7 +23,7 @@ const Step4 = ({ form, t }: FormProps) => (
 				/>
 			)}
 		/>
-		<Divider />
+		<FormDivider />
 		<Controller
 			control={form.control}
 			name="images"

@@ -91,12 +91,11 @@ const AccountManagement = () => {
 						type="button"
 						className="flex whitespace-nowrap gap-x-4 text-[13px] items-center"
 						onClick={() => setOpenPasswordChangeDialog(true)}
-						text={
-							<>
-								{t('Change')} <FaExternalLinkAlt size={15} />
-							</>
-						}
-					/>
+					>
+						<>
+							{t('Change')} <FaExternalLinkAlt size={15} />
+						</>
+					</Button>
 					<p className="text-[15px] fo">
 						{t('When you change your password, you will be automatically signed out from your other sessions')}
 					</p>
@@ -109,12 +108,11 @@ const AccountManagement = () => {
 					variant="danger"
 					className="flex whitespace-nowrap gap-x-4 text-[13px] items-center"
 					onClick={() => setOpenDeactivationDialog(true)}
-					text={
-						<>
-							{t('Deactivate')} <FaExternalLinkAlt size={15} />
-						</>
-					}
-				/>
+				>
+					<>
+						{t('Deactivate')} <FaExternalLinkAlt size={15} />
+					</>
+				</Button>
 				<p className="text-[15px] fo">
 					{t('When you deactivate your account, you will have 30 days to recover it. After that, it will be deleted.')}
 				</p>

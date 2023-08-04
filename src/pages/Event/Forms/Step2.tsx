@@ -1,12 +1,12 @@
-import { Controller, UseFormReturn } from 'react-hook-form'
 import { FormDivider, NumberField, Select } from 'components'
 
 import { AppState } from 'state'
+import { Controller } from 'react-hook-form'
 import { TFunction } from 'i18next'
 import { useSelector } from 'react-redux'
 
 interface FormProps {
-	form: UseFormReturn
+	form: any
 	t: TFunction
 }
 

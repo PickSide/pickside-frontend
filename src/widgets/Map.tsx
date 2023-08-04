@@ -2,15 +2,17 @@ import { AppState, setSelectedActivity } from 'state'
 import { FC, useState } from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 import { MapMarker, Spinner } from 'components'
+import { useDevice, useEnvVariables, useMapStyles } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEnvVariables, useMapStyles } from 'hooks'
 
 import { faSoccerBall } from '@fortawesome/free-solid-svg-icons'
+import { twMerge } from 'tailwind-merge'
 
 const Map: FC<any> = ({ ...props }) => {
 	const { googleAPIKey } = useEnvVariables()
 	const { mapStyles } = useMapStyles()
 	const dispatch = useDispatch()
+	const { isPc } = useDevice()
 
 	const playables = useSelector((state: AppState) => state.playables)
 	const selectedActivity = useSelector((state: AppState) => state.selectedActivity)
@@ -26,7 +28,7 @@ const Map: FC<any> = ({ ...props }) => {
 
 	const mapContainerStyle = {
 		width: '100%',
-		height: `100%`,
+		height: '100%',
 	}
 
 	const center = !!selectedLocation ? selectedLocation : { lat: 45.5490424, lng: -73.6573323 }
@@ -45,7 +47,7 @@ const Map: FC<any> = ({ ...props }) => {
 
 	const ActivityMap = (): JSX.Element => {
 		return (
-			<div className="h-[calc(100vh - 64px)] w-full overflow-hidden">
+			<div className={twMerge('w-full h-full overflow-hidden')}>
 				<GoogleMap zoom={12} mapContainerStyle={mapContainerStyle} center={center} options={options}>
 					{playables?.results?.map(({ id, coords, fieldName }, idx) => (
 						<MapMarker
