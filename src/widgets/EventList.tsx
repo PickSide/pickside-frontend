@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 
 const EventList: FC<any> = () => {
 	const { t } = useTranslation()
-	const { isPc } = useDevice()
+	const [device] = useDevice()
 	const activities = useSelector((state: AppState) => state.activities)
 
 	const MobileEventList = () => (
@@ -20,7 +20,7 @@ const EventList: FC<any> = () => {
 	)
 
 	return activities?.results ? (
-		!isPc ? (
+		device !== 'desktop' ? (
 			<MobileEventList />
 		) : (
 			<div className="flex flex-col bg-[#fafafa] min-w-[500px] h-[calc(100vh-64px)] py-2 px-4 gap-y-3 overflow-y-auto">

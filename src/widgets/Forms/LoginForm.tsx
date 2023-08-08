@@ -24,7 +24,7 @@ const LoginForm = () => {
 	const [apiError, setApiError] = useState<any>(null)
 	const [loading, setLoading] = useState(false)
 
-	const { isMobile } = useDevice()
+	const [device] = useDevice()
 	const { login, loginWithGoogle } = useApi()
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
@@ -179,7 +179,7 @@ const LoginForm = () => {
 		</div>
 	)
 
-	return isMobile ? (
+	return device === 'mobile' ? (
 		<MobileLoginForm />
 	) : (
 		<div className="flex flex-col gap-y-10 items-center">

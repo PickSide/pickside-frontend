@@ -6,9 +6,9 @@ import { pageTransition } from 'utils'
 import { useDevice } from 'hooks'
 
 const Listing: FC<any> = ({ ...props }) => {
-	const { isPc } = useDevice()
+	const [device] = useDevice()
 
-	return !isPc ? (
+	return device !== 'desktop' ? (
 		<motion.div
 			initial="hidden"
 			animate="visible"

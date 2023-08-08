@@ -1,116 +1,26 @@
-import { Activity, AppState } from 'state'
-import { ActivityCard, EventCard } from 'widgets'
-import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from 'react-icons/md'
+import { Carousel, CarouselItem, Spinner } from 'components'
 import { useApi, useDevice } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
 
+import { ActivityCard } from 'widgets'
+import { AppState } from 'state'
 import { NavLink } from 'react-router-dom'
-import { Spinner } from 'components'
 import friendship from '../../../assets/friendship.png'
 import onTime from '../../../assets/on-time.png'
-import { times } from 'lodash'
 import touchscreen from '../../../assets/touchscreen.png'
 import { useAsync } from 'react-use'
 import { useTranslation } from 'react-i18next'
-
-const MAX_CAROUSEL_LENGTH = 3
-const MAX_CAROUSEL_TABLET_LENGTH = 2
-const MAX_CAROUSEL_MOBILE_LENGTH = 1
 
 const About = () => {
 	const { getActivities } = useApi()
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
-	const { isMobile, isTablet } = useDevice()
+	const [device] = useDevice()
 	const activities = useSelector((state: AppState) => state.activities)
 
 	const { loading } = useAsync(async () => {
 		dispatch<any>(getActivities)
 	}, [])
-	const [slidingWindow, setSlidingWindow] = useState<number[]>(times(MAX_CAROUSEL_LENGTH, Number))
-	const [upcomingEvents, setUpcomingEvents] = useState<Activity[]>([])
-
-	useEffect(() => {
-		if (slidingWindow && !!activities && !!activities.results) {
-			setUpcomingEvents(Array.from(slidingWindow, (value) => activities.results![value]))
-		}
-	}, [activities, slidingWindow])
-
-	useEffect(() => {
-		if (isMobile) {
-			setSlidingWindow(times(MAX_CAROUSEL_MOBILE_LENGTH, Number))
-		} else if (isTablet) {
-			setSlidingWindow(times(MAX_CAROUSEL_TABLET_LENGTH, Number))
-		} else {
-			setSlidingWindow(times(MAX_CAROUSEL_LENGTH, Number))
-		}
-	}, [isMobile, isTablet])
-
-	const goLeft = () => {
-		if (slidingWindow && !!activities && !!activities.results) {
-			const eventsLength = activities.results.length
-			const newSlidingWindow: number[] = []
-
-			slidingWindow.forEach((value) => {
-				if (value === 0) {
-					newSlidingWindow.push(eventsLength - 1)
-				} else {
-					newSlidingWindow.push(value - 1)
-				}
-			})
-
-			setSlidingWindow([...newSlidingWindow])
-		}
-	}
-	const goRight = () => {
-		if (slidingWindow && !!activities && !!activities.results) {
-			const eventsLength = activities.results.length
-			const newSlidingWindow: number[] = []
-
-			slidingWindow.forEach((value) => {
-				if (value === eventsLength - 1) {
-					newSlidingWindow.push(0)
-				} else {
-					newSlidingWindow.push(value + 1)
-				}
-			})
-
-			setSlidingWindow([...newSlidingWindow])
-		}
-	}
-
-	const Carousel = () => (
-		<div className="h-[500px] flex z-10">
-			<div className="relative w-full h-full overflow">
-				{/* CONTENT */}
-				<div className="w-full h-full flex">
-					{upcomingEvents?.map((event, idx) => (
-						<ActivityCard key={idx} activity={event} />
-						// <EventCard key={idx} activity={event} />
-					))}
-				</div>
-				{/* LEFT BUTTON */}
-				<div className="absolute -left-4 lg:-left-16 top-1/2 -translate-y-1/4 z-50">
-					<div
-						className="flex justify-center items-center w-8 h-8 rounded-full drop-shadow-md text-primary text-[20px] bg-white cursor-pointer hover:drop-shadow-lg hover:bg-gray-50"
-						onClick={goLeft}
-					>
-						<MdOutlineKeyboardArrowLeft size={25} />
-					</div>
-				</div>
-				{/* RIGHT BUTTON */}
-				<div className="absolute -right-4 lg:-right-16 top-1/2 -translate-y-1/4 z-50">
-					<div
-						className="flex justify-center items-center w-8 h-8 rounded-full drop-shadow-md text-primary text-[20px] bg-white cursor-pointer hover:drop-shadow-lg hover:bg-gray-50"
-						onClick={goRight}
-					>
-						<MdOutlineKeyboardArrowRight size={25} />
-					</div>
-				</div>
-			</div>
-		</div>
-	)
 
 	const MobileAboutUs = () => (
 		<section id="about" className="w-full px-8 py-10 mx-auto overflow-x-hidden">
@@ -132,7 +42,15 @@ const About = () => {
 					</div>
 				)}
 				{/* CAROUSEL DIV */}
-				{!!activities?.results && !loading && <Carousel />}
+				{!!activities?.results && !loading && (
+					<Carousel>
+						{activities?.results?.map((event, idx) => (
+							<CarouselItem>
+								<ActivityCard key={idx} activity={event} />
+							</CarouselItem>
+						))}
+					</Carousel>
+				)}
 
 				{/* EXPLORE MORE DIV */}
 				<div className="flex justify-end">
@@ -168,7 +86,7 @@ const About = () => {
 		</section>
 	)
 
-	return isMobile ? (
+	return device === 'mobile' ? (
 		<MobileAboutUs />
 	) : (
 		<section id="about" className="w-[90%] px-20 py-10 mx-auto">
@@ -193,7 +111,15 @@ const About = () => {
 					</div>
 				)}
 
-				{!!activities?.results && !loading && <Carousel />}
+				{!!activities?.results && !loading && (
+					<Carousel>
+						{activities?.results?.map((event, idx) => (
+							<CarouselItem>
+								<ActivityCard key={idx} activity={event} />
+							</CarouselItem>
+						))}
+					</Carousel>
+				)}
 
 				<div className="flex border rounded-sm border-gray-200 shadow-md p-20 space-y-10">
 					<div className="flex flex-col w-1/2 space-y-6">

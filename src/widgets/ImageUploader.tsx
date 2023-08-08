@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 const ImageUploader = ({ onChange, ...rest }, ref) => {
 	const id = useId()
 	const { t } = useTranslation()
-	const { isMobile } = useDevice()
+	const [device] = useDevice()
 
 	const [selectedImages, setSelectedImages] = useState<any>([])
 
@@ -39,7 +39,7 @@ const ImageUploader = ({ onChange, ...rest }, ref) => {
 			<div id={id} className="rounded-lg flex justify-between border border-gray-500 border-dashed w-full p-6">
 				{!selectedImages.length ? (
 					<div className="flex space-x-4">
-						{!isMobile && <img alt="img_upload" src={uploadPlaceholder} />}
+						{device !== 'mobile' && <img alt="img_upload" src={uploadPlaceholder} />}
 						<div className="flex flex-col">
 							<p>{t('Upload a picture of your venue.')}</p>
 							<p>{t('PNG, JPG or GIF')}</p>

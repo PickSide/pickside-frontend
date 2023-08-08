@@ -9,7 +9,7 @@ interface FormProps {
 }
 
 const Step3 = ({ form, t }: FormProps) => {
-	const { isMobile } = useDevice()
+	const [device] = useDevice()
 
 	return (
 		<Controller
@@ -21,7 +21,7 @@ const Step3 = ({ form, t }: FormProps) => {
 					onChange={(e) => form.setValue('rules', e.target.value)}
 					placeholder={t('Let your teammates know wht you expect of them ...')}
 					fullWidth
-					rows={isMobile ? '10' : '8'}
+					rows={device === 'mobile' ? '10' : '8'}
 				/>
 			)}
 		/>

@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 
 const Footer = () => {
 	const { t } = useTranslation()
-	const { isPc } = useDevice()
+	const [device] = useDevice()
 
 	const MobileFooter = () => (
 		<div className="bg-primary text-white">
@@ -57,7 +57,7 @@ const Footer = () => {
 		</div>
 	)
 
-	return !isPc ? (
+	return device !== 'desktop' ? (
 		<MobileFooter />
 	) : (
 		<div className="bg-primary text-white">

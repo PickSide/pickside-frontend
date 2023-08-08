@@ -10,7 +10,7 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 	variant?: ButtonVariant
 }
 
-const Button: FC<ButtonProps> = ({ children, className, isLoading = false, variant = 'primary', ...rest }) => {
+const Button: FC<ButtonProps | any> = ({ children, className, isLoading = false, variant = 'primary', ...rest }) => {
 	const variants = {
 		primary: 'text-white bg-primary hover:bg-gray-300 disabled:bg-gray-200 dark:bg-white dark:text-black',
 		secondary:
@@ -21,7 +21,7 @@ const Button: FC<ButtonProps> = ({ children, className, isLoading = false, varia
 
 	return (
 		<button
-			className={cn('btn-base', variants[variant], { 'cursor-not-allowed': isLoading }, className)}
+			className={cn('rounded px-4 py-2 font-medium', variants[variant], { 'cursor-not-allowed': isLoading }, className)}
 			type="button"
 			{...rest}
 		>

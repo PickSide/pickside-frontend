@@ -20,7 +20,7 @@ const Stepper = (
 	ref,
 ) => {
 	const { t } = useTranslation()
-	const { isMobile } = useDevice()
+	const [device] = useDevice()
 	const { activeStep, isStepActive, isFirstStep, isLastStep, isStepCompleted, handlePreviousStep, handleNextStep } =
 		useMultistepForm(steps.map((x) => x.content))
 
@@ -32,9 +32,9 @@ const Stepper = (
 			)}
 		>
 			<span className="absolute text-white left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
-				{isStepCompleted(idx) ? <BiCheck size={isMobile ? 20 : 25} /> : idx + 1}
+				{isStepCompleted(idx) ? <BiCheck size={device === 'mobile' ? 20 : 25} /> : idx + 1}
 			</span>
-			{!isMobile && (
+			{device !== 'mobile' && (
 				<span className={twMerge('absolute whitespace-nowrap -translate-x-1/2 left-1/2 -translate-y-full')}>
 					{step.title}
 				</span>

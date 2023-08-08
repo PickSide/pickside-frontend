@@ -20,7 +20,7 @@ const ROUTES_TO_INCLUDE_BACK_BUTTON = ['/home']
 const AppBar = () => {
 	const ref = useRef<any>()
 
-	const { isMobile } = useDevice()
+	const [device] = useDevice()
 	const { logout } = useApi()
 	const { pathname } = useLocation()
 	const { t } = useTranslation()
@@ -85,7 +85,7 @@ const AppBar = () => {
 					pathname === '/' || pathname === '/home' ? 'bg-landing-texture' : 'bg-[#F1F4F3]'
 				} dark:bg-black`}
 			>
-				{isMobile ? (
+				{device === 'mobile' ? (
 					<MobileAppBar />
 				) : (
 					<div className="flex items-center justify-between h-full" ref={ref}>

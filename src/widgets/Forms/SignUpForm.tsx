@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next'
 const SignUpForm = () => {
 	const { createUser, login } = useApi()
 	const navigate = useNavigate()
-	const { isMobile } = useDevice()
+	const [device] = useDevice()
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 	const {
@@ -157,7 +157,7 @@ const SignUpForm = () => {
 		</div>
 	)
 
-	return isMobile ? (
+	return device === 'mobile' ? (
 		<MobileSignUpForm />
 	) : (
 		<div className="flex flex-col gap-y-5 items-center">

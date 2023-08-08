@@ -61,7 +61,7 @@ const ActivityCard = ({ activity }) => {
 							</div>
 						)}
 					</CardHeader>
-					<CardBody className="flex-grow flex flex-col justify-between ">
+					<CardBody className="flex-grow flex flex-col justify-between">
 						<div className="inline-flex items-center gap-x-4">
 							<MdOutlineLocationOn size={20} />
 							<span className="underline">{activity.address.formatted_address || '420 Rue de la poitrie'}</span>
@@ -89,7 +89,9 @@ const ActivityCard = ({ activity }) => {
 				</div>
 			</div>
 			<CardCTA>
-				<Button variant="secondary">{t('Read More')}</Button>
+				<Button variant="secondary" className="bg-[#EDF7FF] text-[12px] px-2 py-1">
+					{t('Details')}
+				</Button>
 				{connectedUser &&
 					activity &&
 					(activity.participants?.find((participant) => participant.id === connectedUser.id) ? (
@@ -97,19 +99,21 @@ const ActivityCard = ({ activity }) => {
 							variant="primary"
 							isLoading={isUnregistering}
 							onClick={handleUnregister}
-							className="rounded-3xl text-[12px]"
+							className="text-[12px] h-8 px-2 py-1"
 							disabled={isUnregistering}
 						>
 							{t('Uneregister')}
 						</Button>
 					) : activity.organiser.id === connectedUser.id ? (
-						<Button variant="primary">{t('Manage event')}</Button>
+						<Button variant="primary" className="text-[12px] h-8 px-2 py-1">
+							{t('Manage event')}
+						</Button>
 					) : (
 						<Button
 							variant="primary"
 							isLoading={isRegistering}
 							onClick={handleRegister}
-							className="rounded-3xl text-[12px]"
+							className="text-[12px] h-8 px-4 py-1"
 							disabled={activity.participants.length >= activity.maxPlayers || isRegistering}
 						>
 							{activity.participants.length < activity.maxPlayers ? t('Join') : t('Full')}

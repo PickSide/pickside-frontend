@@ -1,5 +1,5 @@
 import { StandaloneSearchBox, useJsApiLoader } from '@react-google-maps/api'
-import { forwardRef, useState } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
 
 import { HiOutlineLocationMarker } from 'react-icons/hi'
 import { TextField } from 'components'
@@ -22,6 +22,14 @@ const GoogleAutocomplete = ({ label, onSelectPlace, ...rest }, ref) => {
 	const onPlacesChanged = () => {
 		onSelectPlace(searchBoxRef.getPlaces()[0])
 	}
+
+	// useEffect(() => {
+	// 	const childPac = document.getElementsByClassName('pac-container')
+	// 	return () => {
+	// 		document.removeChild(childPac)
+	// 		return
+	// 	}
+	// }, [])
 
 	return isLoaded ? (
 		<StandaloneSearchBox onLoad={onLoad} onPlacesChanged={onPlacesChanged}>

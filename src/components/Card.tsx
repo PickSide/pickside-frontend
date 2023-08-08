@@ -1,5 +1,4 @@
-import { FC, cloneElement } from 'react'
-
+import { FC } from 'react'
 import { cn } from 'utils'
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -39,7 +38,7 @@ export const CardBody: FC<CardBodyProps> = (props) => {
 }
 
 export const CardCTA: FC<CardCTAProps> = (props) => {
-	return <div className={cn('flex justify-end gap-x-4 mx-2 my-4', props.className)}>{props.children}</div>
+	return <div className={cn('flex justify-end gap-x-4 m-2', props.className)}>{props.children}</div>
 }
 
 export default Card

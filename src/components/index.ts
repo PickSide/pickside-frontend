@@ -1,5 +1,6 @@
 import Accordion, { AccordionSection } from './Accordion'
 import Card, { CardBody, CardCTA, CardHeader, CardImage } from './Card'
+import Carousel, { CarouselItem } from './Carousel'
 import Chip, { ChipGroup } from './Chip'
 import Dialog, { DialogCTA } from './Dialog'
 import Radio, { RadioGroup } from './Radio'
@@ -45,6 +46,8 @@ export {
 	CardCTA,
 	CardHeader,
 	CardImage,
+	Carousel,
+	CarouselItem,
 	Checkbox,
 	Chip,
 	ChipGroup,

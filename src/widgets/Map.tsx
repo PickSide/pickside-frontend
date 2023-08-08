@@ -2,8 +2,8 @@ import { AppState, setSelectedActivity } from 'state'
 import { FC, useState } from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 import { MapMarker, Spinner } from 'components'
-import { useDevice, useEnvVariables, useMapStyles } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
+import { useEnvVariables, useMapStyles } from 'hooks'
 
 import { faSoccerBall } from '@fortawesome/free-solid-svg-icons'
 import { twMerge } from 'tailwind-merge'
@@ -12,7 +12,6 @@ const Map: FC<any> = ({ ...props }) => {
 	const { googleAPIKey } = useEnvVariables()
 	const { mapStyles } = useMapStyles()
 	const dispatch = useDispatch()
-	const { isPc } = useDevice()
 
 	const playables = useSelector((state: AppState) => state.playables)
 	const selectedActivity = useSelector((state: AppState) => state.selectedActivity)

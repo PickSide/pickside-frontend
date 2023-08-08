@@ -1,46 +1,11 @@
-import { BREAKPOINTS } from 'utils'
-import React from 'react'
+import React, { useContext } from 'react'
 
-const useDevice = () => {
-    const [screenSize, setScreenSize] = React.useState<any>({})
+import { DeviceType } from 'context/WindowContext'
+import { WindowContext } from 'context'
 
-    const getNumber = (value) => Number.parseInt(value.replace('px', ''))
-
-    const isMobile = React.useMemo(() => {
-        const { md } = BREAKPOINTS
-        const { width } = screenSize
-        return width <= getNumber(md)
-    }, [screenSize])
-
-    const isTablet = React.useMemo(() => {
-        const { md, lg } = BREAKPOINTS
-        const { width } = screenSize
-        return width > getNumber(md) && width < getNumber(lg)
-    }, [screenSize])
-
-    const isPc = React.useMemo(() => {
-        const { lg } = BREAKPOINTS
-        const { width } = screenSize
-        return width >= getNumber(lg)
-    }, [screenSize])
-
-
-    React.useEffect(() => {
-        function handleResize() {
-            setScreenSize({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
-        }
-
-        window.addEventListener("resize", handleResize);
-
-        handleResize()
-
-        return () => window.removeEventListener('resize', handleResize)
-    }, [])
-
-    return { isMobile, isTablet, isPc }
+const useDevice = (): [device: DeviceType, orientation: Orien] => {
+	const { device, orientation } = useContext(WindowContext)
+	return [device, orientation]
 }
 
 export default useDevice

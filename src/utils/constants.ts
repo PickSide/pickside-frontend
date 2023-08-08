@@ -20,7 +20,7 @@ export enum KEY_CODES {
 	LEFT = 37,
 	UP = 38,
 	RIGHT = 39,
-	DOWN = 40
+	DOWN = 40,
 }
 
 // Env
@@ -31,11 +31,11 @@ export const ENV_VARIABLES = {
 }
 
 export const BREAKPOINTS = {
-	xs: '320px',
-	sm: '360px',
-	md: '768px', //ipad
-	lg: '1024px',
-	xl: '1200px',
+	xs: 320,
+	sm: 360, //mobile
+	md: 768, //ipad
+	lg: 1024, //pc
+	xl: 1200,
 }
 
 export type IconVariant = 'primary' | 'secondary' | 'tertiary' | 'danger'

@@ -13,7 +13,7 @@ const LandingPage: FC<any> = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
-	const { isPc } = useDevice()
+	const [device] = useDevice()
 	const [selected, setSelected] = useState<any>(null)
 
 	const navigateToListing = async () => {
@@ -64,7 +64,7 @@ const LandingPage: FC<any> = () => {
 		</section>
 	)
 
-	return !isPc ? (
+	return device !== 'desktop' ? (
 		<MobileLandingPage />
 	) : (
 		<section id="home" className="section text-black bg-landing-texture lg:block overflow-hidden">
