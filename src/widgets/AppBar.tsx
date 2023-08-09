@@ -14,25 +14,64 @@ import { motion } from 'framer-motion'
 import { pageTransition } from 'utils'
 import { useTranslation } from 'react-i18next'
 
-const ROUTES_TO_EXCLUDE_BAR = ['/login', '/signup']
+const ROUTES_TO_EXCLUDE_BAR: any = []
 const ROUTES_TO_INCLUDE_BACK_BUTTON = ['/home']
 
 const AppBar = () => {
-	const { isMobile } = useDevice()
+	const ref = useRef<any>()
+
+	const [device] = useDevice()
 	const { logout } = useApi()
 	const { pathname } = useLocation()
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
-	const ref = useRef<any>()
-	const onScreen = useOnScreen(ref, '60px')
+	const onScreen = useOnScreen(ref, '80px')
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
 	const showAppBar = useMemo(() => !ROUTES_TO_EXCLUDE_BAR.includes(pathname), [pathname])
-	const showBackButton = useMemo(
-		() => !onScreen && ROUTES_TO_INCLUDE_BACK_BUTTON.includes(pathname),
-		[onScreen, pathname],
+	const showBackButton = useMemo(() => {
+		return !onScreen && ROUTES_TO_INCLUDE_BACK_BUTTON.includes(pathname)
+	}, [onScreen, pathname])
+
+	const MobileAppBar = () => (
+		<div className="flex items-center justify-between h-full" ref={ref}>
+			<NavLink to="/home" className="w-12 outline-none border-none bg-templogo2 bg-contain bg-no-repeat h-10"></NavLink>
+			<div className="inline-flex items-center">
+				<IconDropdown icon={<GiHamburgerMenu size={20} />}>
+					{connectedUser ? (
+						<>
+							<MenuItem icon={<BsCalendar2Event size={20} />} onClick={() => navigate('/new-event')}>
+								{t('Post event')}
+							</MenuItem>
+							<MenuItem icon={<MdPersonOutline size={20} />} onClick={() => navigate('/user/profile')}>
+								{t('Profile')}
+							</MenuItem>
+							<MenuItem icon={<MdOutlineSettings size={20} />} onClick={() => navigate('/user/settings/')}>
+								{t('Settings')}
+							</MenuItem>
+							<MenuItem icon={<MdOutlineHistory size={20} />} onClick={() => navigate('/user/history')}>
+								{t('History')}
+							</MenuItem>
+							<MenuItem
+								icon={<MdLogout size={20} />}
+								onClick={async () => {
+									await dispatch<any>(logout())
+									navigate('/login')
+								}}
+							>
+								{t('Logout')}
+							</MenuItem>
+						</>
+					) : (
+						<MenuItem icon={<AiOutlineLogin size={20} />} onClick={() => navigate('/login')}>
+							{t('Login')}
+						</MenuItem>
+					)}
+				</IconDropdown>
+			</div>
+		</div>
 	)
 
 	return showAppBar ? (
@@ -45,53 +84,11 @@ const AppBar = () => {
 				className={`relative h-16 px-5 ${
 					pathname === '/' || pathname === '/home' ? 'bg-landing-texture' : 'bg-[#F1F4F3]'
 				} dark:bg-black`}
-				ref={ref}
 			>
-				{isMobile ? (
-					<div className="flex items-center justify-between h-full">
-						<NavLink
-							to="/home"
-							className="w-12 outline-none border-none bg-templogo2 bg-contain bg-no-repeat h-10"
-						></NavLink>
-						<div className="inline-flex items-center">
-							<LanguageSwitcher />
-							<ThemeSwitcher />
-
-							<IconDropdown icon={<GiHamburgerMenu size={20} />}>
-								<MenuItem icon={<BsCalendar2Event size={20} />} onClick={() => navigate('/new-event')}>
-									{t('Post event')}
-								</MenuItem>
-								{connectedUser ? (
-									<>
-										<MenuItem icon={<MdPersonOutline size={20} />} onClick={() => navigate('/user/profile')}>
-											{t('Profile')}
-										</MenuItem>
-										<MenuItem icon={<MdOutlineSettings size={20} />} onClick={() => navigate('/user/settings/')}>
-											{t('Settings')}
-										</MenuItem>
-										<MenuItem icon={<MdOutlineHistory size={20} />} onClick={() => navigate('/user/history')}>
-											{t('History')}
-										</MenuItem>
-										<MenuItem
-											icon={<MdLogout size={20} />}
-											onClick={async () => {
-												await dispatch<any>(logout())
-												navigate('/login')
-											}}
-										>
-											{t('Logout')}
-										</MenuItem>
-									</>
-								) : (
-									<MenuItem icon={<AiOutlineLogin size={20} />} onClick={() => navigate('/login')}>
-										{t('Login')}
-									</MenuItem>
-								)}
-							</IconDropdown>
-						</div>
-					</div>
+				{device === 'mobile' ? (
+					<MobileAppBar />
 				) : (
-					<div className="flex items-center justify-between h-full">
+					<div className="flex items-center justify-between h-full" ref={ref}>
 						<div className="flex">
 							<NavLink
 								to="/home"
@@ -100,11 +97,9 @@ const AppBar = () => {
 						</div>
 						<div className="flex items-center gap-x-3">
 							{connectedUser && (
-								<Button
-									disabled={pathname === '/new-event'}
-									onClick={() => navigate('/new-event')}
-									text={t('Post event')}
-								/>
+								<Button disabled={pathname === '/new-event'} onClick={() => navigate('/new-event')}>
+									{t('Post event')}
+								</Button>
 							)}
 							<LanguageSwitcher />
 							<ThemeSwitcher />
@@ -114,7 +109,7 @@ const AppBar = () => {
 									<ProfileMenu />
 								</>
 							) : (
-								<Button onClick={() => navigate('/login')} text={t('Login')} />
+								<Button onClick={() => navigate('/login')}>{t('Login')}</Button>
 							)}
 						</div>
 					</div>

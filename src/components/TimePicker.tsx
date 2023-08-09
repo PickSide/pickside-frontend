@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { Fragment, forwardRef, useEffect, useId, useState } from 'react'
+import { Fragment, forwardRef, useId, useState } from 'react'
 
 import { MdAccessTime } from 'react-icons/md'
 import { dropdownAnimation } from 'utils'
@@ -50,9 +50,9 @@ const TimePicker = ({ onChange, ...rest }, ref) => {
 							initial="closed"
 							animate="open"
 							exit="exit"
-							className="absolute z-[90] max-h-72 overflow-y-scroll w-full p-3 mt-1 flex gap-x-2 rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+							className="absolute z-[90] max-h-48 lg:max-h-72 overflow-y-scroll w-full p-3 mt-1 flex gap-x-2 rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
 						>
-							<div className="flex flex-col w-full">
+							<div className="flex flex-col justify-start w-full">
 								{times(24, (hour) => {
 									const momentObj = moment().startOf('hour').hour(hour)
 									return (
@@ -60,14 +60,14 @@ const TimePicker = ({ onChange, ...rest }, ref) => {
 											<button
 												type="button"
 												onClick={() => handleClick(momentObj)}
-												className={`text-[#B8C0C8] border-none bg-none outline-none my-1 hover:text-primary hover:font-semibold ease-in transition-all duration-75`}
+												className="text-[#B8C0C8] border-none bg-none outline-none my-1 hover:text-primary hover:font-semibold ease-in transition-all duration-75"
 											>
 												{moment().startOf('hour').hour(hour).format('LT')}
 											</button>
 											<button
 												type="button"
 												onClick={() => handleClick(momentObj.add(30, 'minutes'))}
-												className={`text-[#B8C0C8] border-none bg-none outline-none my-1 hover:text-primary hover:font-semibold ease-in transition-all duration-75`}
+												className="text-[#B8C0C8] border-none bg-none outline-none my-1 hover:text-primary hover:font-semibold ease-in transition-all duration-75"
 											>
 												{moment().startOf('hour').hour(hour).add(30, 'minutes').format('LT')}
 											</button>

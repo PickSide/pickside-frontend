@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next'
 const Settings = () => {
 	const { t } = useTranslation()
 	const { pathname } = useLocation()
-	const { isMobile } = useDevice()
+	const [device] = useDevice()
 	const connectedUser = useSelector((state: AppState) => state.user)
 	const [activeSection, setActiveSection] = useState<string>(pathname)
 	const [openChangeAvatarDialog, setOpenChangeAvatarDialog] = useState<boolean>(false)
@@ -108,7 +108,7 @@ const Settings = () => {
 			<Dialog title="Change avatar" open={openChangeAvatarDialog} onClose={() => setOpenChangeAvatarDialog(false)}>
 				<p>hi</p>
 			</Dialog>
-			{isMobile ? (
+			{device === 'mobile' ? (
 				<UserPageMobile />
 			) : (
 				<div className="w-[80%] m-auto flex flex-col divide-y-2 divide-opacity-30 divide-slate-200 h-[calc(100vh-64px)]">

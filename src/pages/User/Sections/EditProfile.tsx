@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next'
 const EditProfile = () => {
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
-	const { isMobile } = useDevice()
+	const [device] = useDevice()
 
 	const { updateUser } = useApi()
 	const areas = useSelector((state: AppState) => state.areas)

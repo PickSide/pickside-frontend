@@ -1,37 +1,18 @@
-import { ReactNode, forwardRef } from 'react'
+import { ButtonVariant, cn } from 'utils'
+import React, { FC } from 'react'
 
-import { ButtonVariant } from 'utils'
 import Spinner from './Spinner'
-import { twMerge } from 'tailwind-merge'
 
-interface ButtonProps {
-	variant?: ButtonVariant
-	text?: ReactNode
-	disabled?: boolean
-	isLoading?: boolean
-	showTooltip?: boolean
-	onClick?: (e?) => void
+interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 	className?: string
-	type?: 'button' | 'reset' | 'submit'
+	children?: any
+	isLoading?: boolean
+	variant?: ButtonVariant
 }
 
-const Button = (
-	{
-		className,
-		onClick,
-		isLoading = false,
-		disabled = false,
-		showTooltip = false,
-		text,
-		variant = 'primary',
-		type = 'button',
-		...rest
-	}: ButtonProps,
-	ref,
-) => {
+const Button: FC<ButtonProps | any> = ({ children, className, isLoading = false, variant = 'primary', ...rest }) => {
 	const variants = {
-		primary:
-			'text-white bg-primary hover:bg-gray-300 disabled:bg-gray-200 dark:bg-white dark:text-black max-h-[50px]',
+		primary: 'text-white bg-primary hover:bg-gray-300 disabled:bg-gray-200 dark:bg-white dark:text-black',
 		secondary:
 			'text-primary border-2 border-primary hover:bg-gray-300 disabled:text-gray-400 disabled:border-gray-200/30 disabled:bg-gray-200/60 dark:bg-white dark:text-black',
 		tertiary: 'text-primary dak:bg-none dark:text-white',
@@ -40,14 +21,13 @@ const Button = (
 
 	return (
 		<button
-			className={twMerge('btn-base', [variants[variant], className].join(' '))}
-			disabled={disabled}
-			onClick={onClick}
+			className={cn('rounded px-4 py-2 font-medium', variants[variant], { 'cursor-not-allowed': isLoading }, className)}
+			type="button"
 			{...rest}
 		>
-			{isLoading ? <Spinner /> : text}
+			{isLoading ? <Spinner /> : children}
 		</button>
 	)
 }
 
-export default forwardRef(Button)
+export default Button

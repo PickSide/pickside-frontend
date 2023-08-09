@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next'
 
 const ThemeSwitcher: FC<any> = () => {
 	const dispatch = useDispatch()
-	const { isMobile } = useDevice()
+	const [device] = useDevice()
 	const { t } = useTranslation()
 	const current = useSelector((state: AppState) => state.appTheme)
 
@@ -33,7 +33,7 @@ const ThemeSwitcher: FC<any> = () => {
 			))}
 		</>
 	)
-	return isMobile ? (
+	return device === 'mobile' ? (
 		<IconDropdown icon={<CgDarkMode size={20} />}>
 			<ThemesEl />
 		</IconDropdown>

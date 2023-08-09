@@ -1,16 +1,17 @@
 import { BiLockAlt, BiUser } from 'react-icons/bi'
 import { Button, Checkbox, TextField } from 'components'
 import { Controller, useForm } from 'react-hook-form'
-import { FC, useState } from 'react'
-import { GoogleLogin, useGoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google'
 import { setAppTheme, setLocale } from 'state'
-import { useApi, useApiHelpers } from 'hooks'
+import { useApi, useDevice } from 'hooks'
 
 import { FcGoogle } from 'react-icons/fc'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { twMerge } from 'tailwind-merge'
 import { useDispatch } from 'react-redux'
+import { useGoogleLogin } from '@react-oauth/google'
 import { useNavigate } from 'react-router'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 type FormData = {
@@ -20,12 +21,14 @@ type FormData = {
 }
 
 const LoginForm = () => {
-	const { login, loginWithGoogle } = useApi()
-	const dispatch = useDispatch()
-	const navigate = useNavigate()
-	const { t } = useTranslation()
 	const [apiError, setApiError] = useState<any>(null)
 	const [loading, setLoading] = useState(false)
+
+	const [device] = useDevice()
+	const { login, loginWithGoogle } = useApi()
+	const { t } = useTranslation()
+	const dispatch = useDispatch()
+	const navigate = useNavigate()
 
 	const { control, handleSubmit } = useForm<FormData>({
 		defaultValues: {
@@ -91,7 +94,94 @@ const LoginForm = () => {
 		}
 	}
 
-	return (
+	const FormHandle = () => (
+		<form onSubmit={handleSubmit(onLogin)} className="flex flex-col gap-y-7 lg:gap-y-4 w-full">
+			<Controller
+				name="username"
+				control={control}
+				rules={{
+					...baseRule,
+				}}
+				render={({ field, fieldState: { invalid, isTouched, isDirty, error }, formState }) => (
+					<TextField
+						type="text"
+						autofocus
+						label={t('Username')}
+						placeholder={t('Enter username')}
+						startContent={<BiUser size={20} />}
+						fullWidth
+						{...field}
+					/>
+				)}
+			/>
+			<Controller
+				name="password"
+				control={control}
+				rules={{
+					...baseRule,
+				}}
+				render={({ field, fieldState: { invalid, isTouched, isDirty, error }, formState }) => (
+					<TextField
+						autofocus
+						label={t('Password')}
+						placeholder={t('Enter password')}
+						startContent={<BiLockAlt size={20} />}
+						isPassword
+						fullWidth
+						{...field}
+					/>
+				)}
+			/>
+			<Controller
+				name="remeberMe"
+				control={control}
+				render={({ field, fieldState: { invalid, isTouched, isDirty, error }, formState }) => (
+					<Checkbox label={t('Remember me')} {...field} />
+				)}
+			/>
+			<Button
+				type="submit"
+				isLoading={loading}
+				className="rounded-md bg-primary text-white font-semibold h-[50px] transition-all duration-75 ease-in hover:bg-secondary"
+			>
+				{t('Login')}
+			</Button>
+			<Button
+				type="button"
+				variant="secondary"
+				isLoading={loading}
+				onClick={() => onGoogleLogin()}
+				className="h-[50px] flex whitespace-nowrap gap-x-4 text-[13px] items-center justify-center"
+			>
+				<FcGoogle size={20} />
+				{t('Continue with google')}
+			</Button>
+		</form>
+	)
+
+	const MobileLoginForm = () => (
+		<div className="flex flex-col gap-y-10 items-center">
+			<div className="flex flex-col items-center">
+				<span className="text-[25px] font-semibold text-cyan-950">{t('Hi, Welcome back!')}</span>
+			</div>
+			{!!apiError && (
+				<div className="rounded-sm border-[1px] w-full text-center p-2 border-error text-red-900 bg-red-200 text-[15px]">
+					{apiError}
+				</div>
+			)}
+			<FormHandle />
+			<div className="flex gap-x-2">
+				<span className="text-gray-500">{t(`Don't have an user?`)}</span>
+				<Link to="/signup" className="font-semibold text-primary hover:text-gray-400/90 hover:scale-105">
+					{t('Sign up')}
+				</Link>
+			</div>
+		</div>
+	)
+
+	return device === 'mobile' ? (
+		<MobileLoginForm />
+	) : (
 		<div className="flex flex-col gap-y-10 items-center">
 			<div className="flex flex-col items-center">
 				<span className="text-[40px] font-semibold text-cyan-950">{t('Hi, Welcome back!')}</span>
@@ -102,76 +192,12 @@ const LoginForm = () => {
 					{apiError}
 				</div>
 			)}
-			<form onSubmit={handleSubmit(onLogin)} className="flex flex-col gap-y-4 w-full">
-				<Controller
-					name="username"
-					control={control}
-					rules={{
-						...baseRule,
-					}}
-					render={({ field, fieldState: { invalid, isTouched, isDirty, error }, formState }) => (
-						<TextField
-							type="text"
-							autofocus
-							label={t('Username')}
-							placeholder={t('Enter username')}
-							startContent={<BiUser size={20} />}
-							fullWidth
-							{...field}
-						/>
-					)}
-				/>
-				<Controller
-					name="password"
-					control={control}
-					rules={{
-						...baseRule,
-					}}
-					render={({ field, fieldState: { invalid, isTouched, isDirty, error }, formState }) => (
-						<TextField
-							autofocus
-							label={t('Password')}
-							placeholder={t('Enter password')}
-							startContent={<BiLockAlt size={20} />}
-							isPassword
-							fullWidth
-							{...field}
-						/>
-					)}
-				/>
-				<Controller
-					name="remeberMe"
-					control={control}
-					render={({ field, fieldState: { invalid, isTouched, isDirty, error }, formState }) => (
-						<Checkbox label={t('Remember me')} {...field} />
-					)}
-				/>
-				<Button
-					text={t('Login')}
-					type="submit"
-					isLoading={loading}
-					className="rounded-md bg-primary text-white font-semibold h-[50px] transition-all duration-75 ease-in hover:bg-secondary"
-				/>
-				<Button
-					type="button"
-					variant="secondary"
-					isLoading={loading}
-					onClick={() => onGoogleLogin()}
-					className="h-[50px] flex whitespace-nowrap gap-x-4 text-[13px] items-center justify-center"
-					text={
-						<>
-							<FcGoogle size={20} />
-							{t('Continue with google')}
-						</>
-					}
-				/>
-			</form>
+			<FormHandle />
 			<div className="flex gap-x-2">
 				<span className="text-gray-500">{t(`Don't have an user?`)}</span>
 				<Link to="/signup" className="font-semibold text-primary hover:text-gray-400/90 hover:scale-105">
 					{t('Sign up')}
 				</Link>
-				<span>{t('Or login with')}</span>
 			</div>
 		</div>
 	)

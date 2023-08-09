@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next'
 
 const LanguageSwitcher = ({ ...rest }) => {
 	const { current, handleLocaleChange } = useLocaleSwitcher()
-	const { isMobile } = useDevice()
+	const [device] = useDevice()
 	const { t } = useTranslation()
 
 	const locales = useSelector((state: AppState) => state.locales)
@@ -32,7 +32,7 @@ const LanguageSwitcher = ({ ...rest }) => {
 		</>
 	)
 
-	return isMobile ? (
+	return device === 'mobile' ? (
 		<IconDropdown icon={<FaGlobe size={20} />}>
 			<LocalesEl />
 		</IconDropdown>

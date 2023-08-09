@@ -22,8 +22,10 @@ const ChangePasswordForm = ({ onClose }) => {
 			<TextField label={t('Email')} fullWidth {...register('email')} />
 			<TextField label={t('Email')} fullWidth {...register('email')} />
 			<TextField label={t('Email')} fullWidth {...register('email')} />
-			<Button variant="tertiary" text={t('Cancel')} onClick={onClose} />
-			<Button type="submit" text={t('Submit')} />
+			<Button variant="tertiary" onClick={onClose}>
+				{t('Cancel')}
+			</Button>
+			<Button type="submit">{t('Submit')} </Button>
 		</form>
 	)
 }
