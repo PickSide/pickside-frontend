@@ -12,7 +12,12 @@ export interface WindowContextProps {
 	orientation: OrientationType
 }
 
-const WindowContext = createContext<WindowContextProps>({ clientHeight: 0, clientWidth: 0, device: 'desktop' })
+const WindowContext = createContext<WindowContextProps>({
+	clientHeight: 0,
+	clientWidth: 0,
+	device: 'desktop',
+	orientation: 'landscape',
+})
 
 export const WindowProvider: FC<any> = ({ children }) => {
 	const getVh = useCallback(() => Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0), [])

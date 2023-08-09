@@ -21,6 +21,7 @@ const Step1 = ({ form, t }: FormProps) => (
 					placeholder="Select date"
 					label="Date"
 					fullWidth
+					required={true}
 				/>
 			)}
 		/>
@@ -34,6 +35,7 @@ const Step1 = ({ form, t }: FormProps) => (
 					placeholder="Choose time"
 					label="Time"
 					fullWidth
+					required={true}
 				/>
 			)}
 		/>
@@ -42,7 +44,12 @@ const Step1 = ({ form, t }: FormProps) => (
 			name="address"
 			control={form.control}
 			render={({ field }) => (
-				<GoogleAutocomplete label={t('Address')} onSelectPlace={(value) => form.setValue('address', value)} fullWidth />
+				<GoogleAutocomplete
+					label={t('Address')}
+					onSelectPlace={(value) => form.setValue('address', value)}
+					fullWidth
+					required={true}
+				/>
 			)}
 		/>
 	</div>

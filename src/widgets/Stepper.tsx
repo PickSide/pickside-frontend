@@ -1,9 +1,10 @@
-import { Fragment, forwardRef } from 'react'
+import { Fragment, createContext, forwardRef, useContext, useState } from 'react'
 import { useDevice, useMultistepForm } from 'hooks'
 
 import { BiCheck } from 'react-icons/bi'
 import { Button } from 'components'
 import { StepConfiguration } from 'types'
+import styled from 'styled-components'
 import { twMerge } from 'tailwind-merge'
 import { useTranslation } from 'react-i18next'
 
@@ -68,10 +69,7 @@ const Stepper = (
 						{t(previousText)}
 					</Button>
 					{isLastStep ? (
-						<Button
-							//disabled={submitDisabled}
-							type="submit"
-						>
+						<Button disabled={submitDisabled} type="submit">
 							{submitText}
 						</Button>
 					) : (
@@ -86,5 +84,36 @@ const Stepper = (
 
 	return <StepperScreen />
 }
+
+export const StepperContext = createContext({})
+
+export const Steppper = ({ children }) => {
+	const [stepperState, setStepperState] = useState()
+	return (
+		<StepperContext.Provider value={{ stepperState, setStepperState }}>
+			<StyledStepperContainer>
+				<StyledStepperHeader>
+					{/* {stepperState.steps.length
+						? stepperState.steps.map((step, index) => (
+								<StyledStepperHeaderItem key={step.id}>
+									<span>{index + 1}</span>
+									<span>{step.name}</span>
+								</StyledStepperHeaderItem>
+						  ))
+						: null} */}
+				</StyledStepperHeader>
+				<StyledStepperBody>{children}</StyledStepperBody>
+			</StyledStepperContainer>
+		</StepperContext.Provider>
+	)
+}
+
+Steppper.Step = <div id="Step"></div>
+Steppper.Steps = <div id="Steps"></div>
+
+const StyledStepperContainer = styled.div``
+const StyledStepperBody = styled.div``
+const StyledStepperHeader = styled.div``
+const StyledStepperHeaderItem = styled.div``
 
 export default forwardRef(Stepper)

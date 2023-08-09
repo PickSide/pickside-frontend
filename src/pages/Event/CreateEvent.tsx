@@ -1,3 +1,4 @@
+import { StepContent, Stepper } from 'widgets'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { AppState } from 'state'
@@ -6,7 +7,7 @@ import Step1 from './Forms/Step1'
 import Step2 from './Forms/Step2'
 import Step3 from './Forms/Step3'
 import Step4 from './Forms/Step4'
-import { Stepper } from 'widgets'
+import { Steppper } from 'widgets/Stepper'
 import dayjs from 'dayjs'
 import moment from 'moment'
 import { useApi } from 'hooks'
@@ -89,16 +90,28 @@ const CreateEvent = () => {
 			required: true,
 		},
 	]
+
+	console.log(Steppper)
+
 	return (
 		<div className="flex flex-col h-screen">
 			<form className="flex-1 py-8 lg:px-8 lg:w-[70%] w-[80%] mx-auto" onSubmit={form.handleSubmit(onSubmit)}>
-				<Stepper
+				{/* <Stepper
 					steps={steps}
 					submitDisabled={!form.formState.isDirty}
 					submitText={t('Post')}
 					nextText={t('Continue')}
-				/>
+				/> */}
+				<Steppper>
+					<Steppper.Steps>
+						<Stepper.Step></Stepper.Step>
+						<Stepper.Step></Stepper.Step>
+						<Stepper.Step></Stepper.Step>
+						<Stepper.Step></Stepper.Step>
+					</Steppper.Steps>
+				</Steppper>
 			</form>
+
 			<Footer />
 		</div>
 	)
