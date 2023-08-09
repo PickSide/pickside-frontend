@@ -1,5 +1,5 @@
 import { Activity, AppState } from 'state'
-import { BsBookmark, BsBookmarksFill, BsPeople } from 'react-icons/bs'
+import { BsBookmark, BsBookmarkFill, BsPeople } from 'react-icons/bs'
 import { Button, Card, CardBody, CardCTA, CardHeader, CardImage, IconButton } from 'components'
 import { MdOutlineLocationOn, MdOutlinePriceChange } from 'react-icons/md'
 import React, { useState } from 'react'
@@ -49,7 +49,7 @@ const ActivityCard = ({ activity }) => {
 							<div className="float-right">
 								{connectedUser?.favorites?.includes(activity.id) ? (
 									<IconButton
-										icon={<BsBookmarksFill size={20} />}
+										icon={<BsBookmarkFill size={20} />}
 										onClick={() => dispatch<any>(updateFavorite(activity.id))}
 									/>
 								) : (

@@ -1,5 +1,5 @@
 import { Activity, AppState } from 'state'
-import { BsBookmark, BsBookmarksFill, BsPeople } from 'react-icons/bs'
+import { BsBookmark, BsBookmarkFill, BsPeople } from 'react-icons/bs'
 import { Button, Dialog, Gallery, IconButton } from 'components'
 import { FC, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -79,7 +79,7 @@ const EventCard: FC<ActivityProps> = ({ activity, minWidth }) => {
 						<div className="float-right">
 							{connectedUser?.favorites?.includes(activity.id) ? (
 								<IconButton
-									icon={<BsBookmarksFill size={20} />}
+									icon={<BsBookmarkFill size={20} />}
 									onClick={() => dispatch<any>(updateFavorite(activity.id))}
 								/>
 							) : (
