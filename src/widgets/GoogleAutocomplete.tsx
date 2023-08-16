@@ -2,7 +2,7 @@ import { StandaloneSearchBox, useJsApiLoader } from '@react-google-maps/api'
 import { forwardRef, useEffect, useState } from 'react'
 
 import { HiOutlineLocationMarker } from 'react-icons/hi'
-import { TextField } from 'components'
+import { TextField } from '@components'
 import { useTranslation } from 'react-i18next'
 
 const GoogleAutocomplete = ({ label, onSelectPlace, ...rest }, ref) => {

@@ -1,4 +1,4 @@
-import { Button } from 'components'
+import { Button } from '@components'
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 

@@ -1,8 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { ReactNode, forwardRef, useEffect, useState } from 'react'
 
-import { KEY_CODES } from 'utils'
-import { dropdownAnimation } from 'utils'
+import { KEY_CODES } from '@utils'
+import { dropdownAnimation } from '@utils'
 import { twMerge } from 'tailwind-merge'
 
 interface DropdownProps {

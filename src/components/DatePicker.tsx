@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { MdCalendarToday, MdOutlineChevronLeft, MdOutlineChevronRight } from 'react-icons/md'
-import { dropdownAnimation, generateDate, months, weeks } from 'utils'
+import { dropdownAnimation, generateDate, months, weeks } from '@utils'
 import { forwardRef, useId, useState } from 'react'
 
 import dayjs from 'dayjs'

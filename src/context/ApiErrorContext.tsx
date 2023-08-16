@@ -1,4 +1,4 @@
-import { AppState, setUser } from 'state'
+import { AppState, setUser } from '@state'
 import { FC, createContext, useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 

@@ -1,8 +1,6 @@
-import { DatePicker, FormDivider, TimePicker } from 'components'
+import { DatePicker, FormDivider, TimePicker } from '@components'
 
-import { Controller } from 'react-hook-form'
-import { GoogleAutocomplete } from 'widgets'
-import { TFunction } from 'i18next'
+import { GoogleAutocomplete } from '@widgets'
 
 const Step1 = ({ register, setValue, t }) => (
 	<>

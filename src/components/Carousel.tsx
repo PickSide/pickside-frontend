@@ -1,10 +1,10 @@
-import { BREAKPOINTS, cn, slideIn } from 'utils'
+import { BREAKPOINTS, cn, slideIn } from '@utils'
 import { Children, FC, Fragment, cloneElement, createContext, useEffect, useMemo, useState } from 'react'
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from 'react-icons/md'
 
 import { motion } from 'framer-motion'
 import { times } from 'lodash'
-import { useDevice } from 'hooks'
+import { useDevice } from '@hooks'
 
 interface CarouselContextProps {
 	flow?: 'horizontal' | 'vertical'

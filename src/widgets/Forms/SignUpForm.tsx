@@ -1,7 +1,7 @@
 import { BiLockAlt, BiUser } from 'react-icons/bi'
-import { Button, Checkbox, TextField } from 'components'
-import { EMAIL_REGEX, PASSWORD_REGEX, PHONE_REGEX } from 'utils'
-import { useApi, useDevice } from 'hooks'
+import { Button, Checkbox, TextField } from '@components'
+import { EMAIL_REGEX, PASSWORD_REGEX, PHONE_REGEX } from '@utils'
+import { useApi, useDevice } from '@hooks'
 
 import { AiFillPhone } from 'react-icons/ai'
 import { MdOutlineAlternateEmail } from 'react-icons/md'

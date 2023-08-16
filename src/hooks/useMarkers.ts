@@ -1,7 +1,8 @@
-import { useMemo } from 'react'
+import { AppState, setSelectedContext } from '@state'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppState, setSelectedContext } from 'state'
-import { SPORT_EVENTS_ID } from 'utils'
+
+import { SPORT_EVENTS_ID } from '@utils'
+import { useMemo } from 'react'
 
 const useMarkers = (): { markerProps: any[] } => {
 	const dispatch = useDispatch()

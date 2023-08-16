@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Fragment, forwardRef, useId, useState } from 'react'
 
 import { MdAccessTime } from 'react-icons/md'
-import { dropdownAnimation } from 'utils'
+import { dropdownAnimation } from '@utils'
 import moment from 'moment'
 import { times } from 'lodash'
 
@@ -28,7 +28,7 @@ const TimePicker = ({ onChange, ...rest }, ref) => {
 			<button
 				id={id}
 				type="button"
-				className="flex gap-x-3 items-center cursor-default rounded-lg h-[50px] w-full py-1.5 pl-3 pr-10 text-left text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-primary sm:text-sm sm:leading-6"
+				className="flex gap-x-3 items-center cursor-default rounded-lg h-[50px] w-full py-1.5 pl-3 pr-10 text-left text-gray-600 shadow-sm ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-primary sm:text-sm sm:leading-6"
 				onClick={handleOpen}
 				aria-haspopup="listbox"
 				aria-expanded="true"

@@ -1,8 +1,8 @@
-import { AppState, setStatus } from 'state'
+import { AppState, setStatus } from '@state'
 import { FC, createContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { useApi } from 'hooks'
+import { useApi } from '@hooks'
 import { useLocalStorage } from 'react-use'
 import { useTranslation } from 'react-i18next'
 

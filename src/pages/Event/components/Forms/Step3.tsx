@@ -1,7 +1,7 @@
 import { Controller } from 'react-hook-form'
 import { TFunction } from 'i18next'
-import { TextAreaField } from 'components'
-import { useDevice } from 'hooks'
+import { TextAreaField } from '@components'
+import { useDevice } from '@hooks'
 
 const Step3 = ({ setValue, t }) => {
 	const [device] = useDevice()

@@ -1,6 +1,6 @@
 import { ReactNode, forwardRef, useId } from 'react'
 
-import { ButtonVariant } from 'utils'
+import { ButtonVariant } from '@utils'
 import { twMerge } from 'tailwind-merge'
 
 interface UploadProps {

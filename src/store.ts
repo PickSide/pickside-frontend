@@ -1,7 +1,7 @@
-import { authMiddleware, toastMiddleware } from 'middlewares'
+import { authMiddleware, toastMiddleware } from '@middlewares'
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 
-import { reducers } from 'state'
+import { reducers } from '@state'
 
 const middleware = [
 	...getDefaultMiddleware({

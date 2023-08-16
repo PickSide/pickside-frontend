@@ -1,13 +1,13 @@
-import { Activity, AppState } from 'state'
+import { Activity, AppState } from '@state'
 import { BsBookmark, BsBookmarkFill, BsPeople } from 'react-icons/bs'
-import { Button, Card, CardBody, CardCTA, CardHeader, CardImage, IconButton } from 'components'
+import { Button, Card, CardBody, CardCTA, CardHeader, CardImage, IconButton } from '@components'
 import { MdOutlineLocationOn, MdOutlinePriceChange } from 'react-icons/md'
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { BiTime } from 'react-icons/bi'
 import dayjs from 'dayjs'
-import { useApi } from 'hooks'
+import { useApi } from '@hooks'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 interface ActivityCardProps {

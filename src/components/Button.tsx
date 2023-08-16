@@ -1,4 +1,4 @@
-import { ButtonVariant, cn } from 'utils'
+import { ButtonVariant, cn } from '@utils'
 import React, { FC } from 'react'
 
 import Spinner from './Spinner'

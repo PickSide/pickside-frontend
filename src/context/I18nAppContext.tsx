@@ -1,6 +1,6 @@
 import { FC, ReactNode, createContext, useContext, useEffect, useState } from 'react'
 
-import { AppState } from 'state'
+import { AppState } from '@state'
 import { useSelector } from 'react-redux'
 
 export interface I18nAppContextProps {

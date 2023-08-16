@@ -1,5 +1,5 @@
-import { Button } from 'components'
-import { useApi } from 'hooks'
+import { Button } from '@components'
+import { useApi } from '@hooks'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 

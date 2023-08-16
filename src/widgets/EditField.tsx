@@ -1,4 +1,4 @@
-import { TextField } from 'components'
+import { TextField } from '@components'
 import { useState } from 'react'
 
 const EditField = ({ value, ...rest }) => {

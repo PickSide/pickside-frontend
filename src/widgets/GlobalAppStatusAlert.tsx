@@ -1,10 +1,10 @@
-import { FC } from 'react'
+import { Alert, Button, IconButton } from '@components'
+import { AppState, setStatus } from '@state'
 import { useDispatch, useSelector } from 'react-redux'
-import { BsX } from 'react-icons/bs'
 
-import { Alert, Button, IconButton } from 'components'
-import { AppState, setStatus } from 'state'
 import { AnimatePresence } from 'framer-motion'
+import { BsX } from 'react-icons/bs'
+import { FC } from 'react'
 
 const GlobalAppStatusAlert: FC<any> = () => {
 	const dispatch = useDispatch()

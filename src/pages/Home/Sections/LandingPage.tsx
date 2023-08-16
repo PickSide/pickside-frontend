@@ -1,11 +1,11 @@
-import { Button, IconButton } from 'components'
+import { Button, IconButton } from '@components'
 import { FC, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { FaLocationArrow } from 'react-icons/fa'
-import { GoogleAutocomplete } from 'widgets'
-import { setSelectedLocation } from 'state'
-import { useDevice } from 'hooks'
+import { GoogleAutocomplete } from '@widgets'
+import { setSelectedLocation } from '@state'
+import { useDevice } from '@hooks'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 

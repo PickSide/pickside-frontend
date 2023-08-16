@@ -2,10 +2,10 @@
 
 import '/node_modules/flag-icons/css/flag-icons.min.css'
 
-import { Dropdown, IconDropdown, MenuItem } from 'components'
-import { useDevice, useLocaleSwitcher } from 'hooks'
+import { Dropdown, IconDropdown, MenuItem } from '@components'
+import { useDevice, useLocaleSwitcher } from '@hooks'
 
-import { AppState } from 'state'
+import { AppState } from '@state'
 import { FaGlobe } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'

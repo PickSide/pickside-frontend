@@ -1,6 +1,6 @@
 import { useAsync, useLocalStorage } from 'react-use'
 
-import { getItem } from 'utils'
+import { getItem } from '@utils'
 
 interface UseRefreshTokenOutputs {
 	loading: boolean

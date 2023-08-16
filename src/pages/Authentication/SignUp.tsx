@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
-import { SignUpForm } from 'widgets'
+import { SignUpForm } from '@widgets'
 import { motion } from 'framer-motion'
-import { pageTransition } from 'utils'
+import { pageTransition } from '@utils'
 
 const SignUp = () => {
 	return (

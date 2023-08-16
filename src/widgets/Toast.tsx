@@ -1,10 +1,11 @@
-import { FC, ReactNode } from 'react'
-import { BsX } from 'react-icons/bs'
 import { AiFillCheckCircle, AiFillWarning } from 'react-icons/ai'
-import { BsInfoCircleFill } from 'react-icons/bs'
-import { MdError } from 'react-icons/md'
 import { AnimatePresence, motion } from 'framer-motion'
-import { fadeIn } from 'utils'
+import { FC, ReactNode } from 'react'
+
+import { BsInfoCircleFill } from 'react-icons/bs'
+import { BsX } from 'react-icons/bs'
+import { MdError } from 'react-icons/md'
+import { fadeIn } from '@utils'
 
 interface ToastProps {
 	show?: boolean

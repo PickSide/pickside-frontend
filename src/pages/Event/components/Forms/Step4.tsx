@@ -1,6 +1,6 @@
-import { FormDivider, TextField } from 'components'
+import { FormDivider, TextField } from '@components'
 
-import { ImageUploader } from 'widgets'
+import { ImageUploader } from '@widgets'
 
 const Step4 = ({ setValue, t }) => (
 	<div className="flex flex-col">

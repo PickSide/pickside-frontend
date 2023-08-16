@@ -1,6 +1,6 @@
 import { SubmitHandler, UseFormReturn } from 'react-hook-form'
 
-import { Button } from 'components'
+import { Button } from '@components'
 import React from 'react'
 import Step1 from './Forms/Step1'
 import Step2 from './Forms/Step2'

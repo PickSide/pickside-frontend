@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice, current } from '@reduxjs/toolkit'
-import { Resources, Sport, User } from 'state'
+import { Resources, Sport, User } from '@state'
 
 export interface Activities extends Resources {
 	results?: Activity[]

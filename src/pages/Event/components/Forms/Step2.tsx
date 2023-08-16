@@ -1,6 +1,6 @@
-import { FormDivider, NumberField, Select } from 'components'
+import { FormDivider, NumberField, Select } from '@components'
 
-import { AppState } from 'state'
+import { AppState } from '@state'
 import { Controller } from 'react-hook-form'
 import { TFunction } from 'i18next'
 import { useSelector } from 'react-redux'

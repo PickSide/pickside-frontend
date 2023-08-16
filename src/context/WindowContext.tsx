@@ -1,6 +1,6 @@
 import { FC, createContext, useCallback, useEffect, useMemo, useState } from 'react'
 
-import { BREAKPOINTS } from 'utils'
+import { BREAKPOINTS } from '@utils'
 
 export type DeviceType = 'mobile' | 'tablet' | 'desktop'
 export type OrientationType = 'portrait' | 'landscape'

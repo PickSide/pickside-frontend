@@ -1,9 +1,9 @@
-import { AppState, User, setUser } from 'state'
+import { AppState, User, setUser } from '@state'
 import { FC, createContext, useContext, useEffect } from 'react'
 import { isEmpty, isEqual, merge } from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { useApi } from 'hooks'
+import { useApi } from '@hooks'
 
 const Context = createContext<any>({})
 

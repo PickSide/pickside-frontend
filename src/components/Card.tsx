@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { cn } from 'utils'
+import { cn } from '@utils'
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 	size?: 'sm' | 'md' | 'lg'
