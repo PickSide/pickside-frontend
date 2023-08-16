@@ -46,8 +46,8 @@ export interface AppState {
 	deactivated?: boolean
 	locales?: Locales
 	notifications?: Notifications
-	playables?: Playables,
-	selectedActivity?: any,
+	playables?: Playables
+	selectedActivity?: any
 	selectedContexts?: SelectedContexts
 	selectedLocation?: any
 	selectedSport?: any
@@ -71,5 +71,5 @@ export const reducers = {
 	selectedSport,
 	sports,
 	toast,
-	user
+	user,
 }

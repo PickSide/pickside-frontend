@@ -2,7 +2,7 @@ import { Activity, AppState } from 'state'
 import { BsBookmark, BsBookmarkFill, BsPeople } from 'react-icons/bs'
 import { Button, Card, CardBody, CardCTA, CardHeader, CardImage, IconButton } from 'components'
 import { MdOutlineLocationOn, MdOutlinePriceChange } from 'react-icons/md'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { BiTime } from 'react-icons/bi'

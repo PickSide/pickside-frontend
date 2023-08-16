@@ -1,8 +1,6 @@
-import { ReactNode, forwardRef, useCallback, useState } from 'react'
+import { ReactNode, forwardRef } from 'react'
 
-import { HiSelector } from 'react-icons/hi'
 import ReactSelect from 'react-select'
-import { motion } from 'framer-motion'
 
 interface SelectProps {
 	startContent?: ReactNode

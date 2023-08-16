@@ -27,7 +27,9 @@ export const WindowProvider: FC<any> = ({ children }) => {
 	const [clientWidth, setVw] = useState<number>(getVw())
 
 	const device = useMemo<DeviceType>(() => {
-		const { md, lg } = BREAKPOINTS
+		const md = Number(BREAKPOINTS.md.replace('px', ''))
+		const lg = Number(BREAKPOINTS.lg.replace('px', ''))
+		
 		if (clientWidth <= md) {
 			return 'mobile'
 		}

@@ -19,7 +19,6 @@ import Map from './Map'
 import NotificationMenu from './NotificationMenu'
 import ProfileMenu from './ProfileMenu'
 import SignUpForm from './Forms/SignUpForm'
-import Stepper from './Stepper'
 import ThemeSwitcher from './ThemeSwitcher'
 import Toast from './Toast'
 
@@ -45,7 +44,6 @@ export {
 	NotificationMenu,
 	ProfileMenu,
 	SignUpForm,
-	Stepper,
 	ThemeSwitcher,
 	Toast,
 }

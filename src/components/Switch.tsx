@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useState } from 'react'
+import React, { forwardRef, useCallback, useState } from 'react'
 
 interface ToggleProps {
 	defaultChecked?: boolean

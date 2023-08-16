@@ -31,11 +31,11 @@ export const ENV_VARIABLES = {
 }
 
 export const BREAKPOINTS = {
-	xs: 320,
-	sm: 360, //mobile
-	md: 768, //ipad
-	lg: 1024, //pc
-	xl: 1200,
+	xs: '320px',
+	sm: '360px', //mobile
+	md: '768px', //ipad
+	lg: '1024px', //pc
+	xl: '1200px',
 }
 
 export type IconVariant = 'primary' | 'secondary' | 'tertiary' | 'danger'
