@@ -44,5 +44,5 @@ const StepperWrapper = ({ children }) => (
 )
 
 export const StepperBodyWrapper = ({ children }) => (
-	<div className="flex flex-col h-full justify-between w-full lg:w-fit mx-auto">{children}</div>
+	<div className="flex flex-col h-full  w-full lg:w-fit mx-auto">{children}</div>
 )

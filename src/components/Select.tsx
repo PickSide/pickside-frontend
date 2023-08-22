@@ -19,7 +19,7 @@ interface SelectProps {
 const Select = ({ label, fullWidth = false, ...rest }: SelectProps | any, ref) => {
 	return (
 		<div className={`relative min-w-[200px] ${fullWidth ? 'w-full' : ''}`}>
-			<label id="listbox-label" className="block text-sm font-medium leading-6 text-gray-400">
+			<label id="listbox-label" className="text-gray-800 leading-4">
 				{label}
 			</label>
 			<ReactSelect {...rest} ref={ref} />

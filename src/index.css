@@ -54,6 +54,13 @@
 		background: #171717;
 	}
 
+	.pac-container:after {
+		/* Disclaimer: not needed to show 'powered by Google' if also a Google Map is shown */
+
+		background-image: none !important;
+		height: 0px;
+	}
+
 	code {
 		font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 	}
