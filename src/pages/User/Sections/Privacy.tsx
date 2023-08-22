@@ -1,8 +1,8 @@
-import { SettingField, Switch } from 'components'
+import { SettingField, Switch } from '@components'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { AppState } from 'state'
-import { useApi } from 'hooks'
+import { AppState } from '@state'
+import { useApi } from '@hooks'
 import { useTranslation } from 'react-i18next'
 
 const Privacy = () => {

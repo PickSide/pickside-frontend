@@ -1,4 +1,4 @@
-import { AppState, setLocale } from 'state'
+import { AppState, setLocale } from '@state'
 import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 

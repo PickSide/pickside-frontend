@@ -1,7 +1,8 @@
-import React, { Children, ReactElement, ReactNode, useMemo, forwardRef, useState } from 'react'
+import React, { Children, ReactElement, ReactNode, forwardRef, useMemo, useState } from 'react'
+
+import { fadeIn } from '@utils'
 import { motion } from 'framer-motion'
 import { twMerge } from 'tailwind-merge'
-import { fadeIn } from 'utils'
 
 interface PopoverProps {
 	trigger?: ReactElement<any>

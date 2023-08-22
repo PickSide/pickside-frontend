@@ -1,6 +1,5 @@
-import React, { ReactElement, forwardRef, useEffect, useState, useRef, ReactNode } from 'react'
-import { useSize } from 'react-use'
 import { MdExpandLess, MdExpandMore } from 'react-icons/md'
+import {ReactNode, forwardRef, useState} from 'react'
 
 interface AccordionSectionProps {
 	title: string

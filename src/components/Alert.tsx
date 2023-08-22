@@ -1,8 +1,9 @@
+import { AiFillCheckCircle, AiFillInfoCircle, AiFillWarning } from 'react-icons/ai'
 import { FC, ReactNode } from 'react'
-import { AiFillCheckCircle, AiFillWarning, AiFillInfoCircle } from 'react-icons/ai'
+
 import { BiErrorAlt } from 'react-icons/bi'
+import { fadeIn } from '@utils'
 import { motion } from 'framer-motion'
-import { fadeIn } from 'utils'
 
 interface AlertProps {
 	severity?: 'success' | 'warning' | 'error' | 'info'

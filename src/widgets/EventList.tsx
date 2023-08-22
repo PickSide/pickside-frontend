@@ -1,8 +1,8 @@
 import { FC, memo } from 'react'
 
-import { AppState } from 'state'
-import { EventCard } from 'widgets'
-import { useDevice } from 'hooks'
+import { AppState } from '@state'
+import { EventCard } from '@widgets'
+import { useDevice } from '@hooks'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 

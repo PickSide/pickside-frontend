@@ -1,9 +1,9 @@
-import { Carousel, CarouselItem, Spinner } from 'components'
-import { useApi, useDevice } from 'hooks'
+import { Carousel, CarouselItem, Spinner } from '@components'
+import { useApi, useDevice } from '@hooks'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { ActivityCard } from 'widgets'
-import { AppState } from 'state'
+import { ActivityCard } from '@widgets'
+import { AppState } from '@state'
 import { NavLink } from 'react-router-dom'
 import friendship from '../../../assets/friendship.png'
 import onTime from '../../../assets/on-time.png'

@@ -1,8 +1,8 @@
 import { FC, ReactNode, createContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { AppState } from 'state'
-import { useApi } from 'hooks'
+import { AppState } from '@state'
+import { useApi } from '@hooks'
 import { useAsync } from 'react-use'
 
 export interface InitialAppStateContextProps {

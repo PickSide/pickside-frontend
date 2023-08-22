@@ -1,11 +1,11 @@
-import { Dropdown, IconDropdown, MenuItem } from 'components'
+import { Dropdown, IconDropdown, MenuItem } from '@components'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { AppState } from 'state'
+import { AppState } from '@state'
 import { FC } from 'react'
 import { MdOutlineNotifications } from 'react-icons/md'
 import { RxDotFilled } from 'react-icons/rx'
-import { useApi } from 'hooks'
+import { useApi } from '@hooks'
 import { useTranslation } from 'react-i18next'
 
 const NotificationMenu: FC<any> = () => {

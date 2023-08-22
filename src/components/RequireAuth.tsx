@@ -1,6 +1,6 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
-import { AppState } from 'state'
+import { AppState } from '@state'
 import { FC } from 'react'
 import { useSelector } from 'react-redux'
 

@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 
-import { Button } from 'components'
-import { fadeIn } from 'utils'
+import { Button } from '@components'
+import { fadeIn } from '@utils'
 import { useTranslation } from 'react-i18next'
 
 const BottomDrawer = ({ show = false, onReset }) => {

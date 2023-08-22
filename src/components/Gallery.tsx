@@ -1,9 +1,9 @@
-import { Button, IconButton } from 'components'
+import { Button, IconButton } from '@components'
 import { FC, forwardRef, useCallback, useEffect, useMemo, useState } from 'react'
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from 'react-icons/md'
 import { VscCircle, VscCircleFilled } from 'react-icons/vsc'
 
-import { fadeIn } from 'utils'
+import { fadeIn } from '@utils'
 import { motion } from 'framer-motion'
 
 interface GalleryProps {

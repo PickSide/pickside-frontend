@@ -1,8 +1,8 @@
-import { Button, Dialog, Select, TextField } from 'components'
+import { Button, Dialog, Select, TextField } from '@components'
 import { Controller, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { useApi } from 'hooks'
+import { useApi } from '@hooks'
 import { useTranslation } from 'react-i18next'
 
 const ChangePasswordForm = ({ onClose }) => {

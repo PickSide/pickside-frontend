@@ -1,11 +1,11 @@
-import { BottomDrawer, ChangePasswordForm, DeactivationForm } from 'widgets'
-import { Button, Dialog, Select, TextField } from 'components'
+import { BottomDrawer, ChangePasswordForm, DeactivationForm } from '@widgets'
+import { Button, Dialog, Select, TextField } from '@components'
 import { Controller, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { AppState } from 'state'
+import { AppState } from '@state'
 import { FaExternalLinkAlt } from 'react-icons/fa'
-import { useApi } from 'hooks'
+import { useApi } from '@hooks'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 

@@ -1,7 +1,7 @@
 import { IoIosAdd, IoIosRemove } from 'react-icons/io'
 import { forwardRef, useId, useState } from 'react'
 
-import { NUMBERS_ONLY_REGEX } from 'utils'
+import { NUMBERS_ONLY_REGEX } from '@utils'
 
 interface TextFieldProps {
 	label?: string

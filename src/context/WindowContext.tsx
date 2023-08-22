@@ -1,6 +1,6 @@
 import { FC, createContext, useCallback, useEffect, useMemo, useState } from 'react'
 
-import { BREAKPOINTS } from 'utils'
+import { BREAKPOINTS } from '@utils'
 
 export type DeviceType = 'mobile' | 'tablet' | 'desktop'
 export type OrientationType = 'portrait' | 'landscape'
@@ -12,7 +12,12 @@ export interface WindowContextProps {
 	orientation: OrientationType
 }
 
-const WindowContext = createContext<WindowContextProps>({ clientHeight: 0, clientWidth: 0, device: 'desktop' })
+const WindowContext = createContext<WindowContextProps>({
+	clientHeight: 0,
+	clientWidth: 0,
+	device: 'desktop',
+	orientation: 'landscape',
+})
 
 export const WindowProvider: FC<any> = ({ children }) => {
 	const getVh = useCallback(() => Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0), [])
@@ -22,7 +27,9 @@ export const WindowProvider: FC<any> = ({ children }) => {
 	const [clientWidth, setVw] = useState<number>(getVw())
 
 	const device = useMemo<DeviceType>(() => {
-		const { md, lg } = BREAKPOINTS
+		const md = Number(BREAKPOINTS.md.replace('px', ''))
+		const lg = Number(BREAKPOINTS.lg.replace('px', ''))
+		
 		if (clientWidth <= md) {
 			return 'mobile'
 		}

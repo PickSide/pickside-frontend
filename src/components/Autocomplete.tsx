@@ -1,11 +1,11 @@
-import { FC, useCallback, useId, useMemo, useState } from 'react'
-import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
-import { BiSearch } from 'react-icons/bi'
-import { useTranslation } from 'react-i18next'
 import { AnimatePresence, motion } from 'framer-motion'
-import { dropdownAnimation } from 'utils'
+import { FC, useCallback, useId, useMemo, useState } from 'react'
+
+import { BiSearch } from 'react-icons/bi'
 import Spinner from './Spinner'
 import _groupBy from 'lodash/groupBy'
+import { dropdownAnimation } from '@utils'
+import { useTranslation } from 'react-i18next'
 
 interface AutocompleteProps<T> {
 	placeholder?: string

@@ -16,10 +16,10 @@ import {
 	updateActivity,
 	updateConfig,
 	updateFavorite
-} from 'state'
+} from '@state'
 
 import { Dispatch } from '@reduxjs/toolkit'
-import { useApiHelpers } from 'hooks'
+import { useApiHelpers } from '@hooks'
 import { useSelector } from 'react-redux'
 
 interface UseApiOutput {

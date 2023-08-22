@@ -1,8 +1,8 @@
 import { AiOutlineFacebook, AiOutlineInstagram, AiOutlineTwitter } from 'react-icons/ai'
 
-import { Button } from 'components'
+import { Button } from '@components'
 import { NavLink } from 'react-router-dom'
-import { useDevice } from 'hooks'
+import { useDevice } from '@hooks'
 import { useTranslation } from 'react-i18next'
 
 const Footer = () => {

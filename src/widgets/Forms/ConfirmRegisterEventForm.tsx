@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { useApi } from 'hooks'
+import { useApi } from '@hooks'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 

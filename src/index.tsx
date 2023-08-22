@@ -1,7 +1,5 @@
 import './index.css'
 
-import React, { Suspense } from 'react'
-
 import App from './App'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { I18nextProvider } from 'react-i18next'

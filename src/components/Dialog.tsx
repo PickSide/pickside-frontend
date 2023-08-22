@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { FC, ReactNode } from 'react'
 
 import { BsX } from 'react-icons/bs'
-import { modaleDropIn } from 'utils'
+import { modaleDropIn } from '@utils'
 
 interface DialogProps {
 	open?: boolean

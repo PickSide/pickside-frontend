@@ -1,7 +1,8 @@
 import { FC, memo } from 'react'
-import { useSelector } from 'react-redux'
 import { InfoWindow, Marker } from '@react-google-maps/api'
-import { AppState } from 'state'
+
+import { AppState } from '@state'
+import { useSelector } from 'react-redux'
 
 const MapMarker: FC<any> = ({ id, coords, children, icon, onWindowClose, onToggleOpen }) => {
 	const selectedActivity = useSelector((state: AppState) => state.selectedActivity)

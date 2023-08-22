@@ -1,11 +1,11 @@
 import { FC, useMemo } from 'react'
-import { IconDropdown, MenuItem } from 'components'
+import { IconDropdown, MenuItem } from '@components'
 import { MdGroups2, MdLogout, MdOutlineEventAvailable, MdOutlineSettings } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { AppState } from 'state'
+import { AppState } from '@state'
 import avatarPlaceholder from '../assets/avatar-placeholder.png'
-import { useApi } from 'hooks'
+import { useApi } from '@hooks'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 

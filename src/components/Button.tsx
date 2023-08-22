@@ -1,4 +1,4 @@
-import { ButtonVariant, cn } from 'utils'
+import { ButtonVariant, cn } from '@utils'
 import React, { FC } from 'react'
 
 import Spinner from './Spinner'
@@ -6,11 +6,13 @@ import Spinner from './Spinner'
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 	className?: string
 	children?: any
+	disabled?: boolean
 	isLoading?: boolean
 	variant?: ButtonVariant
+	type: 'button' | 'submit' | 'reset' | undefined
 }
 
-const Button: FC<ButtonProps | any> = ({ children, className, isLoading = false, variant = 'primary', ...rest }) => {
+const Button: FC<ButtonProps> = ({ children, className, isLoading = false, variant = 'primary', ...rest }) => {
 	const variants = {
 		primary: 'text-white bg-primary hover:bg-gray-300 disabled:bg-gray-200 dark:bg-white dark:text-black',
 		secondary:
@@ -22,7 +24,6 @@ const Button: FC<ButtonProps | any> = ({ children, className, isLoading = false,
 	return (
 		<button
 			className={cn('rounded px-4 py-2 font-medium', variants[variant], { 'cursor-not-allowed': isLoading }, className)}
-			type="button"
 			{...rest}
 		>
 			{isLoading ? <Spinner /> : children}

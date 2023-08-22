@@ -1,17 +1,17 @@
-import { BackButton, LanguageSwitcher, NotificationMenu, ProfileMenu, ThemeSwitcher } from 'widgets'
-import { Button, IconDropdown, MenuItem } from 'components'
+import { BackButton, LanguageSwitcher, NotificationMenu, ProfileMenu, ThemeSwitcher } from '@widgets'
+import { Button, IconDropdown, MenuItem } from '@components'
 import { MdLogout, MdOutlineHistory, MdOutlineSettings, MdPersonOutline } from 'react-icons/md'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { useApi, useDevice, useOnScreen } from 'hooks'
+import { useApi, useDevice, useOnScreen } from '@hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMemo, useRef } from 'react'
 
 import { AiOutlineLogin } from 'react-icons/ai'
-import { AppState } from 'state'
+import { AppState } from '@state'
 import { BsCalendar2Event } from 'react-icons/bs'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { motion } from 'framer-motion'
-import { pageTransition } from 'utils'
+import { pageTransition } from '@utils'
 import { useTranslation } from 'react-i18next'
 
 const ROUTES_TO_EXCLUDE_BAR: any = []

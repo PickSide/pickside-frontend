@@ -1,9 +1,9 @@
-import { ActivitySelectedSidenav, EventList, Map } from 'widgets'
+import { ActivitySelectedSidenav, EventList, Map } from '@widgets'
 
 import { FC } from 'react'
 import { motion } from 'framer-motion'
-import { pageTransition } from 'utils'
-import { useDevice } from 'hooks'
+import { pageTransition } from '@utils'
+import { useDevice } from '@hooks'
 
 const Listing: FC<any> = ({ ...props }) => {
 	const [device] = useDevice()

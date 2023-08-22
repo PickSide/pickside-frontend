@@ -1,11 +1,11 @@
-import { AppState, setAppTheme } from 'state'
-import { Dropdown, IconDropdown, MenuItem } from 'components'
+import { AppState, setAppTheme } from '@state'
+import { Dropdown, IconDropdown, MenuItem } from '@components'
 import { MdDarkMode, MdLightMode } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { CgDarkMode } from 'react-icons/cg'
 import { FC } from 'react'
-import { useDevice } from 'hooks'
+import { useDevice } from '@hooks'
 import { useTranslation } from 'react-i18next'
 
 const ThemeSwitcher: FC<any> = () => {

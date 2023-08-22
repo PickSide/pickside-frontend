@@ -1,16 +1,16 @@
-import { Activity, AppState } from 'state'
+import { Activity, AppState } from '@state'
 import { BsBookmark, BsBookmarkFill, BsPeople } from 'react-icons/bs'
-import { Button, Dialog, Gallery, IconButton } from 'components'
+import { Button, Dialog, Gallery, IconButton } from '@components'
 import { FC, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { BiTime } from 'react-icons/bi'
-import { ConfirmRegisterEventForm } from 'widgets'
+import { ConfirmRegisterEventForm } from '@widgets'
 import { FaLocationArrow } from 'react-icons/fa'
 import dayjs from 'dayjs'
 import placeholder from '../assets/avatar-placeholder.jpg'
 import { twMerge } from 'tailwind-merge'
-import { useApi } from 'hooks'
+import { useApi } from '@hooks'
 import { useTranslation } from 'react-i18next'
 
 interface ActivityProps {

@@ -1,4 +1,4 @@
-import { DatePicker, TimePicker } from 'components'
+import { DatePicker, TimePicker } from '@components'
 
 import { useState } from 'react'
 

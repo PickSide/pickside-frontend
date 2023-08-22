@@ -1,34 +1,40 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { MdCalendarToday, MdOutlineChevronLeft, MdOutlineChevronRight } from 'react-icons/md'
-import { dropdownAnimation, generateDate, months, weeks } from 'utils'
+import { dropdownAnimation, generateDate, months, weeks } from '@utils'
 import { forwardRef, useId, useState } from 'react'
 
+import { cn } from '@utils'
 import dayjs from 'dayjs'
 
-const DatePicker = ({ value = dayjs(), onChange, ...rest }, ref) => {
+const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 	const [today, setToday] = useState<dayjs.Dayjs>(value)
-	const [selectDate, setSelectDate] = useState<dayjs.Dayjs>(value)
+	const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs>(value)
 	const [open, setOpen] = useState<boolean>(false)
 
 	const id = useId()
 
-	const handleOpen = () => setOpen(true)
+	const openCalendar = () => setOpen(true)
+	const closeCalendar = () => setOpen(false)
+
 	const handleSelect = (date) => {
-		setSelectDate(date)
-		onChange(date)
+		setSelectedDate(date)
+		if (rest.onChange) {
+			rest.onChange(date)
+		}
 		setOpen(false)
 	}
 
+	console.log(selectedDate)
+
 	return (
-		<div className="relative w-full" tabIndex={0}>
+		<div className={cn('relative', fullWidth ? 'w-full' : 'max-w-[230px]')} tabIndex={0}>
 			<label htmlFor={id} className="text-gray-800 leading-4">
 				{rest.label}
 			</label>
-			<button
+			<div
 				id={id}
-				type="button"
 				className="flex gap-x-3 items-center cursor-default rounded-md w-full h-[50px] bg-white py-1.5 pl-3 pr-10 text-left text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-primary sm:text-sm sm:leading-6"
-				onClick={handleOpen}
+				onClick={openCalendar}
 				aria-haspopup="listbox"
 				aria-expanded="true"
 				aria-labelledby="listbox-label"
@@ -36,10 +42,15 @@ const DatePicker = ({ value = dayjs(), onChange, ...rest }, ref) => {
 				<span className="flex items-center">
 					<MdCalendarToday size={20} />
 				</span>
-				<span className="flex flex-col items-start justify-center">
-					<span className="font-semibold">{selectDate?.toDate().toDateString()}</span>
-				</span>
-			</button>
+				<input
+					onFocus={openCalendar}
+					onBlur={closeCalendar}
+					value={selectedDate?.toDate().toDateString()}
+					ref={ref}
+					readOnly
+					{...rest}
+				/>
+			</div>
 			<AnimatePresence mode="wait">
 				{open && (
 					<>
@@ -89,7 +100,7 @@ const DatePicker = ({ value = dayjs(), onChange, ...rest }, ref) => {
 										>
 											{date.date()}
 										</button>
-									) : selectDate?.toDate().toDateString() === date.toDate().toDateString() ? (
+									) : selectedDate?.toDate().toDateString() === date.toDate().toDateString() ? (
 										<button
 											type="button"
 											key={idx}

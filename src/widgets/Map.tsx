@@ -1,9 +1,9 @@
-import { AppState, setSelectedActivity } from 'state'
+import { AppState, setSelectedActivity } from '@state'
 import { FC, useState } from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
-import { MapMarker, Spinner } from 'components'
+import { MapMarker, Spinner } from '@components'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEnvVariables, useMapStyles } from 'hooks'
+import { useEnvVariables, useMapStyles } from '@hooks'
 
 import { faSoccerBall } from '@fortawesome/free-solid-svg-icons'
 import { twMerge } from 'tailwind-merge'

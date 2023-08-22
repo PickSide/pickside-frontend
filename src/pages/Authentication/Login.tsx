@@ -1,9 +1,10 @@
-import { LoginForm } from 'widgets'
+import { LoginForm } from '@widgets'
 import { NavLink } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { pageTransition } from 'utils'
+import { pageTransition } from '@utils'
 
 const Login = () => {
+	console.log(window)
 	return (
 		<motion.div
 			initial="hidden"

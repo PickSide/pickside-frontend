@@ -1,8 +1,8 @@
-import { AppState, Area } from 'state'
-import { BottomDrawer, EditField } from 'widgets'
-import { Chip, Select, TextAreaField, TextField, Toggle, ToggleGroup } from 'components'
+import { AppState, Area } from '@state'
+import { BottomDrawer, EditField } from '@widgets'
+import { Chip, Select, TextAreaField, TextField, Toggle, ToggleGroup } from '@components'
 import { Controller, useForm } from 'react-hook-form'
-import { useApi, useDevice } from 'hooks'
+import { useApi, useDevice } from '@hooks'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { HiOutlineLightBulb } from 'react-icons/hi'
@@ -95,7 +95,7 @@ const EditProfile = () => {
 			control: (
 				<Select
 					placeholder={t('Select region')}
-					options={orderBy<Area>(areas?.results, ['city', 'country', 'state'], ['asc', 'desc'])}
+					options={orderBy<Area>(areas?.results, ['city', 'country', '@state'], ['asc', 'desc'])}
 					getOptionLabel={(option) => option?.district.join(' / ')}
 					onChange={(value) => dispatch<any>(updateUser({ preferredRegion: value.districtCode }))}
 					value={areas?.results?.find((area) => area.districtCode === connectedUser?.preferredRegion)}
@@ -150,7 +150,7 @@ const EditProfile = () => {
 							label={t('Preferred Region')}
 							defaultValue={value}
 							placeholder={t('Select region')}
-							options={orderBy<Area>(areas?.results, ['city', 'country', 'state'], ['asc', 'desc'])}
+							options={orderBy<Area>(areas?.results, ['city', 'country', '@state'], ['asc', 'desc'])}
 							getOptionLabel={(option) => option?.district?.join(' / ') || ''}
 							getOptionValue={(option) => option?.id || ''}
 							onChange={(option) => setValue('preferredRegion', option.id, { shouldDirty: option.id !== value?.id })}

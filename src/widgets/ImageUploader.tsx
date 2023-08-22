@@ -1,8 +1,8 @@
 import { forwardRef, useId, useState } from 'react'
 
-import { Upload } from 'components'
+import { Upload } from '@components'
 import uploadPlaceholder from '../assets/upload_placeholder.png'
-import { useDevice } from 'hooks'
+import { useDevice } from '@hooks'
 import { useTranslation } from 'react-i18next'
 
 const ImageUploader = ({ onChange, ...rest }, ref) => {

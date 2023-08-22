@@ -1,96 +1,26 @@
 {
 	"compilerOptions": {
-		"composite": true,
 		"paths": {
-			"components/*": [
-				"./src/components/*"
-			],
-			"icons/*": [
-				"./node_modules/react-icons/*"
-			],
-			"pages/*": [
-				"./src/pages/*"
-			],
-			"state/*": [
-				"./src/state/*"
-			],
-			"types/*": [
-				"./src/types/*"
-			],
-			"middlewares/*": [
-				"./src/middlewares/*"
-			],
-			"hooks/*": [
-				"./src/hooks/*"
-			],
-			"utils/*": [
-				"./src/utils/*"
-			],
-			"widgets/*": [
-				"./src/widgets/*"
-			],
-			"api/*": [
-				"./src/api/*"
-			],
-			"utils/constants/*": [
-				"./src/utils/constants/*"
-			],
-			"context/* ": [
-				"./src/context/*"
-			]
+			"@*": ["src/*"]
 		},
-		"target": "es6",
-		"lib": [
-			"DOM",
-			"DOM.Iterable",
-			"ESNext"
-		],
-		"outDir": "./dist",
-		"allowJs": true,
-		"skipLibCheck": true,
-		"esModuleInterop": true,
+		"baseUrl": ".",
+		"target": "ESNext",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"types": ["vite/client", "vite-plugin-svgr/client"],
+		"allowJs": false,
+		"skipLibCheck": false,
+		"esModuleInterop": false,
 		"allowSyntheticDefaultImports": true,
 		"strict": true,
-		"forceConsistentCasingInFileNames": false,
-		"module": "esnext",
-		"rootDir": ".",
-		"baseUrl": "src",
-		"noImplicitReturns": false,
-		"noImplicitAny": false,
-		"importHelpers": true,
+		"forceConsistentCasingInFileNames": true,
+		"noFallthroughCasesInSwitch": true,
+		"module": "ESNext",
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
 		"isolatedModules": true,
-		"noEmit": false,
-		"jsx": "react-jsx",
-		"noFallthroughCasesInSwitch": true,
-		"downlevelIteration": true
+		"noImplicitAny": false,
+		"noEmit": true,
+		"jsx": "react-jsx"
 	},
-	"typeRoots": [
-		"node_modules/@types",
-		"src/@types"
-	],
-	"exclude": [
-		".git",
-		".app-cache",
-		".npm",
-		".npm-tmp",
-		"dist",
-		"dist*",
-		"build",
-		"build*",
-		"**node_modules",
-		"subfolder/dist",
-		"subfolder/node_modules",
-		"**/dist/*",
-		"**/build/*",
-		"**/node_modules/*",
-	],
-	"include": [
-		"src/**/*",
-		"src/utis/**/*",
-		"src/state/**/*",
-		"./tailwind.config.js",
-		"sw.js"
-	]
+	"include": ["src"]
 }

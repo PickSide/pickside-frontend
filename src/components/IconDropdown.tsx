@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { IconVariant, dropdownAnimation } from 'utils'
+import { IconVariant, dropdownAnimation } from '@utils'
 import React, { ReactNode, forwardRef, useEffect, useState } from 'react'
 
 import { twMerge } from 'tailwind-merge'

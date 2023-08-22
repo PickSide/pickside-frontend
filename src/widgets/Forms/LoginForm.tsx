@@ -1,8 +1,8 @@
 import { BiLockAlt, BiUser } from 'react-icons/bi'
-import { Button, Checkbox, TextField } from 'components'
+import { Button, Checkbox, TextField } from '@components'
 import { Controller, useForm } from 'react-hook-form'
-import { setAppTheme, setLocale } from 'state'
-import { useApi, useDevice } from 'hooks'
+import { setAppTheme, setLocale } from '@state'
+import { useApi, useDevice } from '@hooks'
 
 import { FcGoogle } from 'react-icons/fc'
 import { Link } from 'react-router-dom'

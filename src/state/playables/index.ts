@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Resources } from 'state'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+
+import { Resources } from '@state'
 
 export interface Playables extends Resources {
     results?: Playable[]
