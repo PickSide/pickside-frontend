@@ -1,4 +1,4 @@
-import { ActivitySelectedSidenav, EventList, Map } from '@widgets'
+import { EventList, Map } from '@widgets'
 
 import { FC } from 'react'
 import { motion } from 'framer-motion'

@@ -1,28 +1,28 @@
 import { Activity, AppState } from '@state'
 import { BsBookmark, BsBookmarkFill, BsPeople } from 'react-icons/bs'
 import { Button, Card, CardBody, CardCTA, CardHeader, CardImage, IconButton } from '@components'
+import { FC, useState } from 'react'
 import { MdOutlineLocationOn, MdOutlinePriceChange } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { BiTime } from 'react-icons/bi'
+import { cn } from '@utils'
 import dayjs from 'dayjs'
 import { useApi } from '@hooks'
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 interface ActivityCardProps {
 	activity: Activity
-	size: 'sm' | 'md' | 'lg'
+	size?: 'sm' | 'md' | 'lg'
 }
 
-const ActivityCard = ({ activity }) => {
+const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 	const { registerSelfToActivity, unregisterSelfFromActivity, updateFavorite } = useApi()
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
-	const [openConfirmRegisterDialog, setOpenConfirmRegisterDialog] = useState<boolean>(false)
 	const [isRegistering, setIsRegistering] = useState<boolean>(false)
 	const [isUnregistering, setIsUnregistering] = useState<boolean>(false)
 
@@ -62,9 +62,9 @@ const ActivityCard = ({ activity }) => {
 						)}
 					</CardHeader>
 					<CardBody className="flex-grow flex flex-col justify-between">
-						<div className="inline-flex items-center gap-x-4">
+						<div className="inline-flex items-center gap-x-4 max-w-[200px] truncate text-ellipsis">
 							<MdOutlineLocationOn size={20} />
-							<span className="underline">{activity.address.formatted_address || '420 Rue de la poitrie'}</span>
+							<span className="underline">{activity.address.formatted_address || t('No address')}</span>
 						</div>
 						<div className="inline-flex items-center gap-x-4">
 							<BiTime size={20} />
@@ -89,13 +89,14 @@ const ActivityCard = ({ activity }) => {
 				</div>
 			</div>
 			<CardCTA>
-				<Button variant="secondary" className="bg-[#EDF7FF] text-[12px] px-2 py-1">
+				<Button type="button" variant="secondary" className="bg-[#EDF7FF] text-[12px] px-2 py-1">
 					{t('Details')}
 				</Button>
 				{connectedUser &&
 					activity &&
 					(activity.participants?.find((participant) => participant.id === connectedUser.id) ? (
 						<Button
+							type="button"
 							variant="primary"
 							isLoading={isUnregistering}
 							onClick={handleUnregister}
@@ -105,11 +106,12 @@ const ActivityCard = ({ activity }) => {
 							{t('Uneregister')}
 						</Button>
 					) : activity.organiser.id === connectedUser.id ? (
-						<Button variant="primary" className="text-[12px] h-8 px-2 py-1">
+						<Button type="button" variant="primary" className="text-[12px] h-8 px-2 py-1">
 							{t('Manage event')}
 						</Button>
 					) : (
 						<Button
+							type="button"
 							variant="primary"
 							isLoading={isRegistering}
 							onClick={handleRegister}

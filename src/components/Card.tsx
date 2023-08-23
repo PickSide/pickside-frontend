@@ -3,6 +3,7 @@ import { cn } from '@utils'
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 	size?: 'sm' | 'md' | 'lg'
+	fullWidth?: boolean
 	className?: string
 	readOnly?: boolean
 }
@@ -16,8 +17,9 @@ const Card: FC<CardProps> = (props) => {
 	return (
 		<div
 			className={cn(
-				'w-fit max-w-[680px] h-fit p-4 m-2 border rounded-xl text-gray-800 whitespace-nowrap',
+				'h-fit p-4 m-2 border rounded-xl text-gray-800 whitespace-nowrap',
 				props.className,
+				props.fullWidth ? 'w-full' : 'max-w-[480px]',
 			)}
 		>
 			{props.children}
