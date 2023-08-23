@@ -8,7 +8,6 @@ import ConfirmRegisterEventForm from './Forms/ConfirmRegisterEventForm'
 import DateTimePicker from './DateTimePicker'
 import DeactivationForm from './Forms/DeactivationForm'
 import EditField from './EditField'
-import EventCard from './EventCard'
 import EventList from './EventList'
 import GlobalAppStatusAlert from './GlobalAppStatusAlert'
 import GoogleAutocomplete from './GoogleAutocomplete'
@@ -33,7 +32,6 @@ export {
 	DateTimePicker,
 	DeactivationForm,
 	EditField,
-	EventCard,
 	EventList,
 	GlobalAppStatusAlert,
 	GoogleAutocomplete,
