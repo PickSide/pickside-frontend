@@ -1,7 +1,7 @@
 import { Button, DatePicker, FormDivider, TimePicker } from '@components'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 
-import { GoogleAutocomplete } from '@widgets'
+import { GoogleAutocomplete } from '@components'
 import StepperCTAWrapper from '../shared/StepperCTAWrapper'
 import { useStepper } from '@pages/Event/hooks'
 import { useTranslation } from 'react-i18next'

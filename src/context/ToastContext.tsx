@@ -2,7 +2,7 @@ import { AppState, toastMessage } from '@state'
 import { FC, ReactNode, createContext, useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Toast } from '@widgets'
+import { Toast } from '@components'
 
 export interface ToastContextProps {
 	children?: ReactNode

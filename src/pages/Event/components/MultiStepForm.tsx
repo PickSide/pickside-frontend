@@ -16,7 +16,7 @@ const MultiStepForm = ({ onSubmit }: MultiStepFormProps) => {
 	const { t } = useTranslation()
 
 	const Header = ({ children }) => <h1 className="font-semibold text-[20px] text-center">{children}</h1>
-	console.log(onSubmit)
+
 	return (
 		<form className="flex-1 py-8 lg:px-8 lg:w-[70%] w-[80%] mx-auto" onSubmit={handleSubmit(onSubmit)}>
 			<Stepper>

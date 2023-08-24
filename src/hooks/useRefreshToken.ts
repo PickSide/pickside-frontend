@@ -1,6 +1,6 @@
 import { useAsync, useLocalStorage } from 'react-use'
 
-import { getItem } from '@utils'
+import { getItem } from '@api'
 
 interface UseRefreshTokenOutputs {
 	loading: boolean
@@ -12,7 +12,7 @@ const useRefreshToken = (): UseRefreshTokenOutputs => {
 	const [previousCachedTokens] = useLocalStorage('auth')
 
 	const refresh = async () => ({
-		previousCachedTokens
+		previousCachedTokens,
 	})
 
 	return { loading, refresh }

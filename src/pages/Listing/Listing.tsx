@@ -1,6 +1,6 @@
-import { EventList, Map } from '@widgets'
-
+import EventList from './components/EventList'
 import { FC } from 'react'
+import Map from './components/Map'
 import { motion } from 'framer-motion'
 import { pageTransition } from '@utils'
 import { useDevice } from '@hooks'
