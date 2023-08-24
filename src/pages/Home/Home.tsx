@@ -1,6 +1,6 @@
-import About from './Sections/About'
-import Footer from './Sections/Footer'
-import LandingPage from './Sections/LandingPage'
+import About from './components/About'
+import Footer from './components/Footer'
+import LandingPage from './components/LandingPage'
 import { motion } from 'framer-motion'
 import { pageTransition } from '@utils'
 
