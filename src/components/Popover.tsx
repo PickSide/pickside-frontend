@@ -1,8 +1,4 @@
-import React, { Children, ReactElement, ReactNode, forwardRef, useMemo, useState } from 'react'
-
-import { fadeIn } from '@utils'
-import { motion } from 'framer-motion'
-import { twMerge } from 'tailwind-merge'
+import { ReactElement, cloneElement, forwardRef, useState } from 'react'
 
 interface PopoverProps {
 	trigger?: ReactElement<any>
@@ -16,7 +12,7 @@ const Popover = ({ children, trigger, onClose, positionX = 'left', positionY = '
 	const [open, setOpen] = useState(false)
 	return (
 		<div className="relative">
-			{trigger && React.cloneElement(trigger, { onClick: () => setOpen(true) })}
+			{trigger && cloneElement(trigger, { onClick: () => setOpen(true) })}
 			{open && (
 				<>
 					<div

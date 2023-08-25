@@ -1,4 +1,5 @@
-import React, { cloneElement, forwardRef } from 'react'
+import { Children, cloneElement, forwardRef } from 'react'
+
 import { BiLock } from 'react-icons/bi'
 
 interface SettingFieldProps {
@@ -23,7 +24,7 @@ const SettingField = (
 				</p>
 				<span className="text-[14px] font-normal text-gray-400">{helperText}</span>
 			</div>
-			{React.Children.map(children, (child) => cloneElement(child, { readOnly, disabled }))}
+			{Children.map(children, (child) => cloneElement(child, { readOnly, disabled }))}
 		</div>
 	)
 }

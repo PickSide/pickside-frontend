@@ -1,19 +1,14 @@
 import { authMiddleware, toastMiddleware } from '@middlewares'
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 
+import { configureStore } from '@reduxjs/toolkit'
+import logger from 'redux-logger'
 import { reducers } from '@state'
 
-const middleware = [
-	...getDefaultMiddleware({
-		serializableCheck: false,
-	}),
-	authMiddleware,
-	toastMiddleware
-]
+const additionalMiddlewares = [authMiddleware, toastMiddleware]
 
 export const store = configureStore({
 	reducer: reducers,
-	middleware,
+	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(additionalMiddlewares),
 	preloadedState: {},
 })
 

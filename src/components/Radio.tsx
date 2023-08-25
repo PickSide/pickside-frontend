@@ -1,4 +1,4 @@
-import React, { useId, forwardRef, ReactNode } from 'react'
+import { Children, ReactNode, cloneElement, forwardRef, useId } from 'react'
 
 interface RadioGroupProps {
 	id?: any
@@ -53,7 +53,7 @@ export const RadioGroup = forwardRef(
 		<div className="flex flex-col gap-y-2">
 			{label && <span className="text-[20px] text-gray-400 font-semibold">{label}</span>}
 			<div className={`${display === 'col' ? 'flex flex-col' : 'inline-flex'} gap-4`} {...rest}>
-				{React.Children.map(children, (child) => React.cloneElement(child, { defaultValue, ...rest }))}
+				{Children.map(children, (child) => cloneElement(child, { defaultValue, ...rest }))}
 			</div>
 		</div>
 	),

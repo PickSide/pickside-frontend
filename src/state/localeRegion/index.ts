@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Coordinates } from 'types'
+import { Coordinates } from '@types'
 
 export interface LocaleRegions extends google.maps.LatLng {
 	results?: LocaleRegion[]
