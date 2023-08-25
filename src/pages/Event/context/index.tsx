@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react'
+import { createContext, useReducer } from 'react'
 import { defaultStepperState, reducer } from '../state'
 
 export const StepperContext = createContext<any>([])

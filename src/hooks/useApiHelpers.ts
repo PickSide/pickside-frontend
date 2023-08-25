@@ -30,7 +30,7 @@ enum FailReason {
 	UserExists = 'userexists',
 	UserFailedToUpdate = 'userfailtoupdate',
 	UserWrongCredentials = 'userbadcredentials',
-	UserLogout = 'userlogout'
+	UserLogout = 'userlogout',
 }
 
 interface RequestProps<T> {
@@ -55,17 +55,17 @@ interface UrlProps {
 
 interface UseCallsOutput {
 	apiErrors: string[]
-	lazyGetItem: (r: RequestProps<any>) => Promise<any>,
-	lazyGetItems: (r: RequestProps<any>) => Promise<any>,
-	getCustom: (r) => Promise<any>,
-	getItem: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>,
-	getItems: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>,
-	postItem: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>,
-	postItems?: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>,
-	putItem: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>,
-	putItems?: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>,
-	deleteItem?: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>,
-	deleteItems?: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>,
+	lazyGetItem: (r: RequestProps<any>) => Promise<any>
+	lazyGetItems: (r: RequestProps<any>) => Promise<any>
+	getCustom: (r) => Promise<any>
+	getItem: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>
+	getItems: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>
+	postItem: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>
+	postItems?: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>
+	putItem: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>
+	putItems?: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>
+	deleteItem?: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>
+	deleteItems?: (r: RequestProps<any>) => (d: Dispatch) => Promise<any>
 }
 
 interface ErrorResponse {
@@ -82,20 +82,21 @@ interface ErrorResponse {
 }
 
 const useApiHelpers = (): UseCallsOutput => {
+	const [previousCachedTokens] = useLocalStorage<{ accessToken?: string; refreshToken?: string }>('auth')
+	const [errors] = useState<any>()
 
-	const [previousCachedTokens] = useLocalStorage<{ accessToken?: string, refreshToken?: string }>('auth')
-	const [errors, setErrors] = useState<any>()
-
-	const axiosInstance = useMemo(() => axios.create({
-		baseURL: process.env.NODE_ENV === "production"
-			? "/api/v1"
-			: "http://localhost:8000/api/v1",
-		headers: {
-			'Content-Type': 'application/json',
-			'X-Request-Id': uuidv4(),
-			Authorization: `Bearer ${previousCachedTokens?.accessToken}`,
-		},
-	}), [])
+	const axiosInstance = useMemo(
+		() =>
+			axios.create({
+				baseURL: import.meta.env.VITE_APP_API_URL,
+				headers: {
+					'Content-Type': 'application/json',
+					'X-Request-Id': uuidv4(),
+					Authorization: `Bearer ${previousCachedTokens?.accessToken}`,
+				},
+			}),
+		[previousCachedTokens],
+	)
 
 	const handleResponseError = (axiosError: any): ErrorResponse => ({ ...axiosError.response.data })
 
@@ -151,46 +152,63 @@ const useApiHelpers = (): UseCallsOutput => {
 		getCustom: async ({ url, headers, data, params }) => {
 			return await axiosInstance
 				.get(url, {
-					headers
+					headers,
 				})
 				.then((response) => response.data)
 				.catch((error) => handleResponseError(error))
 		},
-		getItem: ({ endpoint, id }) => async (dispatch) => {
-			const url = Url({ endpoint, id })
-			return await axiosInstance
-				.get(url)
-				.then((response) => response.data)
-				.catch((error) => handleResponseError(error))
-		},
-		getItems: ({ endpoint, id }) => async (dispatch) => {
-			const url = Url({ endpoint, id })
-			return await axiosInstance
-				.get(url)
-				.then((response) => response.data)
-				.catch((error) => handleResponseError(error))
-		},
-		postItem: ({ endpoint, data, id }) => async (dispatch) => {
-			const url = Url({ endpoint, id })
-			return await axiosInstance
-				.post(url, { data })
-				.then((response) => response.data)
-				.catch((error) => handleResponseError(error))
-		},
-		postItems: ({ endpoint, params, queries }) => async (dispatch) => { },
-		putItem: ({ endpoint, extra, id, data }) => async (dispatch) => {
-			const url = Url({ endpoint, extra, id })
-			return await axiosInstance.put(url, { data })
-		},
-		putItems: ({ endpoint, params, queries }) => async (dispatch) => { },
-		deleteItem: ({ endpoint, id, params, queries }) => async (dispatch) => { },
-		deleteItems: ({ endpoint, params, queries }) => async (dispatch) => { },
+		getItem:
+			({ endpoint, id }) =>
+			async (dispatch) => {
+				const url = Url({ endpoint, id })
+				return await axiosInstance
+					.get(url)
+					.then((response) => response.data)
+					.catch((error) => handleResponseError(error))
+			},
+		getItems:
+			({ endpoint, id }) =>
+			async (dispatch) => {
+				const url = Url({ endpoint, id })
+				return await axiosInstance
+					.get(url)
+					.then((response) => response.data)
+					.catch((error) => handleResponseError(error))
+			},
+		postItem:
+			({ endpoint, data, id }) =>
+			async (dispatch) => {
+				const url = Url({ endpoint, id })
+				return await axiosInstance
+					.post(url, { data })
+					.then((response) => response.data)
+					.catch((error) => handleResponseError(error))
+			},
+		postItems:
+			({ endpoint, params, queries }) =>
+			async (dispatch) => {},
+		putItem:
+			({ endpoint, extra, id, data }) =>
+			async (dispatch) => {
+				const url = Url({ endpoint, extra, id })
+				return await axiosInstance.put(url, { data })
+			},
+		putItems:
+			({ endpoint, params, queries }) =>
+			async (dispatch) => {},
+		deleteItem:
+			({ endpoint, id, params, queries }) =>
+			async (dispatch) => {},
+		deleteItems:
+			({ endpoint, params, queries }) =>
+			async (dispatch) => {},
 	}
 }
 
 function Url({ endpoint, id, extra, params, queries }: UrlProps) {
-	const url = `${endpoint}${id ? `/${id}` : ''}${extra ? `/${extra}` : ''}${params ? `/${new URLSearchParams({ ...params })}` : ''}${queries ? `?${getQueryString(queries)}` : ''
-		}`
+	const url = `${endpoint}${id ? `/${id}` : ''}${extra ? `/${extra}` : ''}${
+		params ? `/${new URLSearchParams({ ...params })}` : ''
+	}${queries ? `?${getQueryString(queries)}` : ''}`
 	return url
 }
 

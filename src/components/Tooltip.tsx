@@ -1,4 +1,4 @@
-import React, { FC, useState, useRef, forwardRef } from 'react'
+import { FC, forwardRef, useRef, useState } from 'react'
 
 const Tooltip = (props, ref) => {
 	return <div></div>

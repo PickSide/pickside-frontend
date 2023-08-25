@@ -1,6 +1,6 @@
 import { ButtonVariant, cn } from '@utils'
-import React, { FC } from 'react'
 
+import { FC } from 'react'
 import Spinner from '../Spinner'
 
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {

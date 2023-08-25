@@ -1,4 +1,5 @@
-import React, { ReactNode, forwardRef, useId, useState } from 'react'
+import { Children, ReactNode, cloneElement, forwardRef, useId } from 'react'
+
 import { twMerge } from 'tailwind-merge'
 
 interface ChipProps {
@@ -74,7 +75,7 @@ export const ChipGroup = forwardRef(({ children, defaultValue, label, ...rest }:
 	<div className="flex flex-col flex-wrap gap-y-2">
 		{label && <span className="text-gray-400">{label}</span>}
 		<div className="inline-flex gap-x-4">
-			{React.Children.map(children, (child) => React.cloneElement(child, { defaultValue, ...rest }))}
+			{Children.map(children, (child) => cloneElement(child, { defaultValue, ...rest }))}
 		</div>
 	</div>
 ))

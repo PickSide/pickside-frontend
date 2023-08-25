@@ -1,4 +1,4 @@
-import React, { ReactNode, forwardRef, useCallback, useState, useId } from 'react'
+import { Children, ReactNode, cloneElement, forwardRef, useId } from 'react'
 
 interface ToggleProps {
 	icon?: ReactNode
@@ -42,7 +42,7 @@ const Toggle = ({ icon, text, value, defaultValue, disabled = false, ...rest }: 
 }
 export const ToggleGroup = forwardRef(({ children, defaultValue, name, onChange }: ToggleGroupProps, ref) => (
 	<div className="inline-flex rounded-lg overflow-hidden divide-x-[1px] border-[1px]" onChange={onChange}>
-		{React.Children.map(children, (child) => React.cloneElement(child, { name, defaultValue }))}
+		{Children.map(children, (child) => cloneElement(child, { name, defaultValue }))}
 	</div>
 ))
 

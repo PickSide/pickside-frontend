@@ -20,9 +20,14 @@ interface UrlProps {
 }
 
 const accessToken = window.localStorage.getItem('auth.accessToken')
+console.log(import.meta.env.MODE)
+console.log(import.meta.url)
+console.log(import.meta.env.BASE_URL)
+console.log(import.meta.env.VITE_APP_API_URL)
+console.log(import.meta.url)
 
 const axiosInstance = axios.create({
-	baseURL: process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:8000/api/v1',
+	baseURL: import.meta.env.VITE_APP_API_URL,
 	headers: {
 		'Content-Type': 'application/json',
 		'X-Request-Id': uuidv4(),

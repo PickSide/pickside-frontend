@@ -1,7 +1,6 @@
-import React, { useContext } from 'react'
-
-import { DeviceType } from 'context/WindowContext'
+import { DeviceType } from '@context/WindowContext'
 import { WindowContext } from '@context'
+import { useContext } from 'react'
 
 const useDevice = (): [device: DeviceType, orientation: any] => {
 	const { device, orientation } = useContext(WindowContext)

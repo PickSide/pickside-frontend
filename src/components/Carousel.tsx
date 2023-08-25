@@ -1,6 +1,6 @@
-import { BREAKPOINTS, cn, slideIn } from '@utils'
 import { Children, FC, Fragment, cloneElement, createContext, useEffect, useMemo, useState } from 'react'
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from 'react-icons/md'
+import { cn, slideIn } from '@utils'
 
 import { motion } from 'framer-motion'
 import { times } from 'lodash'
@@ -34,12 +34,7 @@ const Carousel: FC<CarouselProps> = ({ flow = 'horizontal', ...rest }) => {
 	const [slidingFlow, setSlidingFlow] = useState<'left' | 'right'>('right')
 	const [slidingWindow, setSlidingWindow] = useState<number[]>(times(DEFAULT_WINDOW_LENGTH, Number))
 
-	const items = Children.map(rest.children, (child, idx) => {
-		if (child.type.name !== 'CarouselItem') {
-			return
-		}
-		return cloneElement(child, { key: idx })
-	})
+	const items = Children.map(rest.children, (child, idx) => cloneElement(child, { key: idx }))
 
 	const variant = useMemo(() => slideIn(slidingFlow), [slidingFlow])
 
@@ -97,7 +92,7 @@ const Carousel: FC<CarouselProps> = ({ flow = 'horizontal', ...rest }) => {
 						variants={variant}
 						className={cn('flex justify-center overflow-x-hidden', carouselFlow[flow])}
 					>
-						{Array.from(slidingWindow, (idx) => items[idx]).map((item, idx) => cloneElement(item, { key: idx }))}
+						{Array.from(slidingWindow, (idx) => items[idx]).map((item, idx) => item)}
 					</motion.div>
 					<div className="absolute top-1/2 -translate-y-1/2 -translate-x-full left-0 w-8 h-8 rounded-full bg-white border border-gray-300 drop-shadow-sm">
 						<span
