@@ -1,7 +1,6 @@
 import { authMiddleware, toastMiddleware } from '@middlewares'
 
 import { configureStore } from '@reduxjs/toolkit'
-import logger from 'redux-logger'
 import { reducers } from '@state'
 
 const additionalMiddlewares = [authMiddleware, toastMiddleware]
