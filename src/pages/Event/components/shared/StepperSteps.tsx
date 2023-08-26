@@ -1,18 +1,18 @@
-import { Children, useEffect } from 'react'
+import { Children, FC, useEffect } from 'react'
 
 import { useStepper } from '../../hooks'
+
+export const StepperStep: FC<any> = ({ order, title, children }) => {
+	return <>{children}</>
+}
 
 export const StepperSteps = ({ children }) => {
 	const { currentStep, steps, setSteps } = useStepper()
 
 	useEffect(() => {
-		const stepperSteps = Children.toArray(children)
-			.filter((step: any) => {
-				return step.type.name === 'StepperStep'
-			})
-			.map((step: any) => step.props)
+		const stepperSteps = Children.toArray(children).map((step: any) => step.props)
 		setSteps(stepperSteps)
-	}, [setSteps])
+	}, [children, setSteps])
 
 	return (
 		<>
@@ -24,8 +24,4 @@ export const StepperSteps = ({ children }) => {
 				})}
 		</>
 	)
-}
-
-export const StepperStep = ({ order, title, children }) => {
-	return <>{children}</>
 }
