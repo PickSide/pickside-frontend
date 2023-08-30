@@ -15,9 +15,15 @@ const useSignup = () => {
 		isLoading,
 		error,
 	} = useMutation(createUser, {
-		onSuccess: ({ data }) => {
-			dispatch<any>(setUser(data))
-			navigate('/home')
+		onSuccess: () => {
+			dispatch({
+				type: 'toast/toastMessage',
+				payload: {
+					message: 'Successfully created user. Please login',
+					type: 'success',
+				},
+			})
+			navigate('/login')
 		},
 		onError: (error: any) => handleResponseError(error),
 	})
