@@ -1,5 +1,6 @@
 import { createUser } from '@api'
 import { handleResponseError } from '@utils'
+import { setUser } from '@state'
 import { useDispatch } from 'react-redux'
 import { useMutation } from 'react-query'
 import { useNavigate } from 'react-router-dom'
@@ -15,9 +16,8 @@ const useSignup = () => {
 		error,
 	} = useMutation(createUser, {
 		onSuccess: ({ data }) => {
-			console.log(data)
-			// dispatch<any>(setUser(data))
-			// navigate('/home')
+			dispatch<any>(setUser(data))
+			navigate('/home')
 		},
 		onError: (error: any) => handleResponseError(error),
 	})

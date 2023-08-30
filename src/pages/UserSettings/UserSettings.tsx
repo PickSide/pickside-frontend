@@ -89,9 +89,7 @@ const Settings = () => {
 				<div className="absolute left-4 top-full -translate-y-1/2 w-16 h-16 overflow-hidden border-white border-4 rounded-full bg-gray-100 cursor-pointer"></div>
 			</div>
 			<div className="p-4 mt-6 flex flex-col">
-				<p className="text-2xl font-semibold">
-					{connectedUser?.firstName} {connectedUser?.lastName}
-				</p>
+				<p className="text-2xl font-semibold">{connectedUser?.fullName}</p>
 				<p className="text-sm text-gray-500">@{connectedUser?.username}</p>
 				<p className="text-sm text-gray-500">
 					{t('Reliability')}: {connectedUser?.reliability}%
@@ -137,7 +135,7 @@ const Settings = () => {
 							</div>
 						</div>
 						<div className="flex-col my-8">
-							<p className="text-[30px] font-semibold">{connectedUser?.firstName + ' ' + connectedUser?.lastName}</p>
+							<p className="text-[30px] font-semibold">{connectedUser?.fullName}</p>
 							<p className="text-[15px] font-normal text-gray-400">Plays near {connectedUser?.localeRegion}</p>
 							<p className="text-[15px] font-normal text-gray-400">Reliability: {connectedUser?.reliability}%</p>
 						</div>

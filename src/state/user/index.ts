@@ -17,13 +17,12 @@ export interface User {
 	emailVerified?: boolean
 	//eventsRegistered?: Activity[]
 	favorites?: any[]
-	firstName?: string
+	fullName?: string
 	fitnessLevel?: 'retired' | 'average' | 'athletic' | 'very athletic'
 	groups?: any[]
 	isExternalAccount?: boolean
 	isOrganizer?: boolean
 	joinDate?: string
-	lastName?: string
 	localeRegion?: string
 	locationCommonlyPlayedIn?: string
 	locationTracking?: boolean
