@@ -7,37 +7,18 @@ import { AiFillPhone } from 'react-icons/ai'
 import { MdOutlineAlternateEmail } from 'react-icons/md'
 import { SignupFormProps } from '../interface/forms'
 import { useDevice } from '@hooks'
-import { useDispatch } from 'react-redux'
 import useSignup from '../hooks/useSignup'
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const SignUpForm = () => {
 	const [device] = useDevice()
-	const dispatch = useDispatch()
 	const { handleSubmit, getValues, register, watch } = useFormContext<SignupFormProps>()
 	const { errors, isValid } = useFormState()
-	const signup = useSignup()
+	const { signup, error, isError, isLoading } = useSignup()
 	const { t } = useTranslation()
 
-	const [apiError, setApiError] = useState(null)
-	const [loading, setLoading] = useState(false)
-
-	const onSubmit = async (data) => {
-		if (!isValid) {
-			return
-		}
-		setLoading(true)
-
-		const response = await dispatch<any>(signup(data))
-
-		if (response.error) {
-			setApiError(response.error)
-		}
-
-		setLoading(false)
-	}
-
+	const onSubmit = async (data) => await signup(data)
+	console.log(error)
 	const FormHandle = () => (
 		<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-6 lg:gap-y-10 lg:w-full">
 			<TextField
@@ -107,7 +88,7 @@ const SignUpForm = () => {
 			<Button
 				type="submit"
 				disabled={!watch('agreement')}
-				isLoading={loading}
+				isLoading={isLoading}
 				className="rounded-md bg-primary text-white font-semibold h-[50px] transition-all duration-75 ease-in hover:bg-secondary"
 			>
 				{t('Sign up')}
@@ -120,9 +101,9 @@ const SignUpForm = () => {
 			<div className="flex flex-col items-center">
 				<span className="text-[25px] font-semibold text-cyan-950">{t('Hi, Welcome back!')}</span>
 			</div>
-			{!!apiError && (
+			{!!isError && (
 				<div className="rounded-sm border-[1px] w-full text-center p-2 border-error text-red-900 bg-red-200 text-[15px]">
-					{apiError}
+					{error.response.data.error.message || error.message}
 				</div>
 			)}
 			<FormHandle />
@@ -137,9 +118,9 @@ const SignUpForm = () => {
 				<span className="text-[40px] font-semibold text-cyan-950">{t('Hi, Welcome back!')}</span>
 				<span className="text-[15px] text-gray-300">{t('Start connecting in our sport community right away!')}</span>
 			</div>
-			{!!apiError && (
+			{!!isError && (
 				<div className="rounded-sm border-[1px] w-full text-center p-2 border-error text-red-900 bg-red-200 text-[15px]">
-					{apiError && <p>{apiError}</p>}
+					<p>{error.response.data.error.message || error.message}</p>
 				</div>
 			)}
 			<FormHandle />

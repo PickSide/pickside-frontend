@@ -1,6 +1,7 @@
 import About from './components/About'
 import Footer from './components/Footer'
 import LandingPage from './components/LandingPage'
+import ResetDbButton from './components/ResetDbButton'
 import { motion } from 'framer-motion'
 import { pageTransition } from '@utils'
 
@@ -10,6 +11,7 @@ const Home = () => {
 			<LandingPage />
 			<About />
 			<Footer />
+			{import.meta.env.MODE === 'development' && <ResetDbButton />}
 		</motion.div>
 	)
 }

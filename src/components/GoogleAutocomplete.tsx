@@ -19,9 +19,7 @@ const GoogleAutocomplete = ({ label, onSelectPlace, ...rest }, ref) => {
 
 	const onLoad = (ref) => setSearchBoxRef(ref)
 
-	const onPlacesChanged = () => {
-		onSelectPlace(searchBoxRef.getPlaces()[0])
-	}
+	const onPlacesChanged = () => onSelectPlace(searchBoxRef.getPlaces()[0])
 
 	return isLoaded ? (
 		<StandaloneSearchBox onLoad={onLoad} onPlacesChanged={onPlacesChanged}>

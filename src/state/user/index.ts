@@ -20,7 +20,7 @@ export interface User {
 	firstName?: string
 	fitnessLevel?: 'retired' | 'average' | 'athletic' | 'very athletic'
 	groups?: any[]
-	isExternalAccount?: boolean,
+	isExternalAccount?: boolean
 	isOrganizer?: boolean
 	joinDate?: string
 	lastName?: string
@@ -56,7 +56,11 @@ const User = createSlice({
 	initialState: null as unknown as User | null | undefined,
 	name: 'user',
 	reducers: {
-		setUser: (state, action: PayloadAction<User | null | undefined>) => (state = action.payload),
+		setUser: (state, action: PayloadAction<User | null | undefined>) => {
+			console.log(action.payload)
+			state = action.payload
+			return state
+		},
 		setCachedUser: (state, action: PayloadAction<User | null | undefined>) => (state = action.payload),
 		setUserEmpty: (state) => (state = null),
 		updateConfig: (state, action: PayloadAction<any>) => {
