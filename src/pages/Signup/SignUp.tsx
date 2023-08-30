@@ -13,6 +13,7 @@ const SignUp = () => {
 			keepErrors: false,
 		},
 	})
+
 	return (
 		<motion.div
 			initial="hidden"

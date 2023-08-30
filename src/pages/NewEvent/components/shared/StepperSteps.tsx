@@ -1,6 +1,6 @@
 import { Children, FC, useEffect } from 'react'
 
-import { useStepper } from '../../hooks'
+import { useStepper } from '../../hooks/useStepper'
 
 export const StepperStep: FC<any> = ({ order, title, children }) => {
 	return <>{children}</>

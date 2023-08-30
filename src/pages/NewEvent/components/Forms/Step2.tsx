@@ -4,7 +4,7 @@ import { Controller, useFormContext, useFormState } from 'react-hook-form'
 import { AppState } from '@state'
 import StepperCTAWrapper from '../shared/StepperCTAWrapper'
 import { useSelector } from 'react-redux'
-import { useStepper } from '@pages/Event/hooks'
+import { useStepper } from '@pages/NewEvent/hooks/useStepper'
 import { useTranslation } from 'react-i18next'
 
 const Step2 = () => {

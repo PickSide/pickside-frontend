@@ -2,7 +2,7 @@ import { StepperStep, StepperSteps } from './StepperSteps'
 
 import { Fragment } from 'react'
 import { cn } from '@utils'
-import { useStepper } from '../../hooks'
+import { useStepper } from '../../hooks/useStepper'
 
 export const Stepper = ({ children }) => {
 	const { currentStep, steps } = useStepper()

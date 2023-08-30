@@ -1,31 +1,6 @@
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 
-interface RequestProps<T> {
-	id?: string
-	baseUrl?: string
-	data?: T
-	endpoint: string
-	method?: 'GET' | 'PUT' | 'POST' | 'DELETE' | 'PATCH'
-	params?: any
-	queries?: any
-	filters?: any
-}
-
-interface UrlProps {
-	id?: string | number
-	endpoint?: string
-	params?: any
-	queries?: any
-}
-
-const accessToken = window.localStorage.getItem('auth.accessToken')
-console.log(import.meta.env.MODE)
-console.log(import.meta.url)
-console.log(import.meta.env.BASE_URL)
-console.log(import.meta.env.VITE_APP_API_URL)
-console.log(import.meta.url)
-
 const axiosInstance = axios.create({
 	baseURL: import.meta.env.VITE_APP_API_URL,
 	headers: {
@@ -38,7 +13,7 @@ const axiosInstance = axios.create({
 const requestIntercept = axios.interceptors.request.use(
 	(config) => {
 		if (config.headers && !config.headers['Authorization']) {
-			config.headers['Authorization'] = `Bearer ${accessToken}`
+			config.headers['Authorization'] = `Bearer ${window.localStorage.getItem('auth.accessToken')}`
 		}
 		return config
 	},
@@ -51,8 +26,7 @@ const responseIntercept = axios.interceptors.response.use(
 		const prevRequest = error?.config
 		if (error?.response?.status === 403 && !prevRequest?.sent) {
 			prevRequest.sent = true
-			const url = Url({ endpoint: 'token' })
-			const newAccessToken = await axiosInstance.get(url).then((response) => response.data)
+			const newAccessToken = await axiosInstance.get('/token').then((response) => response.data)
 			prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`
 			return axios(prevRequest)
 		}
@@ -63,92 +37,46 @@ const responseIntercept = axios.interceptors.response.use(
 axiosInstance.interceptors.request.eject(requestIntercept)
 axiosInstance.interceptors.response.eject(responseIntercept)
 
-const lazyGetItem = async ({ endpoint, id }: RequestProps<any>) => {
-	const url = Url({ endpoint, id })
-	return await axiosInstance
-		.get(url)
-		.then((response) => response.data)
-		.catch((error) => handleResponseError(error))
-}
+export const fetchGoogleAccountInfoServiceAPI = (accessToken: string) =>
+	axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`, {
+		headers: {
+			Authorization: `Bearer ${accessToken}`,
+			Accept: 'application/json',
+		},
+	})
 
-const lazyGetItems = async ({ endpoint, id }: RequestProps<any>) => {
-	const url = Url({ endpoint, id })
-	return await axiosInstance
-		.get(url)
-		.then((response) => response.data)
-		.catch((error) => handleResponseError(error))
-}
+export const deactivate = (id: string) => axiosInstance.get(`/users/deactivate/${id}`)
+export const reactivate = (id: string) => axiosInstance.put(`/users/deactivate/${id}`)
+export const refreshToken = () => axiosInstance.get('/token')
+export const loginUser = (data: any) => axiosInstance.post('/login', { data })
+export const loginUserWithGoogle = (data: any) => axiosInstance.post('/googlelogin', { data })
+export const logoutUser = (data: any) => axiosInstance.post('/logout', { data })
+export const resetDb = () => axiosInstance.post('/resetdb')
 
-const getItem =
-	({ endpoint, id }: RequestProps<any>) =>
-	async (dispatch) => {
-		const url = Url({ endpoint, id })
-		return await axiosInstance
-			.get(url)
-			.then((response) => response.data)
-			.catch((error) => handleResponseError(error))
-	}
+export const fetchActivities = () => axiosInstance.get(`/activities`)
+export const fetchActivity = (activityId: string) => axiosInstance.get(`/activities/${activityId}`)
+export const createActivity = (data: any) => axiosInstance.post(`/activities`, { data })
+export const registerSelfToActivity = (activityId: string, userId: string) =>
+	axiosInstance.put(`/activities/register/${activityId}`, { userId })
+export const unregisterSelfFromActivity = (activityId: string, userId: string) =>
+	axiosInstance.put(`/activities/unregister/${activityId}`, { userId })
+export const updateFavorite = (activityId: string, userId: string) =>
+	axiosInstance.put('/activities/favorites', { userId })
 
-const getItems =
-	({ endpoint, id }: RequestProps<any>) =>
-	async (dispatch) => {
-		const url = Url({ endpoint, id })
-		return await axiosInstance
-			.get(url)
-			.then((response) => response.data)
-			.catch((error) => handleResponseError(error))
-	}
+export const fetchLocales = () => axiosInstance.get(`/locales`)
 
-const postItem =
-	({ endpoint, data, id }: RequestProps<any>) =>
-	async (dispatch) => {
-		const url = Url({ endpoint, id })
-		return await axiosInstance
-			.post(url, { data })
-			.then((response) => response.data)
-			.catch((error) => handleResponseError(error))
-	}
+export const getNotifications = (userId: string) => axiosInstance.get(`/notifications/${userId}`)
+export const markNotificationAsRead = (notificationId: string, userId: string) =>
+	axiosInstance.put(`/notifications/${notificationId}/${userId}`)
 
-const postItems =
-	({ endpoint, params, queries }: RequestProps<any>) =>
-	async (dispatch) => {}
+export const fetchUsers = () => axiosInstance.get(`/locales`)
+export const fetchUserById = (userId: any) => axiosInstance.get(`/locales`)
+export const fetchUsersByGroupId = (groupId: any) => axiosInstance.get(`/locales`)
+export const fetchUsersByActivityId = (activityId: any) => axiosInstance.get(`/locales`)
+export const createUser = (data: any) => axiosInstance.post(`/users/create`, { data })
+export const updateUser = (data: any) => axiosInstance.put(`/locales`)
+export const deleteUser = (userId: any) => axiosInstance.delete(`/locales`)
 
-const putItem =
-	({ endpoint, id, data }: RequestProps<any>) =>
-	async (dispatch) => {
-		const url = Url({ endpoint, id })
-		return await axiosInstance.put(url, { data })
-	}
-
-const putItems =
-	({ endpoint, params, queries }: RequestProps<any>) =>
-	async (dispatch) => {}
-
-const deleteItem =
-	({ endpoint, id, params, queries }: RequestProps<any>) =>
-	async (dispatch) => {}
-
-const deleteItems =
-	({ endpoint, params, queries }: RequestProps<any>) =>
-	async (dispatch) => {}
-
-function handleResponseError(axiosError: any) {
-	return { error: axiosError.response.data.message }
-}
-
-function Url({ endpoint, id, params, queries }: UrlProps) {
-	const url = `${endpoint}${id ? `/${id}` : ''}${params ? `/${new URLSearchParams({ ...params })}` : ''}${
-		queries ? `?${getQueryString(queries)}` : ''
-	}`
-	return url
-}
-
-function getQueryString(queries: any) {
-	return Object.keys(queries)
-		.reduce((result: any, key) => {
-			return [...result, `${encodeURIComponent(key)}=${encodeURIComponent(queries[key])}`]
-		}, [])
-		.join('&')
-}
-
-export { deleteItem, deleteItems, getItem, getItems, lazyGetItem, lazyGetItems, postItem, postItems, putItem, putItems }
+export const updateActivity = (activityId: string, data: any) => axiosInstance.put('/activities', { data })
+export const deleteActivity = (activityId: string) => axiosInstance.post('/activities')
+export const getActivitiesByGroup = (groupId: string) => axiosInstance.post(`/activities/group/${groupId}`)
