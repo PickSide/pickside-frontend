@@ -14,8 +14,8 @@ import {
 	setUser,
 	setUserEmpty,
 	updateActivity,
-	updateConfig,
-	updateFavorite
+	updateFavorite,
+	updateUserConfig
 } from '@state'
 
 import { Dispatch } from '@reduxjs/toolkit'
@@ -299,7 +299,7 @@ const useApi = (): UseApiOutput => {
 					})(dispatch)
 
 					if (items) {
-						dispatch(updateConfig(data))
+						dispatch(updateUserConfig(data))
 					}
 				},
 	}

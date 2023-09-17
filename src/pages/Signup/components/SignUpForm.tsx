@@ -1,5 +1,5 @@
 import { BiLockAlt, BiUser } from 'react-icons/bi'
-import { Button, Checkbox, TextField } from '@components'
+import { Button, Checkbox, InputField } from '@components'
 import { EMAIL_REGEX, PASSWORD_REGEX, PHONE_REGEX } from '@utils'
 import { useFormContext, useFormState } from 'react-hook-form'
 
@@ -21,7 +21,7 @@ const SignUpForm = () => {
 	console.log(error)
 	const FormHandle = () => (
 		<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-6 lg:gap-y-10 lg:w-full">
-			<TextField
+			<InputField
 				type="text"
 				label={t('Full name')}
 				placeholder={t('Enter your full name')}
@@ -32,7 +32,7 @@ const SignUpForm = () => {
 				{...register('fullName', { required: t('Field is required') })}
 			/>
 
-			<TextField
+			<InputField
 				label={t('Email')}
 				placeholder={t('Enter email')}
 				startContent={<MdOutlineAlternateEmail size={20} />}
@@ -42,7 +42,7 @@ const SignUpForm = () => {
 				{...register('email', { required: true, pattern: { value: EMAIL_REGEX, message: t('Email wrong format') } })}
 			/>
 
-			<TextField
+			<InputField
 				label={t('Password')}
 				placeholder={t('Enter password')}
 				startContent={<BiLockAlt size={20} />}
@@ -56,7 +56,7 @@ const SignUpForm = () => {
 				})}
 			/>
 
-			<TextField
+			<InputField
 				label={t('Confirm password')}
 				placeholder={t('Confirm password')}
 				startContent={<BiLockAlt size={20} />}
@@ -70,7 +70,7 @@ const SignUpForm = () => {
 				})}
 			/>
 
-			<TextField
+			<InputField
 				label={t('Phone number')}
 				placeholder={t('Enter phone')}
 				startContent={<AiFillPhone size={20} />}

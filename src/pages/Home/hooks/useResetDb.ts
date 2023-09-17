@@ -1,5 +1,5 @@
-import { resetDb as reset } from '@api'
-import { useMutation } from 'react-query'
+import { resetDb as reset } from '@api/axiosInstance'
+import { useMutation } from '@tanstack/react-query'
 
 const useResetDb = () => {
 	const { mutate: resetDb, isLoading, isSuccess, isError } = useMutation(['resetDb'], reset)

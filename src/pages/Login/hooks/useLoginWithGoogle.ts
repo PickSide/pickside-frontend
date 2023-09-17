@@ -1,4 +1,4 @@
-import { fetchGoogleAccountInfoServiceAPI, loginUserWithGoogle } from '@api'
+import { fetchGoogleAccountInfoServiceAPI, loginUserWithGoogle } from '@api/axiosInstance'
 
 import { setUser } from '@state'
 import { useDispatch } from 'react-redux'

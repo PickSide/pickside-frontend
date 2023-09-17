@@ -1,5 +1,5 @@
 import { AppState, Area } from '@state'
-import { BottomDrawer, Select, TextAreaField, TextField } from '@components'
+import { BottomDrawer, InputField, Select, TextAreaField } from '@components'
 import { Controller, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -45,7 +45,7 @@ const EditProfile = () => {
 		<div className="relative h-full">
 			<form className="flex flex-col gap-y-4 w-[600px]" onSubmit={handleSubmit(onSubmit)}>
 				<p className="text-2xl font-semibold">{t('Edit profile')}</p>
-				{!connectedUser?.isExternalAccount && <TextField label={t('Username')} fullWidth {...register('username')} />}
+				{!connectedUser?.isExternalAccount && <InputField label={t('Username')} fullWidth {...register('username')} />}
 				<TextAreaField label={t('Bio')} fullWidth {...register('bio')} />
 				<Controller
 					name="preferredRegion"

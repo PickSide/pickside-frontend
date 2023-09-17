@@ -17,7 +17,7 @@ const Card: FC<CardProps> = (props) => {
 	return (
 		<div
 			className={cn(
-				'h-fit p-4 m-2 border rounded-xl text-gray-800 whitespace-nowrap',
+				'relative h-fit px-5 py-4 m-2 border-2 border-gray-300 rounded-xl text-gray-800 whitespace-nowrap hover:shadow-md cursor-pointer',
 				props.className,
 				props.fullWidth ? 'w-full' : 'max-w-[480px]',
 			)}
@@ -40,7 +40,7 @@ export const CardBody: FC<CardBodyProps> = (props) => {
 }
 
 export const CardCTA: FC<CardCTAProps> = (props) => {
-	return <div className={cn('flex justify-end gap-x-4 m-2', props.className)}>{props.children}</div>
+	return <div className={cn('flex justify-end mt-4 gap-x-4', props.className)}>{props.children}</div>
 }
 
 export default Card

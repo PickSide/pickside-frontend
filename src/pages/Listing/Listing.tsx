@@ -8,7 +8,25 @@ import { useDevice } from '@hooks'
 const Listing: FC<any> = ({ ...props }) => {
 	const [device] = useDevice()
 
-	return device !== 'desktop' ? (
+	const DesktopListing = () => (
+		<div className="flex h-full w-full">
+			<Map />
+			<EventList />
+		</div>
+	)
+
+	const MobileListing = () => (
+		<>
+			<div className="h-2/3 bg-red-200">
+				<Map />
+			</div>
+			<div className="h-1/3">
+				<EventList />
+			</div>
+		</>
+	)
+
+	return (
 		<motion.div
 			initial="hidden"
 			animate="visible"
@@ -16,21 +34,7 @@ const Listing: FC<any> = ({ ...props }) => {
 			variants={pageTransition}
 			className="h-[calc(100vh-64px)]"
 		>
-			<div className="h-2/3 bg-red-200">
-				<Map />
-			</div>
-			<div className="h-1/3">
-				<EventList />
-			</div>
-		</motion.div>
-	) : (
-		<motion.div initial="hidden" animate="visible" exit="exit" variants={pageTransition} className="overflow-auto">
-			<div className="flex">
-				<div className="w-full">
-					<Map />
-				</div>
-				<EventList />
-			</div>
+			{device === 'mobile' ? <MobileListing /> : <DesktopListing />}
 		</motion.div>
 	)
 }

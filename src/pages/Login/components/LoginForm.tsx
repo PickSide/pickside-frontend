@@ -1,18 +1,13 @@
-import { BiLockAlt, BiUser } from 'react-icons/bi'
-import { Button, Checkbox, TextField } from '@components'
+import { Button, Checkbox, InputField, PasswordField } from '@components'
 import { Controller, useFormContext } from 'react-hook-form'
 
+import { BiUser } from 'react-icons/bi'
 import { FcGoogle } from 'react-icons/fc'
 import { Link } from 'react-router-dom'
 import { LoginFormProps } from '../interface/forms'
-import axios from 'axios'
-import { isError } from 'react-query'
 import { useDevice } from '@hooks'
-import { useDispatch } from 'react-redux'
-import { useGoogleLogin } from '@react-oauth/google'
 import useLogin from '../hooks/useLogin'
 import useLoginWithGoogle from '../hooks/useLoginWithGoogle'
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 export default function LoginForm() {
@@ -45,10 +40,10 @@ export default function LoginForm() {
 					...baseRule,
 				}}
 				render={({ field }) => (
-					<TextField
+					<InputField
 						{...field}
 						type="text"
-						autofocus
+						autoFocus
 						label={t('Username')}
 						placeholder={t('Enter username')}
 						startContent={<BiUser size={20} />}
@@ -63,15 +58,7 @@ export default function LoginForm() {
 					...baseRule,
 				}}
 				render={({ field }) => (
-					<TextField
-						{...field}
-						autofocus
-						label={t('Password')}
-						placeholder={t('Enter password')}
-						startContent={<BiLockAlt size={20} />}
-						isPassword
-						fullWidth
-					/>
+					<PasswordField {...field} autoFocus label={t('Password')} placeholder={t('Enter password')} fullWidth />
 				)}
 			/>
 			<Controller
@@ -79,11 +66,7 @@ export default function LoginForm() {
 				control={control}
 				render={({ field }) => <Checkbox {...field} label={t('Remember me')} />}
 			/>
-			<Button
-				type="submit"
-				isLoading={isLoginLoading || isGoogleLoginLoading}
-				className="rounded-md bg-primary text-white font-semibold h-[50px] transition-all duration-75 ease-in hover:bg-secondary"
-			>
+			<Button type="submit" isLoading={isLoginLoading || isGoogleLoginLoading}>
 				{t('Login')}
 			</Button>
 			<Button

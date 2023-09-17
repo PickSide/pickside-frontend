@@ -1,4 +1,4 @@
-import { Button, FormDivider, ImageUploader, TextField } from '@components'
+import { Button, FormDivider, ImageUploader, InputField } from '@components'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 
 import StepperCTAWrapper from '../shared/StepperCTAWrapper'
@@ -16,7 +16,7 @@ const Step4 = () => {
 			<Controller
 				name="title"
 				control={control}
-				render={({ field }) => <TextField {...field} fullWidth label={t('Title')} placeholder={t('Type your title')} />}
+				render={({ field }) => <InputField {...field} fullWidth label={t('Title')} placeholder={t('Type your title')} />}
 			/>
 			<FormDivider />
 			<ImageUploader onChange={(value) => setValue('images', value)} />

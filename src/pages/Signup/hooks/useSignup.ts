@@ -1,8 +1,7 @@
-import { createUser } from '@api'
+import { createUser } from '@api/axiosInstance'
 import { handleResponseError } from '@utils'
-import { setUser } from '@state'
 import { useDispatch } from 'react-redux'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 
 const useSignup = () => {

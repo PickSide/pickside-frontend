@@ -1,4 +1,4 @@
-import { BottomDrawer, Button, Dialog, Select, TextField } from '@components'
+import { BottomDrawer, Button, Dialog, InputField, Select } from '@components'
 import { Controller, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -6,18 +6,17 @@ import { AppState } from '@state'
 import ChangePasswordForm from '../components/ChangePasswordForm'
 import DeactivationForm from '../components/DeactivationForm'
 import { FaExternalLinkAlt } from 'react-icons/fa'
-import { useApi } from '@hooks'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useUpdateSetting } from '@hooks'
 
 const AccountManagement = () => {
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
-	const { updateUser } = useApi()
+	const { updateUser, isLoading } = useUpdateSetting()
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 	const locales = useSelector((state: AppState) => state.locales)
-	//const connectedUser = useSelector((state: AppState) => state.timezones)
 
 	const [openPasswordChangeDialog, setOpenPasswordChangeDialog] = useState<boolean>(false)
 	const [openDeactivationDialog, setOpenDeactivationDialog] = useState<boolean>(false)
@@ -26,8 +25,6 @@ const AccountManagement = () => {
 		control,
 		handleSubmit,
 		formState: { isDirty, dirtyFields },
-		register,
-		setValue,
 		reset,
 	} = useForm({
 		defaultValues: {
@@ -40,7 +37,6 @@ const AccountManagement = () => {
 	const onSubmit = async (values) => {
 		const keys = Object.keys(dirtyFields)
 		const changes = {}
-
 		keys.forEach((key) => (changes[key] = values[key]))
 
 		await dispatch<any>(updateUser({ ...changes }))
@@ -64,22 +60,23 @@ const AccountManagement = () => {
 			</Dialog>
 			<form className="flex flex-col gap-y-4 w-[600px]" onSubmit={handleSubmit(onSubmit)}>
 				<p className="text-2xl font-semibold">{t('Account Management')}</p>
-				<TextField label={t('Email')} fullWidth {...register('email')} />
+				<Controller
+					name="email"
+					control={control}
+					render={({ field }) => <InputField {...field} label={t('Email')} fullWidth />}
+				/>
 				<Controller
 					name="preferredLocale"
 					control={control}
-					defaultValue={connectedUser?.preferredLocale}
-					render={({ field: { value } }) => (
+					render={({ field }) => (
 						<Select
+							{...field}
 							label={t('Language')}
-							defaultValue={value}
+							defaultValue={field.value}
 							placeholder={t('Select language')}
 							options={locales?.results}
-							getOptionLabel={(option) => option?.description}
-							getOptionValue={(option) => option?.value || ''}
-							onChange={(option) =>
-								setValue('preferredLocale', option.id, { shouldDirty: option.value !== value?.value })
-							}
+							getOptionLabel={(option) => option.description}
+							getOptionValue={(option) => option.id}
 						/>
 					)}
 				/>

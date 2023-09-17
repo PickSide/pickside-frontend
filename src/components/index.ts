@@ -22,12 +22,15 @@ import FormDivider from './FormDivider'
 import Gallery from './Gallery'
 import GlobalAppStatusAlert from './GlobalAppStatusAlert'
 import GoogleAutocomplete from './GoogleAutocomplete'
+import Icon from './Icon'
 import IconButton from './shared/IconButton'
 import IconDropdown from './shared/IconDropdown'
 import ImageUploader from './ImageUploader'
+import InputField from './shared/InputField'
 import MapMarker from './MapMarker'
 import MenuItem from './shared/MenuItem'
 import NumberField from './NumberField'
+import PasswordField from './PasswordField'
 import PhoneField from './PhoneField'
 import Popover from './Popover'
 import ProfileMenu from './shared/ProfileMenu'
@@ -38,7 +41,6 @@ import Sidenav from './Sidenav'
 import Spinner from './Spinner'
 import Switch from './Switch'
 import TextAreaField from './TextAreaField'
-import TextField from './shared/TextField'
 import TimePicker from './TimePicker'
 import Toast from './Toast'
 import Upload from './Upload'
@@ -72,12 +74,14 @@ export {
 	Gallery,
 	GlobalAppStatusAlert,
 	GoogleAutocomplete,
+	Icon,
 	IconButton,
 	IconDropdown,
 	ImageUploader,
 	MapMarker,
 	MenuItem,
 	NumberField,
+	PasswordField,
 	PhoneField,
 	Popover,
 	ProfileMenu,
@@ -92,7 +96,7 @@ export {
 	Tab,
 	Tabs,
 	TextAreaField,
-	TextField,
+	InputField,
 	TimePicker,
 	Toast,
 	Toggle,

@@ -1,4 +1,4 @@
-import { Button, TextField } from '@components'
+import { Button, InputField } from '@components'
 
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -11,9 +11,9 @@ const ChangePasswordForm = ({ onClose }) => {
 
 	return (
 		<form className="flex flex-col space-y-8" onSubmit={handleSubmit(onSubmit)}>
-			<TextField label={t('Email')} fullWidth {...register('email')} />
-			<TextField label={t('Email')} fullWidth {...register('email')} />
-			<TextField label={t('Email')} fullWidth {...register('email')} />
+			<InputField label={t('Current password')} fullWidth {...register('current_password')} />
+			<InputField label={t('New password')} fullWidth {...register('password')} />
+			<InputField label={t('Confirm new password')} fullWidth {...register('confirm_password')} />
 			<Button type="button" variant="tertiary" onClick={onClose}>
 				{t('Cancel')}
 			</Button>
