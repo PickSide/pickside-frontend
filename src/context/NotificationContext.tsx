@@ -1,24 +1,27 @@
-import { AppState, User, setUser } from '@state'
 import { FC, createContext, useContext, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 
-import { useApi } from '@hooks'
+import { AppState } from '@state'
+import { io } from 'socket.io-client'
+import { useSelector } from 'react-redux'
 
 const Context = createContext<any>({})
 
 export const useNotificationContext = () => useContext(Context)
 
 export const NotificationProvider: FC<any> = ({ children }) => {
-	const dispatch = useDispatch()
-	const { getNotifications } = useApi()
-
 	const connectedUser = useSelector((state: AppState) => state.user)
+
+	const NOTIFICATION_KEY = 'notify'
 
 	useEffect(() => {
 		if (connectedUser) {
-			dispatch<any>(getNotifications())
+			const socket = io(import.meta.env.VITE_APP_API_URL_NOTIFICATIONS)
+
+			socket.on(NOTIFICATION_KEY, (data) => {
+				console.log('received', data)
+			})
 		}
-	}, [connectedUser, dispatch])
+	}, [connectedUser])
 
 	return <Context.Provider value={{}}>{children}</Context.Provider>
 }

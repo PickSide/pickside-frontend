@@ -11,7 +11,7 @@ const useDeactivateAccount = () => {
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
-	const callback = async (data: any) => await axiosInstance.put(`/users/deactivate/${connectedUser?.id}`)
+	const callback = async () => await axiosInstance.put(`/users/deactivate/${connectedUser?.id}`)
 
 	const {
 		mutate: deactivateUser,

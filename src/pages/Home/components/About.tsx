@@ -1,12 +1,12 @@
 import { ActivityCard, Carousel, CarouselItem, Spinner } from '@components'
-import { useApi, useDevice, useFetchActivities } from '@hooks'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDevice, useFetchActivities } from '@hooks'
 
 import { AppState } from '@state'
 import { NavLink } from 'react-router-dom'
 import friendship from '../../../assets/friendship.png'
 import onTime from '../../../assets/on-time.png'
 import touchscreen from '../../../assets/touchscreen.png'
+import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 const About = () => {

@@ -1,32 +1,27 @@
-import { createUser } from '@api/axiosInstance'
-import { handleResponseError } from '@utils'
+import { AxiosContext } from '@context'
+import { setUser } from '@state'
+import { useContext } from 'react'
 import { useDispatch } from 'react-redux'
 import { useMutation } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
 
 const useSignup = () => {
+	const { axiosInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
-	const navigate = useNavigate()
+
+	const callback = async (data: any) => await axiosInstance.post(`/users`, { data })
 
 	const {
-		mutate: signup,
-		isError,
+		mutate: signUp,
 		isLoading,
 		error,
-	} = useMutation(createUser, {
-		onSuccess: () => {
-			dispatch({
-				type: 'toast/toastMessage',
-				payload: {
-					message: 'Successfully created user. Please login',
-					type: 'success',
-				},
-			})
-			navigate('/login')
-		},
-		onError: (error: any) => handleResponseError(error),
+		isError,
+	} = useMutation(callback, {
+		mutationKey: ['createUser'],
+		onSuccess: (data) => dispatch<any>(setUser(data?.data)),
+		onError: (e) => console.log(e),
 	})
-	return { error, signup, isError, isLoading }
+
+	return { signUp, isLoading, error, isError }
 }
 
 export default useSignup

@@ -1,8 +1,5 @@
-import useApi from './useApi'
-import useApiHelpers from './useApiHelpers'
 import useConnectedUserPosition from './useConnectedUserPosition'
 import useCreateActivity from './services/useCreateActivity'
-import useCreateUser from './services/useCreateUser'
 import useDeactivateAccount from './services/useDeactivateAccount'
 import useDebounce from './useDebounce'
 import useDevice from './useDevice'
@@ -21,14 +18,12 @@ import useReactivateAccount from './services/useReactivateAccount'
 import useReadNotification from './services/useReadNotification'
 import useRefreshToken from './services/useRefreshToken'
 import useRegisterSelfToActivity from './services/useRegisterSelfToActivity'
-import useResetDb from './services/useResetDb'
+import useResetDb from '../pages/Home/hooks/useResetDb'
 import useUnregisterSelfFromActivity from './services/useUnregisterSelfFromActivity'
 import useUpdateFavorite from './services/useUpdateFavorite'
 import useUpdateSetting from './services/useUpdateSetting'
 
 export {
-	useApi,
-	useApiHelpers,
 	useConnectedUserPosition,
 	useDebounce,
 	useEnvVariables,
@@ -42,7 +37,6 @@ export {
 	useRefreshToken,
 	useUpdateSetting,
 	useCreateActivity,
-	useCreateUser,
 	useDeactivateAccount,
 	useFetchActivity,
 	useFetchLocales,

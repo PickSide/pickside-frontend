@@ -4,14 +4,13 @@ import { Controller, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { orderBy } from 'lodash'
-import { useApi } from '@hooks'
 import { useTranslation } from 'react-i18next'
+import { useUpdateSetting } from '@hooks'
 
 const EditProfile = () => {
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
-
-	const { updateUser } = useApi()
+	const { updateUser } = useUpdateSetting()
 	const areas = useSelector((state: AppState) => state.areas)
 	const connectedUser = useSelector((state: AppState) => state.user)
 

@@ -2,13 +2,13 @@ import { SettingField, Switch } from '@components'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { AppState } from '@state'
-import { useApi } from '@hooks'
 import { useTranslation } from 'react-i18next'
+import { useUpdateSetting } from '@hooks'
 
 const Privacy = () => {
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
-	const { updateUser } = useApi()
+	const { updateUser } = useUpdateSetting()
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
