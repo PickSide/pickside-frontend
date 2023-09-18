@@ -3,13 +3,13 @@ import { BsBookmark, BsBookmarkFill } from 'react-icons/bs'
 import Card, { CardBody, CardCTA, CardHeader, CardImage } from './shared/Card'
 import { FC, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useRegisterSelfToActivity, useUnregisterSelfFromActivity, useUpdateFavorite } from '@hooks'
 
 import Button from './shared/Button'
 import Icon from './Icon'
 import IconButton from './shared/IconButton'
 import { cn } from '@utils'
 import dayjs from 'dayjs'
-import { useApi } from '@hooks'
 import { useTranslation } from 'react-i18next'
 
 interface ActivityCardProps {
@@ -18,7 +18,9 @@ interface ActivityCardProps {
 }
 
 const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
-	const { registerSelfToActivity, unregisterSelfFromActivity, updateFavorite } = useApi()
+	const { registerToActivity } = useUnregisterSelfFromActivity()
+	const { unregisterFromActivity } = useRegisterSelfToActivity()
+	const { updateFavorite } = useUpdateFavorite()
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 
@@ -31,13 +33,13 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 
 	const handleRegister = async () => {
 		setIsRegistering(true)
-		await dispatch<any>(registerSelfToActivity(activity.id))
+		await dispatch<any>(registerToActivity(activity.id))
 		setIsRegistering(false)
 	}
 
 	const handleUnregister = async () => {
 		setIsUnregistering(true)
-		await dispatch<any>(unregisterSelfFromActivity(activity.id))
+		await dispatch<any>(unregisterFromActivity(activity.id))
 		setIsUnregistering(false)
 	}
 

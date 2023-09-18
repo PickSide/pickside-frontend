@@ -11,7 +11,7 @@ const useRegisterSelfToActivity = () => {
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
-	const callback = async (activityId: string) =>
+	const callback = async (activityId: any) =>
 		await axiosInstance.put(`/activities/unregister/${activityId}`, { userId: connectedUser?.id })
 
 	const {

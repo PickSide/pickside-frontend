@@ -2,8 +2,8 @@ import { AppState, setStatus } from '@state'
 import { FC, createContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { useApi } from '@hooks'
 import { useLocalStorage } from 'react-use'
+import { useLogout } from '@hooks'
 import { useTranslation } from 'react-i18next'
 
 const EVENTS = ['click', 'keydown', 'load', 'scroll']
@@ -16,7 +16,7 @@ const Context = createContext({})
 
 export const IdleTimeOutProvider: FC<any> = ({ children }) => {
 	const [IDLE_TIMER, setIdleTimer] = useLocalStorage<number>(IDLE_TIMER_KEY)
-	const { logout } = useApi()
+	const { logout } = useLogout()
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
 

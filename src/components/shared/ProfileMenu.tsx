@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { AppState } from '@state'
 import avatarPlaceholder from '../../assets/avatar-placeholder.png'
-import { useApi } from '@hooks'
+import { useLogout } from '@hooks'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 const ProfileMenu: FC<any> = () => {
-	const { logout } = useApi()
+	const { logout } = useLogout()
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { t } = useTranslation()

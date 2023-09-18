@@ -13,6 +13,7 @@ import useFetchLocales from './services/useFetchLocales'
 import useFetchNotifications from './services/useFetchNotifications'
 import useGeolocation from './useGeolocation'
 import useLocaleSwitcher from './useLocaleSwitcher'
+import useLogout from './services/useLogout'
 import useMapStyles from './useMapStyles'
 import useMultistepForm from './useMultistepForm'
 import useOnScreen from './useOnScreen'
@@ -52,4 +53,5 @@ export {
 	useRegisterSelfToActivity,
 	useResetDb,
 	useUpdateFavorite,
+	useLogout,
 }
