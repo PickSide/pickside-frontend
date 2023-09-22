@@ -3,7 +3,6 @@ import { Controller, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { AppState } from '@state'
-import { FaExternalLinkAlt } from 'react-icons/fa'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useUpdateSetting } from '@hooks'

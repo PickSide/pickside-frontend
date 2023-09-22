@@ -12,7 +12,9 @@ const useUpdateSetting = () => {
 	const { axiosInstance } = useContext(AxiosContext)
 
 	const connectedUser = useSelector((state: AppState) => state.user)
+
 	const callback = async (data) => axiosInstance.put(`users/${connectedUser?.id}/settings`, { data })
+
 	const {
 		mutate: updateUser,
 		isLoading,

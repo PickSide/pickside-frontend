@@ -1,6 +1,20 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
+export interface ServerResponse {
+	callback?: string
+	context?: any
+	extra?: any
+	failReason?: any
+	jobStatus?: 'FAILED' | 'COMPLETED'
+	jobType?: any
+	message?: string
+	res: Response
+	status: any
+	timeStamp?: Date
+	payload?: any
+}
+
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs))
 
 export const toPascalCase = (str) =>

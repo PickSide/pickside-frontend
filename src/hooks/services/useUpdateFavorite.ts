@@ -1,4 +1,4 @@
-import { AppState, updateActivity } from '@state'
+import { AppState, updateUserFavorites } from '@state'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { AxiosContext } from '@context'
@@ -11,8 +11,8 @@ const useUpdateFavorite = () => {
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
-	const callback = async (activityId: any) =>
-		await axiosInstance.put(`/activities/${activityId}/favorites`, { userId: connectedUser?.id })
+	const callback = async (activityId) =>
+		await axiosInstance.put(`/activities/${activityId}/favorites`, { data: { userId: connectedUser?.id } })
 
 	const {
 		mutate: updateFavorite,
@@ -21,7 +21,7 @@ const useUpdateFavorite = () => {
 		isError,
 	} = useMutation(callback, {
 		mutationKey: ['updateFavorite'],
-		onSuccess: (data) => dispatch<any>(updateActivity(data?.data)), // change the data parameter here
+		onSuccess: ({ data }, activityId) => dispatch<any>(updateUserFavorites({ activityId, result: data.result })),
 		onError: (e) => console.log(e),
 	})
 

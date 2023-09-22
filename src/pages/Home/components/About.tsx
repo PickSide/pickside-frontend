@@ -39,8 +39,8 @@ const About = () => {
 				{!!activities?.results && !isLoading && (
 					<Carousel>
 						{activities?.results?.map((event, idx) => (
-							<CarouselItem>
-								<ActivityCard key={idx} activity={event} />
+							<CarouselItem key={idx}>
+								<ActivityCard activity={event} />
 							</CarouselItem>
 						))}
 					</Carousel>

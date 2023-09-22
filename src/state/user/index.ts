@@ -1,6 +1,5 @@
 import { PayloadAction, createSlice, current } from '@reduxjs/toolkit'
 
-import { Activity } from '../activity'
 import { Area } from '../areas'
 import { Locale } from '../locales'
 import { Sport } from '../sport'
@@ -65,15 +64,15 @@ const User = createSlice({
 			return state
 		},
 
-		updateFavorite: (state, action: PayloadAction<any>) => {
-			if (state && action.payload.favorites) {
-				state['favorites'] = action.payload.favorites
+		updateUserFavorites: (state, action: PayloadAction<any>) => {
+			if (state && action.payload.result.favorites) {
+				state.favorites = action.payload.result.favorites
 			}
 			return state
 		},
 	},
 })
 
-export const { setUser, setCachedUser, setUserEmpty, updateUserConfig, updateFavorite } = User.actions
+export const { setUser, setCachedUser, setUserEmpty, updateUserConfig, updateUserFavorites } = User.actions
 
 export default User.reducer
