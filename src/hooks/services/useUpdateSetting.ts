@@ -22,17 +22,15 @@ const useUpdateSetting = () => {
 		isError,
 	} = useMutation(callback, {
 		mutationKey: ['updateUserSettings'],
-		onSuccess: () => {
+		onSuccess: ({ data }, params) => {
+			dispatch<any>(updateUserConfig(params))
 			dispatch({
 				type: 'toast/toastMessage',
 				payload: {
-					message: t('Updated user settings'),
+					message: t(data.message),
 					type: 'success',
 				},
 			})
-		},
-		onSettled: (data) => {
-			dispatch<any>(updateUserConfig({ ...data }))
 		},
 		onError: (e) => console.log(e),
 	})

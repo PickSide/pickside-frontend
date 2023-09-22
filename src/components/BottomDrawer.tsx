@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 
 const BottomDrawer = ({ show = false, onReset }) => {
 	const { t } = useTranslation()
-
+	console.log('show', show)
 	return show ? (
 		<AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
 			<motion.div
@@ -24,9 +24,7 @@ const BottomDrawer = ({ show = false, onReset }) => {
 				</div>
 			</motion.div>
 		</AnimatePresence>
-	) : (
-		<></>
-	)
+	) : null
 }
 
 export default BottomDrawer
