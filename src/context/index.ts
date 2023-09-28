@@ -1,6 +1,7 @@
 import AccountContext from './AccountContext'
 import ApiErrorContext from './ApiErrorContext'
 import AppThemeContext from './AppThemeContext'
+import AxiosContext from './AxiosContext'
 import I18nAppContext from './I18nAppContext'
 import IdleTimeOutContext from './IdleTimeOutContext'
 import InitialAppStateContext from './InitialAppStateContext'
@@ -12,6 +13,7 @@ export {
 	AccountContext,
 	ApiErrorContext,
 	AppThemeContext,
+	AxiosContext,
 	I18nAppContext,
 	IdleTimeOutContext,
 	InitialAppStateContext,

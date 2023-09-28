@@ -1,17 +1,14 @@
-import { Button, Select, TextField } from '@components'
 import { Controller, useForm } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux'
 
 import { AppState } from '@state'
-import { FaExternalLinkAlt } from 'react-icons/fa'
-import { useApi } from '@hooks'
+import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useUpdateSetting } from '@hooks'
 
 const PersonalInfo = () => {
 	const { t } = useTranslation()
-	const dispatch = useDispatch()
-	const { updateUser } = useApi()
+	const { updateUser } = useUpdateSetting()
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
@@ -37,7 +34,7 @@ const PersonalInfo = () => {
 
 		keys.forEach((key) => (changes[key] = values[key]))
 
-		await dispatch<any>(updateUser({ ...changes }))
+		await updateUser({ ...changes })
 	}
 
 	return (

@@ -1,14 +1,13 @@
 import { SettingField, Switch } from '@components'
-import { useDispatch, useSelector } from 'react-redux'
 
 import { AppState } from '@state'
-import { useApi } from '@hooks'
+import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { useUpdateSetting } from '@hooks'
 
 const Privacy = () => {
 	const { t } = useTranslation()
-	const dispatch = useDispatch()
-	const { updateUser } = useApi()
+	const { updateUser } = useUpdateSetting()
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
@@ -19,7 +18,7 @@ const Privacy = () => {
 			control: (
 				<Switch
 					defaultChecked={connectedUser?.profilePrivacy?.showAge}
-					onChange={(e) => dispatch<any>(updateUser({ profilePrivacy: { showAge: e.target.checked } }))}
+					onChange={(e) => updateUser({ profilePrivacy: { showAge: e.target.checked } })}
 				/>
 			),
 		},
@@ -29,7 +28,7 @@ const Privacy = () => {
 			control: (
 				<Switch
 					defaultChecked={connectedUser?.profilePrivacy?.showEmail}
-					onChange={(e) => dispatch<any>(updateUser({ profilePrivacy: { showEmail: e.target.checked } }))}
+					onChange={(e) => updateUser({ profilePrivacy: { showEmail: e.target.checked } })}
 				/>
 			),
 		},
@@ -39,7 +38,7 @@ const Privacy = () => {
 			control: (
 				<Switch
 					defaultChecked={connectedUser?.profilePrivacy?.showPhone}
-					onChange={(e) => dispatch<any>(updateUser({ profilePrivacy: { showPhone: e.target.checked } }))}
+					onChange={(e) => updateUser({ profilePrivacy: { showPhone: e.target.checked } })}
 				/>
 			),
 		},
@@ -49,7 +48,7 @@ const Privacy = () => {
 			control: (
 				<Switch
 					defaultChecked={connectedUser?.profilePrivacy?.showGroups}
-					onChange={(e) => dispatch<any>(updateUser({ profilePrivacy: { showGroups: e.target.checked } }))}
+					onChange={(e) => updateUser({ profilePrivacy: { showGroups: e.target.checked } })}
 				/>
 			),
 		},
@@ -59,7 +58,7 @@ const Privacy = () => {
 			control: (
 				<Switch
 					defaultChecked={connectedUser?.profilePrivacy?.allowLocationTracking}
-					onChange={(e) => dispatch<any>(updateUser({ profilePrivacy: { allowLocationTracking: e.target.checked } }))}
+					onChange={(e) => updateUser({ profilePrivacy: { allowLocationTracking: e.target.checked } })}
 				/>
 			),
 		},

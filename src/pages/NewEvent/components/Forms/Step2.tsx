@@ -1,4 +1,4 @@
-import { Button, FormDivider, NumberField, Select } from '@components'
+import { Button, FormDivider, Icon, NumberField, Select } from '@components'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 
 import { AppState } from '@state'
@@ -8,7 +8,7 @@ import { useStepper } from '@pages/NewEvent/hooks/useStepper'
 import { useTranslation } from 'react-i18next'
 
 const Step2 = () => {
-	const { control, getValues, setValue, watch } = useFormContext<any>()
+	const { control, getValues, watch } = useFormContext<any>()
 	const { dirtyFields } = useFormState({ control })
 	const { previous, next } = useStepper()
 	const { t } = useTranslation()
@@ -60,7 +60,9 @@ const Step2 = () => {
 			<Controller
 				name="price"
 				control={control}
-				render={({ field }) => <NumberField {...field} fullWidth label={t('Price')} />}
+				render={({ field }) => (
+					<NumberField {...field} fullWidth label={t('Price')} startContent={<Icon icon="attach_money" />} />
+				)}
 			/>
 
 			<FormDivider />
@@ -68,7 +70,9 @@ const Step2 = () => {
 			<Controller
 				name="maxPlayers"
 				control={control}
-				render={({ field }) => <NumberField {...field} fullWidth label={t('Number of players')} />}
+				render={({ field }) => (
+					<NumberField {...field} fullWidth label={t('Number of players')} startContent={<Icon icon="group" />} />
+				)}
 			/>
 
 			<StepperCTAWrapper>

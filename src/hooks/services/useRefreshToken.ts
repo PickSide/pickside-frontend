@@ -1,14 +1,17 @@
-import { refreshToken as refresh } from '@api'
-import { useDispatch } from 'react-redux'
+import { AxiosContext } from '@context'
+import { useContext } from 'react'
 import { useLocalStorage } from 'react-use'
-import { useMutation } from 'react-query'
-import { useNavigate } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
 
 const useRefreshToken = () => {
 	const [previousCachedTokens] = useLocalStorage('auth')
+	const { axiosInstance } = useContext(AxiosContext)
 
-	const { mutate: refreshToken, isLoading } = useMutation(refresh, {
-		onSuccess: ({ data }) => {
+	const callback = async () => await axiosInstance.get('/token')
+
+	const { mutate: refreshToken, isLoading } = useMutation(callback, {
+		mutationKey: ['refreshToken'],
+		onSuccess: (data) => {
 			console.log(data)
 		},
 		onError: (error) => console.log(error),

@@ -4,8 +4,8 @@ import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 import { MapMarker, Spinner } from '@components'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { cn } from '@utils'
 import { faSoccerBall } from '@fortawesome/free-solid-svg-icons'
-import { twMerge } from 'tailwind-merge'
 import { useMapStyles } from '@hooks'
 
 const Map: FC<any> = ({ ...props }) => {
@@ -45,15 +45,15 @@ const Map: FC<any> = ({ ...props }) => {
 
 	const ActivityMap = (): JSX.Element => {
 		return (
-			<div className={twMerge('w-full h-full overflow-hidden')}>
+			<div className={cn('w-full h-full overflow-hidden')}>
 				<GoogleMap zoom={12} mapContainerStyle={mapContainerStyle} center={center} options={options}>
 					{playables?.results?.map(({ id, coords, fieldName }, idx) => (
 						<MapMarker
 							id={id}
 							key={idx}
 							coords={coords}
-							onToggleOpen={() => dispatch<any>(setSelectedActivity(id))}
-							onWindowClose={() => dispatch<any>(setSelectedActivity(null))}
+							onToggleOpen={() => dispatch(setSelectedActivity(id))}
+							onWindowClose={() => dispatch(setSelectedActivity(null))}
 							icon={{
 								path: faSoccerBall.icon[4] as string,
 								fillColor: '#71fb00',

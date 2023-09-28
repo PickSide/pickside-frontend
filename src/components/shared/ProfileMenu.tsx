@@ -1,17 +1,16 @@
 import { FC, useMemo } from 'react'
 import { IconDropdown, MenuItem } from '@components'
 import { MdGroups2, MdLogout, MdOutlineEventAvailable, MdOutlineSettings } from 'react-icons/md'
-import { useDispatch, useSelector } from 'react-redux'
 
 import { AppState } from '@state'
 import avatarPlaceholder from '../../assets/avatar-placeholder.png'
-import { useApi } from '@hooks'
+import { useLogout } from '@hooks'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 const ProfileMenu: FC<any> = () => {
-	const { logout } = useApi()
-	const dispatch = useDispatch()
+	const { logout } = useLogout()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
 
@@ -39,7 +38,7 @@ const ProfileMenu: FC<any> = () => {
 			label: t('Logout'),
 			icon: <MdLogout size={20} />,
 			action: async () => {
-				await dispatch<any>(logout())
+				logout()
 				navigate('/login')
 			},
 		},

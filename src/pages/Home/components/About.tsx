@@ -1,25 +1,20 @@
 import { ActivityCard, Carousel, CarouselItem, Spinner } from '@components'
-import { useApi, useDevice } from '@hooks'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDevice, useFetchActivities } from '@hooks'
 
 import { AppState } from '@state'
 import { NavLink } from 'react-router-dom'
 import friendship from '../../../assets/friendship.png'
 import onTime from '../../../assets/on-time.png'
 import touchscreen from '../../../assets/touchscreen.png'
-import { useAsync } from 'react-use'
+import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 const About = () => {
-	const { getActivities } = useApi()
 	const { t } = useTranslation()
-	const dispatch = useDispatch()
 	const [device] = useDevice()
 	const activities = useSelector((state: AppState) => state.activities)
 
-	const { loading } = useAsync(async () => {
-		dispatch<any>(getActivities)
-	}, [])
+	const { isLoading } = useFetchActivities()
 
 	const MobileAboutUs = () => (
 		<section id="about" className="w-full px-8 py-10 mx-auto overflow-x-hidden">
@@ -27,25 +22,25 @@ const About = () => {
 				<div className="flex justify-between">
 					<p className="text-[30px]">{t('Upcoming Events')}</p>
 				</div>
+				{/* LOADING DIV */}
+				{isLoading && (
+					<div className=" flex space-x-2 p-5 justify-center items-center border">
+						<Spinner text={t('Loading events...')} />
+					</div>
+				)}
+
 				{/* NO EVENTS DIV  */}
-				{!activities?.results && !loading && (
+				{!activities?.results && !isLoading && (
 					<div className="flex h-16 w-full border items-center justify-center">
 						<p className="text-gray-500">{t('No upcoming events')}</p>
 					</div>
 				)}
-				{/* LOADING DIV */}
-				{loading && (
-					<div className="w-full h-full flex space-x-2 p-5 justify-center items-center border">
-						<Spinner />
-						<p className="text-gray-400">{t('Loading events')}</p>
-					</div>
-				)}
 				{/* CAROUSEL DIV */}
-				{!!activities?.results && !loading && (
+				{!!activities?.results && !isLoading && (
 					<Carousel>
 						{activities?.results?.map((event, idx) => (
-							<CarouselItem>
-								<ActivityCard key={idx} activity={event} />
+							<CarouselItem key={idx}>
+								<ActivityCard activity={event} />
 							</CarouselItem>
 						))}
 					</Carousel>
@@ -97,20 +92,19 @@ const About = () => {
 					</NavLink>
 				</div>
 
-				{!activities?.results && !loading && (
+				{isLoading && (
+					<div className=" flex space-x-2 p-5 justify-center items-center border">
+						<Spinner text={t('Loading events...')} />
+					</div>
+				)}
+
+				{!activities?.results && !isLoading && (
 					<div className="flex h-16 w-full border items-center justify-center">
 						<p className="text-gray-500">{t('No upcoming events')}</p>
 					</div>
 				)}
 
-				{loading && (
-					<div className="w-full h-full flex space-x-2 p-5 justify-center items-center border">
-						<Spinner />
-						<p className="text-gray-400">{t('Loading events')}</p>
-					</div>
-				)}
-
-				{!!activities?.results && !loading && (
+				{!!activities?.results && !isLoading && (
 					<Carousel>
 						{activities?.results?.map((event, idx) => (
 							<CarouselItem key={idx}>

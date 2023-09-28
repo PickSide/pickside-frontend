@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { useTranslation } from 'react-i18next'
 
-const useLocaleSwitcher = (): { handleLocaleChange: (locale: any) => void, current } => {
+const useLocaleSwitcher = (): { handleLocaleChange: (locale: any) => void; current } => {
 	const dispatch = useDispatch()
 	const { i18n } = useTranslation()
 
@@ -14,7 +14,7 @@ const useLocaleSwitcher = (): { handleLocaleChange: (locale: any) => void, curre
 	const handleLocaleChange = useCallback(
 		async (locale) => {
 			if (locale && locale.value) {
-				await dispatch<any>(setLocale(locale.value))
+				await dispatch(setLocale(locale.value))
 				i18n.changeLanguage(locale?.value)
 			}
 		},

@@ -1,11 +1,9 @@
 import { Button } from '@components'
-import { useApi } from '@hooks'
-import { useDispatch } from 'react-redux'
+import { useDeactivateAccount } from '@hooks'
 import { useTranslation } from 'react-i18next'
 
 const DeactivationForm = ({ onClose }) => {
-	const { deactivate } = useApi()
-	const dispatch = useDispatch()
+	const { deactivateUser } = useDeactivateAccount()
 	const { t } = useTranslation()
 
 	return (
@@ -23,7 +21,7 @@ const DeactivationForm = ({ onClose }) => {
 					type="button"
 					variant="danger"
 					onClick={() => {
-						dispatch<any>(deactivate())
+						deactivateUser()
 						onClose()
 					}}
 				>

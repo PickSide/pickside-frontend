@@ -1,12 +1,14 @@
-import { AiFillEdit, AiOutlineTeam } from 'react-icons/ai'
-import { Button, Chip, Dialog, IconDropdown, MenuItem, Popover, Tab, Tabs } from '@components'
+import { Dialog, Popover } from '@components'
 import { FiMoreVertical, FiSettings } from 'react-icons/fi'
+import { Form, FormProvider, useForm } from 'react-hook-form'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 
+import { AiFillEdit } from 'react-icons/ai'
 import AppSettings from './Sections/PersonalInfo'
 import { AppState } from '@state'
 import { BiTime } from 'react-icons/bi'
+import { BottomDrawer } from '@components'
 import { CgProfile } from 'react-icons/cg'
 import EditProfile from './Sections/EditProfile'
 import History from './Sections/ActivityHistory'
@@ -14,15 +16,42 @@ import { MdHistory } from 'react-icons/md'
 import { useDevice } from '@hooks'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { useUpdateSetting } from '@hooks'
 
 const Settings = () => {
 	const { t } = useTranslation()
 	const { pathname } = useLocation()
 	const [device] = useDevice()
+	const { updateUser } = useUpdateSetting()
 	const connectedUser = useSelector((state: AppState) => state.user)
-	const [activeSection, setActiveSection] = useState<string>(pathname)
 	const [openChangeAvatarDialog, setOpenChangeAvatarDialog] = useState<boolean>(false)
 	const [openPopover, setOpenPopover] = useState<boolean>(false)
+
+	const methods = useForm({
+		defaultValues: {
+			email: connectedUser?.email,
+			bio: connectedUser?.bio,
+			preferredLocale: connectedUser?.preferredLocale,
+			preferredRegion: connectedUser?.preferredRegion,
+			timezone: connectedUser?.timezone,
+			username: connectedUser?.username,
+		},
+		resetOptions: {
+			//keepDirtyValues: true,
+			keepDefaultValues: true,
+		},
+	})
+
+	const onSubmit = async (values) => {
+		const keys = Object.keys(methods.formState.dirtyFields)
+		const changes = {}
+
+		keys.forEach((key) => (changes[key] = values[key]))
+
+		await updateUser(changes)
+
+		methods.reset()
+	}
 
 	const avatar = useMemo(() => {
 		if (connectedUser?.avatar) {
@@ -30,7 +59,6 @@ const Settings = () => {
 			const blob = new Blob([bufferImgArr], { type: 'image/jpeg' })
 			const urlCreator = window.URL || window.webkitURL
 			const imageUrl = urlCreator.createObjectURL(blob)
-			console.log(blob, imageUrl)
 			return imageUrl
 		}
 	}, [connectedUser])
@@ -169,18 +197,19 @@ const Settings = () => {
 									}`}
 								>
 									{icon}
-									<NavLink
-										className="flex-grow text-[15px] whitespace-nowrap"
-										to={ref}
-										onClick={() => setActiveSection(`/user/${ref}`)}
-									>
+									<NavLink className="flex-grow text-[15px] whitespace-nowrap" to={ref}>
 										{description}
 									</NavLink>
 								</div>
 							))}
 						</div>
 						<div className="overflow-y-auto p-6 w-full h-full">
-							<Outlet />
+							<FormProvider {...methods}>
+								<form onSubmit={methods.handleSubmit(onSubmit)}>
+									<Outlet />
+									<BottomDrawer show={methods.formState.isDirty} onReset={methods.reset} />
+								</form>
+							</FormProvider>
 						</div>
 					</div>
 				</div>

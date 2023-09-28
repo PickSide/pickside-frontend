@@ -2,8 +2,8 @@ import { AppState, setStatus } from '@state'
 import { FC, createContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { useApi } from '@hooks'
 import { useLocalStorage } from 'react-use'
+import { useLogout } from '@hooks'
 import { useTranslation } from 'react-i18next'
 
 const EVENTS = ['click', 'keydown', 'load', 'scroll']
@@ -16,7 +16,7 @@ const Context = createContext({})
 
 export const IdleTimeOutProvider: FC<any> = ({ children }) => {
 	const [IDLE_TIMER, setIdleTimer] = useLocalStorage<number>(IDLE_TIMER_KEY)
-	const { logout } = useApi()
+	const { logout } = useLogout()
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
 
@@ -26,12 +26,12 @@ export const IdleTimeOutProvider: FC<any> = ({ children }) => {
 		if (IDLE_TIMER) {
 			const diff = IDLE_TIMER - Date.now()
 			if (diff <= 0) {
-				dispatch<any>(setStatus({ status: 'error', message: t('Your session has expired. Reload the page!') }))
-				dispatch<any>(logout())
+				dispatch(setStatus({ status: 'error', message: t('Your session has expired. Reload the page!') }))
+				dispatch(logout())
 			} else if (diff > 0 && diff <= IDLE_WARNING_THRESHOLD) {
-				dispatch<any>(setStatus({ status: 'warning', message: t('Your session is expiring soon.') }))
+				dispatch(setStatus({ status: 'warning', message: t('Your session is expiring soon.') }))
 			} else {
-				dispatch<any>(setStatus(null))
+				dispatch(setStatus(null))
 			}
 		}
 	}

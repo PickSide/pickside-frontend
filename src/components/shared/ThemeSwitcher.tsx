@@ -25,7 +25,7 @@ const ThemeSwitcher: FC<any> = () => {
 				<MenuItem
 					key={idx}
 					disabled={current === theme}
-					onClick={() => dispatch<any>(setAppTheme(theme))}
+					onClick={() => dispatch(setAppTheme(theme))}
 					icon={ThemeIconMap[theme].icon}
 				>
 					{ThemeIconMap[theme].label}

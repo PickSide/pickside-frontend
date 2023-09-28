@@ -1,27 +1,27 @@
 import { AxiosContext } from '@context'
-import { setUser } from '@state'
+import { setUserEmpty } from '@state'
 import { useContext } from 'react'
 import { useDispatch } from 'react-redux'
 import { useMutation } from '@tanstack/react-query'
 
-const useSignup = () => {
+const useLogout = () => {
 	const { axiosInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 
-	const callback = async (data: any) => await axiosInstance.post(`/users`, { data })
+	const callback = async () => await axiosInstance.post(`/logout`)
 
 	const {
-		mutate: signUp,
+		mutate: logout,
 		isLoading,
 		error,
 		isError,
 	} = useMutation(callback, {
-		mutationKey: ['createUser'],
-		onSuccess: (data) => dispatch(setUser(data?.data)),
+		mutationKey: ['logoutUser'],
+		onSuccess: () => dispatch(setUserEmpty()),
 		onError: (e) => console.log(e),
 	})
 
-	return { signUp, isLoading, error, isError }
+	return { logout, isLoading, error, isError }
 }
 
-export default useSignup
+export default useLogout

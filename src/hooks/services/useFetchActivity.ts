@@ -4,13 +4,13 @@ import { useContext } from 'react'
 import { useDispatch } from 'react-redux'
 import { useQuery } from '@tanstack/react-query'
 
-const useFetchActivities = () => {
+const useFetchActivity = (activityId) => {
 	const dispatch = useDispatch()
 	const { axiosInstance } = useContext(AxiosContext)
 
-	const fetchActivities = async () => await axiosInstance.get('/activities')
+	const callback = async () => await axiosInstance.get(`/activities/${activityId}`)
 
-	const { data: activities, isLoading } = useQuery(['fetchActivities'], fetchActivities, {
+	const { data: activities, isLoading } = useQuery(['fetchActivity'], callback, {
 		onSuccess: ({ data }) => dispatch(setActivities(data)),
 		onError: () => {},
 	})
@@ -18,4 +18,4 @@ const useFetchActivities = () => {
 	return { activities, isLoading }
 }
 
-export default useFetchActivities
+export default useFetchActivity

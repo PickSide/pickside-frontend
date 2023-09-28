@@ -1,40 +1,33 @@
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
-import { ReactNode, forwardRef, useState } from 'react'
+import { HTMLInputTypeAttribute, ReactNode, forwardRef } from 'react'
 
-interface TextFieldProps {
+export interface InputFieldProps extends React.HTMLProps<HTMLInputElement> {
 	id?: string
-	label?: string
-	placeholder?: string
+	pattern?: string
 	startContent?: ReactNode
-	autofocus?: boolean
-	isPassword?: boolean
+	endContent?: ReactNode
 	readOnly?: boolean
 	error?: any
-	type?: string
+	type?: HTMLInputTypeAttribute
 	fullWidth?: boolean
 	defaultValue?: string
-	onChange?: (e?) => void
 }
 
-const TextField = (
+const InputField = (
 	{
 		id,
 		label,
 		startContent,
+		endContent,
 		placeholder,
-		autofocus = false,
-		isPassword = false,
+		pattern,
 		error,
-		type = 'text',
 		defaultValue,
 		readOnly = false,
 		fullWidth = false,
 		...rest
-	}: TextFieldProps | any,
+	}: InputFieldProps,
 	ref,
 ) => {
-	const [showPassword, setShowPassword] = useState<boolean>(false)
-
 	return (
 		<div className={`${!fullWidth ? 'max-w-[230px]' : ''} relative flex flex-col disabled:text-gray-400`}>
 			<label htmlFor={id} className="text-gray-800">
@@ -48,7 +41,6 @@ const TextField = (
 				{startContent && <span className="text-gray-500 w-10 flex justify-center">{startContent}</span>}
 
 				<input
-					type={isPassword && !showPassword ? 'password' : type}
 					autoComplete="off"
 					disabled={readOnly}
 					value={defaultValue}
@@ -57,16 +49,7 @@ const TextField = (
 					className="relative rounded-md w-[95%] h-[90%] px-2 py-2 focus-visible:outline-none disabled:bg-white disabled:cursor-not-allowed disabled:text-gray-300"
 					{...rest}
 				/>
-				{isPassword && (
-					<button
-						tabIndex={-1}
-						type="button"
-						onClick={() => setShowPassword(!showPassword)}
-						className="rounded-md text-gray-500 cursor-pointer w-12 h-12 p-2 m-auto outline-none peer-hover:bg-gray-200"
-					>
-						{showPassword ? <AiOutlineEyeInvisible size={20} /> : <AiOutlineEye size={20} />}
-					</button>
-				)}
+				{endContent}
 			</div>
 			{error && (
 				<label htmlFor={id} className="">
@@ -77,4 +60,4 @@ const TextField = (
 	)
 }
 
-export default forwardRef(TextField)
+export default forwardRef(InputField)

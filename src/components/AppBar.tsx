@@ -1,6 +1,6 @@
 import { MdLogout, MdOutlineHistory, MdOutlineSettings, MdPersonOutline } from 'react-icons/md'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { useApi, useDevice, useOnScreen } from '@hooks'
+import { useDevice, useLogout, useOnScreen } from '@hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMemo, useRef } from 'react'
 
@@ -28,7 +28,7 @@ const AppBar = () => {
 	const ref = useRef<any>()
 
 	const [device] = useDevice()
-	const { logout } = useApi()
+	const { logout } = useLogout()
 	const { pathname } = useLocation()
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
@@ -64,7 +64,7 @@ const AppBar = () => {
 							<MenuItem
 								icon={<MdLogout size={20} />}
 								onClick={async () => {
-									await dispatch<any>(logout())
+									await dispatch(logout())
 									navigate('/login')
 								}}
 							>

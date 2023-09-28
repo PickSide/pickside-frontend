@@ -1,9 +1,8 @@
-import { authMiddleware, toastMiddleware } from '@middlewares'
-
 import { configureStore } from '@reduxjs/toolkit'
 import { reducers } from '@state'
+import { toastMiddleware } from '@middlewares'
 
-const additionalMiddlewares = [authMiddleware, toastMiddleware]
+const additionalMiddlewares = [toastMiddleware]
 
 export const store = configureStore({
 	reducer: reducers,

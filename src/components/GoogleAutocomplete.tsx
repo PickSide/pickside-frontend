@@ -2,7 +2,7 @@ import { StandaloneSearchBox, useJsApiLoader } from '@react-google-maps/api'
 import { forwardRef, useState } from 'react'
 
 import { HiOutlineLocationMarker } from 'react-icons/hi'
-import TextField from './shared/TextField'
+import InputField from './shared/InputField'
 import { useTranslation } from 'react-i18next'
 
 const GoogleAutocomplete = ({ label, onSelectPlace, ...rest }, ref) => {
@@ -23,7 +23,7 @@ const GoogleAutocomplete = ({ label, onSelectPlace, ...rest }, ref) => {
 
 	return isLoaded ? (
 		<StandaloneSearchBox onLoad={onLoad} onPlacesChanged={onPlacesChanged}>
-			<TextField
+			<InputField
 				label={label}
 				startContent={<HiOutlineLocationMarker size={20} />}
 				placeholder={t('Enter your location')}
@@ -31,7 +31,7 @@ const GoogleAutocomplete = ({ label, onSelectPlace, ...rest }, ref) => {
 			/>
 		</StandaloneSearchBox>
 	) : (
-		<TextField
+		<InputField
 			disabled
 			label={label}
 			startContent={<HiOutlineLocationMarker size={20} />}

@@ -3,6 +3,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+	font-family: 'Material Icons';
+	font-style: normal;
+	font-weight: 400;
+	src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+	src: local('Material Icons'), local('MaterialIcons-Regular'),
+		url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+		url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+		url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+}
+
 @layer base {
 	body {
 		margin: 0;
@@ -61,35 +72,86 @@
 		height: 0px;
 	}
 
+	.material-icons {
+		font-family: 'Material Icons';
+		font-weight: normal;
+		font-style: normal;
+		font-size: 24px; /* Preferred icon size */
+		display: inline-block;
+		line-height: 1;
+		text-transform: none;
+		letter-spacing: normal;
+		word-wrap: normal;
+		white-space: nowrap;
+		direction: ltr;
+
+		/* Support for all WebKit browsers. */
+		-webkit-font-smoothing: antialiased;
+		/* Support for Safari and Chrome. */
+		text-rendering: optimizeLegibility;
+
+		/* Support for Firefox. */
+		-moz-osx-font-smoothing: grayscale;
+
+		/* Support for IE. */
+		font-feature-settings: 'liga';
+	}
+
+	.material-icons.md-18 {
+		font-size: 18px;
+	}
+	.material-icons.md-24 {
+		font-size: 24px;
+	}
+	.material-icons.md-36 {
+		font-size: 36px;
+	}
+	.material-icons.md-48 {
+		font-size: 48px;
+	}
+
+	/* Rules for using icons as black on a light background. */
+	.material-icons.md-dark {
+		color: rgba(0, 0, 0, 0.54);
+	}
+	.material-icons.md-dark.md-inactive {
+		color: rgba(0, 0, 0, 0.26);
+	}
+
+	/* Rules for using icons as white on a dark background. */
+	.material-icons.md-light {
+		color: rgba(255, 255, 255, 1);
+	}
+	.material-icons.md-light.md-inactive {
+		color: rgba(255, 255, 255, 0.3);
+	}
+
 	code {
 		font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 	}
 
+	.p .h2 .h3 .h4 .span {
+		@apply truncate;
+	}
+
 	.h2 {
-		@apply font-primary text-[32px] mb-6 tracking-[10%] uppercase;
+		@apply font-primary text-[32px] tracking-[10%] uppercase;
 	}
 
 	.h3 {
-		@apply font-primary font-semibold text-[26px] mb-6 leading-[46px];
+		@apply font-primary font-semibold text-[26px] leading-[46px];
 	}
 
 	.h4 {
-		@apply font-primary font-semibold text-[20px] mb-6 leading-[30px];
+		@apply font-primary font-semibold text-[20px] leading-[30px];
 	}
 
 	.scrollable {
 		@apply scrollbar-thin scrollbar-thumb-accent scrollbar-track-gray-100;
 	}
-
 	.section {
 		@apply p-2 w-full mx-auto items-center overflow-x-hidden h-screen;
 	}
-
-	/* BUTTONS */
-	.btn-base {
-		@apply rounded font-semibold ease-linear transition-all capitalize duration-75 text-sm min-w-[64px];
-	}
-
 	/* CHIPS */
 	.chip-base {
 		@apply rounded font-semibold uppercase text-sm px-6 py-3 disabled:bg-slate-200 disabled:opacity-70 disabled:cursor-not-allowed;
@@ -98,5 +160,21 @@
 	/* ICONS */
 	.icon-btn {
 		@apply rounded-md ease-linear transition-all duration-75 p-1 m-2 hover:scale-110 hover:bg-gray-200/70 dark:text-white;
+	}
+}
+
+@layer components {
+	/* BUTTONS */
+	.btn-base {
+		@apply rounded min-w-[70px] font-semibold;
+	}
+	.btn-sm {
+		@apply px-2 py-2 text-xs leading-none;
+	}
+	.btn-md {
+		@apply px-4 py-3 text-base leading-none;
+	}
+	.btn-lg {
+		@apply px-6 py-4 text-lg leading-none;
 	}
 }

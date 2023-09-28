@@ -1,22 +1,33 @@
+import { AxiosContext } from '@context'
 import { handleResponseError } from '@utils'
-import { loginUser } from '@api'
 import { setUser } from '@state'
+import { useContext } from 'react'
 import { useDispatch } from 'react-redux'
-import { useMutation } from 'react-query'
+import { useLocalStorage } from 'react-use'
+import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 
 const useLogin = () => {
+	const [, setCachedUser] = useLocalStorage('user')
+	const [, setCachedAccessToken] = useLocalStorage('accessToken')
+	const [, setCachedRefreshToken] = useLocalStorage('refreshToken')
+	const { axiosInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
+
+	const callback = (data: any) => axiosInstance.post('/login', { data })
 
 	const {
 		mutate: login,
 		isLoading,
 		error,
 		isError,
-	} = useMutation(loginUser, {
+	} = useMutation(callback, {
 		onSuccess: ({ data }) => {
-			dispatch<any>(setUser(data))
+			setCachedUser(data.user)
+			setCachedAccessToken(data.accessToken)
+			setCachedRefreshToken(data.refreshToken)
+			dispatch(setUser(data.user))
 			navigate('/home')
 		},
 		onError: (error: any) => handleResponseError(error),
