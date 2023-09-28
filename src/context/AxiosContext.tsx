@@ -13,7 +13,7 @@ const AxiosContext = createContext<AxiosContextProps>({
 })
 
 export const AxiosProvider: FC<any> = ({ children }) => {
-	const [previousCachedTokens] = useLocalStorage<{ accessToken?: string; refreshToken?: string }>('auth')
+	const [cachedAccessToken] = useLocalStorage<{ accessToken?: string }>('accessToken')
 
 	const axiosInstance = useMemo(
 		() =>
@@ -22,14 +22,14 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 				headers: {
 					'Content-Type': 'application/json',
 					'X-Request-Id': uuidv4(),
-					Authorization: `Bearer ${previousCachedTokens?.accessToken}`,
+					Authorization: `Bearer ${cachedAccessToken}`,
 				},
 			}),
-		[previousCachedTokens],
+		[cachedAccessToken],
 	)
 
 	useEffect(() => {
-		const accessToken = previousCachedTokens?.accessToken
+		const accessToken = cachedAccessToken?.accessToken
 		const requestIntercept = axiosInstance.interceptors.request.use(
 			(config) => {
 				if (config.headers && !config.headers['Authorization']) {
@@ -58,7 +58,7 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 			axiosInstance.interceptors.request.eject(requestIntercept)
 			axiosInstance.interceptors.response.eject(responseIntercept)
 		}
-	}, [axiosInstance, previousCachedTokens])
+	}, [axiosInstance, cachedAccessToken])
 
 	return <AxiosContext.Provider value={{ axiosInstance }}>{children}</AxiosContext.Provider>
 }

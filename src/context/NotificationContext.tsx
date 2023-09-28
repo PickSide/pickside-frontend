@@ -13,15 +13,15 @@ export const NotificationProvider: FC<any> = ({ children }) => {
 
 	const NOTIFICATION_KEY = 'notify'
 
-	useEffect(() => {
-		if (connectedUser) {
-			const socket = io(import.meta.env.VITE_APP_API_URL_NOTIFICATIONS)
+	// useEffect(() => {
+	// 	if (connectedUser) {
+	// 		const socket = io(import.meta.env.VITE_APP_API_URL_NOTIFICATIONS)
 
-			socket.on(NOTIFICATION_KEY, (data) => {
-				console.log('received', data)
-			})
-		}
-	}, [connectedUser])
+	// 		socket.on(NOTIFICATION_KEY, (data) => {
+	// 			console.log('received', data)
+	// 		})
+	// 	}
+	// }, [connectedUser])
 
 	return <Context.Provider value={{}}>{children}</Context.Provider>
 }

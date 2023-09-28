@@ -21,7 +21,7 @@ export const ApiErrorProvider: FC<any> = ({ children }) => {
 	useEffect(() => {
 		// if (!user) {
 		// 	if (!!get('user')) {
-		// 		dispatch<any>(setUser(get('user')))
+		// 		dispatch(setUser(get('user')))
 		// 	}
 		// }
 	}, [user, dispatch])

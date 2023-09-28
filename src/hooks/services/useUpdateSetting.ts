@@ -23,7 +23,7 @@ const useUpdateSetting = () => {
 	} = useMutation(callback, {
 		mutationKey: ['updateUserSettings'],
 		onSuccess: ({ data }, params) => {
-			dispatch<any>(updateUserConfig(params))
+			dispatch(updateUserConfig(params))
 			dispatch({
 				type: 'toast/toastMessage',
 				payload: {

@@ -6,11 +6,11 @@ import { useTranslation } from 'react-i18next'
 
 const BottomDrawer = ({ show = false, onReset }) => {
 	const { t } = useTranslation()
-	console.log('show', show)
+
 	return show ? (
 		<AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
 			<motion.div
-				variants={fadeIn('bottom', 0.1, 0.4)}
+				variants={fadeIn('bottom', 0.1, 1.2)}
 				initial="hidden"
 				animate="show"
 				exit="exit"
@@ -18,7 +18,7 @@ const BottomDrawer = ({ show = false, onReset }) => {
 			>
 				<div className="block space-x-4">
 					<Button type="reset" variant="tertiary" onClick={onReset}>
-						{t('Reset')}
+						{t('Discard')}
 					</Button>
 					<Button type="submit">{t('Save')}</Button>
 				</div>

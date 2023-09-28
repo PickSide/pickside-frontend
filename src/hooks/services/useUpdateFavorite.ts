@@ -21,7 +21,7 @@ const useUpdateFavorite = () => {
 		isError,
 	} = useMutation(callback, {
 		mutationKey: ['updateFavorite'],
-		onSuccess: ({ data }, activityId) => dispatch<any>(updateUserFavorites({ activityId, result: data.result })),
+		onSuccess: ({ data }, activityId) => dispatch(updateUserFavorites({ activityId, result: data.result })),
 		onError: (e) => console.log(e),
 	})
 

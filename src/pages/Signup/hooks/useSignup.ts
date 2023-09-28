@@ -17,7 +17,7 @@ const useSignup = () => {
 		isError,
 	} = useMutation(callback, {
 		mutationKey: ['createUser'],
-		onSuccess: (data) => dispatch<any>(setUser(data?.data)),
+		onSuccess: (data) => dispatch(setUser(data?.data)),
 		onError: (e) => console.log(e),
 	})
 

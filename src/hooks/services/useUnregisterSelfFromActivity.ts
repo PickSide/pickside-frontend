@@ -21,7 +21,10 @@ const useRegisterSelfToActivity = () => {
 		isError,
 	} = useMutation(callback, {
 		mutationKey: ['unregisterFromActivity'],
-		onSuccess: (data) => dispatch<any>(updateActivity(data?.data)), // change the data parameter here
+		onSuccess: ({ data }) => {
+			console.log(data)
+			dispatch(updateActivity(data))
+		},
 		onError: (e) => console.log(e),
 	})
 

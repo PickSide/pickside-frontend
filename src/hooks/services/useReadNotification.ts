@@ -20,7 +20,7 @@ const useReadNotification = () => {
 		isLoading,
 	} = useMutation(callback, {
 		mutationKey: ['readNotification'],
-		onSuccess: ({ data }) => dispatch<any>(setNotifications(data)),
+		onSuccess: ({ data }) => dispatch(setNotifications(data)),
 		onError: () => {},
 	})
 

@@ -58,8 +58,9 @@ const User = createSlice({
 		setCachedUser: (state, action: PayloadAction<User | null | undefined>) => (state = action.payload),
 		setUserEmpty: (state) => (state = null),
 		updateUserConfig: (state, action: PayloadAction<any>) => {
+			console.log('action', action)
 			if (state) {
-				state = merge(state, action.payload)
+				state = { ...state, ...action.payload }
 			}
 			return state
 		},

@@ -1,14 +1,20 @@
+import { AppState, updateActivity } from '@state'
+import { useDispatch, useSelector } from 'react-redux'
+
 import { AxiosContext } from '@context'
-import { updateActivity } from '@state'
 import { useContext } from 'react'
-import { useDispatch } from 'react-redux'
 import { useMutation } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 
 const useCreateActivity = () => {
 	const { axiosInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
+	const navigate = useNavigate()
 
-	const callback = async (data: any) => await axiosInstance.post(`/activities`, { data })
+	const connectedUser = useSelector((state: AppState) => state.user)
+
+	const callback = async (data: any) =>
+		await axiosInstance.post(`/activities`, { data: { ...data, organiser: connectedUser?.id } })
 
 	const {
 		mutate: createActivity,
@@ -17,7 +23,11 @@ const useCreateActivity = () => {
 		isError,
 	} = useMutation(callback, {
 		mutationKey: ['createActivity'],
-		onSuccess: (data) => dispatch<any>(updateActivity(data?.data)),
+		onSuccess: ({ data }) => {
+			console.log(data)
+			dispatch(updateActivity(data))
+			navigate('/listing')
+		},
 		onError: (e) => console.log(e),
 	})
 

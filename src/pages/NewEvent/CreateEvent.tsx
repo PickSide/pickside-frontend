@@ -1,18 +1,15 @@
 import { FormProvider, useForm } from 'react-hook-form'
-import { useCreateActivity, useFetchActivities } from '@hooks'
 
 import Footer from '../Home/components/Footer'
 import MultiStepForm from './components/MultiStepForm'
 import { StepperProvider } from './context'
 import dayjs from 'dayjs'
 import moment from 'moment'
+import { useCreateActivity } from '@hooks'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 
 const CreateEvent = () => {
-	const navigate = useNavigate()
 	const { createActivity } = useCreateActivity()
-	const { activities } = useFetchActivities()
 	const dispatch = useDispatch()
 
 	const form = useForm({
@@ -35,14 +32,7 @@ const CreateEvent = () => {
 		},
 	})
 
-	const onSubmit = async (data) => {
-		const toSend = {
-			...data,
-		}
-		await dispatch<any>(createActivity(toSend))
-		await dispatch<any>(activities)
-		navigate('/listing')
-	}
+	const onSubmit = async (data) => await dispatch(createActivity(data))
 
 	return (
 		<StepperProvider>

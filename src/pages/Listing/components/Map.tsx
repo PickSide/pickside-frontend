@@ -52,8 +52,8 @@ const Map: FC<any> = ({ ...props }) => {
 							id={id}
 							key={idx}
 							coords={coords}
-							onToggleOpen={() => dispatch<any>(setSelectedActivity(id))}
-							onWindowClose={() => dispatch<any>(setSelectedActivity(null))}
+							onToggleOpen={() => dispatch(setSelectedActivity(id))}
+							onWindowClose={() => dispatch(setSelectedActivity(null))}
 							icon={{
 								path: faSoccerBall.icon[4] as string,
 								fillColor: '#71fb00',

@@ -17,7 +17,7 @@ const useLogout = () => {
 		isError,
 	} = useMutation(callback, {
 		mutationKey: ['logoutUser'],
-		onSuccess: () => dispatch<any>(setUserEmpty()),
+		onSuccess: () => dispatch(setUserEmpty()),
 		onError: (e) => console.log(e),
 	})
 

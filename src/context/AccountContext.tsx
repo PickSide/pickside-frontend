@@ -22,7 +22,7 @@ export const AccountProvider: FC<any> = ({ children }) => {
 	const connectedUser = useSelector((state: AppState) => state.user)
 
 	useEffect(() => {
-		if (previousCachedUser) {
+		if (previousCachedUser && !connectedUser) {
 			dispatch<any>(setCachedUser(previousCachedUser))
 		}
 	}, [])

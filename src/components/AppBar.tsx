@@ -64,7 +64,7 @@ const AppBar = () => {
 							<MenuItem
 								icon={<MdLogout size={20} />}
 								onClick={async () => {
-									await dispatch<any>(logout())
+									await dispatch(logout())
 									navigate('/login')
 								}}
 							>

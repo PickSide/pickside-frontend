@@ -1,46 +1,23 @@
-import { BottomDrawer, Button, Dialog, InputField, Select } from '@components'
-import { Controller, useForm } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux'
+import { Button, Dialog, InputField, Select } from '@components'
+import { Controller, useFormContext } from 'react-hook-form'
 
 import { AppState } from '@state'
 import ChangePasswordForm from '../components/ChangePasswordForm'
 import DeactivationForm from '../components/DeactivationForm'
 import { FaExternalLinkAlt } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useUpdateSetting } from '@hooks'
 
 const AccountManagement = () => {
 	const { t } = useTranslation()
-	const dispatch = useDispatch()
-	const { updateUser, isLoading } = useUpdateSetting()
+	const { control } = useFormContext()
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 	const locales = useSelector((state: AppState) => state.locales)
 
 	const [openPasswordChangeDialog, setOpenPasswordChangeDialog] = useState<boolean>(false)
 	const [openDeactivationDialog, setOpenDeactivationDialog] = useState<boolean>(false)
-
-	const {
-		control,
-		handleSubmit,
-		formState: { isDirty, dirtyFields },
-		reset,
-	} = useForm({
-		defaultValues: {
-			email: connectedUser?.email,
-			preferredLocale: connectedUser?.preferredLocale,
-			timezone: connectedUser?.timezone,
-		},
-	})
-
-	const onSubmit = async (values) => {
-		const keys = Object.keys(dirtyFields)
-		const changes = {}
-		keys.forEach((key) => (changes[key] = values[key]))
-
-		await dispatch<any>(updateUser({ ...changes }))
-	}
 
 	return (
 		<div className="relative h-full ">
@@ -58,7 +35,7 @@ const AccountManagement = () => {
 			>
 				<DeactivationForm onClose={() => setOpenDeactivationDialog(false)} />
 			</Dialog>
-			<form className="flex flex-col gap-y-4 w-[600px]" onSubmit={handleSubmit(onSubmit)}>
+			<div className="flex flex-col gap-y-4 w-[600px]">
 				<p className="text-2xl font-semibold">{t('Account Management')}</p>
 				<Controller
 					name="email"
@@ -80,8 +57,7 @@ const AccountManagement = () => {
 						/>
 					)}
 				/>
-				<BottomDrawer show={isDirty} onReset={reset} />
-			</form>
+			</div>
 			{!connectedUser?.isExternalAccount && (
 				<div className="mt-5 space-y-4">
 					<p className="text-[20px] font-semibold">{t('Change your password')}</p>

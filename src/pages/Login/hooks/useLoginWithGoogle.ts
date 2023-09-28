@@ -30,7 +30,7 @@ const useLoginWithGoogle = () => {
 			setIsLoading(true)
 			return await fetchGoogleAccountInfoServiceAPI(access_token)
 				.then(({ data }) => callback(data))
-				.then(({ data }) => dispatch<any>(setUser(data)))
+				.then(({ data }) => dispatch(setUser(data)))
 				.then(() => setIsLoading(false))
 				.then(() => navigate('/home'))
 		},

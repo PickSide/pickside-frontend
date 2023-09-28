@@ -2,7 +2,6 @@ import { Activity, AppState } from '@state'
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs'
 import Card, { CardBody, CardCTA, CardHeader, CardImage } from './shared/Card'
 import { FC, useMemo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useRegisterSelfToActivity, useUnregisterSelfFromActivity, useUpdateFavorite } from '@hooks'
 
 import Button from './shared/Button'
@@ -10,6 +9,7 @@ import Icon from './Icon'
 import IconButton from './shared/IconButton'
 import { cn } from '@utils'
 import dayjs from 'dayjs'
+import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 interface ActivityCardProps {
@@ -21,7 +21,6 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 	const { registerToActivity } = useUnregisterSelfFromActivity()
 	const { unregisterFromActivity } = useRegisterSelfToActivity()
 	const { updateFavorite } = useUpdateFavorite()
-	const dispatch = useDispatch()
 	const { t } = useTranslation()
 
 	const connectedUser = useSelector((state: AppState) => state.user)
@@ -33,13 +32,13 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 
 	const handleRegister = async () => {
 		setIsRegistering(true)
-		await dispatch<any>(registerToActivity(activity.id))
+		await registerToActivity(activity.id)
 		setIsRegistering(false)
 	}
 
 	const handleUnregister = async () => {
 		setIsUnregistering(true)
-		await dispatch<any>(unregisterFromActivity(activity.id))
+		await unregisterFromActivity(activity.id)
 		setIsUnregistering(false)
 	}
 
@@ -55,7 +54,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 								<div className="flex flex-col">
 									<span className="text-lg font-semibold max-w-[70%] truncate">{activity.title}</span>
 									<span className="text-sm">
-										{t('Host')}: {activity.organiser.username || activity.organiser.fullName}
+										{t('Host')}: {activity.organiser?.username || activity.organiser?.fullName}
 									</span>
 								</div>
 							</div>
@@ -73,12 +72,11 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 							</span>
 							<span className="inline-flex gap-x-4 text-base">
 								<Icon icon="group" />
-								{activity.participants.length}/{activity.maxPlayers}
+								{activity.participants?.length}/{activity.maxPlayers}
 							</span>
 							<span className="inline-flex gap-x-4 text-base">
 								<Icon icon="payments" />
-								{activity.price}$ &nbsp;
-								{t('per person')}
+								{activity.price === 0 ? t('Free') : activity.price + '$ ' + t('per person')}
 							</span>
 						</CardBody>
 					</div>
@@ -100,7 +98,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 							>
 								{t('Uneregister')}
 							</Button>
-						) : activity.organiser.id === connectedUser.id ? (
+						) : activity.organiser?.id === connectedUser?.id ? (
 							<Button type="button" size="sm" variant="primary">
 								{t('Manage event')}
 							</Button>
@@ -122,12 +120,9 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 				{connectedUser && (
 					<div className="float-right">
 						{connectedUser?.favorites?.includes(activity.id) ? (
-							<IconButton
-								icon={<BsBookmarkFill size={20} />}
-								onClick={() => dispatch<any>(updateFavorite(activity.id))}
-							/>
+							<IconButton icon={<BsBookmarkFill size={20} />} onClick={() => updateFavorite(activity.id)} />
 						) : (
-							<IconButton icon={<BsBookmark size={20} />} onClick={() => dispatch<any>(updateFavorite(activity.id))} />
+							<IconButton icon={<BsBookmark size={20} />} onClick={() => updateFavorite(activity.id)} />
 						)}
 					</div>
 				)}
