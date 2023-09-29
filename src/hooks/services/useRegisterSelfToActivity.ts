@@ -12,22 +12,23 @@ const useRegisterSelfToActivity = () => {
 	const connectedUser = useSelector((state: AppState) => state.user)
 
 	const callback = async (activityId: any) =>
-		await axiosInstance.put(`/activities/register/${activityId}`, { userId: connectedUser?.id })
+		await axiosInstance.put(`/activities/${activityId}/register`, { data: { userId: connectedUser?.id } })
 
 	const {
-		mutate: unregisterFromActivity,
+		mutate: registerToActivity,
 		isLoading,
 		error,
 		isError,
 	} = useMutation(callback, {
 		mutationKey: ['registerToActivity'],
 		onSuccess: ({ data }) => {
+			console.log(data)
 			dispatch(updateActivity(data))
 		},
 		onError: (e) => console.log(e),
 	})
 
-	return { unregisterFromActivity, isLoading, error, isError }
+	return { registerToActivity, isLoading, error, isError }
 }
 
 export default useRegisterSelfToActivity

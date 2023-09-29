@@ -5,17 +5,17 @@ import { AxiosContext } from '@context'
 import { useContext } from 'react'
 import { useMutation } from '@tanstack/react-query'
 
-const useRegisterSelfToActivity = () => {
+const useUnregisterSelfToActivity = () => {
 	const { axiosInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
 	const callback = async (activityId: any) =>
-		await axiosInstance.put(`/activities/unregister/${activityId}`, { userId: connectedUser?.id })
+		await axiosInstance.put(`/activities/${activityId}/unregister`, { data: { userId: connectedUser?.id } })
 
 	const {
-		mutate: registerToActivity,
+		mutate: unregisterFromActivity,
 		isLoading,
 		error,
 		isError,
@@ -28,7 +28,7 @@ const useRegisterSelfToActivity = () => {
 		onError: (e) => console.log(e),
 	})
 
-	return { registerToActivity, isLoading, error, isError }
+	return { unregisterFromActivity, isLoading, error, isError }
 }
 
-export default useRegisterSelfToActivity
+export default useUnregisterSelfToActivity

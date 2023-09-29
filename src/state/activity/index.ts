@@ -67,6 +67,14 @@ const Activity = createSlice({
 			}
 			return state
 		},
+		updateParticipants: (state, action: PayloadAction<{ activityId: string; participants: any[] }>) => {
+			const idx = state.results?.findIndex((Activity) => Activity.id === action.payload.activityId) || -1
+
+			if (idx > -1 && state.results) {
+				state.results[idx].participants = action.payload.participants
+			}
+			return state
+		},
 	},
 })
 

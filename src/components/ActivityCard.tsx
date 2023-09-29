@@ -1,7 +1,7 @@
 import { Activity, AppState } from '@state'
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs'
 import Card, { CardBody, CardCTA, CardHeader, CardImage } from './shared/Card'
-import { FC, useMemo, useState } from 'react'
+import { FC, useMemo } from 'react'
 import { useRegisterSelfToActivity, useUnregisterSelfFromActivity, useUpdateFavorite } from '@hooks'
 
 import Button from './shared/Button'
@@ -18,29 +18,17 @@ interface ActivityCardProps {
 }
 
 const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
-	const { registerToActivity } = useUnregisterSelfFromActivity()
-	const { unregisterFromActivity } = useRegisterSelfToActivity()
+	const { unregisterFromActivity, isLoading: isUnregistering } = useUnregisterSelfFromActivity()
+	const { registerToActivity, isLoading: isRegistering } = useRegisterSelfToActivity()
 	const { updateFavorite } = useUpdateFavorite()
 	const { t } = useTranslation()
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
-	const [isRegistering, setIsRegistering] = useState<boolean>(false)
-	const [isUnregistering, setIsUnregistering] = useState<boolean>(false)
-
 	const isFull = useMemo(() => activity.participants.length === activity.maxPlayers, [activity])
 
-	const handleRegister = async () => {
-		setIsRegistering(true)
-		await registerToActivity(activity.id)
-		setIsRegistering(false)
-	}
-
-	const handleUnregister = async () => {
-		setIsUnregistering(true)
-		await unregisterFromActivity(activity.id)
-		setIsUnregistering(false)
-	}
+	const handleRegister = async () => await registerToActivity(activity.id)
+	const handleUnregister = async () => await unregisterFromActivity(activity.id)
 
 	return (
 		<Card className={cn(isFull ? 'bg-[#EAEAEA]' : '')}>
