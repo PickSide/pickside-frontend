@@ -15,8 +15,6 @@ const Step2 = () => {
 
 	const sportOptions = useSelector((state: AppState) => state.sports?.results || [])
 
-	console.log(dirtyFields)
-
 	return (
 		<>
 			<Controller

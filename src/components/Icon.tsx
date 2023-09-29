@@ -16,6 +16,7 @@ const validIcons = [
 	'place',
 	'schedule',
 	'today',
+	'location_on',
 ] as const
 
 export type IconName = (typeof validIcons)[number]

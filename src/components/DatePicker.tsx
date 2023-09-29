@@ -24,8 +24,6 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 		setOpen(false)
 	}
 
-	console.log(selectedDate)
-
 	return (
 		<div className={cn('relative', fullWidth ? 'w-full' : 'max-w-[230px]')} tabIndex={0}>
 			<label htmlFor={id} className="text-gray-800 leading-4">
