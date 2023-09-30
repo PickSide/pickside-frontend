@@ -13,12 +13,12 @@ import { useTranslation } from 'react-i18next'
 const SignUpForm = () => {
 	const [device] = useDevice()
 	const { handleSubmit, getValues, register, watch } = useFormContext<SignupFormProps>()
-	const { errors, isValid } = useFormState()
+	const { errors } = useFormState()
 	const { signup, error, isError, isLoading } = useSignup()
 	const { t } = useTranslation()
 
 	const onSubmit = async (data) => await signup(data)
-	console.log(error)
+
 	const FormHandle = () => (
 		<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-6 lg:gap-y-10 lg:w-full">
 			<InputField
@@ -49,7 +49,6 @@ const SignUpForm = () => {
 				error={errors.password?.message}
 				aria-invalid={!!errors.password}
 				fullWidth
-				isPassword
 				{...register('password', {
 					required: 'Field is required',
 					pattern: { value: PASSWORD_REGEX, message: t('Password does not meet requirement') },
@@ -63,7 +62,6 @@ const SignUpForm = () => {
 				error={errors.confirmPassword?.message}
 				aria-invalid={!!errors.confirmPassword}
 				fullWidth
-				isPassword
 				{...register('confirmPassword', {
 					required: 'Field is required',
 					validate: (value) => value === getValues('password') || 'Passwords must be the same.',

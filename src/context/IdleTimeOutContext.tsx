@@ -27,7 +27,7 @@ export const IdleTimeOutProvider: FC<any> = ({ children }) => {
 			const diff = IDLE_TIMER - Date.now()
 			if (diff <= 0) {
 				dispatch(setStatus({ status: 'error', message: t('Your session has expired. Reload the page!') }))
-				dispatch(logout())
+				logout()
 			} else if (diff > 0 && diff <= IDLE_WARNING_THRESHOLD) {
 				dispatch(setStatus({ status: 'warning', message: t('Your session is expiring soon.') }))
 			} else {
