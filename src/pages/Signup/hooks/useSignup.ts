@@ -1,4 +1,5 @@
 import { AxiosContext } from '@context'
+import { handleResponseError } from '@utils'
 import { setUser } from '@state'
 import { useContext } from 'react'
 import { useDispatch } from 'react-redux'
@@ -11,17 +12,17 @@ const useSignup = () => {
 	const callback = async (data: any) => await axiosInstance.post(`/users`, { data })
 
 	const {
-		mutate: signUp,
+		mutate: signup,
 		isLoading,
 		error,
 		isError,
 	} = useMutation(callback, {
 		mutationKey: ['createUser'],
 		onSuccess: (data) => dispatch(setUser(data?.data)),
-		onError: (e) => console.log(e),
+		onError: (error: any) => handleResponseError(error),
 	})
 
-	return { signUp, isLoading, error, isError }
+	return { signup, isLoading, error, isError }
 }
 
 export default useSignup
