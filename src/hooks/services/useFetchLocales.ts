@@ -13,6 +13,7 @@ const useFetchLocales = () => {
 	const { data: locales, isLoading } = useQuery(['fetchLocales'], callback, {
 		onSuccess: ({ data }) => dispatch(setLocales(data)),
 		onError: () => {},
+		refetchOnWindowFocus: false,
 	})
 
 	return { locales, isLoading }

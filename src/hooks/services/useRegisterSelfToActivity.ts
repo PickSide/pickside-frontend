@@ -1,4 +1,4 @@
-import { AppState, updateActivity } from '@state'
+import { AppState, updateParticipants } from '@state'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { AxiosContext } from '@context'
@@ -12,22 +12,21 @@ const useRegisterSelfToActivity = () => {
 	const connectedUser = useSelector((state: AppState) => state.user)
 
 	const callback = async (activityId: any) =>
-		await axiosInstance.put(`/activities/register/${activityId}`, { userId: connectedUser?.id })
+		await axiosInstance.put(`/activities/${activityId}/register`, { data: { userId: connectedUser?.id } })
 
 	const {
-		mutate: unregisterFromActivity,
+		mutate: registerToActivity,
 		isLoading,
 		error,
 		isError,
 	} = useMutation(callback, {
 		mutationKey: ['registerToActivity'],
-		onSuccess: ({ data }) => {
-			dispatch(updateActivity(data))
-		},
+		onSuccess: ({ data }, activityId) =>
+			dispatch(updateParticipants({ activityId, participants: data.result.participants })),
 		onError: (e) => console.log(e),
 	})
 
-	return { unregisterFromActivity, isLoading, error, isError }
+	return { registerToActivity, isLoading, error, isError }
 }
 
 export default useRegisterSelfToActivity

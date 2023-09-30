@@ -1,22 +1,31 @@
-import { AppState, setSelectedActivity } from '@state'
-import { FC, useState } from 'react'
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
-import { MapMarker, Spinner } from '@components'
-import { useDispatch, useSelector } from 'react-redux'
+import { Icon, Marker } from '@components'
+import { memo, useCallback } from 'react'
 
+import { Activity } from '@state/activity'
+import { AppState } from '@state'
+import GoogleMapReact from 'google-map-react'
 import { cn } from '@utils'
-import { faSoccerBall } from '@fortawesome/free-solid-svg-icons'
 import { useMapStyles } from '@hooks'
+import { useSelector } from 'react-redux'
 
-const Map: FC<any> = ({ ...props }) => {
+const Map = ({ ...props }) => {
 	const { mapStyles } = useMapStyles()
-	const dispatch = useDispatch()
 
-	const playables = useSelector((state: AppState) => state.playables)
-	const selectedActivity = useSelector((state: AppState) => state.selectedActivity)
+	const activities = useSelector((state: AppState) => state.activities)
 	const selectedLocation = useSelector((state: AppState) => state.selectedLocation)
 
-	const [libraries] = useState<any>(['places'])
+	const getMarkerColor = useCallback((activity: Activity) => {
+		const participants = activity.participants.length
+		const maxPlayers = activity.maxPlayers
+		if (participants === maxPlayers) {
+			return 'text-red-500'
+		}
+
+		if (participants / maxPlayers > 0.6) {
+			return 'text-yellow-500'
+		}
+		return 'text-green-500'
+	}, [])
 
 	const options: google.maps.MapOptions = {
 		styles: mapStyles,
@@ -31,55 +40,38 @@ const Map: FC<any> = ({ ...props }) => {
 
 	const center = !!selectedLocation ? selectedLocation : { lat: 45.5490424, lng: -73.6573323 }
 
-	const { isLoaded, loadError } = useJsApiLoader({
-		googleMapsApiKey: import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY,
-		libraries,
-	})
+	const handleApiLoaded = (map, maps) => {
+		// console.log('map', map)
+		// console.log('mapss', maps)
+	}
 
-	const InfoWindow = ({ content, title }) => (
-		<div className="flex flex-col">
-			<span>{title}</span>
-			<span>{content}</span>
+	return (
+		<div className={cn('w-full h-full overflow-hidden')}>
+			<GoogleMapReact
+				bootstrapURLKeys={{ key: import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY }}
+				zoom={12}
+				mapContainerStyle={mapContainerStyle}
+				center={center}
+				options={options}
+				yesIWantToUseGoogleMapApiInternals
+				onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
+			>
+				{activities?.results
+					?.filter(({ address }) => address.geometry)
+					.map((activity, idx) => (
+						<Marker
+							key={idx}
+							lat={activity.address.geometry?.location?.lat}
+							lng={activity.address.geometry?.location?.lng}
+							text={activity.title}
+							icon={<Icon icon="location_on" size="lg" className={getMarkerColor(activity)} />}
+						>
+							<span>{activity.title}</span>
+						</Marker>
+					))}
+			</GoogleMapReact>
 		</div>
 	)
-
-	const ActivityMap = (): JSX.Element => {
-		return (
-			<div className={cn('w-full h-full overflow-hidden')}>
-				<GoogleMap zoom={12} mapContainerStyle={mapContainerStyle} center={center} options={options}>
-					{playables?.results?.map(({ id, coords, fieldName }, idx) => (
-						<MapMarker
-							id={id}
-							key={idx}
-							coords={coords}
-							onToggleOpen={() => dispatch(setSelectedActivity(id))}
-							onWindowClose={() => dispatch(setSelectedActivity(null))}
-							icon={{
-								path: faSoccerBall.icon[4] as string,
-								fillColor: '#71fb00',
-								fillOpacity: 1,
-								strokeWeight: 0.5,
-								strokeColor: '#20e600',
-								scale: 0.05,
-							}}
-						>
-							{!!selectedActivity && <InfoWindow content="Current ongoing game" title={fieldName} />}
-						</MapMarker>
-					))}
-				</GoogleMap>
-			</div>
-		)
-	}
-
-	if (loadError) {
-		return (
-			<div>
-				<span>There was an error loading the map</span>
-			</div>
-		)
-	}
-
-	return isLoaded ? <ActivityMap /> : <Spinner />
 }
 
-export default Map
+export default memo(Map)

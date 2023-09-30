@@ -1,6 +1,6 @@
 import { Dialog, Popover } from '@components'
 import { FiMoreVertical, FiSettings } from 'react-icons/fi'
-import { Form, FormProvider, useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 
@@ -25,7 +25,6 @@ const Settings = () => {
 	const { updateUser } = useUpdateSetting()
 	const connectedUser = useSelector((state: AppState) => state.user)
 	const [openChangeAvatarDialog, setOpenChangeAvatarDialog] = useState<boolean>(false)
-	const [openPopover, setOpenPopover] = useState<boolean>(false)
 
 	const methods = useForm({
 		defaultValues: {
@@ -37,7 +36,6 @@ const Settings = () => {
 			username: connectedUser?.username,
 		},
 		resetOptions: {
-			//keepDirtyValues: true,
 			keepDefaultValues: true,
 		},
 	})
@@ -53,15 +51,15 @@ const Settings = () => {
 		methods.reset()
 	}
 
-	const avatar = useMemo(() => {
-		if (connectedUser?.avatar) {
-			const bufferImgArr = new Uint8Array(connectedUser.avatar.data)
-			const blob = new Blob([bufferImgArr], { type: 'image/jpeg' })
-			const urlCreator = window.URL || window.webkitURL
-			const imageUrl = urlCreator.createObjectURL(blob)
-			return imageUrl
-		}
-	}, [connectedUser])
+	// const avatar = useMemo(() => {
+	// 	if (connectedUser?.avatar) {
+	// 		const bufferImgArr = new Uint8Array(connectedUser.avatar.data)
+	// 		const blob = new Blob([bufferImgArr], { type: 'image/jpeg' })
+	// 		const urlCreator = window.URL || window.webkitURL
+	// 		const imageUrl = urlCreator.createObjectURL(blob)
+	// 		return imageUrl
+	// 	}
+	// }, [connectedUser])
 
 	const MenuItems = useMemo(
 		() => [

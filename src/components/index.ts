@@ -22,12 +22,12 @@ import FormDivider from './FormDivider'
 import Gallery from './Gallery'
 import GlobalAppStatusAlert from './GlobalAppStatusAlert'
 import GoogleAutocomplete from './GoogleAutocomplete'
-import Icon from './Icon'
+import Icon from './shared/Icon'
 import IconButton from './shared/IconButton'
 import IconDropdown from './shared/IconDropdown'
 import ImageUploader from './ImageUploader'
 import InputField from './shared/InputField'
-import MapMarker from './MapMarker'
+import Marker from './Marker'
 import MenuItem from './shared/MenuItem'
 import NumberField from './NumberField'
 import PasswordField from './PasswordField'
@@ -78,7 +78,7 @@ export {
 	IconButton,
 	IconDropdown,
 	ImageUploader,
-	MapMarker,
+	Marker,
 	MenuItem,
 	NumberField,
 	PasswordField,

@@ -1,11 +1,11 @@
 import { Activity, AppState } from '@state'
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs'
 import Card, { CardBody, CardCTA, CardHeader, CardImage } from './shared/Card'
-import { FC, useMemo, useState } from 'react'
+import { FC, useMemo } from 'react'
 import { useRegisterSelfToActivity, useUnregisterSelfFromActivity, useUpdateFavorite } from '@hooks'
 
 import Button from './shared/Button'
-import Icon from './Icon'
+import Icon from './shared/Icon'
 import IconButton from './shared/IconButton'
 import { cn } from '@utils'
 import dayjs from 'dayjs'
@@ -18,29 +18,22 @@ interface ActivityCardProps {
 }
 
 const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
-	const { registerToActivity } = useUnregisterSelfFromActivity()
-	const { unregisterFromActivity } = useRegisterSelfToActivity()
+	const { unregisterFromActivity, isLoading: isUnregistering } = useUnregisterSelfFromActivity()
+	const { registerToActivity, isLoading: isRegistering } = useRegisterSelfToActivity()
 	const { updateFavorite } = useUpdateFavorite()
 	const { t } = useTranslation()
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
-	const [isRegistering, setIsRegistering] = useState<boolean>(false)
-	const [isUnregistering, setIsUnregistering] = useState<boolean>(false)
-
 	const isFull = useMemo(() => activity.participants.length === activity.maxPlayers, [activity])
+	const isOrganiser = useMemo(() => activity.organiser?.id === connectedUser?.id, [activity, connectedUser])
+	const isRegisteredToActivity = useMemo(
+		() => activity.participants?.find((participant) => participant.id === connectedUser?.id),
+		[activity.participants, connectedUser],
+	)
 
-	const handleRegister = async () => {
-		setIsRegistering(true)
-		await registerToActivity(activity.id)
-		setIsRegistering(false)
-	}
-
-	const handleUnregister = async () => {
-		setIsUnregistering(true)
-		await unregisterFromActivity(activity.id)
-		setIsUnregistering(false)
-	}
+	const handleRegister = async () => await registerToActivity(activity.id)
+	const handleUnregister = async () => await unregisterFromActivity(activity.id)
 
 	return (
 		<Card className={cn(isFull ? 'bg-[#EAEAEA]' : '')}>
@@ -87,7 +80,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 					</Button>
 					{connectedUser &&
 						activity &&
-						(activity.participants?.find((participant) => participant.id === connectedUser.id) ? (
+						(isRegisteredToActivity ? (
 							<Button
 								type="button"
 								size="sm"
@@ -98,7 +91,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 							>
 								{t('Uneregister')}
 							</Button>
-						) : activity.organiser?.id === connectedUser?.id ? (
+						) : isOrganiser ? (
 							<Button type="button" size="sm" variant="primary">
 								{t('Manage event')}
 							</Button>

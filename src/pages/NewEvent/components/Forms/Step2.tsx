@@ -15,8 +15,6 @@ const Step2 = () => {
 
 	const sportOptions = useSelector((state: AppState) => state.sports?.results || [])
 
-	console.log(dirtyFields)
-
 	return (
 		<>
 			<Controller
@@ -82,9 +80,7 @@ const Step2 = () => {
 				<Button
 					type="button"
 					onClick={next}
-					disabled={
-						!dirtyFields['sport'] || !dirtyFields['mode'] || !dirtyFields['price'] || !dirtyFields['maxPlayers']
-					}
+					disabled={!dirtyFields['sport'] || !dirtyFields['mode'] || !dirtyFields['maxPlayers']}
 				>
 					{t('Continue')}
 				</Button>

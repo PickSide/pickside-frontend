@@ -47,7 +47,7 @@ const LandingPage: FC<any> = () => {
 							{t('Join Your Team Now')}
 						</Button>
 						<div className="inline-flex gap-x-4">
-							<GoogleAutocomplete fullWidth onSelectPlace={(value) => setSelected(value)} />
+							<GoogleAutocomplete onSelectPlace={(value) => setSelected(value)} />
 							<Button type="button" disabled={!selected} onClick={navigateToListing}>
 								{t('Search')}
 							</Button>
@@ -85,7 +85,7 @@ const LandingPage: FC<any> = () => {
 							<Button type="button" disabled={!selected} onClick={navigateToListing}>
 								{t('Search')}
 							</Button>
-							<IconButton onClick={goToListing} icon={<FaLocationArrow size={25} />} />
+							{/* <IconButton onClick={goToListing} icon={<FaLocationArrow size={25} />} /> */}
 						</div>
 					</div>
 				</div>

@@ -29,7 +29,6 @@ export const AccountProvider: FC<any> = ({ children }) => {
 
 	useEffect(() => {
 		if (!isEqual(previousCachedUser, connectedUser)) {
-			console.log('user is not equal to previously cached User')
 			setPreviousCachedUser(connectedUser)
 		}
 	}, [connectedUser])

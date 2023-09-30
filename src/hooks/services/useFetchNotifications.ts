@@ -16,6 +16,7 @@ const useFetchNotifications = () => {
 	const { data: notifications, isLoading } = useQuery(['fetchNotifications'], callback, {
 		onSuccess: ({ data }) => dispatch(setNotifications(data)),
 		onError: () => {},
+		refetchOnWindowFocus: false,
 	})
 
 	return { notifications, isLoading }

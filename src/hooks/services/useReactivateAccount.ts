@@ -1,13 +1,11 @@
-import { AppState, updateActivity } from '@state'
-import { useDispatch, useSelector } from 'react-redux'
-
+import { AppState } from '@state'
 import { AxiosContext } from '@context'
 import { useContext } from 'react'
 import { useMutation } from '@tanstack/react-query'
+import { useSelector } from 'react-redux'
 
 const useReactivateAccount = () => {
 	const { axiosInstance } = useContext(AxiosContext)
-	const dispatch = useDispatch()
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
@@ -19,7 +17,7 @@ const useReactivateAccount = () => {
 		error,
 		isError,
 	} = useMutation(callback, {
-        mutationKey: ['reactivateAccount'],
+		mutationKey: ['reactivateAccount'],
 		onSuccess: (data) => console.log(data),
 		onError: (e) => console.log(e),
 	})

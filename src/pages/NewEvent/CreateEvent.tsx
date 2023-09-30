@@ -6,11 +6,9 @@ import { StepperProvider } from './context'
 import dayjs from 'dayjs'
 import moment from 'moment'
 import { useCreateActivity } from '@hooks'
-import { useDispatch } from 'react-redux'
 
 const CreateEvent = () => {
 	const { createActivity } = useCreateActivity()
-	const dispatch = useDispatch()
 
 	const form = useForm({
 		defaultValues: {
@@ -32,7 +30,7 @@ const CreateEvent = () => {
 		},
 	})
 
-	const onSubmit = async (data) => await dispatch(createActivity(data))
+	const onSubmit = async (data) => createActivity(data)
 
 	return (
 		<StepperProvider>

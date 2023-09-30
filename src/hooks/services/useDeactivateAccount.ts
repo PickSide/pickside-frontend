@@ -1,13 +1,15 @@
-import { AppState, updateActivity } from '@state'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { AppState } from '@state'
 import { AxiosContext } from '@context'
 import { useContext } from 'react'
 import { useMutation } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 
 const useDeactivateAccount = () => {
 	const { axiosInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
+	const { t } = useTranslation()
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
@@ -20,7 +22,14 @@ const useDeactivateAccount = () => {
 		isError,
 	} = useMutation(callback, {
 		mutationKey: ['deactivateAccount'],
-		onSuccess: (data) => console.log(data),
+		onSuccess: ({ data }) =>
+			dispatch({
+				type: 'toast/toastMessage',
+				payload: {
+					message: t(data.message),
+					type: 'success',
+				},
+			}),
 		onError: (e) => console.log(e),
 	})
 
