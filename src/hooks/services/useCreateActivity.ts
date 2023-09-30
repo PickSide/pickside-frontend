@@ -24,7 +24,6 @@ const useCreateActivity = () => {
 	} = useMutation(callback, {
 		mutationKey: ['createActivity'],
 		onSuccess: ({ data }) => {
-			console.log(data)
 			dispatch(updateActivity(data))
 			navigate('/listing')
 		},

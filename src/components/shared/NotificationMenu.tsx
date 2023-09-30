@@ -12,7 +12,7 @@ const NotificationMenu: FC<any> = () => {
 	const { t } = useTranslation()
 
 	const { notifications, isLoading } = useFetchNotifications()
-	console.log(notifications)
+
 	return (
 		<Dropdown
 			variant="secondary"

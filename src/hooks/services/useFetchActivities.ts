@@ -10,12 +10,17 @@ const useFetchActivities = () => {
 
 	const fetchActivities = async () => await axiosInstance.get('/activities')
 
-	const { data: activities, isLoading } = useQuery(['fetchActivities'], fetchActivities, {
+	const {
+		data: activities,
+		isLoading,
+		refetch,
+	} = useQuery(['fetchActivities'], fetchActivities, {
 		onSuccess: ({ data }) => dispatch(setActivities(data)),
 		onError: () => {},
+		refetchOnWindowFocus: false,
 	})
 
-	return { activities, isLoading }
+	return { activities, isLoading, refetch }
 }
 
 export default useFetchActivities

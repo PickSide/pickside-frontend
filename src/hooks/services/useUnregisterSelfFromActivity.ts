@@ -1,4 +1,4 @@
-import { AppState, updateActivity } from '@state'
+import { AppState, updateParticipants } from '@state'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { AxiosContext } from '@context'
@@ -21,10 +21,8 @@ const useUnregisterSelfToActivity = () => {
 		isError,
 	} = useMutation(callback, {
 		mutationKey: ['unregisterFromActivity'],
-		onSuccess: ({ data }) => {
-			console.log(data)
-			dispatch(updateActivity(data))
-		},
+		onSuccess: ({ data }, activityId) =>
+			dispatch(updateParticipants({ activityId, participants: data.result.participants })),
 		onError: (e) => console.log(e),
 	})
 

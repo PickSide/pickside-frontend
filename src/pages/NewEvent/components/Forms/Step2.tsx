@@ -80,9 +80,7 @@ const Step2 = () => {
 				<Button
 					type="button"
 					onClick={next}
-					disabled={
-						!dirtyFields['sport'] || !dirtyFields['mode'] || !dirtyFields['price'] || !dirtyFields['maxPlayers']
-					}
+					disabled={!dirtyFields['sport'] || !dirtyFields['mode'] || !dirtyFields['maxPlayers']}
 				>
 					{t('Continue')}
 				</Button>

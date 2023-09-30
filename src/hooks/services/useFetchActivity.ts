@@ -13,6 +13,7 @@ const useFetchActivity = (activityId) => {
 	const { data: activities, isLoading } = useQuery(['fetchActivity'], callback, {
 		onSuccess: ({ data }) => dispatch(setActivities(data)),
 		onError: () => {},
+		refetchOnWindowFocus: false,
 	})
 
 	return { activities, isLoading }

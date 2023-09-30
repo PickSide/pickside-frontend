@@ -5,7 +5,7 @@ import { FC, useMemo } from 'react'
 import { useRegisterSelfToActivity, useUnregisterSelfFromActivity, useUpdateFavorite } from '@hooks'
 
 import Button from './shared/Button'
-import Icon from './Icon'
+import Icon from './shared/Icon'
 import IconButton from './shared/IconButton'
 import { cn } from '@utils'
 import dayjs from 'dayjs'
@@ -26,6 +26,11 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 	const connectedUser = useSelector((state: AppState) => state.user)
 
 	const isFull = useMemo(() => activity.participants.length === activity.maxPlayers, [activity])
+	const isOrganiser = useMemo(() => activity.organiser?.id === connectedUser?.id, [activity, connectedUser])
+	const isRegisteredToActivity = useMemo(
+		() => activity.participants?.find((participant) => participant.id === connectedUser?.id),
+		[activity.participants, connectedUser],
+	)
 
 	const handleRegister = async () => await registerToActivity(activity.id)
 	const handleUnregister = async () => await unregisterFromActivity(activity.id)
@@ -75,7 +80,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 					</Button>
 					{connectedUser &&
 						activity &&
-						(activity.participants?.find((participant) => participant.id === connectedUser.id) ? (
+						(isRegisteredToActivity ? (
 							<Button
 								type="button"
 								size="sm"
@@ -86,7 +91,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 							>
 								{t('Uneregister')}
 							</Button>
-						) : activity.organiser?.id === connectedUser?.id ? (
+						) : isOrganiser ? (
 							<Button type="button" size="sm" variant="primary">
 								{t('Manage event')}
 							</Button>

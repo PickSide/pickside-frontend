@@ -13,6 +13,7 @@ const useFetchSports = () => {
 	const { data: sports, isLoading } = useQuery(['fetchSports'], callback, {
 		onSuccess: ({ data }) => dispatch(setSports(data)),
 		onError: () => {},
+		refetchOnWindowFocus: false,
 	})
 
 	return { sports, isLoading }

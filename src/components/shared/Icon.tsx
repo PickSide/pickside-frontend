@@ -17,6 +17,8 @@ const validIcons = [
 	'schedule',
 	'today',
 	'location_on',
+	'refresh',
+	'close',
 ] as const
 
 export type IconName = (typeof validIcons)[number]
@@ -28,7 +30,7 @@ interface IconProps {
 	icon: IconName
 }
 
-const Icon: FC<IconProps> = ({ icon, size = 'md', variant = 'standard', ...rest }) => {
+const Icon: FC<IconProps> = ({ className, icon, size = 'md', variant = 'standard', ...rest }) => {
 	const sizes = {
 		sm: 'md-18',
 		md: 'md-24',
@@ -46,6 +48,7 @@ const Icon: FC<IconProps> = ({ icon, size = 'md', variant = 'standard', ...rest 
 				'material-icons text-primary',
 				variant === 'outlined' ? 'material-icons-outlined' : '',
 				sizes[size],
+				className,
 			)}
 		>
 			{icon}
