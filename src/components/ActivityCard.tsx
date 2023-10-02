@@ -1,6 +1,6 @@
 import { Activity, AppState } from '@state'
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs'
-import Card, { CardBody, CardCTA, CardHeader, CardImage } from './shared/Card'
+import Card, { CardBody, CardCTA, CardHeader, CardImage, CardProps } from './shared/Card'
 import { FC, useMemo } from 'react'
 import { useRegisterSelfToActivity, useUnregisterSelfFromActivity, useUpdateFavorite } from '@hooks'
 
@@ -12,12 +12,12 @@ import dayjs from 'dayjs'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
-interface ActivityCardProps {
+interface ActivityCardProps extends CardProps {
 	activity: Activity
 	size?: 'sm' | 'md' | 'lg'
 }
 
-const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
+const ActivityCard: FC<ActivityCardProps> = ({ activity, ...rest }) => {
 	const { unregisterFromActivity, isLoading: isUnregistering } = useUnregisterSelfFromActivity()
 	const { registerToActivity, isLoading: isRegistering } = useRegisterSelfToActivity()
 	const { updateFavorite } = useUpdateFavorite()
@@ -36,7 +36,11 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 	const handleUnregister = async () => await unregisterFromActivity(activity.id)
 
 	return (
-		<Card className={cn(isFull ? 'bg-[#EAEAEA]' : '')}>
+		<Card
+			onMouseEnter={rest.onMouseEnter}
+			onMouseLeave={rest.onMouseLeave}
+			className={cn(isFull ? 'bg-[#EAEAEA]' : '')}
+		>
 			<div className="flex flex-col gap-x-[21px]">
 				<div className="flex gap-8">
 					<CardImage className="rounded-lg bg-red-300"></CardImage>

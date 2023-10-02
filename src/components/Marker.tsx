@@ -1,11 +1,11 @@
-import { FC, MouseEventHandler, ReactNode, useState } from 'react'
+import { FC, MouseEventHandler, ReactNode, cloneElement, memo, useState } from 'react'
 
 import Icon from './shared/Icon'
 import IconButton from './shared/IconButton'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-interface MarkerProps {
+export interface MarkerProps extends React.HTMLAttributes<HTMLDivElement> {
 	text: string
 	lat: any
 	lng: any
@@ -28,14 +28,14 @@ const InfoWindowWrapper = styled.div`
 	z-index: 100;
 `
 
-const Marker: FC<MarkerProps> = ({ children, text, icon }) => {
+const Marker: FC<MarkerProps> = ({ children, text, icon, ...rest }) => {
 	const [show, setShow] = useState<boolean>(false)
 
 	const open = () => setShow(true)
 	const close = () => setShow(false)
 
 	return (
-		<div onClick={open}>
+		<div onClick={open} onMouseEnter={rest.onMouseEnter} onMouseLeave={rest.onMouseLeave}>
 			{icon}
 			{show && (
 				<InfoWindowWrapper>
@@ -56,4 +56,4 @@ Marker.propTypes = {
 	text: PropTypes.string.isRequired,
 }
 
-export default Marker
+export default memo(Marker)

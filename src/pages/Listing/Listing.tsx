@@ -1,5 +1,6 @@
 import EventList from './components/EventList'
 import { FC } from 'react'
+import { FocusEventProvider } from './context/FocusEventContext'
 import Map from './components/Map'
 import { motion } from 'framer-motion'
 import { pageTransition } from '@utils'
@@ -10,8 +11,10 @@ const Listing: FC<any> = ({ ...props }) => {
 
 	const DesktopListing = () => (
 		<div className="flex h-full w-full">
-			<Map />
-			<EventList />
+			<FocusEventProvider>
+				<Map />
+				<EventList />
+			</FocusEventProvider>
 		</div>
 	)
 

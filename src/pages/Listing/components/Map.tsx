@@ -1,14 +1,16 @@
 import { Icon, Marker } from '@components'
-import { memo, useCallback } from 'react'
+import { memo, useCallback, useContext } from 'react'
 
 import { Activity } from '@state/activity'
 import { AppState } from '@state'
+import FocusEventContext from '../context/FocusEventContext'
 import GoogleMapReact from 'google-map-react'
 import { cn } from '@utils'
 import { useMapStyles } from '@hooks'
 import { useSelector } from 'react-redux'
 
 const Map = ({ ...props }) => {
+	const { focusedActivity, onFocusInActivity, onFocusOutActivity } = useContext(FocusEventContext)
 	const { mapStyles } = useMapStyles()
 
 	const activities = useSelector((state: AppState) => state.activities)
@@ -64,7 +66,18 @@ const Map = ({ ...props }) => {
 							lat={activity.address.geometry?.location?.lat}
 							lng={activity.address.geometry?.location?.lng}
 							text={activity.title}
-							icon={<Icon icon="location_on" size="lg" className={getMarkerColor(activity)} />}
+							icon={
+								<Icon
+									icon="location_on"
+									size="lg"
+									className={cn(
+										getMarkerColor(activity),
+										focusedActivity?.id === activity.id ? 'scale-125' : 'hover:scale-125',
+									)}
+								/>
+							}
+							onMouseEnter={onFocusInActivity}
+							onMouseLeave={onFocusOutActivity}
 						>
 							<span>{activity.title}</span>
 						</Marker>

@@ -1,17 +1,17 @@
 import { FC } from 'react'
 import { cn } from '@utils'
 
-interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 	size?: 'sm' | 'md' | 'lg'
 	fullWidth?: boolean
 	className?: string
 	readOnly?: boolean
 }
 
-interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
-interface CardImageProps extends React.HTMLAttributes<HTMLDivElement> {}
-interface CardBodyProps extends React.HTMLAttributes<HTMLDivElement> {}
-interface CardCTAProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface CardImageProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface CardBodyProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface CardCTAProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const Card: FC<CardProps> = (props) => {
 	return (
