@@ -44,33 +44,31 @@ const App = () => {
 										<BrowserRouter>
 											<AppBar />
 											<ToastProvider>
-												<AnimatePresence mode="wait">
-													<Routes>
-														<Route path="/" element={<Home />}>
-															<Route path="home" element={<LandingPage />} />
-															<Route path="about" element={<About />} />
-														</Route>
-														<Route path="/login" element={<Login />} />
-														<Route path="/signup" element={<SignUp />} />
-														<Route path="/listing" element={<Listing />} />
-														<Route path="/new-event" element={<CreateEvent />} />
-														<Route element={<RequireAuth />}>
-															<Route path="/user/">
-																<Route path="upcoming-events/" element={<UpcomingEvents />} />
-																<Route path="groups/" element={<Groups />} />
-																<Route path="settings/" element={<Settings />}>
-																	<Route index element={<Navigate to="/user/settings/edit-profile" />} />
-																	<Route path="edit-profile" element={<EditProfile />} />
-																	<Route path="personal-info" element={<PersonalInfo />} />
-																	<Route path="account-management" element={<AccountManagement />} />
-																	<Route path="activity-history" element={<ActivityHistory />} />
-																	<Route path="privacy" element={<Privacy />} />
-																	<Route path="social-media" element={<SocialMedia />} />
-																</Route>
+												<Routes>
+													<Route path="/" element={<Home />}>
+														<Route path="home" element={<LandingPage />} />
+														<Route path="about" element={<About />} />
+													</Route>
+													<Route path="/login" element={<Login />} />
+													<Route path="/signup" element={<SignUp />} />
+													<Route path="/listing" element={<Listing />} />
+													<Route path="/new-event" element={<CreateEvent />} />
+													<Route element={<RequireAuth />}>
+														<Route path="/user/">
+															<Route path="upcoming-events/" element={<UpcomingEvents />} />
+															<Route path="groups/" element={<Groups />} />
+															<Route path="settings/" element={<Settings />}>
+																<Route index element={<Navigate to="/user/settings/edit-profile" />} />
+																<Route path="edit-profile" element={<EditProfile />} />
+																<Route path="personal-info" element={<PersonalInfo />} />
+																<Route path="account-management" element={<AccountManagement />} />
+																<Route path="activity-history" element={<ActivityHistory />} />
+																<Route path="privacy" element={<Privacy />} />
+																<Route path="social-media" element={<SocialMedia />} />
 															</Route>
 														</Route>
-													</Routes>
-												</AnimatePresence>
+													</Route>
+												</Routes>
 											</ToastProvider>
 										</BrowserRouter>
 									</WindowProvider>

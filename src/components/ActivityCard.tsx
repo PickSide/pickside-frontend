@@ -1,6 +1,6 @@
 import { Activity, AppState } from '@state'
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs'
-import Card, { CardBody, CardCTA, CardHeader, CardImage } from './shared/Card'
+import Card, { CardBody, CardCTA, CardHeader, CardImage, CardProps } from './shared/Card'
 import { FC, useMemo } from 'react'
 import { useRegisterSelfToActivity, useUnregisterSelfFromActivity, useUpdateFavorite } from '@hooks'
 
@@ -12,18 +12,19 @@ import dayjs from 'dayjs'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
-interface ActivityCardProps {
+interface ActivityCardProps extends CardProps {
 	activity: Activity
 	size?: 'sm' | 'md' | 'lg'
 }
 
-const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
+const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) => {
 	const { unregisterFromActivity, isLoading: isUnregistering } = useUnregisterSelfFromActivity()
 	const { registerToActivity, isLoading: isRegistering } = useRegisterSelfToActivity()
 	const { updateFavorite } = useUpdateFavorite()
 	const { t } = useTranslation()
 
 	const connectedUser = useSelector((state: AppState) => state.user)
+	const selectedActivity = useSelector((state: AppState) => state.selectedActivity)
 
 	const isFull = useMemo(() => activity.participants.length === activity.maxPlayers, [activity])
 	const isOrganiser = useMemo(() => activity.organiser?.id === connectedUser?.id, [activity, connectedUser])
@@ -36,8 +37,15 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 	const handleUnregister = async () => await unregisterFromActivity(activity.id)
 
 	return (
-		<Card className={cn(isFull ? 'bg-[#EAEAEA]' : '')}>
-			<div className="flex flex-col gap-x-[21px]">
+		<Card
+			className={cn(isFull ? 'bg-[#EAEAEA]' : '', selectedActivity?.id === activity.id ? 'shadow-md' : '', className)}
+		>
+			<div
+				{...rest}
+				className="flex flex-col gap-x-[21px]"
+				onMouseEnter={rest.onMouseEnter}
+				onMouseLeave={rest.onMouseLeave}
+			>
 				<div className="flex gap-8">
 					<CardImage className="rounded-lg bg-red-300"></CardImage>
 					<div className="block">
@@ -109,7 +117,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 						))}
 				</CardCTA>
 			</div>
-			<div className="absolute top-2 right-2">
+			<div className="absolute top-2 right-2 z-[100]">
 				{connectedUser && (
 					<div className="float-right">
 						{connectedUser?.favorites?.includes(activity.id) ? (

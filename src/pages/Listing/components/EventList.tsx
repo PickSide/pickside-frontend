@@ -1,42 +1,32 @@
-import { FC, memo, useEffect } from 'react'
+import { AppState, setSelectedActivity } from '@state'
+import { FC, useContext } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { ActivityCard } from '@components'
-import { AppState } from '@state'
-import { useDevice } from '@hooks'
-import { useSelector } from 'react-redux'
+import FocusEventContext from '../context/FocusEventContext'
+import { cn } from '@utils'
 import { useTranslation } from 'react-i18next'
 
 const EventList: FC<any> = () => {
+	const { focusedActivity, onFocusInActivity, onFocusOutActivity } = useContext(FocusEventContext)
+	const dispatch = useDispatch()
 	const { t } = useTranslation()
-	const [device] = useDevice()
+
 	const stateActivities = useSelector((state: AppState) => state.activities)
 
-	useEffect(() => console.log(window.scrollY), [window])
-
-	const MobileEventList = () => (
-		<div className="flex bg-[#fafafa] h-full mx-auto p-2 w-full gap-y-3 overflow-x-auto">
+	return stateActivities?.results ? (
+		<div className="flex flex-col bg-[#fafafa] min-w-[500px] h-[calc(100vh-64px)] py-2 px-4 gap-y-3 overflow-y-scroll overflow-x-hidden">
 			{stateActivities?.results?.map((activity, idx) => (
-				<ActivityCard key={idx} activity={activity} />
+				<ActivityCard
+					className={cn(focusedActivity?.id === activity.id ? 'shadow-md' : 'hover:shadow-md')}
+					key={idx}
+					activity={activity}
+					onClick={() => dispatch(setSelectedActivity(activity))}
+					onMouseEnter={() => onFocusInActivity(activity)}
+					onMouseLeave={onFocusOutActivity}
+				/>
 			))}
 		</div>
-	)
-
-	const DesktopEventList = () => (
-		<div className="flex flex-col bg-[#fafafa] min-w-[500px] h-[calc(100vh-64px)] py-2 px-4 gap-y-3 overflow-y-auto overflow-x-hidden">
-			<div className="flex flex-col gap-y-5">
-				{stateActivities?.results?.map((activity, idx) => (
-					<ActivityCard key={idx} activity={activity} />
-				))}
-			</div>
-		</div>
-	)
-
-	return stateActivities?.results ? (
-		device !== 'desktop' ? (
-			<MobileEventList />
-		) : (
-			<DesktopEventList />
-		)
 	) : (
 		<div className="min-w-[500px] m-auto text-center">
 			<span className="text-[25px] lg:text-[35px] font-semibold">{t('No events in the area')}</span>
@@ -44,4 +34,4 @@ const EventList: FC<any> = () => {
 	)
 }
 
-export default memo(EventList)
+export default EventList

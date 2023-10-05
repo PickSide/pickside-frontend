@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
+import { KEY_CODES, cn } from '@utils'
 import { ReactNode, forwardRef, useEffect, useState } from 'react'
 
-import { KEY_CODES } from '@utils'
 import { dropdownAnimation } from '@utils'
 import { twMerge } from 'tailwind-merge'
 
@@ -37,7 +37,6 @@ const Dropdown = (
 	useEffect(() => {
 		const handler = () => setIsOpen(false)
 		document.addEventListener('mouseup', handler)
-
 		return () => document.removeEventListener('mouseup', handler)
 	}, [])
 
@@ -46,10 +45,7 @@ const Dropdown = (
 			<button
 				onClick={() => setIsOpen(true)}
 				onKeyDown={handler}
-				className={twMerge(
-					'relative  hover:scale-110 btn-base flex flex-col items-center gap-x-2',
-					[variants[variant]].join(' '),
-				)}
+				className={cn('relative  hover:scale-110 btn-base flex flex-col items-center gap-x-2', [variants[variant]])}
 				id="menu-button"
 				aria-expanded="true"
 				aria-haspopup="true"
@@ -57,7 +53,7 @@ const Dropdown = (
 			>
 				{start}
 				{text}
-				{badge && <span className="absolute top-0 right-8 rounded-full">{badge}</span>}
+				{badge && <span className="absolute -top-2 right-6 rounded-full">{badge}</span>}
 			</button>
 			<AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
 				{isOpen && (

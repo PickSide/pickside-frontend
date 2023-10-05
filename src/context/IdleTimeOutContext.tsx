@@ -6,7 +6,7 @@ import { useLocalStorage } from 'react-use'
 import { useLogout } from '@hooks'
 import { useTranslation } from 'react-i18next'
 
-const EVENTS = ['click', 'keydown', 'load', 'scroll']
+const EVENTS = ['click', 'dblclick', 'drag', 'keydown', 'load', 'scroll', 'zoom']
 const IDLE_TIMER_KEY = 'sessionTTL'
 const IDLE_RESET_TIMER = 900000
 const IDLE_CHECK_TIMER = 300000

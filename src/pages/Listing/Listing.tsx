@@ -1,41 +1,33 @@
+import { AppState, setSelectedActivity } from '@state'
+import { useDispatch, useSelector } from 'react-redux'
+
 import EventList from './components/EventList'
-import { FC } from 'react'
+import { FocusEventProvider } from './context/FocusEventContext'
 import Map from './components/Map'
-import { motion } from 'framer-motion'
-import { pageTransition } from '@utils'
-import { useDevice } from '@hooks'
+import { Sidenav } from '@components'
 
-const Listing: FC<any> = ({ ...props }) => {
-	const [device] = useDevice()
+const Listing = () => {
+	const dispatch = useDispatch()
 
-	const DesktopListing = () => (
-		<div className="flex h-full w-full">
-			<Map />
-			<EventList />
-		</div>
-	)
-
-	const MobileListing = () => (
-		<>
-			<div className="h-2/3 bg-red-200">
-				<Map />
-			</div>
-			<div className="h-1/3">
-				<EventList />
-			</div>
-		</>
-	)
+	const selectedActivity = useSelector((state: AppState) => state.selectedActivity)
 
 	return (
-		<motion.div
-			initial="hidden"
-			animate="visible"
-			exit="exit"
-			variants={pageTransition}
-			className="h-[calc(100vh-64px)]"
-		>
-			{device === 'mobile' ? <MobileListing /> : <DesktopListing />}
-		</motion.div>
+		<div className="h-[calc(100vh-64px)]">
+			<FocusEventProvider>
+				<Sidenav
+					open={!!selectedActivity}
+					onClose={() => dispatch(setSelectedActivity(null))}
+					position="right"
+					title={selectedActivity?.title}
+				>
+					<div>{selectedActivity?.title}</div>
+				</Sidenav>
+				<div className="flex h-full w-full">
+					<Map />
+					<EventList />
+				</div>
+			</FocusEventProvider>
+		</div>
 	)
 }
 
