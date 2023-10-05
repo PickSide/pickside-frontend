@@ -17,13 +17,14 @@ interface ActivityCardProps extends CardProps {
 	size?: 'sm' | 'md' | 'lg'
 }
 
-const ActivityCard: FC<ActivityCardProps> = ({ activity, ...rest }) => {
+const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) => {
 	const { unregisterFromActivity, isLoading: isUnregistering } = useUnregisterSelfFromActivity()
 	const { registerToActivity, isLoading: isRegistering } = useRegisterSelfToActivity()
 	const { updateFavorite } = useUpdateFavorite()
 	const { t } = useTranslation()
 
 	const connectedUser = useSelector((state: AppState) => state.user)
+	const selectedActivity = useSelector((state: AppState) => state.selectedActivity)
 
 	const isFull = useMemo(() => activity.participants.length === activity.maxPlayers, [activity])
 	const isOrganiser = useMemo(() => activity.organiser?.id === connectedUser?.id, [activity, connectedUser])
@@ -37,11 +38,14 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, ...rest }) => {
 
 	return (
 		<Card
-			onMouseEnter={rest.onMouseEnter}
-			onMouseLeave={rest.onMouseLeave}
-			className={cn(isFull ? 'bg-[#EAEAEA]' : '')}
+			className={cn(isFull ? 'bg-[#EAEAEA]' : '', selectedActivity?.id === activity.id ? 'shadow-md' : '', className)}
 		>
-			<div className="flex flex-col gap-x-[21px]">
+			<div
+				{...rest}
+				className="flex flex-col gap-x-[21px]"
+				onMouseEnter={rest.onMouseEnter}
+				onMouseLeave={rest.onMouseLeave}
+			>
 				<div className="flex gap-8">
 					<CardImage className="rounded-lg bg-red-300"></CardImage>
 					<div className="block">
@@ -113,7 +117,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, ...rest }) => {
 						))}
 				</CardCTA>
 			</div>
-			<div className="absolute top-2 right-2">
+			<div className="absolute top-2 right-2 z-[100]">
 				{connectedUser && (
 					<div className="float-right">
 						{connectedUser?.favorites?.includes(activity.id) ? (

@@ -1,25 +1,15 @@
 import { darkModeMapStyles, lightModeMapStyles } from '@utils'
-import { useEffect, useState } from 'react'
 
 import { AppState } from '@state'
+import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 
-const useMapStyles = (): { mapStyles } => {
+const useMapStyles = () => {
 	const theme = useSelector((state: AppState) => state.appTheme)
 
-	const [mapStyles, setMapStyles] = useState<any>([])
+	const mapStyles = useMemo(() => (theme === 'dark' ? darkModeMapStyles : lightModeMapStyles), [theme])
 
-	useEffect(() => {
-		if (theme) {
-			if (theme === 'dark') {
-				setMapStyles(darkModeMapStyles)
-			} else {
-				setMapStyles(lightModeMapStyles)
-			}
-		}
-	}, [theme])
-
-	return { mapStyles }
+	return mapStyles
 }
 
 export default useMapStyles

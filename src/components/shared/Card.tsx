@@ -1,4 +1,5 @@
-import { FC } from 'react'
+import { Children, FC, cloneElement, memo } from 'react'
+
 import { cn } from '@utils'
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -13,16 +14,16 @@ export interface CardImageProps extends React.HTMLAttributes<HTMLDivElement> {}
 export interface CardBodyProps extends React.HTMLAttributes<HTMLDivElement> {}
 export interface CardCTAProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-const Card: FC<CardProps> = (props) => {
+const Card: FC<CardProps> = ({ children, className, fullWidth = false, ...rest }) => {
 	return (
 		<div
 			className={cn(
-				'relative h-fit px-5 py-4 m-2 border-2 border-gray-300 rounded-xl text-gray-800 whitespace-nowrap hover:shadow-md cursor-pointer',
-				props.className,
-				props.fullWidth ? 'w-full' : 'max-w-[480px]',
+				'relative h-fit px-5 py-4 m-2 border-2 border-gray-300 rounded-xl text-gray-800 whitespace-nowrap hover:shadow-md cursor-pointer transition-shadow duration-100 ease-in',
+				className,
+				fullWidth ? 'w-full' : 'max-w-[480px]',
 			)}
 		>
-			{props.children}
+			{Children.map(children, (child) => children && cloneElement(child as any, { ...rest }))}
 		</div>
 	)
 }
@@ -43,4 +44,4 @@ export const CardCTA: FC<CardCTAProps> = (props) => {
 	return <div className={cn('flex justify-end mt-4 gap-x-4', props.className)}>{props.children}</div>
 }
 
-export default Card
+export default memo(Card)

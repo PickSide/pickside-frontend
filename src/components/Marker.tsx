@@ -1,8 +1,8 @@
-import { FC, MouseEventHandler, ReactNode, cloneElement, memo, useState } from 'react'
+import { FC, MouseEventHandler, ReactNode, memo } from 'react'
 
-import Icon from './shared/Icon'
-import IconButton from './shared/IconButton'
 import PropTypes from 'prop-types'
+import { modaleDropIn } from '@utils'
+import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
 export interface MarkerProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -10,36 +10,31 @@ export interface MarkerProps extends React.HTMLAttributes<HTMLDivElement> {
 	lat: any
 	lng: any
 	onClick?: MouseEventHandler
+	openInfoWindow?: boolean
 	icon: ReactNode
 	children?: ReactNode
 }
 
-const InfoWindowWrapper = styled.div`
-	position: relative;
-	bottom: 100px;
+const InfoWindowWrapper = styled(motion.div)`
+	position: absolute;
+	bottom: 50px;
 	left: -45px;
 	width: 220px;
 	background-color: white;
-	border-radius: 8px;
+	border-radius: 4px;
 	box-shadow: 0 2px 7px 1px rgba(0, 0, 0, 0.3);
-	padding: 10px;
+	overflow: clip;
 	font-size: 14px;
 	cursor: ${(props) => (props.onClick ? 'pointer' : 'auto')};
 	z-index: 100;
 `
 
-const Marker: FC<MarkerProps> = ({ children, text, icon, ...rest }) => {
-	const [show, setShow] = useState<boolean>(false)
-
-	const open = () => setShow(true)
-	const close = () => setShow(false)
-
+const Marker: FC<MarkerProps> = ({ children, openInfoWindow = false, text, icon, ...rest }) => {
 	return (
-		<div onClick={open} onMouseEnter={rest.onMouseEnter} onMouseLeave={rest.onMouseLeave}>
+		<div className="relative" onMouseEnter={rest.onMouseEnter} onMouseLeave={rest.onMouseLeave}>
 			{icon}
-			{show && (
-				<InfoWindowWrapper>
-					<IconButton className="absolute right-2 -top-1" icon={<Icon icon="close" />} onClick={close} />
+			{openInfoWindow && (
+				<InfoWindowWrapper initial="hidden" animate="visible" exit="exit" variants={modaleDropIn}>
 					{children}
 				</InfoWindowWrapper>
 			)}

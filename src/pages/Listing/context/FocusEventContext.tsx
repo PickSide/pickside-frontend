@@ -2,18 +2,18 @@ import { FC, createContext, useState } from 'react'
 
 import { Activity } from '@state'
 
-export interface AccountContext {
+export interface FocusEventContextProps {
 	focusedActivity?: Activity
 	onFocusInActivity?: any
 	onFocusOutActivity?: any
 }
 
-const FocusEventContext = createContext<AccountContext>({})
+const FocusEventContext = createContext<FocusEventContextProps>({})
 
 export const FocusEventProvider: FC<any> = ({ children }) => {
 	const [focusedActivity, setFocusedActivity] = useState<Activity>()
 
-	const onFocusInActivity = (activity: Activity) => setFocusedActivity(activity)
+	const onFocusInActivity = (value) => setFocusedActivity(value)
 	const onFocusOutActivity = () => setFocusedActivity(undefined)
 
 	return (

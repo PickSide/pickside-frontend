@@ -1,10 +1,10 @@
-import { AnimatePresence, motion } from 'framer-motion'
 import { FC, useCallback, useId, useMemo, useState } from 'react'
 
 import { BiSearch } from 'react-icons/bi'
 import Spinner from './Spinner'
 import _groupBy from 'lodash/groupBy'
 import { dropdownAnimation } from '@utils'
+import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 
 interface AutocompleteProps<T> {
@@ -175,19 +175,17 @@ const Autocomplete: FC<AutocompleteProps<any>> = ({
 				</button> */}
 			</div>
 
-			<AnimatePresence initial={false} mode="wait">
-				{showOptions && (
-					<motion.div
-						initial="closed"
-						animate="open"
-						exit="exit"
-						variants={dropdownAnimation}
-						className="absolute top-[50px] rounded-b w-full origin-top-left bg-white mt-1 shadow-lg max-h-[500px] overflow-y-auto"
-					>
-						<RenderList />
-					</motion.div>
-				)}
-			</AnimatePresence>
+			{showOptions && (
+				<motion.div
+					initial="closed"
+					animate="open"
+					exit="exit"
+					variants={dropdownAnimation}
+					className="absolute top-[50px] rounded-b w-full origin-top-left bg-white mt-1 shadow-lg max-h-[500px] overflow-y-auto"
+				>
+					<RenderList />
+				</motion.div>
+			)}
 		</div>
 	)
 }

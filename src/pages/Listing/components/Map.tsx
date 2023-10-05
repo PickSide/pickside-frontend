@@ -6,14 +6,18 @@ import { AppState } from '@state'
 import FocusEventContext from '../context/FocusEventContext'
 import GoogleMapReact from 'google-map-react'
 import { cn } from '@utils'
+import moment from 'moment'
 import { useMapStyles } from '@hooks'
 import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
-const Map = ({ ...props }) => {
+const Map = () => {
 	const { focusedActivity, onFocusInActivity, onFocusOutActivity } = useContext(FocusEventContext)
-	const { mapStyles } = useMapStyles()
+	const mapStyles = useMapStyles()
+	const { t } = useTranslation()
 
 	const activities = useSelector((state: AppState) => state.activities)
+	const selectedActivity = useSelector((state: AppState) => state.selectedActivity)
 	const selectedLocation = useSelector((state: AppState) => state.selectedLocation)
 
 	const getMarkerColor = useCallback((activity: Activity) => {
@@ -50,6 +54,7 @@ const Map = ({ ...props }) => {
 	return (
 		<div className={cn('w-full h-full overflow-hidden')}>
 			<GoogleMapReact
+				key={1}
 				bootstrapURLKeys={{ key: import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY }}
 				zoom={12}
 				mapContainerStyle={mapContainerStyle}
@@ -76,10 +81,25 @@ const Map = ({ ...props }) => {
 									)}
 								/>
 							}
-							onMouseEnter={onFocusInActivity}
+							openInfoWindow={activity.id === selectedActivity?.id}
+							onMouseEnter={() => onFocusInActivity(activity)}
 							onMouseLeave={onFocusOutActivity}
 						>
-							<span>{activity.title}</span>
+							<div className="block">
+								<div className="flex items-center px-2 bg-green-500 h-8 text-white align-middle">{activity.title}</div>
+								<div className="flex flex-col p-3 text-[15px]">
+									<span className="">
+										{t('Participants')}: {activity.participants.length} / {activity.maxPlayers}
+									</span>
+									<span className="">
+										{t('Time')}: {moment(activity.time).format('LT')}
+									</span>
+									<div className="">
+										<span>{t('Location')}</span>:{' '}
+										<span className="text-blue-600 underline cursor-pointer">{activity.address.formatted_address}</span>
+									</div>
+								</div>
+							</div>
 						</Marker>
 					))}
 			</GoogleMapReact>
