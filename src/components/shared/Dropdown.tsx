@@ -3,7 +3,6 @@ import { KEY_CODES, cn } from '@utils'
 import { ReactNode, forwardRef, useEffect, useState } from 'react'
 
 import { dropdownAnimation } from '@utils'
-import { twMerge } from 'tailwind-merge'
 
 interface DropdownProps {
 	children?: ReactNode

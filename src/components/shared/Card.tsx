@@ -18,7 +18,7 @@ const Card: FC<CardProps> = ({ children, className, fullWidth = false, ...rest }
 	return (
 		<div
 			className={cn(
-				'relative h-fit px-5 py-4 m-2 border-2 border-gray-300 rounded-xl text-gray-800 whitespace-nowrap hover:shadow-md cursor-pointer transition-shadow duration-100 ease-in',
+				'relative h-fit px-5 py-4 m-2 border-2 border-gray-300 rounded-xl z-10 text-gray-800 whitespace-nowrap hover:shadow-md cursor-pointer transition-shadow duration-100 ease-in',
 				className,
 				fullWidth ? 'w-full' : 'max-w-[480px]',
 			)}

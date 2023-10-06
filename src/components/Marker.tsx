@@ -1,8 +1,8 @@
+import { AnimatePresence, motion } from 'framer-motion'
 import { FC, MouseEventHandler, ReactNode, memo } from 'react'
 
 import PropTypes from 'prop-types'
 import { modaleDropIn } from '@utils'
-import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
 export interface MarkerProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -31,14 +31,16 @@ const InfoWindowWrapper = styled(motion.div)`
 
 const Marker: FC<MarkerProps> = ({ children, openInfoWindow = false, text, icon, ...rest }) => {
 	return (
-		<div className="relative" onMouseEnter={rest.onMouseEnter} onMouseLeave={rest.onMouseLeave}>
-			{icon}
-			{openInfoWindow && (
-				<InfoWindowWrapper initial="hidden" animate="visible" exit="exit" variants={modaleDropIn}>
-					{children}
-				</InfoWindowWrapper>
-			)}
-		</div>
+		<AnimatePresence mode="wait">
+			<div className="relative" onMouseEnter={rest.onMouseEnter} onMouseLeave={rest.onMouseLeave}>
+				{icon}
+				{openInfoWindow && (
+					<InfoWindowWrapper initial="hidden" animate="visible" exit="exit" variants={modaleDropIn}>
+						{children}
+					</InfoWindowWrapper>
+				)}
+			</div>
+		</AnimatePresence>
 	)
 }
 

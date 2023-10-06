@@ -33,8 +33,14 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 		[activity.participants, connectedUser],
 	)
 
-	const handleRegister = async () => await registerToActivity(activity.id)
-	const handleUnregister = async () => await unregisterFromActivity(activity.id)
+	const handleRegister = async (e) => {
+		e.stopPropagation()
+		await registerToActivity(activity.id)
+	}
+	const handleUnregister = async (e) => {
+		e.stopPropagation()
+		await unregisterFromActivity(activity.id)
+	}
 
 	return (
 		<Card
@@ -82,7 +88,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 						</CardBody>
 					</div>
 				</div>
-				<CardCTA className="flex flex-end">
+				<CardCTA className="flex flex-end z-20">
 					<Button type="button" size="sm" variant="tertiary">
 						{t('Details')}
 					</Button>
@@ -117,7 +123,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 						))}
 				</CardCTA>
 			</div>
-			<div className="absolute top-2 right-2 z-[100]">
+			<div className="absolute top-2 right-2 z-20">
 				{connectedUser && (
 					<div className="float-right">
 						{connectedUser?.favorites?.includes(activity.id) ? (

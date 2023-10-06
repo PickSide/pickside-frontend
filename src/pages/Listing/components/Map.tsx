@@ -6,6 +6,7 @@ import { AppState } from '@state'
 import FocusEventContext from '../context/FocusEventContext'
 import GoogleMapReact from 'google-map-react'
 import { cn } from '@utils'
+import dayjs from 'dayjs'
 import moment from 'moment'
 import { useMapStyles } from '@hooks'
 import { useSelector } from 'react-redux'
@@ -46,11 +47,6 @@ const Map = () => {
 
 	const center = !!selectedLocation ? selectedLocation : { lat: 45.5490424, lng: -73.6573323 }
 
-	const handleApiLoaded = (map, maps) => {
-		// console.log('map', map)
-		// console.log('mapss', maps)
-	}
-
 	return (
 		<div className={cn('w-full h-full overflow-hidden')}>
 			<GoogleMapReact
@@ -61,7 +57,7 @@ const Map = () => {
 				center={center}
 				options={options}
 				yesIWantToUseGoogleMapApiInternals
-				onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
+				//onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
 			>
 				{activities?.results
 					?.filter(({ address }) => address.geometry)
@@ -90,6 +86,9 @@ const Map = () => {
 								<div className="flex flex-col p-3 text-[15px]">
 									<span className="">
 										{t('Participants')}: {activity.participants.length} / {activity.maxPlayers}
+									</span>
+									<span className="">
+										{t('Date')}: {dayjs(activity.date).toDate().toDateString()}
 									</span>
 									<span className="">
 										{t('Time')}: {moment(activity.time).format('LT')}

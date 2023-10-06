@@ -4,13 +4,12 @@ import { forwardRef } from 'react'
 import { usePlacesWidget } from 'react-google-autocomplete'
 import { useTranslation } from 'react-i18next'
 
-const GoogleAutocomplete = ({ label, onSelectPlace, value, ...rest }, forwardRef) => {
+const GoogleAutocomplete = ({ label, onPlaceSelected, value, ...rest }, forwardedRef) => {
 	const { t } = useTranslation()
 	const { ref } = usePlacesWidget({
+		libraries: ['places'],
 		apiKey: import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY,
-		onPlaceSelected: (place) => {
-			onSelectPlace && onSelectPlace(place)
-		},
+		onPlaceSelected,
 		options: {
 			types: ['(regions)'],
 			componentRestrictions: { country: 'ca' },
