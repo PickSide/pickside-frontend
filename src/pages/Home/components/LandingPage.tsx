@@ -1,7 +1,6 @@
-import { Button, GoogleAutocomplete, IconButton } from '@components'
+import { Button, GoogleAutocomplete } from '@components'
 import { FC, useState } from 'react'
 
-import { FaLocationArrow } from 'react-icons/fa'
 import { setSelectedLocation } from '@state'
 import { useDevice } from '@hooks'
 import { useDispatch } from 'react-redux'
@@ -81,7 +80,7 @@ const LandingPage: FC<any> = () => {
 							{t('Join Your Team Now')}{' '}
 						</Button>
 						<div className="inline-flex w-full items-center justify-between gap-x-6">
-							<GoogleAutocomplete onSelectPlace={(value) => setSelected(value)} />
+							<GoogleAutocomplete onPlaceSelected={(value) => setSelected(value)} />
 							<Button type="button" disabled={!selected} onClick={navigateToListing}>
 								{t('Search')}
 							</Button>

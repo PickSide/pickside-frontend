@@ -21,6 +21,7 @@ const Step1 = () => {
 			/>
 
 			<FormDivider />
+
 			<Controller
 				name="time"
 				control={control}
@@ -32,7 +33,7 @@ const Step1 = () => {
 				name="address"
 				control={control}
 				render={({ field }) => (
-					<GoogleAutocomplete {...field} label={t('Address')} onSelectPlace={(value) => setValue('address', value)} />
+					<GoogleAutocomplete {...field} label={t('Address')} onPlaceSelected={(value) => setValue('address', value)} />
 				)}
 			/>
 
@@ -40,11 +41,7 @@ const Step1 = () => {
 				<Button variant="secondary" type="button" disabled onClick={previous}>
 					{t('Previous')}
 				</Button>
-				<Button
-					type="button"
-					onClick={next}
-					disabled={!dirtyFields['date'] || !dirtyFields['time'] || !dirtyFields['address']}
-				>
+				<Button type="button" onClick={next} disabled={!dirtyFields['address']}>
 					{t('Continue')}
 				</Button>
 			</StepperCTAWrapper>

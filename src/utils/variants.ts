@@ -85,6 +85,9 @@ export const modaleDropIn = {
 	exit: {
 		y: '-100vh',
 		opacity: 0,
+		transition: {
+			duration: 0.1,
+		},
 	},
 }
 
