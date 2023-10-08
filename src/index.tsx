@@ -24,10 +24,8 @@ if ('serviceWorker' in navigator) {
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
-const clientId = import.meta.env.VITE_APP_GOOGLE_MAPS_OAUTH_CLIENT_ID
-
 root.render(
-	<GoogleOAuthProvider clientId={clientId}>
+	<GoogleOAuthProvider clientId={import.meta.env.VITE_APP_GOOGLE_MAPS_OAUTH_CLIENT_ID}>
 		<StoreProvider store={store}>
 			<I18nextProvider i18n={i18n}>
 				<App />

@@ -5,6 +5,7 @@ import { Activity } from '@state/activity'
 import { AppState } from '@state'
 import FocusEventContext from '../context/FocusEventContext'
 import GoogleMapReact from 'google-map-react'
+import MyMapComponent from './MyMapComponent'
 import { cn } from '@utils'
 import dayjs from 'dayjs'
 import moment from 'moment'
@@ -49,16 +50,13 @@ const Map = () => {
 
 	return (
 		<div className={cn('w-full h-full overflow-hidden')}>
-			<GoogleMapReact
-				key={1}
-				bootstrapURLKeys={{ key: import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY }}
+			<MyMapComponent
 				zoom={12}
-				mapContainerStyle={mapContainerStyle}
+				//mapContainerStyle={mapContainerStyle}
 				center={center}
-				options={options}
-				yesIWantToUseGoogleMapApiInternals
-				//onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
-			>
+				//options={options}
+			></MyMapComponent>
+			{/* <GoogleMapReact zoom={12} mapContainerStyle={mapContainerStyle} center={center} options={options}>
 				{activities?.results
 					?.filter(({ address }) => address.geometry)
 					.map((activity, idx) => (
@@ -101,7 +99,7 @@ const Map = () => {
 							</div>
 						</Marker>
 					))}
-			</GoogleMapReact>
+			</GoogleMapReact> */}
 		</div>
 	)
 }

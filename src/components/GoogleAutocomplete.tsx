@@ -8,7 +8,6 @@ const GoogleAutocomplete = ({ label, onPlaceSelected, value, ...rest }, forwarde
 	const { t } = useTranslation()
 	const { ref } = usePlacesWidget({
 		libraries: ['places'],
-		apiKey: import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY,
 		onPlaceSelected,
 		options: {
 			types: ['(regions)'],
