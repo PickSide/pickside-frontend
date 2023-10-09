@@ -1,0 +1,33 @@
+name: Pickside App Deploy
+
+on:
+  push:
+    branches: ['release']
+
+jobs:
+  build:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: cd ~/pickside-backend
+      - run: git checkout release
+      - run: node --max-old-space-size=8000 $(which npm) install
+      - run: pm2 delete -id 0
+      - run: pm2 start "npm run start" --name "pickside_backend"
+      - run: pm2 save
+      - run: cd ~/pickside-frontend
+      - run: git checkout release
+      - run: git pull
+      - run: node --max-old-space-size=8000 $(which npm) install
+      - run: npm run build
+      - run: cd /var/www
+      - run: sudo cp -rT ~/pickside-frontend/build/ ./pickside
