@@ -49,16 +49,7 @@ const Map = () => {
 
 	return (
 		<div className={cn('w-full h-full overflow-hidden')}>
-			<GoogleMapReact
-				key={1}
-				bootstrapURLKeys={{ key: import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY }}
-				zoom={12}
-				mapContainerStyle={mapContainerStyle}
-				center={center}
-				options={options}
-				yesIWantToUseGoogleMapApiInternals
-				//onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
-			>
+			<GoogleMapReact zoom={12} mapContainerStyle={mapContainerStyle} center={center} options={options}>
 				{activities?.results
 					?.filter(({ address }) => address.geometry)
 					.map((activity, idx) => (
