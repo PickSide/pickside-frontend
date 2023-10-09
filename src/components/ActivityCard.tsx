@@ -26,10 +26,10 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 	const connectedUser = useSelector((state: AppState) => state.user)
 	const selectedActivity = useSelector((state: AppState) => state.selectedActivity)
 
-	const isFull = useMemo(() => activity.participants.length === activity.maxPlayers, [activity])
+	const isFull = useMemo(() => activity.participants?.length === activity.maxPlayers, [activity])
 	const isOrganiser = useMemo(() => activity.organiser?.id === connectedUser?.id, [activity, connectedUser])
 	const isRegisteredToActivity = useMemo(
-		() => activity.participants?.find((participant) => participant.id === connectedUser?.id),
+		() => activity.participants?.find((participant) => participant?.id === connectedUser?.id),
 		[activity.participants, connectedUser],
 	)
 
