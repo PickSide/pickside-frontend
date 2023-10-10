@@ -70,7 +70,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 							<span className="inline-flex gap-x-4 text-base">
 								<Icon icon="place" />
 								<span className="underline max-w-[50%] truncate">
-									{activity.address.formatted_address || t('No address')}
+									{activity.address?.formatted_address || t('No address')}
 								</span>
 							</span>
 							<span className="inline-flex gap-x-4 text-base">
