@@ -1,4 +1,4 @@
-import { Button, GoogleAutocomplete } from '@components'
+import { Button, GoogleAutocomplete, Icon } from '@components'
 import { FC, useState } from 'react'
 
 import { setSelectedLocation } from '@state'
@@ -15,6 +15,9 @@ const LandingPage: FC<any> = () => {
 	const [selected, setSelected] = useState<any>(null)
 
 	const navigateToListing = async () => {
+		if (!selected) {
+			return
+		}
 		const lat = selected.geometry.location.lat()
 		const lng = selected.geometry.location.lng()
 		await dispatch(setSelectedLocation({ lat, lng }))
@@ -33,12 +36,12 @@ const LandingPage: FC<any> = () => {
 	const MobileLandingPage = () => (
 		<section id="home" className="section text-black bg-landing-texture lg:block overflow-hidden">
 			<div className="relative flex flex-col justify-center items-center">
-				<div className="bg-landing bg-no-repeat bg-contain bg-center w-[80%] h-[300px]"></div>
-				<div className="gap-y-6 w-[80%] z-[80]">
+				<div className="bg-landing bg-no-repeat bg-contain bg-center w-[80%] h-[300px] z-10"></div>
+				<div className="gap-y-6 w-[80%] z-20">
 					<div className="flex flex-col gap-y-2 items-center my-3">
-						<span className="text-[30px] lg:text-[45px] font-semibold">{t('Book Your Next Match Now')}</span>
-						<span className="text-[15px] lg:text-[22px] text-gray-500 font-normal">
-							{t('Are you looking for your sport team? this place is for you just search your neighborhood.')}
+						<h1 className="">{t('Book Your Next Match Now')}</h1>
+						<span className="">
+							{t('Are you looking for your sport team?\nThis place is for you just search your neighborhood.')}
 						</span>
 					</div>
 					<div className="flex flex-col mx-auto justify-center items-center gap-y-6">
@@ -46,7 +49,7 @@ const LandingPage: FC<any> = () => {
 							{t('Join Your Team Now')}
 						</Button>
 						<div className="inline-flex gap-x-4">
-							<GoogleAutocomplete onSelectPlace={(value) => setSelected(value)} />
+							<GoogleAutocomplete onPlaceSelected={(value) => setSelected(value)} />
 							<Button type="button" disabled={!selected} onClick={navigateToListing}>
 								{t('Search')}
 							</Button>
@@ -65,30 +68,26 @@ const LandingPage: FC<any> = () => {
 	return device !== 'desktop' ? (
 		<MobileLandingPage />
 	) : (
-		<section id="home" className="section text-black bg-landing-texture lg:block overflow-hidden">
-			<div className="relative flex justify-center">
-				<div className="absolute bg-landing bg-no-repeat bg-contain w-[1100px] h-[1100px]"></div>
-				<div className="absolute translate-x-[100%] gap-y-6 w-[80%] lg:w-[400px] z-[80]">
-					<div className="flex flex-col gap-y-2 items-center my-3">
-						<span className="text-[30px] lg:text-[45px] font-semibold">{t('Book Your Next Match Now')}</span>
-						<span className="text-[15px] lg:text-[22px] text-gray-500 font-normal">
-							{t('Are you looking for your sport team? this place is for you just search your neighborhood.')}
-						</span>
-					</div>
-					<div className="flex flex-col mx-auto justify-center items-center gap-y-6">
-						<Button type="button" className="w-full h-12" onClick={navigateToListing}>
-							{t('Join Your Team Now')}{' '}
-						</Button>
-						<div className="inline-flex w-full items-center justify-between gap-x-6">
-							<GoogleAutocomplete onPlaceSelected={(value) => setSelected(value)} />
-							<Button type="button" disabled={!selected} onClick={navigateToListing}>
-								{t('Search')}
-							</Button>
-							{/* <IconButton onClick={goToListing} icon={<FaLocationArrow size={25} />} /> */}
-						</div>
+		<section id="home" className="section relative bg-landing-texture overflow-hidden">
+			<div className="absolute bg-landing bg-no-repeat bg-contain w-screen h-[1100px] z-0" />
+			<div className="float-right z-30 h-full py-20">
+				<div className="space-y-4 block text-center w-[600px]">
+					<h1 className="text-charcoal-black font-medium tracking-tight leading-tight">
+						{t('Book Your Next Match Now')}
+					</h1>
+					<h5 className="font-thin text-cool-gray-4 tracking-tight">
+						{t('Are you looking for your sport team? This place is for you just search your neighborhood.')}
+					</h5>
+					<div className="bg-kale-200 w-fit h-[80px] m-auto flex justify-center items-center px-4 rounded-2xl">
+						<GoogleAutocomplete
+							onPressEnterKey={navigateToListing}
+							className="rounded-2xl w-96"
+							startContent={<Icon icon="search" />}
+							placeholder={t('Search by location or postal code')}
+							onPlaceSelected={(value) => setSelected(value)}
+						/>
 					</div>
 				</div>
-				{/* <div className="absolute -bottom-40 -left-60 w-[1000px] h-[1000px] z-[40] rounded-full bg-blue-500"></div> */}
 			</div>
 		</section>
 	)

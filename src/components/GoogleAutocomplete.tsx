@@ -1,14 +1,18 @@
-import { forwardRef, useState } from 'react'
+import { FC, useState } from 'react'
+import InputField, { InputFieldProps } from './shared/InputField'
 
 import { HiOutlineLocationMarker } from 'react-icons/hi'
-import InputField from './shared/InputField'
 import { usePlacesWidget } from 'react-google-autocomplete'
 import { useTranslation } from 'react-i18next'
 
-const GoogleAutocomplete = ({ label, onPlaceSelected, value, ...rest }, forwardedRef) => {
-	const { t } = useTranslation()
-	const [val] = useState(value || '')
-	const { ref } = usePlacesWidget({
+interface GoogleAutocompleteProps extends InputFieldProps {
+	label?: string
+	onPlaceSelected?: (place: google.maps.places.PlaceResult) => void
+	value?: any
+}
+
+const GoogleAutocomplete: FC<GoogleAutocompleteProps> = ({ label, onPlaceSelected, value, ...rest }) => {
+	const { ref } = usePlacesWidget<HTMLInputElement>({
 		libraries: ['places'],
 		apiKey: import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY,
 		onPlaceSelected,
@@ -17,6 +21,9 @@ const GoogleAutocomplete = ({ label, onPlaceSelected, value, ...rest }, forwarde
 			componentRestrictions: { country: 'ca' },
 		},
 	})
+	const { t } = useTranslation()
+
+	const [val] = useState(value || '')
 
 	return (
 		<InputField
@@ -31,4 +38,4 @@ const GoogleAutocomplete = ({ label, onPlaceSelected, value, ...rest }, forwarde
 	)
 }
 
-export default forwardRef(GoogleAutocomplete)
+export default GoogleAutocomplete

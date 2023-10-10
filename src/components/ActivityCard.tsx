@@ -88,8 +88,8 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 						</CardBody>
 					</div>
 				</div>
-				<CardCTA className="flex flex-end z-20">
-					<Button type="button" size="sm" variant="tertiary">
+				<CardCTA className="flex flex-end z-20 ">
+					<Button type="button" size="md" variant="secondary">
 						{t('Details')}
 					</Button>
 					{connectedUser &&
@@ -112,7 +112,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 						) : (
 							<Button
 								type="button"
-								size="sm"
+								size="md"
 								variant="primary"
 								isLoading={isRegistering}
 								onClick={handleRegister}
