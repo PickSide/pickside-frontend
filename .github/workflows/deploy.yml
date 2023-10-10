@@ -18,16 +18,4 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: cd ~/pickside-backend
-      - run: git checkout release
-      - run: node --max-old-space-size=8000 $(which npm) install
-      - run: pm2 delete -id 0
-      - run: pm2 start "npm run start" --name "pickside_backend"
-      - run: pm2 save
-      - run: cd ~/pickside-frontend
-      - run: git checkout release
-      - run: git pull
-      - run: node --max-old-space-size=8000 $(which npm) install
-      - run: npm run build
-      - run: cd /var/www
-      - run: sudo cp -rT ~/pickside-frontend/build/ ./pickside
+      - run: ./build_deploy.sh
