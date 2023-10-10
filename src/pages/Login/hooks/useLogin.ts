@@ -28,7 +28,7 @@ const useLogin = () => {
 			setCachedAccessToken(data.accessToken)
 			setCachedRefreshToken(data.refreshToken)
 			dispatch(setUser(data.user))
-			navigate('/home')
+			navigate(data.redirectUri)
 		},
 		onError: (error: any) => handleResponseError(error),
 	})

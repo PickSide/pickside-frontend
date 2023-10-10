@@ -5,11 +5,15 @@ import axios from 'axios'
 import { setUser } from '@state'
 import { useDispatch } from 'react-redux'
 import { useGoogleLogin } from '@react-oauth/google'
+import { useLocalStorage } from 'react-use'
 import { useNavigate } from 'react-router-dom'
 
 const useLoginWithGoogle = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
+	const [, setCachedUser] = useLocalStorage('user')
+	const [, setCachedAccessToken] = useLocalStorage('accessToken')
+	const [, setCachedRefreshToken] = useLocalStorage('refreshToken')
 
 	const { axiosInstance } = useContext(AxiosContext)
 	const [isLoading, setIsLoading] = useState<any>(null)
@@ -23,16 +27,21 @@ const useLoginWithGoogle = () => {
 			},
 		})
 
-	const callback = (data: any) => axiosInstance.post('/googlelogin', { data })
+	const callback = async (data: any) => await axiosInstance.post('/googlelogin', { data })
 
 	const loginWithGoogle = useGoogleLogin({
 		onSuccess: async ({ access_token }) => {
 			setIsLoading(true)
 			return await fetchGoogleAccountInfoServiceAPI(access_token)
 				.then(({ data }) => callback(data))
-				.then(({ data }) => dispatch(setUser(data)))
-				.then(() => setIsLoading(false))
-				.then(() => navigate('/home'))
+				.then(({ data }) => {
+					setCachedUser(data.user)
+					setCachedAccessToken(data.accessToken)
+					setCachedRefreshToken(data.refreshToken)
+					dispatch(setUser(data.user))
+					setIsLoading(false)
+					navigate(data.redirectUri)
+				})
 		},
 		onError: (error) => setError(error),
 		flow: 'implicit',

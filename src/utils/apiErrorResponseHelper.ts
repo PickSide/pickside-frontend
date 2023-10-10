@@ -1,5 +1,3 @@
-import { AxiosError } from 'axios'
-
 export interface IErrorResponse {
 	failReason: string
 	message: string
@@ -19,6 +17,6 @@ export function handleResponseError(error: any) {
 	}
 
 	const errorResponse = error.response?.data
-	console.log(errorResponse)
+
 	return errorResponse.error
 }
