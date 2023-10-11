@@ -1,15 +1,15 @@
-import { HTMLAttributes, HTMLInputTypeAttribute, ReactNode, forwardRef, useCallback } from 'react'
+import { ComponentPropsWithRef, HTMLInputTypeAttribute, ReactNode, forwardRef, useCallback } from 'react'
 
 import { cn } from '@utils'
 
-export interface InputFieldProps extends HTMLAttributes<HTMLInputElement> {
+export interface InputFieldProps extends ComponentPropsWithRef<'input'> {
 	id?: string
 	label?: string
-	className?: string
-	pattern?: string
 	startContent?: ReactNode
 	endContent?: ReactNode
 	readOnly?: boolean
+	onPressArrowDown?: (e?: any) => void
+	onPressArrowUp?: (e?: any) => void
 	onPressEnterKey?: (e?: any) => void
 	error?: any
 	type?: HTMLInputTypeAttribute
@@ -26,6 +26,8 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 			label,
 			startContent,
 			endContent,
+			onPressArrowDown,
+			onPressArrowUp,
 			onPressEnterKey,
 			placeholder,
 			pattern,
@@ -36,15 +38,20 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 			value,
 			...rest
 		},
-		forwardRef,
+		ref,
 	) => {
 		const onKeyDown = useCallback(
 			(e) => {
-				if (e.key === 'Enter') {
-					onPressEnterKey && onPressEnterKey(value)
+				if (e.key === 'ArrowDown') {
+					onPressArrowDown && onPressArrowDown()
+				} else if (e.key === 'ArrowUp') {
+					onPressArrowUp && onPressArrowUp()
+				} else if (e.key === 'Enter') {
+					onPressEnterKey && onPressEnterKey()
 				}
+				return
 			},
-			[onPressEnterKey],
+			[onPressEnterKey, onPressArrowDown, onPressArrowUp],
 		)
 
 		return (
@@ -63,10 +70,10 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 					{startContent && <span className="text-gray-500 w-10 flex justify-center">{startContent}</span>}
 
 					<input
-						ref={forwardRef}
+						ref={ref}
 						autoComplete="off"
 						disabled={readOnly}
-						value={defaultValue}
+						value={value}
 						placeholder={placeholder}
 						onKeyDown={onKeyDown}
 						className="relative rounded-md w-[95%] h-[90%] px-2 py-2 focus-visible:outline-none disabled:bg-white disabled:cursor-not-allowed disabled:text-gray-300"

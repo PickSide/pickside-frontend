@@ -2,7 +2,7 @@
 
 import '/node_modules/flag-icons/css/flag-icons.min.css'
 
-import { Dropdown, IconDropdown, MenuItem } from '@components'
+import { Dropdown, Icon, IconDropdown, MenuItem } from '@components'
 import { useDevice, useLocaleSwitcher } from '@hooks'
 
 import { AppState } from '@state'
@@ -33,11 +33,11 @@ const LanguageSwitcher = ({ ...rest }) => {
 	)
 
 	return device === 'mobile' ? (
-		<IconDropdown icon={<FaGlobe size={20} />}>
+		<IconDropdown icon={<Icon icon="language" />}>
 			<LocalesEl />
 		</IconDropdown>
 	) : (
-		<Dropdown variant="secondary" text={t('Language') /*current*/} start={<FaGlobe size={20} />}>
+		<Dropdown variant="secondary" text={t('Language') /*current*/} start={<Icon icon="language" />}>
 			<LocalesEl />
 		</Dropdown>
 	)

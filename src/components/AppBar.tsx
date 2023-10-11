@@ -10,12 +10,13 @@ import Button from './shared/Button'
 import { FaArrowUp } from 'react-icons/fa'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import IconDropdown from './shared/IconDropdown'
-import LanguageSwitcher from './shared/LanguageSwitcher'
+import LanguageSwitcher from './LanguageSwitcher'
 import { Link } from 'react-scroll'
 import MenuItem from './shared/MenuItem'
-import NotificationMenu from './shared/NotificationMenu'
+import MessageMenu from './MessageMenu'
+import NotificationMenu from './NotificationMenu'
 import ProfileMenu from './shared/ProfileMenu'
-import ThemeSwitcher from './shared/ThemeSwitcher'
+import ThemeSwitcher from './ThemeSwitcher'
 import { motion } from 'framer-motion'
 import { pageTransition } from '@utils'
 import { useSelector } from 'react-redux'
@@ -101,7 +102,7 @@ const AppBar = () => {
 								className="w-12 outline-none border-none bg-templogo2 bg-contain bg-no-repeat h-10"
 							></NavLink>
 						</div>
-						<div className="flex items-center gap-x-3">
+						<div className="flex items-center gap-x-6">
 							{connectedUser && (
 								<Button type="button" disabled={pathname === '/new-event'} onClick={() => navigate('/new-event')}>
 									{t('Post event')}
@@ -111,6 +112,7 @@ const AppBar = () => {
 							<ThemeSwitcher />
 							{connectedUser ? (
 								<>
+									<MessageMenu />
 									<NotificationMenu />
 									<ProfileMenu />
 								</>

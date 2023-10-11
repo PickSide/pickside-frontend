@@ -8,7 +8,7 @@ const validIcons = [
 	'attach_money',
 	'bookmark',
 	'bookmark_border',
-	'chat_bubble_outline',
+	'chat_bubble',
 	'error_outline',
 	'group',
 	'language',
@@ -19,6 +19,8 @@ const validIcons = [
 	'schedule',
 	'today',
 	'location_on',
+	'light_mode',
+	'dark_mode',
 	'refresh',
 	'close',
 	'search',
@@ -26,11 +28,14 @@ const validIcons = [
 
 export type IconName = (typeof validIcons)[number]
 
-const iconVariants = cva(['material-icons text-primary'], {
+const iconVariants = cva(['text-primary'], {
 	variants: {
 		variant: {
+			filled: 'material-icons',
 			outlined: 'material-icons-outlined',
-			standard: '',
+			round: 'material-icons-round',
+			sharp: 'material-icons-sharp',
+			two_tones: 'material-icons-two-tones',
 		},
 		size: {
 			sm: 'md-18',
@@ -40,7 +45,7 @@ const iconVariants = cva(['material-icons text-primary'], {
 		},
 	},
 	defaultVariants: {
-		variant: 'standard',
+		variant: 'outlined',
 		size: 'md',
 	},
 })
@@ -55,9 +60,9 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(({ className, icon, size, var
 	}
 
 	return (
-		<div ref={ref} className={cn(iconVariants({ className, size, variant }))} {...rest}>
+		<i ref={ref} className={cn(iconVariants({ className, size, variant }))} {...rest}>
 			{icon}
-		</div>
+		</i>
 	)
 })
 

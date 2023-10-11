@@ -1,5 +1,5 @@
-import { ButtonHTMLAttributes, forwardRef } from 'react'
 import { ButtonVariant, cn } from '@utils'
+import { ComponentPropsWithRef, forwardRef } from 'react'
 import { VariantProps, cva } from 'class-variance-authority'
 
 import Spinner from '../Spinner'
@@ -41,7 +41,7 @@ const buttonVariants = cva(['rounded', 'text-base', 'leading-none'], {
 	},
 })
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
+interface ButtonProps extends ComponentPropsWithRef<'button'>, VariantProps<typeof buttonVariants> {
 	isLoading?: boolean
 	variant?: ButtonVariant
 	loadingText?: string

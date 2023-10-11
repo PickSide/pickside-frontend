@@ -1,7 +1,7 @@
 import { Button, DatePicker, FormDivider, TimePicker } from '@components'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 
-import { GoogleAutocomplete } from '@components'
+import { GoogleAutocomplete2 } from '@components'
 import StepperCTAWrapper from '../shared/StepperCTAWrapper'
 import { useStepper } from '@pages/NewEvent/hooks/useStepper'
 import { useTranslation } from 'react-i18next'
@@ -33,7 +33,11 @@ const Step1 = () => {
 				name="address"
 				control={control}
 				render={({ field }) => (
-					<GoogleAutocomplete {...field} label={t('Address')} onPlaceSelected={(value) => setValue('address', value)} />
+					<GoogleAutocomplete2
+						{...field}
+						label={t('Address')}
+						onPlaceSelected={(value) => setValue('address', value)}
+					/>
 				)}
 			/>
 

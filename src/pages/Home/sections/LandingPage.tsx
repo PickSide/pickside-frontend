@@ -1,4 +1,4 @@
-import { Button, GoogleAutocomplete, Icon } from '@components'
+import { Button, GoogleAutocomplete, GoogleAutocomplete2, Icon } from '@components'
 import { FC, useState } from 'react'
 
 import { setSelectedLocation } from '@state'
@@ -70,18 +70,19 @@ const LandingPage: FC<any> = () => {
 	) : (
 		<section id="home" className="section relative bg-landing-texture overflow-hidden">
 			<div className="absolute bg-landing bg-no-repeat bg-contain w-screen h-[1100px] z-0" />
-			<div className="float-right z-30 h-full py-20">
-				<div className="space-y-4 block text-center w-[600px]">
+			<div className="float-right z-30 h-full py-20 px-20">
+				<div className="text-center items-center w-[600px] space-y-10">
 					<h1 className="text-charcoal-black font-medium tracking-tight leading-tight">
 						{t('Book Your Next Match Now')}
 					</h1>
 					<h5 className="font-thin text-cool-gray-4 tracking-tight">
 						{t('Are you looking for your sport team? This place is for you just search your neighborhood.')}
 					</h5>
-					<div className="bg-kale-200 w-fit h-[80px] m-auto flex justify-center items-center px-4 rounded-2xl">
-						<GoogleAutocomplete
+					<div className="relative w-[400px] h-[50px] mx-auto">
+						<div className="w-[450px] h-[calc(100%+20px)] absolute rounded-2xl bg-kale-200 -left-[20px] -top-[10px]" />
+						<GoogleAutocomplete2
 							onPressEnterKey={navigateToListing}
-							className="rounded-2xl w-96"
+							className="rounded-2xl"
 							startContent={<Icon icon="search" />}
 							placeholder={t('Search by location or postal code')}
 							onPlaceSelected={(value) => setSelected(value)}
