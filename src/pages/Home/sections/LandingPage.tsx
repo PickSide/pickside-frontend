@@ -12,10 +12,10 @@ const LandingPage: FC<any> = () => {
 	const navigate = useNavigate()
 	const { t } = useTranslation()
 	const [device] = useDevice()
-	const [selected, setSelected] = useState<any>(null)
+	const [selected, setSelected] = useState<google.maps.places.PlaceResult>({})
 
 	const navigateToListing = async () => {
-		if (!selected) {
+		if (!selected || !selected.geometry || !selected.geometry.location) {
 			return
 		}
 		const lat = selected.geometry.location.lat()

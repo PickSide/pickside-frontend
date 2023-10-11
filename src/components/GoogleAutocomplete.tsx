@@ -15,7 +15,10 @@ const GoogleAutocomplete: FC<GoogleAutocompleteProps> = ({ label, onPlaceSelecte
 	const { ref } = usePlacesWidget<HTMLInputElement>({
 		libraries: ['places'],
 		apiKey: import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY,
-		onPlaceSelected,
+		onPlaceSelected: (place: google.maps.places.PlaceResult) => {
+			onPlaceSelected && onPlaceSelected(place)
+			ref.current?.focus()
+		},
 		options: {
 			types: ['(regions)'],
 			componentRestrictions: { country: 'ca' },
