@@ -44,7 +44,7 @@ export default function LoginForm() {
 						{...field}
 						type="text"
 						autoFocus
-						label={t('Username')}
+						label={t('Email address')}
 						placeholder={t('Enter username')}
 						startContent={<BiUser size={20} />}
 						fullWidth

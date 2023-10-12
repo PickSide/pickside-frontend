@@ -83,7 +83,7 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 							</div>
 							<div className="grid grid-cols-7 p-2 text-center">
 								{weeks.map((week, idx) => (
-									<span key={idx} className="text-gray-300 text-[10px]">
+									<span key={idx} className="text-md text-charcoal-black font-semibold">
 										{week}
 									</span>
 								))}
@@ -94,7 +94,7 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 										<button
 											type="button"
 											key={idx}
-											className="rounded-md block w-6 h-6 pointer-events-none bg-primary text-white border-none outline-none font-primary m-2"
+											className="rounded-full block w-6 h-6 pointer-events-none bg-primary text-white border-none outline-none font-primary m-2"
 										>
 											{date.date()}
 										</button>
@@ -104,7 +104,7 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 											key={idx}
 											disabled={true}
 											onClick={() => handleSelect(date)}
-											className="rounded-md block w-6 h-6 pointer-events-none bg-emerald-600 text-white border-none outline-none font-primary m-2"
+											className="rounded-full block w-6 h-6 pointer-events-none bg-emerald-600 text-white border-none outline-none font-primary m-2"
 										>
 											{date.date()}
 										</button>
@@ -114,7 +114,7 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 											key={idx}
 											disabled={!currentMonth || !afterToday}
 											onClick={() => handleSelect(date)}
-											className="rounded-md block w-6 h-6 hover:bg-gray-200 border-none outline-none font-primary m-2 disabled:text-gray-300 disabled:pointer-events-none"
+											className="rounded-full block w-6 h-6 hover:bg-gray-200 border-none outline-none font-primary m-2 disabled:text-gray-300 disabled:pointer-events-none"
 										>
 											{date.date()}
 										</button>

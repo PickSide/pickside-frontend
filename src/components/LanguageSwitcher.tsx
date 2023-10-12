@@ -2,18 +2,14 @@
 
 import '/node_modules/flag-icons/css/flag-icons.min.css'
 
-import { Dropdown, IconDropdown, MenuItem } from '@components'
-import { useDevice, useLocaleSwitcher } from '@hooks'
+import { Dropdown, Icon, MenuItem } from '@components'
 
 import { AppState } from '@state'
-import { FaGlobe } from 'react-icons/fa'
+import { useLocaleSwitcher } from '@hooks'
 import { useSelector } from 'react-redux'
-import { useTranslation } from 'react-i18next'
 
 const LanguageSwitcher = ({ ...rest }) => {
 	const { current, handleLocaleChange } = useLocaleSwitcher()
-	const [device] = useDevice()
-	const { t } = useTranslation()
 
 	const locales = useSelector((state: AppState) => state.locales)
 
@@ -32,12 +28,8 @@ const LanguageSwitcher = ({ ...rest }) => {
 		</>
 	)
 
-	return device === 'mobile' ? (
-		<IconDropdown icon={<FaGlobe size={20} />}>
-			<LocalesEl />
-		</IconDropdown>
-	) : (
-		<Dropdown variant="secondary" text={t('Language') /*current*/} start={<FaGlobe size={20} />}>
+	return (
+		<Dropdown className="capitalize" text={current} icon={<Icon icon="language" />}>
 			<LocalesEl />
 		</Dropdown>
 	)

@@ -1,5 +1,4 @@
 import { Activity, AppState } from '@state'
-import { BsBookmark, BsBookmarkFill } from 'react-icons/bs'
 import Card, { CardBody, CardCTA, CardHeader, CardImage, CardProps } from './shared/Card'
 import { FC, useMemo } from 'react'
 import { useRegisterSelfToActivity, useUnregisterSelfFromActivity, useUpdateFavorite } from '@hooks'
@@ -57,7 +56,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 					<div className="block">
 						<CardHeader className="inline-flex items-start">
 							<div className="flex gap-x-2 mb-4">
-								<Icon icon="account_circle" size="lg" />
+								<Icon variant="filled" icon="account_circle" size="lg" />
 								<div className="flex flex-col">
 									<span className="text-lg font-semibold max-w-[70%] truncate">{activity.title}</span>
 									<span className="text-sm">
@@ -88,8 +87,8 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 						</CardBody>
 					</div>
 				</div>
-				<CardCTA className="flex flex-end z-20">
-					<Button type="button" size="sm" variant="tertiary">
+				<CardCTA className="flex flex-end z-20 ">
+					<Button type="button" size="md" variant="secondary">
 						{t('Details')}
 					</Button>
 					{connectedUser &&
@@ -112,7 +111,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 						) : (
 							<Button
 								type="button"
-								size="sm"
+								size="md"
 								variant="primary"
 								isLoading={isRegistering}
 								onClick={handleRegister}
@@ -127,9 +126,9 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 				{connectedUser && (
 					<div className="float-right">
 						{connectedUser?.favorites?.includes(activity.id) ? (
-							<IconButton icon={<BsBookmarkFill size={20} />} onClick={() => updateFavorite(activity.id)} />
+							<IconButton icon={<Icon icon="bookmark" />} onClick={() => updateFavorite(activity.id)} />
 						) : (
-							<IconButton icon={<BsBookmark size={20} />} onClick={() => updateFavorite(activity.id)} />
+							<IconButton icon={<Icon icon="bookmark_border" />} onClick={() => updateFavorite(activity.id)} />
 						)}
 					</div>
 				)}

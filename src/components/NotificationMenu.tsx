@@ -1,8 +1,7 @@
-import { Dropdown, MenuItem, Spinner } from '@components'
+import { Dropdown, Icon, MenuItem, Spinner } from '@components'
 import { useFetchNotifications, useReadNotification } from '@hooks'
 
 import { FC } from 'react'
-import { MdOutlineNotifications } from 'react-icons/md'
 import { RxDotFilled } from 'react-icons/rx'
 import { useTranslation } from 'react-i18next'
 
@@ -17,7 +16,7 @@ const NotificationMenu: FC<any> = () => {
 		<Dropdown
 			variant="secondary"
 			text={t('Notifications')}
-			start={<MdOutlineNotifications size={20} />}
+			icon={<Icon icon="notifications" />}
 			badge={
 				notifications?.data?.results?.some((n) => !n.isRead) && <RxDotFilled className="text-blue-400" size={20} />
 			}

@@ -1,9 +1,8 @@
+import { Dropdown, Icon, MenuItem } from '@components'
 import { FC, useMemo } from 'react'
-import { IconDropdown, MenuItem } from '@components'
 import { MdGroups2, MdLogout, MdOutlineEventAvailable, MdOutlineSettings } from 'react-icons/md'
 
 import { AppState } from '@state'
-import avatarPlaceholder from '../../assets/avatar-placeholder.png'
 import { useLogout } from '@hooks'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -45,10 +44,10 @@ const ProfileMenu: FC<any> = () => {
 	]
 
 	return (
-		<IconDropdown
+		<Dropdown
 			icon={
-				<div className="w-8 h-8 overflow-hidden border-primary border-2 rounded-full bg-gray-100">
-					<img alt="" src={connectedUser?.avatar || avatarPlaceholder} />
+				<div className="w-10 h-10 flex items-center justify-center rounded-full bg-grey-600">
+					<Icon icon="person" className="text-white" />
 				</div>
 			}
 		>
@@ -58,7 +57,7 @@ const ProfileMenu: FC<any> = () => {
 					{label}
 				</MenuItem>
 			))}
-		</IconDropdown>
+		</Dropdown>
 	)
 }
 export default ProfileMenu

@@ -1,4 +1,6 @@
-import { FC } from 'react'
+import { HTMLAttributes, forwardRef } from 'react'
+import { VariantProps, cva } from 'class-variance-authority'
+
 import { cn } from '@utils'
 
 const validIcons = [
@@ -6,54 +8,64 @@ const validIcons = [
 	'attach_money',
 	'bookmark',
 	'bookmark_border',
-	'chat_bubble_outline',
+	'chat_bubble',
 	'error_outline',
 	'group',
 	'language',
 	'menu',
 	'notifications',
 	'payments',
+	'person',
 	'place',
+	'progress_activity',
 	'schedule',
 	'today',
 	'location_on',
+	'light_mode',
+	'dark_mode',
 	'refresh',
 	'close',
+	'search',
 ] as const
 
 export type IconName = (typeof validIcons)[number]
 
-interface IconProps {
-	className?: string
-	size?: 'sm' | 'md' | 'lg' | 'xlg'
-	variant?: 'outlined' | 'standard'
+const iconVariants = cva(['text-primary dark:text-grey-600'], {
+	variants: {
+		variant: {
+			filled: 'material-icons',
+			outlined: 'material-icons-outlined',
+			round: 'material-icons-round',
+			sharp: 'material-icons-sharp',
+			two_tones: 'material-icons-two-tones',
+		},
+		size: {
+			sm: 'md-18',
+			md: 'md-24',
+			lg: 'md-36',
+			xlg: 'md-48',
+		},
+	},
+	defaultVariants: {
+		variant: 'outlined',
+		size: 'md',
+	},
+})
+
+interface IconProps extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof iconVariants> {
 	icon: IconName
 }
 
-const Icon: FC<IconProps> = ({ className, icon, size = 'md', variant = 'standard', ...rest }) => {
-	const sizes = {
-		sm: 'md-18',
-		md: 'md-24',
-		lg: 'md-36',
-		xlg: 'md-48',
-	}
-
+const Icon = forwardRef<HTMLDivElement, IconProps>(({ className, icon, size, variant, ...rest }, ref) => {
 	if (!validIcons.includes(icon)) {
 		return null
 	}
 
 	return (
-		<span
-			className={cn(
-				'material-icons text-primary',
-				variant === 'outlined' ? 'material-icons-outlined' : '',
-				sizes[size],
-				className,
-			)}
-		>
+		<i ref={ref} className={cn(iconVariants({ className, size, variant }))} {...rest}>
 			{icon}
-		</span>
+		</i>
 	)
-}
+})
 
 export default Icon

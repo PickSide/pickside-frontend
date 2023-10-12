@@ -3,21 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-	font-family: 'Material Icons';
-	font-style: normal;
-	font-weight: 400;
-	src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
-	src: local('Material Icons'), local('MaterialIcons-Regular'),
-		url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
-		url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
-		url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
-}
-
 @layer base {
 	body {
 		margin: 0;
-		font-family: -apple-system, BlinkMacSystemFont, 'Futura', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+		font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Futura', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
 			'Droid Sans', 'Helvetica Neue', sans-serif;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
@@ -130,22 +119,50 @@
 		font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 	}
 
-	.p .h2 .h3 .h4 .span {
+	p,
+	span,
+	.h2,
+	.h3,
+	.h4,
+	.h5,
+	.h6,
+	.large,
+	.base,
+	.small,
+	.xsmall {
 		@apply truncate;
 	}
 
-	.h2 {
-		@apply font-primary text-[32px] tracking-[10%] uppercase;
+	h1 {
+		@apply font-primary text-[76px];
 	}
-
-	.h3 {
-		@apply font-primary font-semibold text-[26px] leading-[46px];
+	h2 {
+		@apply font-primary text-[61px] tracking-[10%];
 	}
-
-	.h4 {
-		@apply font-primary font-semibold text-[20px] leading-[30px];
+	h3 {
+		@apply font-primary text-[49px] tracking-[10%];
 	}
-
+	h4 {
+		@apply font-primary text-[39px] tracking-[10%];
+	}
+	h5 {
+		@apply font-primary text-[31px] tracking-[10%];
+	}
+	h6 {
+		@apply font-primary text-[25px] tracking-[10%];
+	}
+	.large {
+		@apply font-primary text-[20px] tracking-[10%];
+	}
+	.base {
+		@apply font-primary text-[16px] tracking-[10%];
+	}
+	.small {
+		@apply font-primary text-[13px] tracking-[10%];
+	}
+	.xsmall {
+		@apply font-primary text-[10px] tracking-[10%];
+	}
 	.scrollable {
 		@apply scrollbar-thin scrollbar-thumb-accent scrollbar-track-gray-100;
 	}
@@ -166,7 +183,7 @@
 @layer components {
 	/* BUTTONS */
 	.btn-base {
-		@apply rounded min-w-[70px] font-semibold;
+		@apply rounded;
 	}
 	.btn-sm {
 		@apply px-2 py-2 text-xs leading-none;

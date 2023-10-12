@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from 'react-hook-form'
 
-import Footer from '../Home/components/Footer'
+import Footer from '../Home/sections/Footer'
 import MultiStepForm from './components/MultiStepForm'
 import { StepperProvider } from './context'
 import dayjs from 'dayjs'
