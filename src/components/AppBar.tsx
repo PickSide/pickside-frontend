@@ -7,9 +7,9 @@ import { AiOutlineLogin } from 'react-icons/ai'
 import { AppState } from '@state'
 import { BsCalendar2Event } from 'react-icons/bs'
 import Button from './shared/Button'
+import Dropdown from './shared/Dropdown'
 import { FaArrowUp } from 'react-icons/fa'
 import { GiHamburgerMenu } from 'react-icons/gi'
-import IconDropdown from './shared/IconDropdown'
 import LanguageSwitcher from './LanguageSwitcher'
 import { Link } from 'react-scroll'
 import MenuItem from './shared/MenuItem'
@@ -46,7 +46,7 @@ const AppBar = () => {
 		<div className="flex items-center justify-between h-full" ref={ref}>
 			<NavLink to="/home" className="w-12 outline-none border-none bg-templogo2 bg-contain bg-no-repeat h-10"></NavLink>
 			<div className="inline-flex items-center">
-				<IconDropdown icon={<GiHamburgerMenu size={20} />}>
+				<Dropdown icon={<GiHamburgerMenu size={20} />}>
 					{connectedUser ? (
 						<>
 							<MenuItem icon={<BsCalendar2Event size={20} />} onClick={() => navigate('/new-event')}>
@@ -61,13 +61,7 @@ const AppBar = () => {
 							<MenuItem icon={<MdOutlineHistory size={20} />} onClick={() => navigate('/user/history')}>
 								{t('History')}
 							</MenuItem>
-							<MenuItem
-								icon={<MdLogout size={20} />}
-								onClick={async () => {
-									await logout()
-									navigate('/login')
-								}}
-							>
+							<MenuItem icon={<MdLogout size={20} />} onClick={async () => await logout()}>
 								{t('Logout')}
 							</MenuItem>
 						</>
@@ -76,7 +70,7 @@ const AppBar = () => {
 							{t('Login')}
 						</MenuItem>
 					)}
-				</IconDropdown>
+				</Dropdown>
 			</div>
 		</div>
 	)
@@ -96,12 +90,11 @@ const AppBar = () => {
 					<MobileAppBar />
 				) : (
 					<div className="flex items-center justify-between h-full" ref={ref}>
-						<div className="flex">
-							<NavLink
-								to="/home"
-								className="w-12 outline-none border-none bg-templogo2 bg-contain bg-no-repeat h-10"
-							></NavLink>
-						</div>
+						<NavLink
+							to="/home"
+							className="w-12 outline-none border-none bg-templogo2 bg-contain bg-no-repeat h-10"
+						></NavLink>
+
 						<div className="flex items-center gap-x-6">
 							{connectedUser && (
 								<Button type="button" disabled={pathname === '/new-event'} onClick={() => navigate('/new-event')}>

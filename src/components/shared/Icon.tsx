@@ -15,7 +15,9 @@ const validIcons = [
 	'menu',
 	'notifications',
 	'payments',
+	'person',
 	'place',
+	'progress_activity',
 	'schedule',
 	'today',
 	'location_on',
@@ -28,7 +30,7 @@ const validIcons = [
 
 export type IconName = (typeof validIcons)[number]
 
-const iconVariants = cva(['text-primary'], {
+const iconVariants = cva(['text-primary dark:text-grey-600'], {
 	variants: {
 		variant: {
 			filled: 'material-icons',

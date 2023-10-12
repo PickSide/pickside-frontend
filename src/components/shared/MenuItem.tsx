@@ -12,8 +12,8 @@ const MenuItem = forwardRef<HTMLButtonElement, MenuItemProps>(({ active, childre
 		<button
 			ref={ref}
 			className={cn(
-				'w-full flex items-center font-normal p-3 max-w-56 truncate outline-none disabled:bg-slate-50 disabled:text-slate-300 disabled:pointer-events-none text-slate-800 cursor-pointer gap-x-4 hover:bg-primary hover:text-white',
-				active ? 'bg-primary text-white' : '',
+				'w-full flex items-center p-3 max-w-56 truncate disabled:bg-slate-50 disabled:text-slate-300 disabled:pointer-events-none cursor-pointer gap-x-4 hover:bg-primary dark:hover:bg-grey-600 hover:text-white',
+				active ? 'bg-primary dark:bg-grey-600 text-white' : '',
 				className,
 			)}
 			{...rest}

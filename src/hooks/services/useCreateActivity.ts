@@ -15,10 +15,8 @@ const useCreateActivity = () => {
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
-	const callback = async (data: any) => {
-		console.log({ data: { ...data, organiser: connectedUser?.id } })
-		return await axiosInstance.post(`/activities`, { data: { ...data, organiser: connectedUser?.id } })
-	}
+	const callback = async (data: any) =>
+		await axiosInstance.post(`/activities`, { data: { ...data, organiser: connectedUser?.id } })
 
 	const {
 		mutate: createActivity,

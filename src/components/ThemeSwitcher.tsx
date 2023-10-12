@@ -1,14 +1,12 @@
 import { AppState, setAppTheme } from '@state'
-import { Dropdown, Icon, IconDropdown, MenuItem } from '@components'
+import { Dropdown, Icon, MenuItem } from '@components'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { FC } from 'react'
-import { useDevice } from '@hooks'
 import { useTranslation } from 'react-i18next'
 
 const ThemeSwitcher: FC<any> = () => {
 	const dispatch = useDispatch()
-	const [device] = useDevice()
 	const { t } = useTranslation()
 	const current = useSelector((state: AppState) => state.appTheme)
 
@@ -31,12 +29,8 @@ const ThemeSwitcher: FC<any> = () => {
 			))}
 		</>
 	)
-	return device === 'mobile' ? (
-		<IconDropdown icon={ThemeIconMap[current!].icon}>
-			<ThemesEl />
-		</IconDropdown>
-	) : (
-		<Dropdown variant="secondary" text={t('Theme')} start={ThemeIconMap[current!].icon}>
+	return (
+		<Dropdown text={t('Theme')} icon={ThemeIconMap[current!].icon}>
 			<ThemesEl />
 		</Dropdown>
 	)

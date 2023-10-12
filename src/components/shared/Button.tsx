@@ -1,8 +1,8 @@
-import { ButtonVariant, cn } from '@utils'
 import { ComponentPropsWithRef, forwardRef } from 'react'
 import { VariantProps, cva } from 'class-variance-authority'
 
 import Spinner from '../Spinner'
+import { cn } from '@utils'
 
 const buttonVariants = cva(['rounded', 'text-base', 'leading-none'], {
 	variants: {
@@ -12,8 +12,9 @@ const buttonVariants = cva(['rounded', 'text-base', 'leading-none'], {
 				'bg-primary',
 				'disabled:bg-cool-gray-3',
 				'hover:bg-gray-300',
-				'dark:bg-white',
-				'dark:text-black',
+				'dark:bg-grey-600',
+				'dark:text-white',
+				'dark:hover:bg-gray-300',
 			],
 			secondary: [
 				'text-primary',
@@ -43,7 +44,6 @@ const buttonVariants = cva(['rounded', 'text-base', 'leading-none'], {
 
 interface ButtonProps extends ComponentPropsWithRef<'button'>, VariantProps<typeof buttonVariants> {
 	isLoading?: boolean
-	variant?: ButtonVariant
 	loadingText?: string
 }
 

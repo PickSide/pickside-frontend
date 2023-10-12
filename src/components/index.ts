@@ -25,7 +25,6 @@ import GoogleAutocomplete from './GoogleAutocomplete'
 import GoogleAutocomplete2 from './GoogleAutocomplete2'
 import Icon from './shared/Icon'
 import IconButton from './shared/IconButton'
-import IconDropdown from './shared/IconDropdown'
 import ImageUploader from './ImageUploader'
 import InputField from './shared/InputField'
 import Marker from './Marker'
@@ -79,7 +78,6 @@ export {
 	GoogleAutocomplete2,
 	Icon,
 	IconButton,
-	IconDropdown,
 	ImageUploader,
 	Marker,
 	MenuItem,
