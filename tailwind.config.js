@@ -32,6 +32,7 @@ module.exports = {
 		extend: {
 			boxShadow: {
 				md: '0px 0px 7px 5px rgba(20, 74, 117, 0.25)',
+				menu: '2px 2px 8px 0px rgba(0, 0, 0, 0.10), -2px -2px 8px 0px rgba(0, 0, 0, 0.10)',
 			},
 			colors: {
 				primary: '#144A75',
@@ -45,6 +46,7 @@ module.exports = {
 				'grey': {
 					600: '#68737D'
 				},
+				'cloud': '#FBFBFB',
 				'cool-gray': {
 					1: '#EAEAEA',
 					2: '#D9D9D9',

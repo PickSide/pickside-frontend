@@ -1,6 +1,6 @@
 // https://www.iso.org/obp/ui/#search
 
-import '/node_modules/flag-icons/css/flag-icons.min.css'
+//import '/node_modules/flag-icons/css/flag-icons.min.css'
 
 import { Dropdown, Icon, MenuItem } from '@components'
 
@@ -20,7 +20,7 @@ const LanguageSwitcher = ({ ...rest }) => {
 					key={idx}
 					disabled={current === locale.value}
 					onClick={() => handleLocaleChange(locale)}
-					icon={<span className={`fi fi-${locale.flagCode}`}></span>}
+					icon={<span className={`fi-gr fi-${locale.flagCode}`}></span>}
 				>
 					{locale.description}
 				</MenuItem>

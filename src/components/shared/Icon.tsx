@@ -11,6 +11,7 @@ const validIcons = [
 	'chat_bubble',
 	'error_outline',
 	'group',
+	'keyboard_arrow_right',
 	'language',
 	'menu',
 	'notifications',
@@ -40,10 +41,10 @@ const iconVariants = cva(['text-primary dark:text-grey-600'], {
 			two_tones: 'material-icons-two-tones',
 		},
 		size: {
-			sm: 'md-18',
-			md: 'md-24',
-			lg: 'md-36',
-			xlg: 'md-48',
+			sm: 'material-icons.md-18',
+			md: 'material-icons.md-24',
+			lg: 'material-icons.md-36',
+			xlg: 'material-icons.md-48',
 		},
 	},
 	defaultVariants: {
