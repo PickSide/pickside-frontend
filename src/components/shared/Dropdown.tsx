@@ -70,9 +70,9 @@ const Dropdown = forwardRef<ComponentPropsWithRef<'button'>, DropdownProps>(
 				<AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
 					{isOpen && (
 						<>
-							<div className="fixed inset-0 w-screen h-screen z-[1000]" onClick={() => setIsOpen(false)}></div>
+							<div className="fixed inset-0 w-screen h-screen z-20" onClick={() => setIsOpen(false)}></div>
 							<motion.div
-								className="absolute right-0 mt-2 origin-top-right z-[1000] divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-clip"
+								className="absolute right-0 mt-2 origin-top-right z-20 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-clip"
 								role="menu"
 								aria-orientation="vertical"
 								aria-labelledby="menu-button"

@@ -47,7 +47,7 @@ const Sidenav: FC<SidenavProps> = ({
 					animate="show"
 					exit="exit"
 					variants={slideIn('right')}
-					className={cn(`fixed w-[500px] h-screen z-[400] bg-white shadow-md`, className, positionOnScreen)}
+					className={cn(`fixed w-[500px] h-screen z-100 bg-white shadow-md`, className, positionOnScreen)}
 				>
 					<div className="h-[80px] border-b flex items-center justify-between px-6">
 						<span className="uppercase text-[27px] font-semibold">{title}</span>

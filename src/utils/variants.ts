@@ -74,7 +74,6 @@ export const popUpSubmMenu = {
 	open: {
 		scale: 1,
 		opacity: 1,
-		transform: 'none',
 		transition: {
 			duration: 0.1,
 		},
@@ -82,7 +81,6 @@ export const popUpSubmMenu = {
 	exit: {
 		scale: 0,
 		opacity: 0,
-		transform: 'none',
 		transition: {
 			duration: 0.1,
 		},

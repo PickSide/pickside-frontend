@@ -15,13 +15,13 @@ interface DialogProps {
 const Dialog: FC<DialogProps> = ({ open = false, full = false, title, onClose, children, ...props }) => {
 	return open ? (
 		<AnimatePresence>
-			<div className="opacity-25 h-screen w-sreen fixed inset-0 z-[90] bg-black" onClick={onClose}></div>
+			<div className="opacity-25 h-screen w-sreen fixed inset-0 z-20 bg-black" onClick={onClose}></div>
 			<motion.div
 				initial="hidden"
 				animate="visible"
 				exit="exit"
 				variants={modaleDropIn}
-				className={`fixed z-[100] overflow-hidden h-fit inset-0 m-auto md:w-fit`}
+				className={`fixed z-20 overflow-hidden h-fit inset-0 m-auto md:w-fit`}
 			>
 				<div className=" bg-white border shadow-sm rounded-md ">
 					<div className="flex justify-between items-center py-3 px-4 border-b space-x-5">

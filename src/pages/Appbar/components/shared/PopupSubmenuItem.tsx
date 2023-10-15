@@ -33,7 +33,7 @@ const PopupSubmenuItem = forwardRef<any, PopupSubmenuItemProps>(
 							animate="open"
 							exit="exit"
 							variants={popUpSubmMenu}
-							className="absolute right-full z-[101] -translate-x-[15%] min-w-[300px] min-h-[30px] w-fit p-[30px] bg-cloud rounded-[15px] shadow-menu"
+							className="absolute right-full z-20 -translate-x-[15%] min-w-[300px] min-h-[30px] w-fit p-[30px] bg-cloud rounded-[15px] shadow-menu"
 						>
 							{Children.map(children, (child: any, idx) => cloneElement(child, { key: idx, ...rest }))}
 						</motion.div>

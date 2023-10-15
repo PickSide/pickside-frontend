@@ -21,7 +21,6 @@ import FormDivider from './FormDivider'
 import Gallery from './Gallery'
 import GlobalAppStatusAlert from './GlobalAppStatusAlert'
 import GoogleAutocomplete from './GoogleAutocomplete'
-import GoogleAutocomplete2 from './GoogleAutocomplete2'
 import Icon from './shared/Icon'
 import IconButton from './shared/IconButton'
 import ImageUploader from './ImageUploader'
@@ -76,7 +75,6 @@ export {
 	Gallery,
 	GlobalAppStatusAlert,
 	GoogleAutocomplete,
-	GoogleAutocomplete2,
 	Icon,
 	IconButton,
 	ImageUploader,

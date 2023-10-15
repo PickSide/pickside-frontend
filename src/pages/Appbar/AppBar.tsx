@@ -118,14 +118,14 @@ const AppBar = () => {
 							<NavLink to="">{t('Contact us')}</NavLink>
 						</PopupMenuItem>
 						{!connectedUser ? (
-							<>
+							[
 								<PopupMenuItem>
 									<NavLink to="/login">{t('Log in')}</NavLink>
-								</PopupMenuItem>
+								</PopupMenuItem>,
 								<PopupMenuItem>
 									<NavLink to="/signup">{t('Sign up')}</NavLink>
-								</PopupMenuItem>
-							</>
+								</PopupMenuItem>,
+							]
 						) : (
 							<PopupMenuItem className="bg-black" onClick={() => logout()}>
 								<span className="cursor-pointer">{t('Logout')}</span>

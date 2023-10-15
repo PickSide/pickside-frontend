@@ -16,12 +16,12 @@ const Popover = ({ children, trigger, onClose, positionX = 'left', positionY = '
 			{open && (
 				<>
 					<div
-						className="absolute z-[80] min-w-3 min-h-4 max-w-fit max-h-fit p-4 shadow-md rounded-xl bg-white -left-32"
+						className="absolute z-20 min-w-3 min-h-4 max-w-fit max-h-fit p-4 shadow-md rounded-xl bg-white -left-32"
 						onClick={() => setOpen(false)}
 					>
 						{children}
 					</div>
-					<div className="fixed inset-0 z-[70] w-sceen h-screen" onClick={() => setOpen(false)}></div>
+					<div className="fixed inset-0 z-20 w-sceen h-screen" onClick={() => setOpen(false)}></div>
 				</>
 			)}
 		</div>

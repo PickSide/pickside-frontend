@@ -19,13 +19,13 @@ const PopupMenu = forwardRef<HTMLButtonElement, PopupMenuProps>(
 				{trigger}
 				{open && (
 					<>
-						<div className="fixed inset-0 w-screen h-screen z-[100]" onClick={onClose} />
+						<div className="fixed inset-0 w-screen h-screen z-20" onClick={onClose} />
 						<motion.div
 							initial="closed"
 							animate="open"
 							exit="exit"
 							variants={popUpSubmMenu}
-							className="absolute -right-1/2 top-[115%] z-[100] min-w-[300px] min-h-[30px] w-fit p-[30px] rounded-[20px] bg-cloud space-y-[20px] shadow-menu"
+							className="absolute -right-1/2 top-[115%] z-20 min-w-[300px] min-h-[30px] w-fit p-[30px] rounded-[20px] bg-cloud space-y-[20px] shadow-menu"
 						>
 							{Children.map(children, (child: any, idx) => cloneElement(child, { onClose, key: idx, ...rest }))}
 						</motion.div>

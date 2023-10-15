@@ -14,7 +14,7 @@ const BottomDrawer = ({ show = false, onReset }) => {
 				initial="hidden"
 				animate="show"
 				exit="exit"
-				className="fixed left-0 bottom-0 h-16 bg-slate-100 border-t-2 w-screen flex items-center justify-end z-[900] pe-4"
+				className="fixed left-0 bottom-0 h-16 bg-slate-100 border-t-2 w-screen flex items-center justify-end z-50 pe-4"
 			>
 				<div className="block space-x-4">
 					<Button type="reset" variant="tertiary" onClick={onReset}>

@@ -1,4 +1,4 @@
-import { Button, GoogleAutocomplete, GoogleAutocomplete2, Icon } from '@components'
+import { Button, GoogleAutocomplete, Icon } from '@components'
 import { FC, useState } from 'react'
 
 import { setSelectedLocation } from '@state'
@@ -36,7 +36,7 @@ const LandingPage: FC<any> = () => {
 	const MobileLandingPage = () => (
 		<section id="home" className="section text-black bg-landing-texture lg:block overflow-hidden">
 			<div className="relative flex flex-col justify-center items-center">
-				<div className="bg-landing bg-no-repeat bg-contain bg-center w-[80%] h-[300px] z-10"></div>
+				<div className="bg-landing bg-no-repeat bg-contain bg-center w-[80%] h-[300px]"></div>
 				<div className="gap-y-6 w-[80%] z-20">
 					<div className="flex flex-col gap-y-2 items-center my-3">
 						<h1 className="">{t('Book Your Next Match Now')}</h1>
@@ -80,7 +80,7 @@ const LandingPage: FC<any> = () => {
 					</h5>
 					<div className="relative w-[400px] h-[50px] mx-auto">
 						<div className="w-[450px] h-[calc(100%+20px)] absolute rounded-2xl bg-kale-200 -left-[20px] -top-[10px]" />
-						<GoogleAutocomplete2
+						<GoogleAutocomplete
 							onPressEnterKey={navigateToListing}
 							className="rounded-2xl"
 							startContent={<Icon icon="search" />}

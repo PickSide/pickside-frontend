@@ -58,7 +58,7 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 							initial="closed"
 							animate="open"
 							exit="exit"
-							className="absolute z-[90] mt-1 w-72 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+							className="absolute z-50 mt-1 w-72 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
 						>
 							<div className="flex justify-between px-4">
 								<button

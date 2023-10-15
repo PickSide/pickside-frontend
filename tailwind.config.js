@@ -5,31 +5,19 @@ module.exports = {
 	important: '#root',
 	darkMode: 'class',
 	theme: {
-		fill: {
-			primary: '#144A75',
-			secondary: '#17494D',
-			tertiary: '#F4FF81',
-		},
-		fontFamily: {
-			primary: ['Roboto', 'sans-serif'],
-			secondary: '"Roboto Slab"',
-			tertiary: 'Aldrich',
-		},
-		fontSize: {
-			xs: ["10px", { lineHeight: "1.5" }],
-			sm: ["13px", { lineHeight: "1.5" }],
-			base: ["16px", { lineHeight: "1.5" }],
-			lg: ["20px", { lineHeight: "1.5" }],
-		},
 		container: {
 			padding: {
 				DEFAULT: '15px',
 			},
 		},
-		screens: {
-			...BREAKPOINTS,
-		},
 		extend: {
+			backgroundImage: {
+				landing: "url('./assets/landing-page-background.png')",
+				'landing-texture': "url('./assets/landing-texture.png')",
+				avatar: "url('./assets/avatar-placeholder.png')",
+				templogo: "url('./assets/temp-logo.png')",
+				templogo2: "url('./assets/temp-logo-2.png')",
+			},
 			boxShadow: {
 				md: '0px 0px 7px 5px rgba(20, 74, 117, 0.25)',
 				menu: '2px 2px 8px 0px rgba(0, 0, 0, 0.10), -2px -2px 8px 0px rgba(0, 0, 0, 0.10)',
@@ -75,16 +63,35 @@ module.exports = {
 					4: '#46D339'
 				},
 			},
-			backgroundImage: {
-				landing: "url('./assets/landing-page-background.png')",
-				'landing-texture': "url('./assets/landing-texture.png')",
-				avatar: "url('./assets/avatar-placeholder.png')",
-				templogo: "url('./assets/temp-logo.png')",
-				templogo2: "url('./assets/temp-logo-2.png')",
-			},
 			flexGrow: {
 				2: '2',
 			},
+			zIndex: {
+				'60': '60',
+				'70': '70',
+				'80': '80',
+				'90': '90',
+				'100': '100',
+			}
+		},
+		fill: {
+			primary: '#144A75',
+			secondary: '#17494D',
+			tertiary: '#F4FF81',
+		},
+		fontFamily: {
+			primary: ['Roboto', 'sans-serif'],
+			secondary: '"Roboto Slab"',
+			tertiary: 'Aldrich',
+		},
+		fontSize: {
+			xs: ["10px", { lineHeight: "1.5" }],
+			sm: ["13px", { lineHeight: "1.5" }],
+			base: ["16px", { lineHeight: "1.5" }],
+			lg: ["20px", { lineHeight: "1.5" }],
+		},
+		screens: {
+			...BREAKPOINTS,
 		},
 	},
 	plugins: [require('tailwind-scrollbar')],

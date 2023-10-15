@@ -15,7 +15,7 @@ const GlobalAppStatusAlert: FC<any> = () => {
 	return (
 		<AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
 			{!!appStatus && (
-				<div className="fixed z-[200] w-full xl:w-fit xl:left-1/2 xl:-translate-x-1/2">
+				<div className="fixed z-50 w-full xl:w-fit xl:left-1/2 xl:-translate-x-1/2">
 					<Alert
 						severity={appStatus?.status}
 						action={
