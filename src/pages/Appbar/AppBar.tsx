@@ -82,9 +82,18 @@ const AppBar = () => {
 							</Button>
 						}
 					>
-						<PopupMenuItem>
-							<NavLink to="#">{t('Favorites')}</NavLink>
-						</PopupMenuItem>
+						{connectedUser ? (
+							[
+								<PopupMenuItem>
+									<NavLink to="/user/settings">{t('Profile')}</NavLink>
+								</PopupMenuItem>,
+								<PopupMenuItem>
+									<NavLink to="/favorites">{t('Favorites')}</NavLink>
+								</PopupMenuItem>,
+							]
+						) : (
+							<></>
+						)}
 						<PopupSubmenuItem title={t('Language')} ref={popMenuRef}>
 							<RadioGroup name="locales" onChange={handleLocaleChange}>
 								{locales?.results?.map((locale, idx) => (
@@ -127,7 +136,7 @@ const AppBar = () => {
 								</PopupMenuItem>,
 							]
 						) : (
-							<PopupMenuItem className="bg-black" onClick={() => logout()}>
+							<PopupMenuItem onClick={() => logout()}>
 								<span className="cursor-pointer">{t('Logout')}</span>
 							</PopupMenuItem>
 						)}

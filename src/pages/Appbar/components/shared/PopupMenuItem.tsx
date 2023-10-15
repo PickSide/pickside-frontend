@@ -1,11 +1,11 @@
 import { Children, ComponentPropsWithRef, cloneElement, forwardRef } from 'react'
 
-import PropTypes from 'prop-types'
+import { cn } from '@utils'
 
 interface PopupMenuItemProps extends ComponentPropsWithRef<'div'> {
 	active?: boolean
 	onClick?: (e?) => void
-	onClose?: (e?) => void // Implicit
+	onClose?: (e?) => void
 }
 
 const PopupMenuItem = forwardRef<HTMLDivElement, PopupMenuItemProps>(
@@ -13,14 +13,11 @@ const PopupMenuItem = forwardRef<HTMLDivElement, PopupMenuItemProps>(
 		const handleClick = () => {
 			onClick && onClick()
 			onClose && onClose()
-			console.log('called')
-			console.log('onClick', onClick)
-			console.log('onClose', onClose)
 		}
 
 		return (
 			<div className="relative" ref={ref} onClick={handleClick}>
-				<span className="text-lg text-charcoal-black text-ellipsis">
+				<span className={cn('text-lg text-charcoal-black text-ellipsis', className)}>
 					{Children.map(children, (child: any, idx) => cloneElement(child, { onClose, key: idx, ...rest }))}
 				</span>
 			</div>
@@ -29,7 +26,3 @@ const PopupMenuItem = forwardRef<HTMLDivElement, PopupMenuItemProps>(
 )
 
 export default PopupMenuItem
-
-// PopupMenuItem.propTypes = {
-// 	children: PropTypes.array,
-// }
