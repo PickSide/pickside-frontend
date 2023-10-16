@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { RefObject, useEffect, useState } from 'react'
 
-const useOnScreen = (ref, rootMargin = '0px') => {
+const useOnScreen = (ref: RefObject<any>, rootMargin = '0px') => {
 	const [isIntersecting, setIntersecting] = useState(false)
 
 	useEffect(() => {

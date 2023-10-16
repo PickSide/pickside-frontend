@@ -8,8 +8,6 @@
 		margin: 0;
 		font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Futura', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
 			'Droid Sans', 'Helvetica Neue', sans-serif;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
 	}
 
 	input:-webkit-autofill {
@@ -72,6 +70,7 @@
 		letter-spacing: normal;
 		word-wrap: normal;
 		white-space: nowrap;
+		clear: both;
 		direction: ltr;
 
 		/* Support for all WebKit browsers. */

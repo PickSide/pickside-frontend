@@ -34,7 +34,7 @@ const LandingPage: FC<any> = () => {
 	}
 
 	const MobileLandingPage = () => (
-		<section id="home" className="section text-black bg-landing-texture lg:block overflow-hidden">
+		<section id="intro" className="section text-black bg-landing-texture lg:block overflow-hidden">
 			<div className="relative flex flex-col justify-center items-center">
 				<div className="bg-landing bg-no-repeat bg-contain bg-center w-[80%] h-[300px]"></div>
 				<div className="gap-y-6 w-[80%] z-20">
@@ -68,7 +68,7 @@ const LandingPage: FC<any> = () => {
 	return device !== 'desktop' ? (
 		<MobileLandingPage />
 	) : (
-		<section id="home" className="section relative bg-landing-texture overflow-hidden">
+		<section id="intro" className="section relative bg-landing-texture overflow-hidden">
 			<div className="absolute bg-landing bg-no-repeat bg-contain w-screen h-[1100px] z-0" />
 			<div className="float-right z-30 h-full py-20 px-20">
 				<div className="text-center items-center w-[600px] space-y-10">
@@ -78,8 +78,8 @@ const LandingPage: FC<any> = () => {
 					<h5 className="font-thin text-cool-gray-4 tracking-tight">
 						{t('Are you looking for your sport team? This place is for you just search your neighborhood.')}
 					</h5>
-					<div className="relative w-[400px] h-[50px] mx-auto">
-						<div className="w-[450px] h-[calc(100%+20px)] absolute rounded-2xl bg-kale-200 -left-[20px] -top-[10px]" />
+					<div className="relative w-[400px] mx-auto">
+						<div className="w-[450px] absolute rounded-2xl bg-kale-200 h-[70px] -left-[20px] -top-[10px]" />
 						<GoogleAutocomplete
 							onPressEnterKey={navigateToListing}
 							className="rounded-2xl"

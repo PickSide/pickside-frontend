@@ -6,6 +6,8 @@ import { cn } from '@utils'
 const validIcons = [
 	'account_circle',
 	'attach_money',
+	'arrow_upward',
+	'arrow_upward_alt',
 	'bookmark',
 	'bookmark_border',
 	'chat_bubble',
