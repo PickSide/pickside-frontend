@@ -22,8 +22,9 @@ const Card: FC<CardProps> = ({ children, className, fullWidth = false, ...rest }
 				fullWidth ? 'w-full' : 'max-w-[480px]',
 				className,
 			)}
+			{...rest}
 		>
-			{Children.map(children, (child) => children && cloneElement(child as any, { ...rest }))}
+			{Children.map(children, (child) => children && cloneElement(child as any))}
 		</div>
 	)
 }
