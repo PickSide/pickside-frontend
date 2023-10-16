@@ -1,3 +1,4 @@
+import useActivityHandlers from './useActivityHandlers'
 import useConnectedUserPosition from './useConnectedUserPosition'
 import useCreateActivity from './services/useCreateActivity'
 import useDeactivateAccount from './services/useDeactivateAccount'
@@ -24,6 +25,7 @@ import useUpdateFavorite from './services/useUpdateFavorite'
 import useUpdateSetting from './services/useUpdateSetting'
 
 export {
+	useActivityHandlers,
 	useConnectedUserPosition,
 	useDebounce,
 	useEnvVariables,

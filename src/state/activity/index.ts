@@ -7,7 +7,7 @@ export interface Activities extends Resources {
 
 export interface Activity {
 	id?: string
-	address: any
+	address: google.maps.places.PlaceResult
 	date: Date
 	description: string
 	duration: number

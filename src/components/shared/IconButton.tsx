@@ -1,4 +1,4 @@
-import { ReactNode, forwardRef, useId } from 'react'
+import { ReactNode, forwardRef, memo, useId } from 'react'
 
 import { ButtonVariant } from '@utils'
 import { twMerge } from 'tailwind-merge'
@@ -43,4 +43,4 @@ const Button = (
 	)
 }
 
-export default forwardRef(Button)
+export default memo(forwardRef(Button))

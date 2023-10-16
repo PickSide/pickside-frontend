@@ -33,7 +33,7 @@ const validIcons = [
 
 export type IconName = (typeof validIcons)[number]
 
-const iconVariants = cva(['text-primary dark:text-grey-600'], {
+const iconVariants = cva(['text-inherit dark:text-grey-600'], {
 	variants: {
 		variant: {
 			filled: 'material-icons',
