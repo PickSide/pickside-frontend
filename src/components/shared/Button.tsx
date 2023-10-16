@@ -18,7 +18,7 @@ const buttonVariants = cva(['rounded', 'text-base', 'leading-none'], {
 			],
 			secondary: [
 				'text-primary',
-				'border-2',
+				'border-[1px]',
 				'border-primary',
 				'hover:bg-gray-300',
 				'disabled:text-gray-400',

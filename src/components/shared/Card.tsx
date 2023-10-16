@@ -18,9 +18,9 @@ const Card: FC<CardProps> = ({ children, className, fullWidth = false, ...rest }
 	return (
 		<div
 			className={cn(
-				'relative h-fit px-5 py-4 m-2 border-2 border-gray-300 rounded-xl z-10 text-gray-800 whitespace-nowrap hover:shadow-md cursor-pointer transition-shadow duration-100 ease-in',
-				className,
+				'relative h-auto m-2 border-2 border-gray-300 rounded-[10px] z-10 text-gray-800 whitespace-nowrap hover:shadow-md cursor-pointer transition-shadow duration-100 ease-in',
 				fullWidth ? 'w-full' : 'max-w-[480px]',
+				className,
 			)}
 		>
 			{Children.map(children, (child) => children && cloneElement(child as any, { ...rest }))}
@@ -29,19 +29,19 @@ const Card: FC<CardProps> = ({ children, className, fullWidth = false, ...rest }
 }
 
 export const CardHeader: FC<CardHeaderProps> = (props) => {
-	return <div className={cn('w-full text-[15px] font-medium', props.className)}>{props.children}</div>
+	return <div className={cn('p-5', props.className)}>{props.children}</div>
 }
 
 export const CardImage: FC<CardImageProps> = (props) => {
-	return <div className={cn('min-w-[150px] min-h-[150px]', props.className)}>{props.children}</div>
+	return <div className={cn('px-5', props.className)}>{props.children}</div>
 }
 
 export const CardBody: FC<CardBodyProps> = (props) => {
-	return <div className={cn('w-full text-[14px]', props.className)}>{props.children}</div>
+	return <div className={cn('p-5', props.className)}>{props.children}</div>
 }
 
 export const CardCTA: FC<CardCTAProps> = (props) => {
-	return <div className={cn('flex justify-end mt-4 gap-x-4', props.className)}>{props.children}</div>
+	return <div className={cn('flex justify-end p-5 mt-4 gap-x-4', props.className)}>{props.children}</div>
 }
 
 export default memo(Card)

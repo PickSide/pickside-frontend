@@ -1,11 +1,8 @@
 import { Activity, AppState } from '@state'
-import Card, { CardBody, CardCTA, CardHeader, CardImage, CardProps } from './shared/Card'
+import { Button, Card, CardBody, CardCTA, CardHeader, Icon, IconButton } from '@components'
+import { CardImage, CardProps } from '@components/shared/Card'
 
-import Button from './shared/Button'
 import { FC } from 'react'
-import Icon from './shared/Icon'
-import IconButton from './shared/IconButton'
-import { cn } from '@utils'
 import dayjs from 'dayjs'
 import { useActivityHandlers } from '@hooks'
 import { useSelector } from 'react-redux'
@@ -13,10 +10,9 @@ import { useTranslation } from 'react-i18next'
 
 interface ActivityCardProps extends CardProps {
 	activity: Activity
-	size?: 'sm' | 'md' | 'lg'
 }
 
-const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) => {
+const ActivityCard: FC<ActivityCardProps> = ({ activity, ...rest }) => {
 	const { t } = useTranslation()
 	const {
 		isFavorite,
@@ -31,7 +27,6 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 	} = useActivityHandlers(activity)
 
 	const connectedUser = useSelector((state: AppState) => state.user)
-	const selectedActivity = useSelector((state: AppState) => state.selectedActivity)
 
 	const handleRegister = async (e) => {
 		e.stopPropagation()
@@ -41,23 +36,12 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 		e.stopPropagation()
 		await unregisterFromActivity(activity.id)
 	}
+
 	return (
-		<Card
-			className={cn(
-				'flex px-[20px] py-[17px] gap-x-[28px]',
-				isFull ? 'bg-[#EAEAEA]' : '',
-				selectedActivity?.id === activity.id ? 'shadow-md' : '',
-			)}
-			onMouseEnter={rest.onMouseEnter}
-			onMouseLeave={rest.onMouseLeave}
-			{...rest}
-		>
-			<CardImage className="rounded-[5px] min-w-[150px] max-h-[200px] p-0 ">
-				<img className="w-full h-full bg-card-placeholder bg-cover bg-no-repeat" src="" alt="" />
-			</CardImage>
-			<CardBody className="flex flex-col p-0 overflow-hidden w-full">
+		<Card className="min-w-[30%] px-0">
+			<CardHeader className="px-5">
 				<div className="flex items-center justify-between">
-					<div className="flex items-center gap-x-2">
+					<div className="flex items-center">
 						<div className="w-8 h-8 flex justify-center items-center rounded-full bg-primary">
 							{activity.organiser?.avatar ? (
 								<img className="rounded-full" src={activity.organiser.avatar} alt="" />
@@ -72,9 +56,9 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 								</svg>
 							)}
 						</div>
-						<div className="flex flex-col">
-							<span className="text-base font-bold max-w-[90px]">{activity.title}</span>
-							<span className="font-medium">
+						<div className="flex flex-col ml-2">
+							<span className="text-md font-bold">{activity.title}</span>
+							<span>
 								{t('Host')}:&nbsp;{activity.organiser?.fullName}
 							</span>
 						</div>
@@ -86,8 +70,13 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 						/>
 					)}
 				</div>
-				<div className="block w-fit space-y-2 ml-[10px] pt-6 pb-3 truncate">
-					<div className="flex items-center gap-x-[10px] ">
+			</CardHeader>
+			<CardImage className="px-0">
+				<img className="w-full h-[200px] bg-card-placeholder bg-contain" src="" alt="" />
+			</CardImage>
+			<CardBody className="px-5 text-charcoal-black">
+				<div className="block w-full space-y-2">
+					<div className="flex items-center gap-x-[10px]">
 						<Icon icon="location_on" />
 						<span>{activity.address?.formatted_address}</span>
 					</div>
@@ -108,41 +97,41 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 						</span>
 					</div>
 				</div>
-				<CardCTA className="p-0 w-full">
-					<div className="flex justify-end items-center gap-x-2">
-						<Button size="sm" variant="secondary" className="px-4 rounded-[12px] font-semibold">
-							{t('Details')}
-						</Button>
-						{connectedUser &&
-							activity &&
-							(isRegisteredToActivity ? (
-								<Button
-									size="sm"
-									className="px-4 rounded-[12px] font-semibold"
-									isLoading={isUnregistering}
-									onClick={handleUnregister}
-									disabled={isUnregistering}
-								>
-									{t('Uneregister')}
-								</Button>
-							) : isOrganiser ? (
-								<Button size="sm" className="px-4 rounded-[12px] font-semibold">
-									{t('Manage event')}
-								</Button>
-							) : (
-								<Button
-									size="sm"
-									className="px-4 rounded-[12px] font-semibold"
-									isLoading={isRegistering}
-									onClick={handleRegister}
-									disabled={isFull || isRegistering}
-								>
-									{isFull ? t('Full') : t('Join')}
-								</Button>
-							))}
-					</div>
-				</CardCTA>
 			</CardBody>
+			<CardCTA className="px-5">
+				<div className="flex justify-end items-center gap-x-2">
+					<Button size="sm" variant="secondary" className="px-4 rounded-[12px] font-semibold">
+						{t('Details')}
+					</Button>
+					{connectedUser &&
+						activity &&
+						(isRegisteredToActivity ? (
+							<Button
+								size="sm"
+								className="px-4 rounded-[12px] font-semibold"
+								isLoading={isUnregistering}
+								onClick={handleUnregister}
+								disabled={isUnregistering}
+							>
+								{t('Uneregister')}
+							</Button>
+						) : isOrganiser ? (
+							<Button size="sm" className="px-4 rounded-[12px] font-semibold">
+								{t('Manage event')}
+							</Button>
+						) : (
+							<Button
+								size="sm"
+								className="px-4 rounded-[12px] font-semibold"
+								isLoading={isRegistering}
+								onClick={handleRegister}
+								disabled={isFull || isRegistering}
+							>
+								{isFull ? t('Full') : t('Join')}
+							</Button>
+						))}
+				</div>
+			</CardCTA>
 		</Card>
 	)
 }

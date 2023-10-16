@@ -59,7 +59,6 @@ const AppBar = () => {
 							</NavLink>
 						)}
 						<PopupMenu
-							className="text-lg"
 							ref={popMenuRef}
 							open={open}
 							onClose={() => setOpen(false)}
@@ -82,7 +81,7 @@ const AppBar = () => {
 											</svg>
 										)}
 									</div>
-									<Icon icon="menu" size="sm" className="dark:text-white" />
+									<Icon icon="menu" size="sm" className="text-primary dark:text-white" />
 								</Button>
 							}
 						>
