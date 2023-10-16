@@ -1,27 +1,25 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { FC, ReactNode } from 'react'
+import { ComponentPropsWithoutRef, FC } from 'react'
+import { cn, modaleDropIn } from '@utils'
 
 import { BsX } from 'react-icons/bs'
-import { modaleDropIn } from '@utils'
 
-interface DialogProps {
+interface DialogProps extends ComponentPropsWithoutRef<'dialog'> {
 	open?: boolean
-	full?: boolean
-	title?: string
-	onClose?: () => void
-	children?: ReactNode
+	onClose?: (e?) => void
 }
 
-const Dialog: FC<DialogProps> = ({ open = false, full = false, title, onClose, children, ...props }) => {
+const Dialog: FC<DialogProps> = ({ children, className, open = false, title, onClose, ...rest }) => {
 	return open ? (
-		<AnimatePresence>
-			<div className="opacity-25 h-screen w-sreen fixed inset-0 z-[90] bg-black" onClick={onClose}></div>
-			<motion.div
+		<AnimatePresence mode="wait">
+			<div className="opacity-25 h-screen w-sreen fixed inset-0 z-20 bg-black" onClick={onClose}></div>
+			<motion.dialog
+				open
 				initial="hidden"
 				animate="visible"
 				exit="exit"
 				variants={modaleDropIn}
-				className={`fixed z-[100] overflow-hidden h-fit inset-0 m-auto md:w-fit`}
+				className={cn(`fixed z-20 overflow-hidden h-fit inset-0 m-auto md:w-fit`, className)}
 			>
 				<div className=" bg-white border shadow-sm rounded-md ">
 					<div className="flex justify-between items-center py-3 px-4 border-b space-x-5">
@@ -38,11 +36,9 @@ const Dialog: FC<DialogProps> = ({ open = false, full = false, title, onClose, c
 					</div>
 					<div className="p-4 overflow-y-auto">{children}</div>
 				</div>
-			</motion.div>
+			</motion.dialog>
 		</AnimatePresence>
-	) : (
-		<></>
-	)
+	) : null
 }
 
 export const DialogCTA = ({ children }) => <div className="h-16 border-t-2 inline-flex items-center">{children}</div>

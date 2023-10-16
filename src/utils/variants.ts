@@ -66,6 +66,27 @@ export const dropdownAnimation = {
 	},
 }
 
+export const popUpSubmMenu = {
+	closed: {
+		scale: 0,
+		opacity: 0,
+	},
+	open: {
+		scale: 1,
+		opacity: 1,
+		transition: {
+			duration: 0.1,
+		},
+	},
+	exit: {
+		scale: 0,
+		opacity: 0,
+		transition: {
+			duration: 0.1,
+		},
+	},
+}
+
 export const modaleDropIn = {
 	hidden: {
 		y: '-100vh',

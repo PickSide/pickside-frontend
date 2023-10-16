@@ -48,10 +48,11 @@ const App = () => {
 														<Route path="home" element={<LandingPage />} />
 														<Route path="about" element={<About />} />
 													</Route>
+													<Route path="/new-event" element={<CreateEvent />} />
+													<Route path="/favorites" element={null} />
+													<Route path="/listing" element={<Listing />} />
 													<Route path="/login" element={<Login />} />
 													<Route path="/signup" element={<SignUp />} />
-													<Route path="/listing" element={<Listing />} />
-													<Route path="/new-event" element={<CreateEvent />} />
 													<Route element={<RequireAuth />}>
 														<Route path="/user/">
 															<Route path="upcoming-events/" element={<UpcomingEvents />} />

@@ -28,7 +28,7 @@ export const ToastProvider: FC<any> = ({ children }) => {
 	return (
 		<ToastContext.Provider value={{}}>
 			{children}
-			<div className="fixed bottom-5 left-5 z-[1000]">
+			<div className="fixed bottom-5 left-5 z-100">
 				<Toast type={toast?.type} show={!!toast} onClose={() => dispatch(toastMessage(null))}>
 					{toast?.message}
 				</Toast>

@@ -1,6 +1,7 @@
 import { ReactNode, forwardRef } from 'react'
 
 import ReactSelect from 'react-select'
+import { cn } from '@utils'
 
 interface SelectProps {
 	startContent?: ReactNode
@@ -18,7 +19,7 @@ interface SelectProps {
 
 const Select = ({ label, fullWidth = false, ...rest }: SelectProps | any, ref) => {
 	return (
-		<div className={`relative min-w-[200px] ${fullWidth ? 'w-full' : ''}`}>
+		<div className={cn('relative min-w-[200px]', fullWidth ? 'w-full' : '')}>
 			<label id="listbox-label" className="text-gray-800 leading-4">
 				{label}
 			</label>

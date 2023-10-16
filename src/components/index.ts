@@ -3,13 +3,12 @@ import Card, { CardBody, CardCTA, CardHeader, CardImage } from './shared/Card'
 import Carousel, { CarouselItem } from './Carousel'
 import Chip, { ChipGroup } from './Chip'
 import Dialog, { DialogCTA } from './Dialog'
-import Radio, { RadioGroup } from './Radio'
 import Tab, { Tabs } from './Tabs'
 import Toggle, { ToggleGroup } from './Toggle'
 
 import ActivityCard from './ActivityCard'
 import Alert from './shared/Alert'
-import AppBar from './AppBar'
+import AppBar from '../pages/Appbar/AppBar'
 import Autocomplete from './Autocomplete'
 import BottomDrawer from './BottomDrawer'
 import Button from './shared/Button'
@@ -22,7 +21,6 @@ import FormDivider from './FormDivider'
 import Gallery from './Gallery'
 import GlobalAppStatusAlert from './GlobalAppStatusAlert'
 import GoogleAutocomplete from './GoogleAutocomplete'
-import GoogleAutocomplete2 from './GoogleAutocomplete2'
 import Icon from './shared/Icon'
 import IconButton from './shared/IconButton'
 import ImageUploader from './ImageUploader'
@@ -35,6 +33,8 @@ import PasswordField from './PasswordField'
 import PhoneField from './PhoneField'
 import Popover from './Popover'
 import ProfileMenu from './shared/ProfileMenu'
+import Radio from './Radio'
+import RadioGroup from './RadioGroup'
 import RequireAuth from './RequireAuth'
 import Select from './Select'
 import SettingField from './SettingField'
@@ -75,7 +75,6 @@ export {
 	Gallery,
 	GlobalAppStatusAlert,
 	GoogleAutocomplete,
-	GoogleAutocomplete2,
 	Icon,
 	IconButton,
 	ImageUploader,
