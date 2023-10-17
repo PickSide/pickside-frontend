@@ -81,7 +81,7 @@ const AppBar = () => {
 											</svg>
 										)}
 									</div>
-									<Icon icon="menu" size="sm" className="text-primary dark:text-white" />
+									<Icon icon="menu" className="text-primary dark:text-white" />
 								</Button>
 							}
 						>
