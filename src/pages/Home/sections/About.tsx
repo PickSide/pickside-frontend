@@ -7,10 +7,10 @@ const About = () => {
 	const { t } = useTranslation()
 
 	return (
-		<section id="about" className="block space-y-28 w-[90%] px-10 py-10 mx-auto text-center">
+		<section id="about" className="block w-[90%] px-10 py-10 mx-auto text-center">
 			<h3 className="text-primary border-b-8 border-primary">{t('How It Works')}</h3>
-			<div className="flex gap-x-20">
-				<div className="block w-1/3">
+			<div className="flex justify-center gap-x-20">
+				<div className="block w-[552px] h-[447px] mt-[94px]">
 					<img className="float-right" src={JoinOrCreateSvg} alt="join_or_create" />
 					<div className="float-left w-3/4 space-y-2">
 						<h6 className="font-medium">{t('Join or create a team')}</h6>
@@ -21,7 +21,7 @@ const About = () => {
 						</p>
 					</div>
 				</div>
-				<div className="w-1/3">
+				<div className="block w-[434px] h-fit max-h-[440px] mt-[142px]">
 					<div className="space-y-2">
 						<h6 className="font-medium">{t('Chat with your team')}</h6>
 						<p>
@@ -32,7 +32,7 @@ const About = () => {
 					</div>
 					<img className="inline-block" src={ChatWithYourTeam} alt="enjoy_your_match" />
 				</div>
-				<div className="block w-1/3">
+				<div className="block w-[488px] h-[481px] mt-[46px]">
 					<img className="float-right" src={EnjoyYourMatch} alt="chat_with_your_team" />
 					<div className="float-left w-3/4 space-y-2">
 						<h6 className="font-medium">{t('Enjoy your match')}</h6>
