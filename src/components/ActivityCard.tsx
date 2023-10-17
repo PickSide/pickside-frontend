@@ -1,5 +1,5 @@
 import { Activity, AppState } from '@state'
-import Card, { CardBody, CardCTA, CardHeader, CardImage, CardProps } from './shared/Card'
+import Card, { CardBody, CardCTA, CardImage, CardProps } from './shared/Card'
 
 import Button from './shared/Button'
 import { FC } from 'react'

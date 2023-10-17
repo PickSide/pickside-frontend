@@ -11,8 +11,8 @@ const About = () => {
 			<h3 className="text-primary border-b-8 border-primary">{t('How It Works')}</h3>
 			<div className="flex gap-x-20">
 				<div className="block w-1/3">
-					<img src={JoinOrCreateSvg} alt="join_or_create" />
-					<div className="space-y-2">
+					<img className="float-right" src={JoinOrCreateSvg} alt="join_or_create" />
+					<div className="float-left w-3/4 space-y-2">
 						<h6 className="font-medium">{t('Join or create a team')}</h6>
 						<p>
 							{t(
@@ -21,7 +21,7 @@ const About = () => {
 						</p>
 					</div>
 				</div>
-				<div className="block w-1/3">
+				<div className="w-1/3">
 					<div className="space-y-2">
 						<h6 className="font-medium">{t('Chat with your team')}</h6>
 						<p>
@@ -30,11 +30,11 @@ const About = () => {
 							)}
 						</p>
 					</div>
-					<img src={ChatWithYourTeam} alt="enjoy_your_match" />
+					<img className="inline-block" src={ChatWithYourTeam} alt="enjoy_your_match" />
 				</div>
 				<div className="block w-1/3">
-					<img src={EnjoyYourMatch} alt="chat_with_your_team" />
-					<div className="space-y-2">
+					<img className="float-right" src={EnjoyYourMatch} alt="chat_with_your_team" />
+					<div className="float-left w-3/4 space-y-2">
 						<h6 className="font-medium">{t('Enjoy your match')}</h6>
 						<p>
 							{t(
