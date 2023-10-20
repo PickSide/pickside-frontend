@@ -4,7 +4,7 @@ import { VariantProps, cva } from 'class-variance-authority'
 import Spinner from '../Spinner'
 import { cn } from '@utils'
 
-const buttonVariants = cva(['rounded', 'text-base', 'leading-none'], {
+export const buttonVariants = cva(['rounded', 'text-base', 'leading-none'], {
 	variants: {
 		variant: {
 			primary: [
@@ -42,7 +42,7 @@ const buttonVariants = cva(['rounded', 'text-base', 'leading-none'], {
 	},
 })
 
-interface ButtonProps extends ComponentPropsWithRef<'button'>, VariantProps<typeof buttonVariants> {
+export interface ButtonProps extends ComponentPropsWithRef<'button'>, VariantProps<typeof buttonVariants> {
 	isLoading?: boolean
 	loadingText?: string
 }

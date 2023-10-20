@@ -4,7 +4,7 @@ import Card, { CardBody, CardCTA, CardImage, CardProps } from './shared/Card'
 import Button from './shared/Button'
 import { FC } from 'react'
 import Icon from './shared/Icon'
-import IconButton from './shared/IconButton'
+import IconButton from './IconButton'
 import { cn } from '@utils'
 import dayjs from 'dayjs'
 import { useActivityHandlers } from '@hooks'
@@ -80,10 +80,9 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 						</div>
 					</div>
 					{connectedUser && (
-						<IconButton
-							icon={isFavorite ? <Icon icon="bookmark" /> : <Icon icon="bookmark_border" />}
-							onClick={() => updateFavorite(activity.id)}
-						/>
+						<IconButton onClick={() => updateFavorite(activity.id)}>
+							{isFavorite ? <Icon icon="bookmark" /> : <Icon icon="bookmark_border" />}
+						</IconButton>
 					)}
 				</div>
 				<div className="block w-fit space-y-2 ml-[10px] pt-6 pb-3 truncate">

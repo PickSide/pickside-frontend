@@ -1,6 +1,5 @@
 import Accordion, { AccordionSection } from './Accordion'
 import Card, { CardBody, CardCTA, CardHeader, CardImage } from './shared/Card'
-import Carousel, { CarouselItem } from './Carousel'
 import Chip, { ChipGroup } from './Chip'
 import Dialog, { DialogCTA } from './Dialog'
 import Tab, { Tabs } from './Tabs'
@@ -22,7 +21,7 @@ import Gallery from './Gallery'
 import GlobalAppStatusAlert from './GlobalAppStatusAlert'
 import GoogleAutocomplete from './GoogleAutocomplete'
 import Icon from './shared/Icon'
-import IconButton from './shared/IconButton'
+import IconButton from './IconButton'
 import ImageUploader from './ImageUploader'
 import InputField from './shared/InputField'
 import Marker from './Marker'
@@ -60,8 +59,6 @@ export {
 	CardCTA,
 	CardHeader,
 	CardImage,
-	Carousel,
-	CarouselItem,
 	Checkbox,
 	Chip,
 	ChipGroup,
