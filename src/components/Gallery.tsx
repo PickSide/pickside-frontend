@@ -1,4 +1,4 @@
-import { Button, IconButton } from '@components'
+import { Button, Icon, IconButton } from '@components'
 import { FC, forwardRef, useCallback, useEffect, useMemo, useState } from 'react'
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from 'react-icons/md'
 import { VscCircle, VscCircleFilled } from 'react-icons/vsc'
@@ -58,22 +58,24 @@ const Gallery = ({ images = IMAGES, ...props }, ref) => {
 			<div className="absolute w-full h-full z-10"></div>
 			{showLeft && (
 				<div className="absolute left-5 top-1/2 -translate-y-1/4 z-10">
-					<IconButton icon={<MdOutlineKeyboardArrowLeft size={20} />} onClick={goLeft} />
+					<IconButton onClick={goLeft}>
+						<Icon icon="keyboard_arrow_left" />
+					</IconButton>
 				</div>
 			)}
 			{showRight && (
 				<div className="absolute right-5 top-1/2 -translate-y-1/4 z-10">
-					<IconButton icon={<MdOutlineKeyboardArrowRight size={20} />} onClick={goRight} />
+					<IconButton onClick={goRight}>
+						<Icon icon="keyboard_arrow_right" />
+					</IconButton>
 				</div>
 			)}
 			{images?.length > 1 && (
 				<div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10">
 					{images.map((x, idx) => (
-						<IconButton
-							key={idx}
-							icon={currentIdx === idx ? <VscCircleFilled size={20} /> : <VscCircle size={20} />}
-							onClick={(e) => handleBottomNav(e, idx)}
-						/>
+						<IconButton key={idx} onClick={(e) => handleBottomNav(e, idx)}>
+							{currentIdx === idx ? <Icon icon="radio_button_checked" /> : <Icon icon="radio_button_unchecked" />}
+						</IconButton>
 					))}
 				</div>
 			)}

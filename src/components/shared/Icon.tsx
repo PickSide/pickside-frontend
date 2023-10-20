@@ -31,6 +31,8 @@ const validIcons = [
 	'close',
 	'search',
 	'sync',
+	'radio_button_checked',
+	'radio_button_unchecked',
 ] as const
 
 export type IconName = (typeof validIcons)[number]
