@@ -1,4 +1,4 @@
-import { HTMLAttributes, forwardRef } from 'react'
+import { ComponentPropsWithRef, forwardRef } from 'react'
 import { VariantProps, cva } from 'class-variance-authority'
 
 import { cn } from '@utils'
@@ -13,6 +13,7 @@ const validIcons = [
 	'chat_bubble',
 	'error_outline',
 	'group',
+	'keyboard_arrow_left',
 	'keyboard_arrow_right',
 	'language',
 	'menu',
@@ -29,6 +30,7 @@ const validIcons = [
 	'refresh',
 	'close',
 	'search',
+	'sync',
 ] as const
 
 export type IconName = (typeof validIcons)[number]
@@ -55,17 +57,17 @@ const iconVariants = cva(['text-inherit'], {
 	},
 })
 
-interface IconProps extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof iconVariants> {
+interface IconProps extends ComponentPropsWithRef<'i'>, VariantProps<typeof iconVariants> {
 	icon: IconName
 }
 
-const Icon = forwardRef<HTMLDivElement, IconProps>(({ className, icon, size, variant, ...rest }, ref) => {
+const Icon = forwardRef<ComponentPropsWithRef<'i'>, IconProps>(({ className, icon, size, variant, ...rest }, ref) => {
 	if (!validIcons.includes(icon)) {
 		return null
 	}
 
 	return (
-		<i ref={ref} className={cn(iconVariants({ className, size, variant }))} {...rest}>
+		<i className={cn(iconVariants({ className, size, variant }))} {...rest}>
 			{icon}
 		</i>
 	)

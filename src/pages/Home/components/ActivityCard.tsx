@@ -3,6 +3,7 @@ import { Button, Card, CardBody, CardCTA, CardHeader, Icon, IconButton } from '@
 import { CardImage, CardProps } from '@components/shared/Card'
 
 import { FC } from 'react'
+import { cn } from '@utils'
 import dayjs from 'dayjs'
 import { useActivityHandlers } from '@hooks'
 import { useSelector } from 'react-redux'
@@ -12,7 +13,7 @@ interface ActivityCardProps extends CardProps {
 	activity: Activity
 }
 
-const ActivityCard: FC<ActivityCardProps> = ({ activity, ...rest }) => {
+const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) => {
 	const { t } = useTranslation()
 	const {
 		isFavorite,
@@ -38,7 +39,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, ...rest }) => {
 	}
 
 	return (
-		<Card className="min-w-[30%] px-0">
+		<Card className={cn(className)}>
 			<CardHeader className="px-5">
 				<div className="flex items-center justify-between">
 					<div className="flex items-center">
@@ -64,10 +65,9 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, ...rest }) => {
 						</div>
 					</div>
 					{connectedUser && (
-						<IconButton
-							icon={isFavorite ? <Icon icon="bookmark" /> : <Icon icon="bookmark_border" />}
-							onClick={() => updateFavorite(activity.id)}
-						/>
+						<IconButton onClick={() => updateFavorite(activity.id)}>
+							{isFavorite ? <Icon icon="bookmark" /> : <Icon icon="bookmark_border" />}
+						</IconButton>
 					)}
 				</div>
 			</CardHeader>

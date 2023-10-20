@@ -8,7 +8,7 @@ const About = () => {
 
 	return (
 		<section id="about" className="block w-[90%] px-10 py-10 mx-auto text-center">
-			<h3 className="text-primary border-b-8 border-primary">{t('How It Works')}</h3>
+			<h3 className="text-primary border-b-8 border-primary font-semibold">{t('How It Works')}</h3>
 			<div className="flex justify-center gap-x-20">
 				<div className="block w-[552px] h-[447px] mt-[94px]">
 					<img className="float-right" src={JoinOrCreateSvg} alt="join_or_create" />

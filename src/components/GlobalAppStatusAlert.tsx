@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import Alert from './shared/Alert'
 import { AnimatePresence } from 'framer-motion'
-import { BsX } from 'react-icons/bs'
 import { FC } from 'react'
-import IconButton from './shared/IconButton'
+import Icon from './shared/Icon'
+import IconButton from './IconButton'
 
 const GlobalAppStatusAlert: FC<any> = () => {
 	const dispatch = useDispatch()
@@ -19,7 +19,9 @@ const GlobalAppStatusAlert: FC<any> = () => {
 					<Alert
 						severity={appStatus?.status}
 						action={
-							<IconButton className="text-white" onClick={() => dispatch(setStatus(null))} icon={<BsX size={25} />} />
+							<IconButton className="text-white" onClick={() => dispatch(setStatus(null))}>
+								<Icon icon="close" />
+							</IconButton>
 						}
 					>
 						<span>{appStatus?.message}</span>

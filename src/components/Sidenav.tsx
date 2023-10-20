@@ -1,8 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { FC, ReactNode, useMemo } from 'react'
+import { Icon, IconButton } from '@components'
 import { cn, slideIn } from '@utils'
 
-import { IconButton } from '@components'
 import { MdOutlineClose } from 'react-icons/md'
 
 interface SidenavProps {
@@ -51,7 +51,9 @@ const Sidenav: FC<SidenavProps> = ({
 				>
 					<div className="h-[80px] border-b flex items-center justify-between px-6">
 						<span className="uppercase text-[27px] font-semibold">{title}</span>
-						<IconButton icon={<MdOutlineClose size={20} />} onClick={onClose} />
+						<IconButton onClick={onClose}>
+							<Icon icon="close" />
+						</IconButton>
 					</div>
 					<div className="block p-6">{children}</div>
 				</motion.div>
