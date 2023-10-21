@@ -24,7 +24,7 @@ jobs:
               git fetch --all &&
               git reset --hard origin/release &&
               git pull origin release &&
-              sudo npm i &&
-              sudo npm run build &&
+              npm ci &&
+              npm run build &&
               sudo cp -r ~/pickside-frontend/build/* /var/www/pickside/html/
               '
