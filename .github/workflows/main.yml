@@ -1,8 +1,6 @@
 name: Pickside App Deploy
 
-on:
-  push:
-    branches: ['release']
+on: push
 
 jobs:
   build:
