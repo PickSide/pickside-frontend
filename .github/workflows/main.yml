@@ -21,5 +21,5 @@ jobs:
         run: |
           echo "$HOSTNAME"
           echo "$USER_NAME"
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          sudo ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
+          echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
