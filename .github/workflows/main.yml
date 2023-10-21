@@ -1,28 +1,30 @@
-name: Pickside App Deploy
+name: Frontend Deploy
 
 on: push
 
 jobs:
-  build:
+  Deploy:
+    name: Deploy to EC2
     runs-on: self-hosted
-
-    strategy:
-      matrix:
-        node-version: [18.x]
 
     steps:
       - uses: actions/checkout@v3
+      - name: Build & Deploy
+        env:
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          HOSTNAME: ${{secrets.SSH_HOST}}
+          USER_NAME: ${{secrets.USER_NAME}}
 
-      - run: npm ci
-      - run: npm run build
-      #- run: npm run test
-
-      - name: Rsync Deployments Action
-        uses: Burnett01/rsync-deployments@6.0.0
-        with:
-          switches: -avzr --delete
-          path: ./*
-          remote_path: /var/www/pickside/
-          remote_host: ${{ secrets.SSH_HOST }}.compute-1.amazonaws.com
-          remote_user: ${{ secrets.USER_NAME }}
-          remote_key: '${{ secrets.SSH_PRIVATE_KEY }}'
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+              # Now we have got the access of EC2 and we will start the deploy .
+              cd /home/ubuntu/pickside-frontend &&
+              git checkout release &&
+              git fetch --all &&
+              git reset --hard origin/release &&
+              git pull origin release &&
+              sudo npm i &&
+              sudo npm run build &&
+              sudo cp -r ~/pickside-frontend/build/* /var/www/pickside/html/
+              '
