@@ -12,14 +12,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Checkout to latest/release
-        env:
-          PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-          HOSTNAME: ${{ secrets.SSH_HOST }}
-          USER_NAME: ${{ secrets.USER_NAME }}
 
-        run: |
-          echo "$HOSTNAME"
-          echo "$USER_NAME"
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          sudo ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
+      - run: npm ci
+      - run: npm run build
+      #- run: npm run test
+
+      - name: rsync deployments
+        uses: burnett01/rsync-deployments@5.1
+        with:
+          switches: -avzr --delete
+          path: ./*
+          remote_path: /var/www/pickside/
+          remote_host: ${{ secrets.SSH_HOST }}.compute-1.amazonaws.com
+          remote_user: ${{ secrets.USER_NAME }}
+          remote_key: '${{ secrets.SSH_PRIVATE_KEY }}'
