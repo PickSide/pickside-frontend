@@ -5,7 +5,7 @@ on: push
 jobs:
   build:
     runs-on: self-hosted
-    
+
     strategy:
       matrix:
         node-version: [18.x]
@@ -15,12 +15,11 @@ jobs:
       - name: Checkout to latest/release
         env:
           PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-          HOSTNAME: ${{secrets.SSH_HOST}}
-          USER_NAME: ${{secrets.USER_NAME}}
-    
-    
+          HOSTNAME: ${{ secrets.SSH_HOST }}
+          USER_NAME: ${{ secrets.USER_NAME }}
+
         run: |
           echo "$HOSTNAME"
           echo "$USER_NAME"
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
