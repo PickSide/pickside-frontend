@@ -139,7 +139,7 @@ const AppBar = () => {
 									</PopupMenuItem>,
 								]
 							) : (
-								<PopupMenuItem key="logout" onClick={() => logout()}>
+								<PopupMenuItem key="logout" onClick={logout}>
 									<span className="cursor-pointer">{t('Logout')}</span>
 								</PopupMenuItem>
 							)}

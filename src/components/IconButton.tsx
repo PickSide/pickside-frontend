@@ -1,15 +1,12 @@
-import Button, { ButtonProps } from './shared/Button'
-import { ComponentPropsWithRef, forwardRef, useId } from 'react'
-import Icon, { IconName } from './shared/Icon'
+import { ComponentPropsWithRef, forwardRef } from 'react'
 import { VariantProps, cva } from 'class-variance-authority'
 
-import PropTypes from 'prop-types'
-import Spinner from './Spinner'
+import { ButtonProps } from './shared/Button'
 import { cn } from '@utils'
 
 export interface IconButtonProps extends ButtonProps {}
 
-export const iconButtonVariants = cva(['rounded', 'text-base', 'leading-none'], {
+export const iconButtonVariants = cva(['text-inherit', 'rounded', 'text-base', 'leading-none'], {
 	variants: {
 		variant: {
 			primary: [
@@ -51,11 +48,10 @@ export interface IconButtonProps extends ComponentPropsWithRef<'button'>, Varian
 	isLoading?: boolean
 }
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
-	({ children, className, isLoading, size, variant, ...rest }: IconButtonProps, ref) => {
-		const id = useId()
-
+	({ children, className, isLoading, size, variant, type = 'button', ...rest }: IconButtonProps, ref) => {
 		return (
 			<button
+				type={type}
 				ref={ref}
 				className={cn(iconButtonVariants({ className, size, variant }), { 'cursor-not-allowed': isLoading }, className)}
 				{...rest}

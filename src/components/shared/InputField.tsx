@@ -67,7 +67,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 						className,
 					)}
 				>
-					{startContent && <span className="text-gray-500 w-10 flex justify-center">{startContent}</span>}
+					{startContent}
 
 					<input
 						ref={ref}

@@ -1,8 +1,8 @@
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import InputField, { InputFieldProps } from './shared/InputField'
 import { forwardRef, useMemo, useState } from 'react'
 
-import { BiLockAlt } from 'react-icons/bi'
+import Icon from './shared/Icon'
+import IconButton from './IconButton'
 
 const PasswordField = (props: InputFieldProps, ref) => {
 	const [hidePassword, setHidePassword] = useState<boolean>(true)
@@ -12,16 +12,11 @@ const PasswordField = (props: InputFieldProps, ref) => {
 	return (
 		<InputField
 			type={type}
-			startContent={<BiLockAlt size={20} />}
+			startContent={<Icon icon="lock" />}
 			endContent={
-				<button
-					tabIndex={-1}
-					type="button"
-					onClick={() => setHidePassword(!hidePassword)}
-					className="rounded-md text-gray-500 cursor-pointer w-12 h-12 p-2 m-auto outline-none peer-hover:bg-gray-200"
-				>
-					{hidePassword ? <AiOutlineEyeInvisible size={20} /> : <AiOutlineEye size={20} />}
-				</button>
+				<IconButton tabIndex={-1} size="sm" onClick={() => setHidePassword(!hidePassword)}>
+					{hidePassword ? <Icon icon="visibility_off" /> : <Icon icon="visibility" />}
+				</IconButton>
 			}
 			ref={ref}
 			{...props}
