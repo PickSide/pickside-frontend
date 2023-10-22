@@ -141,35 +141,28 @@
 		font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 	}
 
-	span,
-	.h2,
-	.h3,
-	.h4,
-	.h5,
-	.h6,
-	.large,
-	.base,
-	.small,
-	.xsmall {
-		@apply truncate;
-	}
-
-	h1 {
+	h1,
+	.h1 {
 		@apply font-primary text-[76px];
 	}
-	h2 {
+	h2,
+	.h2 {
 		@apply font-primary text-[61px] tracking-[10%];
 	}
-	h3 {
+	h3,
+	.h3 {
 		@apply font-primary text-[49px] tracking-[10%];
 	}
-	h4 {
+	h4,
+	.h4 {
 		@apply font-primary text-[39px] tracking-[10%];
 	}
-	h5 {
+	h5,
+	.h5 {
 		@apply font-primary text-[31px] tracking-[10%];
 	}
-	h6 {
+	h6,
+	.h6 {
 		@apply font-primary text-[25px] tracking-[10%];
 	}
 	.scrollable {

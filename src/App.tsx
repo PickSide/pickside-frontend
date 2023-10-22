@@ -1,7 +1,7 @@
 import { AppBar, GlobalAppStatusAlert } from '@components'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
-import About from '@pages/Home/sections/About'
+import About from '@pages/Home/sections/HowItWorks'
 import AccountManagement from '@pages/UserSettings/Sections/AccountManagement'
 import { AccountProvider } from '@context/AccountContext'
 import ActivityHistory from '@pages/UserSettings/Sections/ActivityHistory'

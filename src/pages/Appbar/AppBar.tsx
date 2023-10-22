@@ -43,7 +43,7 @@ const AppBar = () => {
 				exit="exit"
 				variants={pageTransition}
 				className={cn(
-					'flex h-16 pl-5 pr-16 w-full dark:bg-charcoal-black ',
+					'flex h-16 pl-5 pr-5 lg:pr-16 w-full dark:bg-charcoal-black ',
 					pathname === '/' || pathname === '/home' ? 'bg-landing-texture' : 'bg-[#F1F4F3]',
 				)}
 			>
