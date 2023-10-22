@@ -1,5 +1,5 @@
-import About from './sections/About'
 import Footer from './sections/Footer'
+import HowItWorks from './sections/HowItWorks'
 import LandingPage from './sections/LandingPage'
 import ResetDbButton from './components/ResetDbButton'
 import UpcomingEvents from './sections/UpcomingEvents'
@@ -11,7 +11,7 @@ const Home = () => {
 		<motion.div initial="hidden" animate="visible" exit="exit" variants={pageTransition}>
 			<LandingPage />
 			<UpcomingEvents />
-			<About />
+			<HowItWorks />
 			<Footer />
 			{import.meta.env.MODE === 'development' && <ResetDbButton />}
 		</motion.div>

@@ -32,9 +32,9 @@ export const iconButtonVariants = cva(['text-inherit', 'rounded', 'text-base', '
 			danger: ['text-white', 'bg-red-600 ', 'hover:bg-red-400'],
 		},
 		size: {
-			sm: ['px-2', 'py-2'],
-			md: ['px-4', 'py-3'],
-			lg: ['px-6', 'py-4'],
+			sm: ['p-1'],
+			md: ['px-2'],
+			lg: ['px-3'],
 		},
 	},
 	defaultVariants: {

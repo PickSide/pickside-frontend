@@ -9,20 +9,20 @@ import { useFetchActivities } from '@hooks'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
-const About = () => {
+const UpcomingEvents = () => {
 	const { t } = useTranslation()
 	const activities = useSelector((state: AppState) => state.activities)
 
 	const { isLoading } = useFetchActivities()
 
 	return (
-		<CarouselProvider items={activities?.results}>
-			<section id="upcoming-evnts" className="w-[90%] px-10 py-10 mx-auto">
+		<section id="upcoming-evnts" className="w-full px-10 py-10 mx-auto dark:bg-charcoal-black/40">
+			<CarouselProvider items={activities?.results}>
 				<div className="block space-y-10">
 					<div className="flex items-center justify-between">
 						<div className="flex items-center gap-x-4">
-							<h4>{t('Upcoming Events')}</h4>
-							<NavLink to="listing" className="text-[20px] text-blue-800 hover:text-blue-500">
+							<p className="text-lg">{t('Upcoming Events')}</p>
+							<NavLink to="listing" className="text-sm md:text-md lg:text-lg text-blue-800 hover:text-blue-500">
 								({t('Explore more')})
 							</NavLink>
 						</div>
@@ -48,9 +48,9 @@ const About = () => {
 						</Carousel>
 					)}
 				</div>
-			</section>
-		</CarouselProvider>
+			</CarouselProvider>
+		</section>
 	)
 }
 
-export default About
+export default UpcomingEvents

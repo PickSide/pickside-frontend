@@ -3,14 +3,14 @@ import EnjoyYourMatch from '../svgs/EnjoyYourMatch.svg'
 import JoinOrCreateSvg from '../svgs/JoinOrCreateSvg.svg'
 import { useTranslation } from 'react-i18next'
 
-const About = () => {
+const HowItWorks = () => {
 	const { t } = useTranslation()
 
 	return (
-		<section id="about" className="block w-[90%] px-10 py-10 mx-auto text-center">
-			<h3 className="text-primary border-b-8 border-primary font-semibold">{t('How It Works')}</h3>
-			<div className="flex justify-center gap-x-20">
-				<div className="block w-[552px] h-[447px] mt-[94px]">
+		<section id="about" className="block w-full px-10 lg:px-24 py-10 mx-auto text-center dark:bg-charcoal-black/20">
+			<h3 className="text-primary border-b-8 border-primary font-semibold mb-10 lg:mb-0">{t('How It Works')}</h3>
+			<div className="flex flex-col items-center gap-y-20 lg:flex-row lg:justify-center lg:gap-x-20">
+				<div className="block w-[552px] h-[447px] lg:mt-[94px]">
 					<img className="float-right" src={JoinOrCreateSvg} alt="join_or_create" />
 					<div className="float-left w-3/4 space-y-2">
 						<h6 className="font-medium">{t('Join or create a team')}</h6>
@@ -21,7 +21,7 @@ const About = () => {
 						</p>
 					</div>
 				</div>
-				<div className="block w-[434px] h-fit max-h-[440px] mt-[142px]">
+				<div className="block w-[434px] h-fit max-h-[440px] lg:mt-[142px]">
 					<div className="space-y-2">
 						<h6 className="font-medium">{t('Chat with your team')}</h6>
 						<p>
@@ -32,7 +32,7 @@ const About = () => {
 					</div>
 					<img className="inline-block" src={ChatWithYourTeam} alt="enjoy_your_match" />
 				</div>
-				<div className="block w-[488px] h-[481px] mt-[46px]">
+				<div className="block w-[488px] h-[481px] lg:mt-[46px]">
 					<img className="float-right" src={EnjoyYourMatch} alt="chat_with_your_team" />
 					<div className="float-left w-3/4 space-y-2">
 						<h6 className="font-medium">{t('Enjoy your match')}</h6>
@@ -48,4 +48,4 @@ const About = () => {
 	)
 }
 
-export default About
+export default HowItWorks
