@@ -16,6 +16,7 @@ module.exports = {
 				'card-placeholder': 'url(./assets/card_placeholder.jpeg)',
 				landing: "url('./assets/landing-page-background.png')",
 				'landing-texture': "url('./assets/landing-texture.png')",
+				'soccer-ball': "url('./assets/soccer-ball.png')",
 				templogo: "url('./assets/temp-logo.png')",
 				templogo2: "url('./assets/temp-logo-2.png')",
 			},
@@ -33,8 +34,9 @@ module.exports = {
 				light: '#F8F8F8',
 				'charcoal-black': '#2F3941',
 				'grey': {
+					100: '#F8F9F9',
 					600: '#68737D',
-					700: '#49545C'
+					700: '#49545C',
 				},
 				'cloud': '#FBFBFB',
 				'cool-gray': {

@@ -8,6 +8,7 @@ const validIcons = [
 	'attach_money',
 	'arrow_upward',
 	'arrow_upward_alt',
+	'alternate_email',
 	'bookmark',
 	'bookmark_border',
 	'chat_bubble',
@@ -16,6 +17,7 @@ const validIcons = [
 	'keyboard_arrow_left',
 	'keyboard_arrow_right',
 	'language',
+	'lock',
 	'menu',
 	'notifications',
 	'payments',
@@ -33,6 +35,8 @@ const validIcons = [
 	'sync',
 	'radio_button_checked',
 	'radio_button_unchecked',
+	'visibility',
+	'visibility_off',
 ] as const
 
 export type IconName = (typeof validIcons)[number]

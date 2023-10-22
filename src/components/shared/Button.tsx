@@ -48,9 +48,10 @@ export interface ButtonProps extends ComponentPropsWithRef<'button'>, VariantPro
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-	({ children, className, isLoading = false, loadingText, variant, size, ...rest }, ref) => {
+	({ children, className, isLoading = false, loadingText, variant, size, type = 'button', ...rest }, ref) => {
 		return (
 			<button
+				type={type}
 				ref={ref}
 				className={cn(buttonVariants({ className, size, variant }), { 'cursor-not-allowed': isLoading }, className)}
 				{...rest}

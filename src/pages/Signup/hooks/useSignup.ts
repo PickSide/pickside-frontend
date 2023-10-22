@@ -4,12 +4,14 @@ import { setUser } from '@state'
 import { useContext } from 'react'
 import { useDispatch } from 'react-redux'
 import { useMutation } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 
 const useSignup = () => {
 	const { axiosInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
+	const navigate = useNavigate()
 
-	const callback = async (data: any) => await axiosInstance.post(`/users`, { data })
+	const callback = async (data: any) => await axiosInstance.post(`/users/create`, { data })
 
 	const {
 		mutate: signup,
@@ -18,7 +20,10 @@ const useSignup = () => {
 		isError,
 	} = useMutation(callback, {
 		mutationKey: ['createUser'],
-		onSuccess: (data) => dispatch(setUser(data?.data)),
+		onSuccess: (data) => {
+			dispatch(setUser(data?.data))
+			navigate('/')
+		},
 		onError: (error: any) => handleResponseError(error),
 	})
 
