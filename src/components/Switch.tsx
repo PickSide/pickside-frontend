@@ -1,40 +1,77 @@
-import { forwardRef, useCallback, useState } from 'react'
+import { ComponentPropsWithRef, forwardRef, useCallback, useState } from 'react'
+import { VariantProps, cva } from 'class-variance-authority'
 
-interface ToggleProps {
-	defaultChecked?: boolean
+import { cn } from '@utils'
+
+export const switchVariants = cva(
+	[
+		'cursor-pointer',
+		'rounded-full',
+		'peer-checked:after:translate-x-full',
+		`peer-checked:after:border-white after:content-[''] `,
+		'after:absolute after:top-0.5 after:left-[2px]',
+		'after:bg-white',
+		'after:border-gray-300',
+		'after:border',
+		'after:rounded-full',
+		'after:h-5',
+		'after:w-5',
+		'after:transition-all',
+	],
+	{
+		variants: {
+			variant: {
+				primary: [
+					'bg-gray-400',
+					'peer-checked:bg-blue-500',
+					'peer-disabled:bg-gray-200',
+					'peer-disabled:cursor-not-allowed',
+				],
+				secondary: [
+					'bg-gray-300',
+					'peer-checked:bg-primary',
+					'peer-disabled:bg-gray-200',
+					'peer-disabled:cursor-not-allowed',
+				],
+			},
+			size: {
+				sm: ['w-11', 'h-6'],
+				md: ['w-11', 'h-6'],
+				lg: ['w-11', 'h-6'],
+			},
+		},
+		defaultVariants: {
+			variant: 'primary',
+			size: 'md',
+		},
+	},
+)
+
+export interface SwitchProps extends ComponentPropsWithRef<'label'>, VariantProps<typeof switchVariants> {
 	label?: string
 	onChange?: (e) => void
-	primary?: boolean
-	secondary?: boolean
-	tertiary?: boolean
 }
 
-const Switch = (
-	{ defaultChecked = false, label, onChange, primary = true, secondary = false, tertiary = false }: ToggleProps,
-	ref,
-) => {
-	const [checked, setChecked] = useState<boolean>(defaultChecked)
-	const handleChange = useCallback(
-		(e) => {
-			setChecked((prev) => !prev)
-			onChange && onChange(e)
-		},
-		[onChange],
-	)
+const Switch = forwardRef<HTMLInputElement, SwitchProps>(
+	({ className, size, variant, defaultChecked = false, label, onChange, ...rest }, ref) => {
+		const [checked, setChecked] = useState<boolean>(defaultChecked)
 
-	return (
-		<label className="inline-flex items-center relative cursor-pointer">
-			<input className="sr-only peer" type="checkbox" checked={checked} onChange={handleChange} />
-			<div
-				className="w-11 h-6 rounded-full peer bg-gray-400 peer-checked:after:translate-x-full
-              peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px]
-               after:bg-white after:border-gray-300 after:border after:rounded-full
-                after:h-5 after:w-5 after:transition-all peer-checked:bg-primary
-                peer-disabled:bg-gray-200 peer-disabled:cursor-not-allowed"
-			></div>
-			{label && <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">{label}</span>}
-		</label>
-	)
-}
+		const handleChange = useCallback(
+			(e) => {
+				setChecked((prev) => !prev)
+				onChange && onChange(e)
+			},
+			[onChange],
+		)
+		
+		return (
+			<label className="inline-flex items-center relative cursor-pointer">
+				<input ref={ref} className="sr-only peer" type="checkbox" checked={checked} onChange={handleChange} />
+				<div className={cn(switchVariants({ className, size, variant }), className)} />
+				{label && <span className="ml-3 text-md font-medium text-charcoal-black">{label}</span>}
+			</label>
+		)
+	},
+)
 
-export default forwardRef(Switch)
+export default Switch

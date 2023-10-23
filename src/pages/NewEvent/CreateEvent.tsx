@@ -22,6 +22,7 @@ const CreateEvent = () => {
 			rules: '',
 			title: '',
 			images: [],
+			isPrivate: false,
 		},
 		reValidateMode: 'onChange',
 		resetOptions: {
