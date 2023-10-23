@@ -7,6 +7,7 @@ import useDevice from './useDevice'
 import useEnvVariables from './useEnvVariables'
 import useFetchActivities from './services/useFetchActivities'
 import useFetchActivity from './services/useFetchActivity'
+import useFetchFavorites from './services/useFetchFavorites'
 import useFetchLocales from './services/useFetchLocales'
 import useFetchNotifications from './services/useFetchNotifications'
 import useGeolocation from './useGeolocation'
@@ -30,6 +31,7 @@ export {
 	useDebounce,
 	useEnvVariables,
 	useFetchActivities,
+	useFetchFavorites,
 	useGeolocation,
 	useDevice,
 	useLocaleSwitcher,

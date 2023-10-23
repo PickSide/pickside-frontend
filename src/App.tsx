@@ -9,6 +9,7 @@ import { AppThemeProvider } from '@context/AppThemeContext'
 import { AxiosProvider } from '@context/AxiosContext'
 import CreateEvent from '@pages/NewEvent/CreateEvent'
 import EditProfile from '@pages/UserSettings/Sections/EditProfile'
+import Favorites from '@pages/UserSettings/Sections/Favorites'
 import Groups from '@pages/UserGroups/Groups'
 import Home from '@pages/Home/Home'
 import { IdleTimeOutProvider } from '@context/IdleTimeOutContext'
@@ -49,7 +50,6 @@ const App = () => {
 														<Route path="about" element={<About />} />
 													</Route>
 													<Route path="/new-event" element={<CreateEvent />} />
-													<Route path="/favorites" element={null} />
 													<Route path="/listing" element={<Listing />} />
 													<Route path="/login" element={<Login />} />
 													<Route path="/signup" element={<SignUp />} />
@@ -60,6 +60,7 @@ const App = () => {
 															<Route path="settings/" element={<Settings />}>
 																<Route index element={<Navigate to="/user/settings/edit-profile" />} />
 																<Route path="edit-profile" element={<EditProfile />} />
+																<Route path="favorites" element={<Favorites />} />
 																<Route path="personal-info" element={<PersonalInfo />} />
 																<Route path="account-management" element={<AccountManagement />} />
 																<Route path="activity-history" element={<ActivityHistory />} />

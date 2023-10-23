@@ -11,6 +11,7 @@ import { BiTime } from 'react-icons/bi'
 import { BottomDrawer } from '@components'
 import { CgProfile } from 'react-icons/cg'
 import EditProfile from './Sections/EditProfile'
+import Favorites from './Sections/Favorites'
 import History from './Sections/ActivityHistory'
 import { MdHistory } from 'react-icons/md'
 import { useDevice } from '@hooks'
@@ -51,16 +52,6 @@ const Settings = () => {
 		methods.reset()
 	}
 
-	// const avatar = useMemo(() => {
-	// 	if (connectedUser?.avatar) {
-	// 		const bufferImgArr = new Uint8Array(connectedUser.avatar.data)
-	// 		const blob = new Blob([bufferImgArr], { type: 'image/jpeg' })
-	// 		const urlCreator = window.URL || window.webkitURL
-	// 		const imageUrl = urlCreator.createObjectURL(blob)
-	// 		return imageUrl
-	// 	}
-	// }, [connectedUser])
-
 	const MenuItems = useMemo(
 		() => [
 			{
@@ -69,6 +60,13 @@ const Settings = () => {
 				value: 'edit-profile',
 				icon: <CgProfile size={20} />,
 				content: <EditProfile />,
+			},
+			{
+				description: t('Favorites'),
+				ref: 'favorites',
+				value: 'favorites',
+				icon: <BiTime size={20} />,
+				content: <Favorites />,
 			},
 			{
 				description: t('Personal Info'),
