@@ -9,6 +9,8 @@ interface DialogProps extends ComponentPropsWithoutRef<'dialog'> {
 	onClose?: (e?) => void
 }
 
+interface DialogCTAProps extends ComponentPropsWithoutRef<'div'> {}
+
 const Dialog: FC<DialogProps> = ({ children, className, open = false, title, onClose, ...rest }) => {
 	return open ? (
 		<AnimatePresence mode="wait">
@@ -19,11 +21,11 @@ const Dialog: FC<DialogProps> = ({ children, className, open = false, title, onC
 				animate="visible"
 				exit="exit"
 				variants={modaleDropIn}
-				className={cn(`fixed z-20 overflow-hidden h-fit inset-0 m-auto md:w-fit`, className)}
+				className={cn(`fixed z-20 rounded-md overflow-hidden h-fit inset-0 m-auto md:w-fit`, className)}
 			>
 				<div className=" bg-white border shadow-sm rounded-md ">
 					<div className="flex justify-between items-center py-3 px-4 border-b space-x-5">
-						<h3 className="h3 mb-0">{title}</h3>
+						<h3 className="h5 mb-0">{title}</h3>
 						<button
 							type="button"
 							onClick={onClose}
@@ -41,6 +43,8 @@ const Dialog: FC<DialogProps> = ({ children, className, open = false, title, onC
 	) : null
 }
 
-export const DialogCTA = ({ children }) => <div className="h-16 border-t-2 inline-flex items-center">{children}</div>
+export const DialogCTA: FC<DialogCTAProps> = ({ children }) => (
+	<div className="p-2 text-right w-full space-x-4">{children}</div>
+)
 
 export default Dialog
