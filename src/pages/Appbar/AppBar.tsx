@@ -91,7 +91,7 @@ const AppBar = () => {
 										<NavLink to="/user/settings">{t('Profile')}</NavLink>
 									</PopupMenuItem>,
 									<PopupMenuItem key="favorites">
-										<NavLink to="/favorites">{t('Favorites')}</NavLink>
+										<NavLink to="/user/settings/favorites">{t('Favorites')}</NavLink>
 									</PopupMenuItem>,
 								]
 							) : (
