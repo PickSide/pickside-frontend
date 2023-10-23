@@ -1,4 +1,4 @@
-import { Button, TextAreaField } from '@components'
+import { Button, FormDivider, Switch, TextAreaField } from '@components'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 
 import StepperCTAWrapper from '../shared/StepperCTAWrapper'
@@ -15,6 +15,14 @@ const Step3 = () => {
 
 	return (
 		<>
+			<Controller
+				name="isPrivate"
+				control={control}
+				render={({ field }) => <Switch {...field} label={t('Is your event private')} />}
+			/>
+
+			<FormDivider />
+
 			<Controller
 				name="rules"
 				control={control}
