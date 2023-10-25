@@ -1,9 +1,9 @@
-import { PayloadAction, createSlice, current } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 import { Area } from '../areas'
+import { Group } from '@state/groups'
 import { Locale } from '../locales'
 import { Sport } from '../sport'
-import { merge } from 'lodash'
 
 export interface User {
 	id?: string
@@ -14,11 +14,10 @@ export interface User {
 	city?: string
 	email?: string
 	emailVerified?: boolean
-	//eventsRegistered?: Activity[]
 	favorites?: any[]
 	fullName?: string
 	fitnessLevel?: 'retired' | 'average' | 'athletic' | 'very athletic'
-	groups?: any[]
+	groups?: Group[]
 	isExternalAccount?: boolean
 	isOrganizer?: boolean
 	joinDate?: string

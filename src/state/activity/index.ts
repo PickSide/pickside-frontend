@@ -13,7 +13,7 @@ export interface Activity {
 	duration: number
 	maxPlayers: number
 	mode: string
-	organiser: User
+	organizer: User
 	participants: User[]
 	recommandedLevel: string
 	rules: string

@@ -9,7 +9,7 @@ const Favorites = () => {
 	const { t } = useTranslation()
 
 	return (
-		<div className="flex flex-col">
+		<div className="w-full inline">
 			{isLoading ? (
 				<Spinner text={t('Loading favorites')} />
 			) : (

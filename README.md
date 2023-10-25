@@ -59,7 +59,7 @@ export interface SportEvent {
 	locations: google.maps.LatLng
 	maxPlayersCapacity: number
 	numberOfRegisteredPlayers: number
-	organiser?: User
+	organizer?: User
 	pricePerUnit?: number
 	registeredUserIds?: string[]
 	title?: string

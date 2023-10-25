@@ -22,7 +22,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 	const {
 		isFavorite,
 		isFull,
-		isOrganiser,
+		isOrganizer,
 		isRegistering,
 		isUnregistering,
 		isRegisteredToActivity,
@@ -77,8 +77,8 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 					<div className="flex items-center justify-between">
 						<div className="flex items-center gap-x-2">
 							<div className="w-8 h-8 flex justify-center items-center rounded-full bg-primary">
-								{activity.organiser?.avatar ? (
-									<img className="rounded-full" src={activity.organiser.avatar} alt="" />
+								{activity.organizer?.avatar ? (
+									<img className="rounded-full" src={activity.organizer.avatar} alt="" />
 								) : (
 									<svg width="16" height="16" viewBox="0 0 24 24" fill="primary" xmlns="http://www.w3.org/2000/svg">
 										<path
@@ -93,7 +93,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 							<div className="flex flex-col">
 								<span className="text-base font-bold max-w-[90px]">{activity.title}</span>
 								<span className="font-medium">
-									{t('Host')}:&nbsp;{activity.organiser?.fullName}
+									{t('Host')}:&nbsp;{activity.organizer?.fullName}
 								</span>
 							</div>
 						</div>
@@ -142,7 +142,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 									>
 										{t('Uneregister')}
 									</Button>
-								) : isOrganiser ? (
+								) : isOrganizer ? (
 									<Button size="sm" className="px-4 rounded-[12px] font-semibold">
 										{t('Manage event')}
 									</Button>

@@ -10,7 +10,7 @@ import useUpdateFavorite from './services/useUpdateFavorite'
 interface ActivityHandlersOutput {
 	isFavorite: boolean
 	isFull: boolean
-	isOrganiser: boolean
+	isOrganizer: boolean
 	isRegistering: boolean
 	isUnregistering: boolean
 	isRegisteredToActivity: boolean
@@ -29,7 +29,7 @@ const useActivityHandlers = (activity: Activity): ActivityHandlersOutput => {
 		return connectedUser.favorites.some((fav) => fav === activity.id)
 	}, [activity.id, connectedUser])
 	const isFull = useMemo(() => activity.participants?.length === activity.maxPlayers, [activity])
-	const isOrganiser = useMemo(() => activity.organiser?.id === connectedUser?.id, [activity, connectedUser])
+	const isOrganizer = useMemo(() => activity.organizer?.id === connectedUser?.id, [activity, connectedUser])
 	const isRegisteredToActivity = useMemo(
 		() => activity.participants?.some((participant) => participant?.id === connectedUser?.id),
 		[activity.participants, connectedUser],
@@ -38,7 +38,7 @@ const useActivityHandlers = (activity: Activity): ActivityHandlersOutput => {
 	return {
 		isFavorite,
 		isFull,
-		isOrganiser,
+		isOrganizer,
 		isRegistering,
 		isUnregistering,
 		isRegisteredToActivity,

@@ -14,6 +14,7 @@ const validIcons = [
 	'chat_bubble',
 	'error_outline',
 	'group',
+	'keyboard_arrow_down',
 	'keyboard_arrow_left',
 	'keyboard_arrow_right',
 	'language',
@@ -37,6 +38,9 @@ const validIcons = [
 	'radio_button_unchecked',
 	'visibility',
 	'visibility_off',
+	'delete',
+	'edit',
+	'info',
 ] as const
 
 export type IconName = (typeof validIcons)[number]

@@ -10,7 +10,7 @@ import { AxiosProvider } from '@context/AxiosContext'
 import CreateEvent from '@pages/NewEvent/CreateEvent'
 import EditProfile from '@pages/UserSettings/Sections/EditProfile'
 import Favorites from '@pages/UserSettings/Sections/Favorites'
-import Groups from '@pages/UserGroups/Groups'
+import Groups from '@pages/UserSettings/Sections/Groups'
 import Home from '@pages/Home/Home'
 import { IdleTimeOutProvider } from '@context/IdleTimeOutContext'
 import { InitialAppStateProvider } from '@context/InitialAppStateContext'
@@ -56,11 +56,11 @@ const App = () => {
 													<Route element={<RequireAuth />}>
 														<Route path="/user/">
 															<Route path="upcoming-events/" element={<UpcomingEvents />} />
-															<Route path="groups/" element={<Groups />} />
 															<Route path="settings/" element={<Settings />}>
 																<Route index element={<Navigate to="/user/settings/edit-profile" />} />
 																<Route path="edit-profile" element={<EditProfile />} />
 																<Route path="favorites" element={<Favorites />} />
+																<Route path="groups" element={<Groups />} />
 																<Route path="personal-info" element={<PersonalInfo />} />
 																<Route path="account-management" element={<AccountManagement />} />
 																<Route path="activity-history" element={<ActivityHistory />} />

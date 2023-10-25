@@ -1,7 +1,8 @@
-import Select, { ControlProps, components } from 'react-select'
+import { ControlProps, components } from 'react-select'
 import { forwardRef, useId } from 'react'
 
-import { MdAccessTime } from 'react-icons/md'
+import Icon from './shared/Icon'
+import Select from './shared/Select'
 import { cn } from '@utils'
 import moment from 'moment'
 import { times } from 'lodash'
@@ -17,9 +18,7 @@ const TimePicker = ({ fullWidth = false, ...rest }, ref) => {
 	const Control = ({ children, ...props }: ControlProps<any>) => {
 		return (
 			<components.Control {...props}>
-				<span className="ml-3">
-					<MdAccessTime size={20} />
-				</span>
+				<Icon className="ml-3" icon="schedule" size="sm" />
 				{children}
 			</components.Control>
 		)
@@ -27,24 +26,18 @@ const TimePicker = ({ fullWidth = false, ...rest }, ref) => {
 
 	return (
 		<div className={cn('relative', fullWidth ? 'w-full' : 'max-w-[230px]')} tabIndex={0}>
-			<label htmlFor={id} className="text-gray-800 leading-4">
-				{rest.label}
-			</label>
 			<Select
 				id={id}
-				{...rest}
 				ref={ref}
 				components={{ Control }}
 				closeMenuOnSelect
 				tabSelectsValue
-				hideSelectedOptions
 				backspaceRemovesValue
 				isSearchable={false}
 				options={options}
-				className="react-dropdown"
-				classNamePrefix="dropdown"
 				getOptionValue={(option: moment.Moment) => option.format('LT')}
 				getOptionLabel={(option: moment.Moment) => option.format('LT')}
+				{...rest}
 			/>
 		</div>
 	)

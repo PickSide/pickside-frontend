@@ -57,7 +57,7 @@ export default function LoginForm() {
 					control={control}
 					rules={baseRule}
 					render={({ field }) => (
-						<PasswordField {...field} autoFocus label={t('Password')} placeholder={t('Enter password')} fullWidth />
+						<PasswordField {...field} label={t('Password')} placeholder={t('Enter password')} fullWidth />
 					)}
 				/>
 				<Controller
