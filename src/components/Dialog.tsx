@@ -44,7 +44,7 @@ const Dialog: FC<DialogProps> = ({ children, className, open = false, title, onC
 }
 
 export const DialogCTA: FC<DialogCTAProps> = ({ children }) => (
-	<div className="p-2 text-right w-full space-x-4">{children}</div>
+	<div className="p-4 text-right w-full space-x-4">{children}</div>
 )
 
 export default Dialog

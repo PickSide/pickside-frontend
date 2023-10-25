@@ -1,6 +1,7 @@
 import activities, { Activities } from './activity'
 import appStatus, { AppStatus } from './appStatus'
 import areas, { Areas } from './areas'
+import groups, { Groups } from './groups'
 import locales, { Locales } from './locales'
 import notifications, { Notifications } from './notifications'
 import playables, { Playables } from './playables'
@@ -20,6 +21,7 @@ export * from './appLocale'
 export * from './appStatus'
 export * from './appTheme'
 export * from './areas'
+export * from './groups'
 export * from './deactivated'
 export * from './locales'
 export * from './notifications'
@@ -44,6 +46,7 @@ export interface AppState {
 	appTheme?: string
 	areas?: Areas
 	deactivated?: boolean
+	groups?: Groups
 	locales?: Locales
 	notifications?: Notifications
 	playables?: Playables
@@ -62,6 +65,7 @@ export const reducers = {
 	appStatus,
 	appTheme,
 	areas,
+	groups,
 	locales,
 	notifications,
 	playables,

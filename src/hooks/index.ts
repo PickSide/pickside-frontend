@@ -1,15 +1,20 @@
 import useActivityHandlers from './useActivityHandlers'
 import useConnectedUserPosition from './useConnectedUserPosition'
 import useCreateActivity from './services/useCreateActivity'
+import useCreateGroups from './services/useCreateGroups'
 import useDeactivateAccount from './services/useDeactivateAccount'
 import useDebounce from './useDebounce'
+import useDeleteGroup from './services/useDeleteGroup'
 import useDevice from './useDevice'
 import useEnvVariables from './useEnvVariables'
 import useFetchActivities from './services/useFetchActivities'
 import useFetchActivity from './services/useFetchActivity'
 import useFetchFavorites from './services/useFetchFavorites'
+import useFetchGroup from './services/useFetchGroup'
+import useFetchGroups from './services/useFetchGroups'
 import useFetchLocales from './services/useFetchLocales'
 import useFetchNotifications from './services/useFetchNotifications'
+import useFetchUsers from './services/useFetchUsers'
 import useGeolocation from './useGeolocation'
 import useLocaleSwitcher from './useLocaleSwitcher'
 import useLogout from './services/useLogout'
@@ -34,6 +39,7 @@ export {
 	useFetchFavorites,
 	useGeolocation,
 	useDevice,
+	useDeleteGroup,
 	useLocaleSwitcher,
 	useMapStyles,
 	useMultistepForm,
@@ -45,6 +51,7 @@ export {
 	useFetchActivity,
 	useFetchLocales,
 	useFetchNotifications,
+	useFetchUsers,
 	useReactivateAccount,
 	useReadNotification,
 	useUnregisterSelfFromActivity,
@@ -52,4 +59,7 @@ export {
 	useResetDb,
 	useUpdateFavorite,
 	useLogout,
+	useCreateGroups,
+	useFetchGroup,
+	useFetchGroups,
 }

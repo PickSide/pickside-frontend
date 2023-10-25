@@ -1,32 +1,30 @@
-import { AppState, addActivity } from '@state'
+import { AppState, addGroup } from '@state'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { AxiosContext } from '@context'
 import { useContext } from 'react'
 import { useMutation } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-const useCreateActivity = () => {
+const useCreateGroups = () => {
 	const { axiosInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
-	const navigate = useNavigate()
 	const { t } = useTranslation()
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
 	const callback = async (data: any) =>
-		await axiosInstance.post(`/activities`, { data: { ...data, organizer: connectedUser?.id } })
+		await axiosInstance.post(`/groups`, { data: { ...data, organizer: connectedUser?.id } })
 
 	const {
-		mutate: createActivity,
+		mutate: createGroups,
 		isLoading,
 		error,
 		isError,
 	} = useMutation(callback, {
-		mutationKey: ['createActivity'],
+		mutationKey: ['createGroups'],
 		onSuccess: ({ data }) => {
-			dispatch(addActivity(data.response.activity))
+			dispatch(addGroup(data.response.group))
 			dispatch({
 				type: 'toast/toastMessage',
 				payload: {
@@ -34,12 +32,11 @@ const useCreateActivity = () => {
 					type: 'success',
 				},
 			})
-			navigate('/listing')
 		},
 		onError: (e) => console.log(e),
 	})
 
-	return { createActivity, isLoading, error, isError }
+	return { createGroups, isLoading, error, isError }
 }
 
-export default useCreateActivity
+export default useCreateGroups

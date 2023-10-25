@@ -1,23 +1,41 @@
-import { Button, Dialog, InputField, Select } from '@components'
-import { Controller, useFormContext } from 'react-hook-form'
+import { BottomDrawer, Button, Dialog, InputField, Select } from '@components'
+import { Controller, useForm } from 'react-hook-form'
 
 import { AppState } from '@state'
-import ChangePasswordForm from '../components/ChangePasswordForm'
-import DeactivationForm from '../components/DeactivationForm'
+import ChangePasswordForm from '../components/forms/ChangePasswordForm'
+import DeactivationForm from '../components/forms/DeactivationForm'
 import { FaExternalLinkAlt } from 'react-icons/fa'
+import getDirtyFieldsValues from '../utils/getDirtyFieldsValues'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useUpdateSetting } from '@hooks'
 
 const AccountManagement = () => {
 	const { t } = useTranslation()
-	const { control } = useFormContext()
+	const { updateUser } = useUpdateSetting()
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 	const locales = useSelector((state: AppState) => state.locales)
 
+	const { control, formState, reset, handleSubmit } = useForm({
+		defaultValues: {
+			email: connectedUser?.email,
+			preferredLocale: connectedUser?.preferredLocale,
+		},
+		resetOptions: {
+			keepDefaultValues: true,
+		},
+	})
+
 	const [openPasswordChangeDialog, setOpenPasswordChangeDialog] = useState<boolean>(false)
 	const [openDeactivationDialog, setOpenDeactivationDialog] = useState<boolean>(false)
+
+	const onSubmit = async (values) => {
+		const changes = getDirtyFieldsValues(values, formState)
+		await updateUser(changes)
+		reset()
+	}
 
 	return (
 		<div className="relative h-full ">
@@ -37,26 +55,29 @@ const AccountManagement = () => {
 			</Dialog>
 			<div className="flex flex-col gap-y-4 w-[600px]">
 				<p className="text-2xl font-semibold">{t('Account Management')}</p>
-				<Controller
-					name="email"
-					control={control}
-					render={({ field }) => <InputField {...field} label={t('Email')} fullWidth />}
-				/>
-				<Controller
-					name="preferredLocale"
-					control={control}
-					render={({ field }) => (
-						<Select
-							{...field}
-							label={t('Language')}
-							defaultValue={field.value}
-							placeholder={t('Select language')}
-							options={locales?.results}
-							getOptionLabel={(option) => option.description}
-							getOptionValue={(option) => option.id}
-						/>
-					)}
-				/>
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<Controller
+						name="email"
+						control={control}
+						render={({ field }) => <InputField {...field} label={t('Email')} fullWidth />}
+					/>
+					<Controller
+						name="preferredLocale"
+						control={control}
+						render={({ field }) => (
+							<Select
+								{...field}
+								label={t('Language')}
+								defaultValue={field.value}
+								placeholder={t('Select language')}
+								options={locales?.results}
+								getOptionLabel={(option) => option.description}
+								getOptionValue={(option) => option.id}
+							/>
+						)}
+					/>
+					<BottomDrawer show={formState.isDirty} onReset={reset} />
+				</form>
 			</div>
 			{!connectedUser?.isExternalAccount && (
 				<div className="mt-5 space-y-4">

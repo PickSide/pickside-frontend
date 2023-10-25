@@ -45,6 +45,7 @@ export const buttonVariants = cva(['rounded', 'text-base', 'leading-none'], {
 export interface ButtonProps extends ComponentPropsWithRef<'button'>, VariantProps<typeof buttonVariants> {
 	isLoading?: boolean
 	loadingText?: string
+	onClick?: (e?) => void
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(

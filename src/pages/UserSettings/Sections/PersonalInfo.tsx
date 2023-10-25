@@ -15,16 +15,16 @@ const PersonalInfo = () => {
 	const [openPasswordChangeDialog, setOpenPasswordChangeDialog] = useState<boolean>(false)
 
 	const {
-		control,
 		handleSubmit,
 		formState: { isDirty, dirtyFields },
-		register,
-		setValue,
 	} = useForm({
 		defaultValues: {
 			email: connectedUser?.email,
 			preferredLocale: connectedUser?.preferredLocale,
 			timezone: connectedUser?.timezone,
+		},
+		resetOptions: {
+			keepDefaultValues: true,
 		},
 	})
 
