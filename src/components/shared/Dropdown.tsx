@@ -3,6 +3,7 @@ import { ComponentPropsWithRef, ReactNode, forwardRef, useEffect, useState } fro
 import { KEY_CODES, cn } from '@utils'
 import { VariantProps, cva } from 'class-variance-authority'
 
+import ReactPortal from './ReactPortal'
 import { dropdownAnimation } from '@utils'
 
 const dropdownVariants = cva(['btn-base', 'py-1', 'px-1', 'flex', 'flex-col ', 'items-center'], {
@@ -42,51 +43,55 @@ const Dropdown = forwardRef<ComponentPropsWithRef<'button'>, DropdownProps>(
 	({ badge, children, className, size, icon, text, variant, ...rest }, ref) => {
 		const [isOpen, setIsOpen] = useState<boolean>(false)
 
-		const handler = (e) => {
-			if (e.keyCode === KEY_CODES.ESC) {
-				setIsOpen(false)
-			}
-		}
-
 		useEffect(() => {
+			const closeOnEscapeKey = (e: KeyboardEvent) => {
+				return e.key === 'Escape' ? setIsOpen(false) : null
+			}
 			const handler = () => setIsOpen(false)
+			document.addEventListener('keydown', closeOnEscapeKey)
 			document.addEventListener('mouseup', handler)
-			return () => document.removeEventListener('mouseup', handler)
+			return (): void => {
+				document.removeEventListener('keydown', closeOnEscapeKey)
+				document.removeEventListener('mouseup', handler)
+			}
 		}, [])
 
 		return (
-			<div className="relative">
-				<button
-					id="menu-button"
-					onClick={() => setIsOpen(true)}
-					onKeyDown={handler}
-					className={cn(dropdownVariants({ className, size, variant }), className)}
-					{...rest}
-				>
-					{icon}
-					{text}
-					{badge && <span className="absolute -top-1 right-6 rounded-full">{badge}</span>}
-				</button>
-				<AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
-					{isOpen && (
-						<>
-							<div className="fixed inset-0 w-screen h-screen z-20" onClick={() => setIsOpen(false)}></div>
-							<motion.div
-								className="absolute right-0 mt-2 origin-top-right z-20 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-clip"
-								role="menu"
-								aria-orientation="vertical"
-								aria-labelledby="menu-button"
-								initial="closed"
-								animate="open"
-								exit="closed"
-								variants={dropdownAnimation}
-							>
-								{children}
-							</motion.div>
-						</>
-					)}
-				</AnimatePresence>
-			</div>
+			<ReactPortal wrapperId="dropdown">
+				<>
+					<div className="relative">
+						<button
+							id="menu-button"
+							onClick={() => setIsOpen(true)}
+							className={cn(dropdownVariants({ className, size, variant }), className)}
+							{...rest}
+						>
+							{icon}
+							{text}
+							{badge && <span className="absolute -top-1 right-6 rounded-full">{badge}</span>}
+						</button>
+						<AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
+							{isOpen && (
+								<>
+									<div className="fixed inset-0 w-screen h-screen z-20" onClick={() => setIsOpen(false)}></div>
+									<motion.div
+										className="absolute right-0 mt-2 origin-top-right z-20 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-clip"
+										role="menu"
+										aria-orientation="vertical"
+										aria-labelledby="menu-button"
+										initial="closed"
+										animate="open"
+										exit="closed"
+										variants={dropdownAnimation}
+									>
+										{children}
+									</motion.div>
+								</>
+							)}
+						</AnimatePresence>
+					</div>
+				</>
+			</ReactPortal>
 		)
 	},
 )

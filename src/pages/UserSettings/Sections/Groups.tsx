@@ -15,7 +15,7 @@ const Groups = () => {
 	const { isLoading: isFetchingGroupsLoading, refetch: refetchGroups } = useFetchGroups()
 	const { users, isLoading: isFetchingUsers } = useFetchUsers()
 	const { t } = useTranslation()
-	const { control, formState, handleSubmit, reset } = useForm({
+	const { control, handleSubmit, reset } = useForm({
 		defaultValues: {
 			name: '',
 			description: '',
@@ -73,7 +73,7 @@ const Groups = () => {
 				onClose={() => setOpenEditCreateGroupDialog(false)}
 				title={t('Create new group')}
 			>
-				<form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+				<form className="space-y-4 min-w-[300px]" onSubmit={handleSubmit(onSubmit)}>
 					<Controller
 						name="name"
 						control={control}
