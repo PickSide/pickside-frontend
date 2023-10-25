@@ -36,13 +36,10 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 
 	const [open, setOpen] = useState<boolean>(false)
 
-	const handleDialog = () => {
-		setOpen((prev) => !prev)
-	}
 	const handleRegister = async (e) => {
 		e.stopPropagation()
 		await registerToActivity(activity.id)
-		handleDialog()
+		setOpen(false)
 	}
 	const handleUnregister = async (e) => {
 		e.stopPropagation()
@@ -51,10 +48,10 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 
 	return (
 		<>
-			<Dialog open={open} onClose={handleDialog} title={t('Confirm event registration')}>
+			<Dialog open={open} onClose={() => setOpen(false)} title={t('Confirm event registration')}>
 				<p>{t('Before registering, you need to understand some rules.')}</p>
 				<DialogCTA>
-					<Button variant="tertiary" onClick={handleDialog}>
+					<Button variant="tertiary" onClick={() => setOpen(false)}>
 						{t('Cancel')}
 					</Button>
 					<Button onClick={handleRegister}>{t('Register')}</Button>
@@ -151,7 +148,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 										size="sm"
 										className="px-4 rounded-[12px] font-semibold"
 										isLoading={isRegistering}
-										onClick={handleDialog}
+										onClick={() => setOpen(true)}
 										disabled={isFull || isRegistering}
 									>
 										{isFull ? t('Full') : t('Join')}

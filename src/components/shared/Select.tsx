@@ -36,7 +36,7 @@ const ClearIndicator = (props: ClearIndicatorProps) => {
 const MultiValueRemove = (props: MultiValueRemoveProps) => {
 	return (
 		<components.MultiValueRemove {...props}>
-			<IconButton variant="secondary" size='sm'>
+			<IconButton variant="secondary" size="sm">
 				<Icon icon="close" size="sm" />
 			</IconButton>
 		</components.MultiValueRemove>
@@ -52,6 +52,7 @@ const placeholderStyles = 'text-gray-400 pl-2 py-0.5'
 const selectInputStyles = 'pl-1 py-0.5'
 const valueContainerStyles = 'p-2 gap-1'
 const singleValueStyles = 'leading-7 ml-1'
+const menuPortal = 'z-50'
 const multiValueStyles = 'bg-primary text-white rounded-md items-center py px-2 gap-1.5'
 const multiValueLabelStyles = 'leading-6 py-0.5'
 const multiValueRemoveStyles = 'text-white'
@@ -83,6 +84,7 @@ const Select = ({ components, label, fullWidth = false, ...rest }: SelectProps |
 					placeholder: () => placeholderStyles,
 					valueContainer: () => valueContainerStyles,
 					singleValue: () => singleValueStyles,
+					menuPortal: () => menuPortal,
 					multiValue: () => multiValueStyles,
 					multiValueLabel: () => multiValueLabelStyles,
 					multiValueRemove: () => multiValueRemoveStyles,
