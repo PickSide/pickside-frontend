@@ -1,3 +1,4 @@
+import { ACCOUNT_TYPE, ROLES, USER_PERMISSIONS } from './constants'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 import { Area } from '../areas'
@@ -7,6 +8,7 @@ import { Sport } from '../sport'
 
 export interface User {
 	id?: string
+	accountType: ACCOUNT_TYPE
 	address?: string
 	attendedEventsCount?: number
 	avatar?: any
@@ -28,6 +30,7 @@ export interface User {
 	matchPlayedCount?: number
 	password?: string
 	phone?: string
+	permissions: [USER_PERMISSIONS]
 	preferredLocale?: Locale
 	preferredRegion?: Area
 	preferredSport?: Sport
@@ -41,6 +44,7 @@ export interface User {
 	}
 	reasonsForJoining?: string[]
 	reliability?: number
+	role?: ROLES
 	sexe?: 'male' | 'female'
 	socialNetworks?: any[]
 	subscriptionType?: string
