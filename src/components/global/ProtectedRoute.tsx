@@ -6,7 +6,7 @@ import { AccountContext } from '@context'
 
 interface ProtectedRouteProps {
 	allowsGuestAccount?: boolean
-	permissions?: [USER_PERMISSIONS]
+	permissions?: USER_PERMISSIONS[]
 	children?: ReactNode
 }
 
