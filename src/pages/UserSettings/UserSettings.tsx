@@ -1,18 +1,13 @@
-import { Dialog, Popover } from '@components'
-import { FiMoreVertical, FiSettings } from 'react-icons/fi'
+import { Dialog, Icon, IconButton, Popover } from '@components'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 
-import { AiFillEdit } from 'react-icons/ai'
 import AppSettings from './Sections/PersonalInfo'
 import { AppState } from '@state'
-import { BiTime } from 'react-icons/bi'
-import { CgProfile } from 'react-icons/cg'
 import EditProfile from './Sections/EditProfile'
 import Favorites from './Sections/Favorites'
 import Groups from './Sections/Groups'
 import History from './Sections/ActivityHistory'
-import { MdHistory } from 'react-icons/md'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
@@ -28,58 +23,58 @@ const Settings = () => {
 				description: t('Edit Profile'),
 				ref: 'edit-profile',
 				value: 'edit-profile',
-				icon: <CgProfile size={20} />,
+				icon: <Icon icon="account_circle" />,
 				content: <EditProfile />,
 			},
 			{
 				description: t('Favorites'),
 				ref: 'favorites',
 				value: 'favorites',
-				icon: <BiTime size={20} />,
+				icon: <Icon icon="star" />,
 				content: <Favorites />,
 			},
 			{
 				description: t('Groups'),
 				ref: 'groups',
 				value: 'groups',
-				icon: <BiTime size={20} />,
+				icon: <Icon icon="group" />,
 				content: <Groups />,
 			},
-			{
-				description: t('Personal Info'),
-				ref: 'personal-info',
-				value: 'personal-info',
-				icon: <FiSettings size={20} />,
-				content: <AppSettings />,
-			},
+			// {
+			// 	description: t('Personal Info'),
+			// 	ref: 'personal-info',
+			// 	value: 'personal-info',
+			// 	icon: <Icon icon="star" />,
+			// 	content: <AppSettings />,
+			// },
 			{
 				description: t('Account Management'),
 				ref: 'account-management',
 				value: 'account-management',
-				icon: <FiSettings size={20} />,
+				icon: <Icon icon="settings" />,
 				content: <AppSettings />,
 			},
-			{
-				description: t('Social Media'),
-				ref: 'social-media',
-				value: 'social-media',
-				icon: <MdHistory size={20} />,
-				content: <History />,
-			},
+			// {
+			// 	description: t('Social Media'),
+			// 	ref: 'social-media',
+			// 	value: 'social-media',
+			// 	icon: <MdHistory size={20} />,
+			// 	content: <History />,
+			// },
 			{
 				description: t('Privacy'),
 				ref: 'privacy',
 				value: 'privacy',
-				icon: <MdHistory size={20} />,
+				icon: <Icon icon="lock" />,
 				content: <History />,
 			},
-			{
-				description: t('Activity history'),
-				ref: 'activity-history',
-				value: 'activity-history',
-				icon: <BiTime size={20} />,
-				content: <History />,
-			},
+			// {
+			// 	description: t('Activity history'),
+			// 	ref: 'activity-history',
+			// 	value: 'activity-history',
+			// 	icon: <BiTime size={20} />,
+			// 	content: <History />,
+			// },
 		],
 		[t],
 	)
@@ -93,16 +88,16 @@ const Settings = () => {
 				<div className="inline-flex items-center gap-x-6">
 					<div className="relative ">
 						<button
-							className="absolute rounded-full w-6 h-6 right-0 bottom-0 z-20 bg-primary text-white hover:bg-secondary"
+							className="absolute rounded-full w-6 h-6 right-0 bottom-0 z-20 bg-primary border-2 border-white text-white hover:bg-secondary"
 							onClick={() => setOpenChangeAvatarDialog(true)}
 						>
-							<AiFillEdit className=" m-auto" size={15} />
+							<Icon icon="edit" size="xs" />
 						</button>
 						<div className="flex items-center justify-center w-16 h-16 overflow-hidden border-primary border-2 rounded-full text-white bg-primary">
 							{connectedUser?.avatar ? (
 								<img alt="" src={connectedUser.avatar} />
 							) : (
-								<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+								<svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 									<path
 										fillRule="evenodd"
 										clipRule="evenodd"
@@ -114,16 +109,16 @@ const Settings = () => {
 						</div>
 					</div>
 					<div className="flex-col my-8">
-						<p className="text-[30px] font-semibold">{connectedUser?.fullName}</p>
-						<p className="text-[15px] font-normal text-gray-400">Plays near {connectedUser?.localeRegion}</p>
-						<p className="text-[15px] font-normal text-gray-400">Reliability: {connectedUser?.reliability}%</p>
+						<h6 className="font-semibold">{connectedUser?.fullName}</h6>
+						<p className="text-base font-normal text-gray-400">Plays near {connectedUser?.localeRegion}</p>
+						<p className="text-sm font-normal text-gray-400">Reliability: {connectedUser?.reliability}%</p>
 					</div>
 					<div className="flex flex-grow my-8 justify-end text-primary pr-2">
 						<Popover
 							trigger={
-								<button className="text-primary">
-									<FiMoreVertical size={20} />
-								</button>
+								<IconButton>
+									<Icon icon="more_vert" />
+								</IconButton>
 							}
 						>
 							<div className="flex flex-col gap-y-3 text-black whitespace-nowrap ease-in duration-150 transition-all">
@@ -135,23 +130,23 @@ const Settings = () => {
 						</Popover>
 					</div>
 				</div>
-				<div className="flex">
-					<div className="min-w-[200px] flex-1/2 flex-col basis-2 py-6 gap-y-4 ">
+				<div className="block">
+					<div className="max-w-[400px] flex flex-col basis-2 py-6 gap-y-4 float-left">
 						{MenuItems.map(({ description, ref, icon }, idx) => (
 							<div
 								key={idx}
-								className={`inline-flex items-center gap-x-4 rounded-md h-10 hover:bg-slate-200 px-2 text-[18px] leading-8 ${
+								className={`inline-flex items-center gap-x-4 rounded-md h-10 hover:bg-slate-200 px-2 leading-8 ${
 									pathname.includes(ref) ? 'font-semibold bg-slate-100' : ''
 								}`}
 							>
 								{icon}
-								<NavLink className="flex-grow text-[15px] whitespace-nowrap" to={ref}>
+								<NavLink className="flex-grow whitespace-nowrap" to={ref}>
 									{description}
 								</NavLink>
 							</div>
 						))}
 					</div>
-					<div className="flex flex-grow-2 justify-center overflow-scroll">
+					<div className="flex justify-center overflow-scroll">
 						<Outlet />
 					</div>
 				</div>

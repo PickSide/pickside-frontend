@@ -10,7 +10,7 @@ const Footer = () => {
 	const [device] = useDevice()
 
 	const MobileFooter = () => (
-		<div className="bg-primary text-white">
+		<section id="footer" className="bg-primary text-white">
 			<div className="flex flex-col px-10 py-5">
 				<div className="text-center space-x-6">
 					<p className="text-[15px] font-semibold">{t('Post your sport event')}</p>
@@ -54,13 +54,13 @@ const Footer = () => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</section>
 	)
 
 	return device !== 'desktop' ? (
 		<MobileFooter />
 	) : (
-		<div className="bg-primary text-white">
+		<section id="footer" className="bg-primary text-white">
 			<div className="flex flex-col px-40 py-10">
 				<div className="flex items-center space-x-6">
 					<p className="text-[20px] font-semibold">{t('Post your sport event')}</p>
@@ -103,7 +103,7 @@ const Footer = () => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</section>
 	)
 }
 

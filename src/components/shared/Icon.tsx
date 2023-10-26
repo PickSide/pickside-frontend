@@ -41,6 +41,10 @@ const validIcons = [
 	'delete',
 	'edit',
 	'info',
+	'favorite',
+	'star',
+	'settings',
+	'more_vert',
 ] as const
 
 export type IconName = (typeof validIcons)[number]
@@ -55,6 +59,7 @@ const iconVariants = cva(['text-inherit'], {
 			two_tones: 'material-icons-two-tones',
 		},
 		size: {
+			xs: 'md-12',
 			sm: 'md-18',
 			md: 'md-24',
 			lg: 'md-36',

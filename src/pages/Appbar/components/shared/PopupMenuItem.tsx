@@ -16,10 +16,17 @@ const PopupMenuItem = forwardRef<HTMLDivElement, PopupMenuItemProps>(
 		}
 
 		return (
-			<div className="relative" ref={ref} onClick={handleClick}>
-				<span className={cn('text-lg text-charcoal-black text-ellipsis', className)}>
-					{Children.map(children, (child: any, idx) => cloneElement(child, { onClose, key: idx, ...rest }))}
-				</span>
+			<div
+				className={cn(
+					'relative text-lg text-charcoal-black text-ellipsis hover:text-gray-500 cursor-pointer',
+					className,
+				)}
+				ref={ref}
+				onClick={handleClick}
+			>
+				{Children.map(children, (child: any, idx) =>
+					cloneElement(child, { className: 'w-full inline-block', onClose, key: idx, ...rest }),
+				)}
 			</div>
 		)
 	},
