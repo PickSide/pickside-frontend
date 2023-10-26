@@ -19,7 +19,7 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({ permissions = [], allowsGuest
 		if (!permissions || !permissions.length) {
 			return true
 		}
-		return permissions?.every((permission) => user?.permissions.includes(permission))
+		return permissions?.every((permission) => user?.permissions?.includes(permission))
 	}, [permissions, user])
 
 	const userIsGuest = useMemo(() => user?.role === ROLES.GUEST, [user])

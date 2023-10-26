@@ -8,7 +8,7 @@ import { Sport } from '../sport'
 
 export interface User {
 	id?: string
-	accountType: ACCOUNT_TYPE
+	accountTypes?: ACCOUNT_TYPE
 	address?: string
 	attendedEventsCount?: number
 	avatar?: any
@@ -30,7 +30,7 @@ export interface User {
 	matchPlayedCount?: number
 	password?: string
 	phone?: string
-	permissions: [USER_PERMISSIONS]
+	permissions?: [USER_PERMISSIONS]
 	preferredLocale?: Locale
 	preferredRegion?: Area
 	preferredSport?: Sport
