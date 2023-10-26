@@ -1,4 +1,4 @@
-import { AppBar, GlobalAppStatusAlert } from '@components'
+import { AppBar, GlobalAppStatusAlert, ProtectedRoute } from '@components'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 import About from '@pages/Home/sections/HowItWorks'
@@ -26,6 +26,7 @@ import Settings from '@pages/UserSettings/UserSettings'
 import SignUp from '@pages/Signup/SignUp'
 import SocialMedia from '@pages/UserSettings/Sections/SocialMedia'
 import { ToastProvider } from '@context/ToastContext'
+import { USER_PERMISSIONS } from '@state/user/constants'
 import UpcomingEvents from '@pages/UserUpcomingEvents/UpcomingEvents'
 import { WindowProvider } from '@context/WindowContext'
 import queryClient from '@client'
@@ -46,11 +47,28 @@ const App = () => {
 											<ToastProvider>
 												<Routes>
 													<Route path="/" element={<Home />}>
-														<Route path="home" element={<LandingPage />} />
+														<Route index path="home" element={<LandingPage />} />
 														<Route path="about" element={<About />} />
 													</Route>
-													<Route path="/new-event" element={<CreateEvent />} />
-													<Route path="/listing" element={<Listing />} />
+													<Route
+														path="/new-event"
+														element={
+															<ProtectedRoute permissions={[USER_PERMISSIONS.ACTIVITIES_CREATE]}>
+																<CreateEvent />
+															</ProtectedRoute>
+														}
+													/>
+													<Route
+														path="/listing"
+														element={
+															<ProtectedRoute
+																allowsGuestAccount
+																permissions={[USER_PERMISSIONS.ACTIVITIES_VIEW, USER_PERMISSIONS.MAP_VIEW]}
+															>
+																<Listing />
+															</ProtectedRoute>
+														}
+													/>
 													<Route path="/login" element={<Login />} />
 													<Route path="/signup" element={<SignUp />} />
 													<Route element={<RequireAuth />}>
