@@ -1,16 +1,6 @@
-import {
-	Children,
-	ComponentPropsWithRef,
-	cloneElement,
-	forwardRef,
-	isValidElement,
-	useEffect,
-	useRef,
-	useState,
-} from 'react'
+import { Children, ComponentPropsWithRef, cloneElement, forwardRef, isValidElement, useEffect } from 'react'
 import { cn, popUpSubmMenu } from '@utils'
 
-import ReactPortal from '@components/shared/ReactPortal'
 import { motion } from 'framer-motion'
 
 interface PopupMenuProps extends ComponentPropsWithRef<'button'> {

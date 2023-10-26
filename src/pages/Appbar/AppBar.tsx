@@ -6,6 +6,7 @@ import { useMemo, useRef, useState } from 'react'
 
 import { AppState } from '@state'
 import Button from '../../components/shared/Button'
+import { HashLink } from 'react-router-hash-link'
 import { Link } from 'react-scroll'
 import PopupMenu from './components/PopupMenu'
 import PopupMenuItem from './components/shared/PopupMenuItem'
@@ -127,10 +128,10 @@ const AppBar = () => {
 								</RadioGroup>
 							</PopupSubmenuItem>
 							<PopupMenuItem key="about-us">
-								<NavLink to="">{t('About us')}</NavLink>
+								<HashLink to="/#about">{t('About us')}</HashLink>
 							</PopupMenuItem>
 							<PopupMenuItem key="contact-us">
-								<NavLink to="">{t('Contact us')}</NavLink>
+								<HashLink to="/#footer">{t('Contact us')}</HashLink>
 							</PopupMenuItem>
 							{!connectedUser ? (
 								[

@@ -16,7 +16,7 @@ const UpcomingEvents = () => {
 	const { isLoading } = useFetchActivities()
 
 	return (
-		<section id="upcoming-evnts" className="w-full px-10 py-10 mx-auto dark:bg-charcoal-black/40">
+		<section id="upcoming" className="w-full px-10 py-10 mx-auto dark:bg-charcoal-black/40">
 			<CarouselProvider items={activities?.results}>
 				<div className="block space-y-10">
 					<div className="flex items-center justify-between">
