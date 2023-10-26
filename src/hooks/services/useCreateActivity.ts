@@ -34,7 +34,7 @@ const useCreateActivity = () => {
 					type: 'success',
 				},
 			})
-			navigate('/listing')
+			navigate('/listing', { replace: true })
 		},
 		onError: (e) => console.log(e),
 	})

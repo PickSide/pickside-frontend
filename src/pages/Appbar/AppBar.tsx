@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux'
 import useThemeSwitcher from './hooks/useThemeSwitcher'
 import { useTranslation } from 'react-i18next'
 
-const ROUTES_TO_INCLUDE_BACK_BUTTON = ['/home']
+const ROUTES_TO_INCLUDE_BACK_BUTTON = ['/']
 
 const AppBar = () => {
 	const ref = useRef<HTMLDivElement | null>(null)
@@ -44,11 +44,11 @@ const AppBar = () => {
 				variants={pageTransition}
 				className={cn(
 					'flex h-16 pl-5 pr-5 lg:pr-16 w-full dark:bg-charcoal-black ',
-					pathname === '/' || pathname === '/home' ? 'bg-landing-texture' : 'bg-[#F1F4F3]',
+					pathname === '/' ? 'bg-landing-texture' : 'bg-[#F1F4F3]',
 				)}
 			>
 				<div className="w-full h-10 my-auto">
-					<NavLink to="/home" className="float-left w-12 h-full bg-templogo2 bg-contain bg-no-repeat" />
+					<NavLink to="/" className="float-left w-12 h-full bg-templogo2 bg-contain bg-no-repeat" />
 					<div className="float-right flex items-center gap-x-6">
 						{pathname !== '/new-event' && connectedUser && (
 							<NavLink

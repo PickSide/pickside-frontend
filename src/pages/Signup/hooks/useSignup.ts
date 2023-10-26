@@ -22,7 +22,7 @@ const useSignup = () => {
 		mutationKey: ['createUser'],
 		onSuccess: (data) => {
 			dispatch(setUser(data?.data))
-			navigate('/')
+			navigate('/', { replace: true })
 		},
 		onError: (error: any) => handleResponseError(error),
 	})

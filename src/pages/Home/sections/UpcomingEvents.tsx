@@ -22,7 +22,7 @@ const UpcomingEvents = () => {
 					<div className="flex items-center justify-between">
 						<div className="flex items-center gap-x-4">
 							<p className="text-lg">{t('Upcoming Events')}</p>
-							<NavLink to="listing" className="text-sm md:text-md lg:text-lg text-blue-800 hover:text-blue-500">
+							<NavLink to="/listing" className="text-sm md:text-md lg:text-lg text-blue-800 hover:text-blue-500">
 								({t('Explore more')})
 							</NavLink>
 						</div>

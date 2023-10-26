@@ -8,10 +8,6 @@ export const toastMiddleware = (store) => (next) => (action) => {
 			message: 'Account successfully deactivated. You can now logout',
 			type: 'success',
 		},
-		'user/setUser': {
-			message: 'Successfully logged in',
-			type: 'success',
-		},
 		'user/setUserEmpty': {
 			message: 'Successfully logged out',
 			type: 'success',
