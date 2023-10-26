@@ -32,6 +32,7 @@ import PasswordField from './PasswordField'
 import PhoneField from './PhoneField'
 import Popover from './Popover'
 import ProfileMenu from './shared/ProfileMenu'
+import ProtectedRoute from './global/ProtectedRoute'
 import Radio from './Radio'
 import RadioGroup from './RadioGroup'
 import RequireAuth from './RequireAuth'
@@ -83,6 +84,7 @@ export {
 	PhoneField,
 	Popover,
 	ProfileMenu,
+	ProtectedRoute,
 	Radio,
 	RadioGroup,
 	RequireAuth,
