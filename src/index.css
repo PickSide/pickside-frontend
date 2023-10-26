@@ -61,8 +61,8 @@
 
 	.material-icons {
 		font-family: 'Material Icons';
-		font-weight: normal;
-		font-style: normal;
+		font-weight: lighter;
+		font-style: initial;
 		font-size: 24px; /* Preferred icon size */
 		display: inline-block;
 		line-height: 1;
@@ -83,6 +83,15 @@
 
 		/* Support for IE. */
 		font-feature-settings: 'liga';
+	}
+	.material-icons.md-12,
+	.material-icons-outlined.md-12,
+	.material-icons-round.md-12,
+	.material-icons-sharp.md-12,
+	.material-icons-two-tones.md-12 {
+		font-size: 12px !important;
+		height: 12px !important;
+		width: 12px !important;
 	}
 	.material-icons.md-18,
 	.material-icons-outlined.md-18,
