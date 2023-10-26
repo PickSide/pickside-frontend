@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { useLocalStorage } from 'react-use'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const useLogin = () => {
 	const [, setCachedUser] = useLocalStorage('user')
@@ -14,6 +15,7 @@ const useLogin = () => {
 	const { axiosInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
+	const { t } = useTranslation()
 
 	const callback = (data: any) => axiosInstance.post('/login', { data })
 
@@ -28,7 +30,14 @@ const useLogin = () => {
 			setCachedAccessToken(data.accessToken)
 			setCachedRefreshToken(data.refreshToken)
 			dispatch(setUser(data.user))
-			navigate(data.redirectUri)
+			dispatch({
+				type: 'toast/toastMessage',
+				payload: {
+					message: t('Successfully logged in'),
+					type: 'success',
+				},
+			})
+			navigate(data.redirectUri, { replace: true })
 		},
 		onError: (error: any) => handleResponseError(error),
 	})

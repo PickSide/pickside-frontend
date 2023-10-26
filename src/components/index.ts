@@ -31,11 +31,10 @@ import NumberField from './NumberField'
 import PasswordField from './PasswordField'
 import PhoneField from './PhoneField'
 import Popover from './Popover'
-import ProfileMenu from './shared/ProfileMenu'
 import ProtectedRoute from './global/ProtectedRoute'
 import Radio from './Radio'
 import RadioGroup from './RadioGroup'
-import RequireAuth from './RequireAuth'
+import RequireAuth from './global/RequireAuth'
 import Select from './shared/Select'
 import SettingField from './SettingField'
 import Sidenav from './Sidenav'
@@ -83,7 +82,6 @@ export {
 	PasswordField,
 	PhoneField,
 	Popover,
-	ProfileMenu,
 	ProtectedRoute,
 	Radio,
 	RadioGroup,

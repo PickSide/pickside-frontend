@@ -1,4 +1,3 @@
-import AccountContext from './AccountContext'
 import ApiErrorContext from './ApiErrorContext'
 import AppThemeContext from './AppThemeContext'
 import AxiosContext from './AxiosContext'
@@ -10,7 +9,6 @@ import ToastContext from './ToastContext'
 import WindowContext from './WindowContext'
 
 export {
-	AccountContext,
 	ApiErrorContext,
 	AppThemeContext,
 	AxiosContext,

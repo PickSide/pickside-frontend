@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 import { useGoogleLogin } from '@react-oauth/google'
 import { useLocalStorage } from 'react-use'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const useLoginWithGoogle = () => {
 	const dispatch = useDispatch()
@@ -14,6 +15,7 @@ const useLoginWithGoogle = () => {
 	const [, setCachedUser] = useLocalStorage('user')
 	const [, setCachedAccessToken] = useLocalStorage('accessToken')
 	const [, setCachedRefreshToken] = useLocalStorage('refreshToken')
+	const { t } = useTranslation()
 
 	const { axiosInstance } = useContext(AxiosContext)
 	const [isLoading, setIsLoading] = useState<any>(null)
@@ -39,8 +41,15 @@ const useLoginWithGoogle = () => {
 					setCachedAccessToken(data.accessToken)
 					setCachedRefreshToken(data.refreshToken)
 					dispatch(setUser(data.user))
+					dispatch({
+						type: 'toast/toastMessage',
+						payload: {
+							message: t('Successfully logged in'),
+							type: 'success',
+						},
+					})
 					setIsLoading(false)
-					navigate(data.redirectUri)
+					navigate(data.redirectUri, { replace: true })
 				})
 		},
 		onError: (error) => setError(error),
