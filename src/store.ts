@@ -1,8 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { reducers } from '@state'
-import { toastMiddleware } from '@middlewares'
 
-const additionalMiddlewares = [toastMiddleware]
+const additionalMiddlewares = []
 
 export const store = configureStore({
 	reducer: reducers,
