@@ -8,7 +8,7 @@ import { Sport } from '../sport'
 
 export interface User {
 	id?: string
-	accountTypes?: ACCOUNT_TYPE
+	accountType?: ACCOUNT_TYPE
 	address?: string
 	attendedEventsCount?: number
 	avatar?: any

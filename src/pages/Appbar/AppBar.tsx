@@ -1,7 +1,8 @@
+import { ACCOUNT_TYPE, USER_PERMISSIONS } from '@state/user/constants'
 import { Icon, Radio, RadioGroup } from '@components'
 import { NavLink, useLocation } from 'react-router-dom'
 import { cn, pageTransition } from '@utils'
-import { useLocaleSwitcher, useLogout, useOnScreen } from '@hooks'
+import { useGuestLogout, useLocaleSwitcher, useLogout, useOnScreen } from '@hooks'
 import { useMemo, useRef, useState } from 'react'
 
 import { AppState } from '@state'
@@ -24,6 +25,7 @@ const AppBar = () => {
 	const { handleLocaleChange, locales, current: currentLocale } = useLocaleSwitcher()
 	const { handleThemeSwitch, themes, current: currentTheme } = useThemeSwitcher()
 	const { logout } = useLogout()
+	const { guestLogout } = useGuestLogout()
 	const { pathname } = useLocation()
 	const { t } = useTranslation()
 	const onScreen = useOnScreen(ref, '80px')
@@ -51,14 +53,16 @@ const AppBar = () => {
 				<div className="w-full h-10 my-auto">
 					<NavLink to="/" className="float-left w-12 h-full bg-templogo2 bg-contain bg-no-repeat" />
 					<div className="float-right flex items-center gap-x-6">
-						{pathname !== '/new-event' && connectedUser && (
-							<NavLink
-								to="/new-event"
-								className="text-base text-grey-700 font-medium hover:scale-110 hover:text-slate-500"
-							>
-								{t('Post an event')}
-							</NavLink>
-						)}
+						{pathname !== '/new-event' &&
+							connectedUser &&
+							connectedUser.permissions?.includes(USER_PERMISSIONS.ACTIVITIES_CREATE) && (
+								<NavLink
+									to="/new-event"
+									className="text-base text-grey-700 font-medium hover:scale-110 hover:text-slate-500"
+								>
+									{t('Post an event')}
+								</NavLink>
+							)}
 						<PopupMenu
 							ref={popMenuRef}
 							open={open}
@@ -86,7 +90,7 @@ const AppBar = () => {
 								</Button>
 							}
 						>
-							{connectedUser ? (
+							{connectedUser && connectedUser.accountType !== ACCOUNT_TYPE.GUEST ? (
 								[
 									<PopupMenuItem key="profile">
 										<NavLink to="/user/settings">{t('Profile')}</NavLink>
@@ -142,6 +146,10 @@ const AppBar = () => {
 										<NavLink to="/signup">{t('Sign up')}</NavLink>
 									</PopupMenuItem>,
 								]
+							) : connectedUser.accountType === ACCOUNT_TYPE.GUEST ? (
+								<PopupMenuItem key="guest-logout" onClick={guestLogout}>
+									<span className="cursor-pointer">{t('Stop guest session')}</span>
+								</PopupMenuItem>
 							) : (
 								<PopupMenuItem key="logout" onClick={logout}>
 									<span className="cursor-pointer">{t('Logout')}</span>

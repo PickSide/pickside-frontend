@@ -3,6 +3,7 @@ import Card, { CardBody, CardCTA, CardImage, CardProps } from './shared/Card'
 import Dialog, { DialogCTA } from './Dialog'
 import { FC, useState } from 'react'
 
+import { ACCOUNT_TYPE } from '@state/user/constants'
 import Button from './shared/Button'
 import Icon from './shared/Icon'
 import IconButton from './IconButton'
@@ -94,7 +95,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 								</span>
 							</div>
 						</div>
-						{connectedUser && (
+						{connectedUser && connectedUser.accountType !== ACCOUNT_TYPE.GUEST && (
 							<IconButton onClick={() => updateFavorite(activity.id)}>
 								{isFavorite ? <Icon icon="bookmark" /> : <Icon icon="bookmark_border" />}
 							</IconButton>
@@ -128,6 +129,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 								{t('Details')}
 							</Button>
 							{connectedUser &&
+								connectedUser.accountType !== ACCOUNT_TYPE.GUEST &&
 								activity &&
 								(isRegisteredToActivity ? (
 									<Button

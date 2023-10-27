@@ -3,6 +3,7 @@ import { Button, Card, CardBody, CardCTA, CardHeader, Dialog, DialogCTA, Icon, I
 import { CardImage, CardProps } from '@components/shared/Card'
 import { FC, useState } from 'react'
 
+import { ACCOUNT_TYPE } from '@state/user/constants'
 import { cn } from '@utils'
 import dayjs from 'dayjs'
 import { useActivityHandlers } from '@hooks'
@@ -79,7 +80,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 								</span>
 							</div>
 						</div>
-						{connectedUser && (
+						{connectedUser && connectedUser.accountType !== ACCOUNT_TYPE.GUEST && (
 							<IconButton onClick={() => updateFavorite(activity.id)}>
 								{isFavorite ? <Icon icon="bookmark" /> : <Icon icon="bookmark_border" />}
 							</IconButton>
@@ -119,6 +120,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 							{t('Details')}
 						</Button>
 						{connectedUser &&
+							connectedUser.accountType !== ACCOUNT_TYPE.GUEST &&
 							activity &&
 							(isRegisteredToActivity ? (
 								<Button

@@ -69,7 +69,7 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 								>
 									<MdOutlineChevronLeft size={15} />
 								</button>
-								<span className="rounded-full text-[15px] hover:bg-gray-200 border-none outline-none font-primary m-2 p-1">
+								<span className="rounded-full text-base hover:bg-gray-200 border-none outline-none font-primary m-2 p-1">
 									{months[today.month()]}
 								</span>
 								<button
@@ -88,7 +88,7 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 									</span>
 								))}
 							</div>
-							<div className="grid grid-cols-7 p-2 text-center text-[12px]">
+							<div className="grid grid-cols-7 p-2 text-center text-sm">
 								{generateDate(today.month(), today.year()).map(({ date, currentMonth, today, afterToday }, idx) =>
 									today ? (
 										<button
