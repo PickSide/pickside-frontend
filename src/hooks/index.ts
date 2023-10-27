@@ -15,7 +15,7 @@ import useFetchGroups from './services/useFetchGroups'
 import useFetchLocales from './services/useFetchLocales'
 import useFetchNotifications from './services/useFetchNotifications'
 import useFetchUsers from './services/useFetchUsers'
-import useGeolocation from './useGeolocation'
+import useGuestLogout from './services/useGuestLogout'
 import useLocaleSwitcher from './useLocaleSwitcher'
 import useLogout from './services/useLogout'
 import useMapStyles from './useMapStyles'
@@ -37,7 +37,6 @@ export {
 	useEnvVariables,
 	useFetchActivities,
 	useFetchFavorites,
-	useGeolocation,
 	useDevice,
 	useDeleteGroup,
 	useLocaleSwitcher,
@@ -52,6 +51,7 @@ export {
 	useFetchLocales,
 	useFetchNotifications,
 	useFetchUsers,
+	useGuestLogout,
 	useReactivateAccount,
 	useReadNotification,
 	useUnregisterSelfFromActivity,
