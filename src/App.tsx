@@ -29,6 +29,7 @@ import SocialMedia from '@pages/UserSettings/Sections/SocialMedia'
 import { ToastProvider } from '@context/ToastContext'
 import { USER_PERMISSIONS } from '@state/user/constants'
 import UpcomingEvents from '@pages/UserUpcomingEvents/UpcomingEvents'
+import UserDetail from '@pages/UserDetail/UserDetail'
 import { WindowProvider } from '@context/WindowContext'
 import queryClient from '@client'
 
@@ -66,6 +67,14 @@ const App = () => {
 															permissions={[USER_PERMISSIONS.ACTIVITIES_VIEW, USER_PERMISSIONS.MAP_VIEW]}
 														>
 															<Listing />
+														</ProtectedRoute>
+													}
+												/>
+												<Route
+													path="/user-detail/:id"
+													element={
+														<ProtectedRoute allowsGuestAccount permissions={[USER_PERMISSIONS.USERS_VIEW_DETAIL]}>
+															<UserDetail />
 														</ProtectedRoute>
 													}
 												/>
