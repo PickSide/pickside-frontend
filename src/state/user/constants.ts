@@ -20,6 +20,7 @@ export enum USER_PERMISSIONS {
 	GROUP_DELETE = 'group-delete',
 	GROUP_SEARCH = 'group-search',
 	USERS_VIEW_ALL = 'see-all-users',
+	USERS_VIEW_DETAIL = 'see-detail-users',
 	SEND_MESSAGES = 'send-messages',
 	NOTIFICATIONS_SYSTEM_RECEIVE = 'notifications-system-receive',
 	NOTIFICATIONS_GLOBAL_RECEIVE = 'notifications-global-receive',

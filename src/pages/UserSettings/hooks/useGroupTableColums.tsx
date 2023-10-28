@@ -1,4 +1,5 @@
 import { Icon, IconButton } from '@components'
+import { Link, NavLink } from 'react-router-dom'
 
 import { Group } from '@state'
 import { createColumnHelper } from '@tanstack/react-table'
@@ -33,7 +34,11 @@ const useGroupTableColums = ({ onClickViewGroupInfo, onClickEditGroup, onClickDe
 						{info.getValue()?.map((member) => {
 							const name = member.fullName?.split(' ')
 							return (
-								<div className="w-6 h-6 rounded-full overflow-clip bg-primary shadow-inner text-white text-sm flex items-center justify-center">
+								<Link
+									to={`/user-detail/${member.id}`}
+									state={{ user: member }}
+									className="w-6 h-6 rounded-full overflow-clip bg-primary shadow-inner text-white text-sm flex items-center justify-center"
+								>
 									{member.avatar ? (
 										<img src={member.avatar} alt="" />
 									) : name ? (
@@ -48,7 +53,7 @@ const useGroupTableColums = ({ onClickViewGroupInfo, onClickEditGroup, onClickDe
 											/>
 										</svg>
 									)}
-								</div>
+								</Link>
 							)
 						})}
 					</div>
