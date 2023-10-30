@@ -1,14 +1,14 @@
 import { ACCOUNT_TYPE, USER_PERMISSIONS } from '@state/user/constants'
-import { Icon, Radio, RadioGroup } from '@components'
+import { Button, Icon, PrivilegedContent, Radio, RadioGroup } from '@components'
 import { NavLink, useLocation } from 'react-router-dom'
 import { cn, pageTransition } from '@utils'
 import { useGuestLogout, useLocaleSwitcher, useLogout, useOnScreen } from '@hooks'
 import { useMemo, useRef, useState } from 'react'
 
 import { AppState } from '@state'
-import Button from '../../components/shared/Button'
 import { HashLink } from 'react-router-hash-link'
 import { Link } from 'react-scroll'
+import NotificationMenu from './components/NotificationMenu'
 import PopupMenu from './components/PopupMenu'
 import PopupMenuItem from './components/shared/PopupMenuItem'
 import PopupSubmenuItem from './components/shared/PopupSubmenuItem'
@@ -53,16 +53,22 @@ const AppBar = () => {
 				<div className="w-full h-10 my-auto">
 					<NavLink to="/" className="float-left w-12 h-full bg-templogo2 bg-contain bg-no-repeat" />
 					<div className="float-right flex items-center gap-x-6">
-						{pathname !== '/new-event' &&
-							connectedUser &&
-							connectedUser.permissions?.includes(USER_PERMISSIONS.ACTIVITIES_CREATE) && (
-								<NavLink
-									to="/new-event"
-									className="text-base text-grey-700 font-medium hover:scale-110 hover:text-slate-500"
-								>
-									{t('Post an event')}
-								</NavLink>
+						<div className="flex items-center gap-x-4">
+							{pathname !== '/new-event' && (
+								<PrivilegedContent permissions={[USER_PERMISSIONS.ACTIVITIES_CREATE]}>
+									<NavLink
+										to="/new-event"
+										className="text-base text-grey-700 font-medium hover:scale-110 hover:text-slate-500"
+									>
+										{t('Post an event')}
+									</NavLink>
+								</PrivilegedContent>
 							)}
+
+							<PrivilegedContent permissions={[USER_PERMISSIONS.NOTIFICATIONS_RECEIVE]}>
+								<NotificationMenu />
+							</PrivilegedContent>
+						</div>
 						<PopupMenu
 							ref={popMenuRef}
 							open={open}

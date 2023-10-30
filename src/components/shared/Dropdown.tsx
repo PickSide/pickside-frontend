@@ -57,41 +57,37 @@ const Dropdown = forwardRef<ComponentPropsWithRef<'button'>, DropdownProps>(
 		}, [])
 
 		return (
-			<ReactPortal wrapperId="dropdown">
-				<>
-					<div className="relative">
-						<button
-							id="menu-button"
-							onClick={() => setIsOpen(true)}
-							className={cn(dropdownVariants({ className, size, variant }), className)}
-							{...rest}
-						>
-							{icon}
-							{text}
-							{badge && <span className="absolute -top-1 right-6 rounded-full">{badge}</span>}
-						</button>
-						<AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
-							{isOpen && (
-								<>
-									<div className="fixed inset-0 w-screen h-screen z-20" onClick={() => setIsOpen(false)}></div>
-									<motion.div
-										className="absolute right-0 mt-2 origin-top-right z-20 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-clip"
-										role="menu"
-										aria-orientation="vertical"
-										aria-labelledby="menu-button"
-										initial="closed"
-										animate="open"
-										exit="closed"
-										variants={dropdownAnimation}
-									>
-										{children}
-									</motion.div>
-								</>
-							)}
-						</AnimatePresence>
-					</div>
-				</>
-			</ReactPortal>
+			<div className="relative">
+				<button
+					id="menu-button"
+					onClick={() => setIsOpen(true)}
+					className={cn(dropdownVariants({ className, size, variant }), className)}
+					{...rest}
+				>
+					{icon}
+					{text}
+					{badge && <span className="absolute -top-1 left-1/2 rounded-full">{badge}</span>}
+				</button>
+				<AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
+					{isOpen && (
+						<>
+							<div className="fixed inset-0 w-screen h-screen z-20" onClick={() => setIsOpen(false)}></div>
+							<motion.div
+								className="absolute right-0 mt-2 origin-top-right z-20 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-clip"
+								role="menu"
+								aria-orientation="vertical"
+								aria-labelledby="menu-button"
+								initial="closed"
+								animate="open"
+								exit="closed"
+								variants={dropdownAnimation}
+							>
+								{children}
+							</motion.div>
+						</>
+					)}
+				</AnimatePresence>
+			</div>
 		)
 	},
 )

@@ -1,21 +1,28 @@
 import { Dropdown, Icon, MenuItem, Spinner } from '@components'
+import { FC, useContext, useEffect } from 'react'
 import { useFetchNotifications, useReadNotification } from '@hooks'
 
-import { FC } from 'react'
+import { RTAContentContext } from '@context'
 import { RxDotFilled } from 'react-icons/rx'
 import { useTranslation } from 'react-i18next'
 
 const NotificationMenu: FC<any> = () => {
+	const { notifications, isLoading, refetch: refetchNotifications } = useFetchNotifications()
 	const { readNotification } = useReadNotification()
-
+	const { socket } = useContext(RTAContentContext)
 	const { t } = useTranslation()
 
-	const { notifications, isLoading } = useFetchNotifications()
+	useEffect(() => {
+		socket?.on('notifyGroupInvite', refetchNotifications)
+
+		return () => {
+			socket?.off('notifyGroupInvite', console.log)
+		}
+	}, [])
 
 	return (
 		<Dropdown
 			variant="secondary"
-			text={t('Notifications')}
 			icon={<Icon icon="notifications" />}
 			badge={
 				notifications?.data?.results?.some((n) => !n.isRead) && <RxDotFilled className="text-blue-400" size={20} />

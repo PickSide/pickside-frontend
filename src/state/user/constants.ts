@@ -22,8 +22,7 @@ export enum USER_PERMISSIONS {
 	USERS_VIEW_ALL = 'see-all-users',
 	USERS_VIEW_DETAIL = 'see-detail-users',
 	SEND_MESSAGES = 'send-messages',
-	NOTIFICATIONS_SYSTEM_RECEIVE = 'notifications-system-receive',
-	NOTIFICATIONS_GLOBAL_RECEIVE = 'notifications-global-receive',
+	NOTIFICATIONS_RECEIVE = 'notifications-receive',
 	GOOGLE_SEARCH = 'google-search',
 	MAP_VIEW = 'map-view',
 }

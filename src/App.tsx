@@ -1,11 +1,12 @@
 import {} from 'react-router'
 
-import { AppBar, GlobalAppStatusAlert, ProtectedRoute } from '@components'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { GlobalAppStatusAlert, ProtectedRoute } from '@components'
 
 import About from '@pages/Home/sections/HowItWorks'
 import AccountManagement from '@pages/UserSettings/Sections/AccountManagement'
 import ActivityHistory from '@pages/UserSettings/Sections/ActivityHistory'
+import AppBar from '@pages/Appbar/AppBar'
 import { AppThemeProvider } from '@context/AppThemeContext'
 import { AxiosProvider } from '@context/AxiosContext'
 import CreateEvent from '@pages/NewEvent/CreateEvent'
@@ -18,10 +19,10 @@ import { InitialAppStateProvider } from '@context/InitialAppStateContext'
 import LandingPage from '@pages/Home/sections/LandingPage'
 import Listing from '@pages/Listing/Listing'
 import Login from '@pages/Login/Login'
-import { NotificationProvider } from '@context/NotificationContext'
 import PersonalInfo from '@pages/UserSettings/Sections/PersonalInfo'
 import Privacy from '@pages/UserSettings/Sections/Privacy'
 import { QueryClientProvider } from '@tanstack/react-query'
+import { RTAContentProvider } from '@context/RTAContentContext'
 import { RequireAuth } from '@components'
 import Settings from '@pages/UserSettings/UserSettings'
 import SignUp from '@pages/Signup/SignUp'
@@ -37,9 +38,9 @@ const App = () => {
 	return (
 		<AxiosProvider>
 			<QueryClientProvider client={queryClient}>
-				<InitialAppStateProvider>
-					<IdleTimeOutProvider>
-						<NotificationProvider>
+				<RTAContentProvider>
+					<InitialAppStateProvider>
+						<IdleTimeOutProvider>
 							<AppThemeProvider>
 								<GlobalAppStatusAlert />
 								<WindowProvider>
@@ -101,9 +102,9 @@ const App = () => {
 									</BrowserRouter>
 								</WindowProvider>
 							</AppThemeProvider>
-						</NotificationProvider>
-					</IdleTimeOutProvider>
-				</InitialAppStateProvider>
+						</IdleTimeOutProvider>
+					</InitialAppStateProvider>
+				</RTAContentProvider>
 			</QueryClientProvider>
 		</AxiosProvider>
 	)
