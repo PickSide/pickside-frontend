@@ -7,7 +7,6 @@ import Toggle, { ToggleGroup } from './Toggle'
 
 import ActivityCard from './ActivityCard'
 import Alert from './shared/Alert'
-import AppBar from '../pages/Appbar/AppBar'
 import Autocomplete from './Autocomplete'
 import BottomDrawer from './BottomDrawer'
 import Button from './shared/Button'
@@ -26,11 +25,11 @@ import ImageUploader from './ImageUploader'
 import InputField from './shared/InputField'
 import Marker from './Marker'
 import MenuItem from './shared/MenuItem'
-import MessageMenu from './MessageMenu'
 import NumberField from './NumberField'
 import PasswordField from './PasswordField'
 import PhoneField from './PhoneField'
 import Popover from './Popover'
+import PrivilegedContent from './global/PrivilegedContent'
 import ProtectedRoute from './global/ProtectedRoute'
 import Radio from './Radio'
 import RadioGroup from './RadioGroup'
@@ -50,7 +49,6 @@ export {
 	AccordionSection,
 	ActivityCard,
 	Alert,
-	AppBar,
 	Autocomplete,
 	BottomDrawer,
 	Button,
@@ -77,11 +75,11 @@ export {
 	ImageUploader,
 	Marker,
 	MenuItem,
-	MessageMenu,
 	NumberField,
 	PasswordField,
 	PhoneField,
 	Popover,
+	PrivilegedContent,
 	ProtectedRoute,
 	Radio,
 	RadioGroup,
