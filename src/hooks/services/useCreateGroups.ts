@@ -33,7 +33,7 @@ const useCreateGroups = () => {
 					type: 'success',
 				},
 			})
-			socket?.emit('createdGroup', {
+			socket.emit('group:create', {
 				...data.response.group,
 				organizerId: connectedUser?.id,
 				organizerUserame: connectedUser?.username,

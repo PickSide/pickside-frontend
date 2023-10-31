@@ -13,10 +13,10 @@ const NotificationMenu: FC<any> = () => {
 	const { t } = useTranslation()
 
 	useEffect(() => {
-		socket?.on('notifyGroupInvite', refetchNotifications)
+		socket?.on('group:notify', refetchNotifications)
 
 		return () => {
-			socket?.off('notifyGroupInvite', console.log)
+			socket?.off('group:notify', console.log)
 		}
 	}, [])
 
