@@ -129,7 +129,6 @@ const Groups = () => {
 								isMulti
 								getOptionLabel={(option) => option?.username}
 								getOptionValue={(option) => option?.id}
-								get
 							/>
 						)}
 					/>

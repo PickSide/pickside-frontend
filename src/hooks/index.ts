@@ -3,7 +3,7 @@ import useConnectedUserPosition from './useConnectedUserPosition'
 import useCreateActivity from './services/useCreateActivity'
 import useCreateGroups from './services/useCreateGroups'
 import useDeactivateAccount from './services/useDeactivateAccount'
-import useDebounce from './useDebounce'
+import useDebouncedCallback from './useDebouncedCallback'
 import useDeleteGroup from './services/useDeleteGroup'
 import useDevice from './useDevice'
 import useEnvVariables from './useEnvVariables'
@@ -33,7 +33,7 @@ import useUpdateSetting from './services/useUpdateSetting'
 export {
 	useActivityHandlers,
 	useConnectedUserPosition,
-	useDebounce,
+	useDebouncedCallback,
 	useEnvVariables,
 	useFetchActivities,
 	useFetchFavorites,

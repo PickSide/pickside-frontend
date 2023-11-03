@@ -8,6 +8,7 @@ import { useMemo, useRef, useState } from 'react'
 import { AppState } from '@state'
 import { HashLink } from 'react-router-hash-link'
 import { Link } from 'react-scroll'
+import MessageMenu from './components/MessageMenu'
 import NotificationMenu from './components/NotificationMenu'
 import PopupMenu from './components/PopupMenu'
 import PopupMenuItem from './components/shared/PopupMenuItem'
@@ -64,7 +65,9 @@ const AppBar = () => {
 									</NavLink>
 								</PrivilegedContent>
 							)}
-
+							<PrivilegedContent permissions={[USER_PERMISSIONS.SEND_MESSAGES]}>
+								<MessageMenu />
+							</PrivilegedContent>
 							<PrivilegedContent permissions={[USER_PERMISSIONS.NOTIFICATIONS_RECEIVE]}>
 								<NotificationMenu />
 							</PrivilegedContent>

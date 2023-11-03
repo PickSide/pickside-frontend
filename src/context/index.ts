@@ -1,3 +1,5 @@
+import { SidenavContext, SidenavDispatchContext } from './SidenavContext'
+
 import ApiErrorContext from './ApiErrorContext'
 import AppThemeContext from './AppThemeContext'
 import AxiosContext from './AxiosContext'
@@ -16,6 +18,8 @@ export {
 	IdleTimeOutContext,
 	InitialAppStateContext,
 	RTAContentContext,
+	SidenavContext,
+	SidenavDispatchContext,
 	ToastContext,
 	WindowContext,
 }

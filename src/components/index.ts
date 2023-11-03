@@ -36,7 +36,6 @@ import RadioGroup from './RadioGroup'
 import RequireAuth from './global/RequireAuth'
 import Select from './shared/Select'
 import SettingField from './SettingField'
-import Sidenav from './Sidenav'
 import Spinner from './Spinner'
 import Switch from './Switch'
 import TextAreaField from './TextAreaField'
@@ -86,7 +85,6 @@ export {
 	RequireAuth,
 	Select,
 	SettingField,
-	Sidenav,
 	Spinner,
 	Switch,
 	Tab,

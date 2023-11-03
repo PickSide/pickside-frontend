@@ -1,15 +1,22 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { ComponentPropsWithRef, ReactNode, forwardRef, useEffect, useState } from 'react'
-import { KEY_CODES, cn } from '@utils'
 import { VariantProps, cva } from 'class-variance-authority'
 
-import ReactPortal from './ReactPortal'
+import { cn } from '@utils'
 import { dropdownAnimation } from '@utils'
 
-const dropdownVariants = cva(['btn-base', 'py-1', 'px-1', 'flex', 'flex-col ', 'items-center'], {
+const dropdownVariants = cva(['text-inherit', 'rounded', 'text-base', 'leading-none'], {
 	variants: {
 		variant: {
-			primary: ['text-grey-600', 'disabled:bg-cool-gray-3', 'hover:bg-gray-300', 'dark:text-white'],
+			primary: [
+				'text-primary',
+				'bg-none',
+				'disabled:bg-cool-gray-3',
+				'hover:bg-gray-300',
+				'dark:bg-grey-600',
+				'dark:text-white',
+				'dark:hover:bg-gray-300',
+			],
 			secondary: [
 				'text-grey-600',
 				'hover:bg-gray-300',
@@ -22,9 +29,9 @@ const dropdownVariants = cva(['btn-base', 'py-1', 'px-1', 'flex', 'flex-col ', '
 			danger: ['text-white', 'bg-red-600 ', 'hover:bg-red-400'],
 		},
 		size: {
-			sm: [],
-			md: [],
-			lg: [],
+			sm: ['p-1'],
+			md: ['p-2'],
+			lg: ['p-3'],
 		},
 	},
 	defaultVariants: {

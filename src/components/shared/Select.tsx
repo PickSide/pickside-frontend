@@ -15,33 +15,28 @@ interface SelectProps extends Props {
 	startContent?: ReactNode
 	error?: any
 	label?: string
+	fullWidth?: boolean
 }
 
-const DropdownIndicatior = (props: DropdownIndicatorProps) => {
-	return (
-		<components.DropdownIndicator {...props}>
-			<Icon icon="keyboard_arrow_down" />
-		</components.DropdownIndicator>
-	)
-}
+const DropdownIndicator = (props: DropdownIndicatorProps) => (
+	<components.DropdownIndicator {...props}>
+		<Icon icon="keyboard_arrow_down" />
+	</components.DropdownIndicator>
+)
 
-const ClearIndicator = (props: ClearIndicatorProps) => {
-	return (
-		<components.ClearIndicator {...props}>
-			<Icon icon="close" />
-		</components.ClearIndicator>
-	)
-}
+const ClearIndicator = (props: ClearIndicatorProps) => (
+	<components.ClearIndicator {...props}>
+		<Icon icon="close" />
+	</components.ClearIndicator>
+)
 
-const MultiValueRemove = (props: MultiValueRemoveProps) => {
-	return (
-		<components.MultiValueRemove {...props}>
-			<IconButton variant="secondary" size="sm">
-				<Icon icon="close" size="sm" />
-			</IconButton>
-		</components.MultiValueRemove>
-	)
-}
+const MultiValueRemove = (props: MultiValueRemoveProps) => (
+	<components.MultiValueRemove {...props}>
+		<IconButton variant="secondary" size="sm">
+			<Icon icon="close" size="sm" />
+		</IconButton>
+	</components.MultiValueRemove>
+)
 
 const controlStyles = {
 	base: 'border rounded-md bg-white hover:cursor-pointer',
@@ -76,7 +71,7 @@ const Select = ({ components, label, fullWidth = false, ...rest }: SelectProps |
 				{label}
 			</label>
 			<ReactSelect
-				components={{ DropdownIndicatior, ClearIndicator, MultiValueRemove, ...components }}
+				components={{ DropdownIndicator, ClearIndicator, MultiValueRemove, ...components }}
 				unstyled
 				classNames={{
 					control: ({ isFocused }) => cn(isFocused ? controlStyles.focus : controlStyles.nonFocus, controlStyles.base),

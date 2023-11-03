@@ -1,7 +1,7 @@
+import { AppState, Mode, Sport } from '@state'
 import { Button, FormDivider, Icon, NumberField, Select } from '@components'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 
-import { AppState } from '@state'
 import StepperCTAWrapper from '../shared/StepperCTAWrapper'
 import { useSelector } from 'react-redux'
 import { useStepper } from '@pages/NewEvent/hooks/useStepper'
@@ -25,10 +25,10 @@ const Step2 = () => {
 						{...field}
 						label={t('Sport')}
 						placeholder={t('Select sport')}
-						options={sportOptions}
-						getOptionLabel={(option) => option?.name}
-						getOptionValue={(option) => option?.value}
-						isOptionDisabled={(option) => !option?.featureAvailable}
+						options={sportOptions as Sport[]}
+						getOptionLabel={(option: Sport) => option?.name}
+						getOptionValue={(option: Sport) => option?.value}
+						isOptionDisabled={(option: Sport) => !option?.featureAvailable}
 					/>
 				)}
 			/>
@@ -45,9 +45,9 @@ const Step2 = () => {
 								{...field}
 								label={t('Mode')}
 								placeholder={t('Select mode')}
-								options={getValues('sport.modes')}
-								getOptionLabel={(option) => option?.name}
-								getOptionValue={(option) => option?.value}
+								options={getValues('sport.modes') as Mode[]}
+								getOptionLabel={(option: Mode) => option?.name}
+								getOptionValue={(option: Mode) => option?.value}
 							/>
 						)}
 					/>

@@ -47,7 +47,7 @@ const EditProfile = () => {
 						control={control}
 						render={({ field }) => <TextAreaField label={t('Bio')} fullWidth {...field} />}
 					/>
-
+					{/* 
 					<Controller
 						name="preferredRegion"
 						control={control}
@@ -61,7 +61,7 @@ const EditProfile = () => {
 								{...field}
 							/>
 						)}
-					/>
+					/> */}
 
 					<BottomDrawer show={formState.isDirty} onReset={reset} />
 				</form>

@@ -34,7 +34,7 @@ const UpcomingEvents = () => {
 						</div>
 					)}
 
-					{!activities?.results && !isLoading && (
+					{!activities?.results?.length && !isLoading && (
 						<div className="flex h-16 w-full border items-center justify-center">
 							<p className="text-gray-500">{t('No upcoming events')}</p>
 						</div>
