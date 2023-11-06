@@ -31,6 +31,7 @@ import PhoneField from './PhoneField'
 import Popover from './Popover'
 import PrivilegedContent from './global/PrivilegedContent'
 import ProtectedRoute from './global/ProtectedRoute'
+import QueryAutocomplete from './QueryAutocomplete'
 import Radio from './Radio'
 import RadioGroup from './RadioGroup'
 import RequireAuth from './global/RequireAuth'
@@ -48,6 +49,7 @@ export {
 	AccordionSection,
 	ActivityCard,
 	Alert,
+	QueryAutocomplete,
 	Autocomplete,
 	BottomDrawer,
 	Button,

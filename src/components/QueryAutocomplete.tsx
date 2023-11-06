@@ -1,16 +1,20 @@
 import { ComponentPropsWithRef, ReactElement, Ref, cloneElement, useEffect, useId, useRef, useState } from 'react'
 
+import { AxiosInstance } from 'axios'
 import Icon from './shared/Icon'
 import IconButton from './IconButton'
 import Spinner from './Spinner'
 import { dropdownAnimation } from '@utils'
 import { motion } from 'framer-motion'
 import { useDebounce } from 'usehooks-ts'
+import { useQuery } from '@tanstack/react-query'
 
-export interface AutocompleteProps<T> extends ComponentPropsWithRef<'input'> {
+export interface QueryAutocompleteProps<T> extends ComponentPropsWithRef<'input'> {
+	apiContext: AxiosInstance
+	endpoint: string
 	clearable?: boolean
 	fullWidth?: boolean
-	getOptionLabel?: (o) => string
+	getOptionLabel: (o) => string
 	getOptionValue?: (o) => string
 	groupBy?: (o) => string
 	label?: string
@@ -22,41 +26,47 @@ export interface AutocompleteProps<T> extends ComponentPropsWithRef<'input'> {
 	renderInput?: (o) => ReactElement<any>
 }
 
-const Autocomplete = <T,>({
+const QueryAutocomplete = <T,>({
+	apiContext,
+	endpoint,
 	clearable = false,
 	fullWidth = false,
 	getOptionLabel,
 	getOptionValue,
 	groupBy,
 	label,
-	loading = false,
 	loadingText,
 	noOptionText,
 	onChange,
-	options = [],
 	renderInput,
 	...rest
-}: AutocompleteProps<T> & { myRef?: Ref<HTMLInputElement> }) => {
+}: QueryAutocompleteProps<T> & { myRef?: Ref<HTMLInputElement> }) => {
 	const id = useId()
 	const ref = useRef<HTMLInputElement>(null)
 	const [open, setOpen] = useState<boolean>(false)
+	const [selected, setSelected] = useState<T>()
 	const [userInput, setUserInput] = useState<string>('')
-	const [value, setValue] = useState<string>('')
 	const debouncedOpen = useDebounce(open, 100)
+	const searchText = useDebounce(userInput, 500)
 
-	// const onInputChange = async (e) => {
-	// 	setValue(e.target.value)
-	// 	if (onChange) {
-	// 		onChange(e)
-	// 	}
-	// }
+	const { data: options, isLoading } = useQuery<T[]>(
+		['search-users', searchText],
+		async () => {
+			if (!userInput) {
+				return []
+			}
 
-	const onSelectElement = (e, option: T) => {
-		console.log(e)
-		if (getOptionLabel) {
-			console.log(getOptionLabel(option))
-			setValue(getOptionLabel(option))
-		}
+			const response = await apiContext.get(endpoint, { params: { startsWith: userInput } })
+			return (response.data.results as T[]) || []
+		},
+		{ refetchOnWindowFocus: false },
+	)
+
+	const handleOnChange = (e) => setUserInput(e.target.value)
+
+	const handleSelected = (option: T) => {
+		setSelected(option)
+		handleClose()
 	}
 
 	const handleOpen = () => {
@@ -71,8 +81,8 @@ const Autocomplete = <T,>({
 
 	const handleClear = () => {
 		setUserInput('')
-		setValue('')
-	} //onInputChange({ target: { value: '' } })
+		setSelected(undefined)
+	}
 
 	useEffect(() => {
 		const handleKeydown = (e: KeyboardEvent) => {
@@ -85,9 +95,9 @@ const Autocomplete = <T,>({
 			}
 		}
 
-		document.addEventListener('keydown', handleKeydown)
-		document.addEventListener('focusin', handleOpen)
-		document.addEventListener('focusout', handleClose)
+		document.getElementById(id)?.addEventListener('keydown', handleKeydown)
+		document.getElementById(id)?.addEventListener('focusin', handleOpen)
+		document.getElementById(id)?.addEventListener('focusout', handleClose)
 
 		return (): void => {
 			document.removeEventListener('keydown', handleKeydown)
@@ -97,38 +107,13 @@ const Autocomplete = <T,>({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	const LoadingEl = () => (
-		<div className="w-full flex justify-center p-2">
-			<Spinner text={loadingText} />
-		</div>
-	)
-	const RenderList = () => {
-		if (!options.length) {
-			return (
-				<div className="w-full flex justify-center p-2">
-					<span className="text-base text-gray-400">{noOptionText}</span>
-				</div>
-			)
-		} else if (renderInput) {
-			return options?.map((option, idx) =>
-				cloneElement(renderInput(option), { key: idx, onClick: (e) => onSelectElement(e, option) }),
-			)
-		} else {
-			return (
-				<>
-					{options?.map((option, idx) => (
-						<div
-							onClick={(e) => onSelectElement(e, option)}
-							key={idx}
-							className="w-full px-4 py-3 hover:bg-primary hover:text-white"
-						>
-							<span className="font-semibold py-2 px-6">{getOptionLabel && getOptionLabel(option)}</span>
-						</div>
-					))}
-				</>
-			)
+	useEffect(() => {
+		if (selected && onChange) {
+			setUserInput(getOptionLabel(selected))
+			onChange(selected)
 		}
-	}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selected])
 
 	return (
 		<div className={`${!fullWidth ? 'min-w-[400px]' : ''} relative flex flex-col`}>
@@ -145,11 +130,11 @@ const Autocomplete = <T,>({
 						id={id}
 						autoComplete="on"
 						type="text"
-						value={value}
-						onChange={(e) => setUserInput(e.target.value)}
+						value={userInput}
+						onChange={handleOnChange}
 						{...rest}
 					/>
-					{clearable && !!value && (
+					{clearable && selected && (
 						<IconButton onClick={handleClear} size="sm">
 							<Icon icon="close" size="sm" />
 						</IconButton>
@@ -166,7 +151,7 @@ const Autocomplete = <T,>({
 				)}
 			</div>
 
-			{!debouncedOpen && (
+			{debouncedOpen && (
 				<motion.div
 					initial="closed"
 					animate="open"
@@ -174,11 +159,33 @@ const Autocomplete = <T,>({
 					variants={dropdownAnimation}
 					className="absolute top-full rounded-b w-full origin-top-left bg-white mt-1 shadow-lg max-h-[500px] overflow-y"
 				>
-					{loading ? <LoadingEl /> : <RenderList />}
+					{isLoading ? (
+						<div className="w-full flex justify-center p-2">
+							<Spinner text={loadingText} />
+						</div>
+					) : !options?.length ? (
+						<div className="w-full flex justify-center p-2">
+							<span className="text-base text-gray-400">{noOptionText}</span>
+						</div>
+					) : renderInput ? (
+						options?.map((option, idx) =>
+							cloneElement(renderInput(option), { key: idx, onClick: () => handleSelected(option) }),
+						)
+					) : (
+						options?.map((option, idx) => (
+							<div
+								onClick={() => handleSelected(option)}
+								key={idx}
+								className="w-full px-4 py-3 hover:bg-primary hover:text-white"
+							>
+								<span className="font-semibold py-2 px-6">{getOptionLabel && getOptionLabel(option)}</span>
+							</div>
+						))
+					)}
 				</motion.div>
 			)}
 		</div>
 	)
 }
 
-export default Autocomplete
+export default QueryAutocomplete
