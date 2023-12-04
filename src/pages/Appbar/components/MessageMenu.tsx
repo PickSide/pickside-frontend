@@ -58,7 +58,7 @@ const MessageMenu: FC<any> = ({ ...rest }) => {
 			sidenavDispatch({
 				type: 'open',
 				title: `${t('Chat with')}  ${recipient.fullName}`,
-				content: <Chatroom recipient={recipient} />,
+				content: <Chatroom recipient={recipient} c />,
 			})
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,7 +80,7 @@ const MessageMenu: FC<any> = ({ ...rest }) => {
 	)
 }
 
-const Chatroom = ({ recipient: User }) => {
+const Chatroom = ({ recipient, chatroomId, currentUser }) => {
 	const { t } = useTranslation()
 
 	const { control, handleSubmit, watch } = useForm({
@@ -95,20 +95,24 @@ const Chatroom = ({ recipient: User }) => {
 
 	const onSubmit = (message) => {
 		const data = {
+			chatroomId,
+			currentUser,
 			message,
 		}
 	}
 
 	return (
 		<div className="h-full">
-			<div className="h-3/4 p-1 border-[1px]"></div>
-			<form className="h-1/4 block space-y-2">
+			<div className="h-3/4 p-1"></div>
+			<form className="h-1/4 block space-y-2" onSubmit={handleSubmit(onSubmit)}>
 				<Controller
 					control={control}
 					name="message"
-					render={({ field }) => <TextAreaField {...field} rows={4} fullWidth placeholder={t('Enter message...')} />}
+					render={({ field }) => <TextAreaField {...field} rows={3} fullWidth placeholder={t('Enter message...')} />}
 				/>
-				<Button disabled={!message}>{t('Send message')}</Button>
+				<Button type="submit" disabled={!message}>
+					{t('Send message')}
+				</Button>
 			</form>
 		</div>
 	)

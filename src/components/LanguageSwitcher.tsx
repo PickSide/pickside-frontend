@@ -1,7 +1,3 @@
-// https://www.iso.org/obp/ui/#search
-
-//import '/node_modules/flag-icons/css/flag-icons.min.css'
-
 import { Dropdown, Icon, MenuItem } from '@components'
 
 import { AppState } from '@state'
