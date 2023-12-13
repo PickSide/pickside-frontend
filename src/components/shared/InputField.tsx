@@ -1,9 +1,28 @@
-import { ComponentPropsWithRef, HTMLInputTypeAttribute, ReactNode, forwardRef, useCallback } from 'react'
+import { ComponentPropsWithRef, ReactNode, forwardRef, useCallback, useId } from 'react'
+import { VariantProps, cva } from 'class-variance-authority'
 
 import { cn } from '@utils'
 
-export interface InputFieldProps extends ComponentPropsWithRef<'input'> {
-	id?: string
+export const inputVariants = cva(
+	[
+		'inline-flex bg-white items-center border-2 rounded-md h-full mt-1 mb-2 focus-within:border-2 focus-within:border-primary transition-all',
+	],
+	{
+		variants: {
+			variant: {},
+			size: {
+				sm: ['h-9'],
+				md: ['h-10'],
+				lg: ['h-12'],
+			},
+		},
+		defaultVariants: {
+			size: 'sm',
+		},
+	},
+)
+
+interface InputFieldProps extends Omit<ComponentPropsWithRef<'input'>, 'size'>, VariantProps<typeof inputVariants> {
 	label?: string
 	startContent?: ReactNode
 	endContent?: ReactNode
@@ -12,13 +31,11 @@ export interface InputFieldProps extends ComponentPropsWithRef<'input'> {
 	onPressArrowUp?: (e?: any) => void
 	onPressEnterKey?: (e?: any) => void
 	error?: any
-	type?: HTMLInputTypeAttribute
 	fullWidth?: boolean
 	defaultValue?: string
-	value?: any
 }
 
-const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
+const InputField = forwardRef<ComponentPropsWithRef<'input'>, InputFieldProps>(
 	(
 		{
 			id,
@@ -36,10 +53,12 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 			readOnly = false,
 			fullWidth = false,
 			value,
+			size,
 			...rest
 		},
 		ref,
 	) => {
+		const generatedId = useId()
 		const onKeyDown = useCallback(
 			(e) => {
 				if (e.key === 'ArrowDown') {
@@ -55,37 +74,30 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 		)
 
 		return (
-			<div className={cn('relative flex flex-col disabled:text-gray-400', !fullWidth ? 'max-w-[230px]' : '')}>
-				<label htmlFor={id} className="text-gray-800">
+			<div className="w-full flex flex-col">
+				<label htmlFor={`${id || generatedId}-label-input`} className="text-gray-800">
 					{label}
 				</label>
-				<div
-					className={cn(
-						'inline-flex w-full items-center rounded-md h-[50px] bg-white border-2 overflow-clip px-2 focus-within:border-2 focus-within:border-primary',
-						!!error ? 'border-error text-error' : '',
-						readOnly ? 'border-gray-100' : 'border-gray-200',
-						className,
-					)}
-				>
-					{startContent}
+				<div className={cn(inputVariants({ className, size }), className)}>
+					<span className="inline-flex items-center max-w-6 max-h-6 mx-2">{startContent}</span>
 
 					<input
-						ref={ref}
+						aria-labelledby={`${id || generatedId}-label-input`}
 						autoComplete="off"
 						disabled={readOnly}
 						value={value}
 						placeholder={placeholder}
 						onKeyDown={onKeyDown}
-						className="relative rounded-md w-[95%] h-[90%] px-2 py-2 focus-visible:outline-none disabled:bg-white disabled:cursor-not-allowed disabled:text-gray-300"
+						className="rounded-md h-full w-full focus-visible:outline-none disabled:bg-white disabled:cursor-not-allowed disabled:text-gray-300"
 						{...rest}
 					/>
-					{endContent}
+					<span className="inline-flex items-center w-6 h-6 mx-2">{endContent}</span>
+					{!error && (
+						<label htmlFor={id}>
+							<span className="text-error">{error}</span>
+						</label>
+					)}
 				</div>
-				{error && (
-					<label htmlFor={id}>
-						<span className="text-error">{error}</span>
-					</label>
-				)}
 			</div>
 		)
 	},

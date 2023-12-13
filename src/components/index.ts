@@ -17,7 +17,7 @@ import EditField from './EditField'
 import EmailField from './EmailField'
 import FormDivider from './FormDivider'
 import Gallery from './Gallery'
-import GlobalAppStatusAlert from './GlobalAppStatusAlert'
+import GlobalAppStatusAlert from './global/GlobalAppStatusAlert'
 import GoogleAutocomplete from './GoogleAutocomplete'
 import Icon from './shared/Icon'
 import IconButton from './IconButton'
@@ -38,6 +38,7 @@ import RequireAuth from './global/RequireAuth'
 import Select from './shared/Select'
 import SettingField from './SettingField'
 import Spinner from './Spinner'
+import StatusBadge from './StatusBadge'
 import Switch from './Switch'
 import TextAreaField from './TextAreaField'
 import TimePicker from './TimePicker'
@@ -87,6 +88,7 @@ export {
 	RequireAuth,
 	Select,
 	SettingField,
+	StatusBadge,
 	Spinner,
 	Switch,
 	Tab,

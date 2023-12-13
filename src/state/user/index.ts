@@ -7,7 +7,6 @@ import { Locale } from '../locales'
 import { Sport } from '../sport'
 
 export interface User {
-	id?: string
 	accountType?: ACCOUNT_TYPE
 	address?: string
 	attendedEventsCount?: number
@@ -17,18 +16,18 @@ export interface User {
 	email?: string
 	emailVerified?: boolean
 	favorites?: any[]
-	fullName?: string
 	fitnessLevel?: 'retired' | 'average' | 'athletic' | 'very athletic'
+	fullName?: string
 	groups?: Group[]
-	isExternalAccount?: boolean
-	isOrganizer?: boolean
+	id?: string
+	inactive?: boolean
+	inactiveDate?: Date
 	joinDate?: string
 	localeRegion?: string
 	locationCommonlyPlayedIn?: string
 	locationTracking?: boolean
 	matchOrganizedCount?: number
 	matchPlayedCount?: number
-	password?: string
 	phone?: string
 	permissions?: [USER_PERMISSIONS]
 	preferredLocale?: Locale

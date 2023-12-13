@@ -28,55 +28,66 @@ module.exports = {
 				primary: '#144A75',
 				secondary: '#17494D',
 				tertiary: '#F4FF81',
-				sucess: '#46D339',
+				success: '#46D339',
 				error: '#D50000',
 				dark: '#0C1615',
 				light: '#F8F8F8',
 				'charcoal-black': '#2F3941',
-				'grey': {
+				grey: {
 					100: '#F8F9F9',
 					600: '#68737D',
 					700: '#49545C',
 				},
-				'cloud': '#FBFBFB',
+				cloud: '#FBFBFB',
 				'cool-gray': {
 					1: '#EAEAEA',
 					2: '#D9D9D9',
 					3: '#C2C8CC',
-					4: '#68737D'
+					4: '#68737D',
 				},
-				'duck': {
+				duck: {
 					1: '#DAEDED',
 					2: '#90BBBB',
 					3: '#467B7C',
-					4: '#17494D'
+					4: '#17494D',
 				},
-				'kale': {
-					200: '#DAEDED'
+				kale: {
+					200: '#DAEDED',
 				},
-				'ocean': {
+				ocean: {
 					1: '#EDF7FF',
 					2: '#5293C7',
 					3: '#144A75',
-					4: '#0F3554'
+					4: '#0F3554',
 				},
-				'pistachio': {
+				pistachio: {
 					1: '#DAF6D7',
 					2: '#A9EAA3',
 					3: '#6BDC61',
-					4: '#46D339'
+					4: '#46D339',
 				},
 			},
 			flexGrow: {
 				2: '2',
 			},
+			gridRow: {
+				'span-12': 'span 12 / span 12',
+				'span-14': 'span 14 / span 14',
+				'span-16': 'span 16 / span 16',
+				'span-18': 'span 18 / span 18',
+			},
+			gridTemplateRows: {
+				12: 'repeat(12, minmax(0, 1fr))',
+				14: 'repeat(14, minmax(0, 1fr))',
+				16: 'repeat(16, minmax(0, 1fr))',
+			},
 			zIndex: {
-				'60': '60',
-				'70': '70',
-				'80': '80',
-				'90': '90',
-				'100': '100',
-			}
+				60: '60',
+				70: '70',
+				80: '80',
+				90: '90',
+				100: '100',
+			},
 		},
 		fill: {
 			primary: '#144A75',
@@ -89,10 +100,10 @@ module.exports = {
 			tertiary: 'Aldrich',
 		},
 		fontSize: {
-			xs: ["10px", { lineHeight: "1.5" }],
-			sm: ["13px", { lineHeight: "1.5" }],
-			base: ["16px", { lineHeight: "1.5" }],
-			lg: ["20px", { lineHeight: "1.5" }],
+			xs: ['10px', { lineHeight: '1.5' }],
+			sm: ['13px', { lineHeight: '1.5' }],
+			base: ['16px', { lineHeight: '1.5' }],
+			lg: ['20px', { lineHeight: '1.5' }],
 		},
 		screens: {
 			...BREAKPOINTS,

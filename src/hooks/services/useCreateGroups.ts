@@ -36,7 +36,7 @@ const useCreateGroups = () => {
 			socket.emit('group:create', {
 				...data.response.group,
 				organizerId: connectedUser?.id,
-				organizerUserame: connectedUser?.username,
+				organizerUsername: connectedUser?.username,
 			})
 		},
 		onError: (e) => console.log(e),

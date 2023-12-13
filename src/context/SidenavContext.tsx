@@ -1,9 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { FC, ReactNode, createContext, useContext, useReducer } from 'react'
 import { Icon, IconButton } from '@components'
-import { cn, slideIn } from '@utils'
 
-import { isEmpty } from 'lodash'
+import { slideIn } from '@utils'
 
 declare type SidenavState = {
 	opened: boolean
@@ -49,7 +48,7 @@ export const SidenavProvider: FC<any> = ({ children }) => {
 	const handlePrevious = () => dispatch({ type: 'previous' })
 
 	const clearState = () => dispatch({ type: 'close', content: <></>, title: '' })
-	console.log(state)
+
 	return (
 		<SidenavContext.Provider value={state}>
 			<SidenavDispatchContext.Provider value={dispatch}>
@@ -60,10 +59,10 @@ export const SidenavProvider: FC<any> = ({ children }) => {
 							animate="show"
 							exit="exit"
 							variants={slideIn('right')}
-							className={cn(`fixed w-[500px] right-0 h-screen z-100 bg-white shadow-md`)}
+							className="fixed w-[400px] right-0 h-screen z-100 bg-white shadow-md"
 						>
-							<div className="h-[80px] border-b flex items-center justify-between px-6">
-								<span className="flex justify-center items-center uppercase text-lg font-semibold">
+							<div className="h-16 border-b flex items-center justify-between px-6">
+								<span className="flex justify-center items-center capitalize text-lg font-medium">
 									{state.prevState ? (
 										<IconButton onClick={handlePrevious}>
 											<Icon icon="keyboard_arrow_left" />
@@ -75,7 +74,7 @@ export const SidenavProvider: FC<any> = ({ children }) => {
 									<Icon icon="close" />
 								</IconButton>
 							</div>
-							<div className="h-[calc(100%-80px)] p-6 overflow-clip">{state.content}</div>
+							<div className="h-full p-6 overflow-clip">{state.content}</div>
 						</motion.div>
 					)}
 				</AnimatePresence>

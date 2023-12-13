@@ -1,11 +1,11 @@
 import { AppState, setStatus } from '@state'
 import { useDispatch, useSelector } from 'react-redux'
 
-import Alert from './shared/Alert'
+import Alert from '../shared/Alert'
 import { AnimatePresence } from 'framer-motion'
 import { FC } from 'react'
-import Icon from './shared/Icon'
-import IconButton from './IconButton'
+import Icon from '../shared/Icon'
+import IconButton from '../IconButton'
 
 const GlobalAppStatusAlert: FC<any> = () => {
 	const dispatch = useDispatch()

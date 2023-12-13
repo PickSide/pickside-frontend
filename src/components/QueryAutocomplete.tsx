@@ -116,17 +116,17 @@ const QueryAutocomplete = <T,>({
 	}, [selected])
 
 	return (
-		<div className={`${!fullWidth ? 'min-w-[400px]' : ''} relative flex flex-col`}>
-			<label htmlFor={id} className="">
+		<div className="relative inline-flex items-centers w-full">
+			<label htmlFor={id}>
 				<span className="text-gray-400">{label}</span>
 			</label>
-			<div className="p-1 inline-flex items-center rounded-md bg-white border-gray-200 border-2 focus-within:border-[1px] focus-within:border-primary">
+			<div className="p-1 inline-flex items-center rounded-md bg-white border-gray-200 border-2 focus-within:border-[1px] focus-within:border-primary w-full">
 				<Icon className="mx-2" icon="search" />
-				<div className="flex-grow-2 inline-flex px-1 py-0.5 rounded-md">
+				<div className="flex-grow-2 inline-flex justify-between px-1 py-0.5 rounded-md">
 					<input
 						ref={ref}
 						tabIndex={1}
-						className="w-full focus-visible:outline-none"
+						className="focus-visible:outline-none"
 						id={id}
 						autoComplete="on"
 						type="text"
@@ -152,37 +152,40 @@ const QueryAutocomplete = <T,>({
 			</div>
 
 			{debouncedOpen && (
-				<motion.div
-					initial="closed"
-					animate="open"
-					exit="exit"
-					variants={dropdownAnimation}
-					className="absolute top-full rounded-b w-full origin-top-left bg-white mt-1 shadow-lg max-h-[500px] overflow-y"
-				>
-					{isLoading ? (
-						<div className="w-full flex justify-center p-2">
-							<Spinner text={loadingText} />
-						</div>
-					) : !options?.length ? (
-						<div className="w-full flex justify-center p-2">
-							<span className="text-base text-gray-400">{noOptionText}</span>
-						</div>
-					) : renderInput ? (
-						options?.map((option, idx) =>
-							cloneElement(renderInput(option), { key: idx, onClick: () => handleSelected(option) }),
-						)
-					) : (
-						options?.map((option, idx) => (
-							<div
-								onClick={() => handleSelected(option)}
-								key={idx}
-								className="w-full px-4 py-3 hover:bg-primary hover:text-white"
-							>
-								<span className="font-semibold py-2 px-6">{getOptionLabel && getOptionLabel(option)}</span>
+				<>
+					<div className="fixed inset-0 bg-none w-screen h-screen" />
+					<motion.div
+						initial="closed"
+						animate="open"
+						exit="exit"
+						variants={dropdownAnimation}
+						className="absolute top-full rounded-b w-full origin-top-left bg-white mt-1 shadow-lg overflow-y z-10"
+					>
+						{isLoading ? (
+							<div className="w-full flex justify-center p-2">
+								<Spinner text={loadingText} />
 							</div>
-						))
-					)}
-				</motion.div>
+						) : !options?.length ? (
+							<div className="w-full flex justify-center p-2">
+								<span className="text-base text-gray-400">{noOptionText}</span>
+							</div>
+						) : renderInput ? (
+							options?.map((option, idx) =>
+								cloneElement(renderInput(option), { key: idx, onClick: () => handleSelected(option) }),
+							)
+						) : (
+							options?.map((option, idx) => (
+								<div
+									onClick={() => handleSelected(option)}
+									key={idx}
+									className="w-full px-4 py-3 hover:bg-primary hover:text-white"
+								>
+									<span className="font-semibold py-2 px-6">{getOptionLabel && getOptionLabel(option)}</span>
+								</div>
+							))
+						)}
+					</motion.div>
+				</>
 			)}
 		</div>
 	)

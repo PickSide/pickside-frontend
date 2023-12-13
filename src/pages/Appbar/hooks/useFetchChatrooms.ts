@@ -24,10 +24,8 @@ const useFetchChatrooms = () => {
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
-	const callback = async (): Promise<Chatrooms> => {
-		const response = await axiosInstance.get(`/chatrooms/users/${connectedUser?.id}`)
-		return response.data
-	}
+	const callback = async (): Promise<Chatrooms> =>
+		(await axiosInstance.get(`/chatrooms/users/${connectedUser?.id}`)).data
 
 	const {
 		data: chatrooms,

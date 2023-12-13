@@ -13,7 +13,9 @@ import useFetchFavorites from './services/useFetchFavorites'
 import useFetchGroup from './services/useFetchGroup'
 import useFetchGroups from './services/useFetchGroups'
 import useFetchLocales from './services/useFetchLocales'
+import useFetchMessagesForChatroom from './services/useFetchMessagesForChatroom'
 import useFetchNotifications from './services/useFetchNotifications'
+import useFetchOnlineUsers from './services/useFetchOnlineUsers'
 import useFetchUsers from './services/useFetchUsers'
 import useGuestLogout from './services/useGuestLogout'
 import useLocaleSwitcher from './useLocaleSwitcher'
@@ -49,7 +51,9 @@ export {
 	useDeactivateAccount,
 	useFetchActivity,
 	useFetchLocales,
+	useFetchMessagesForChatroom,
 	useFetchNotifications,
+	useFetchOnlineUsers,
 	useFetchUsers,
 	useGuestLogout,
 	useReactivateAccount,

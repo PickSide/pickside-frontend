@@ -1,4 +1,4 @@
-import { ComponentPropsWithRef, forwardRef } from 'react'
+import { ComponentPropsWithRef, cloneElement, forwardRef, isValidElement } from 'react'
 import { VariantProps, cva } from 'class-variance-authority'
 
 import { ButtonProps } from './shared/Button'
@@ -6,42 +6,40 @@ import { cn } from '@utils'
 
 export interface IconButtonProps extends ButtonProps {}
 
-export const iconButtonVariants = cva(['text-inherit', 'rounded', 'text-base', 'leading-none'], {
-	variants: {
-		variant: {
-			primary: [
-				'text-primary',
-				'bg-none',
-				'disabled:bg-cool-gray-3',
-				'hover:bg-gray-300',
-				'dark:bg-grey-600',
-				'dark:text-white',
-				'dark:hover:bg-gray-300',
-			],
-			secondary: [
-				'text-white',
-				'bg-primary',
-				'hover:bg-gray-300',
-				'disabled:text-gray-400',
-				'disabled:border-gray-200/30',
-				'disabled:bg-gray-200/60',
-				'dark:bg-white',
-				'dark:text-black',
-			],
-			tertiary: ['text-primary', 'underline', 'font-semibold', 'bg-none ', 'dark:text-white'],
-			danger: ['text-white', 'bg-red-600 ', 'hover:bg-red-400'],
+export const iconButtonVariants = cva(
+	[
+		'text-inherit',
+		'rounded',
+		'text-base',
+		'leading-none',
+		'transition-all',
+		'inline-flex',
+		'items-center',
+		'justify-center',
+		'p-1',
+		'hover:bg-gray-300',
+		'disabled:text-cool-gray-3',
+	],
+	{
+		variants: {
+			variant: {
+				primary: ['text-primary', 'bg-none', 'dark:bg-grey-600', 'dark:text-white', 'dark:hover:bg-gray-300'],
+				secondary: ['text-white', 'bg-primary', 'dark:bg-white', 'dark:text-black'],
+				tertiary: ['text-primary', 'underline', 'font-semibold', 'bg-none ', 'dark:text-white'],
+				danger: ['text-white', 'bg-red-600 ', 'hover:bg-red-400'],
+			},
+			size: {
+				sm: 'w-[22px] h-[22px]',
+				md: 'w-[28px] h-[28px]',
+				lg: 'w-[40px] h-[40px]',
+			},
 		},
-		size: {
-			sm: ['p-.5'],
-			md: ['p-1'],
-			lg: ['p-2'],
+		defaultVariants: {
+			variant: 'primary',
+			size: 'md',
 		},
 	},
-	defaultVariants: {
-		variant: 'primary',
-		size: 'md',
-	},
-})
+)
 
 export interface IconButtonProps extends ComponentPropsWithRef<'button'>, VariantProps<typeof iconButtonVariants> {
 	onClick?: (e) => void
@@ -49,6 +47,10 @@ export interface IconButtonProps extends ComponentPropsWithRef<'button'>, Varian
 }
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 	({ children, className, isLoading, size, variant, type = 'button', ...rest }: IconButtonProps, ref) => {
+		if (!isValidElement(children)) {
+			throw new Error('Invalid react element')
+		}
+
 		return (
 			<button
 				type={type}
@@ -56,7 +58,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 				className={cn(iconButtonVariants({ className, size, variant }), { 'cursor-not-allowed': isLoading }, className)}
 				{...rest}
 			>
-				{children}
+				{cloneElement<any>(children, { size })}
 			</button>
 		)
 	},
@@ -64,4 +66,4 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 
 export default IconButton
 
-IconButton.propTypes = {}
+IconButton.defaultProps = {}
