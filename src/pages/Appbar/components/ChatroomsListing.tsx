@@ -7,7 +7,7 @@ import { ChatroomDispatchContext } from '@context/ChatroomContext'
 import { RTAContentContext } from '@context'
 import { StatusBadge } from '@components'
 import UsersAutocomplete from './UsersAutocomplete'
-import useFetchChatrooms from '../hooks/useFetchChatrooms'
+import useFetchChatroom from '../hooks/useFetchChatroom'
 import { useSelector } from 'react-redux'
 
 const ChatroomsListing: FC<any> = () => {
@@ -21,7 +21,7 @@ const ChatroomsListing: FC<any> = () => {
 		throw new Error('You need to be signed in to chat')
 	}
 
-	const { fetchChatroom, isLoading: isLoadingChatroom } = useFetchChatrooms()
+	const { fetchChatroom, isLoading: isLoadingChatroom } = useFetchChatroom()
 
 	const openChatroom = async (user: User) => {
 		const chatroom = await fetchChatroom(user)
