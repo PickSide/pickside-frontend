@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { FC, ReactNode, createContext, useContext, useReducer } from 'react'
+import { FC, ReactNode, createContext, useReducer } from 'react'
 import { Icon, IconButton } from '@components'
 
 import { slideIn } from '@utils'
@@ -32,14 +32,6 @@ function sidenavReducers(state: SidenavState, action) {
 		default:
 			return defaultState
 	}
-}
-
-export function useSidenav() {
-	return useContext(SidenavContext)
-}
-
-export function useSidenavDispatch() {
-	return useContext(SidenavDispatchContext)
 }
 
 export const SidenavProvider: FC<any> = ({ children }) => {

@@ -1,17 +1,18 @@
 import { AppState, setSelectedChatroom } from '@state'
 import { Controller, useForm } from 'react-hook-form'
 import { Icon, IconButton, InputField, StatusBadge } from '@components'
+import { useContext, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useFetchMessagesForChatroom, useFetchOnlineUsers } from '@hooks'
-import { useMemo, useState } from 'react'
 
 import Avatar from '@components/Avatar'
 import ChatBubble from './ChatBubble'
+import { ChatroomDispatchContext } from '@context/ChatroomContext'
 import { isEmpty } from 'lodash'
 import { motion } from 'framer-motion'
 import useSendMessage from '@pages/Appbar/hooks/useSendMessage'
 
-const Chatroom = () => {
+const Chatroom = ({ minimize = false }) => {
 	const dispatch = useDispatch()
 	const { onlineUsers } = useFetchOnlineUsers()
 	const { messages, isLoading: isMessagesLoading } = useFetchMessagesForChatroom()
@@ -32,7 +33,7 @@ const Chatroom = () => {
 		[onlineUsers, recipient],
 	)
 
-	const [isMinimized, setIsMinimized] = useState<boolean>(false)
+	const [isMinimized, setIsMinimized] = useState<boolean>(minimize)
 
 	const onSubmit = async (values) => {
 		await sendMessage({ message: values.message, chatroom })

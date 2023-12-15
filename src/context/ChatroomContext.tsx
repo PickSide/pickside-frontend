@@ -1,22 +1,23 @@
-import { createContext, useReducer } from 'react'
+import { createContext, useContext, useReducer } from 'react'
+
+import Chatroom from '@components/global/Chatroom'
+import { Chatroom as IChatroom } from '@state/chatrooms'
 
 export const ChatroomContext = createContext<any>(null)
 export const ChatroomDispatchContext = createContext<any>(null)
 
 const defaultState = {
 	chatsOpened: [],
-	chatsClosed: [],
-	chatsMinimized: [],
 }
 
 const chatroomReducers = (state, action) => {
 	switch (action.type) {
 		case 'open':
-			return { ...state, ...action, opened: true, prevState: state }
+			console.log(state)
+			return state
 		case 'close':
-			return defaultState
-		case 'minimize':
-			return state.prevState
+			console.log(state)
+			return state
 		default:
 			return defaultState
 	}
@@ -24,9 +25,15 @@ const chatroomReducers = (state, action) => {
 
 export const ChatroomProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(chatroomReducers, defaultState)
+
 	return (
 		<ChatroomContext.Provider value={state}>
-			<ChatroomDispatchContext.Provider value={dispatch}>{children}</ChatroomDispatchContext.Provider>
+			<ChatroomDispatchContext.Provider value={dispatch}>
+				{state.chatsOpened.map((chat, idx) => (
+					<Chatroom key={idx} />
+				))}
+				{children}
+			</ChatroomDispatchContext.Provider>
 		</ChatroomContext.Provider>
 	)
 }
