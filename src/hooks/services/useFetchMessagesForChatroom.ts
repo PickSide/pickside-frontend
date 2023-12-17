@@ -1,9 +1,8 @@
-import { AppState, Chatroom, Resources, User } from '@state'
+import { Chatroom, Resources, User } from '@state'
 
 import { AxiosContext } from '@context'
 import { useContext } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { useSelector } from 'react-redux'
 
 interface Messages extends Resources {
 	results?: Message[]
@@ -19,18 +18,20 @@ interface Message {
 
 const useFetchMessagesForChatroom = () => {
 	const { axiosInstance } = useContext(AxiosContext)
-	const chatroomContext = useSelector((state: AppState) => state.selectedChatroom)
 
-	const callback = async () =>
-		(await axiosInstance.get('/messages', { data: { chatroomId: chatroomContext?.id } })).data
+	const callback = async (chatroom) => (await axiosInstance.get(`/messages/${chatroom?.id}`)).data
 
-	const { data: messages, isLoading } = useQuery<Messages>(['fetchMessageForChatroom'], callback, {
-		enabled: !!chatroomContext?.id,
+	const {
+		data: messages,
+		isLoading,
+		refetch,
+	} = useQuery<Messages>(['fetch-messages'], callback, {
 		onError: () => {},
+		enabled: false,
 		refetchOnWindowFocus: false,
 	})
 
-	return { messages, isLoading }
+	return { messages, isLoading, refetch }
 }
 
 export default useFetchMessagesForChatroom

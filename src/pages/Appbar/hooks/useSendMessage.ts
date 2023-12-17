@@ -10,7 +10,7 @@ const useSendMessage = () => {
 	const connectedUser = useSelector((state: AppState) => state.user)
 
 	const callback = async (data: any) =>
-		await axiosInstance.post('/chatrooms', { data: { ...data, sentBy: connectedUser?.id } })
+		await axiosInstance.post('/chatrooms', { data: { ...data, sender: connectedUser?.id } })
 
 	const {
 		mutate: sendMessage,

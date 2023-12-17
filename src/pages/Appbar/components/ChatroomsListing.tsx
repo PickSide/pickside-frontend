@@ -1,17 +1,16 @@
-import { AppState, Chatroom, User, setSelectedChatroom } from '@state'
+import { AppState, User, openChatroom } from '@state'
 import { FC, useContext, useEffect, useMemo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useFetchOnlineUsers, useFetchUsers } from '@hooks'
 
 import Avatar from '@components/Avatar'
-import { ChatroomDispatchContext } from '@context/ChatroomContext'
 import { RTAContentContext } from '@context'
 import { StatusBadge } from '@components'
 import UsersAutocomplete from './UsersAutocomplete'
 import useFetchChatroom from '../hooks/useFetchChatroom'
-import { useSelector } from 'react-redux'
 
 const ChatroomsListing: FC<any> = () => {
-	const chatroomDispatcher = useContext(ChatroomDispatchContext)
+	const dispatch = useDispatch()
 	const { onlineUsers, refetch: refetchOnlineUsers } = useFetchOnlineUsers()
 	const { users } = useFetchUsers()
 	const { socket } = useContext(RTAContentContext)
@@ -23,13 +22,11 @@ const ChatroomsListing: FC<any> = () => {
 
 	const { fetchChatroom, isLoading: isLoadingChatroom } = useFetchChatroom()
 
-	const openChatroom = async (user: User) => {
-		const chatroom = await fetchChatroom(user)
-		console.log(chatroom)
-		// chatroomDispatcher({
-		// 	type: 'open',
-		// 	payload: chatroom,
-		// })
+	const open = async (recipient: User) => {
+		if (recipient.id) {
+			const chatroom = await (await fetchChatroom(recipient)).data.payload
+			dispatch(openChatroom(chatroom))
+		}
 	}
 
 	useEffect(() => {
@@ -45,7 +42,7 @@ const ChatroomsListing: FC<any> = () => {
 
 	return (
 		<div className="w-full">
-			<UsersAutocomplete onSelectAction={openChatroom} />
+			<UsersAutocomplete onSelectAction={open} />
 			<ul className="flex flex-col mt-4">
 				{users?.results
 					?.filter((user) => user.id !== connectedUser?.id)
@@ -54,13 +51,13 @@ const ChatroomsListing: FC<any> = () => {
 							<button
 								key={idx}
 								className="inline-flex items-center w-full px-3 py-4 gap-x-4 rounded-2xl cursor-pointer hover:bg-slate-300"
-								onClick={() => openChatroom(user)}
+								onClick={() => open(user)}
 							>
 								<Avatar
 									size="sm"
 									variant="secondary"
 									src={user.avatar}
-									badge={<StatusBadge variant={onlineUsersBydId.includes(user.id) ? 'online' : 'offline'} />}
+									badge={<StatusBadge variant={onlineUsersBydId?.includes(user.id) ? 'online' : 'offline'} />}
 								/>
 
 								{user.fullName}

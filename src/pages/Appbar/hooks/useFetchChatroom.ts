@@ -1,22 +1,19 @@
 import { AppState, Resources, User } from '@state'
-import { useMutation, useQuery } from '@tanstack/react-query'
 
 import { AxiosContext } from '@context'
+import { AxiosResponse } from 'axios'
 import { Message } from './useFetchMessages'
+import { PayloadResponseProps } from '@utils/responseTypes'
 import { useContext } from 'react'
+import { useMutation } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 
-export interface Chatrooms extends Resources {
-	results?: Chatroom[]
-}
-
 export interface Chatroom {
-	title: string
-	participants: User[]
-	openedChatroom: User[]
-	numberOfMessages: number
-	lastMessage: Message
-	startedBy: User
+	id?: string
+	name?: string
+	participants?: User[]
+	numberOfMessages?: number
+	lastMessage?: Message
 }
 
 const useFetchChatroom = () => {
@@ -24,20 +21,22 @@ const useFetchChatroom = () => {
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
-	const callback = async (recipient): Promise<Chatrooms> =>
-		(await axiosInstance.get('/chatrooms/users', { data: { participants: [recipient?.id, connectedUser?.id] } })).data
+	const callback = async (recipient: User): Promise<AxiosResponse<PayloadResponseProps<Chatroom>>> =>
+		await axiosInstance.post('/chatrooms/users', {
+			data: { participants: [connectedUser?.id, recipient.id], name: recipient.fullName },
+		})
 
 	const {
-		mutate: fetchChatroom,
+		data,
+		mutateAsync: fetchChatroom,
 		isLoading,
 		error,
 		isError,
 	} = useMutation(callback, {
 		mutationKey: ['fetch-chatroom'],
-
 		onError: (e) => console.log(e),
 	})
-	return { fetchChatroom, isLoading }
+	return { data, fetchChatroom, isLoading }
 }
 
 export default useFetchChatroom

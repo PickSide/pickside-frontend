@@ -1,30 +1,52 @@
-import { AppState, setSelectedChatroom } from '@state'
+import { AppState, Resources, openChatroom } from '@state'
 import { Controller, useForm } from 'react-hook-form'
 import { Icon, IconButton, InputField, StatusBadge } from '@components'
-import { useContext, useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useFetchMessagesForChatroom, useFetchOnlineUsers } from '@hooks'
+import { useMutation, useQuery } from '@tanstack/react-query'
 
 import Avatar from '@components/Avatar'
+import { AxiosContext } from '@context'
+import { AxiosResponse } from 'axios'
 import ChatBubble from './ChatBubble'
-import { ChatroomDispatchContext } from '@context/ChatroomContext'
-import { isEmpty } from 'lodash'
+import { ListPayloadResponseProps } from '@utils/responseTypes'
 import { motion } from 'framer-motion'
+import { useFetchOnlineUsers } from '@hooks'
 import useSendMessage from '@pages/Appbar/hooks/useSendMessage'
 
-const Chatroom = ({ minimize = false }) => {
+interface Messages extends Resources {
+	results?: Message[]
+}
+
+interface Message {
+	message?: string
+	chatroomId?: string
+	sender?: string
+	delivered?: boolean
+	type?: 'incoming' | 'outgoing'
+}
+
+const ChatroomContainer = () => {
+	const chatrooms = useSelector((state: AppState) => state.chatrooms)
+	return (
+		<div className="fixed bottom-0 z-20 right-0 flex flex-row-reverse w-full">
+			{chatrooms?.map((chatroom, idx) => <Chatroom chatroom={chatroom} key={idx} />)}
+		</div>
+	)
+}
+
+export const Chatroom = ({ chatroom, minimize = false }) => {
+	const { axiosInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const { onlineUsers } = useFetchOnlineUsers()
-	const { messages, isLoading: isMessagesLoading } = useFetchMessagesForChatroom()
 	const { sendMessage } = useSendMessage()
+	const connectedUser = useSelector((state: AppState) => state.user)
 	const { control, watch, handleSubmit, reset } = useForm({
 		defaultValues: {
+			chatroomId: chatroom?.id,
 			message: '',
 		},
 	})
-
-	const connectedUser = useSelector((state: AppState) => state.user)
-	const chatroom = useSelector((state: AppState) => state.selectedChatroom)
 	const recipient = chatroom?.participants?.find((x) => x.id !== connectedUser?.id)
 	const canSend = !!watch('message')
 
@@ -34,19 +56,38 @@ const Chatroom = ({ minimize = false }) => {
 	)
 
 	const [isMinimized, setIsMinimized] = useState<boolean>(minimize)
+	const [messages, setMessages] = useState<Message[]>()
 
+	const { mutateAsync: fetchMessages } = useMutation<AxiosResponse<ListPayloadResponseProps<Message>>>(
+		['fetch-messages'],
+		async () => {
+			return await axiosInstance.get(`/messages/${chatroom?.id}`)
+		},
+		{
+			onSuccess: ({ data }) => setMessages(data.results),
+			onError: () => {},
+		},
+	)
 	const onSubmit = async (values) => {
-		await sendMessage({ message: values.message, chatroom })
-		reset()
+		console.log(values)
+		await sendMessage(values)
+		fetchMessages()
+		//reset()
 	}
 
-	return !isEmpty(chatroom) ? (
+	useEffect(() => {
+		if (chatroom) {
+			fetchMessages()
+		}
+	}, [axiosInstance, chatroom])
+
+	return chatroom ? (
 		<motion.div
 			initial={{ height: 0, scale: 0.5 }}
 			animate={{ height: 600, scale: 1 }}
 			transition={{ type: 'tween', ease: 'easeInOut', duration: 0.1 }}
 			id="chatroom"
-			className="fixed bottom-0 z-20 right-10 border-2 rounded-t-lg bg-white shadow-sm max-w-screen-md max-h-[600px] w-80 focus-visible:bg-primary"
+			className="border-2 rounded-t-lg bg-white shadow-sm max-w-screen-md max-h-[600px] w-80 focus-visible:bg-primary mr-2"
 		>
 			{!isMinimized && (
 				<div className="relative flex flex-col h-full">
@@ -60,17 +101,17 @@ const Chatroom = ({ minimize = false }) => {
 							<p className="text-md text-primary font-semibold">{chatroom?.name}</p>
 						</div>
 						<div className="inline-flex items-center gap-x-2">
-							<IconButton size="sm" onClick={() => dispatch(setSelectedChatroom({}))}>
+							<IconButton size="sm" onClick={() => setIsMinimized(true)}>
 								<Icon icon="remove" />
 							</IconButton>
-							<IconButton size="sm" onClick={() => dispatch(setSelectedChatroom({}))}>
+							<IconButton size="sm" onClick={() => dispatch(openChatroom(chatroom))}>
 								<Icon icon="close" />
 							</IconButton>
 						</div>
 					</header>
 					<div className="flex-grow overflow-y-auto">
-						{messages?.results?.map(({ message, type }, idx) => (
-							<ChatBubble key={idx} type={type}>
+						{messages?.map(({ message, sender }, idx) => (
+							<ChatBubble key={idx} type={sender === connectedUser?.id ? 'outgoing' : 'incoming'}>
 								{message}
 							</ChatBubble>
 						))}
@@ -92,7 +133,7 @@ const Chatroom = ({ minimize = false }) => {
 								/>
 							)}
 						/>
-						<IconButton type="submit" disabled={!canSend} onClick={onSubmit}>
+						<IconButton type="submit" disabled={!canSend}>
 							<Icon icon="send" />
 						</IconButton>
 					</form>
@@ -101,4 +142,5 @@ const Chatroom = ({ minimize = false }) => {
 		</motion.div>
 	) : null
 }
-export default Chatroom
+
+export default ChatroomContainer
