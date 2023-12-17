@@ -10,6 +10,7 @@ import { AxiosContext } from '@context'
 import { AxiosResponse } from 'axios'
 import ChatBubble from './ChatBubble'
 import { ListPayloadResponseProps } from '@utils/responseTypes'
+import { RTAContentContext } from '@context'
 import { motion } from 'framer-motion'
 import { useFetchOnlineUsers } from '@hooks'
 import useSendMessage from '@pages/Appbar/hooks/useSendMessage'
@@ -30,13 +31,16 @@ const ChatroomContainer = () => {
 	const chatrooms = useSelector((state: AppState) => state.chatrooms)
 	return (
 		<div className="fixed bottom-0 z-20 right-0 flex flex-row-reverse w-full">
-			{chatrooms?.map((chatroom, idx) => <Chatroom chatroom={chatroom} key={idx} />)}
+			{chatrooms?.map((chatroom, idx) => (
+				<Chatroom chatroom={chatroom} key={idx} />
+			))}
 		</div>
 	)
 }
 
 export const Chatroom = ({ chatroom, minimize = false }) => {
 	const { axiosInstance } = useContext(AxiosContext)
+	const { socket } = useContext(RTAContentContext)
 	const dispatch = useDispatch()
 	const { onlineUsers } = useFetchOnlineUsers()
 	const { sendMessage } = useSendMessage()
@@ -69,15 +73,13 @@ export const Chatroom = ({ chatroom, minimize = false }) => {
 		},
 	)
 	const onSubmit = async (values) => {
-		console.log(values)
 		await sendMessage(values)
-		fetchMessages()
-		//reset()
 	}
 
 	useEffect(() => {
-		if (chatroom) {
-			fetchMessages()
+		socket?.on('message:incoming', fetchMessages)
+		return () => {
+			socket?.off('message:incoming', console.log)
 		}
 	}, [axiosInstance, chatroom])
 
