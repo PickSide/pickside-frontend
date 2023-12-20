@@ -66,7 +66,15 @@ const AppBar = () => {
 									sidenavDispatch({
 										type: 'open',
 										title: t('Messages'),
-										content: <ChatroomsListing />,
+										content: (
+											<ChatroomsListing
+												callbackOnClick={() =>
+													sidenavDispatch({
+														type: 'close',
+													})
+												}
+											/>
+										),
 									})
 								}
 							>

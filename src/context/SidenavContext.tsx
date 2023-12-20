@@ -39,7 +39,7 @@ export const SidenavProvider: FC<any> = ({ children }) => {
 
 	const handlePrevious = () => dispatch({ type: 'previous' })
 
-	const clearState = () => dispatch({ type: 'close', content: <></>, title: '' })
+	const clearState = () => dispatch({ type: 'close' })
 
 	return (
 		<SidenavContext.Provider value={state}>

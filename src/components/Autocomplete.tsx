@@ -40,21 +40,11 @@ const Autocomplete = <T,>({
 	const id = useId()
 	const ref = useRef<HTMLInputElement>(null)
 	const [open, setOpen] = useState<boolean>(false)
-	const [userInput, setUserInput] = useState<string>('')
 	const [value, setValue] = useState<string>('')
 	const debouncedOpen = useDebounce(open, 100)
 
-	// const onInputChange = async (e) => {
-	// 	setValue(e.target.value)
-	// 	if (onChange) {
-	// 		onChange(e)
-	// 	}
-	// }
-
 	const onSelectElement = (e, option: T) => {
-		console.log(e)
 		if (getOptionLabel) {
-			console.log(getOptionLabel(option))
 			setValue(getOptionLabel(option))
 		}
 	}
@@ -70,9 +60,8 @@ const Autocomplete = <T,>({
 	}
 
 	const handleClear = () => {
-		setUserInput('')
 		setValue('')
-	} //onInputChange({ target: { value: '' } })
+	}
 
 	useEffect(() => {
 		const handleKeydown = (e: KeyboardEvent) => {
@@ -146,7 +135,6 @@ const Autocomplete = <T,>({
 						autoComplete="on"
 						type="text"
 						value={value}
-						onChange={(e) => setUserInput(e.target.value)}
 						{...rest}
 					/>
 					{clearable && !!value && (

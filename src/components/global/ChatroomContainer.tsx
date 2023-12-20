@@ -1,23 +1,15 @@
-import { AppState, Resources, openChatroom } from '@state'
+import { AppState, openChatroom } from '@state'
 import { Controller, useForm } from 'react-hook-form'
 import { Icon, IconButton, InputField, StatusBadge } from '@components'
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useMutation, useQuery } from '@tanstack/react-query'
 
 import Avatar from '@components/Avatar'
 import { AxiosContext } from '@context'
-import { AxiosResponse } from 'axios'
 import ChatBubble from './ChatBubble'
-import { ListPayloadResponseProps } from '@utils/responseTypes'
 import { RTAContentContext } from '@context'
 import { motion } from 'framer-motion'
 import { useFetchOnlineUsers } from '@hooks'
-import useSendMessage from '@pages/Appbar/hooks/useSendMessage'
-
-interface Messages extends Resources {
-	results?: Message[]
-}
 
 interface Message {
 	message?: string
@@ -31,19 +23,16 @@ const ChatroomContainer = () => {
 	const chatrooms = useSelector((state: AppState) => state.chatrooms)
 	return (
 		<div className="fixed bottom-0 z-20 right-0 flex flex-row-reverse w-full">
-			{chatrooms?.map((chatroom, idx) => (
-				<Chatroom chatroom={chatroom} key={idx} />
-			))}
+			{chatrooms?.map((chatroom, idx) => <Chatroom chatroom={chatroom} key={idx} />)}
 		</div>
 	)
 }
 
 export const Chatroom = ({ chatroom, minimize = false }) => {
 	const { axiosInstance } = useContext(AxiosContext)
-	const { socket } = useContext(RTAContentContext)
+	const { chatroomsSocket } = useContext(RTAContentContext)
 	const dispatch = useDispatch()
 	const { onlineUsers } = useFetchOnlineUsers()
-	const { sendMessage } = useSendMessage()
 	const connectedUser = useSelector((state: AppState) => state.user)
 	const { control, watch, handleSubmit, reset } = useForm({
 		defaultValues: {
@@ -60,28 +49,33 @@ export const Chatroom = ({ chatroom, minimize = false }) => {
 	)
 
 	const [isMinimized, setIsMinimized] = useState<boolean>(minimize)
-	const [messages, setMessages] = useState<Message[]>()
+	const [messages, setMessages] = useState<Message[]>([])
 
-	const { mutateAsync: fetchMessages } = useMutation<AxiosResponse<ListPayloadResponseProps<Message>>>(
-		['fetch-messages'],
-		async () => {
-			return await axiosInstance.get(`/messages/${chatroom?.id}`)
-		},
-		{
-			onSuccess: ({ data }) => setMessages(data.results),
-			onError: () => {},
-		},
-	)
+	const fetchMessages = async () => {
+		await axiosInstance.get(`/messages/${chatroom?.id}`).then((response) => setMessages(response.data.results))
+	}
+
+	const handleMessage = (payload: Message) => {
+		setMessages((prev) => [...prev, payload])
+	}
+
 	const onSubmit = async (values) => {
-		await sendMessage(values)
+		chatroomsSocket.emit('chatroom:sending-message', { ...values, sender: connectedUser?.id })
+		reset()
 	}
 
 	useEffect(() => {
-		socket?.on('message:incoming', fetchMessages)
+		chatroomsSocket.emit('chatroom:open', chatroom)
+		chatroomsSocket.on('chatroom:message-registered', handleMessage)
+
 		return () => {
-			socket?.off('message:incoming', console.log)
+			chatroomsSocket.off('chatroom:message-registered', console.log)
 		}
-	}, [axiosInstance, chatroom])
+	}, [])
+
+	useEffect(() => {
+		fetchMessages()
+	}, [])
 
 	return chatroom ? (
 		<motion.div

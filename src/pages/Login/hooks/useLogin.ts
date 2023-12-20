@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 const useLogin = () => {
-	const { socket } = useContext(RTAContentContext)
+	const { usersSocket } = useContext(RTAContentContext)
 	const [, setCachedUser] = useLocalStorage('user')
 	const [, setCachedAccessToken] = useLocalStorage('accessToken')
 	const [, setCachedRefreshToken] = useLocalStorage('refreshToken')
@@ -45,7 +45,7 @@ const useLogin = () => {
 				},
 			})
 			navigate(data.redirectUri, { replace: true })
-			socket.emit('user:login', data.user)
+			usersSocket.emit('user:login', data.user)
 		},
 		onError: (error: any) => handleResponseError(error),
 		onSettled: () => {

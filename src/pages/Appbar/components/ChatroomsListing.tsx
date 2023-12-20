@@ -9,11 +9,15 @@ import { StatusBadge } from '@components'
 import UsersAutocomplete from './UsersAutocomplete'
 import useFetchChatroom from '../hooks/useFetchChatroom'
 
-const ChatroomsListing: FC<any> = () => {
+interface ChatroomsListingProps {
+	callbackOnClick?: () => any
+}
+
+const ChatroomsListing: FC<ChatroomsListingProps> = ({ callbackOnClick }) => {
 	const dispatch = useDispatch()
 	const { onlineUsers, refetch: refetchOnlineUsers } = useFetchOnlineUsers()
 	const { users } = useFetchUsers()
-	const { socket } = useContext(RTAContentContext)
+	const { usersSocket } = useContext(RTAContentContext)
 	const connectedUser = useSelector((state: AppState) => state.user)
 
 	if (!connectedUser) {
@@ -26,15 +30,16 @@ const ChatroomsListing: FC<any> = () => {
 		if (recipient.id) {
 			const chatroom = await (await fetchChatroom(recipient)).data.payload
 			dispatch(openChatroom(chatroom))
+			callbackOnClick && callbackOnClick()
 		}
 	}
 
 	useEffect(() => {
-		socket?.on('user:isonline', refetchOnlineUsers)
-		socket?.on('user:isoffline', refetchOnlineUsers)
+		usersSocket?.on('user:isonline', refetchOnlineUsers)
+		usersSocket?.on('user:isoffline', refetchOnlineUsers)
 		return () => {
-			socket?.off('user:isonline', console.log)
-			socket?.off('user:isoffline', console.log)
+			usersSocket?.off('user:isonline', console.log)
+			usersSocket?.off('user:isoffline', console.log)
 		}
 	}, [])
 

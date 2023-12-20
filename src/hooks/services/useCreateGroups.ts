@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 
 const useCreateGroups = () => {
 	const { axiosInstance } = useContext(AxiosContext)
-	const { socket } = useContext(RTAContentContext)
+	const { groupsSocket } = useContext(RTAContentContext)
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 
@@ -33,7 +33,7 @@ const useCreateGroups = () => {
 					type: 'success',
 				},
 			})
-			socket.emit('group:create', {
+			groupsSocket.emit('group:create', {
 				...data.response.group,
 				organizerId: connectedUser?.id,
 				organizerUsername: connectedUser?.username,

@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 
 const useLogout = () => {
 	const { axiosInstance } = useContext(AxiosContext)
-	const { socket } = useContext(RTAContentContext)
+	const { usersSocket } = useContext(RTAContentContext)
 	const dispatch = useDispatch()
 	const [, , removeCachedUser] = useLocalStorage('user')
 	const [, , removeAccessToken] = useLocalStorage('accessToken')
@@ -32,7 +32,7 @@ const useLogout = () => {
 			removeAccessToken()
 			removeRefreshToken()
 
-			socket.emit('user:logout', connectedUser)
+			usersSocket.emit('user:logout', connectedUser)
 
 			dispatch(setUserEmpty())
 			dispatch({

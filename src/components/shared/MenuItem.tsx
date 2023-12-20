@@ -17,7 +17,6 @@ const MenuItem = forwardRef<HTMLButtonElement, MenuItemProps>(({ active, childre
 				className,
 			)}
 			onClick={(e, ...args) => {
-				console.log(e)
 				rest.onClick && rest.onClick(e, ...args)
 			}}
 			{...rest}
