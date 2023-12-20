@@ -1,6 +1,7 @@
 import { BottomDrawer, Button, Dialog, InputField, Select } from '@components'
 import { Controller, useForm } from 'react-hook-form'
 
+import { ACCOUNT_TYPE } from '@state/user/constants'
 import { AppState } from '@state'
 import ChangePasswordForm from '../components/forms/ChangePasswordForm'
 import DeactivationForm from '../components/forms/DeactivationForm'
@@ -79,7 +80,7 @@ const AccountManagement = () => {
 					<BottomDrawer show={formState.isDirty} onReset={reset} />
 				</form>
 			</div>
-			{!connectedUser?.isExternalAccount && (
+			{connectedUser?.accountType !== ACCOUNT_TYPE.DEFAULT && (
 				<div className="mt-5 space-y-4">
 					<p className="text-[20px] font-semibold">{t('Change your password')}</p>
 					<Button

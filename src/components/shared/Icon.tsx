@@ -5,46 +5,52 @@ import { cn } from '@utils'
 
 const validIcons = [
 	'account_circle',
-	'attach_money',
+	'alternate_email',
 	'arrow_upward',
 	'arrow_upward_alt',
-	'alternate_email',
+	'attach_money',
 	'bookmark',
 	'bookmark_border',
-	'chat_bubble',
+	'chat_bubble_outline',
+	'check_indeterminate_small',
+	'close',
+	'dark_mode',
+	'delete',
+	'edit',
 	'error_outline',
+	'favorite',
 	'group',
+	'info',
 	'keyboard_arrow_down',
 	'keyboard_arrow_left',
 	'keyboard_arrow_right',
+	'keyboard_arrow_up',
 	'language',
+	'light_mode',
+	'location_on',
 	'lock',
 	'menu',
+	'minimize',
+	'mood',
+	'more_vert',
 	'notifications',
 	'payments',
 	'person',
 	'place',
 	'progress_activity',
-	'schedule',
-	'today',
-	'location_on',
-	'light_mode',
-	'dark_mode',
-	'refresh',
-	'close',
-	'search',
-	'sync',
 	'radio_button_checked',
 	'radio_button_unchecked',
+	'refresh',
+	'remove',
+	'schedule',
+	'search',
+	'send',
+	'settings',
+	'star',
+	'sync',
+	'today',
 	'visibility',
 	'visibility_off',
-	'delete',
-	'edit',
-	'info',
-	'favorite',
-	'star',
-	'settings',
-	'more_vert',
 ] as const
 
 export type IconName = (typeof validIcons)[number]
@@ -76,9 +82,11 @@ interface IconProps extends ComponentPropsWithRef<'i'>, VariantProps<typeof icon
 	icon: IconName
 }
 
-const Icon = forwardRef<ComponentPropsWithRef<'i'>, IconProps>(({ className, icon, size, variant, ...rest }, ref) => {
+const Icon = forwardRef<JSX.Element, IconProps>(({ className, icon, size, variant, ...rest }, ref) => {
 	if (!validIcons.includes(icon)) {
-		return null
+		throw new Error(
+			'Icon passed is not supported. Please add it from here https://fonts.google.com/icons?selected=Material+Symbols+Outlined:mood:FILL@0;wght@400;GRAD@0;opsz@24',
+		)
 	}
 
 	return (
@@ -89,3 +97,5 @@ const Icon = forwardRef<ComponentPropsWithRef<'i'>, IconProps>(({ className, ico
 })
 
 export default Icon
+
+Icon.defaultProps = {}

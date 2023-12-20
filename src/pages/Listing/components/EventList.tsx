@@ -1,35 +1,51 @@
-import { AppState, setSelectedActivity } from '@state'
+import { ActivityCard, Spinner } from '@components'
 import { FC, useContext } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 
-import { ActivityCard } from '@components'
+import { AppState } from '@state'
 import FocusEventContext from '../context/FocusEventContext'
+import SelectedActivity from './shared/SelectedActivity'
+import { SidenavDispatchContext } from '@context/SidenavContext'
 import { cn } from '@utils'
+import { useFetchActivities } from '@hooks'
+import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 const EventList: FC<any> = () => {
+	const sidenavDispatch = useContext(SidenavDispatchContext)
 	const { focusedActivity, onFocusInActivity, onFocusOutActivity } = useContext(FocusEventContext)
-	const dispatch = useDispatch()
+	const { refetch, isLoading } = useFetchActivities()
 	const { t } = useTranslation()
+	const activities = useSelector((state: AppState) => state.activities)
 
-	const stateActivities = useSelector((state: AppState) => state.activities)
-
-	return stateActivities?.results ? (
+	return activities?.results?.length ? (
 		<div className="flex flex-col bg-[#fafafa] min-w-[500px] h-[calc(100vh-64px)] py-2 px-4 gap-y-3 overflow-y-scroll overflow-x-hidden">
-			{stateActivities?.results?.map((activity, idx) => (
+			{activities?.results?.map((activity, idx) => (
 				<ActivityCard
 					className={cn(focusedActivity?.id === activity.id ? 'shadow-md' : 'hover:shadow-md')}
 					key={idx}
 					activity={activity}
-					onClick={() => dispatch(setSelectedActivity(activity))}
+					onClick={() =>
+						sidenavDispatch({
+							type: 'open',
+							content: <SelectedActivity activity={activity} />,
+							title: activity.title,
+						})
+					}
 					onMouseEnter={() => onFocusInActivity(activity)}
 					onMouseLeave={onFocusOutActivity}
 				/>
 			))}
 		</div>
+	) : isLoading ? (
+		<div className="min-w-[500px] m-auto text-center">
+			<Spinner text={t('Loading activites...')} />
+		</div>
 	) : (
 		<div className="min-w-[500px] m-auto text-center">
-			<span className="text-[25px] lg:text-[35px] font-semibold">{t('No events in the area')}</span>
+			<h5 className="font-semibold">{t('No events in the area')}</h5>
+			<span className="text-lg font-normal underline text-blue-700 cursor-pointer" onClick={() => refetch()}>
+				{t('Refresh')}
+			</span>
 		</div>
 	)
 }

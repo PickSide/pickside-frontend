@@ -16,6 +16,9 @@ const MenuItem = forwardRef<HTMLButtonElement, MenuItemProps>(({ active, childre
 				active ? 'bg-primary dark:bg-grey-600 text-white' : '',
 				className,
 			)}
+			onClick={(e, ...args) => {
+				rest.onClick && rest.onClick(e, ...args)
+			}}
 			{...rest}
 		>
 			<span>{icon}</span>

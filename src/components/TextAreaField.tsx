@@ -1,50 +1,33 @@
-import { forwardRef } from 'react'
-import { twMerge } from 'tailwind-merge'
+import { ComponentPropsWithRef, forwardRef } from 'react'
 
-interface TextAreaFieldProps {
-	autofocus?: boolean
-	defaultValue?: string
+import { cn } from '@utils'
+
+interface TextAreaFieldProps extends ComponentPropsWithRef<'textarea'> {
 	error?: any
 	fullWidth?: boolean
-	id?: string
 	label?: string
-	onChange?: (e?) => void
-	placeholder?: string
-	readOnly?: boolean
-	type?: string
 }
 
 const TextAreaField = (
-	{
-		id,
-		autofocus = false,
-		defaultValue,
-		error,
-		fullWidth = false,
-		label,
-		onChange,
-		placeholder,
-		readOnly = false,
-		...rest
-	}: TextAreaFieldProps | any,
+	{ id, defaultValue, error, fullWidth = false, label, readOnly = false, ...rest }: TextAreaFieldProps,
 	ref,
 ) => {
 	return (
-		<div className={twMerge('relative flex flex-col', fullWidth ? 'w-full' : 'w-[230px]')}>
+		<div className={cn('relative flex flex-col', fullWidth ? 'w-full' : 'w-[230px]')}>
 			<label htmlFor={id} className="text-gray-800">
 				{label}
 			</label>
 			<div
-				className={twMerge(
+				className={cn(
 					'inline-flex w-full items-center rounded-md bg-white border-2 focus-within:border-2 focus-within:border-primary',
-					!!error ? 'border-[#d2333d] text-[#d2333d]' : readOnly ? 'border-gray-100' : 'border-gray-200',
+					error && 'border-[#d2333d] text-[#d2333d]',
+					readOnly && 'border-gray-100',
 				)}
 			>
 				<div className="px-2 w-full">
 					<textarea
 						ref={ref}
-						value={defaultValue}
-						onChange={onChange}
+						defaultValue={defaultValue}
 						className="relative rounded-md w-[100%] h-[90%] px-2 py-2 focus-visible:outline-none"
 						{...rest}
 					/>

@@ -4,19 +4,16 @@ import { useFetchNotifications, useReadNotification } from '@hooks'
 
 import { RTAContentContext } from '@context'
 import { RxDotFilled } from 'react-icons/rx'
-import { useTranslation } from 'react-i18next'
 
 const NotificationMenu: FC<any> = () => {
 	const { notifications, isLoading, refetch: refetchNotifications } = useFetchNotifications()
 	const { readNotification } = useReadNotification()
-	const { socket } = useContext(RTAContentContext)
-	const { t } = useTranslation()
+	const { groupsSocket } = useContext(RTAContentContext)
 
 	useEffect(() => {
-		socket?.on('group:notify', refetchNotifications)
-
+		groupsSocket?.on('group:notify', refetchNotifications)
 		return () => {
-			socket?.off('group:notify', console.log)
+			groupsSocket?.off('group:notify', console.log)
 		}
 	}, [])
 

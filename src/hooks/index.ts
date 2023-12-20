@@ -3,7 +3,7 @@ import useConnectedUserPosition from './useConnectedUserPosition'
 import useCreateActivity from './services/useCreateActivity'
 import useCreateGroups from './services/useCreateGroups'
 import useDeactivateAccount from './services/useDeactivateAccount'
-import useDebounce from './useDebounce'
+import useDebouncedCallback from './useDebouncedCallback'
 import useDeleteGroup from './services/useDeleteGroup'
 import useDevice from './useDevice'
 import useEnvVariables from './useEnvVariables'
@@ -13,7 +13,9 @@ import useFetchFavorites from './services/useFetchFavorites'
 import useFetchGroup from './services/useFetchGroup'
 import useFetchGroups from './services/useFetchGroups'
 import useFetchLocales from './services/useFetchLocales'
+import useFetchMessagesForChatroom from './services/useFetchMessagesForChatroom'
 import useFetchNotifications from './services/useFetchNotifications'
+import useFetchOnlineUsers from './services/useFetchOnlineUsers'
 import useFetchUsers from './services/useFetchUsers'
 import useGuestLogout from './services/useGuestLogout'
 import useLocaleSwitcher from './useLocaleSwitcher'
@@ -33,7 +35,7 @@ import useUpdateSetting from './services/useUpdateSetting'
 export {
 	useActivityHandlers,
 	useConnectedUserPosition,
-	useDebounce,
+	useDebouncedCallback,
 	useEnvVariables,
 	useFetchActivities,
 	useFetchFavorites,
@@ -49,7 +51,9 @@ export {
 	useDeactivateAccount,
 	useFetchActivity,
 	useFetchLocales,
+	useFetchMessagesForChatroom,
 	useFetchNotifications,
+	useFetchOnlineUsers,
 	useFetchUsers,
 	useGuestLogout,
 	useReactivateAccount,

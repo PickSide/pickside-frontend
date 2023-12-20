@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 const useFetchUsers = () => {
 	const { axiosInstance } = useContext(AxiosContext)
 
-	const fetchUsers = async () => await axiosInstance.get('/users')
+	const fetchUsers = async () => (await axiosInstance.get('/users')).data
 
 	const {
 		data: users,

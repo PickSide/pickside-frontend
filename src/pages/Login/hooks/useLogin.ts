@@ -1,6 +1,6 @@
+import { AxiosContext, RTAContentContext } from '@context'
 import { useLocalStorage, useSessionStorage } from 'react-use'
 
-import { AxiosContext } from '@context'
 import { handleResponseError } from '@utils'
 import { setUser } from '@state'
 import { useContext } from 'react'
@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 const useLogin = () => {
+	const { usersSocket } = useContext(RTAContentContext)
 	const [, setCachedUser] = useLocalStorage('user')
 	const [, setCachedAccessToken] = useLocalStorage('accessToken')
 	const [, setCachedRefreshToken] = useLocalStorage('refreshToken')
@@ -44,6 +45,7 @@ const useLogin = () => {
 				},
 			})
 			navigate(data.redirectUri, { replace: true })
+			usersSocket.emit('user:login', data.user)
 		},
 		onError: (error: any) => handleResponseError(error),
 		onSettled: () => {

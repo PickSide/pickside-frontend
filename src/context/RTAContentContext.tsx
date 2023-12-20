@@ -1,24 +1,38 @@
 import { FC, createContext, useEffect } from 'react'
-
-import { Socket } from 'socket.io-client'
-import socket from './utils/socket'
+import { Socket, io } from 'socket.io-client'
 
 interface RTAContentContextProps {
-	socket: Socket
+	chatroomsSocket: Socket
+	groupsSocket: Socket
+	usersSocket: Socket
 }
 
-const Context = createContext<RTAContentContextProps>({ socket })
+const URL = import.meta.env.PROD ? undefined : import.meta.env.VITE_APP_API_BASE_URL
+
+const defaultOptions = {
+	autoConnect: false,
+}
+
+const chatroomsSocket = io(URL + '/chatrooms', defaultOptions)
+const groupsSocket = io(URL + '/groups', defaultOptions)
+const usersSocket = io(URL + '/users', defaultOptions)
+
+const Context = createContext<RTAContentContextProps>({ chatroomsSocket, groupsSocket, usersSocket })
 
 export const RTAContentProvider: FC<any> = ({ children }) => {
 	useEffect(() => {
-		socket.connect()
+		chatroomsSocket.connect()
+		groupsSocket.connect()
+		usersSocket.connect()
 
 		return () => {
-			socket.disconnect()
+			chatroomsSocket.disconnect()
+			groupsSocket.disconnect()
+			usersSocket.disconnect()
 		}
 	}, [])
 
-	return <Context.Provider value={{ socket }}>{children}</Context.Provider>
+	return <Context.Provider value={{ chatroomsSocket, groupsSocket, usersSocket }}>{children}</Context.Provider>
 }
 
 export default Context

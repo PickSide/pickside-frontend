@@ -17,7 +17,7 @@ import EditField from './EditField'
 import EmailField from './EmailField'
 import FormDivider from './FormDivider'
 import Gallery from './Gallery'
-import GlobalAppStatusAlert from './GlobalAppStatusAlert'
+import GlobalAppStatusAlert from './global/GlobalAppStatusAlert'
 import GoogleAutocomplete from './GoogleAutocomplete'
 import Icon from './shared/Icon'
 import IconButton from './IconButton'
@@ -31,13 +31,14 @@ import PhoneField from './PhoneField'
 import Popover from './Popover'
 import PrivilegedContent from './global/PrivilegedContent'
 import ProtectedRoute from './global/ProtectedRoute'
+import QueryAutocomplete from './QueryAutocomplete'
 import Radio from './Radio'
 import RadioGroup from './RadioGroup'
 import RequireAuth from './global/RequireAuth'
 import Select from './shared/Select'
 import SettingField from './SettingField'
-import Sidenav from './Sidenav'
 import Spinner from './Spinner'
+import StatusBadge from './StatusBadge'
 import Switch from './Switch'
 import TextAreaField from './TextAreaField'
 import TimePicker from './TimePicker'
@@ -49,6 +50,7 @@ export {
 	AccordionSection,
 	ActivityCard,
 	Alert,
+	QueryAutocomplete,
 	Autocomplete,
 	BottomDrawer,
 	Button,
@@ -86,7 +88,7 @@ export {
 	RequireAuth,
 	Select,
 	SettingField,
-	Sidenav,
+	StatusBadge,
 	Spinner,
 	Switch,
 	Tab,

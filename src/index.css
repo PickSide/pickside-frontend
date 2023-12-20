@@ -6,8 +6,23 @@
 @layer base {
 	body {
 		margin: 0;
-		font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Futura', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-			'Droid Sans', 'Helvetica Neue', sans-serif;
+		font-family:
+			'Roboto',
+			-apple-system,
+			BlinkMacSystemFont,
+			'Futura',
+			'Oxygen',
+			'Ubuntu',
+			'Cantarell',
+			'Fira Sans',
+			'Droid Sans',
+			'Helvetica Neue',
+			sans-serif;
+	}
+
+	svg {
+		fill: currentColor;
+		stroke: currentColor;
 	}
 
 	input:-webkit-autofill {
@@ -177,21 +192,13 @@
 	.scrollable {
 		@apply scrollbar-thin scrollbar-thumb-accent scrollbar-track-gray-100;
 	}
-	.section {
-		@apply p-2 w-full mx-auto items-center overflow-x-hidden h-screen;
-	}
+}
+
+@layer components {
 	/* CHIPS */
 	.chip-base {
 		@apply rounded font-semibold uppercase text-sm px-6 py-3 disabled:bg-slate-200 disabled:opacity-70 disabled:cursor-not-allowed;
 	}
-
-	/* ICONS */
-	.icon-btn {
-		@apply rounded-md ease-linear transition-all duration-75 p-1 m-2 hover:scale-110 hover:bg-gray-200/70 dark:text-white;
-	}
-}
-
-@layer components {
 	/* BUTTONS */
 	.btn-base {
 		@apply rounded;
@@ -204,5 +211,18 @@
 	}
 	.btn-lg {
 		@apply px-6 py-4 text-lg leading-none;
+	}
+	/* ICONS */
+	.icon-btn {
+		@apply rounded-md ease-linear transition-all p-1 m-2 hover:scale-110 hover:bg-gray-200/70 dark:text-white;
+	}
+	.section {
+		@apply p-2 w-full mx-auto items-center overflow-x-hidden h-screen;
+	}
+}
+
+@layer utilities {
+	textarea.disable-resize {
+		@apply resize-none;
 	}
 }

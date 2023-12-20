@@ -4,43 +4,28 @@ import { VariantProps, cva } from 'class-variance-authority'
 import Spinner from '../Spinner'
 import { cn } from '@utils'
 
-export const buttonVariants = cva(['rounded', 'text-base', 'leading-none'], {
-	variants: {
-		variant: {
-			primary: [
-				'text-white',
-				'bg-primary',
-				'disabled:bg-cool-gray-3',
-				'hover:bg-gray-300',
-				'dark:bg-grey-600',
-				'dark:text-white',
-				'dark:hover:bg-gray-300',
-			],
-			secondary: [
-				'text-primary',
-				'border-[1px]',
-				'border-primary',
-				'hover:bg-gray-300',
-				'disabled:text-gray-400',
-				'disabled:border-gray-200/30',
-				'disabled:bg-gray-200/60',
-				'dark:bg-white',
-				'dark:text-black',
-			],
-			tertiary: ['text-primary', 'underline', 'font-semibold', 'bg-none ', 'dark:text-white'],
-			danger: ['text-white', 'bg-red-600 ', 'hover:bg-red-400'],
+export const buttonVariants = cva(
+	['rounded', 'text-base', 'leading-none', 'hover:bg-gray-300', 'disabled:text-cool-gray-3'],
+	{
+		variants: {
+			variant: {
+				primary: ['text-white', 'bg-primary', 'dark:bg-grey-600', 'dark:text-white', 'dark:hover:bg-gray-300'],
+				secondary: ['text-primary', 'border-[1px]', 'border-primary', 'dark:bg-white', 'dark:text-black'],
+				tertiary: ['text-primary', 'underline', 'font-semibold', 'bg-none ', 'dark:text-white'],
+				danger: ['text-white', 'bg-red-600 ', 'hover:bg-red-400'],
+			},
+			size: {
+				sm: ['px-2', 'py-2'],
+				md: ['px-4', 'py-3'],
+				lg: ['px-6', 'py-4'],
+			},
 		},
-		size: {
-			sm: ['px-2', 'py-2'],
-			md: ['px-4', 'py-3'],
-			lg: ['px-6', 'py-4'],
+		defaultVariants: {
+			variant: 'primary',
+			size: 'md',
 		},
 	},
-	defaultVariants: {
-		variant: 'primary',
-		size: 'md',
-	},
-})
+)
 
 export interface ButtonProps extends ComponentPropsWithRef<'button'>, VariantProps<typeof buttonVariants> {
 	isLoading?: boolean
