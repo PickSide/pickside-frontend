@@ -7,7 +7,7 @@ interface RTAContentContextProps {
 	usersSocket: Socket
 }
 
-const URL = import.meta.env.PROD ? undefined : import.meta.env.VITE_APP_API_BASE_URL
+const URL = import.meta.env.VITE_APP_API_URL
 
 const defaultOptions = {
 	autoConnect: false,
