@@ -8,9 +8,10 @@ import { cn } from '@utils'
 import usePlacesService from 'react-google-autocomplete/lib/usePlacesAutocompleteService'
 import { useTranslation } from 'react-i18next'
 
-interface GoogleAutocompleteProps extends InputFieldProps {
+interface GoogleAutocompleteProps extends Omit<InputFieldProps, 'value'> {
 	label?: string
 	onPlaceSelected?: (place: google.maps.places.PlaceResult) => void
+	value?: google.maps.places.PlaceResult | string
 }
 
 const GoogleAutocomplete = forwardRef<InputFieldProps, GoogleAutocompleteProps>(
@@ -24,7 +25,7 @@ const GoogleAutocomplete = forwardRef<InputFieldProps, GoogleAutocompleteProps>(
 		const { t } = useTranslation()
 
 		const [openPrediction, setOpenPrediction] = useState<boolean>(false)
-		const [val, setVal] = useState<google.maps.places.PlaceResult>(value || '')
+		const [val, setVal] = useState<google.maps.places.PlaceResult | string>(value || '')
 		const [cursor, setCursor] = useState<number>(0)
 
 		return (
@@ -62,7 +63,7 @@ const GoogleAutocomplete = forwardRef<InputFieldProps, GoogleAutocompleteProps>(
 							getPlacePredictions({ input: evt.target.value })
 							onChange && onChange(evt)
 						}}
-						value={val.formatted_address}
+						value={(val as google.maps.places.PlaceResult).formatted_address}
 						{...rest}
 					/>
 					{openPrediction && (

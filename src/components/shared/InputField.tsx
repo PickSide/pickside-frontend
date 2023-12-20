@@ -22,7 +22,9 @@ export const inputVariants = cva(
 	},
 )
 
-interface InputFieldProps extends Omit<ComponentPropsWithRef<'input'>, 'size'>, VariantProps<typeof inputVariants> {
+export interface InputFieldProps
+	extends Omit<ComponentPropsWithRef<'input'>, 'size'>,
+		VariantProps<typeof inputVariants> {
 	label?: string
 	startContent?: ReactNode
 	endContent?: ReactNode
@@ -35,7 +37,7 @@ interface InputFieldProps extends Omit<ComponentPropsWithRef<'input'>, 'size'>, 
 	defaultValue?: string
 }
 
-const InputField = forwardRef<ComponentPropsWithRef<'input'>, InputFieldProps>(
+const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 	(
 		{
 			id,
@@ -82,6 +84,7 @@ const InputField = forwardRef<ComponentPropsWithRef<'input'>, InputFieldProps>(
 					<span className="inline-flex items-center max-w-6 max-h-6 mx-2">{startContent}</span>
 
 					<input
+						ref={ref}
 						aria-labelledby={`${id || generatedId}-label-input`}
 						autoComplete="off"
 						disabled={readOnly}

@@ -32,7 +32,7 @@ const Step3 = () => {
 						fullWidth
 						label={t('Rules')}
 						placeholder={t('Let your teammates know wht you expect of them ...')}
-						rows={device === 'mobile' ? '10' : '8'}
+						rows={device === 'mobile' ? 10 : 8}
 					/>
 				)}
 			/>
