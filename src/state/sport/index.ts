@@ -9,7 +9,7 @@ export interface Sport {
 	id?: string
 	value?: string
 	name?: string
-	featureAvailable?: boolean,
+	featureAvailable?: boolean
 	modes?: Mode[]
 }
 
@@ -20,7 +20,7 @@ export interface Mode {
 	defaultMaxPlayers: number
 }
 
-const Sport = createSlice({
+const SportReducer = createSlice({
 	initialState: null as unknown as Sports,
 	name: 'sports',
 	reducers: {
@@ -28,6 +28,6 @@ const Sport = createSlice({
 	},
 })
 
-export const { setSports } = Sport.actions
+export const { setSports } = SportReducer.actions
 
-export default Sport.reducer
+export default SportReducer.reducer

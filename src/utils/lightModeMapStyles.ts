@@ -1,4 +1,4 @@
-export default [
+const lightMode = [
 	{
 		elementType: 'geometry',
 		stylers: [
@@ -253,3 +253,5 @@ export default [
 		],
 	},
 ]
+
+export default lightMode

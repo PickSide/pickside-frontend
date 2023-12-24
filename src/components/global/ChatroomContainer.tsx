@@ -9,7 +9,7 @@ import { AxiosContext } from '@context'
 import ChatBubble from './ChatBubble'
 import { RTAContentContext } from '@context'
 import { motion } from 'framer-motion'
-import { useEffectOnce } from 'react-use'
+import { useEffectOnce } from 'usehooks-ts'
 import { useFetchOnlineUsers } from '@hooks'
 
 interface Message {

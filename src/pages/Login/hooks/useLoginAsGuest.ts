@@ -5,13 +5,11 @@ import { useContext } from 'react'
 import { useDispatch } from 'react-redux'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
-import { useSessionStorage } from 'react-use'
+import { useSessionStorage } from 'usehooks-ts'
 import { useTranslation } from 'react-i18next'
 
 const useLoginAsGuest = () => {
-	const [, setGuestUser] = useSessionStorage('guest-user')
-	const [, setGuestAccessToken] = useSessionStorage('guest-accessToken')
-	const [, setGuestRefreshToken] = useSessionStorage('guest-refreshToken')
+	const [, setGuestUser] = useSessionStorage('guest-user', null)
 
 	const { axiosInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
@@ -29,8 +27,6 @@ const useLoginAsGuest = () => {
 		onSuccess: ({ data }) => {
 			dispatch(setUser(data.user))
 			setGuestUser(data.user)
-			setGuestAccessToken(data.accessToken)
-			setGuestRefreshToken(data.refreshToken)
 			dispatch({
 				type: 'toast/toastMessage',
 				payload: {

@@ -18,7 +18,7 @@ export interface Notification {
 	message?: string
 }
 
-const Notifications = createSlice({
+const NotificationsReducer = createSlice({
 	initialState: null as unknown as Notifications,
 	name: 'notifications',
 	reducers: {
@@ -33,6 +33,6 @@ const Notifications = createSlice({
 	},
 })
 
-export const { setNotifications, markAsRead } = Notifications.actions
+export const { setNotifications, markAsRead } = NotificationsReducer.actions
 
-export default Notifications.reducer
+export default NotificationsReducer.reducer

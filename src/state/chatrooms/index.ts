@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { Resources, User } from '@state'
+
+import { User } from '@state'
 
 export interface Chatroom {
 	id?: string
@@ -11,7 +12,7 @@ export interface Chatroom {
 	startedBy?: User
 }
 
-const Chatrooms = createSlice({
+const ChatroomsReducer = createSlice({
 	initialState: ([] as Chatroom[]) || [],
 	name: 'chatrooms',
 	reducers: {
@@ -27,6 +28,6 @@ const Chatrooms = createSlice({
 	},
 })
 
-export const { openChatroom, closeChatroom } = Chatrooms.actions
+export const { openChatroom, closeChatroom } = ChatroomsReducer.actions
 
-export default Chatrooms.reducer
+export default ChatroomsReducer.reducer

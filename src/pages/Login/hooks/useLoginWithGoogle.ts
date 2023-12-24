@@ -5,16 +5,14 @@ import axios from 'axios'
 import { setUser } from '@state'
 import { useDispatch } from 'react-redux'
 import { useGoogleLogin } from '@react-oauth/google'
-import { useLocalStorage } from 'react-use'
+import { useLocalStorage } from 'usehooks-ts'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 const useLoginWithGoogle = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
-	const [, setCachedUser] = useLocalStorage('user')
-	const [, setCachedAccessToken] = useLocalStorage('accessToken')
-	const [, setCachedRefreshToken] = useLocalStorage('refreshToken')
+	const [, setCachedUser] = useLocalStorage('user', null)
 	const { t } = useTranslation()
 
 	const { axiosInstance } = useContext(AxiosContext)
@@ -38,8 +36,6 @@ const useLoginWithGoogle = () => {
 				.then(({ data }) => callback(data))
 				.then(({ data }) => {
 					setCachedUser(data.user)
-					setCachedAccessToken(data.accessToken)
-					setCachedRefreshToken(data.refreshToken)
 					dispatch(setUser(data.user))
 					dispatch({
 						type: 'toast/toastMessage',

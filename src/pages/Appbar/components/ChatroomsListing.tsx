@@ -1,5 +1,5 @@
 import { AppState, User, openChatroom } from '@state'
-import { FC, useContext, useEffect, useMemo } from 'react'
+import { FC, useContext, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useFetchOnlineUsers, useFetchUsers } from '@hooks'
 
@@ -7,6 +7,7 @@ import Avatar from '@components/Avatar'
 import { RTAContentContext } from '@context'
 import { StatusBadge } from '@components'
 import UsersAutocomplete from './UsersAutocomplete'
+import { useEffectOnce } from 'usehooks-ts'
 import useFetchChatroom from '../hooks/useFetchChatroom'
 
 interface ChatroomsListingProps {
@@ -24,7 +25,7 @@ const ChatroomsListing: FC<ChatroomsListingProps> = ({ callbackOnClick }) => {
 		throw new Error('You need to be signed in to chat')
 	}
 
-	const { fetchChatroom, isLoading: isLoadingChatroom } = useFetchChatroom()
+	const { fetchChatroom } = useFetchChatroom()
 
 	const open = async (recipient: User) => {
 		if (recipient.id) {
@@ -34,14 +35,14 @@ const ChatroomsListing: FC<ChatroomsListingProps> = ({ callbackOnClick }) => {
 		}
 	}
 
-	useEffect(() => {
+	useEffectOnce(() => {
 		usersSocket?.on('user:isonline', refetchOnlineUsers)
 		usersSocket?.on('user:isoffline', refetchOnlineUsers)
 		return () => {
 			usersSocket?.off('user:isonline', console.log)
 			usersSocket?.off('user:isoffline', console.log)
 		}
-	}, [])
+	})
 
 	const onlineUsersBydId = useMemo(() => onlineUsers?.results?.map((user) => user.id), [onlineUsers])
 

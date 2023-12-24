@@ -25,7 +25,6 @@ import useMultistepForm from './useMultistepForm'
 import useOnScreen from './useOnScreen'
 import useReactivateAccount from './services/useReactivateAccount'
 import useReadNotification from './services/useReadNotification'
-import useRefreshToken from './services/useRefreshToken'
 import useRegisterSelfToActivity from './services/useRegisterSelfToActivity'
 import useResetDb from '../pages/Home/hooks/useResetDb'
 import useUnregisterSelfFromActivity from './services/useUnregisterSelfFromActivity'
@@ -35,35 +34,34 @@ import useUpdateSetting from './services/useUpdateSetting'
 export {
 	useActivityHandlers,
 	useConnectedUserPosition,
+	useCreateActivity,
+	useCreateGroups,
+	useDeactivateAccount,
 	useDebouncedCallback,
+	useDeleteGroup,
+	useDevice,
 	useEnvVariables,
 	useFetchActivities,
-	useFetchFavorites,
-	useDevice,
-	useDeleteGroup,
-	useLocaleSwitcher,
-	useMapStyles,
-	useMultistepForm,
-	useOnScreen,
-	useRefreshToken,
-	useUpdateSetting,
-	useCreateActivity,
-	useDeactivateAccount,
 	useFetchActivity,
+	useFetchFavorites,
+	useFetchGroup,
+	useFetchGroups,
 	useFetchLocales,
 	useFetchMessagesForChatroom,
 	useFetchNotifications,
 	useFetchOnlineUsers,
 	useFetchUsers,
 	useGuestLogout,
+	useLocaleSwitcher,
+	useLogout,
+	useMapStyles,
+	useMultistepForm,
+	useOnScreen,
 	useReactivateAccount,
 	useReadNotification,
-	useUnregisterSelfFromActivity,
 	useRegisterSelfToActivity,
 	useResetDb,
+	useUnregisterSelfFromActivity,
 	useUpdateFavorite,
-	useLogout,
-	useCreateGroups,
-	useFetchGroup,
-	useFetchGroups,
+	useUpdateSetting,
 }

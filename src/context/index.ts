@@ -1,6 +1,5 @@
 import { SidenavContext, SidenavDispatchContext } from './SidenavContext'
 
-import ApiErrorContext from './ApiErrorContext'
 import AppThemeContext from './AppThemeContext'
 import AxiosContext from './AxiosContext'
 import I18nAppContext from './I18nAppContext'
@@ -11,7 +10,6 @@ import ToastContext from './ToastContext'
 import WindowContext from './WindowContext'
 
 export {
-	ApiErrorContext,
 	AppThemeContext,
 	AxiosContext,
 	I18nAppContext,

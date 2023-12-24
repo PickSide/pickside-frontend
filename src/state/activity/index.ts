@@ -23,7 +23,7 @@ export interface Activity {
 	price: number
 }
 
-const Activity = createSlice({
+const ActivityReducer = createSlice({
 	initialState: null as unknown as Activities,
 	name: 'activities',
 	reducers: {
@@ -53,6 +53,6 @@ const Activity = createSlice({
 	},
 })
 
-export const { addActivity, updateActivity, updateParticipants, setActivities } = Activity.actions
+export const { addActivity, updateActivity, updateParticipants, setActivities } = ActivityReducer.actions
 
-export default Activity.reducer
+export default ActivityReducer.reducer

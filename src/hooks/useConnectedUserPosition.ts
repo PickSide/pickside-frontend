@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 
 const useConnectedUserPosition = (): { lat: number; lng: number } => {
-	const [altitude, setAltitude] = useState<number>(0)
 	const [lat, setLat] = useState<number>(0)
 	const [lng, setLng] = useState<number>(0)
 

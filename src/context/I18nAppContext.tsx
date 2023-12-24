@@ -1,6 +1,7 @@
 import { FC, ReactNode, createContext, useContext, useEffect, useState } from 'react'
 
 import { AppState } from '@state'
+import { useEffectOnce } from 'usehooks-ts'
 import { useSelector } from 'react-redux'
 
 export interface I18nAppContextProps {
@@ -16,7 +17,7 @@ export const AppThemeProvider: FC<any> = ({ children }) => {
 	const appLocale = useSelector((state: AppState) => state.appLocale)
 	const [currentLocalClass, setCurrentLocalClass] = useState<any>(user?.preferredLocale || 'en')
 
-	useEffect(() => window.document.documentElement.classList.add(currentLocalClass), [])
+	useEffectOnce(() => window.document.documentElement.classList.add(currentLocalClass))
 
 	useEffect(() => {
 		if (appLocale) {
@@ -25,7 +26,7 @@ export const AppThemeProvider: FC<any> = ({ children }) => {
 			root.classList.add(appLocale)
 			setCurrentLocalClass(appLocale)
 		}
-	}, [appLocale])
+	}, [appLocale, currentLocalClass])
 
 	return <I18nAppContext.Provider value={{}}>{children}</I18nAppContext.Provider>
 }

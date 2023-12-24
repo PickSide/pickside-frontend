@@ -1,21 +1,17 @@
 import { setUserEmpty } from '@state'
 import { useDispatch } from 'react-redux'
 import { useMutation } from '@tanstack/react-query'
-import { useSessionStorage } from 'react-use'
+import { useSessionStorage } from 'usehooks-ts'
 import { useTranslation } from 'react-i18next'
 
 const useGuestLogout = () => {
 	const dispatch = useDispatch()
-	const [, setGuestUser] = useSessionStorage('user')
-	const [, setGuestAccessToken] = useSessionStorage('accessToken')
-	const [, setGuestRefreshToken] = useSessionStorage('refreshToken')
+	const [, setUser] = useSessionStorage('user', null)
 	const { t } = useTranslation()
 
 	const callback = () =>
 		Promise.resolve(() => {
-			setGuestUser(null)
-			setGuestAccessToken(null)
-			setGuestRefreshToken(null)
+			setUser(null)
 		})
 
 	const {

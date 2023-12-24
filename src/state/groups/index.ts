@@ -18,7 +18,7 @@ export interface Group {
 	visibility: 'public' | 'private'
 }
 
-const Group = createSlice({
+const GroupReducer = createSlice({
 	initialState: { results: [] } as Groups,
 	name: 'groups',
 	reducers: {
@@ -38,6 +38,6 @@ const Group = createSlice({
 	},
 })
 
-export const { addGroup, removeGroup, setGroups } = Group.actions
+export const { addGroup, removeGroup, setGroups } = GroupReducer.actions
 
-export default Group.reducer
+export default GroupReducer.reducer

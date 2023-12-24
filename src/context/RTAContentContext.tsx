@@ -12,7 +12,7 @@ const URL = import.meta.env.VITE_APP_API_BASE_URL
 const defaultOptions = {
 	autoConnect: true,
 }
-console.log(URL)
+
 const chatroomsSocket = io(URL + '/chatrooms', defaultOptions)
 const groupsSocket = io(URL + '/groups', defaultOptions)
 const usersSocket = io(URL + '/users', defaultOptions)
@@ -23,7 +23,6 @@ const Context = createContext<RTAContentContextProps>({ chatroomsSocket, groupsS
 
 export const RTAContentProvider: FC<any> = ({ children }) => {
 	useEffect(() => {
-		console.log('rendered RTA')
 		chatroomsSocket.connect()
 		groupsSocket.connect()
 		usersSocket.connect()

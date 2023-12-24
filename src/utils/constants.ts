@@ -10,7 +10,7 @@ export const CONNECTED_ACCOUNT = 'pickside-user'
 
 export const FULL_NAME_REGEX = /^[A-Za-z]*( [A-Za-z]+)*$/
 export const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/
-export const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+export const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/
 export const NUMBERS_ONLY_REGEX = /^\d+$/
 export const PHONE_REGEX = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/
 

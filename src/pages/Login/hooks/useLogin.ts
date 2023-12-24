@@ -1,5 +1,5 @@
 import { AxiosContext, RTAContentContext } from '@context'
-import { useLocalStorage, useSessionStorage } from 'react-use'
+import { useLocalStorage, useSessionStorage } from 'usehooks-ts'
 
 import { handleResponseError } from '@utils'
 import { setUser } from '@state'
@@ -11,11 +11,9 @@ import { useTranslation } from 'react-i18next'
 
 const useLogin = () => {
 	const { usersSocket } = useContext(RTAContentContext)
-	const [, setCachedUser] = useLocalStorage('user')
+	const [, setCachedUser] = useLocalStorage('user', null)
 
-	const [, setGuestUser] = useSessionStorage('guest-user')
-	const [, setGuestAccessToken] = useSessionStorage('guest-accessToken')
-	const [, setGuestRefreshToken] = useSessionStorage('guest-refreshToken')
+	const [, setGuestUser] = useSessionStorage('guest-user', null)
 
 	const { axiosInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
@@ -46,8 +44,6 @@ const useLogin = () => {
 		onError: (error: any) => handleResponseError(error),
 		onSettled: () => {
 			setGuestUser(null)
-			setGuestAccessToken(null)
-			setGuestRefreshToken(null)
 		},
 	})
 	return { login, isLoading, error, isError }

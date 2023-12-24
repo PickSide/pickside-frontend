@@ -1,13 +1,13 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-const SelectedActivity = createSlice({
-    initialState: null,
-    name: 'selectedActivity',
-    reducers: {
-        setSelectedActivity: (state, action: PayloadAction<any>) => (state = action.payload),
-    },
+const SelectedActivityReducer = createSlice({
+	initialState: null,
+	name: 'selectedActivity',
+	reducers: {
+		setSelectedActivity: (state, action: PayloadAction<any>) => (state = action.payload),
+	},
 })
 
-export const { setSelectedActivity } = SelectedActivity.actions
+export const { setSelectedActivity } = SelectedActivityReducer.actions
 
-export default SelectedActivity.reducer
+export default SelectedActivityReducer.reducer

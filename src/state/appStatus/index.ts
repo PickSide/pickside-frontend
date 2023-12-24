@@ -1,18 +1,18 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 export interface AppStatus {
-    status?: 'success' | 'info' | 'warning' | 'error'
-    message?: string
+	status?: 'success' | 'info' | 'warning' | 'error'
+	message?: string
 }
 
-const AppStatus = createSlice({
-    initialState: null as unknown as AppStatus | null,
-    name: 'appStatus',
-    reducers: {
-        setStatus: (state, action: PayloadAction<AppStatus | null>) => (state = action.payload),
-    },
+const AppStatusReducer = createSlice({
+	initialState: null as unknown as AppStatus | null,
+	name: 'appStatus',
+	reducers: {
+		setStatus: (state, action: PayloadAction<AppStatus | null>) => (state = action.payload),
+	},
 })
 
-export const { setStatus } = AppStatus.actions
+export const { setStatus } = AppStatusReducer.actions
 
-export default AppStatus.reducer
+export default AppStatusReducer.reducer

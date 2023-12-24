@@ -1,4 +1,4 @@
-import { AppState, Resources, User } from '@state'
+import { AppState, User } from '@state'
 
 import { AxiosContext } from '@context'
 import { AxiosResponse } from 'axios'
@@ -30,8 +30,6 @@ const useFetchChatroom = () => {
 		data,
 		mutateAsync: fetchChatroom,
 		isLoading,
-		error,
-		isError,
 	} = useMutation(callback, {
 		mutationKey: ['fetch-chatroom'],
 		onError: (e) => console.log(e),
