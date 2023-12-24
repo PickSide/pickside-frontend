@@ -1,10 +1,10 @@
-import { AppState, setUser } from '@state'
-import { FC, ReactNode, createContext, useEffect } from 'react'
+import { AppState, User, setUser } from '@state'
+import { FC, ReactNode, createContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useEffectOnce, useLocalStorage } from 'usehooks-ts'
 import { useFetchActivities, useFetchLocales } from '@hooks'
 
 import useFetchSports from '@hooks/services/useFetchSports'
-import { useLocalStorage } from 'react-use'
 
 export interface InitialAppStateContextProps {
 	children?: ReactNode
@@ -20,17 +20,19 @@ export const InitialAppStateProvider: FC<any> = ({ children }) => {
 	const { isLoading: activitiesLoading } = useFetchActivities()
 	const { isLoading: localesLoading } = useFetchLocales()
 	const { isLoading: sportsLoading } = useFetchSports()
-	const [cachedUser, setCachedUser] = useLocalStorage('user')
+	const [cachedUser, setCachedUser] = useLocalStorage<User | null>('user', null)
 	const connectedUser = useSelector((state: AppState) => state.user)
 
-	useEffect(() => {
+	useEffectOnce(() => {
 		if (cachedUser && !connectedUser) {
 			dispatch(setUser(cachedUser))
 		}
 		return (): void => {
-			setCachedUser(connectedUser)
+			if (connectedUser) {
+				setCachedUser(connectedUser)
+			}
 		}
-	}, [])
+	})
 
 	return (
 		<InitialAppStateContext.Provider value={{ loading: activitiesLoading || localesLoading || sportsLoading }}>

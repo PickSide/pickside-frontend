@@ -1,8 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 type Theme = 'dark' | 'light' | string
 
-const AppConfig = createSlice({
+const AppConfigReducer = createSlice({
 	initialState: 'light' as unknown as Theme,
 	name: 'appConfig',
 	reducers: {
@@ -10,6 +10,6 @@ const AppConfig = createSlice({
 	},
 })
 
-export const { setAppTheme } = AppConfig.actions
+export const { setAppTheme } = AppConfigReducer.actions
 
-export default AppConfig.reducer
+export default AppConfigReducer.reducer

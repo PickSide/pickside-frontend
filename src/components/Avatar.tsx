@@ -4,7 +4,7 @@ import { VariantProps, cva } from 'class-variance-authority'
 import { cn } from '@utils'
 
 export const avatarVariants = cva(
-	['relative', 'inline-flex', 'items-center', 'justify-center', 'rounded-full', 'text-base'],
+	['relative', 'inline-flex', 'items-center', 'justify-center', 'rounded-full', 'text-base', 'overflow-clip'],
 	{
 		variants: {
 			variant: {

@@ -1,8 +1,7 @@
 import { ACCOUNT_TYPE, ROLES, USER_PERMISSIONS } from './constants'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { Area } from '../areas'
-import { Group } from '@state/groups'
+import { Group } from '../groups'
 import { Locale } from '../locales'
 import { Sport } from '../sport'
 
@@ -31,7 +30,7 @@ export interface User {
 	phone?: string
 	permissions?: [USER_PERMISSIONS]
 	preferredLocale?: Locale
-	preferredRegion?: Area
+	preferredRegion?: google.maps.places.PlaceResult
 	preferredSport?: Sport
 	preferredTheme?: 'light' | 'dark'
 	profilePrivacy?: {
@@ -52,7 +51,7 @@ export interface User {
 	zip?: string
 }
 
-const User = createSlice({
+const UserReducer = createSlice({
 	initialState: null as unknown as User | null | undefined,
 	name: 'user',
 	reducers: {
@@ -75,6 +74,6 @@ const User = createSlice({
 	},
 })
 
-export const { setUser, setCachedUser, setUserEmpty, updateUserConfig, updateUserFavorites } = User.actions
+export const { setUser, setCachedUser, setUserEmpty, updateUserConfig, updateUserFavorites } = UserReducer.actions
 
-export default User.reducer
+export default UserReducer.reducer

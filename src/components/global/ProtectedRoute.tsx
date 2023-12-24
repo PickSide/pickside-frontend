@@ -1,4 +1,4 @@
-import { ACCOUNT_TYPE, ROLES, USER_PERMISSIONS } from '@state/user/constants'
+import { ACCOUNT_TYPE, USER_PERMISSIONS } from '@state/user/constants'
 import { FC, ReactNode, useMemo } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 

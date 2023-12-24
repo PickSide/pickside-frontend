@@ -1,6 +1,7 @@
 import { FC, ReactNode, createContext, useContext, useEffect, useState } from 'react'
 
 import { AppState } from '@state'
+import { useEffectOnce } from 'usehooks-ts'
 import { useSelector } from 'react-redux'
 
 export interface AppThemeContextProps {
@@ -16,7 +17,7 @@ export const AppThemeProvider: FC<any> = ({ children }) => {
 	const appTheme = useSelector((state: AppState) => state.appTheme)
 	const [currentThemeClass, setCurrentThemeClass] = useState<any>(user?.preferredTheme || 'light')
 
-	useEffect(() => window.document.documentElement.classList.add(currentThemeClass), [])
+	useEffectOnce(() => window.document.documentElement.classList.add(currentThemeClass))
 
 	useEffect(() => {
 		if (appTheme) {
@@ -25,7 +26,7 @@ export const AppThemeProvider: FC<any> = ({ children }) => {
 			root.classList.add(appTheme)
 			setCurrentThemeClass(appTheme)
 		}
-	}, [appTheme])
+	}, [appTheme, currentThemeClass])
 
 	return <AppThemeContext.Provider value={{}}>{children}</AppThemeContext.Provider>
 }

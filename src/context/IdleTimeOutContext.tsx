@@ -1,8 +1,8 @@
 import { AppState, setStatus } from '@state'
 import { FC, createContext, useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useEffectOnce, useLocalStorage } from 'usehooks-ts'
 
-import { useLocalStorage } from 'react-use'
 import { useLogout } from '@hooks'
 import { useTranslation } from 'react-i18next'
 
@@ -15,7 +15,7 @@ const IDLE_WARNING_THRESHOLD = 5 * 300000
 const Context = createContext({})
 
 export const IdleTimeOutProvider: FC<any> = ({ children }) => {
-	const [IDLE_TIMER, setIdleTimer] = useLocalStorage<number>(IDLE_TIMER_KEY)
+	const [IDLE_TIMER, setIdleTimer] = useLocalStorage<number>(IDLE_TIMER_KEY, Date.now())
 	const { logout } = useLogout()
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
@@ -34,21 +34,19 @@ export const IdleTimeOutProvider: FC<any> = ({ children }) => {
 				dispatch(setStatus(null))
 			}
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, [dispatch, IDLE_TIMER, logout, t])
 
 	const handleTimePassed = () => {
 		setIdleTimer(Date.now() + IDLE_RESET_TIMER)
 	}
 
-	useEffect(() => {
+	useEffectOnce(() => {
 		EVENTS.forEach((event) => window.addEventListener(event, handleTimePassed))
 
 		return () => {
 			EVENTS.forEach((event) => window.removeEventListener(event, handleTimePassed))
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	})
 
 	useEffect(() => {
 		if (!user) {

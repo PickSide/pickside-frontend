@@ -13,7 +13,7 @@ export interface Locale {
 	flagCode?: string
 }
 
-const Locales = createSlice({
+const LocalesReducer = createSlice({
 	initialState: null as unknown as Locales,
 	name: 'locales',
 	reducers: {
@@ -21,6 +21,6 @@ const Locales = createSlice({
 	},
 })
 
-export const { setLocales } = Locales.actions
+export const { setLocales } = LocalesReducer.actions
 
-export default Locales.reducer
+export default LocalesReducer.reducer

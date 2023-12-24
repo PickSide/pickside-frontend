@@ -1,21 +1,23 @@
 import { Dropdown, Icon, MenuItem, Spinner } from '@components'
-import { FC, useContext, useEffect } from 'react'
+import { FC, useContext } from 'react'
 import { useFetchNotifications, useReadNotification } from '@hooks'
 
 import { RTAContentContext } from '@context'
 import { RxDotFilled } from 'react-icons/rx'
+import { useEffectOnce } from 'usehooks-ts'
 
 const NotificationMenu: FC<any> = () => {
 	const { notifications, isLoading, refetch: refetchNotifications } = useFetchNotifications()
 	const { readNotification } = useReadNotification()
 	const { groupsSocket } = useContext(RTAContentContext)
 
-	useEffect(() => {
+	useEffectOnce(() => {
 		groupsSocket?.on('group:notify', refetchNotifications)
+
 		return () => {
 			groupsSocket?.off('group:notify', console.log)
 		}
-	}, [])
+	})
 
 	return (
 		<Dropdown

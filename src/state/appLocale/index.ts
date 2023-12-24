@@ -1,14 +1,13 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-const AppLocal = createSlice({
+const AppLocalReducer = createSlice({
 	initialState: 'en',
 	name: 'appLocale',
 	reducers: {
-		setLocale: (state, action: PayloadAction<string>) => state = action.payload
-		,
+		setLocale: (state, action: PayloadAction<string>) => (state = action.payload),
 	},
 })
 
-export const { setLocale } = AppLocal.actions
+export const { setLocale } = AppLocalReducer.actions
 
-export default AppLocal.reducer
+export default AppLocalReducer

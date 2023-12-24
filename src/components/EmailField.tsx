@@ -1,4 +1,5 @@
 import { forwardRef, useCallback, useState } from 'react'
+
 import { MdAlternateEmail } from 'react-icons/md'
 
 interface EmailFieldProps {
@@ -10,13 +11,11 @@ interface EmailFieldProps {
 	error?: any
 	defaultValue?: string
 }
-const EmailField = ({ id, defaultValue, readOnly = false, error, autofocus = false, label }: EmailFieldProps, ref) => {
-	const [value, setValue] = useState<any>(defaultValue)
-	const [onFocus, setOnFocus] = useState<boolean>(autofocus)
 
-	const _onFocus = useCallback(() => setOnFocus(true), [])
-	const _onBlur = useCallback(() => setOnFocus(false), [])
-	const _onChange = useCallback((e) => setValue(e.target.value), [])
+const EmailField = ({ id, defaultValue, readOnly = false, error, label }: EmailFieldProps, ref) => {
+	const [value, setValue] = useState<any>(defaultValue)
+
+	const handleChange = useCallback((e) => setValue(e.target.value), [])
 
 	return (
 		<div className={`max-w-[230px] relative flex flex-col`}>
@@ -39,9 +38,7 @@ const EmailField = ({ id, defaultValue, readOnly = false, error, autofocus = fal
 						value={value}
 						disabled={readOnly}
 						ref={ref}
-						onFocus={_onFocus}
-						onBlur={_onBlur}
-						onChange={_onChange}
+						onChange={handleChange}
 						className="relative rounded-md w-[95%] h-[90%] px-2 py-2 focus:border-primary outline-0 focus:outline-0 disabled:bg-white disabled:cursor-not-allowed disabled:text-gray-300"
 					/>
 				</div>

@@ -1,18 +1,18 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 export interface Toast {
-    type?: 'info' | 'warning' | 'error' | 'success'
-    message?: string
+	type?: 'info' | 'warning' | 'error' | 'success'
+	message?: string
 }
 
-const Toast = createSlice({
-    initialState: null as unknown as Toast,
-    name: 'toast',
-    reducers: {
-        toastMessage: (state, action: PayloadAction<Toast | any>) => (state = action.payload),
-    },
+const ToastReducer = createSlice({
+	initialState: null as unknown as Toast,
+	name: 'toast',
+	reducers: {
+		toastMessage: (state, action: PayloadAction<Toast | any>) => (state = action.payload),
+	},
 })
 
-export const { toastMessage } = Toast.actions
+export const { toastMessage } = ToastReducer.actions
 
-export default Toast.reducer
+export default ToastReducer.reducer

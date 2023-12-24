@@ -1,8 +1,6 @@
-import { Controller, useForm } from 'react-hook-form'
-
 import { AppState } from '@state'
+import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useUpdateSetting } from '@hooks'
 
@@ -12,11 +10,9 @@ const PersonalInfo = () => {
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
-	const [openPasswordChangeDialog, setOpenPasswordChangeDialog] = useState<boolean>(false)
-
 	const {
 		handleSubmit,
-		formState: { isDirty, dirtyFields },
+		formState: { dirtyFields },
 	} = useForm({
 		defaultValues: {
 			email: connectedUser?.email,

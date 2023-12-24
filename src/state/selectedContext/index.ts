@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 export interface SelectedContexts {
 	[contextId: string]: {
@@ -6,7 +6,7 @@ export interface SelectedContexts {
 	}
 }
 
-const SelectedContext = createSlice({
+const SelectedContextReducer = createSlice({
 	initialState: {} as unknown as SelectedContexts,
 	name: 'selectedContexts',
 	reducers: {
@@ -14,6 +14,6 @@ const SelectedContext = createSlice({
 	},
 })
 
-export const { setSelectedContext } = SelectedContext.actions
+export const { setSelectedContext } = SelectedContextReducer.actions
 
-export default SelectedContext.reducer
+export default SelectedContextReducer.reducer

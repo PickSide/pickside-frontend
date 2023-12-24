@@ -1,13 +1,13 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
-const DeactivatedAccount = createSlice({
-    initialState: false,
-    name: 'deactivate',
-    reducers: {
-        deactivate: (state) => (state = true),
-    },
+const DeactivatedAccountReducer = createSlice({
+	initialState: false,
+	name: 'deactivate',
+	reducers: {
+		deactivate: (state) => (state = true),
+	},
 })
 
-export const { deactivate } = DeactivatedAccount.actions
+export const { deactivate } = DeactivatedAccountReducer.actions
 
-export default DeactivatedAccount.reducer
+export default DeactivatedAccountReducer.reducer
