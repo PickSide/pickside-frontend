@@ -79,7 +79,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 					<img className="w-full h-[200px] bg-card-placeholder bg-contain" src="" alt="" />
 				</CardImage>
 				<CardBody className="px-5 text-charcoal-black">
-					<div className="block w-full space-y-2">
+					<div className="block w-full space-y-2 truncate">
 						<div className="flex items-center gap-x-[10px]">
 							<Icon icon="location_on" />
 							<span>{activity.address?.formatted_address}</span>

@@ -1,5 +1,5 @@
 import { AppState, setStatus } from '@state'
-import { FC, createContext, useEffect } from 'react'
+import { FC, createContext, useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { useLocalStorage } from 'react-use'
@@ -8,9 +8,9 @@ import { useTranslation } from 'react-i18next'
 
 const EVENTS = ['click', 'dblclick', 'drag', 'keydown', 'load', 'scroll', 'zoom']
 const IDLE_TIMER_KEY = 'sessionTTL'
-const IDLE_RESET_TIMER = 5*900000
+const IDLE_RESET_TIMER = 5 * 900000
 const IDLE_CHECK_TIMER = 300000
-const IDLE_WARNING_THRESHOLD = 5*300000
+const IDLE_WARNING_THRESHOLD = 5 * 300000
 
 const Context = createContext({})
 
@@ -22,7 +22,7 @@ export const IdleTimeOutProvider: FC<any> = ({ children }) => {
 
 	const user = useSelector((state: AppState) => state.user)
 
-	const checkIfUserIdle = () => {
+	const checkIfUserIdle = useCallback(() => {
 		if (IDLE_TIMER) {
 			const diff = IDLE_TIMER - Date.now()
 			if (diff <= 0) {
@@ -34,7 +34,8 @@ export const IdleTimeOutProvider: FC<any> = ({ children }) => {
 				dispatch(setStatus(null))
 			}
 		}
-	}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	const handleTimePassed = () => {
 		setIdleTimer(Date.now() + IDLE_RESET_TIMER)
@@ -46,6 +47,7 @@ export const IdleTimeOutProvider: FC<any> = ({ children }) => {
 		return () => {
 			EVENTS.forEach((event) => window.removeEventListener(event, handleTimePassed))
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	useEffect(() => {
@@ -58,7 +60,7 @@ export const IdleTimeOutProvider: FC<any> = ({ children }) => {
 		}, IDLE_CHECK_TIMER)
 
 		return () => clearInterval(interval)
-	}, [user])
+	}, [checkIfUserIdle, user])
 
 	return <Context.Provider value={{}}>{children}</Context.Provider>
 }

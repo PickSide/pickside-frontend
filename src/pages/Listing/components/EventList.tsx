@@ -1,10 +1,11 @@
-import { ActivityCard, Spinner } from '@components'
 import { FC, useContext } from 'react'
 
+import ActivityCard from './ActivityCard'
 import { AppState } from '@state'
 import FocusEventContext from '../context/FocusEventContext'
 import SelectedActivity from './shared/SelectedActivity'
 import { SidenavDispatchContext } from '@context/SidenavContext'
+import { Spinner } from '@components'
 import { cn } from '@utils'
 import { useFetchActivities } from '@hooks'
 import { useSelector } from 'react-redux'

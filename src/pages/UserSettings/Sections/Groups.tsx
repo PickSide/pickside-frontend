@@ -50,14 +50,6 @@ const Groups = () => {
 			setOpenConfirmDeleteGroupDialog(true)
 			setSelectedGroupId(groupId)
 		},
-		onClickEditGroup: (groupId) => {
-			setOpenEditCreateGroupDialog(true)
-			setSelectedGroupId(groupId)
-		},
-		onClickViewGroupInfo: (groupId) => {
-			setOpenInfoGroupDialog(true)
-			setSelectedGroupId(groupId)
-		},
 	})
 
 	const table = useReactTable({
@@ -124,7 +116,7 @@ const Groups = () => {
 								{...field}
 								label={t('Members')}
 								placeholder={isFetchingUsers ? t('Loading members...') : t('Search members')}
-								options={users?.data.results || []}
+								options={users?.results || []}
 								closeMenuOnSelect={false}
 								isMulti
 								getOptionLabel={(option) => option?.username}

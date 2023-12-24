@@ -4,6 +4,9 @@
 @tailwind utilities;
 
 @layer base {
+	html {
+		@apply snap-y snap-mandatory;
+	}
 	body {
 		margin: 0;
 		font-family:
@@ -161,10 +164,6 @@
 		color: rgba(255, 255, 255, 0.3);
 	}
 
-	code {
-		font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-	}
-
 	h1,
 	.h1 {
 		@apply font-primary text-[76px];
@@ -224,5 +223,12 @@
 @layer utilities {
 	textarea.disable-resize {
 		@apply resize-none;
+	}
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+	.no-scrollbar {
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
 	}
 }

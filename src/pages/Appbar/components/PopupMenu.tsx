@@ -20,7 +20,9 @@ const PopupMenu = forwardRef<any, PopupMenuProps>(
 		}, [onClose])
 
 		useEffect(() => {
-			if (open) document.body.style.overflow = 'hidden'
+			if (open) {
+				document.body.style.overflow = 'hidden'
+			}
 			return (): void => {
 				document.body.style.overflow = 'unset'
 			}

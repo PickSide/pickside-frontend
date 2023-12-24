@@ -1,5 +1,6 @@
+import { DECREMENT_CURRENT_STEP, INCREMENT_CURRENT_STEP, SET_STEPS } from '../utils/constants'
 import { useCallback, useContext } from 'react'
-import { DECREMENT_CURRENT_STEP, INCREMENT_CURRENT_STEP, SET_STEPS } from '../state/constants'
+
 import { StepperContext } from '../context'
 
 export const useStepper = () => {
