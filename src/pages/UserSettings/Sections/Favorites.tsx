@@ -1,6 +1,6 @@
-import { ActivityCard, Spinner } from '@components'
-
 import { Activity } from '@state'
+import ActivityCard from '@pages/Home/components/ActivityCard'
+import { Spinner } from '@components'
 import { useFetchFavorites } from '@hooks'
 import { useTranslation } from 'react-i18next'
 

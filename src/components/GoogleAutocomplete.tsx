@@ -1,7 +1,7 @@
 import InputField, { InputFieldProps } from './shared/InputField'
 import { forwardRef, useRef, useState } from 'react'
 
-import { HiOutlineLocationMarker } from 'react-icons/hi'
+import Icon from './shared/Icon'
 import MenuItem from './shared/MenuItem'
 import Spinner from './Spinner'
 import { cn } from '@utils'
@@ -38,7 +38,7 @@ const GoogleAutocomplete = forwardRef<InputFieldProps, GoogleAutocompleteProps>(
 						ref={ref}
 						name={name}
 						label={label}
-						startContent={<HiOutlineLocationMarker size={20} />}
+						startContent={<Icon icon="location_on" />}
 						placeholder={t('Enter location')}
 						fullWidth
 						onPressArrowUp={() =>

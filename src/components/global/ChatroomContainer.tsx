@@ -1,7 +1,7 @@
 import { AppState, openChatroom } from '@state'
 import { Controller, useForm } from 'react-hook-form'
 import { Icon, IconButton, InputField, StatusBadge } from '@components'
-import { useContext, useEffect, useMemo, useState } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Avatar from '@components/Avatar'
@@ -9,6 +9,7 @@ import { AxiosContext } from '@context'
 import ChatBubble from './ChatBubble'
 import { RTAContentContext } from '@context'
 import { motion } from 'framer-motion'
+import { useEffectOnce } from 'react-use'
 import { useFetchOnlineUsers } from '@hooks'
 
 interface Message {
@@ -64,18 +65,18 @@ export const Chatroom = ({ chatroom, minimize = false }) => {
 		reset()
 	}
 
-	useEffect(() => {
+	useEffectOnce(() => {
 		chatroomsSocket.emit('chatroom:open', chatroom)
 		chatroomsSocket.on('chatroom:message-registered', handleMessage)
 
 		return () => {
 			chatroomsSocket.off('chatroom:message-registered', console.log)
 		}
-	}, [])
+	})
 
-	useEffect(() => {
+	useEffectOnce(() => {
 		fetchMessages()
-	}, [])
+	})
 
 	return chatroom ? (
 		<motion.div

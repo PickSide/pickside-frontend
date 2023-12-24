@@ -5,7 +5,6 @@ import Dialog, { DialogCTA } from './Dialog'
 import Tab, { Tabs } from './Tabs'
 import Toggle, { ToggleGroup } from './Toggle'
 
-import ActivityCard from './ActivityCard'
 import Alert from './shared/Alert'
 import Autocomplete from './Autocomplete'
 import BottomDrawer from './BottomDrawer'
@@ -48,7 +47,6 @@ import Upload from './Upload'
 export {
 	Accordion,
 	AccordionSection,
-	ActivityCard,
 	Alert,
 	QueryAutocomplete,
 	Autocomplete,

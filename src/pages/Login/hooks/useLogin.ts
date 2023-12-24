@@ -12,8 +12,6 @@ import { useTranslation } from 'react-i18next'
 const useLogin = () => {
 	const { usersSocket } = useContext(RTAContentContext)
 	const [, setCachedUser] = useLocalStorage('user')
-	const [, setCachedAccessToken] = useLocalStorage('accessToken')
-	const [, setCachedRefreshToken] = useLocalStorage('refreshToken')
 
 	const [, setGuestUser] = useSessionStorage('guest-user')
 	const [, setGuestAccessToken] = useSessionStorage('guest-accessToken')
@@ -34,8 +32,6 @@ const useLogin = () => {
 	} = useMutation(callback, {
 		onSuccess: ({ data }) => {
 			setCachedUser(data.user)
-			setCachedAccessToken(data.accessToken)
-			setCachedRefreshToken(data.refreshToken)
 			dispatch(setUser(data.user))
 			dispatch({
 				type: 'toast/toastMessage',

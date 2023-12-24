@@ -1,15 +1,15 @@
 import { Icon, IconButton } from '@components'
-import { Link, NavLink } from 'react-router-dom'
 
 import Avatar from '@components/Avatar'
 import { Group } from '@state'
+import { Link } from 'react-router-dom'
 import { createColumnHelper } from '@tanstack/react-table'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const columnHelper = createColumnHelper<Group>()
 
-const useGroupTableColums = ({ onClickViewGroupInfo, onClickEditGroup, onClickDeleteGroup }) => {
+const useGroupTableColums = ({ onClickDeleteGroup }) => {
 	const { t } = useTranslation()
 
 	return useMemo(
@@ -22,7 +22,7 @@ const useGroupTableColums = ({ onClickViewGroupInfo, onClickEditGroup, onClickDe
 			columnHelper.accessor('organizer', {
 				header: t('Owner'),
 				cell: (info) => (
-					<div className="underline text-blue-600 cursor-pointer">
+					<div key={info.cell.id} className="underline text-blue-600 cursor-pointer">
 						{info.getValue()?.username || info.getValue()?.fullName}
 					</div>
 				),
@@ -31,7 +31,7 @@ const useGroupTableColums = ({ onClickViewGroupInfo, onClickEditGroup, onClickDe
 			columnHelper.accessor('members', {
 				header: t('Members'),
 				cell: (info) => (
-					<div className="flex">
+					<div key={info.cell.id} className="flex">
 						{info.getValue()?.map((member) => {
 							const name = member.fullName?.split(' ')
 							return (
@@ -56,7 +56,7 @@ const useGroupTableColums = ({ onClickViewGroupInfo, onClickEditGroup, onClickDe
 				header: t(''),
 				cell: (info) => {
 					return (
-						<div className="flex justify-end">
+						<div key={info.cell.id} className="flex justify-end">
 							{/* <IconButton onClick={() => onClickViewGroupInfo(info.getValue())}>
 								<Icon icon="info" />
 							</IconButton> */}
@@ -72,7 +72,7 @@ const useGroupTableColums = ({ onClickViewGroupInfo, onClickEditGroup, onClickDe
 				footer: (info) => info.column.id,
 			}),
 		],
-		[t],
+		[t, onClickDeleteGroup],
 	)
 }
 

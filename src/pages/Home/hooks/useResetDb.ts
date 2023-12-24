@@ -17,7 +17,7 @@ const useResetDb = () => {
 		error,
 		isError,
 	} = useMutation(callback, {
-		mutationKey: ['resetDb'],
+		mutationKey: ['reset-db'],
 		onSuccess: () =>
 			dispatch({
 				type: 'toast/toastMessage',

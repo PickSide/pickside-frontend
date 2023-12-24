@@ -19,6 +19,7 @@ export const iconButtonVariants = cva(
 		'p-1',
 		'hover:bg-gray-300',
 		'disabled:text-cool-gray-3',
+		'disabled:bg-cool-gray-2',
 	],
 	{
 		variants: {
