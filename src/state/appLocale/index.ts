@@ -10,4 +10,4 @@ const AppLocalReducer = createSlice({
 
 export const { setLocale } = AppLocalReducer.actions
 
-export default AppLocalReducer
+export default AppLocalReducer.reducer

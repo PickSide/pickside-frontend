@@ -1,11 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { reducers } from '@state'
-
-const additionalMiddlewares = []
+import { reducers } from './state'
 
 export const store = configureStore({
 	reducer: reducers,
-	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(additionalMiddlewares),
+	middleware: (gDM) => gDM(),
 	preloadedState: {},
 })
 

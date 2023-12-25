@@ -11,6 +11,7 @@ import user, { User } from './user'
 
 import appLocale from './appLocale'
 import appTheme from './appTheme'
+import { combineReducers } from '@reduxjs/toolkit'
 import selectedActivity from './selectedActivity'
 import selectedChatroom from './selectedChatroom'
 import selectedLocation from './selectedLocation'
@@ -58,7 +59,7 @@ export interface AppState {
 	user?: User
 }
 
-export const reducers = {
+export const reducers = combineReducers({
 	activities,
 	appLocale,
 	appStatus,
@@ -74,4 +75,4 @@ export const reducers = {
 	sports,
 	toast,
 	user,
-}
+})
