@@ -15,10 +15,10 @@ const MultiStepForm = ({ onSubmit }: MultiStepFormProps) => {
 	const { handleSubmit } = useFormContext<any>()
 	const { t } = useTranslation()
 
-	const Header = ({ children }) => <h1 className="font-semibold text-[20px] text-center">{children}</h1>
+	const Header = ({ children }) => <p className="font-semibold text-lg text-center mt-3 mb-2">{children}</p>
 
 	return (
-		<form className="flex-1 py-8 lg:px-8 lg:w-[70%] w-[80%] mx-auto" onSubmit={handleSubmit(onSubmit)}>
+		<form className="flex-1 lg:w-[1000px] mx-auto mt-12" onSubmit={handleSubmit(onSubmit)}>
 			<Stepper>
 				<Stepper.Steps>
 					<Stepper.Step order={1} title={t('Time & address')}>

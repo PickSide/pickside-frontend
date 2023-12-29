@@ -42,7 +42,7 @@ const LandingPage: FC<any> = () => {
 					<p className="h3 lg:h1 text-charcoal-black font-medium tracking-tight leading-tight">
 						{t('Book Your Next Match Now')}
 					</p>
-					<p className="text-lg lg:h5 font-thin text-cool-gray-4 tracking-tight">
+					<p className="text-lg font-thin text-cool-gray-4 tracking-tight">
 						{t('Are you looking for your sport team? This place is for you just search your neighborhood.')}
 					</p>
 					<div className="relative w-[300px] lg:w-[400px] mx-auto">

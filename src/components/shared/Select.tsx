@@ -39,14 +39,14 @@ const MultiValueRemove = (props: MultiValueRemoveProps) => (
 )
 
 const controlStyles = {
-	base: 'border rounded-md bg-white hover:cursor-pointer',
+	base: 'border rounded-md bg-white hover:cursor-pointer h-9',
 	focus: 'border-primary ring-1 ring-primary-500',
 	nonFocus: 'border-gray-300 hover:border-gray-400',
 }
 const placeholderStyles = 'text-gray-400 pl-2 py-0.5'
 const selectInputStyles = 'pl-1 py-0.5'
-const valueContainerStyles = 'p-2 gap-1'
-const singleValueStyles = 'leading-7 ml-1'
+const valueContainerStyles = 'pl-2'
+const singleValueStyles = ''
 const menuPortal = 'z-50'
 const multiValueStyles = 'bg-primary text-white rounded-md items-center py px-2 gap-1.5'
 const multiValueLabelStyles = 'leading-6 py-0.5'
@@ -54,17 +54,17 @@ const multiValueRemoveStyles = 'text-white'
 const indicatorsContainerStyles = 'p-1 gap-1'
 const clearIndicatorStyles = 'text-gray-500 p-1 rounded-md'
 const dropdownIndicatorStyles = 'p-1 hover:bg-gray-100 text-gray-500'
-const menuStyles = 'p-2 mt-2 border border-gray-200 bg-white rounded-lg'
+const menuStyles = 'border border-gray-200 bg-white rounded-lg'
 const groupHeadingStyles = 'ml-3 mt-2 mb-1 text-gray-500 text-sm'
 const optionStyles = {
-	base: 'hover:cursor-pointer px-3 py-2 rounded',
+	base: 'hover:cursor-pointer p-2 rounded',
 	focus: 'bg-gray-100 active:bg-gray-200',
 	disabled: 'text-gray-300',
 	selected: "after:content-['✔'] after:ml-2 after:text-green-500 text-gray-500",
 }
 const noOptionsMessageStyles = 'text-gray-500 p-2 bg-gray-50 border border-dashed border-gray-200 rounded-sm'
 
-const Select = ({ components, label, fullWidth = false, ...rest }: SelectProps | any, ref) => {
+const Select = forwardRef(({ components, label, fullWidth = false, ...rest }: SelectProps | any, ref) => {
 	return (
 		<div className={cn('relative min-w-[200px]', fullWidth ? 'w-full' : '')}>
 			<label id="listbox-label" className="text-gray-800 leading-4">
@@ -102,6 +102,6 @@ const Select = ({ components, label, fullWidth = false, ...rest }: SelectProps |
 			/>
 		</div>
 	)
-}
+})
 
-export default forwardRef(Select)
+export default Select

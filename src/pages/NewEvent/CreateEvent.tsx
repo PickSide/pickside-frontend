@@ -35,11 +35,11 @@ const CreateEvent = () => {
 
 	return (
 		<StepperProvider>
-			<div className="flex flex-col h-screen">
+			<div className="flex flex-col h-screen w-screen">
 				<FormProvider {...form}>
 					<MultiStepForm onSubmit={onSubmit} />
-					<Footer />
 				</FormProvider>
+				<Footer />
 			</div>
 		</StepperProvider>
 	)

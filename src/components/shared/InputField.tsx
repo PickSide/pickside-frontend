@@ -24,7 +24,7 @@ export const inputVariants = cva(
 
 export interface InputFieldProps
 	extends Omit<ComponentPropsWithRef<'input'>, 'size'>,
-		VariantProps<typeof inputVariants> {
+	VariantProps<typeof inputVariants> {
 	label?: string
 	startContent?: ReactNode
 	endContent?: ReactNode
@@ -76,15 +76,13 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 		)
 
 		return (
-			<div className="w-full flex flex-col">
-				<label htmlFor={`${id || generatedId}-label-input`} className="text-gray-800">
+			<div className="w-full flex flex-col text-gray-800" ref={ref}>
+				<label htmlFor={`${id || generatedId}-label-input`}>
 					{label}
 				</label>
 				<div className={cn(inputVariants({ className, size }), className)}>
 					<span className="inline-flex items-center max-w-6 max-h-6 mx-2">{startContent}</span>
-
 					<input
-						ref={ref}
 						aria-labelledby={`${id || generatedId}-label-input`}
 						autoComplete="off"
 						disabled={readOnly}
@@ -95,12 +93,13 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 						{...rest}
 					/>
 					<span className="inline-flex items-center w-6 h-6 mx-2">{endContent}</span>
-					{!error && (
-						<label htmlFor={id}>
-							<span className="text-error">{error}</span>
-						</label>
-					)}
+
 				</div>
+				{error && (
+					<label htmlFor={id} className="text-error">
+						{error}
+					</label>
+				)}
 			</div>
 		)
 	},

@@ -15,7 +15,6 @@ import Dropdown from './shared/Dropdown'
 import EditField from './EditField'
 import EmailField from './EmailField'
 import FormDivider from './FormDivider'
-import GlobalAppStatusAlert from './global/GlobalAppStatusAlert'
 import GoogleAutocomplete from './GoogleAutocomplete'
 import Icon from './shared/Icon'
 import IconButton from './IconButton'
@@ -66,7 +65,6 @@ export {
 	EditField,
 	EmailField,
 	FormDivider,
-	GlobalAppStatusAlert,
 	GoogleAutocomplete,
 	Icon,
 	IconButton,

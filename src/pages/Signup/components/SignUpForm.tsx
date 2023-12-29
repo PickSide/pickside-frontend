@@ -1,4 +1,4 @@
-import { Button, Checkbox, Icon, InputField, PasswordField } from '@components'
+import { Button, Checkbox, EmailField, Icon, InputField, PasswordField } from '@components'
 import { EMAIL_REGEX, PASSWORD_REGEX, PHONE_REGEX } from '@utils'
 import { useFormContext, useFormState } from 'react-hook-form'
 
@@ -35,14 +35,14 @@ const SignUpForm = () => {
 					{...register('fullName', { required: t('Field is required') })}
 				/>
 
-				<InputField
+				<EmailField
 					label={t('Email')}
 					placeholder={t('Enter email')}
 					startContent={<Icon icon="alternate_email" />}
 					error={errors.email?.message}
 					aria-invalid={!!errors.email}
 					fullWidth
-					{...register('email', { required: true, pattern: { value: EMAIL_REGEX, message: t('Email wrong format') } })}
+					{...register('email', { required: t('Field is required'), pattern: { value: EMAIL_REGEX, message: t('Email wrong format') } })}
 				/>
 
 				<PasswordField
@@ -52,7 +52,7 @@ const SignUpForm = () => {
 					aria-invalid={!!errors.password}
 					fullWidth
 					{...register('password', {
-						required: 'Field is required',
+						required: t('Field is required'),
 						pattern: { value: PASSWORD_REGEX, message: t('Password does not meet requirement') },
 					})}
 				/>
@@ -64,8 +64,8 @@ const SignUpForm = () => {
 					aria-invalid={!!errors.confirmPassword}
 					fullWidth
 					{...register('confirmPassword', {
-						required: 'Field is required',
-						validate: (value) => value === getValues('password') || 'Passwords must be the same.',
+						required: t('Field is required'),
+						validate: (value) => value === getValues('password') || t('Passwords must be the same')
 					})}
 				/>
 
@@ -77,7 +77,7 @@ const SignUpForm = () => {
 					aria-invalid={!!errors.phone}
 					fullWidth
 					{...register('phone', {
-						required: 'Field is required',
+						required: t('Field is required'),
 						pattern: { value: PHONE_REGEX, message: t('Phone wrong format') },
 					})}
 				/>

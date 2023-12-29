@@ -53,7 +53,7 @@ const Privacy = () => {
 			),
 		},
 		{
-			name: t('Allow location tracking your group()'),
+			name: t('Allow location tracking your group'),
 			helperText: t('Let the app track your location'),
 			control: (
 				<Switch
