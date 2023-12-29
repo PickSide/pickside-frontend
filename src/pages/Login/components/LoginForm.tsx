@@ -39,9 +39,9 @@ export default function LoginForm() {
 	return (
 		<>
 			{(isLoginError || isLoginGuestError || isGoogleLoginEror) && (
-				<div className="rounded-sm border-[1px] w-full text-center p-2 border-error text-red-900 bg-red-200 text-[15px]">
+				<div className="rounded-sm border-2 text-center p-1 border-error text-red-900 bg-red-200 text-base">
 					{loginError?.response.data.error.message || loginError?.message}
-					{loginGuestError?.response.data.error.message || loginError?.message}
+					{loginGuestError?.response.data.error.message || loginGuestError?.message}
 					{googleLoginError?.response.data.error.message || googleLoginError?.message}
 				</div>
 			)}

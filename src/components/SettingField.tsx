@@ -12,7 +12,7 @@ interface SettingFieldProps {
 }
 
 const SettingField = (
-	{ settingName, helperText, value, children, readOnly = false, disabled = false }: SettingFieldProps,
+	{ settingName, helperText, children, readOnly = false, disabled = false }: SettingFieldProps,
 	ref,
 ) => {
 	return (

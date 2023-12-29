@@ -1,38 +1,71 @@
-import { AiFillCheckCircle, AiFillInfoCircle, AiFillWarning } from 'react-icons/ai'
-import { FC, ReactNode } from 'react'
+import { ComponentPropsWithRef, ReactNode, forwardRef } from 'react'
+import { VariantProps, cva } from 'class-variance-authority'
+import { cn, fadeIn } from '@utils'
 
-import { BiErrorAlt } from 'react-icons/bi'
-import { fadeIn } from '@utils'
+import Icon from './Icon'
+import IconButton from '@components/IconButton'
 import { motion } from 'framer-motion'
 
-interface AlertProps {
-	severity?: 'success' | 'warning' | 'error' | 'info'
+export const alertVariants = cva(
+	[
+		'flex',
+		'w-full',
+		'justify-between',
+		'items-center',
+		'space-x-4',
+		'shadow-lg',
+		'text-white',
+		'p-4',
+		'z-50',
+		'min-h-[50px]',
+		'lg:min-w-[200px]',
+		'xl:justify-normal',
+	],
+	{
+		variants: {
+			severity: {
+				info: 'bg-info',
+				error: 'bg-error',
+				success: 'bg-success',
+				warning: 'bg-warning',
+			},
+			alertIcon: {
+				info: 'info',
+				error: 'error',
+				success: 'check_indeterminate_small',
+				warning: 'warning',
+			}
+		},
+		defaultVariants: {
+			alertIcon: "info",
+			severity: 'info',
+		},
+	},
+)
+
+export interface AlertProps extends ComponentPropsWithRef<'div'>, VariantProps<typeof alertVariants> {
 	children?: ReactNode
-	action?: ReactNode
+	onClose?: () => void
 }
 
-const AlertIcons = {
-	info: { icon: <AiFillInfoCircle size={25} />, class: 'bg-[#156495]' },
-	success: { icon: <AiFillCheckCircle size={25} />, class: 'bg-[#74cd8d]' },
-	warning: { icon: <AiFillWarning size={25} />, class: 'bg-yellow-400' },
-	error: { icon: <BiErrorAlt size={25} />, class: 'bg-[#c96972]' },
-}
-
-const Alert: FC<AlertProps> = ({ children, action, severity = 'info' }) => {
+const Alert = forwardRef<HTMLDivElement, AlertProps>(({ onClose, children, className, alertIcon, severity }, ref) => {
 	return (
 		<motion.div
+			ref={ref}
 			variants={fadeIn('top', 0.1, 0.3)}
 			initial="hidden"
 			animate="show"
 			exit="exit"
 			whileInView="show"
-			className={`w-full lg:min-w-[200px] min-h-[50px] flex justify-between xl:justify-normal items-center p-4 space-x-4 shadow-lg text-white z-50 ${AlertIcons[severity].class}`}
+			className={cn(alertVariants({ className, severity }), className)}
 		>
-			{AlertIcons[severity].icon}
+			<Icon icon={alertIcon as any} />
 			{children}
-			{action}
+			<IconButton className="text-white" onClick={onClose}>
+				<Icon icon="close" />
+			</IconButton>
 		</motion.div>
 	)
-}
+})
 
 export default Alert

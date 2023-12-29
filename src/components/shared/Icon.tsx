@@ -11,6 +11,7 @@ const validIcons = [
 	'attach_money',
 	'bookmark',
 	'bookmark_border',
+	'calendar_today',
 	'chat_bubble_outline',
 	'check_indeterminate_small',
 	'close',
@@ -51,6 +52,7 @@ const validIcons = [
 	'today',
 	'visibility',
 	'visibility_off',
+	'warning',
 ] as const
 
 export type IconName = (typeof validIcons)[number]

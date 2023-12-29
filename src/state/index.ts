@@ -1,5 +1,4 @@
 import activities, { Activities } from './activity'
-import appStatus, { AppStatus } from './appStatus'
 import chatrooms, { Chatroom } from './chatrooms'
 import groups, { Groups } from './groups'
 import locales, { Locales } from './locales'
@@ -18,7 +17,6 @@ import selectedLocation from './selectedLocation'
 
 export * from './activity'
 export * from './appLocale'
-export * from './appStatus'
 export * from './appTheme'
 export * from './chatrooms'
 export * from './groups'
@@ -41,7 +39,6 @@ export interface Resources {
 export interface AppState {
 	activities?: Activities
 	appLocale?: string
-	appStatus?: AppStatus
 	appTheme?: string
 	chatrooms?: Chatroom[]
 	deactivated?: boolean
@@ -62,7 +59,6 @@ export interface AppState {
 export const reducers = combineReducers({
 	activities,
 	appLocale,
-	appStatus,
 	appTheme,
 	chatrooms,
 	groups,

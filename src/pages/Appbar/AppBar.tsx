@@ -35,6 +35,7 @@ const AppBar = () => {
 
 	return (
 		<motion.div
+			id='navbar'
 			ref={ref}
 			initial="hidden"
 			animate="visible"

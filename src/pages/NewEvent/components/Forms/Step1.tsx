@@ -19,7 +19,6 @@ const Step1 = () => {
 				control={control}
 				render={({ field }) => <DatePicker {...field} fullWidth placeholder={t('Select date')} label={t('Date')} />}
 			/>
-
 			<FormDivider />
 
 			<Controller

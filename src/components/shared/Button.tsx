@@ -5,7 +5,7 @@ import Spinner from '../Spinner'
 import { cn } from '@utils'
 
 export const buttonVariants = cva(
-	['rounded', 'text-base', 'leading-none', 'hover:bg-gray-300', 'disabled:text-cool-gray-3'],
+	['rounded', 'text-base', 'leading-none', 'hover:bg-gray-300', 'disabled:text-cool-gray-4', 'disabled:bg-cool-gray-2'],
 	{
 		variants: {
 			variant: {

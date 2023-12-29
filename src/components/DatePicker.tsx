@@ -3,6 +3,8 @@ import { MdCalendarToday, MdOutlineChevronLeft, MdOutlineChevronRight } from 're
 import { dropdownAnimation, generateDate, months, weeks } from '@utils'
 import { forwardRef, useId, useState } from 'react'
 
+import Icon from './shared/Icon'
+import InputField from './shared/InputField'
 import { cn } from '@utils'
 import dayjs from 'dayjs'
 
@@ -26,29 +28,14 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 
 	return (
 		<div className={cn('relative', fullWidth ? 'w-full' : 'max-w-[230px]')} tabIndex={0}>
-			<label htmlFor={id} className="text-gray-800 leading-4">
-				{rest.label}
-			</label>
-			<div
-				id={id}
-				className="flex gap-x-3 items-center cursor-default rounded-md w-full h-[50px] bg-white py-1.5 pl-3 pr-10 text-left text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-primary sm:text-sm sm:leading-6"
-				onClick={openCalendar}
-				aria-haspopup="listbox"
-				aria-expanded="true"
-				aria-labelledby="listbox-label"
-			>
-				<span className="flex items-center">
-					<MdCalendarToday size={20} />
-				</span>
-				<input
-					onFocus={openCalendar}
-					onBlur={closeCalendar}
-					value={selectedDate?.toDate().toDateString()}
-					ref={ref}
-					readOnly
-					{...rest}
-				/>
-			</div>
+			<InputField
+				startContent={<Icon icon='calendar_today' />}
+				onFocus={openCalendar}
+				onBlur={closeCalendar}
+				value={selectedDate?.toDate().toDateString()}
+				ref={ref}
+				{...rest}
+			/>
 			<AnimatePresence mode="wait">
 				{open && (
 					<>
@@ -67,7 +54,7 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 									className="rounded-md hover:bg-gray-200 shadow-sm outline-none font-primary m-2 p-1"
 									onClick={() => setToday(today.month(today.month() - 1))}
 								>
-									<MdOutlineChevronLeft size={15} />
+									<Icon icon='keyboard_arrow_left' />
 								</button>
 								<span className="rounded-full text-base hover:bg-gray-200 border-none outline-none font-primary m-2 p-1">
 									{months[today.month()]}
@@ -78,7 +65,7 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 									className="rounded-md hover:bg-gray-200 shadow-sm outline-none font-primary m-2 p-1"
 									onClick={() => setToday(today.month(today.month() + 1))}
 								>
-									<MdOutlineChevronRight size={15} />
+									<Icon icon='keyboard_arrow_right' />
 								</button>
 							</div>
 							<div className="grid grid-cols-7 p-2 text-center">

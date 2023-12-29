@@ -19,12 +19,11 @@ export const iconButtonVariants = cva(
 		'p-1',
 		'hover:bg-gray-300',
 		'disabled:text-cool-gray-3',
-		'disabled:bg-cool-gray-2',
 	],
 	{
 		variants: {
 			variant: {
-				primary: ['text-primary', 'bg-none', 'dark:bg-grey-600', 'dark:text-white', 'dark:hover:bg-gray-300'],
+				primary: ['text-primary', 'bg-none', 'dark:text-white', 'dark:hover:bg-gray-300'],
 				secondary: ['text-white', 'bg-primary', 'dark:bg-white', 'dark:text-black'],
 				tertiary: ['text-primary', 'underline', 'font-semibold', 'bg-none ', 'dark:text-white'],
 				danger: ['text-white', 'bg-red-600 ', 'hover:bg-red-400'],

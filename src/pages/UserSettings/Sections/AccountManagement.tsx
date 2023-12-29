@@ -39,7 +39,7 @@ const AccountManagement = () => {
 	}
 
 	return (
-		<div className="relative h-full ">
+		<div className="relative h-full">
 			<Dialog
 				open={openPasswordChangeDialog}
 				title={t('Change your password')}
@@ -82,7 +82,7 @@ const AccountManagement = () => {
 			</div>
 			{connectedUser?.accountType !== ACCOUNT_TYPE.DEFAULT && (
 				<div className="mt-5 space-y-4">
-					<p className="text-[20px] font-semibold">{t('Change your password')}</p>
+					<p className="text-lg font-semibold">{t('Change your password')}</p>
 					<Button
 						type="button"
 						className="flex whitespace-nowrap gap-x-4 text-[13px] items-center"
@@ -98,18 +98,17 @@ const AccountManagement = () => {
 				</div>
 			)}
 			<div className="mt-5 space-y-4">
-				<p className="text-[20px] font-semibold">{t('Deactivate your account')}</p>
+				<p className="text-lg font-semibold">{t('Deactivate your account')}</p>
 				<Button
-					type="button"
 					variant="danger"
-					className="flex whitespace-nowrap gap-x-4 text-[13px] items-center"
+					className="flex whitespace-nowrap gap-x-4 items-center"
 					onClick={() => setOpenDeactivationDialog(true)}
 				>
 					<>
 						{t('Deactivate')} <FaExternalLinkAlt size={15} />
 					</>
 				</Button>
-				<p className="text-[15px] fo">
+				<p>
 					{t('When you deactivate your account, you will have 30 days to recover it. After that, it will be deleted.')}
 				</p>
 			</div>
