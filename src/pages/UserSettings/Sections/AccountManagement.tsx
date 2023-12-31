@@ -85,14 +85,14 @@ const AccountManagement = () => {
 					<p className="text-lg font-semibold">{t('Change your password')}</p>
 					<Button
 						type="button"
-						className="flex whitespace-nowrap gap-x-4 text-[13px] items-center"
+						className="flex whitespace-nowrap gap-x-4 text-sm items-center"
 						onClick={() => setOpenPasswordChangeDialog(true)}
 					>
 						<>
 							{t('Change')} <FaExternalLinkAlt size={15} />
 						</>
 					</Button>
-					<p className="text-[15px] fo">
+					<p className="text-base">
 						{t('When you change your password, you will be automatically signed out from your other sessions')}
 					</p>
 				</div>

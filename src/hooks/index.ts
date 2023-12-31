@@ -30,6 +30,7 @@ import useReadNotification from './services/useReadNotification'
 import useRegisterSelfToActivity from './services/useRegisterSelfToActivity'
 import useResetDb from '../pages/Home/hooks/useResetDb'
 import useUnregisterSelfFromActivity from './services/useUnregisterSelfFromActivity'
+import useUpdateAvatar from './services/useUpdateAvatar'
 import useUpdateFavorite from './services/useUpdateFavorite'
 import useUpdateSetting from './services/useUpdateSetting'
 
@@ -66,6 +67,7 @@ export {
 	useRegisterSelfToActivity,
 	useResetDb,
 	useUnregisterSelfFromActivity,
+	useUpdateAvatar,
 	useUpdateFavorite,
 	useUpdateSetting,
 }

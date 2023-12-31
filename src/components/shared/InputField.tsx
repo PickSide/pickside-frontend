@@ -5,7 +5,7 @@ import { cn } from '@utils'
 
 export const inputVariants = cva(
 	[
-		'inline-flex bg-white items-center border-2 rounded-md h-full mt-1 mb-2 focus-within:border-2 focus-within:border-primary transition-all',
+		'inline-flex bg-white items-center border-2 rounded-md h-full mt-1 mb-2 focus-within:border-2 focus-within:border-ocean transition-all',
 	],
 	{
 		variants: {

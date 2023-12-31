@@ -26,7 +26,7 @@ interface ChipGroupProps {
 
 const chipClasses = {
 	primary:
-		'bg-gray-300 text-primary border-primary hover:bg-primary hover:text-white peer-checked:bg-primary peer-checked:text-white',
+		'bg-gray-300 text-ocean border-ocean hover:bg-ocean hover:text-white peer-checked:bg-ocean peer-checked:text-white',
 	secondary:
 		'text-secondary border-secondary hover:bg-secondary hover:text-white peer-checked:bg-secondary peer-checked:text-white',
 	tertiary:

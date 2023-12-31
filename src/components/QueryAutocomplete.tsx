@@ -120,7 +120,7 @@ const QueryAutocomplete = <T,>({
 			<label htmlFor={id}>
 				<span className="text-gray-400">{label}</span>
 			</label>
-			<div className="p-1 inline-flex items-center rounded-md bg-white border-gray-200 border-2 focus-within:border-[1px] focus-within:border-primary w-full">
+			<div className="p-1 inline-flex items-center rounded-md bg-white border-gray-200 border-2 focus-within:border-[1px] focus-within:border-ocean w-full">
 				<Icon className="mx-2" icon="search" />
 				<div className="flex-grow-2 inline-flex justify-between px-1 py-0.5 rounded-md">
 					<input
@@ -178,7 +178,7 @@ const QueryAutocomplete = <T,>({
 								<div
 									onClick={() => handleSelected(option)}
 									key={idx}
-									className="w-full px-4 py-3 hover:bg-primary hover:text-white"
+									className="w-full px-4 py-3 hover:bg-ocean hover:text-white"
 								>
 									<span className="font-semibold py-2 px-6">{getOptionLabel && getOptionLabel(option)}</span>
 								</div>

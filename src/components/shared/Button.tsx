@@ -9,9 +9,9 @@ export const buttonVariants = cva(
 	{
 		variants: {
 			variant: {
-				primary: ['text-white', 'bg-primary', 'dark:bg-grey-600', 'dark:text-white', 'dark:hover:bg-gray-300'],
-				secondary: ['text-primary', 'border-[1px]', 'border-primary', 'dark:bg-white', 'dark:text-black'],
-				tertiary: ['text-primary', 'underline', 'font-semibold', 'bg-none ', 'dark:text-white'],
+				primary: ['text-white', 'bg-ocean', 'dark:bg-grey-600', 'dark:text-white', 'dark:hover:bg-gray-300'],
+				secondary: ['text-ocean', 'border-[1px]', 'border-ocean', 'dark:bg-white', 'dark:text-black'],
+				tertiary: ['text-ocean', 'underline', 'font-semibold', 'bg-none ', 'dark:text-white'],
 				danger: ['text-white', 'bg-red-600 ', 'hover:bg-red-400'],
 			},
 			size: {

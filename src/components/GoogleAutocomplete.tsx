@@ -62,7 +62,7 @@ const GoogleAutocomplete: FC<GoogleAutocompleteProps> = ({ label, onChange, onPl
 			{openPrediction && (
 				<>
 					<div className="fixed opacity-25 h-screen w-screen" onClick={() => setOpenPrediction(false)} />
-					<div id="prediction-box" className='absolute bg-white border-2 shadow-sm w-full'>
+					<div id="prediction-box" className='absolute bg-white border-[1px] shadow-sm w-full rounded-md'>
 						{isPlacePredictionsLoading ? (
 							<div className='flex items-center justify-center py-2 w-full'>
 								<Spinner />

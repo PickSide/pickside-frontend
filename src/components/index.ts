@@ -18,7 +18,6 @@ import FormDivider from './FormDivider'
 import GoogleAutocomplete from './GoogleAutocomplete'
 import Icon from './shared/Icon'
 import IconButton from './IconButton'
-import ImageUploader from './ImageUploader'
 import InputField from './shared/InputField'
 import Marker from './Marker'
 import MenuItem from './shared/MenuItem'
@@ -68,7 +67,6 @@ export {
 	GoogleAutocomplete,
 	Icon,
 	IconButton,
-	ImageUploader,
 	Marker,
 	MenuItem,
 	NumberField,

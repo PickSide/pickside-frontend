@@ -32,7 +32,7 @@ const Toggle = ({ icon, text, value, defaultValue, disabled = false, ...rest }: 
 			/>
 			<label
 				htmlFor={`${id}`}
-				className="inline-flex items-center justify-between w-full p-2 text-gray-500 cursor-pointer bg-slate-100 hover:bg-gray-300/70 peer-checked:bg-primary peer-checked:text-white"
+				className="inline-flex items-center justify-between w-full p-2 text-gray-500 cursor-pointer bg-slate-100 hover:bg-gray-300/70 peer-checked:bg-ocean peer-checked:text-white"
 			>
 				{icon && <div className="block">{icon}</div>}
 				{text && <div className="block">{text}</div>}

@@ -4,7 +4,7 @@ import { VariantProps, cva } from 'class-variance-authority'
 import { ButtonProps } from './shared/Button'
 import { cn } from '@utils'
 
-export interface IconButtonProps extends ButtonProps {}
+export interface IconButtonProps extends ButtonProps { }
 
 export const iconButtonVariants = cva(
 	[
@@ -23,9 +23,9 @@ export const iconButtonVariants = cva(
 	{
 		variants: {
 			variant: {
-				primary: ['text-primary', 'bg-none', 'dark:text-white', 'dark:hover:bg-gray-300'],
-				secondary: ['text-white', 'bg-primary', 'dark:bg-white', 'dark:text-black'],
-				tertiary: ['text-primary', 'underline', 'font-semibold', 'bg-none ', 'dark:text-white'],
+				primary: ['text-ocean', 'bg-none', 'dark:text-white', 'dark:hover:bg-gray-300'],
+				secondary: ['text-white', 'bg-ocean', 'dark:bg-white', 'dark:text-black'],
+				tertiary: ['text-ocean', 'underline', 'font-semibold', 'bg-none ', 'dark:text-white'],
 				danger: ['text-white', 'bg-red-600 ', 'hover:bg-red-400'],
 			},
 			size: {

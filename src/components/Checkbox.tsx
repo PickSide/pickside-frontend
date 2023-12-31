@@ -12,7 +12,7 @@ const Checkbox = ({ label, ...props }: CheckboxProps | any, ref) => {
 					type="checkbox"
 					autoComplete="off"
 					ref={ref}
-					className="relative cursor-pointer bg-gray-100 border-gray-300 rounded w-4 h-4 accent-primary text-primary"
+					className="relative cursor-pointer bg-gray-100 border-gray-300 rounded w-4 h-4 accent-ocean text-ocean"
 					{...props}
 				/>
 				<label htmlFor={props.id}>

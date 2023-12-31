@@ -40,7 +40,7 @@ const MultiValueRemove = (props: MultiValueRemoveProps) => (
 
 const controlStyles = {
 	base: 'border rounded-md bg-white hover:cursor-pointer h-fit',
-	focus: 'border-primary ring-1 ring-primary-500',
+	focus: 'border-ocean ring-1 ring-ocean-500',
 	nonFocus: 'border-gray-300 hover:border-gray-400',
 }
 const placeholderStyles = 'text-gray-400 pl-2'
@@ -48,7 +48,7 @@ const selectInputStyles = 'leading-8'
 const valueContainerStyles = 'pl-4'
 const singleValueStyles = ''
 const menuPortal = 'z-50'
-const multiValueStyles = 'bg-primary text-white rounded-md items-center py px-2 gap-1.5'
+const multiValueStyles = 'bg-ocean text-white rounded-md items-center py px-2 gap-1.5'
 const multiValueLabelStyles = 'leading-6 py-0.5'
 const multiValueRemoveStyles = 'text-white'
 const indicatorsContainerStyles = 'p-1 gap-1'

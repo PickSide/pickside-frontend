@@ -40,7 +40,7 @@ export default function Login() {
 						<span className="text-gray-500">{t(`Don't have an user?`)}</span>
 						<NavLink
 							to="/signup"
-							className="font-semibold text-[15px] text-primary hover:scale-105 hover:text-gray-400/80"
+							className="font-semibold text-[15px] text-ocean hover:scale-105 hover:text-gray-400/80"
 						>
 							{t('Sign up')}
 						</NavLink>

@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react'
 import AppSettings from './Sections/PersonalInfo'
 import { AppState } from '@state'
 import Avatar from '@components/Avatar'
+import AvatarUploadForm from './components/forms/AvatarUploadForm'
 import EditProfile from './Sections/EditProfile'
 import Favorites from './Sections/Favorites'
 import Groups from './Sections/Groups'
@@ -83,27 +84,26 @@ const Settings = () => {
 	return (
 		<>
 			<Dialog title="Change avatar" open={openChangeAvatarDialog} onClose={() => setOpenChangeAvatarDialog(false)}>
-				<p>hi</p>
+				<AvatarUploadForm />
 			</Dialog>
 			<div className="w-[80%] m-auto flex flex-col divide-y-2 divide-opacity-30 divide-slate-200 h-[calc(100vh-64px)]">
 				<div className="inline-flex items-center gap-x-6">
 					<div className="relative ">
 						<button
-							className="absolute rounded-full w-6 h-6 right-0 bottom-0 z-20 bg-primary border-2 border-white text-white hover:bg-secondary"
+							className="absolute rounded-full w-6 h-6 right-0 bottom-0 z-20 bg-ocean border-2 border-white text-white hover:bg-secondary"
 							onClick={() => setOpenChangeAvatarDialog(true)}
 						>
 							<Icon icon="edit" size="xs" />
 						</button>
-						<div className="flex items-center justify-center w-16 h-16 overflow-hidden border-primary border-2 rounded-full text-white bg-primary">
-							<Avatar size="sm" variant="secondary" src={connectedUser?.avatar} />
-						</div>
+						<Avatar size="xlg" variant="secondary" src={connectedUser?.avatar} />
+
 					</div>
 					<div className="flex-col my-8">
-						<h6 className="font-semibold">{connectedUser?.fullName}</h6>
+						<h4 className="font-semibold">{connectedUser?.fullName}</h4>
 						<p className="text-base font-normal text-gray-400">Plays near {connectedUser?.localeRegion}</p>
 						<p className="text-sm font-normal text-gray-400">Reliability: {connectedUser?.reliability}%</p>
 					</div>
-					<div className="flex flex-grow my-8 justify-end text-primary pr-2">
+					<div className="flex flex-grow my-8 justify-end text-ocean pr-2">
 						<Popover
 							trigger={
 								<IconButton>
@@ -125,9 +125,8 @@ const Settings = () => {
 						{MenuItems.map(({ description, ref, icon }, idx) => (
 							<div
 								key={idx}
-								className={`inline-flex items-center gap-x-4 rounded-md h-10 hover:bg-slate-200 px-2 leading-8 ${
-									pathname.includes(ref) ? 'font-semibold bg-slate-100' : ''
-								}`}
+								className={`inline-flex items-center gap-x-4 rounded-md h-10 hover:bg-slate-200 px-2 leading-8 ${pathname.includes(ref) ? 'font-semibold bg-slate-100' : ''
+									}`}
 							>
 								{icon}
 								<NavLink className="flex-grow whitespace-nowrap" to={ref}>

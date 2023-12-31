@@ -51,18 +51,18 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 								<button
 									type="button"
 									disabled={today.month() <= 0}
-									className="rounded-md hover:bg-gray-200 shadow-sm outline-none font-primary m-2 p-1"
+									className="rounded-md hover:bg-gray-200 shadow-sm outline-none font-ocean m-2 p-1"
 									onClick={() => setToday(today.month(today.month() - 1))}
 								>
 									<Icon icon='keyboard_arrow_left' />
 								</button>
-								<span className="rounded-full text-base hover:bg-gray-200 border-none outline-none font-primary m-2 p-1">
+								<span className="rounded-full text-base hover:bg-gray-200 border-none outline-none font-ocean m-2 p-1">
 									{months[today.month()]}
 								</span>
 								<button
 									type="button"
 									disabled={today.month() >= 11}
-									className="rounded-md hover:bg-gray-200 shadow-sm outline-none font-primary m-2 p-1"
+									className="rounded-md hover:bg-gray-200 shadow-sm outline-none font-ocean m-2 p-1"
 									onClick={() => setToday(today.month(today.month() + 1))}
 								>
 									<Icon icon='keyboard_arrow_right' />
@@ -81,7 +81,7 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 										<button
 											type="button"
 											key={idx}
-											className="rounded-full block w-6 h-6 pointer-events-none bg-primary text-white border-none outline-none font-primary m-2"
+											className="rounded-full block w-6 h-6 pointer-events-none bg-ocean text-white border-none outline-none font-ocean m-2"
 										>
 											{date.date()}
 										</button>
@@ -91,7 +91,7 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 											key={idx}
 											disabled={true}
 											onClick={() => handleSelect(date)}
-											className="rounded-full block w-6 h-6 pointer-events-none bg-emerald-600 text-white border-none outline-none font-primary m-2"
+											className="rounded-full block w-6 h-6 pointer-events-none bg-emerald-600 text-white border-none outline-none font-ocean m-2"
 										>
 											{date.date()}
 										</button>
@@ -101,7 +101,7 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 											key={idx}
 											disabled={!currentMonth || !afterToday}
 											onClick={() => handleSelect(date)}
-											className="rounded-full block w-6 h-6 hover:bg-gray-200 border-none outline-none font-primary m-2 disabled:text-gray-300 disabled:pointer-events-none"
+											className="rounded-full block w-6 h-6 hover:bg-gray-200 border-none outline-none font-ocean m-2 disabled:text-gray-300 disabled:pointer-events-none"
 										>
 											{date.date()}
 										</button>

@@ -38,7 +38,7 @@ const useGroupTableColums = ({ onClickDeleteGroup }) => {
 								<Link
 									to={`/user-detail/${member.id}`}
 									state={{ user: member }}
-									className="w-6 h-6 rounded-full overflow-clip bg-primary shadow-inner text-white text-sm flex items-center justify-center"
+									className="w-6 h-6 rounded-full overflow-clip bg-ocean shadow-inner text-white text-sm flex items-center justify-center"
 								>
 									{member.avatar ? (
 										<Avatar size="sm" variant="secondary" src={member?.avatar} />

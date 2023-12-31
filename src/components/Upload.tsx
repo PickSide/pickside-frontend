@@ -1,60 +1,36 @@
-import { ReactNode, forwardRef, useId } from 'react'
+import { ComponentPropsWithRef, ReactNode, forwardRef, useId } from 'react'
 
-import { ButtonVariant } from '@utils'
-import { twMerge } from 'tailwind-merge'
-
-interface UploadProps {
-	variant?: ButtonVariant
-	text?: ReactNode
-	disabled?: boolean
+interface UploadProps extends ComponentPropsWithRef<'input'> {
+	text?: string | ReactNode
 	isLoading?: boolean
-	showTooltip?: boolean
-	onClick?: (e?) => void
-	className?: string
 }
 
-const Upload = (
+const Upload = forwardRef<any, UploadProps>((
 	{
 		className,
-		onChange,
 		isLoading = false,
-		disabled = false,
-		showTooltip = false,
 		text,
-		variant = 'primary',
 		...rest
-	}: UploadProps | any,
-	ref,
+	}: UploadProps | any
 ) => {
 	const id = useId()
-	const variants = {
-		primary: 'text-white bg-primary hover:bg-gray-300 disabled:bg-gray-300/60 dark:bg-white dark:text-black',
-		secondary:
-			'text-[#5293C7] border-[1px] border-[#5293C7] hover:bg-gray-300 disabled:text-gray-400 disabled:border-gray-200/30 disabled:bg-gray-200/60 dark:bg-white dark:text-black',
-		tertiary: 'text-primary dak:bg-none dark:text-white',
-		danger: 'text-white bg-red-600 hover:bg-red-400',
-	}
 
 	return (
 		<label
 			htmlFor={id}
-			className={twMerge(
-				'flex justify-center whitespace-nowrap rounded-md p-1 text-',
-				[variants[variant], className].join(' '),
-			)}
+			className='flex justify-center whitespace-nowrap rounded-md p-1 text-[#5293C7] border border-[#5293C7] hover:bg-gray-300 disabled:text-gray-400 disabled:border-gray-200/30 disabled:bg-gray-200/60 dark:bg-white dark:text-black'
+
 		>
 			<p>{text}</p>
 			<input
-				type="file"
-				accept="image/*"
 				id={id}
 				className="hidden"
-				disabled={disabled}
-				onChange={onChange}
+				accept=".png, .jpg, .jpeg"
+				type="file"
 				{...rest}
 			/>
 		</label>
 	)
-}
+})
 
-export default forwardRef(Upload)
+export default Upload

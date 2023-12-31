@@ -1,6 +1,7 @@
-import { Button, FormDivider, ImageUploader, InputField } from '@components'
+import { Button, FormDivider, InputField } from '@components'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 
+import ImageUploader from '../ImageUploader'
 import StepperCTAWrapper from '../shared/StepperCTAWrapper'
 import { useStepper } from '@pages/NewEvent/hooks/useStepper'
 import { useTranslation } from 'react-i18next'
