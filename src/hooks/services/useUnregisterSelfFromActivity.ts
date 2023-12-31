@@ -20,9 +20,10 @@ const useUnregisterSelfToActivity = () => {
 		error,
 		isError,
 	} = useMutation(callback, {
-		mutationKey: ['unregisterFromActivity'],
+		mutationKey: ['activity-unregister'],
 		onSuccess: ({ data }, activityId) =>
-			dispatch(updateParticipants({ activityId, participants: data.result.participants })),
+			dispatch(updateParticipants({ activityId: activityId, participants: data.result.participants }))
+		,
 		onError: (e) => console.log(e),
 	})
 
