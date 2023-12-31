@@ -1,4 +1,4 @@
-import { setUserEmpty } from '@state'
+import { setUser } from '@state'
 import { useDispatch } from 'react-redux'
 import { useMutation } from '@tanstack/react-query'
 import { useSessionStorage } from 'usehooks-ts'
@@ -6,12 +6,12 @@ import { useTranslation } from 'react-i18next'
 
 const useGuestLogout = () => {
 	const dispatch = useDispatch()
-	const [, setUser] = useSessionStorage('user', null)
+	const [, setSessionUser] = useSessionStorage('user', null)
 	const { t } = useTranslation()
 
 	const callback = () =>
 		Promise.resolve(() => {
-			setUser(null)
+			setSessionUser(null)
 		})
 
 	const {
@@ -22,7 +22,7 @@ const useGuestLogout = () => {
 	} = useMutation(callback, {
 		mutationKey: ['logoutGuestUser'],
 		onSuccess: () => {
-			dispatch(setUserEmpty())
+			dispatch(setUser(null))
 			dispatch({
 				type: 'toast/toastMessage',
 				payload: {

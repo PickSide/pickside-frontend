@@ -57,14 +57,7 @@ const UserReducer = createSlice({
 	reducers: {
 		setUser: (state, action: PayloadAction<User | null | undefined>) => (state = action.payload),
 		setCachedUser: (state, action: PayloadAction<User | null | undefined>) => (state = action.payload),
-		setUserEmpty: (state) => (state = null),
-		updateUserConfig: (state, action: PayloadAction<any>) => {
-			if (state) {
-				state = { ...state, ...action.payload }
-			}
-			return state
-		},
-
+		updateUserConfig: (state, action: PayloadAction<any>) => state = { ...state, ...action.payload },
 		updateUserFavorites: (state, action: PayloadAction<any>) => {
 			if (state && action.payload.result.favorites) {
 				state.favorites = action.payload.result.favorites
@@ -74,6 +67,6 @@ const UserReducer = createSlice({
 	},
 })
 
-export const { setUser, setCachedUser, setUserEmpty, updateUserConfig, updateUserFavorites } = UserReducer.actions
+export const { setUser, setCachedUser, updateUserConfig, updateUserFavorites } = UserReducer.actions
 
 export default UserReducer.reducer

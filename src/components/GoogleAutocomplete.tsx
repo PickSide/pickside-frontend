@@ -8,7 +8,6 @@ import usePlacesService from 'react-google-autocomplete/lib/usePlacesAutocomplet
 import { useTranslation } from 'react-i18next'
 
 interface GoogleAutocompleteProps extends Omit<InputFieldProps, 'value'> {
-	label?: string
 	onPlaceSelected?: (place: google.maps.places.PlaceResult) => void
 	value?: google.maps.places.PlaceResult | string
 }
@@ -27,7 +26,7 @@ const GoogleAutocomplete: FC<GoogleAutocompleteProps> = ({ label, onChange, onPl
 	const [cursor, setCursor] = useState<number>(0)
 
 	return (
-		<div className="relative w-full">
+		<div className="relative w-fit">
 			<InputField
 				ref={inputRef}
 				name={name}

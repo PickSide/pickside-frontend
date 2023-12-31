@@ -18,9 +18,10 @@ const EditProfile = () => {
 			bio: connectedUser?.bio,
 			preferredRegion: connectedUser?.preferredRegion,
 		},
+		mode: "onChange",
 		resetOptions: {
-			keepDefaultValues: true,
-		},
+			keepDirtyValues: true,
+		}
 	})
 
 	const onSubmit = async (values) => {
@@ -45,7 +46,7 @@ const EditProfile = () => {
 						control={control}
 						render={({ field }) => <TextAreaField label={t('Bio')} fullWidth {...field} />}
 					/>
-					<BottomDrawer show={formState.isDirty} onReset={reset} />
+					<BottomDrawer formState={formState} onReset={reset} />
 				</form>
 			</div>
 		</div>

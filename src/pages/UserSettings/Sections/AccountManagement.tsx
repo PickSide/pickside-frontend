@@ -25,8 +25,8 @@ const AccountManagement = () => {
 			preferredLocale: connectedUser?.preferredLocale,
 		},
 		resetOptions: {
-			keepDefaultValues: true,
-		},
+			keepDirtyValues: true,
+		}
 	})
 
 	const [openPasswordChangeDialog, setOpenPasswordChangeDialog] = useState<boolean>(false)
@@ -77,7 +77,7 @@ const AccountManagement = () => {
 							/>
 						)}
 					/>
-					<BottomDrawer show={formState.isDirty} onReset={reset} />
+					<BottomDrawer formState={formState} onReset={reset} />
 				</form>
 			</div>
 			{connectedUser?.accountType !== ACCOUNT_TYPE.DEFAULT && (

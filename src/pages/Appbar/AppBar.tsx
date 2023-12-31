@@ -1,7 +1,6 @@
 import { ACCOUNT_TYPE, USER_PERMISSIONS } from '@state/user/constants'
 import { Button, Icon, IconButton, PrivilegedContent, Radio, RadioGroup } from '@components'
 import { NavLink, useLocation } from 'react-router-dom'
-import { cn, pageTransition } from '@utils'
 import { useContext, useRef, useState } from 'react'
 import { useGuestLogout, useLocaleSwitcher, useLogout } from '@hooks'
 
@@ -15,6 +14,7 @@ import PopupMenuItem from './components/shared/PopupMenuItem'
 import PopupSubmenuItem from './components/shared/PopupSubmenuItem'
 import { SidenavDispatchContext } from '@context'
 import { motion } from 'framer-motion'
+import { pageTransition } from '@utils'
 import { useSelector } from 'react-redux'
 import useThemeSwitcher from './hooks/useThemeSwitcher'
 import { useTranslation } from 'react-i18next'
@@ -41,10 +41,8 @@ const AppBar = () => {
 			animate="visible"
 			exit="exit"
 			variants={pageTransition}
-			className={cn(
-				'flex h-16 pl-5 pr-5 lg:pr-16 w-full dark:bg-charcoal-black ',
-				pathname === '/' ? 'bg-landing-texture' : 'bg-[#F1F4F3]',
-			)}
+			className='flex h-16 pl-5 pr-5 lg:pr-16 w-full dark:bg-charcoal-black '
+
 		>
 			<div className="w-full h-10 my-auto">
 				<NavLink to="/" className="float-left w-24 h-full bg-logo bg-contain bg-no-repeat" />
@@ -54,7 +52,7 @@ const AppBar = () => {
 							<PrivilegedContent permissions={[USER_PERMISSIONS.ACTIVITIES_CREATE]}>
 								<NavLink
 									to="/new-event"
-									className="text-base text-grey-700 font-medium hover:scale-110 hover:text-slate-500"
+									className="text-base text-grey-700 font-medium hover:text-slate-300 transition-all"
 								>
 									{t('Post an event')}
 								</NavLink>

@@ -14,10 +14,10 @@ module.exports = {
 			backgroundImage: {
 				avatar: "url('./assets/avatar-placeholder.png')",
 				'card-placeholder': 'url(./assets/card_placeholder.jpeg)',
-				landing: "url('./assets/landing-page-background.png')",
+				landing: "url('./assets/landing.png')",
 				'landing-texture': "url('./assets/landing-texture.png')",
 				'soccer-ball': "url('./assets/soccer-ball.png')",
-				'logo-with-text': "url('./assets/logo_with_text.svg')",
+				'logo-with-text': "url('./assets/logo-with-text.svg')",
 				logo: "url('./assets/logo.svg')",
 			},
 			boxShadow: {

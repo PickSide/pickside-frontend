@@ -84,7 +84,7 @@ interface IconProps extends ComponentPropsWithRef<'i'>, VariantProps<typeof icon
 	icon: IconName
 }
 
-const Icon = forwardRef<JSX.Element, IconProps>(({ className, icon, size, variant, ...rest }, ref) => {
+const Icon = forwardRef<any, IconProps>(({ className, icon, size, variant, ...rest }, ref) => {
 	if (!validIcons.includes(icon)) {
 		throw new Error(
 			'Icon passed is not supported. Please add it from here https://fonts.google.com/icons?selected=Material+Symbols+Outlined:mood:FILL@0;wght@400;GRAD@0;opsz@24',
@@ -92,7 +92,7 @@ const Icon = forwardRef<JSX.Element, IconProps>(({ className, icon, size, varian
 	}
 
 	return (
-		<i className={cn(iconVariants({ className, size, variant }))} {...rest}>
+		<i ref={ref} className={cn(iconVariants({ className, size, variant }))} {...rest}>
 			{icon}
 		</i>
 	)
