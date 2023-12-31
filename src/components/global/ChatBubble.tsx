@@ -13,7 +13,7 @@ const ChatBubble: FC<ChatBubbleProps> = ({ children, type = 'receive' }) => {
 			<span
 				className={cn(
 					'w-fit px-2 py-1 rounded-lg m-1 flex text-sm max-w-[80%] whitespace-normal',
-					type === 'incoming' ? 'bg-cool-gray-1 text-dark' : 'bg-primary text-white',
+					type === 'incoming' ? 'bg-cool-gray-1 text-dark' : 'bg-ocean text-white',
 				)}
 			>
 				{children}

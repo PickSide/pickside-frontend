@@ -1,7 +1,7 @@
 import { forwardRef, useId, useState } from 'react'
 
 import { Upload } from '@components'
-import uploadPlaceholder from '../assets/upload_placeholder.png'
+import uploadPlaceholder from '../../../assets/avatar-placeholder.png'
 import { useDevice } from '@hooks'
 import { useTranslation } from 'react-i18next'
 
@@ -24,8 +24,8 @@ const ImageUploader = ({ onChange, ...rest }, ref) => {
 
 	const File = ({ file, idx }) => (
 		<div className="flex items-center space-x-2">
-			<p className="text-primary/60 truncate max-w-xs">{file[0].name}</p>
-			<button className="rounded-md bg-primary/70 w-5 h-5 text-accent text-[10px]" onClick={() => removeFile(idx)}>
+			<p className="text-ocean/60 truncate max-w-xs">{file[0].name}</p>
+			<button className="rounded-md bg-ocean/70 w-5 h-5 text-accent text-xs" onClick={() => removeFile(idx)}>
 				X
 			</button>
 		</div>
@@ -53,8 +53,8 @@ const ImageUploader = ({ onChange, ...rest }, ref) => {
 					</div>
 				)}
 				<div className="flex flex-col space-y-4">
-					<Upload variant="secondary" text={t('Your images')} onChange={handleSelect} multiple />
-					<Upload variant="secondary" text={t('Our collection')} onChange={handleSelect} multiple />
+					<Upload text={t('Your images')} onChange={handleSelect} multiple />
+					<Upload text={t('Our collection')} onChange={handleSelect} multiple />
 				</div>
 			</div>
 		</div>

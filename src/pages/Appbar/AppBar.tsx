@@ -41,7 +41,7 @@ const AppBar = () => {
 			animate="visible"
 			exit="exit"
 			variants={pageTransition}
-			className='flex h-16 pl-5 pr-5 lg:pr-16 w-full dark:bg-charcoal-black '
+			className='flex h-16 pl-5 pr-5 lg:px-10 w-full dark:bg-charcoal-black '
 
 		>
 			<div className="w-full h-10 my-auto">
@@ -90,11 +90,11 @@ const AppBar = () => {
 						onClose={() => setOpen(false)}
 						trigger={
 							<Button
-								className="flex items-center border border-primary bg-transparent px-[10px] py-[5px] rounded-[40px] gap-x-1"
+								className="flex items-center border border-ocean bg-transparent px-[10px] py-[5px] rounded-[40px] gap-x-1"
 								onClick={() => setOpen(true)}
 							>
 								<Avatar size="sm" variant="secondary" src={connectedUser?.avatar} />
-								<Icon icon="menu" className="text-primary dark:text-white" />
+								<Icon icon="menu" className="text-ocean dark:text-white" />
 							</Button>
 						}
 					>

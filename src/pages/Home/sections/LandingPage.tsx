@@ -37,16 +37,16 @@ const LandingPage: FC<any> = () => {
 			id="intro"
 			className="section h-[calc(100vh-64px)] lg:relative lg:block dark:bg-charcoal-black/80 overflow-hidden"
 		>
-			<div className='w-full h-[80vh] flex items-center justify-center mx-auto'>
-				<img src={Landing} alt='landing background' />
+			<div className='w-full h-3/4 flex items-center justify-center mx-auto bg-landing bg-no-repeat bg-contain bg-center'>
+				{/* <img src={Landing} alt='landing background' /> */}
 			</div>
 			<div className='flex items-center justify-center'>
 				<GoogleAutocomplete
-					label={<span className='flex items-center justify-center text-primary'>{t('Host or Join, Your Victory Starts Here.')}</span>}
+					label={<h4 className='flex items-center justify-center text-ocean'>{t('Host or Join, Your Victory Starts Here.')}</h4>}
 					onPressEnterKey={navigateToListing}
-					className="border-primary/30 w-[300px] h-12 rounded-[15px]"
-					endContent={<Icon icon="search" />}
-					placeholder={t('Search location...')}
+					className="border-ocean/30 w-[418px] h-[50px] rounded-[15px]"
+					startContent={<Icon className='' icon="search" />}
+					placeholder={t('Search by location or postal code')}
 					onPlaceSelected={(value) => setSelected(value)}
 				/>
 			</div>

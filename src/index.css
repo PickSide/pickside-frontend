@@ -166,37 +166,29 @@
 
 	h1,
 	.h1 {
-		@apply font-primary text-[76px];
+		@apply font-primary text-[36px];
 	}
 	h2,
 	.h2 {
-		@apply font-primary text-[61px] tracking-[10%];
+		@apply font-primary text-[32px] tracking-[10%];
 	}
 	h3,
 	.h3 {
-		@apply font-primary text-[49px] tracking-[10%];
+		@apply font-primary text-[26px] tracking-[10%];
 	}
 	h4,
 	.h4 {
-		@apply font-primary text-[39px] tracking-[10%];
-	}
-	h5,
-	.h5 {
-		@apply font-primary text-[31px] tracking-[10%];
-	}
-	h6,
-	.h6 {
-		@apply font-primary text-[25px] tracking-[10%];
+		@apply font-primary text-[24px] tracking-[10%];
 	}
 	.scrollable {
-		@apply scrollbar-thin scrollbar-thumb-accent scrollbar-track-gray-100;
+		@apply scrollbar-thumb-accent scrollbar-thin scrollbar-track-gray-100;
 	}
 }
 
 @layer components {
 	/* CHIPS */
 	.chip-base {
-		@apply rounded font-semibold uppercase text-sm px-6 py-3 disabled:bg-slate-200 disabled:opacity-70 disabled:cursor-not-allowed;
+		@apply rounded px-6 py-3 text-sm font-semibold uppercase disabled:cursor-not-allowed disabled:bg-slate-200 disabled:opacity-70;
 	}
 	/* BUTTONS */
 	.btn-base {
@@ -213,10 +205,10 @@
 	}
 	/* ICONS */
 	.icon-btn {
-		@apply rounded-md ease-linear transition-all p-1 m-2 hover:scale-110 hover:bg-gray-200/70 dark:text-white;
+		@apply m-2 rounded-md p-1 transition-all ease-linear hover:scale-110 hover:bg-gray-200/70 dark:text-white;
 	}
 	.section {
-		@apply p-2 w-full mx-auto items-center overflow-x-hidden h-screen;
+		@apply mx-auto h-screen w-full items-center overflow-x-hidden p-2;
 	}
 }
 

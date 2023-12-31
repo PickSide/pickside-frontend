@@ -17,7 +17,7 @@ const TextAreaField = forwardRef<HTMLTextAreaElement, TextAreaFieldProps>(
 				</label>
 				<div
 					className={cn(
-						'inline-flex w-full items-center rounded-md bg-white border-2 focus-within:border-2 focus-within:border-primary',
+						'inline-flex w-full items-center rounded-md bg-white border-2 focus-within:border-2 focus-within:border-ocean',
 						error && 'border-[#d2333d] text-[#d2333d]',
 						readOnly && 'border-gray-100',
 					)}

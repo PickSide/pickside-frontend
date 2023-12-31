@@ -29,7 +29,7 @@ export const switchVariants = cva(
 				],
 				secondary: [
 					'bg-gray-300',
-					'peer-checked:bg-primary',
+					'peer-checked:bg-ocean',
 					'peer-disabled:bg-gray-200',
 					'peer-disabled:cursor-not-allowed',
 				],
@@ -63,7 +63,7 @@ const Switch = forwardRef<HTMLInputElement, SwitchProps>(
 			},
 			[onChange],
 		)
-		
+
 		return (
 			<label className="inline-flex items-center relative cursor-pointer">
 				<input ref={ref} className="sr-only peer" type="checkbox" checked={checked} onChange={handleChange} />

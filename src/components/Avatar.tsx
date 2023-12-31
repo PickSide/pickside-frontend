@@ -9,7 +9,7 @@ export const avatarVariants = cva(
 		variants: {
 			variant: {
 				primary: [
-					'text-primary',
+					'text-ocean',
 					'border-duck-3',
 					'border-2',
 					'bg-cool-gray-1',
@@ -17,12 +17,13 @@ export const avatarVariants = cva(
 					'dark:text-white',
 					'dark:hover:bg-gray-300',
 				],
-				secondary: ['text-white', 'bg-primary', 'dark:bg-grey-600', 'dark:text-white', 'dark:hover:bg-gray-300'],
+				secondary: ['text-white', 'bg-ocean', 'dark:bg-grey-600', 'dark:text-white', 'dark:hover:bg-gray-300'],
 			},
 			size: {
 				sm: ['w-7 h-7'],
 				md: ['w-8 h-8'],
 				lg: ['w-12 h-12'],
+				xlg: ['w-14 h-14'],
 			},
 		},
 		defaultVariants: {

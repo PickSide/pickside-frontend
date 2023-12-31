@@ -13,7 +13,10 @@ const useUpdateSetting = () => {
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
-	const callback = async (data) => axiosInstance.put(`users/${connectedUser?.id}/settings`, { data })
+	const callback = async (data) => {
+		console.log(data)
+		return axiosInstance.put(`users/${connectedUser?.id}/settings`, { data })
+	}
 
 	const {
 		mutate: updateUser,

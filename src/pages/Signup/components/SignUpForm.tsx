@@ -88,7 +88,7 @@ const SignUpForm = () => {
 					type="submit"
 					disabled={!watch('agreement')}
 					isLoading={isLoading}
-					className="rounded-md bg-primary text-white font-semibold h-[50px] transition-all duration-75 ease-in hover:bg-secondary"
+					className="rounded-md bg-ocean text-white font-semibold h-[50px] transition-all duration-75 ease-in hover:bg-secondary"
 				>
 					{t('Sign up')}
 				</Button>

@@ -9,7 +9,7 @@ const dropdownVariants = cva(['text-inherit', 'rounded', 'text-base', 'leading-n
 	variants: {
 		variant: {
 			primary: [
-				'text-primary',
+				'text-ocean',
 				'bg-none',
 				'disabled:bg-cool-gray-3',
 				'hover:bg-gray-300',
@@ -25,7 +25,7 @@ const dropdownVariants = cva(['text-inherit', 'rounded', 'text-base', 'leading-n
 				'disabled:bg-gray-200/60',
 				'dark:text-white',
 			],
-			tertiary: ['text-primary', 'underline', 'font-semibold', 'bg-none ', 'dark:text-white'],
+			tertiary: ['text-ocean', 'underline', 'font-semibold', 'bg-none ', 'dark:text-white'],
 			danger: ['text-white', 'bg-red-600 ', 'hover:bg-red-400'],
 		},
 		size: {

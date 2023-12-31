@@ -25,7 +25,12 @@ module.exports = {
 				menu: '2px 2px 8px 0px rgba(0, 0, 0, 0.10), -2px -2px 8px 0px rgba(0, 0, 0, 0.10)',
 			},
 			colors: {
-				primary: '#144A75',
+				ocean: {
+					1: '#EDF7FF',
+					2: '#5293C7',
+					DEFAULT: '#144A75',
+					4: '#0F3554',
+				},
 				secondary: '#17494D',
 				tertiary: '#F4FF81',
 				info: '#156495',
@@ -55,12 +60,6 @@ module.exports = {
 				},
 				kale: {
 					200: '#DAEDED',
-				},
-				ocean: {
-					1: '#EDF7FF',
-					2: '#5293C7',
-					3: '#144A75',
-					4: '#0F3554',
 				},
 				pistachio: {
 					1: '#DAF6D7',

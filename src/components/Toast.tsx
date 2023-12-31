@@ -23,7 +23,7 @@ const Toast: FC<ToastProps> = ({ type, show = false, onClose, children, ...props
 					initial="hidden"
 					animate="show"
 					exit="exit"
-					className={`min-w-[200px] min-h-[50px] items-center flex bg-primary rounded p-4 space-x-4 shadow-lg`}
+					className={`min-w-[200px] min-h-[50px] items-center flex bg-ocean rounded p-4 space-x-4 shadow-lg`}
 				>
 					{type === 'success' && (
 						<span className="rounded-full text-[#74cd8d] fill-white">

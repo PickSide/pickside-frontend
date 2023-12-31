@@ -36,7 +36,7 @@ const SignUp = () => {
 						<span className="text-gray-500">{t('Already have an account?')}</span>
 						<NavLink
 							to="/login"
-							className="font-semibold text-[15px] text-primary hover:scale-105 hover:text-gray-400/80"
+							className="font-semibold text-[15px] text-ocean hover:scale-105 hover:text-gray-400/80"
 						>
 							{t('Login')}
 						</NavLink>

@@ -84,7 +84,7 @@ export const Chatroom = ({ chatroom, minimize = false }) => {
 			animate={{ height: 600, scale: 1 }}
 			transition={{ type: 'tween', ease: 'easeInOut', duration: 0.1 }}
 			id="chatroom"
-			className="border-2 rounded-t-lg bg-white shadow-sm max-w-screen-md max-h-[600px] w-80 focus-visible:bg-primary mr-2"
+			className="border-2 rounded-t-lg bg-white shadow-sm max-w-screen-md max-h-[600px] w-80 focus-visible:bg-ocean mr-2"
 		>
 			{!isMinimized && (
 				<div className="relative flex flex-col h-full">
@@ -95,7 +95,7 @@ export const Chatroom = ({ chatroom, minimize = false }) => {
 								size="sm"
 								badge={<StatusBadge variant={isRecipientOnline ? 'online' : 'offline'} />}
 							/>
-							<p className="text-md text-primary font-semibold">{chatroom?.name}</p>
+							<p className="text-md text-ocean font-semibold">{chatroom?.name}</p>
 						</div>
 						<div className="inline-flex items-center gap-x-2">
 							<IconButton size="sm" onClick={() => setIsMinimized(true)}>

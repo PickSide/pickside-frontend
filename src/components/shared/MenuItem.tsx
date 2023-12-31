@@ -12,8 +12,8 @@ const MenuItem = forwardRef<any, MenuItemProps>(({ active, children, className, 
 		<button
 			ref={ref}
 			className={cn(
-				'w-full flex items-center px-2 py-1 truncate disabled:bg-slate-50 disabled:text-slate-300 disabled:pointer-events-none cursor-pointer gap-x-3 hover:bg-primary dark:hover:bg-grey-600 hover:text-white',
-				active ? 'bg-primary dark:bg-grey-600 text-white' : '',
+				'w-full flex items-center p-2 truncate disabled:bg-slate-50 disabled:text-slate-300 disabled:pointer-events-none cursor-pointer gap-x-3 hover:bg-ocean dark:hover:bg-grey-600 hover:text-white',
+				active ? 'bg-ocean dark:bg-grey-600 text-white' : '',
 				className,
 			)}
 			onClick={(e, ...args) => {

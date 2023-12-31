@@ -43,7 +43,7 @@ const EventList: FC<any> = () => {
 		</div>
 	) : (
 		<div className="min-w-[500px] m-auto text-center">
-			<h5 className="font-semibold">{t('No events in the area')}</h5>
+			<h4 className="font-semibold">{t('No events in the area')}</h4>
 			<span className="text-lg font-normal underline text-blue-700 cursor-pointer" onClick={() => refetch()}>
 				{t('Refresh')}
 			</span>
