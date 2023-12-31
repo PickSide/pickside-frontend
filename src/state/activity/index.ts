@@ -34,18 +34,22 @@ const ActivityReducer = createSlice({
 			return state
 		},
 		updateActivity: (state, action: PayloadAction<any>) => {
-			const idx = state.results?.findIndex((Activity) => Activity.id === action.payload.id) || -1
+			if (state.results) {
+				const idx = state.results.findIndex((Activity) => Activity.id === action.payload.id) || -1
 
-			if (idx > -1) {
-				state.results?.splice(idx, 1, action.payload)
+				if (idx > -1) {
+					state.results?.splice(idx, 1, action.payload)
+				}
 			}
 			return state
 		},
 		updateParticipants: (state, action: PayloadAction<{ activityId: string; participants: any[] }>) => {
-			const idx = state.results?.findIndex((Activity) => Activity.id === action.payload.activityId) || -1
+			if (state.results) {
+				const idx = state.results.findIndex((activity) => activity.id === action.payload.activityId)
 
-			if (idx > -1 && state.results && action.payload.participants) {
-				state.results[idx].participants = action.payload.participants
+				if (idx > -1) {
+					state.results[idx].participants = action.payload.participants
+				}
 			}
 			return state
 		},
