@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 import { GoogleAutocomplete, Icon } from '@components'
 
+import Landing from '../../../assets/landing.png'
 import { setSelectedLocation } from '@state'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -36,8 +37,8 @@ const LandingPage: FC<any> = () => {
 			id="intro"
 			className="section h-[calc(100vh-64px)] lg:relative lg:block dark:bg-charcoal-black/80 overflow-hidden"
 		>
-			<div className='h-[80%] flex items-center justify-center'>
-				<img src='src/assets/landing.png' alt='landing background' />
+			<div className='w-full h-[80vh] flex items-center justify-center mx-auto'>
+				<img src={Landing} alt='landing background' />
 			</div>
 			<div className='flex items-center justify-center'>
 				<GoogleAutocomplete
