@@ -47,7 +47,7 @@ const AppBar = () => {
 			)}
 		>
 			<div className="w-full h-10 my-auto">
-				<NavLink to="/" className="float-left w-12 h-full bg-templogo2 bg-contain bg-no-repeat" />
+				<NavLink to="/" className="float-left w-24 h-full bg-logo bg-contain bg-no-repeat" />
 				<div className="float-right flex items-center gap-x-6">
 					<div className="flex items-center gap-x-4">
 						{pathname !== '/new-event' && (
