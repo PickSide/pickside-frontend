@@ -11,9 +11,9 @@ export const inputVariants = cva(
 		variants: {
 			variant: {},
 			size: {
-				sm: ['h-9'],
-				md: ['h-10'],
-				lg: ['h-12'],
+				sm: ['h-10'],
+				md: ['h-12'],
+				lg: ['h-14'],
 			},
 		},
 		defaultVariants: {
@@ -25,7 +25,7 @@ export const inputVariants = cva(
 export interface InputFieldProps
 	extends Omit<ComponentPropsWithRef<'input'>, 'size'>,
 	VariantProps<typeof inputVariants> {
-	label?: string
+	label?: string | ReactNode
 	startContent?: ReactNode
 	endContent?: ReactNode
 	readOnly?: boolean
@@ -76,7 +76,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 		)
 
 		return (
-			<div className="w-full flex flex-col text-gray-800" ref={ref}>
+			<div className="flex flex-col" ref={ref}>
 				<label htmlFor={`${id || generatedId}-label-input`}>
 					{label}
 				</label>
@@ -89,11 +89,10 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 						value={value}
 						placeholder={placeholder}
 						onKeyDown={onKeyDown}
-						className="rounded-md h-full w-full focus-visible:outline-none disabled:bg-white disabled:cursor-not-allowed disabled:text-gray-300"
+						className="rounded-md h-full w-full focus-visible:outline-none disabled:bg-white disabled:cursor-not-allowed text-gray-800 disabled:text-gray-300"
 						{...rest}
 					/>
 					<span className="inline-flex items-center w-6 h-6 mx-2">{endContent}</span>
-
 				</div>
 				{error && (
 					<label htmlFor={id} className="text-error">

@@ -34,28 +34,20 @@ const LandingPage: FC<any> = () => {
 	return (
 		<section
 			id="intro"
-			className="section flex flex-col lg:relative lg:block bg-landing-texture dark:bg-charcoal-black/80 overflow-hidden"
+			className="section h-[calc(100vh-64px)] lg:relative lg:block dark:bg-charcoal-black/80 overflow-hidden"
 		>
-			<div className="bg-landing bg-no-repeat bg-contain w-1/2 h-[250px] md:h-[550px] lg:w-screen lg:h-[1100px] lg:absolute" />
-			<div className="flex flex-col justify-center lg:inline-block lg:float-right lg:h-fit lg:py-20 lg:px-20">
-				<div className="block text-center items-center lg:w-[600px] space-y-10">
-					<p className="h3 lg:h1 text-charcoal-black font-medium tracking-tight leading-tight">
-						{t('Book Your Next Match Now')}
-					</p>
-					<p className="text-lg font-thin text-cool-gray-4 tracking-tight">
-						{t('Are you looking for your sport team? This place is for you just search your neighborhood.')}
-					</p>
-					<div className="relative w-[300px] lg:w-[400px] mx-auto">
-						<div className="w-[350px] lg:w-[450px] absolute rounded-2xl bg-kale-200 h-[70px] -left-[20px] -top-[10px]" />
-						<GoogleAutocomplete
-							onPressEnterKey={navigateToListing}
-							className="rounded-2xl"
-							startContent={<Icon icon="search" />}
-							placeholder={t('Search by location or postal code')}
-							onPlaceSelected={(value) => setSelected(value)}
-						/>
-					</div>
-				</div>
+			<div className='h-[80%] flex items-center justify-center'>
+				<img src='src/assets/landing.png' alt='landing background' />
+			</div>
+			<div className='flex items-center justify-center'>
+				<GoogleAutocomplete
+					label={<span className='flex items-center justify-center text-primary'>{t('Host or Join, Your Victory Starts Here.')}</span>}
+					onPressEnterKey={navigateToListing}
+					className="border-primary/30 w-[300px] h-12 rounded-[15px]"
+					endContent={<Icon icon="search" />}
+					placeholder={t('Search location...')}
+					onPlaceSelected={(value) => setSelected(value)}
+				/>
 			</div>
 		</section>
 	)

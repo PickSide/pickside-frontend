@@ -8,7 +8,6 @@ interface MenuItemProps extends ComponentPropsWithRef<'button'> {
 }
 
 const MenuItem = forwardRef<any, MenuItemProps>(({ active, children, className, icon, ...rest }, ref) => {
-	console.log('Menu item ref', ref)
 	return (
 		<button
 			ref={ref}

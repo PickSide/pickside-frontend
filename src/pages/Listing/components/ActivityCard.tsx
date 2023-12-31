@@ -24,7 +24,6 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 	const {
 		isFavorite,
 		isFull,
-		isOrganizer,
 		isRegistering,
 		isUnregistering,
 		isRegisteredToActivity,
@@ -128,10 +127,6 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 										disabled={isUnregistering}
 									>
 										{t('Uneregister')}
-									</Button>
-								) : isOrganizer ? (
-									<Button size="sm" className="px-4 rounded-[12px] font-semibold">
-										{t('Manage event')}
 									</Button>
 								) : (
 									<Button

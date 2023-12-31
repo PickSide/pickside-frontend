@@ -1,4 +1,4 @@
-import { AppState, setUserEmpty } from '@state'
+import { AppState, setUser } from '@state'
 import { AxiosContext, RTAContentContext } from '@context'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -34,7 +34,7 @@ const useLogout = () => {
 
 			usersSocket.emit('user:logout', connectedUser)
 
-			dispatch(setUserEmpty())
+			dispatch(setUser(null))
 			dispatch({
 				type: 'toast/toastMessage',
 				payload: {

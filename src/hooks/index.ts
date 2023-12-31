@@ -13,9 +13,11 @@ import useFetchFavorites from './services/useFetchFavorites'
 import useFetchGroup from './services/useFetchGroup'
 import useFetchGroups from './services/useFetchGroups'
 import useFetchLocales from './services/useFetchLocales'
+import useFetchMe from './services/useFetchMe'
 import useFetchMessagesForChatroom from './services/useFetchMessagesForChatroom'
 import useFetchNotifications from './services/useFetchNotifications'
 import useFetchOnlineUsers from './services/useFetchOnlineUsers'
+import useFetchSports from './services/useFetchSports'
 import useFetchUsers from './services/useFetchUsers'
 import useGuestLogout from './services/useGuestLogout'
 import useLocaleSwitcher from './useLocaleSwitcher'
@@ -47,9 +49,11 @@ export {
 	useFetchGroup,
 	useFetchGroups,
 	useFetchLocales,
+	useFetchMe,
 	useFetchMessagesForChatroom,
 	useFetchNotifications,
 	useFetchOnlineUsers,
+	useFetchSports,
 	useFetchUsers,
 	useGuestLogout,
 	useLocaleSwitcher,
