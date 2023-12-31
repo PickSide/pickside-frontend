@@ -17,8 +17,8 @@ module.exports = {
 				landing: "url('./assets/landing-page-background.png')",
 				'landing-texture': "url('./assets/landing-texture.png')",
 				'soccer-ball': "url('./assets/soccer-ball.png')",
-				templogo: "url('./assets/temp-logo.png')",
-				templogo2: "url('./assets/temp-logo-2.png')",
+				'logo-with-text': "url('./assets/logo_with_text.svg')",
+				logo: "url('./assets/logo.svg')",
 			},
 			boxShadow: {
 				md: '0px 0px 7px 5px rgba(20, 74, 117, 0.25)',
