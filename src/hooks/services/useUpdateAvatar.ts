@@ -13,8 +13,7 @@ const useUpdateAvatar = () => {
 
     const connectedUser = useSelector((state: AppState) => state.user)
 
-    const callback = async (data) => axiosInstance.put(`users/${connectedUser?.id}/avatar`, data)
-
+    const callback = async (data) => await axiosInstance.put(`users/${connectedUser?.id}/avatar`, { data })
 
     const {
         mutate: updateAvatar,

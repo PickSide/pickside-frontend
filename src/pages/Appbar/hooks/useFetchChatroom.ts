@@ -23,7 +23,7 @@ const useFetchChatroom = () => {
 
 	const callback = async (recipient: User): Promise<AxiosResponse<PayloadResponseProps<Chatroom>>> =>
 		await axiosInstance.post('/chatrooms/users', {
-			data: { participants: [connectedUser?.id, recipient.id], name: recipient.fullName },
+			data: { participants: [connectedUser?.id, recipient.id] },
 		})
 
 	const {

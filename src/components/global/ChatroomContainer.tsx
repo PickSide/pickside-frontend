@@ -1,7 +1,7 @@
 import { AppState, openChatroom } from '@state'
 import { Controller, useForm } from 'react-hook-form'
 import { Icon, IconButton, InputField, StatusBadge } from '@components'
-import { useContext, useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Avatar from '@components/Avatar'
@@ -65,19 +65,19 @@ export const Chatroom = ({ chatroom, minimize = false }) => {
 		reset()
 	}
 
-	useEffectOnce(() => {
+	useEffect(() => {
 		chatroomsSocket.emit('chatroom:open', chatroom)
 		chatroomsSocket.on('chatroom:message-registered', handleMessage)
 
 		return () => {
 			chatroomsSocket.off('chatroom:message-registered', console.log)
 		}
-	})
+	}, [])
 
 	useEffectOnce(() => {
 		fetchMessages()
 	})
-
+	console.log(recipient.fullName)
 	return chatroom ? (
 		<motion.div
 			initial={{ height: 0, scale: 0.5 }}
@@ -95,12 +95,12 @@ export const Chatroom = ({ chatroom, minimize = false }) => {
 								size="sm"
 								badge={<StatusBadge variant={isRecipientOnline ? 'online' : 'offline'} />}
 							/>
-							<p className="text-md text-ocean font-semibold">{chatroom?.name}</p>
+							<p className="text-md text-ocean font-semibold">{chatroom?.name || recipient.fullName}</p>
 						</div>
 						<div className="inline-flex items-center gap-x-2">
-							<IconButton size="sm" onClick={() => setIsMinimized(true)}>
+							{/* <IconButton size="sm" onClick={() => setIsMinimized(true)}>
 								<Icon icon="remove" />
-							</IconButton>
+							</IconButton> */}
 							<IconButton size="sm" onClick={() => dispatch(openChatroom(chatroom))}>
 								<Icon icon="close" />
 							</IconButton>

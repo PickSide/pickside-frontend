@@ -4,7 +4,7 @@ import { VariantProps, cva } from 'class-variance-authority'
 import { cn } from '@utils'
 
 export const avatarVariants = cva(
-	['relative', 'inline-flex', 'items-center', 'justify-center', 'rounded-full', 'text-base'],
+	['relative', 'inline-flex', 'items-center', 'justify-center', 'rounded-full', 'text-base', 'overflow-clip'],
 	{
 		variants: {
 			variant: {
@@ -24,6 +24,7 @@ export const avatarVariants = cva(
 				md: ['w-8 h-8'],
 				lg: ['w-12 h-12'],
 				xlg: ['w-14 h-14'],
+				xxlg: ['w-40 h-40'],
 			},
 		},
 		defaultVariants: {
@@ -41,7 +42,7 @@ const Avatar: FC<AvatarProps> = ({ badge, className, size, variant, src = null }
 	return (
 		<div className={cn(avatarVariants({ className, size, variant }), className)}>
 			{src ? (
-				<img className="rounded-full w-full h-full" src={src} alt="user-avatar" />
+				<img className="max-w-full h-auto rounded-full" src={src} alt="user-avatar" />
 			) : (
 				<svg width={16} height={16} viewBox="0 0 24 24" fill="primary" xmlns="http://www.w3.org/2000/svg">
 					<path

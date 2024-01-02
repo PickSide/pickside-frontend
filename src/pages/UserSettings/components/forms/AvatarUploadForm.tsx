@@ -1,34 +1,32 @@
 import { Button, Upload } from '@components'
-import { Controller, useForm } from 'react-hook-form'
 import { useId, useState } from 'react'
 
+import Avatar from '@components/Avatar'
+import { convertToBase64 } from '@utils/base64'
+import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useUpdateAvatar, } from '@hooks'
 
 const AvatarUploadForm = () => {
     const id = useId()
-    const { control, handleSubmit } = useForm({
+    const { handleSubmit, register, watch, setValue, formState } = useForm({
         defaultValues: {
             avatar: ''
         }
     })
-    const { updateAvatar } = useUpdateAvatar()
+    const { updateAvatar, isLoading } = useUpdateAvatar()
     const { t } = useTranslation()
 
-    const [file, setFile] = useState<any>()
     const [preview, setPreview] = useState<any>()
 
     const handleSelect = (e) => {
-        setFile(e.target.files[0])
         setPreview(URL.createObjectURL(e.target.files[0]))
-        //setValue('avatar', e.target.files[0])
+        setValue('avatar', e.target.files[0])
     }
 
-    const onSubmit = async (values: any) => {
-        // const formData = new FormData()
-        // formData.append('avatar', file, file.name)
-        // console.log(formData)
-        // await updateAvatar(file)
+    const onSubmit = async ({ avatar }: any) => {
+        const base64 = await convertToBase64(avatar)
+        await updateAvatar({ avatar: base64 })
     }
 
     return (
@@ -41,20 +39,14 @@ const AvatarUploadForm = () => {
                             <p>{t('PNG, JPG or GIF')}</p>
                         </div>
                     ) : (
-                        <div className="block w-40 h-40 m-auto rounded-full overflow-clip">
-                            <img className='max-w-full h-auto' src={preview} alt='avatar' />
-                        </div>
+                        <Avatar size='xxlg' src={preview} alt='avatar' />
                     )}
                     <div className="block my-auto">
-                        <Controller
-                            name='avatar'
-                            control={control}
-                            render={({ field }) => <Upload {...field} text={preview ? t('Change') : t('Upload picture')} onChange={handleSelect} />}
-                        />
+                        <Upload {...register('avatar')} text={preview ? t('Change') : t('Upload picture')} onChange={handleSelect} />
                     </div>
                 </div>
             </div>
-            <Button className='w-full' disabled={!file} onClick={onSubmit}>{t('Submit')}</Button>
+            <Button type='submit' className='w-full' disabled={!watch('avatar') || formState.isSubmitting || isLoading} isLoading={formState.isSubmitting || isLoading}>{t('Submit')}</Button>
         </form>
     )
 }
