@@ -104,9 +104,6 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className }) => {
 				</CardBody>
 				<CardCTA className="px-5">
 					<div className="flex justify-end items-center gap-x-2">
-						<Button size="sm" variant="secondary" className="px-4 rounded-[12px] font-semibold">
-							{t('Details')}
-						</Button>
 						{connectedUser &&
 							connectedUser.accountType !== ACCOUNT_TYPE.GUEST &&
 							activity &&
