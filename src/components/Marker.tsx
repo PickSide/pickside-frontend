@@ -30,6 +30,8 @@ const InfoWindowWrapper = styled(motion.div)`
 `
 
 const Marker: FC<MarkerProps> = ({ children, openInfoWindow = false, text, icon, ...rest }) => {
+	console.log(rest.onMouseEnter)
+	console.log(rest.onMouseLeave)
 	return (
 		<AnimatePresence mode="wait">
 			<div className="relative" onMouseEnter={rest.onMouseEnter} onMouseLeave={rest.onMouseLeave}>

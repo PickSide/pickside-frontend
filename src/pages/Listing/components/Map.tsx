@@ -63,6 +63,7 @@ const Map = () => {
 									icon="location_on"
 									size="lg"
 									className={cn(
+										'transition-all',
 										getMarkerColor(activity),
 										focusedActivity?.id === activity.id ? 'scale-125' : 'hover:scale-125',
 									)}
@@ -74,7 +75,7 @@ const Map = () => {
 						>
 							<div className="block">
 								<div className="flex items-center px-2 bg-green-500 h-8 text-white align-middle">{activity.title}</div>
-								<div className="flex flex-col p-3 text-[15px]">
+								<div className="flex flex-col p-3 text-base">
 									<span className="">
 										{t('Participants')}: {activity.participants.length} / {activity.maxPlayers}
 									</span>
