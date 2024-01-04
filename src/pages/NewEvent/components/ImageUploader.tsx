@@ -1,14 +1,11 @@
-import { forwardRef, useId, useState } from 'react'
+import { forwardRef, useState } from 'react'
 
 import { Upload } from '@components'
-import uploadPlaceholder from '../../../assets/avatar-placeholder.png'
-import { useDevice } from '@hooks'
+import uploadPlaceholder from '@assets/upload-placeholder.svg'
 import { useTranslation } from 'react-i18next'
 
-const ImageUploader = ({ onChange, ...rest }, ref) => {
-	const id = useId()
+const ImageUploader = ({ onChange }) => {
 	const { t } = useTranslation()
-	const [device] = useDevice()
 
 	const [selectedImages, setSelectedImages] = useState<any>([])
 
@@ -25,7 +22,7 @@ const ImageUploader = ({ onChange, ...rest }, ref) => {
 	const File = ({ file, idx }) => (
 		<div className="flex items-center space-x-2">
 			<p className="text-ocean/60 truncate max-w-xs">{file[0].name}</p>
-			<button className="rounded-md bg-ocean/70 w-5 h-5 text-accent text-xs" onClick={() => removeFile(idx)}>
+			<button className="rounded-[4px] bg-ocean w-4 h-4 text-xs text-light hover:bg-ocean-2 transition-all" onClick={() => removeFile(idx)}>
 				X
 			</button>
 		</div>
@@ -33,18 +30,18 @@ const ImageUploader = ({ onChange, ...rest }, ref) => {
 
 	return (
 		<div className="block text-gray-400">
-			<label htmlFor={id} className="text-gray-800">
+			<p className="text-gray-800">
 				{t('Image')}
-			</label>
-			<div id={id} className="rounded-lg flex justify-between border border-gray-500 border-dashed w-full p-6">
+			</p>
+			<div className="rounded-lg flex justify-between items-center gap-x-6 border border-gray-500 border-dashed w-full px-4 py-6">
 				{!selectedImages.length ? (
-					<div className="flex space-x-4">
-						{device !== 'mobile' && <img alt="img_upload" src={uploadPlaceholder} />}
+					<>
+						<img alt="img_upload" src={uploadPlaceholder} />
 						<div className="flex flex-col">
 							<p>{t('Upload a picture of your venue.')}</p>
 							<p>{t('PNG, JPG or GIF')}</p>
 						</div>
-					</div>
+					</>
 				) : (
 					<div className="flex flex-col">
 						{selectedImages.map((img, idx) => (
@@ -52,10 +49,7 @@ const ImageUploader = ({ onChange, ...rest }, ref) => {
 						))}
 					</div>
 				)}
-				<div className="flex flex-col space-y-4">
-					<Upload text={t('Your images')} onChange={handleSelect} multiple />
-					<Upload text={t('Our collection')} onChange={handleSelect} multiple />
-				</div>
+				<Upload text={t('Your images')} onChange={handleSelect} multiple />
 			</div>
 		</div>
 	)
