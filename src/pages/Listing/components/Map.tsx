@@ -36,7 +36,7 @@ const Map = () => {
 
 	const options: google.maps.MapOptions = {
 		styles: mapStyles,
-		disableDefaultUI: true,
+		disableDefaultUI: false,
 		zoomControl: false,
 	}
 
