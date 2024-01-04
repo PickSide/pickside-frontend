@@ -46,28 +46,35 @@ export const SidenavProvider: FC<any> = ({ children }) => {
 			<SidenavDispatchContext.Provider value={dispatch}>
 				<AnimatePresence>
 					{state.opened && (
-						<motion.div
-							initial="hidden"
-							animate="show"
-							exit="exit"
-							variants={slideIn('right')}
-							className="fixed w-[400px] right-0 h-screen z-100 bg-white shadow-md"
-						>
-							<div className="h-16 border-b flex items-center justify-between px-6">
-								<span className="flex justify-center items-center capitalize text-lg font-medium">
-									{state.prevState ? (
-										<IconButton onClick={handlePrevious}>
-											<Icon icon="keyboard_arrow_left" />
-										</IconButton>
-									) : null}
-									{state.title}
-								</span>
-								<IconButton onClick={clearState}>
-									<Icon icon="close" />
-								</IconButton>
-							</div>
-							<div className="h-full p-6 overflow-clip">{state.content}</div>
-						</motion.div>
+						<>
+							<motion.div
+								initial="hidden"
+								animate="show"
+								exit="exit"
+								className='fixed inset-0 w-screen h-screen bg-ocean-4/20 overflow-hidden' onClick={clearState} />
+							<motion.div
+								initial="hidden"
+								animate="show"
+								exit="exit"
+								variants={slideIn('right')}
+								className="fixed w-[400px] right-0 h-screen z-100 bg-white"
+							>
+								<div className="h-12 border-b flex items-center justify-between px-6">
+									<span className="flex justify-center items-center capitalize text-base font-medium space-x-4">
+										{state.prevState ? (
+											<IconButton onClick={handlePrevious}>
+												<Icon icon="keyboard_arrow_left" />
+											</IconButton>
+										) : null}
+										{state.title}
+									</span>
+									<IconButton onClick={clearState}>
+										<Icon icon="close" />
+									</IconButton>
+								</div>
+								<div className="h-full p-6 overflow-clip">{state.content}</div>
+							</motion.div>
+						</>
 					)}
 				</AnimatePresence>
 				{children}
