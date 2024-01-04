@@ -41,9 +41,8 @@ const AvatarUploadForm = () => {
                     ) : (
                         <Avatar size='xxlg' src={preview} alt='avatar' />
                     )}
-                    <div className="block my-auto">
-                        <Upload {...register('avatar')} text={preview ? t('Change') : t('Upload picture')} onChange={handleSelect} />
-                    </div>
+                    <Upload {...register('avatar')} text={preview ? t('Change') : t('Upload picture')} onChange={handleSelect} />
+
                 </div>
             </div>
             <Button type='submit' className='w-full' disabled={!watch('avatar') || formState.isSubmitting || isLoading} isLoading={formState.isSubmitting || isLoading}>{t('Submit')}</Button>

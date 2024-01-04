@@ -1,13 +1,13 @@
 import { Activity, AppState } from '@state'
-import Card, { CardBody, CardCTA, CardImage, CardProps } from '../../../components/shared/Card'
-import Dialog, { DialogCTA } from '../../../components/Dialog'
+import Card, { CardBody, CardCTA, CardImage, CardProps } from '@components/shared/Card'
+import Dialog, { DialogCTA } from '@components/Dialog'
 import { FC, useState } from 'react'
 
 import { ACCOUNT_TYPE } from '@state/user/constants'
-import Avatar from '../../../components/Avatar'
-import Button from '../../../components/shared/Button'
-import Icon from '../../../components/shared/Icon'
-import IconButton from '../../../components/IconButton'
+import Avatar from '@components/Avatar'
+import Button from '@components/shared/Button'
+import Icon from '@components/shared/Icon'
+import IconButton from '@components/IconButton'
 import { cn } from '@utils'
 import dayjs from 'dayjs'
 import { useActivityHandlers } from '@hooks'
@@ -63,6 +63,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 					'flex px-[20px] py-[17px] gap-x-[28px]',
 					isFull ? 'bg-[#EAEAEA]' : '',
 					selectedActivity?.id === activity.id ? 'shadow-md' : '',
+					className
 				)}
 				onMouseEnter={rest.onMouseEnter}
 				onMouseLeave={rest.onMouseLeave}

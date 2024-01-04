@@ -18,7 +18,7 @@ const Upload = forwardRef<any, UploadProps>((
 	return (
 		<label
 			htmlFor={id}
-			className='h-fit rounded-md px-2 py-1 cursor-pointer text-[#5293C7] border border-[#5293C7] hover:bg-gray-300 disabled:text-gray-400 disabled:border-gray-200/30 disabled:bg-gray-200/60 dark:bg-white dark:text-black'
+			className='h-fit rounded-md px-2 py-1 cursor-pointer text-ocean-2 border text-center border-ocean-2 hover:bg-gray-300 disabled:text-gray-400 disabled:border-gray-200/30 disabled:bg-gray-200/60 dark:bg-white dark:text-black'
 
 		>
 			<p>{text}</p>
