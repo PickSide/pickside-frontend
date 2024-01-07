@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react'
+import { FC, useState } from 'react'
 import InputField, { InputFieldProps } from './shared/InputField'
 
 import Icon from './shared/Icon'
@@ -12,23 +12,21 @@ interface GoogleAutocompleteProps extends Omit<InputFieldProps, 'value'> {
 	value?: google.maps.places.PlaceResult | string
 }
 
-const GoogleAutocomplete: FC<GoogleAutocompleteProps> = ({ label, onChange, onPlaceSelected, value, name, ...rest }, ref) => {
+const GoogleAutocomplete: FC<GoogleAutocompleteProps> = ({ label, onChange, onPlaceSelected, value = '', name, ...rest }) => {
 	const { placePredictions, getPlacePredictions, isPlacePredictionsLoading, placesService } = usePlacesService({
 		apiKey: import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY,
 		language: 'en',
 	})
 
-	const inputRef = useRef<HTMLInputElement>(null)
 	const { t } = useTranslation()
 
 	const [openPrediction, setOpenPrediction] = useState<boolean>(false)
-	const [val, setVal] = useState<google.maps.places.PlaceResult | string>(value || '')
+	const [val, setVal] = useState<google.maps.places.PlaceResult | string>(value)
 	const [cursor, setCursor] = useState<number>(0)
 
 	return (
 		<div className="relative w-fit">
 			<InputField
-				ref={inputRef}
 				name={name}
 				label={label}
 				startContent={<Icon icon="location_on" />}
@@ -50,11 +48,11 @@ const GoogleAutocomplete: FC<GoogleAutocompleteProps> = ({ label, onChange, onPl
 						return prev + 1
 					})
 				}
-				onChange={(evt: any) => {
+				onChange={(e: any) => {
 					setOpenPrediction(true)
-					setVal(evt.target.value)
-					getPlacePredictions({ input: evt.target.value })
-					onChange && onChange(evt)
+					setVal(e.target.value)
+					getPlacePredictions({ input: e.target.value })
+					onChange && onChange(e)
 				}}
 				value={(val as google.maps.places.PlaceResult).formatted_address}
 				{...rest}
@@ -70,15 +68,16 @@ const GoogleAutocomplete: FC<GoogleAutocompleteProps> = ({ label, onChange, onPl
 						) : (
 							placePredictions.map((place, idx) => (
 								<MenuItem
-									ref={inputRef}
-									active={cursor === idx + 1}
 									key={idx}
+									active={cursor === idx + 1}
 									onClick={() => {
 										placesService?.getDetails({ placeId: place?.place_id }, (placeDetails) => {
 											if (placeDetails) {
 												onPlaceSelected && onPlaceSelected(placeDetails)
-												setVal(placeDetails)
-												ref.current?.focus()
+												setVal((prev) => {
+													console.log('prev', prev)
+													return placeDetails
+												})
 											}
 										})
 										setOpenPrediction(false)

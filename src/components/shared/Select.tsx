@@ -6,12 +6,28 @@ import ReactSelect, {
 	Props,
 	components,
 } from 'react-select'
+import { VariantProps, cva } from 'class-variance-authority'
 
 import Icon from './Icon'
-import IconButton from '../IconButton'
+import IconButton from '@components/IconButton'
 import { cn } from '@utils'
 
-interface SelectProps extends Props {
+export const SelectVariants = cva('relative',
+	{
+		variants: {
+			size: {
+				sm: ['h-8'],
+				md: ['h-9'],
+				lg: ['h-10'],
+			},
+		},
+		defaultVariants: {
+			size: 'sm',
+		},
+	},
+)
+
+export interface SelectProps extends Props<any>, VariantProps<typeof SelectVariants> {
 	startContent?: ReactNode
 	error?: any
 	label?: string
@@ -20,26 +36,26 @@ interface SelectProps extends Props {
 
 const DropdownIndicator = (props: DropdownIndicatorProps) => (
 	<components.DropdownIndicator {...props}>
-		<Icon icon="keyboard_arrow_down" />
+		<Icon icon="keyboard_arrow_down" size='sm' />
 	</components.DropdownIndicator>
 )
 
 const ClearIndicator = (props: ClearIndicatorProps) => (
 	<components.ClearIndicator {...props}>
-		<Icon icon="close" />
+		<IconButton size="sm">
+			<Icon icon="close" size='sm' />
+		</IconButton>
 	</components.ClearIndicator>
 )
 
 const MultiValueRemove = (props: MultiValueRemoveProps) => (
 	<components.MultiValueRemove {...props}>
-		<IconButton variant="secondary" size="sm">
-			<Icon icon="close" size="sm" />
-		</IconButton>
+		<Icon icon="close" size="sm" />
 	</components.MultiValueRemove>
 )
 
 const controlStyles = {
-	base: 'border rounded-md bg-white hover:cursor-pointer h-fit',
+	base: 'border rounded-md hover:cursor-pointer',
 	focus: 'border-ocean ring-1 ring-ocean-500',
 	nonFocus: 'border-gray-300 hover:border-gray-400',
 }
@@ -47,45 +63,46 @@ const placeholderStyles = 'text-gray-400 pl-2'
 const selectInputStyles = 'leading-8'
 const valueContainerStyles = 'pl-4'
 const singleValueStyles = ''
-const menuPortal = 'z-50'
 const multiValueStyles = 'bg-ocean text-white rounded-md items-center py px-2 gap-1.5'
 const multiValueLabelStyles = 'leading-6 py-0.5'
 const multiValueRemoveStyles = 'text-white'
 const indicatorsContainerStyles = 'p-1 gap-1'
 const clearIndicatorStyles = 'text-gray-500 p-1 rounded-md'
 const dropdownIndicatorStyles = 'p-1 hover:bg-gray-100 text-gray-500'
-const menuStyles = 'border border-gray-200 bg-white rounded-lg'
+const menuStyles = 'border border-gray-200 rounded-lg '
+const menuList = 'bg-white'
 const groupHeadingStyles = 'ml-3 mt-2 mb-1 text-gray-500 text-sm'
 const optionStyles = {
 	base: 'hover:cursor-pointer p-2 rounded',
 	focus: 'bg-gray-100 active:bg-gray-200',
 	disabled: 'text-gray-300',
-	selected: "after:content-['✔'] after:ml-2 after:text-green-500 text-gray-500",
+	selected: "bg-gray-100 text-success font-semibold",
 }
-const noOptionsMessageStyles = 'text-gray-500 p-2 bg-gray-50 border border-dashed border-gray-200 rounded-sm'
+const noOptionsMessageStyles = 'text-gray-500 p-2 bg-gray-50 border border-dashed border-gray-200 rounded-sm bg-white'
 
-const Select = forwardRef(({ components, label, fullWidth = false, ...rest }: SelectProps | any, ref) => {
+const Select = forwardRef<any, SelectProps>(({ className, components, label, fullWidth = false, ...rest }: SelectProps, ref) => {
 	return (
-		<div className={cn('relative min-w-[200px]', fullWidth ? 'w-full' : '')}>
+		<div className={cn('relative ', fullWidth ? 'w-full' : '')}>
 			<label id="listbox-label" className="text-gray-800 leading-4">
 				{label}
 			</label>
 			<ReactSelect
 				components={{ DropdownIndicator, ClearIndicator, MultiValueRemove, ...components }}
 				unstyled
+				classNamePrefix="pickside-select"
 				classNames={{
 					control: ({ isFocused }) => cn(isFocused ? controlStyles.focus : controlStyles.nonFocus, controlStyles.base),
 					input: () => selectInputStyles,
 					placeholder: () => placeholderStyles,
 					valueContainer: () => valueContainerStyles,
 					singleValue: () => singleValueStyles,
-					menuPortal: () => menuPortal,
 					multiValue: () => multiValueStyles,
 					multiValueLabel: () => multiValueLabelStyles,
 					multiValueRemove: () => multiValueRemoveStyles,
 					indicatorsContainer: () => indicatorsContainerStyles,
 					clearIndicator: () => clearIndicatorStyles,
 					dropdownIndicator: () => dropdownIndicatorStyles,
+					menuList: () => menuList,
 					menu: () => menuStyles,
 					groupHeading: () => groupHeadingStyles,
 					option: ({ isFocused, isDisabled, isSelected }) =>

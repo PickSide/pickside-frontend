@@ -46,7 +46,7 @@ interface DropdownProps extends ComponentPropsWithRef<'button'>, VariantProps<ty
 	badge?: ReactNode
 }
 
-const Dropdown = forwardRef<ComponentPropsWithRef<'button'>, DropdownProps>(
+const Dropdown = forwardRef<any, DropdownProps>(
 	({ badge, children, className, size, icon, text, variant, ...rest }, ref) => {
 		const [isOpen, setIsOpen] = useState<boolean>(false)
 
@@ -66,6 +66,7 @@ const Dropdown = forwardRef<ComponentPropsWithRef<'button'>, DropdownProps>(
 		return (
 			<div className="relative">
 				<button
+					ref={ref}
 					id="menu-button"
 					onClick={() => setIsOpen(true)}
 					className={cn(dropdownVariants({ className, size, variant }), className)}

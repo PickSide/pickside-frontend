@@ -3,7 +3,7 @@ import { VariantProps, cva } from 'class-variance-authority'
 
 import { cn } from '@utils'
 
-export const switchVariants = cva(
+export const SwitchVariants = cva(
 	[
 		'cursor-pointer',
 		'rounded-full',
@@ -47,12 +47,11 @@ export const switchVariants = cva(
 	},
 )
 
-export interface SwitchProps extends ComponentPropsWithRef<'label'>, VariantProps<typeof switchVariants> {
+export interface SwitchProps extends ComponentPropsWithRef<'label'>, VariantProps<typeof SwitchVariants> {
 	label?: string
-	onChange?: (e) => void
 }
 
-const Switch = forwardRef<HTMLInputElement, SwitchProps>(
+const Switch = forwardRef<any, SwitchProps>(
 	({ className, size, variant, defaultChecked = false, label, onChange, ...rest }, ref) => {
 		const [checked, setChecked] = useState<boolean>(defaultChecked)
 
@@ -65,9 +64,9 @@ const Switch = forwardRef<HTMLInputElement, SwitchProps>(
 		)
 
 		return (
-			<label className="inline-flex items-center relative cursor-pointer">
-				<input ref={ref} className="sr-only peer" type="checkbox" checked={checked} onChange={handleChange} />
-				<div className={cn(switchVariants({ className, size, variant }), className)} />
+			<label ref={ref} className="inline-flex items-center relative cursor-pointer">
+				<input className="sr-only peer" type="checkbox" checked={checked} onChange={handleChange} />
+				<div className={cn(SwitchVariants({ className, size, variant }), className)} />
 				{label && <span className="ml-3 text-md font-medium text-charcoal-black">{label}</span>}
 			</label>
 		)
