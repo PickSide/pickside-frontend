@@ -67,7 +67,7 @@ const UpcomingEvents = () => {
 					>
 						{activities?.results?.map((activity, idx) => (
 							<li key={idx} className="snap-start">
-								<ActivityCard activity={activity} className=" w-[400px]" />
+								<ActivityCard activity={activity} />
 							</li>
 						))}
 					</ul>

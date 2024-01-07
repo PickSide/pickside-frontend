@@ -11,12 +11,14 @@ const Upload = forwardRef<any, UploadProps>((
 		isLoading = false,
 		text,
 		...rest
-	}: UploadProps | any
+	},
+	ref
 ) => {
 	const id = useId()
 
 	return (
 		<label
+			ref={ref}
 			htmlFor={id}
 			className='h-fit rounded-md px-2 py-1 cursor-pointer text-ocean-2 border text-center border-ocean-2 hover:bg-gray-300 disabled:text-gray-400 disabled:border-gray-200/30 disabled:bg-gray-200/60 dark:bg-white dark:text-black'
 

@@ -9,16 +9,16 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 	readOnly?: boolean
 }
 
-export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
-export interface CardImageProps extends React.HTMLAttributes<HTMLDivElement> {}
-export interface CardBodyProps extends React.HTMLAttributes<HTMLDivElement> {}
-export interface CardCTAProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> { }
+export interface CardImageProps extends React.HTMLAttributes<HTMLDivElement> { }
+export interface CardBodyProps extends React.HTMLAttributes<HTMLDivElement> { }
+export interface CardCTAProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 const Card: FC<CardProps> = ({ children, className, fullWidth = false, ...rest }) => {
 	return (
 		<div
 			className={cn(
-				'relative h-auto m-2 border-2 border-gray-300 rounded-[10px] z-10 text-gray-800 whitespace-nowrap hover:shadow-md cursor-pointer transition-shadow duration-100 ease-in',
+				'relative h-auto border-2 border-gray-300 rounded-[10px] text-gray-800 whitespace-nowrap hover:shadow-md cursor-pointer transition-shadow duration-100 ease-in',
 				fullWidth ? 'w-full' : 'max-w-[480px]',
 				className,
 			)}

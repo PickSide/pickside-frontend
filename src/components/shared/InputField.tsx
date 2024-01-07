@@ -34,10 +34,10 @@ export interface InputFieldProps
 	onPressEnterKey?: (e?: any) => void
 	error?: any
 	fullWidth?: boolean
-	defaultValue?: string
+	defaultValue?: string | number
 }
 
-const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
+const InputField = forwardRef<any, InputFieldProps>(
 	(
 		{
 			id,
@@ -49,12 +49,9 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 			onPressArrowUp,
 			onPressEnterKey,
 			placeholder,
-			pattern,
 			error,
-			defaultValue,
 			readOnly = false,
 			fullWidth = false,
-			value,
 			size,
 			...rest
 		},
@@ -83,10 +80,10 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 				<div className={cn(inputVariants({ className, size }), className)}>
 					<span className="inline-flex items-center max-w-6 max-h-6 mx-2">{startContent}</span>
 					<input
+						ref={ref}
 						aria-labelledby={`${id || generatedId}-label-input`}
 						autoComplete="off"
 						disabled={readOnly}
-						value={value}
 						placeholder={placeholder}
 						onKeyDown={onKeyDown}
 						className="rounded-md h-full w-full focus-visible:outline-none disabled:bg-white disabled:cursor-not-allowed text-gray-800 disabled:text-gray-300"

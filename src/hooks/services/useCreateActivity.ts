@@ -26,7 +26,7 @@ const useCreateActivity = () => {
 	} = useMutation(callback, {
 		mutationKey: ['createActivity'],
 		onSuccess: ({ data }) => {
-			dispatch(addActivity(data.response.activity))
+			dispatch(addActivity(data.result.activity))
 			dispatch({
 				type: 'toast/toastMessage',
 				payload: {

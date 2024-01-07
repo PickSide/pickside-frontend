@@ -60,7 +60,6 @@ const AppBar = () => {
 						)}
 						<PrivilegedContent permissions={[USER_PERMISSIONS.SEND_MESSAGES]}>
 							<IconButton
-								className="text-grey-600"
 								onClick={() =>
 									sidenavDispatch({
 										type: 'open',

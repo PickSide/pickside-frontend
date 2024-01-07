@@ -41,14 +41,16 @@ const LandingPage: FC<any> = () => {
 				{/* <img src={Landing} alt='landing background' /> */}
 			</div>
 			<div className='flex items-center justify-center'>
-				<GoogleAutocomplete
-					label={<h4 className='flex items-center justify-center text-ocean'>{t('Host or Join, Your Victory Starts Here.')}</h4>}
-					onPressEnterKey={navigateToListing}
-					className="border-ocean/30 w-[418px] h-[50px] rounded-[15px]"
-					startContent={<Icon className='' icon="search" />}
-					placeholder={t('Search by location or postal code')}
-					onPlaceSelected={(value) => setSelected(value)}
-				/>
+				<form>
+					<GoogleAutocomplete
+						label={<h4 className='flex items-center justify-center text-ocean'>{t('Host or Join, Your Victory Starts Here.')}</h4>}
+						onPressEnterKey={navigateToListing}
+						className="border-ocean/30 w-[418px] h-[50px] rounded-[15px]"
+						startContent={<Icon icon="search" />}
+						placeholder={t('Search by location or postal code')}
+						onPlaceSelected={(value) => setSelected(value)}
+					/>
+				</form>
 			</div>
 		</section>
 	)

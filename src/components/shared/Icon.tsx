@@ -50,6 +50,7 @@ const validIcons = [
 	'star',
 	'sync',
 	'today',
+	'tune',
 	'visibility',
 	'visibility_off',
 	'warning',

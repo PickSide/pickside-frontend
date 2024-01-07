@@ -89,27 +89,23 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 							</IconButton>
 						)}
 					</div>
-					<div className="block w-fit space-y-2 ml-[10px] pt-6 pb-3 truncate">
-						<div className="flex items-center gap-x-[10px] ">
+					<div className="block w-fit space-y-2 mt-3 truncate">
+						<span className='flex items-center gap-x-2'>
 							<Icon icon="location_on" />
-							<span>{activity.address?.formatted_address}</span>
-						</div>
-						<div className="flex items-center gap-x-[10px]">
+							{activity.address?.formatted_address}
+						</span>
+						<span className='flex items-center gap-x-2'>
 							<Icon icon="schedule" />
-							<span>{dayjs(activity.date).toDate().toDateString()}</span>
-						</div>
-						<div className="flex items-center gap-x-[10px]">
+							{dayjs(activity.date).toDate().toDateString()}
+						</span>
+						<span className='flex items-center gap-x-2'>
 							<Icon icon="group" />
-							<span>
-								{activity.participants?.length}/{activity.maxPlayers}
-							</span>
-						</div>
-						<div className="flex items-center gap-x-[10px]">
+							{activity.participants?.length}/{activity.maxPlayers}
+						</span>
+						<span className='flex items-center gap-x-2'>
 							<Icon icon="payments" />
-							<span>
-								{activity.price}$&nbsp;{t('per person')}
-							</span>
-						</div>
+							{!activity.price ? t('Free') : `${activity.price}$ ${t('per person')}`}
+						</span>
 					</div>
 					<CardCTA className="p-0 w-full">
 						<div className="flex justify-end items-center gap-x-2">

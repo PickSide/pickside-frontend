@@ -1,5 +1,5 @@
 import { Button, FormDivider, Switch, TextAreaField } from '@components'
-import { Controller, useFormContext, useFormState } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 
 import StepperCTAWrapper from '../shared/StepperCTAWrapper'
 import { useDevice } from '@hooks'
@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next'
 const Step3 = () => {
 	const [device] = useDevice()
 	const { control } = useFormContext<any>()
-	const { dirtyFields } = useFormState()
 	const { previous, next } = useStepper()
 	const { t } = useTranslation()
 
@@ -40,7 +39,7 @@ const Step3 = () => {
 				<Button variant="secondary" type="button" onClick={previous}>
 					{t('Previous')}
 				</Button>
-				<Button type="button" onClick={next} disabled={!dirtyFields['rules']}>
+				<Button type="button" onClick={next}>
 					{t('Continue')}
 				</Button>
 			</StepperCTAWrapper>

@@ -1,10 +1,10 @@
-import { ComponentPropsWithRef, forwardRef } from 'react'
+import { ComponentPropsWithRef, ReactNode, forwardRef } from 'react'
 import { VariantProps, cva } from 'class-variance-authority'
 
 import Spinner from '../Spinner'
 import { cn } from '@utils'
 
-export const buttonVariants = cva(
+export const ButtonVariants = cva(
 	['rounded', 'text-base', 'leading-none', 'hover:bg-gray-300', 'disabled:text-cool-gray-4', 'disabled:bg-cool-gray-2'],
 	{
 		variants: {
@@ -27,22 +27,29 @@ export const buttonVariants = cva(
 	},
 )
 
-export interface ButtonProps extends ComponentPropsWithRef<'button'>, VariantProps<typeof buttonVariants> {
+export interface ButtonProps extends ComponentPropsWithRef<'button'>, VariantProps<typeof ButtonVariants> {
 	isLoading?: boolean
 	loadingText?: string
 	onClick?: (e?) => void
+	startContent?: ReactNode
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-	({ children, className, isLoading = false, loadingText, variant, size, type = 'button', ...rest }, ref) => {
+	({ children, className, isLoading = false, loadingText, variant, size, type = 'button', startContent, ...rest }, ref) => {
 		return (
 			<button
 				type={type}
 				ref={ref}
-				className={cn(buttonVariants({ className, size, variant }), { 'cursor-not-allowed': isLoading }, className)}
+				className={cn(ButtonVariants({ className, size, variant }), { 'cursor-not-allowed': isLoading }, className)}
 				{...rest}
 			>
-				{isLoading ? <Spinner text={loadingText} /> : children}
+				{isLoading ? <Spinner text={loadingText} />
+					:
+					<span className='flex justify-center items-center gap-x-2'>
+						{startContent}
+						{children}
+					</span>
+				}
 			</button>
 		)
 	},

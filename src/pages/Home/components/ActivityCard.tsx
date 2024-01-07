@@ -5,7 +5,6 @@ import { FC, useState } from 'react'
 
 import { ACCOUNT_TYPE } from '@state/user/constants'
 import Avatar from '@components/Avatar'
-import { cn } from '@utils'
 import dayjs from 'dayjs'
 import { useActivityHandlers } from '@hooks'
 import { useSelector } from 'react-redux'
@@ -56,7 +55,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className }) => {
 					</Button>
 				</DialogCTA>
 			</Dialog>
-			<Card className={cn(className)}>
+			<Card className='w-[400px] m-2'>
 				<CardHeader className="px-5">
 					<div className="flex items-center justify-between">
 						<div className="flex items-center">

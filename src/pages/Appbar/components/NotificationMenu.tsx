@@ -21,7 +21,6 @@ const NotificationMenu: FC<any> = () => {
 
 	return (
 		<Dropdown
-			variant="secondary"
 			icon={<Icon icon="notifications" />}
 			badge={
 				notifications?.data?.results?.some((n) => !n.isRead) && <RxDotFilled className="text-blue-400" size={20} />

@@ -48,7 +48,7 @@ const Map = () => {
 	const center = !!selectedLocation ? selectedLocation : { lat: 45.5490424, lng: -73.6573323 }
 
 	return (
-		<div className={cn('w-full h-full overflow-hidden')}>
+		<div className='w-full h-full'>
 			<GoogleMapReact zoom={12} mapContainerStyle={mapContainerStyle} center={center} options={options}>
 				{activities?.results
 					?.filter(({ address }) => address.geometry)

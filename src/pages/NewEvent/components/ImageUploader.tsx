@@ -1,7 +1,6 @@
-import { forwardRef, useState } from 'react'
-
 import { Upload } from '@components'
 import uploadPlaceholder from '@assets/upload-placeholder.svg'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const ImageUploader = ({ onChange }) => {
@@ -55,4 +54,4 @@ const ImageUploader = ({ onChange }) => {
 	)
 }
 
-export default forwardRef(ImageUploader)
+export default ImageUploader
