@@ -26,9 +26,9 @@ const Step2 = () => {
 						label={t('Sport')}
 						placeholder={t('Select sport')}
 						options={sportOptions as Sport[]}
-						getOptionLabel={(option: Sport) => option?.name}
-						getOptionValue={(option: Sport) => option?.value}
-						isOptionDisabled={(option: Sport) => !option?.featureAvailable}
+						getOptionLabel={(option) => option?.name}
+						getOptionValue={(option) => option?.value}
+						isOptionDisabled={(option) => !option?.featureAvailable}
 					/>
 				)}
 			/>

@@ -73,7 +73,7 @@ export default function LoginForm() {
 				<Controller
 					name="remeberMe"
 					control={control}
-					render={({ field }) => <Checkbox {...field} label={t('Remember me')} />}
+					render={({ field: { value, ...rest } }) => <Checkbox {...rest} checked={value} label={t('Remember me')} />}
 				/>
 				<Button type="submit" isLoading={isLoginLoading || isGoogleLoginLoading || isLoginGuestLoading}>
 					{t('Login')}

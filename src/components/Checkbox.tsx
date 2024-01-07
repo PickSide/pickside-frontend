@@ -21,11 +21,11 @@ export const CheckboxVariants = cva(
 	},
 )
 
-interface CheckboxProps extends Omit<ComponentPropsWithRef<'input'>, 'size'>, VariantProps<typeof CheckboxVariants> {
+interface CheckboxProps extends ComponentPropsWithRef<'input'> {
 	label?: string
 }
 
-const Checkbox = forwardRef<any, CheckboxProps>(({ label, size, variant, ...props }: CheckboxProps | any, ref) => {
+const Checkbox = forwardRef<any, CheckboxProps>(({ label, size, variant, ...rest }: CheckboxProps | any, ref) => {
 	return (
 		<div className="relative inline-flex items-center gap-x-3">
 			<input
@@ -33,9 +33,9 @@ const Checkbox = forwardRef<any, CheckboxProps>(({ label, size, variant, ...prop
 				type="checkbox"
 				autoComplete="off"
 				className="relative cursor-pointer bg-gray-100 border-gray-300 rounded w-4 h-4 accent-ocean text-ocean"
-				{...props}
+				{...rest}
 			/>
-			<label htmlFor={props.id}>
+			<label htmlFor={rest.id}>
 				<span className="text-gray-300">{label}</span>
 			</label>
 		</div>
