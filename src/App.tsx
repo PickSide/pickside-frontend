@@ -56,23 +56,8 @@ const App = () => {
 															<Route path="about" element={<About />} />
 														</Route>
 														<Route
-															path="/new-event"
-															element={
-																<ProtectedRoute permissions={[USER_PERMISSIONS.ACTIVITIES_CREATE]}>
-																	<CreateEvent />
-																</ProtectedRoute>
-															}
-														/>
-														<Route
 															path="/listing"
-															element={
-																<ProtectedRoute
-																	allowsGuestAccount
-																	permissions={[USER_PERMISSIONS.ACTIVITIES_VIEW, USER_PERMISSIONS.MAP_VIEW]}
-																>
-																	<Listing />
-																</ProtectedRoute>
-															}
+															element={<Listing />}
 														/>
 														<Route
 															path="/user-detail/:id"
@@ -85,6 +70,14 @@ const App = () => {
 														<Route path="/login" element={<Login />} />
 														<Route path="/signup" element={<SignUp />} />
 														<Route element={<RequireAuth />}>
+															<Route
+																path="/new-event"
+																element={
+																	<ProtectedRoute permissions={[USER_PERMISSIONS.ACTIVITIES_CREATE]}>
+																		<CreateEvent />
+																	</ProtectedRoute>
+																}
+															/>
 															<Route path="/user/">
 																<Route path="upcoming-events/" element={<UpcomingEvents />} />
 																<Route path="settings/" element={<Settings />}>

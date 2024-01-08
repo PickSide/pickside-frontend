@@ -34,22 +34,17 @@ const Map = () => {
 		return 'text-green-500'
 	}, [])
 
-	const options: google.maps.MapOptions = {
+	const options: GoogleMapReact.MapOptions = {
 		styles: mapStyles,
 		disableDefaultUI: true,
 		zoomControl: false,
-	}
-
-	const mapContainerStyle = {
-		width: '100%',
-		height: '100%',
 	}
 
 	const center = !!selectedLocation ? selectedLocation : { lat: 45.5490424, lng: -73.6573323 }
 
 	return (
 		<div className='w-full h-full'>
-			<GoogleMapReact zoom={12} mapContainerStyle={mapContainerStyle} center={center} options={options}>
+			<GoogleMapReact shouldUnregisterMapOnUnmount zoom={12} center={center} options={options}>
 				{activities?.results
 					?.filter(({ address }) => address.geometry)
 					.map((activity, idx) => (
