@@ -1,4 +1,4 @@
-import { FC, forwardRef, useEffect, useState } from 'react'
+import { FC, forwardRef, useState } from 'react'
 import InputField, { InputFieldProps } from './shared/InputField'
 
 import Icon from './shared/Icon'
@@ -24,16 +24,11 @@ const GoogleAutocomplete: FC<GoogleAutocompleteProps> = forwardRef<any, GoogleAu
 	const [cursor, setCursor] = useState<number>(0)
 
 	const handleChange = (e) => {
-		console.log('GoogleAutocomplete onChange', e.target.value)
 		setOpenPrediction(true)
 		setVal(e.target.value)
 		getPlacePredictions({ input: e.target.value })
 		onChange && onChange(e)
 	}
-
-	useEffect(() => {
-		console.log('val', val)
-	}, [val])
 
 	return (
 		<div ref={ref} className="relative w-fit">
