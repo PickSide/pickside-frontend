@@ -16,7 +16,6 @@ export const InitialAppStateProvider: FC<any> = ({ children }) => {
 	const { isLoading: sportsLoading } = useFetchSports()
 	const { isLoading: meLoading } = useFetchMe()
 
-
 	return (
 		<InitialAppStateContext.Provider value={{ loading: activitiesLoading || localesLoading || sportsLoading || meLoading }}>
 			{children}

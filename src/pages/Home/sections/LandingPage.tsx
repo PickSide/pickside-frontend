@@ -1,7 +1,6 @@
 import { FC, useState } from 'react'
 import { GoogleAutocomplete, Icon } from '@components'
 
-import Landing from '../../../assets/landing.png'
 import { setSelectedLocation } from '@state'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'

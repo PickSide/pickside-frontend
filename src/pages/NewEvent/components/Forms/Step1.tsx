@@ -31,8 +31,8 @@ const Step1 = () => {
 			<Controller
 				name="address"
 				control={control}
-				render={({ field }) => (
-					<GoogleAutocomplete {...field} label={t('Address')} onPlaceSelected={(value) => setValue('address', value)} />
+				render={({ field: { name } }) => (
+					<GoogleAutocomplete name={name} label={t('Address')} onPlaceSelected={(value) => setValue('address', value)} />
 				)}
 			/>
 

@@ -1,7 +1,6 @@
 import { Activity, AppState } from '@state'
-import { Checkbox, Select, Spinner } from '@components'
-import { FC, useContext, useEffect, useMemo, useState } from 'react'
-import { OptionProps, components } from 'react-select'
+import { FC, useContext, useMemo } from 'react'
+import { Select, Spinner } from '@components'
 
 import ActivityCard from './ActivityCard'
 import FocusEventContext from '../context/FocusEventContext'
@@ -26,47 +25,44 @@ const EventList: FC<any> = () => {
 	const { t } = useTranslation()
 	const activities = useSelector((state: AppState) => state.activities)
 
-	const [arr, setArr] = useState<any>(activities?.results?.slice())
-
+	const filteredActivities = useMemo(() => activities?.results?.slice(), [activities])
 
 	const handleSort = (option: Sort) => {
-		setArr((prev) => [...prev?.sort(option.compareFn)])
+		filteredActivities?.sort(option.compareFn)
 	}
 
-	return arr ? (
-		<>
-			<div className="flex flex-col bg-[#fafafa] min-w-[500px] h-[calc(100vh-64px)] py-2 px-4 gap-y-3 overflow-y-scroll overflow-x-hidden">
-				<div className='flex items-center gap-x-2'>
-					<Select
-						size='sm'
-						placeholder={t('Sort by')}
-						options={[
-							{ label: t('Price'), value: 'price', target: 'price', compareFn: (a, b) => a.price - b.price },
-							{ label: t('Date posted'), value: 'date', target: 'date', compareFn: (a: Activity, b: Activity) => a.date > b.date },
-							{ label: t('Partcipants'), value: 'participants', target: 'participants', compareFn: (a, b) => a.participants - b.participants },
-							{ label: t('Max players'), value: 'maxPlayers', target: 'maxPlayers', compareFn: (a, b) => a.maxPlayers - b.maxPlayers }
-						]}
-						onChange={handleSort}
-					/>
-				</div>
-				{arr?.map((activity, idx) => (
-					<ActivityCard
-						className={cn(focusedActivity?.id === activity.id ? 'shadow-md' : 'hover:shadow-md')}
-						key={idx}
-						activity={activity}
-						onClick={() =>
-							sidenavDispatch({
-								type: 'open',
-								content: <SelectedActivity activity={activity} />,
-								title: activity.title,
-							})
-						}
-						onMouseEnter={() => onFocusInActivity(activity)}
-						onMouseLeave={onFocusOutActivity}
-					/>
-				))}
+	return filteredActivities ? (
+		<div className="flex flex-col bg-[#fafafa] min-w-[500px] h-[calc(100vh-64px)] py-2 px-4 gap-y-3 overflow-y-scroll overflow-x-hidden">
+			<div className='flex items-center gap-x-2'>
+				<Select
+					size='sm'
+					placeholder={t('Sort by')}
+					options={[
+						{ label: t('Price'), value: 'price', target: 'price', compareFn: (a, b) => a.price - b.price },
+						{ label: t('Date posted'), value: 'date', target: 'date', compareFn: (a: Activity, b: Activity) => a.date > b.date },
+						{ label: t('Partcipants'), value: 'participants', target: 'participants', compareFn: (a, b) => a.participants - b.participants },
+						{ label: t('Max players'), value: 'maxPlayers', target: 'maxPlayers', compareFn: (a, b) => a.maxPlayers - b.maxPlayers }
+					]}
+					onChange={handleSort}
+				/>
 			</div>
-		</>
+			{filteredActivities?.map((activity, idx) => (
+				<ActivityCard
+					className={cn(focusedActivity?.id === activity.id ? 'shadow-md' : 'hover:shadow-md')}
+					key={idx}
+					activity={activity}
+					onClick={() =>
+						sidenavDispatch({
+							type: 'open',
+							content: <SelectedActivity activity={activity} />,
+							title: activity.title,
+						})
+					}
+					onMouseEnter={() => onFocusInActivity(activity)}
+					onMouseLeave={onFocusOutActivity}
+				/>
+			))}
+		</div>
 	) : isLoading ? (
 		<div className="min-w-[500px] m-auto text-center">
 			<Spinner text={t('Loading activites...')} />

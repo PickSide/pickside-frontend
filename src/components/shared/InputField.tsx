@@ -1,4 +1,4 @@
-import { ComponentPropsWithRef, ReactNode, forwardRef, useCallback, useId } from 'react'
+import { ComponentPropsWithRef, ReactNode, forwardRef, useCallback, useId, useState } from 'react'
 import { VariantProps, cva } from 'class-variance-authority'
 
 import { cn } from '@utils'
@@ -22,9 +22,7 @@ export const inputVariants = cva(
 	},
 )
 
-export interface InputFieldProps
-	extends Omit<ComponentPropsWithRef<'input'>, 'size'>,
-	VariantProps<typeof inputVariants> {
+export type InputFieldProps = Omit<ComponentPropsWithRef<'input'>, 'size'> & VariantProps<typeof inputVariants> & {
 	label?: string | ReactNode
 	startContent?: ReactNode
 	endContent?: ReactNode
@@ -50,6 +48,7 @@ const InputField = forwardRef<any, InputFieldProps>(
 			onPressEnterKey,
 			placeholder,
 			error,
+			value = '',
 			readOnly = false,
 			fullWidth = false,
 			size,
@@ -86,6 +85,7 @@ const InputField = forwardRef<any, InputFieldProps>(
 						disabled={readOnly}
 						placeholder={placeholder}
 						onKeyDown={onKeyDown}
+						value={value}
 						className="rounded-md h-full w-full focus-visible:outline-none disabled:bg-white disabled:cursor-not-allowed text-gray-800 disabled:text-gray-300"
 						{...rest}
 					/>

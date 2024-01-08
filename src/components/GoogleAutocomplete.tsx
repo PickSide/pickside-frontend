@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, forwardRef, useEffect, useState } from 'react'
 import InputField, { InputFieldProps } from './shared/InputField'
 
 import Icon from './shared/Icon'
@@ -7,12 +7,11 @@ import Spinner from './Spinner'
 import usePlacesService from 'react-google-autocomplete/lib/usePlacesAutocompleteService'
 import { useTranslation } from 'react-i18next'
 
-interface GoogleAutocompleteProps extends Omit<InputFieldProps, 'value'> {
+type GoogleAutocompleteProps = InputFieldProps & {
 	onPlaceSelected?: (place: google.maps.places.PlaceResult) => void
-	value?: google.maps.places.PlaceResult | string
 }
 
-const GoogleAutocomplete: FC<GoogleAutocompleteProps> = ({ label, onChange, onPlaceSelected, value = '', name, ...rest }) => {
+const GoogleAutocomplete: FC<GoogleAutocompleteProps> = forwardRef<any, GoogleAutocompleteProps>(({ label, onChange, onPlaceSelected, name, ...rest }, ref) => {
 	const { placePredictions, getPlacePredictions, isPlacePredictionsLoading, placesService } = usePlacesService({
 		apiKey: import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY,
 		language: 'en',
@@ -21,17 +20,30 @@ const GoogleAutocomplete: FC<GoogleAutocompleteProps> = ({ label, onChange, onPl
 	const { t } = useTranslation()
 
 	const [openPrediction, setOpenPrediction] = useState<boolean>(false)
-	const [val, setVal] = useState<google.maps.places.PlaceResult | string>(value)
+	const [val, setVal] = useState<string>()
 	const [cursor, setCursor] = useState<number>(0)
 
+	const handleChange = (e) => {
+		console.log('GoogleAutocomplete onChange', e.target.value)
+		setOpenPrediction(true)
+		setVal(e.target.value)
+		getPlacePredictions({ input: e.target.value })
+		onChange && onChange(e)
+	}
+
+	useEffect(() => {
+		console.log('val', val)
+	}, [val])
+
 	return (
-		<div className="relative w-fit">
+		<div ref={ref} className="relative w-fit">
 			<InputField
 				name={name}
 				label={label}
 				startContent={<Icon icon="location_on" />}
 				placeholder={t('Enter location')}
 				fullWidth
+				onChange={handleChange}
 				onPressArrowUp={() =>
 					setCursor((prev) => {
 						if (prev - 1 === 0) {
@@ -48,13 +60,7 @@ const GoogleAutocomplete: FC<GoogleAutocompleteProps> = ({ label, onChange, onPl
 						return prev + 1
 					})
 				}
-				onChange={(e: any) => {
-					setOpenPrediction(true)
-					setVal(e.target.value)
-					getPlacePredictions({ input: e.target.value })
-					onChange && onChange(e)
-				}}
-				value={(val as google.maps.places.PlaceResult).formatted_address}
+				value={val}
 				{...rest}
 			/>
 			{openPrediction && (
@@ -74,10 +80,7 @@ const GoogleAutocomplete: FC<GoogleAutocompleteProps> = ({ label, onChange, onPl
 										placesService?.getDetails({ placeId: place?.place_id }, (placeDetails) => {
 											if (placeDetails) {
 												onPlaceSelected && onPlaceSelected(placeDetails)
-												setVal((prev) => {
-													console.log('prev', prev)
-													return placeDetails
-												})
+												setVal(placeDetails.formatted_address)
 											}
 										})
 										setOpenPrediction(false)
@@ -93,6 +96,6 @@ const GoogleAutocomplete: FC<GoogleAutocompleteProps> = ({ label, onChange, onPl
 			)}
 		</div>
 	)
-}
+})
 
 export default GoogleAutocomplete

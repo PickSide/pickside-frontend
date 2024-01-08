@@ -77,7 +77,7 @@ export const Chatroom = ({ chatroom, minimize = false }) => {
 	useEffectOnce(() => {
 		fetchMessages()
 	})
-	console.log(recipient.fullName)
+
 	return chatroom ? (
 		<motion.div
 			initial={{ height: 0, scale: 0.5 }}
