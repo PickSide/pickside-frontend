@@ -1,11 +1,10 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { FC, MouseEventHandler, ReactNode, memo } from 'react'
 
-import PropTypes from 'prop-types'
 import { modaleDropIn } from '@utils'
 import styled from 'styled-components'
 
-export interface MarkerProps extends React.HTMLAttributes<HTMLDivElement> {
+export type MarkerProps = React.HTMLAttributes<HTMLDivElement> & {
 	text: string
 	lat: any
 	lng: any
@@ -26,31 +25,22 @@ const InfoWindowWrapper = styled(motion.div)`
 	overflow: clip;
 	font-size: 14px;
 	cursor: ${(props) => (props.onClick ? 'pointer' : 'auto')};
-	z-index: 100;
+	z-index: 200;
 `
 
-const Marker: FC<MarkerProps> = ({ children, openInfoWindow = false, text, icon, ...rest }) => {
+const Marker: FC<MarkerProps> = ({ children, openInfoWindow = false, icon, onMouseEnter, onMouseLeave, onClick, ...rest }) => {
 	return (
 		<AnimatePresence mode="wait">
-			<div className="relative" onMouseEnter={rest.onMouseEnter} onMouseLeave={rest.onMouseLeave}>
+			<div className="relative" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} onClick={onClick}>
 				{icon}
 				{openInfoWindow && (
-					<InfoWindowWrapper initial="hidden" animate="visible" exit="exit" variants={modaleDropIn}>
+					<InfoWindowWrapper id="info-window" initial="hidden" animate="visible" exit="exit" variants={modaleDropIn}>
 						{children}
 					</InfoWindowWrapper>
 				)}
 			</div>
 		</AnimatePresence>
 	)
-}
-
-Marker.defaultProps = {
-	onClick: undefined,
-}
-
-Marker.propTypes = {
-	onClick: PropTypes.func,
-	text: PropTypes.string.isRequired,
 }
 
 export default memo(Marker)

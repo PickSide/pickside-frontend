@@ -51,7 +51,7 @@ export const SidenavProvider: FC<any> = ({ children }) => {
 								initial="hidden"
 								animate="show"
 								exit="exit"
-								className='fixed inset-0 w-screen h-screen bg-ocean-4/20 overflow-hidden' onClick={clearState} />
+								className='fixed inset-0 z-10 w-screen h-screen bg-ocean-4/20 overflow-hidden' onClick={clearState} />
 							<motion.div
 								initial="hidden"
 								animate="show"
