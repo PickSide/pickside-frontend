@@ -55,8 +55,8 @@ export default function LoginForm() {
 							{...field}
 							type="text"
 							autoFocus
-							label={t('Email address')}
-							placeholder={t('Enter username')}
+							label={t('Username or email')}
+							placeholder={t('Enter username or email')}
 							startContent={<Icon icon="person" />}
 							fullWidth
 						/>
