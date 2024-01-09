@@ -48,7 +48,6 @@ const InputField = forwardRef<any, InputFieldProps>(
 			onPressEnterKey,
 			placeholder,
 			error,
-			value = '',
 			readOnly = false,
 			fullWidth = false,
 			size,
@@ -85,7 +84,6 @@ const InputField = forwardRef<any, InputFieldProps>(
 						disabled={readOnly}
 						placeholder={placeholder}
 						onKeyDown={onKeyDown}
-						value={value}
 						className="rounded-md h-full w-full focus-visible:outline-none disabled:bg-white disabled:cursor-not-allowed text-gray-800 disabled:text-gray-300"
 						{...rest}
 					/>

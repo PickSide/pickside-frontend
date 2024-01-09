@@ -33,9 +33,9 @@ const Step1 = () => {
 			<Controller
 				name="address"
 				control={control}
-				render={({ field }) => {
-					return <GoogleAutocomplete {...field} label={t('Address')} onPlaceSelected={(value) => setValue('address', value)} value={field.value.formatted_address} />
-				}}
+				render={({ field }) =>
+					<GoogleAutocomplete {...field} label={t('Address')} onPlaceSelected={(value) => setValue('address', value)} value={field.value.formatted_address} />
+				}
 			/>
 
 			<StepperCTAWrapper>
