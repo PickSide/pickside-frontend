@@ -7,10 +7,12 @@ import { useStepper } from '@pages/NewEvent/hooks/useStepper'
 import { useTranslation } from 'react-i18next'
 
 const Step1 = () => {
-	const { control, setValue } = useFormContext<any>()
+	const { control, setValue, watch } = useFormContext<any>()
 	const { dirtyFields } = useFormState({ control })
 	const { previous, next } = useStepper()
 	const { t } = useTranslation()
+
+	const address = watch('address')
 
 	return (
 		<>
@@ -31,9 +33,9 @@ const Step1 = () => {
 			<Controller
 				name="address"
 				control={control}
-				render={({ field: { name } }) => (
-					<GoogleAutocomplete name={name} label={t('Address')} onPlaceSelected={(value) => setValue('address', value)} />
-				)}
+				render={({ field }) => {
+					return <GoogleAutocomplete {...field} label={t('Address')} onPlaceSelected={(value) => setValue('address', value)} value={field.value.formatted_address} />
+				}}
 			/>
 
 			<StepperCTAWrapper>
