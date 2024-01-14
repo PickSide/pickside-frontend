@@ -51,13 +51,13 @@ const EventList: FC<any> = () => {
 					className={cn(focusedActivity?.id === activity.id ? 'shadow-md' : 'hover:shadow-md')}
 					key={idx}
 					activity={activity}
-					onClick={() =>
-						sidenavDispatch({
-							type: 'open',
-							content: <SelectedActivity activity={activity} />,
-							title: activity.title,
-						})
-					}
+					// onClick={() =>
+					// 	sidenavDispatch({
+					// 		type: 'open',
+					// 		content: <SelectedActivity activity={activity} />,
+					// 		title: activity.title,
+					// 	})
+					// }
 					onMouseEnter={() => onFocusInActivity(activity)}
 					onMouseLeave={onFocusOutActivity}
 				/>

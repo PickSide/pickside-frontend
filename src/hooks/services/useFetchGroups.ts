@@ -17,9 +17,9 @@ const useFetchGroups = () => {
 		data: groups,
 		isLoading,
 		refetch,
-	} = useQuery(['fetchGroups'], fetchGroups, {
+	} = useQuery(['fetch-groups'], fetchGroups, {
 		onSuccess: ({ data }) => dispatch(setGroups(data)),
-		onError: () => {},
+		onError: () => { },
 		refetchOnWindowFocus: false,
 	})
 

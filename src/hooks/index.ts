@@ -20,6 +20,7 @@ import useFetchOnlineUsers from './services/useFetchOnlineUsers'
 import useFetchSports from './services/useFetchSports'
 import useFetchUsers from './services/useFetchUsers'
 import useGuestLogout from './services/useGuestLogout'
+import useJoinGroup from './services/useJoinGroup'
 import useLocaleSwitcher from './useLocaleSwitcher'
 import useLogout from './services/useLogout'
 import useMapStyles from './useMapStyles'
@@ -57,6 +58,7 @@ export {
 	useFetchSports,
 	useFetchUsers,
 	useGuestLogout,
+	useJoinGroup,
 	useLocaleSwitcher,
 	useLogout,
 	useMapStyles,

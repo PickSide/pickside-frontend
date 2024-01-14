@@ -14,6 +14,7 @@ interface ActivityHandlersOutput {
 	isRegistering: boolean
 	isUnregistering: boolean
 	isRegisteredToActivity: boolean
+	isSavingToFavorite: boolean
 	registerToActivity: UseMutateFunction<any, any, unknown, any>
 	unregisterFromActivity: UseMutateFunction<any, any, unknown, any>
 	updateFavorite: UseMutateFunction<any, any, unknown, any>
@@ -21,7 +22,7 @@ interface ActivityHandlersOutput {
 const useActivityHandlers = (activity: Activity): ActivityHandlersOutput => {
 	const { registerToActivity, isLoading: isRegistering } = useRegisterSelfToActivity()
 	const { unregisterFromActivity, isLoading: isUnregistering } = useUnregisterSelfToActivity()
-	const { updateFavorite } = useUpdateFavorite()
+	const { updateFavorite, isLoading: isSavingToFavorite } = useUpdateFavorite()
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 	const isFavorite = useMemo(() => {
@@ -41,6 +42,7 @@ const useActivityHandlers = (activity: Activity): ActivityHandlersOutput => {
 		isOrganizer,
 		isRegistering,
 		isUnregistering,
+		isSavingToFavorite,
 		isRegisteredToActivity,
 		registerToActivity,
 		unregisterFromActivity,

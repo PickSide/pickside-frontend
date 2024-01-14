@@ -1,21 +1,20 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { Resources, User } from '@state'
 
-import { Resources } from '@state'
-
-export interface Notifications extends Resources {
+export type Notifications = Resources & {
 	results?: Notification[]
 }
 
-export type NotificationType = 'system' | 'global' | 'user'
+export declare type NotificationType = 'system' | 'global' | 'like' | 'group-invite' | 'message-reminder' | 'friend-invite'
 
-export interface Notification {
+export type Notification = {
 	id?: string
-	created?: Date
+	created: string
+	expires: string
 	isRead: boolean
-	receiver?: string
-	sender?: string
+	message: string
+	sender: User
 	type: NotificationType
-	message?: string
 }
 
 const NotificationsReducer = createSlice({

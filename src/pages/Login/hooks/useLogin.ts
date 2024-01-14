@@ -29,8 +29,8 @@ const useLogin = () => {
 		isError,
 	} = useMutation(callback, {
 		onSuccess: ({ data }) => {
-			setCachedUser(data.user)
-			dispatch(setUser(data.user))
+			setCachedUser(data.result)
+			dispatch(setUser(data.result))
 			dispatch({
 				type: 'toast/toastMessage',
 				payload: {
@@ -39,7 +39,7 @@ const useLogin = () => {
 				},
 			})
 			navigate(data.redirectUri, { replace: true })
-			usersSocket.emit('user:login', data.user)
+			//usersSocket.emit('user:login', data.result)
 		},
 		onError: (error: any) => handleResponseError(error),
 		onSettled: () => {

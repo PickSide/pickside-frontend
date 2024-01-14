@@ -7,6 +7,7 @@ import Toggle, { ToggleGroup } from './Toggle'
 
 import Alert from './shared/Alert'
 import Autocomplete from './Autocomplete'
+import Avatar from './Avatar'
 import BottomDrawer from './BottomDrawer'
 import Button from './shared/Button'
 import Checkbox from './Checkbox'
@@ -18,6 +19,7 @@ import FormDivider from './FormDivider'
 import GoogleAutocomplete from './GoogleAutocomplete'
 import Icon from './shared/Icon'
 import IconButton from './IconButton'
+import Image from './Image'
 import InputField from './shared/InputField'
 import Marker from './Marker'
 import MenuItem from './shared/MenuItem'
@@ -45,6 +47,7 @@ export {
 	Accordion,
 	AccordionSection,
 	Alert,
+	Avatar,
 	QueryAutocomplete,
 	Autocomplete,
 	BottomDrawer,
@@ -67,6 +70,7 @@ export {
 	GoogleAutocomplete,
 	Icon,
 	IconButton,
+	Image,
 	Marker,
 	MenuItem,
 	NumberField,

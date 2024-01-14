@@ -1,9 +1,10 @@
 import { Activity, AppState } from '@state'
 import Card, { CardBody, CardCTA, CardImage, CardProps } from '@components/shared/Card'
 import Dialog, { DialogCTA } from '@components/Dialog'
-import { FC, useState } from 'react'
+import { FC, useMemo, useState } from 'react'
 
 import { ACCOUNT_TYPE } from '@state/user/constants'
+import ActivityDetailsDialog from './Dialogs/ActivityDetailsDialog'
 import Avatar from '@components/Avatar'
 import Button from '@components/shared/Button'
 import Icon from '@components/shared/Icon'
@@ -36,6 +37,17 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 	const selectedActivity = useSelector((state: AppState) => state.selectedActivity)
 
 	const [open, setOpen] = useState<boolean>(false)
+	const [openActivtyDetail, setOpenActivtyDetail] = useState<boolean>(false)
+
+	const handleOpenRegisterForm = (e) => {
+		e.stopPropagation()
+		setOpen(true)
+	}
+
+	const handleUpdateFavorite = (e) => {
+		e.stopPropagation()
+		updateFavorite(activity.id)
+	}
 
 	const handleRegister = async (e) => {
 		e.stopPropagation()
@@ -58,6 +70,34 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 					<Button onClick={handleRegister}>{t('Register')}</Button>
 				</DialogCTA>
 			</Dialog>
+			<Dialog open={openActivtyDetail} onClose={() => setOpenActivtyDetail(false)} title={activity.title}>
+				<ActivityDetailsDialog activity={activity} />
+				<DialogCTA>
+					<Button variant="tertiary" onClick={() => setOpenActivtyDetail(false)}>
+						{t('Close')}
+					</Button>
+					{connectedUser &&
+						connectedUser.accountType !== ACCOUNT_TYPE.GUEST &&
+						activity &&
+						(isRegisteredToActivity ? (
+							<Button
+								isLoading={isUnregistering}
+								onClick={handleUnregister}
+								disabled={isUnregistering}
+							>
+								{t('Uneregister')}
+							</Button>
+						) : (
+							<Button
+								isLoading={isRegistering}
+								onClick={handleRegister}
+								disabled={isFull || isRegistering}
+							>
+								{isFull ? t('Full') : t('Join')}
+							</Button>
+						))}
+				</DialogCTA>
+			</Dialog>
 			<Card
 				className={cn(
 					'flex px-[20px] py-[17px] gap-x-[28px]',
@@ -67,6 +107,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 				)}
 				onMouseEnter={rest.onMouseEnter}
 				onMouseLeave={rest.onMouseLeave}
+				onClick={() => setOpenActivtyDetail(true)}
 				{...rest}
 			>
 				<CardImage className="rounded-[5px] min-w-[150px] max-h-[200px] p-0 ">
@@ -84,7 +125,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 							</div>
 						</div>
 						{connectedUser && connectedUser.accountType !== ACCOUNT_TYPE.GUEST && (
-							<IconButton onClick={() => updateFavorite(activity.id)}>
+							<IconButton onClick={handleUpdateFavorite}>
 								{isFavorite ? <Icon icon="bookmark" /> : <Icon icon="bookmark_border" />}
 							</IconButton>
 						)}
@@ -127,7 +168,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 										size="sm"
 										className="px-4 rounded-[12px] font-semibold"
 										isLoading={isRegistering}
-										onClick={() => setOpen(true)}
+										onClick={handleOpenRegisterForm}
 										disabled={isFull || isRegistering}
 									>
 										{isFull ? t('Full') : t('Join')}

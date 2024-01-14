@@ -7,12 +7,10 @@ import { useStepper } from '@pages/NewEvent/hooks/useStepper'
 import { useTranslation } from 'react-i18next'
 
 const Step1 = () => {
-	const { control, setValue, watch } = useFormContext<any>()
+	const { control, setValue } = useFormContext<any>()
 	const { dirtyFields } = useFormState({ control })
 	const { previous, next } = useStepper()
 	const { t } = useTranslation()
-
-	const address = watch('address')
 
 	return (
 		<>

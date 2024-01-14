@@ -35,8 +35,8 @@ const useLoginWithGoogle = () => {
 			return await fetchGoogleAccountInfoServiceAPI(access_token)
 				.then(({ data }) => callback(data))
 				.then(({ data }) => {
-					setCachedUser(data.user)
-					dispatch(setUser(data.user))
+					setCachedUser(data.result)
+					dispatch(setUser(data.result))
 					dispatch({
 						type: 'toast/toastMessage',
 						payload: {

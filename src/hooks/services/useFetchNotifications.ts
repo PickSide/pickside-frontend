@@ -11,15 +11,15 @@ const useFetchNotifications = () => {
 
 	const connectedUser = useSelector((state: AppState) => state.user)
 
-	const callback = async () => await axiosInstance.get(`/notifications/${connectedUser?.id}`)
+	const callback = async () => await axiosInstance.get<any>(`/notifications/${connectedUser?.id}`)
 
 	const {
 		data: notifications,
 		isLoading,
 		refetch,
-	} = useQuery(['fetchNotifications'], callback, {
+	} = useQuery(['fetch-notifications'], callback, {
 		onSuccess: ({ data }) => dispatch(setNotifications(data)),
-		onError: () => {},
+		onError: () => { },
 		refetchOnWindowFocus: false,
 	})
 
