@@ -35,6 +35,7 @@ const validIcons = [
 	'mood',
 	'more_vert',
 	'notifications',
+	'notifications_active',
 	'payments',
 	'person',
 	'place',

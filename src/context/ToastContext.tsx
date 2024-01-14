@@ -10,7 +10,7 @@ export interface ToastContextProps {
 }
 
 const ToastContext = createContext<ToastContextProps>({
-	triggerToast: () => {},
+	triggerToast: () => { },
 })
 
 export const useThemeContext = () => useContext(ToastContext)

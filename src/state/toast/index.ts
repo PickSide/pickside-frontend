@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-export interface Toast {
+export type Toast = {
 	type?: 'info' | 'warning' | 'error' | 'success'
 	message?: string
 }

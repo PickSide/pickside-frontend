@@ -10,6 +10,9 @@ module.exports = {
 				DEFAULT: '15px',
 			},
 		},
+		content: {
+			'img-placeholder': "url('./assets/upload-placeholder.svg')",
+		},
 		extend: {
 			backgroundImage: {
 				avatar: "url('./assets/avatar-placeholder.png')",

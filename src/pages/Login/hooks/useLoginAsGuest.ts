@@ -25,8 +25,8 @@ const useLoginAsGuest = () => {
 		isError,
 	} = useMutation(callback, {
 		onSuccess: ({ data }) => {
-			dispatch(setUser(data.user))
-			setGuestUser(data.user)
+			dispatch(setUser(data.result))
+			setGuestUser(data.result)
 			dispatch({
 				type: 'toast/toastMessage',
 				payload: {
