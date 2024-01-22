@@ -8,7 +8,16 @@ cd $DEV_WS/$dir
 git fetch origin
 git checkout release
 git pull
+
+echo "Removing node modules folder"
+rm -rf node_modules
+
+
+echo "Installing dependencies"
 pnpm i
+
+
+echo "Preparing build"
 pnpm run build
 
 echo "Copying build folder to static host"
