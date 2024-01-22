@@ -11,9 +11,9 @@ const useDeactivateAccount = () => {
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async () => await axiosInstance.put(`/users/deactivate/${connectedUser?.id}`)
+	const callback = async () => await axiosInstance.put(`/users/deactivate/${me?.id}`)
 
 	const {
 		mutate: deactivateUser,
@@ -21,7 +21,7 @@ const useDeactivateAccount = () => {
 		error,
 		isError,
 	} = useMutation(callback, {
-		mutationKey: ['deactivateAccount'],
+		mutationKey: ['deactivate-account'],
 		onSuccess: ({ data }) =>
 			dispatch({
 				type: 'toast/toastMessage',

@@ -7,8 +7,8 @@ const useFetchGroup = (groupId) => {
 
 	const callback = async () => await axiosInstance.get(`/groups/${groupId}`)
 
-	const { data: group, isLoading } = useQuery(['fetchGroup'], callback, {
-		onError: () => {},
+	const { data: group, isLoading } = useQuery(['fetch-group'], callback, {
+		onError: () => { },
 		refetchOnWindowFocus: false,
 	})
 

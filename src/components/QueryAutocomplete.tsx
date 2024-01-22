@@ -45,7 +45,7 @@ const QueryAutocomplete = <T,>({
 	const ref = useRef<HTMLInputElement>(null)
 	const [open, setOpen] = useState<boolean>(false)
 	const [selected, setSelected] = useState<T>()
-	const [userInput, setUserInput] = useState<string>('')
+	const [userInput, setMeInput] = useState<string>('')
 	const debouncedOpen = useDebounce(open, 100)
 	const searchText = useDebounce(userInput, 500)
 
@@ -62,7 +62,7 @@ const QueryAutocomplete = <T,>({
 		{ refetchOnWindowFocus: false },
 	)
 
-	const handleOnChange = (e) => setUserInput(e.target.value)
+	const handleOnChange = (e) => setMeInput(e.target.value)
 
 	const handleSelected = (option: T) => {
 		setSelected(option)
@@ -80,7 +80,7 @@ const QueryAutocomplete = <T,>({
 	}
 
 	const handleClear = () => {
-		setUserInput('')
+		setMeInput('')
 		setSelected(undefined)
 	}
 
@@ -109,7 +109,7 @@ const QueryAutocomplete = <T,>({
 
 	useEffect(() => {
 		if (selected && onChange) {
-			setUserInput(getOptionLabel(selected))
+			setMeInput(getOptionLabel(selected))
 			onChange(selected)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps

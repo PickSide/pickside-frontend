@@ -1,4 +1,4 @@
-import { ACCOUNT_TYPE, USER_PERMISSIONS } from '@state/user/constants'
+import { ACCOUNT_TYPE, USER_PERMISSIONS } from '@state/me/constants'
 import { FC, ReactNode, useMemo } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 
@@ -12,7 +12,7 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: FC<ProtectedRouteProps> = ({ permissions = [], allowsGuestAccount = false, children }) => {
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
 	const location = useLocation()
 
@@ -20,12 +20,12 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({ permissions = [], allowsGuest
 		if (!permissions || !permissions.length) {
 			return true
 		}
-		return permissions?.every((permission) => connectedUser?.permissions?.includes(permission))
-	}, [permissions, connectedUser])
+		return permissions?.every((permission) => me?.permissions?.includes(permission))
+	}, [permissions, me])
 
-	const userIsGuest = useMemo(() => connectedUser?.accountType === ACCOUNT_TYPE.GUEST, [connectedUser])
+	const userIsGuest = useMemo(() => me?.accountType === ACCOUNT_TYPE.GUEST, [me])
 
-	if (!connectedUser || !userHasNecessaryPermissions || (!allowsGuestAccount && userIsGuest)) {
+	if (!me || !userHasNecessaryPermissions || (!allowsGuestAccount && userIsGuest)) {
 		return <Navigate to="/" state={{ from: location }} replace />
 	}
 

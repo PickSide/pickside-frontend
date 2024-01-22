@@ -4,8 +4,6 @@ import { Select, Spinner } from '@components'
 
 import ActivityCard from './ActivityCard'
 import FocusEventContext from '../context/FocusEventContext'
-import SelectedActivity from './shared/SelectedActivity'
-import { SidenavDispatchContext } from '@context/SidenavContext'
 import { cn } from '@utils'
 import { useFetchActivities } from '@hooks'
 import { useSelector } from 'react-redux'
@@ -19,7 +17,6 @@ type Sort = {
 }
 
 const EventList: FC<any> = () => {
-	const sidenavDispatch = useContext(SidenavDispatchContext)
 	const { focusedActivity, onFocusInActivity, onFocusOutActivity } = useContext(FocusEventContext)
 	const { refetch, isLoading } = useFetchActivities()
 	const { t } = useTranslation()
@@ -31,7 +28,7 @@ const EventList: FC<any> = () => {
 		filteredActivities?.sort(option.compareFn)
 	}
 
-	return filteredActivities ? (
+	return filteredActivities?.length ? (
 		<div className="flex flex-col bg-[#fafafa] min-w-[500px] h-[calc(100vh-64px)] py-2 px-4 gap-y-3 overflow-y-scroll overflow-x-hidden">
 			<div className='flex items-center gap-x-2'>
 				<Select

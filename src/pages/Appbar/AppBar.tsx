@@ -1,4 +1,4 @@
-import { ACCOUNT_TYPE, USER_PERMISSIONS } from '@state/user/constants'
+import { ACCOUNT_TYPE, USER_PERMISSIONS } from '@state/me/constants'
 import { Button, Icon, IconButton, PrivilegedContent, Radio, RadioGroup } from '@components'
 import { NavLink, useLocation } from 'react-router-dom'
 import { useContext, useRef, useState } from 'react'
@@ -31,8 +31,8 @@ const AppBar = () => {
 	const { t } = useTranslation()
 
 	const [open, setOpen] = useState<boolean>(false)
-	const connectedUser = useSelector((state: AppState) => state.user)
-
+	const me = useSelector((state: AppState) => state.user)
+	console.log(me)
 	return (
 		<motion.div
 			id='navbar'
@@ -92,12 +92,12 @@ const AppBar = () => {
 								className="flex items-center border border-ocean bg-transparent px-[10px] py-[5px] rounded-[40px] gap-x-1"
 								onClick={() => setOpen(true)}
 							>
-								<Avatar size="sm" variant="secondary" src={connectedUser?.avatar} />
+								<Avatar size="sm" variant="secondary" src={me?.avatar} />
 								<Icon icon="menu" className="text-ocean dark:text-white" />
 							</Button>
 						}
 					>
-						{connectedUser && connectedUser.accountType !== ACCOUNT_TYPE.GUEST ? (
+						{me && me.accountType !== ACCOUNT_TYPE.GUEST ? (
 							[
 								<PopupMenuItem key="profile">
 									<NavLink to="/user/settings">{t('Profile')}</NavLink>
@@ -144,7 +144,7 @@ const AppBar = () => {
 						<PopupMenuItem key="contact-us">
 							<HashLink to="/#footer">{t('Contact us')}</HashLink>
 						</PopupMenuItem>
-						{!connectedUser ? (
+						{!me ? (
 							[
 								<PopupMenuItem key="login">
 									<NavLink to="/login">{t('Log in')}</NavLink>
@@ -153,7 +153,7 @@ const AppBar = () => {
 									<NavLink to="/signup">{t('Sign up')}</NavLink>
 								</PopupMenuItem>,
 							]
-						) : connectedUser.accountType === ACCOUNT_TYPE.GUEST ? (
+						) : me.accountType === ACCOUNT_TYPE.GUEST ? (
 							<PopupMenuItem key="guest-logout" onClick={guestLogout}>
 								<span className="cursor-pointer">{t('Stop guest session')}</span>
 							</PopupMenuItem>

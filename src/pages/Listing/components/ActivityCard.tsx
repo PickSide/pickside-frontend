@@ -3,7 +3,7 @@ import Card, { CardBody, CardCTA, CardImage, CardProps } from '@components/share
 import Dialog, { DialogCTA } from '@components/Dialog'
 import { FC, useMemo, useState } from 'react'
 
-import { ACCOUNT_TYPE } from '@state/user/constants'
+import { ACCOUNT_TYPE } from '@state/me/constants'
 import ActivityDetailsDialog from './Dialogs/ActivityDetailsDialog'
 import Avatar from '@components/Avatar'
 import Button from '@components/shared/Button'
@@ -33,7 +33,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 		updateFavorite,
 	} = useActivityHandlers(activity)
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 	const selectedActivity = useSelector((state: AppState) => state.selectedActivity)
 
 	const [open, setOpen] = useState<boolean>(false)
@@ -76,8 +76,8 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 					<Button variant="tertiary" onClick={() => setOpenActivtyDetail(false)}>
 						{t('Close')}
 					</Button>
-					{connectedUser &&
-						connectedUser.accountType !== ACCOUNT_TYPE.GUEST &&
+					{me &&
+						me.accountType !== ACCOUNT_TYPE.GUEST &&
 						activity &&
 						(isRegisteredToActivity ? (
 							<Button
@@ -124,7 +124,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 								</span>
 							</div>
 						</div>
-						{connectedUser && connectedUser.accountType !== ACCOUNT_TYPE.GUEST && (
+						{me && me.accountType !== ACCOUNT_TYPE.GUEST && (
 							<IconButton onClick={handleUpdateFavorite}>
 								{isFavorite ? <Icon icon="bookmark" /> : <Icon icon="bookmark_border" />}
 							</IconButton>
@@ -150,8 +150,8 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 					</div>
 					<CardCTA className="p-0 w-full">
 						<div className="flex justify-end items-center gap-x-2">
-							{connectedUser &&
-								connectedUser.accountType !== ACCOUNT_TYPE.GUEST &&
+							{me &&
+								me.accountType !== ACCOUNT_TYPE.GUEST &&
 								activity &&
 								(isRegisteredToActivity ? (
 									<Button

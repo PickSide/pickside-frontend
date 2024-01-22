@@ -13,10 +13,10 @@ const useCreateActivity = () => {
 	const navigate = useNavigate()
 	const { t } = useTranslation()
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
 	const callback = async (data: any) =>
-		await axiosInstance.post(`/activities`, { data: { ...data, organizer: connectedUser?.id } })
+		await axiosInstance.post(`/activities`, { data: { ...data, organizer: me?.id } })
 
 	const {
 		mutate: createActivity,
@@ -24,7 +24,7 @@ const useCreateActivity = () => {
 		error,
 		isError,
 	} = useMutation(callback, {
-		mutationKey: ['createActivity'],
+		mutationKey: ['create-activity'],
 		onSuccess: ({ data }) => {
 			dispatch(addActivity(data.result.activity))
 			dispatch({

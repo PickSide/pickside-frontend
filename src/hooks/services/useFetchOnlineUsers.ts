@@ -11,8 +11,8 @@ const useFetchOnlineUsers = () => {
 		data: onlineUsers,
 		isLoading,
 		refetch,
-	} = useQuery(['fetchOnlineUsers'], callback, {
-		onError: () => {},
+	} = useQuery(['fetch-online-users'], callback, {
+		onError: () => { },
 		refetchOnWindowFocus: false,
 	})
 

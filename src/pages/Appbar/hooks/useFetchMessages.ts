@@ -20,16 +20,16 @@ export interface Message {
 const useFetchMessages = () => {
 	const { axiosInstance } = useContext(AxiosContext)
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async () => await axiosInstance.get('/messages', { data: { userId: connectedUser?.id } })
+	const callback = async () => await axiosInstance.get('/messages', { data: { userId: me?.id } })
 
 	const {
 		data: messages,
 		isLoading,
 		refetch,
 	} = useQuery(['fetchMessages'], callback, {
-		onError: () => {},
+		onError: () => { },
 		refetchOnWindowFocus: false,
 	})
 

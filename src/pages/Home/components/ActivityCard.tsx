@@ -3,7 +3,7 @@ import { Button, Card, CardBody, CardCTA, CardHeader, Dialog, DialogCTA, Icon, I
 import { CardImage, CardProps } from '@components/shared/Card'
 import { FC, useState } from 'react'
 
-import { ACCOUNT_TYPE } from '@state/user/constants'
+import { ACCOUNT_TYPE } from '@state/me/constants'
 import Avatar from '@components/Avatar'
 import dayjs from 'dayjs'
 import { useActivityHandlers } from '@hooks'
@@ -27,7 +27,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className }) => {
 		updateFavorite,
 	} = useActivityHandlers(activity)
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
 	const [open, setOpen] = useState<boolean>(false)
 
@@ -67,7 +67,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className }) => {
 								</span>
 							</div>
 						</div>
-						{connectedUser && connectedUser.accountType !== ACCOUNT_TYPE.GUEST && (
+						{me && me.accountType !== ACCOUNT_TYPE.GUEST && (
 							<IconButton onClick={() => updateFavorite(activity.id)}>
 								{isFavorite ? <Icon icon="bookmark" /> : <Icon icon="bookmark_border" />}
 							</IconButton>
@@ -103,8 +103,8 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className }) => {
 				</CardBody>
 				<CardCTA className="px-5">
 					<div className="flex justify-end items-center gap-x-2">
-						{connectedUser &&
-							connectedUser.accountType !== ACCOUNT_TYPE.GUEST &&
+						{me &&
+							me.accountType !== ACCOUNT_TYPE.GUEST &&
 							activity &&
 							(isRegisteredToActivity ? (
 								<Button

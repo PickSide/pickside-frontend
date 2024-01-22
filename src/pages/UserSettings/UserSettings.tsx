@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next'
 const Settings = () => {
 	const { t } = useTranslation()
 	const { pathname } = useLocation()
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 	const [openChangeAvatarDialog, setOpenChangeAvatarDialog] = useState<boolean>(false)
 
 	const MenuItems = useMemo(
@@ -95,13 +95,13 @@ const Settings = () => {
 						>
 							<Icon icon="edit" size="xs" />
 						</button>
-						<Avatar size="xlg" variant="secondary" src={connectedUser?.avatar} />
+						<Avatar size="xlg" variant="secondary" src={me?.avatar} />
 
 					</div>
 					<div className="flex-col my-8">
-						<h4 className="font-semibold">{connectedUser?.fullName}</h4>
-						<p className="text-base font-normal text-gray-400">Plays near {connectedUser?.localeRegion}</p>
-						<p className="text-sm font-normal text-gray-400">Reliability: {connectedUser?.reliability}%</p>
+						<h4 className="font-semibold">{me?.fullName}</h4>
+						<p className="text-base font-normal text-gray-400">Plays near {me?.localeRegion}</p>
+						<p className="text-sm font-normal text-gray-400">Reliability: {me?.reliability}%</p>
 					</div>
 					<div className="flex flex-grow my-8 justify-end text-ocean pr-2">
 						<Popover

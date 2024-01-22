@@ -1,4 +1,4 @@
-import { setUser } from '@state'
+import { setMe } from '@state'
 import { useDispatch } from 'react-redux'
 import { useMutation } from '@tanstack/react-query'
 import { useSessionStorage } from 'usehooks-ts'
@@ -22,7 +22,7 @@ const useGuestLogout = () => {
 	} = useMutation(callback, {
 		mutationKey: ['logoutGuestUser'],
 		onSuccess: () => {
-			dispatch(setUser(null))
+			dispatch(setMe(null))
 			dispatch({
 				type: 'toast/toastMessage',
 				payload: {

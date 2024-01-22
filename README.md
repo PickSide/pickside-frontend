@@ -20,7 +20,7 @@ npm run start
 // Global app state
 export interface AppState {
 	appConfig?: UserConfig
-	connectedUser?: User
+	me?: User
 	eventLocations?: EventLocations
 	selectedEvent?: EventLocation
 	sports?: Sports
@@ -30,7 +30,7 @@ export interface AppState {
 export interface UserConfig {
 	darkModeEnabled?: boolean
 	locale?: string
-	connectedUserLocation?: Coordinates
+	meLocation?: Coordinates
 }
 
 export interface EventLocation {

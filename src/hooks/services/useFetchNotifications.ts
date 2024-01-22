@@ -9,9 +9,9 @@ const useFetchNotifications = () => {
 	const dispatch = useDispatch()
 	const { axiosInstance } = useContext(AxiosContext)
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async () => await axiosInstance.get<any>(`/notifications/${connectedUser?.id}`)
+	const callback = async () => await axiosInstance.get<any>(`/notifications/${me?.id}`)
 
 	const {
 		data: notifications,

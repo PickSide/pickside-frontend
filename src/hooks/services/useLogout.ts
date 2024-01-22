@@ -1,7 +1,7 @@
-import { AppState, setUser } from '@state'
-import { AxiosContext, RTAContentContext } from '@context'
+import { AppState, setMe } from '@state'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { AxiosContext } from '@context'
 import { useContext } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 import { useMutation } from '@tanstack/react-query'
@@ -9,16 +9,15 @@ import { useTranslation } from 'react-i18next'
 
 const useLogout = () => {
 	const { axiosInstance } = useContext(AxiosContext)
-	//const { usersSocket } = useContext(RTAContentContext)
 	const dispatch = useDispatch()
 	const [, removeCachedUser] = useLocalStorage('user', null)
 	const [, removeAccessToken] = useLocalStorage('accessToken', null)
 	const [, removeRefreshToken] = useLocalStorage('refreshToken', null)
 	const { t } = useTranslation()
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async () => await axiosInstance.post(`/logout`, { data: { userId: connectedUser?.id } })
+	const callback = async () => await axiosInstance.post(`/logout`, { data: { userId: me?.id } })
 
 	const {
 		mutate: logout,
@@ -32,9 +31,7 @@ const useLogout = () => {
 			removeAccessToken(null)
 			removeRefreshToken(null)
 
-			//usersSocket.emit('user:logout', connectedUser)
-
-			dispatch(setUser(null))
+			dispatch(setMe(null))
 			dispatch({
 				type: 'toast/toastMessage',
 				payload: {

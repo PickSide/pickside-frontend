@@ -9,10 +9,10 @@ const useRegisterSelfToActivity = () => {
 	const { axiosInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
 	const callback = async (activityId: any) =>
-		await axiosInstance.put(`/activities/${activityId}/register`, { data: { userId: connectedUser?.id } })
+		await axiosInstance.put(`/activities/${activityId}/register`, { data: { userId: me?.id } })
 
 	const {
 		mutate: registerToActivity,

@@ -1,6 +1,6 @@
 import { AxiosContext } from '@context'
 import { handleResponseError } from '@utils'
-import { setUser } from '@state'
+import { setMe } from '@state'
 import { useContext } from 'react'
 import { useDispatch } from 'react-redux'
 import { useMutation } from '@tanstack/react-query'
@@ -25,7 +25,7 @@ const useLoginAsGuest = () => {
 		isError,
 	} = useMutation(callback, {
 		onSuccess: ({ data }) => {
-			dispatch(setUser(data.result))
+			dispatch(setMe(data.result))
 			setGuestUser(data.result)
 			dispatch({
 				type: 'toast/toastMessage',

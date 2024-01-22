@@ -1,5 +1,4 @@
 import useActivityHandlers from './useActivityHandlers'
-import useConnectedUserPosition from './useConnectedUserPosition'
 import useCreateActivity from './services/useCreateActivity'
 import useCreateGroups from './services/useCreateGroups'
 import useDeactivateAccount from './services/useDeactivateAccount'
@@ -25,6 +24,7 @@ import useLocaleSwitcher from './useLocaleSwitcher'
 import useLogout from './services/useLogout'
 import useMapStyles from './useMapStyles'
 import useMultistepForm from './useMultistepForm'
+import useMyPosition from './useMyPosition'
 import useOnScreen from './useOnScreen'
 import useReactivateAccount from './services/useReactivateAccount'
 import useReadNotification from './services/useReadNotification'
@@ -37,7 +37,7 @@ import useUpdateSetting from './services/useUpdateSetting'
 
 export {
 	useActivityHandlers,
-	useConnectedUserPosition,
+	useMyPosition,
 	useCreateActivity,
 	useCreateGroups,
 	useDeactivateAccount,

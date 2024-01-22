@@ -14,12 +14,12 @@ const EmailVerificationContext = createContext<EmailVerificationContextProps>({}
 
 export const EmailVerificationProvider: FC<any> = ({ children }) => {
     const { t } = useTranslation()
-    const connectedUser = useSelector((state: AppState) => state.user)
+    const me = useSelector((state: AppState) => state.user)
 
     const [showAlert, setShowAlert] = useState<boolean>(false)
 
     useEffect(() => {
-        if (connectedUser && !connectedUser?.emailVerified) {
+        if (me && !me?.emailVerified) {
             setShowAlert(true)
         }
     }, [])

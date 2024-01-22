@@ -14,9 +14,9 @@ const useFetchActivities = () => {
 		data: activities,
 		isLoading,
 		refetch,
-	} = useQuery(['fetchActivities'], fetchActivities, {
+	} = useQuery(['fetch-activities'], fetchActivities, {
 		onSuccess: ({ data }) => dispatch(setActivities(data)),
-		onError: () => {},
+		onError: () => { },
 		refetchOnWindowFocus: false,
 	})
 

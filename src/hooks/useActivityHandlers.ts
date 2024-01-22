@@ -24,16 +24,16 @@ const useActivityHandlers = (activity: Activity): ActivityHandlersOutput => {
 	const { unregisterFromActivity, isLoading: isUnregistering } = useUnregisterSelfToActivity()
 	const { updateFavorite, isLoading: isSavingToFavorite } = useUpdateFavorite()
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 	const isFavorite = useMemo(() => {
-		if (!activity.id || !connectedUser || !connectedUser?.favorites) return false
-		return connectedUser.favorites.some((fav) => fav === activity.id)
-	}, [activity.id, connectedUser])
+		if (!activity.id || !me || !me?.favorites) return false
+		return me.favorites.some((fav) => fav === activity.id)
+	}, [activity.id, me])
 	const isFull = useMemo(() => activity.participants?.length === activity.maxPlayers, [activity])
-	const isOrganizer = useMemo(() => activity.organizer?.id === connectedUser?.id, [activity, connectedUser])
+	const isOrganizer = useMemo(() => activity.organizer?.id === me?.id, [activity, me])
 	const isRegisteredToActivity = useMemo(
-		() => activity.participants?.some((participant) => participant?.id === connectedUser?.id),
-		[activity.participants, connectedUser],
+		() => activity.participants?.some((participant) => participant?.id === me?.id),
+		[activity.participants, me],
 	)
 
 	return {
