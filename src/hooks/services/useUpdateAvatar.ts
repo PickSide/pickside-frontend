@@ -1,4 +1,4 @@
-import { AppState, updateUserConfig } from '@state'
+import { AppState, updateMeConfig } from '@state'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { AxiosContext } from '@context'
@@ -11,9 +11,9 @@ const useUpdateAvatar = () => {
     const { t } = useTranslation()
     const { axiosInstance } = useContext(AxiosContext)
 
-    const connectedUser = useSelector((state: AppState) => state.user)
+    const me = useSelector((state: AppState) => state.user)
 
-    const callback = async (data) => await axiosInstance.put(`users/${connectedUser?.id}/avatar`, { data })
+    const callback = async (data) => await axiosInstance.put(`users/${me?.id}/avatar`, { data })
 
     const {
         mutate: updateAvatar,
@@ -23,7 +23,7 @@ const useUpdateAvatar = () => {
     } = useMutation(callback, {
         mutationKey: ['update-avatar'],
         onSuccess: ({ data }, params) => {
-            dispatch(updateUserConfig(params))
+            dispatch(updateMeConfig(params))
             dispatch({
                 type: 'toast/toastMessage',
                 payload: {

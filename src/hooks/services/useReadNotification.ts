@@ -9,10 +9,10 @@ const useReadNotification = () => {
 	const dispatch = useDispatch()
 	const { axiosInstance } = useContext(AxiosContext)
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
 	const callback = async (notificationId: any) =>
-		await axiosInstance.put(`/notifications/${notificationId}/${connectedUser?.id}`)
+		await axiosInstance.put(`/notifications/${notificationId}/${me?.id}`)
 
 	const {
 		mutate: readNotification,
@@ -21,7 +21,7 @@ const useReadNotification = () => {
 	} = useMutation(callback, {
 		mutationKey: ['readNotification'],
 		onSuccess: ({ data }) => dispatch(setNotifications(data)),
-		onError: () => {},
+		onError: () => { },
 	})
 
 	return { readNotification, notifications, isLoading }

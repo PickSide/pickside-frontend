@@ -6,11 +6,11 @@ import { useSelector } from 'react-redux'
 
 const useFetchActivity = () => {
 	const { axiosInstance } = useContext(AxiosContext)
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async () => await axiosInstance.get(`/activities/user/${connectedUser?.id}/favorites`)
+	const callback = async () => await axiosInstance.get(`/activities/user/${me?.id}/favorites`)
 
-	const { data: favorites, isLoading } = useQuery(['fetchUserFavorites'], callback, {
+	const { data: favorites, isLoading } = useQuery(['fetch-favorites'], callback, {
 		refetchOnWindowFocus: false,
 	})
 

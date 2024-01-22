@@ -7,9 +7,9 @@ import { useSelector } from 'react-redux'
 const useReactivateAccount = () => {
 	const { axiosInstance } = useContext(AxiosContext)
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async (data: any) => await axiosInstance.put(`/users/reactivate/${connectedUser?.id}`)
+	const callback = async (data: any) => await axiosInstance.put(`/users/reactivate/${me?.id}`)
 
 	const {
 		mutate: reactivateUser,

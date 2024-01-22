@@ -9,9 +9,9 @@ const useFetchGroups = () => {
 	const dispatch = useDispatch()
 	const { axiosInstance } = useContext(AxiosContext)
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
-	const fetchGroups = async () => await axiosInstance.get(`/groups/user/${connectedUser?.id}`)
+	const fetchGroups = async () => await axiosInstance.get(`/groups/user/${me?.id}`)
 
 	const {
 		data: groups,

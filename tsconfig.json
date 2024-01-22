@@ -1,21 +1,12 @@
 {
 	"compilerOptions": {
 		"paths": {
-			"@*": [
-				"src/*"
-			]
+			"@*": ["src/*"]
 		},
 		"baseUrl": ".",
 		"target": "ESNext",
-		"lib": [
-			"dom",
-			"dom.iterable",
-			"esnext"
-		],
-		"typeRoots": [
-			"node_modules/@types",
-			"src/@types"
-		],
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"typeRoots": ["node_modules/@types", "src/@types"],
 		"allowJs": false,
 		"skipLibCheck": true,
 		"esModuleInterop": false,
@@ -31,9 +22,8 @@
 		"noEmit": true,
 		"jsx": "react-jsx"
 	},
-	"include": [
-		"src"
-	],
+
+	"include": ["**/*.ts", "**/*.tsx"],
 	"references": [
 		{
 			"path": "./tsconfig.node.json"

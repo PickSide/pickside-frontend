@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from 'react'
 
 import { AppState } from '@state'
-import { USER_PERMISSIONS } from '@state/user/constants'
+import { USER_PERMISSIONS } from '@state/me/constants'
 import { useSelector } from 'react-redux'
 
 interface PrivilegedContentProps extends PropsWithChildren {
@@ -9,12 +9,12 @@ interface PrivilegedContentProps extends PropsWithChildren {
 }
 
 const PrivilegedContent: FC<PrivilegedContentProps> = ({ children, permissions = [] }) => {
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
 	if (
-		!connectedUser ||
+		!me ||
 		!permissions.length ||
-		!permissions.every((perm) => connectedUser.permissions?.includes(perm))
+		!permissions.every((perm) => me.permissions?.includes(perm))
 	) {
 		return null
 	}

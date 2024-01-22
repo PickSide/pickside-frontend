@@ -9,10 +9,10 @@ const useUnregisterSelfToActivity = () => {
 	const { axiosInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
 	const callback = async (activityId: any) =>
-		await axiosInstance.put(`/activities/${activityId}/unregister`, { data: { userId: connectedUser?.id } })
+		await axiosInstance.put(`/activities/${activityId}/unregister`, { data: { userId: me?.id } })
 
 	const {
 		mutate: unregisterFromActivity,

@@ -11,10 +11,10 @@ const useDeleteGroup = () => {
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
 	const callback = async (id: string) =>
-		await axiosInstance.delete(`/groups/${id}`, { data: { organizerId: connectedUser?.id } })
+		await axiosInstance.delete(`/groups/${id}`, { data: { organizerId: me?.id } })
 
 	const {
 		mutate: deleteGroup,
@@ -22,7 +22,7 @@ const useDeleteGroup = () => {
 		error,
 		isError,
 	} = useMutation(callback, {
-		mutationKey: ['deleteGroup'],
+		mutationKey: ['delete-group'],
 		onSuccess: ({ data }, groupId) => {
 			dispatch(removeGroup(groupId))
 			dispatch({

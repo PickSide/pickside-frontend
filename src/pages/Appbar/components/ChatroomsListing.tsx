@@ -19,9 +19,9 @@ const ChatroomsListing: FC<ChatroomsListingProps> = ({ callbackOnClick }) => {
 	const { onlineUsers, refetch: refetchOnlineUsers } = useFetchOnlineUsers()
 	const { users } = useFetchUsers()
 	const { usersSocket } = useContext(RTAContentContext)
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
-	if (!connectedUser) {
+	if (!me) {
 		throw new Error('You need to be signed in to chat')
 	}
 
@@ -51,7 +51,7 @@ const ChatroomsListing: FC<ChatroomsListingProps> = ({ callbackOnClick }) => {
 			<UsersAutocomplete onSelectAction={open} />
 			<ul className="flex flex-col mt-4">
 				{users?.results
-					?.filter((user) => user.id !== connectedUser?.id)
+					?.filter((user) => user.id !== me?.id)
 					.map((user, idx) => (
 						<li key={idx} className="w-full">
 							<button

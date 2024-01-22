@@ -10,9 +10,9 @@ const useFetchLocales = () => {
 
 	const callback = async () => await axiosInstance.get('/locales')
 
-	const { data: locales, isLoading } = useQuery(['fetchLocales'], callback, {
+	const { data: locales, isLoading } = useQuery(['fetch-locales'], callback, {
 		onSuccess: ({ data }) => dispatch(setLocales(data)),
-		onError: () => {},
+		onError: () => { },
 		refetchOnWindowFocus: false,
 	})
 

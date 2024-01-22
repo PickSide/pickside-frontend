@@ -9,7 +9,7 @@ const Privacy = () => {
 	const { t } = useTranslation()
 	const { updateUser } = useUpdateSetting()
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
 	const Settings = [
 		{
@@ -17,7 +17,7 @@ const Privacy = () => {
 			helperText: t('Display your age to other users'),
 			control: (
 				<Switch
-					defaultChecked={connectedUser?.profilePrivacy?.showAge}
+					defaultChecked={me?.profilePrivacy?.showAge}
 					onChange={(e) => updateUser({ profilePrivacy: { showAge: e.target.checked } })}
 				/>
 			),
@@ -27,7 +27,7 @@ const Privacy = () => {
 			helperText: t('Display your email to other users'),
 			control: (
 				<Switch
-					defaultChecked={connectedUser?.profilePrivacy?.showEmail}
+					defaultChecked={me?.profilePrivacy?.showEmail}
 					onChange={(e) => updateUser({ profilePrivacy: { showEmail: e.target.checked } })}
 				/>
 			),
@@ -37,7 +37,7 @@ const Privacy = () => {
 			helperText: t('Display your phone to other users'),
 			control: (
 				<Switch
-					defaultChecked={connectedUser?.profilePrivacy?.showPhone}
+					defaultChecked={me?.profilePrivacy?.showPhone}
 					onChange={(e) => updateUser({ profilePrivacy: { showPhone: e.target.checked } })}
 				/>
 			),
@@ -47,7 +47,7 @@ const Privacy = () => {
 			helperText: t('Display your group(s) to other users'),
 			control: (
 				<Switch
-					defaultChecked={connectedUser?.profilePrivacy?.showGroups}
+					defaultChecked={me?.profilePrivacy?.showGroups}
 					onChange={(e) => updateUser({ profilePrivacy: { showGroups: e.target.checked } })}
 				/>
 			),
@@ -57,7 +57,7 @@ const Privacy = () => {
 			helperText: t('Let the app track your location'),
 			control: (
 				<Switch
-					defaultChecked={connectedUser?.profilePrivacy?.allowLocationTracking}
+					defaultChecked={me?.profilePrivacy?.allowLocationTracking}
 					onChange={(e) => updateUser({ profilePrivacy: { allowLocationTracking: e.target.checked } })}
 				/>
 			),

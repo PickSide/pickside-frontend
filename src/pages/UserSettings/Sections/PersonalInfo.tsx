@@ -8,16 +8,16 @@ const PersonalInfo = () => {
 	const { t } = useTranslation()
 	const { updateUser } = useUpdateSetting()
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
 	const {
 		handleSubmit,
 		formState: { dirtyFields },
 	} = useForm({
 		defaultValues: {
-			email: connectedUser?.email,
-			preferredLocale: connectedUser?.preferredLocale,
-			timezone: connectedUser?.timezone,
+			email: me?.email,
+			preferredLocale: me?.preferredLocale,
+			timezone: me?.timezone,
 		},
 		resetOptions: {
 			keepDefaultValues: true,

@@ -6,7 +6,7 @@ import notifications, { Notifications } from './notifications'
 import selectedContexts, { SelectedContexts } from './selectedContext'
 import sports, { Sports } from './sport'
 import toast, { Toast } from './toast'
-import user, { User } from './user'
+import user, { User } from './me'
 
 import appLocale from './appLocale'
 import appTheme from './appTheme'
@@ -29,7 +29,7 @@ export * from './selectedLocation'
 export * from './selectedChatroom'
 export * from './sport'
 export * from './toast'
-export * from './user'
+export * from './me'
 
 export interface Resources {
 	messageResponse?: string

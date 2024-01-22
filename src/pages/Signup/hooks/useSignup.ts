@@ -1,6 +1,6 @@
 import { AxiosContext } from '@context'
 import { handleResponseError } from '@utils'
-import { setUser } from '@state'
+import { setMe } from '@state'
 import { useContext } from 'react'
 import { useDispatch } from 'react-redux'
 import { useMutation } from '@tanstack/react-query'
@@ -19,9 +19,9 @@ const useSignup = () => {
 		error,
 		isError,
 	} = useMutation(callback, {
-		mutationKey: ['createUser'],
-		onSuccess: (data) => {
-			dispatch(setUser(data?.data))
+		mutationKey: ['create-user'],
+		onSuccess: ({ data }) => {
+			dispatch(setMe(data.result))
 			navigate('/', { replace: true })
 		},
 		onError: (error: any) => handleResponseError(error),

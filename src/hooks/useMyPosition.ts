@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const useConnectedUserPosition = (): { lat: number; lng: number } => {
+const useMyPosition = (): { lat: number; lng: number } => {
 	const [lat, setLat] = useState<number>(0)
 	const [lng, setLng] = useState<number>(0)
 
@@ -16,4 +16,4 @@ const useConnectedUserPosition = (): { lat: number; lng: number } => {
 	return { lat, lng }
 }
 
-export default useConnectedUserPosition
+export default useMyPosition

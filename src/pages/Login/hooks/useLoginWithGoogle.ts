@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 
 import { AxiosContext } from '@context'
 import axios from 'axios'
-import { setUser } from '@state'
+import { setMe } from '@state'
 import { useDispatch } from 'react-redux'
 import { useGoogleLogin } from '@react-oauth/google'
 import { useLocalStorage } from 'usehooks-ts'
@@ -36,7 +36,7 @@ const useLoginWithGoogle = () => {
 				.then(({ data }) => callback(data))
 				.then(({ data }) => {
 					setCachedUser(data.result)
-					dispatch(setUser(data.result))
+					dispatch(setMe(data.result))
 					dispatch({
 						type: 'toast/toastMessage',
 						payload: {

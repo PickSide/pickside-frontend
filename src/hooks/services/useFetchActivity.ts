@@ -10,9 +10,9 @@ const useFetchActivity = (activityId) => {
 
 	const callback = async () => await axiosInstance.get(`/activities/${activityId}`)
 
-	const { data: activities, isLoading } = useQuery(['fetchActivity'], callback, {
+	const { data: activities, isLoading } = useQuery(['fetch-activity'], callback, {
 		onSuccess: ({ data }) => dispatch(setActivities(data)),
-		onError: () => {},
+		onError: () => { },
 		refetchOnWindowFocus: false,
 	})
 

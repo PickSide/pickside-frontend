@@ -19,11 +19,11 @@ export interface Chatroom {
 const useFetchChatroom = () => {
 	const { axiosInstance } = useContext(AxiosContext)
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
 	const callback = async (recipient: User): Promise<AxiosResponse<PayloadResponseProps<Chatroom>>> =>
 		await axiosInstance.post('/chatrooms/users', {
-			data: { participants: [connectedUser?.id, recipient.id] },
+			data: { participants: [me?.id, recipient.id] },
 		})
 
 	const {

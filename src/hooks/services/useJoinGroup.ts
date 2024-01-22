@@ -1,4 +1,4 @@
-import { AppState, setUser } from '@state'
+import { AppState, setMe } from '@state'
 import { AxiosContext, RTAContentContext } from '@context'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -26,7 +26,7 @@ const useJoinGroup = () => {
         onSuccess: () => {
             // groupsSocket.emit('user:logout', connectedUser)
 
-            dispatch(setUser(null))
+            dispatch(setMe(null))
             dispatch({
                 type: 'toast/toastMessage',
                 payload: {

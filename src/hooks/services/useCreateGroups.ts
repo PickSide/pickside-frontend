@@ -12,10 +12,10 @@ const useCreateGroups = () => {
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 
 	const callback = async (data: any) =>
-		await axiosInstance.post(`/groups`, { data: { ...data, organizer: connectedUser?.id } })
+		await axiosInstance.post(`/groups`, { data: { ...data, organizer: me?.id } })
 
 	const {
 		mutate: createGroups,
@@ -23,7 +23,7 @@ const useCreateGroups = () => {
 		error,
 		isError,
 	} = useMutation(callback, {
-		mutationKey: ['createGroups'],
+		mutationKey: ['create-groups'],
 		onSuccess: ({ data }) => {
 			dispatch(addGroup(data.response.group))
 			dispatch({
@@ -35,8 +35,8 @@ const useCreateGroups = () => {
 			})
 			groupsSocket.emit('group:create', {
 				...data.response.group,
-				organizerId: connectedUser?.id,
-				organizerUsername: connectedUser?.username,
+				organizerId: me?.id,
+				organizerUsername: me?.username,
 			})
 		},
 		onError: (e) => console.log(e),

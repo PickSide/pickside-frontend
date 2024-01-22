@@ -34,14 +34,14 @@ export const Chatroom = ({ chatroom, minimize = false }) => {
 	const { chatroomsSocket } = useContext(RTAContentContext)
 	const dispatch = useDispatch()
 	const { onlineUsers } = useFetchOnlineUsers()
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 	const { control, watch, handleSubmit, reset } = useForm({
 		defaultValues: {
 			chatroomId: chatroom?.id,
 			message: '',
 		},
 	})
-	const recipient = chatroom?.participants?.find((x) => x.id !== connectedUser?.id)
+	const recipient = chatroom?.participants?.find((x) => x.id !== me?.id)
 	const canSend = !!watch('message')
 
 	const isRecipientOnline = useMemo(
@@ -61,7 +61,7 @@ export const Chatroom = ({ chatroom, minimize = false }) => {
 	}
 
 	const onSubmit = async (values) => {
-		chatroomsSocket.emit('chatroom:sending-message', { ...values, sender: connectedUser?.id })
+		chatroomsSocket.emit('chatroom:sending-message', { ...values, sender: me?.id })
 		reset()
 	}
 
@@ -108,7 +108,7 @@ export const Chatroom = ({ chatroom, minimize = false }) => {
 					</header>
 					<div className="flex-grow overflow-y-auto">
 						{messages?.map(({ message, sender }, idx) => (
-							<ChatBubble key={idx} type={sender === connectedUser?.id ? 'outgoing' : 'incoming'}>
+							<ChatBubble key={idx} type={sender === me?.id ? 'outgoing' : 'incoming'}>
 								{message}
 							</ChatBubble>
 						))}

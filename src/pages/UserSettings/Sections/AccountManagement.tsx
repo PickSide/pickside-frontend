@@ -1,7 +1,7 @@
 import { BottomDrawer, Button, Dialog, InputField, Select } from '@components'
 import { Controller, useForm } from 'react-hook-form'
 
-import { ACCOUNT_TYPE } from '@state/user/constants'
+import { ACCOUNT_TYPE } from '@state/me/constants'
 import { AppState } from '@state'
 import ChangePasswordForm from '../components/forms/ChangePasswordForm'
 import DeactivationForm from '../components/forms/DeactivationForm'
@@ -16,13 +16,13 @@ const AccountManagement = () => {
 	const { t } = useTranslation()
 	const { updateUser } = useUpdateSetting()
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 	const locales = useSelector((state: AppState) => state.locales)
 
 	const { control, formState, reset, handleSubmit } = useForm({
 		defaultValues: {
-			email: connectedUser?.email,
-			preferredLocale: connectedUser?.preferredLocale,
+			email: me?.email,
+			preferredLocale: me?.preferredLocale,
 		},
 		resetOptions: {
 			keepDirtyValues: true,
@@ -80,7 +80,7 @@ const AccountManagement = () => {
 					<BottomDrawer formState={formState} onReset={reset} />
 				</form>
 			</div>
-			{connectedUser?.accountType !== ACCOUNT_TYPE.DEFAULT && (
+			{me?.accountType !== ACCOUNT_TYPE.DEFAULT && (
 				<div className="mt-5 space-y-4">
 					<p className="text-lg font-semibold">{t('Change your password')}</p>
 					<Button

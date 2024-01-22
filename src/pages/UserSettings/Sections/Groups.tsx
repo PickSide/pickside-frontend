@@ -26,7 +26,7 @@ const Groups = () => {
 		},
 	})
 
-	const connectedUser = useSelector((state: AppState) => state.user)
+	const me = useSelector((state: AppState) => state.user)
 	const groups = useSelector((state: AppState) => state.groups)
 	const sportOptions = useSelector((state: AppState) => state.sports?.results || [])
 
@@ -117,7 +117,7 @@ const Groups = () => {
 								{...field}
 								label={t('Members')}
 								placeholder={isFetchingUsers ? t('Loading members...') : t('Search members')}
-								options={users?.results.filter(user => user.id !== connectedUser?.id) || []}
+								options={users?.results.filter(user => user.id !== me?.id) || []}
 								closeMenuOnSelect={false}
 								isMulti
 								getOptionLabel={(option) => option?.username}
