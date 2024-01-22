@@ -1,12 +1,21 @@
-#/bin/sh
+#!/bin/bash
+echo "Start buildng frontend..."
 
-export NVM_DIR=$HOME/.nvm
-source $HOME/.nvm/nvm.sh
-cd $HOME/pickside-frontend &&
-    git checkout release &&
-    git fetch --all &&
-    git reset --hard origin/release &&
-    git pull origin release &&
-    npm ci &&
-    npm run build &&
-    sudo cp -r $HOME/pickside-frontend/build/* /var/www/pickside/html/
+dir=pickside-frontend
+
+cd $DEV_WS/$dir
+
+git fetch origin
+git checkout release
+git pull
+pnpm i
+pnpm run build
+
+echo "Copying build folder to static host"
+
+sudo cp -r $DEV_WS/$dir/build/* /var/www/pickside/html
+
+cd $HOME
+
+echo "Done !"
+
