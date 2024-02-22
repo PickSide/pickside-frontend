@@ -22,7 +22,7 @@ const Map = () => {
 	const selectedLocation = useSelector((state: AppState) => state.selectedLocation)
 
 	const getMarkerColor = useCallback((activity: Activity) => {
-		const participants = activity.participants.length
+		const participants = activity.participants?.length
 		const maxPlayers = activity.maxPlayers
 		if (participants === maxPlayers) {
 			return 'text-red-500'
@@ -72,7 +72,7 @@ const Map = () => {
 								<div className="flex items-center px-2 bg-green-500 h-8 text-white align-middle">{activity.title}</div>
 								<div className="flex flex-col p-3 text-base">
 									<span className="">
-										{t('Participants')}: {activity.participants.length} / {activity.maxPlayers}
+										{t('Participants')}: {activity.participants?.length} / {activity.maxPlayers}
 									</span>
 									<span className="">
 										{t('Date')}: {dayjs(activity.date).toDate().toDateString()}

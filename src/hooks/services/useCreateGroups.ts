@@ -6,6 +6,16 @@ import { useContext } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
+interface CreateGroupProps {
+	coverPhoto?: string
+	description?: string
+	name: string
+	requiresApproval: boolean
+	visibility: 'public' | 'private'
+	organizerId: string | number
+	sportId: string | number
+}
+
 const useCreateGroups = () => {
 	const { axiosInstance } = useContext(AxiosContext)
 	const { groupsSocket } = useContext(RTAContentContext)
@@ -14,7 +24,7 @@ const useCreateGroups = () => {
 
 	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async (data: any) =>
+	const callback = async (data: CreateGroupProps) =>
 		await axiosInstance.post(`/groups`, { data: { ...data, organizer: me?.id } })
 
 	const {

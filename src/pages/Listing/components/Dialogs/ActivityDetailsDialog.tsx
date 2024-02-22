@@ -33,8 +33,8 @@ const ActivityDetailsDialog: FC<{ activity: Activity }> = ({ activity }) => {
             <div className='flex flex-col mb-3'>
                 <p className='font-semibold'>{t('Paticipants')}</p>
                 <div className='grid grid-flow-row grid-cols-2 gap-y-2'>
-                    {!!activity.participants.length ? activity.participants.map(p => (
-                        <div className='inline-flex items-center gap-x-2'>
+                    {!!activity.participants?.length ? activity.participants?.map((p, idx) => (
+                        <div key={idx} className='inline-flex items-center gap-x-2'>
                             <Avatar src={p.avatar} />
                             <p>{p.fullName}</p>
                         </div>

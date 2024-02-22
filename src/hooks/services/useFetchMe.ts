@@ -8,7 +8,7 @@ const useFetchMe = () => {
     const dispatch = useDispatch()
     const { axiosInstance } = useContext(AxiosContext)
 
-    const callback = async () => await axiosInstance.get('/users/me')
+    const callback = async () => await axiosInstance.get('/me')
 
     const { data: me, isLoading } = useQuery(['fetch-me'], callback, {
         onSuccess: ({ data }) => dispatch(setMe(data.result)),

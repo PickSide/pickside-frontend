@@ -32,7 +32,7 @@ const AppBar = () => {
 
 	const [open, setOpen] = useState<boolean>(false)
 	const me = useSelector((state: AppState) => state.user)
-	console.log(me)
+
 	return (
 		<motion.div
 			id='navbar'
@@ -117,7 +117,7 @@ const AppBar = () => {
 								{locales?.results?.map((locale, idx) => (
 									<Radio
 										key={idx}
-										label={locale.description}
+										label={<span className='capitalize'>{locale.name}</span>}
 										icon={<span className={`rounded-sm fi fi-${locale.flagCode}`}></span>}
 										defaultChecked={locale.value === currentLocale}
 										value={locale.value}

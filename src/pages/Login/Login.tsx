@@ -13,7 +13,7 @@ export default function Login() {
 		defaultValues: {
 			username: '',
 			password: '',
-			remeberMe: false,
+			rememberMe: false,
 		},
 	})
 	const { t } = useTranslation()

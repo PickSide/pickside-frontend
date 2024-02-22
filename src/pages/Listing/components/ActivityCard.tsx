@@ -26,11 +26,10 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 		isFavorite,
 		isFull,
 		isRegistering,
-		isUnregistering,
 		isRegisteredToActivity,
 		registerToActivity,
-		unregisterFromActivity,
 		updateFavorite,
+		registeredCount,
 	} = useActivityHandlers(activity)
 
 	const me = useSelector((state: AppState) => state.user)
@@ -39,10 +38,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 	const [open, setOpen] = useState<boolean>(false)
 	const [openActivtyDetail, setOpenActivtyDetail] = useState<boolean>(false)
 
-	const handleOpenRegisterForm = (e) => {
-		e.stopPropagation()
-		setOpen(true)
-	}
+
 
 	const handleUpdateFavorite = (e) => {
 		e.stopPropagation()
@@ -54,20 +50,26 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 		await registerToActivity(activity.id)
 		setOpen(false)
 	}
-	const handleUnregister = async (e) => {
-		e.stopPropagation()
-		await unregisterFromActivity(activity.id)
-	}
+
+	const btnText = useMemo(() => {
+		if (isRegisteredToActivity) {
+			return t('Unregister')
+		} else if (!isFull) {
+			return t('Join')
+		} else {
+			return t('Full')
+		}
+	}, [isRegisteredToActivity])
 
 	return (
 		<>
 			<Dialog open={open} onClose={() => setOpen(false)} title={t('Confirm event registration')}>
 				<p>{t('Before registering, you need to understand some rules.')}</p>
 				<DialogCTA>
-					<Button variant="tertiary" onClick={() => setOpen(false)}>
+					<Button variant="tertiary" onClick={(e) => setOpen(false)}>
 						{t('Cancel')}
 					</Button>
-					<Button onClick={handleRegister}>{t('Register')}</Button>
+					<Button onClick={handleRegister}>{btnText}</Button>
 				</DialogCTA>
 			</Dialog>
 			<Dialog open={openActivtyDetail} onClose={() => setOpenActivtyDetail(false)} title={activity.title}>
@@ -79,23 +81,16 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 					{me &&
 						me.accountType !== ACCOUNT_TYPE.GUEST &&
 						activity &&
-						(isRegisteredToActivity ? (
-							<Button
-								isLoading={isUnregistering}
-								onClick={handleUnregister}
-								disabled={isUnregistering}
-							>
-								{t('Uneregister')}
-							</Button>
-						) : (
-							<Button
-								isLoading={isRegistering}
-								onClick={handleRegister}
-								disabled={isFull || isRegistering}
-							>
-								{isFull ? t('Full') : t('Join')}
-							</Button>
-						))}
+						<Button
+							size="sm"
+							className="px-4 rounded-[12px] font-semibold"
+							isLoading={isRegistering}
+							onClick={() => setOpen(true)}
+							disabled={isFull || isRegistering}
+						>
+							{btnText}
+						</Button>
+					}
 				</DialogCTA>
 			</Dialog>
 			<Card
@@ -141,7 +136,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 						</span>
 						<span className='flex items-center gap-x-2'>
 							<Icon icon="group" />
-							{activity.participants?.length}/{activity.maxPlayers}
+							{registeredCount}/{activity.maxPlayers}
 						</span>
 						<span className='flex items-center gap-x-2'>
 							<Icon icon="payments" />
@@ -153,27 +148,19 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 							{me &&
 								me.accountType !== ACCOUNT_TYPE.GUEST &&
 								activity &&
-								(isRegisteredToActivity ? (
-									<Button
-										size="sm"
-										className="px-4 rounded-[12px] font-semibold"
-										isLoading={isUnregistering}
-										onClick={handleUnregister}
-										disabled={isUnregistering}
-									>
-										{t('Uneregister')}
-									</Button>
-								) : (
-									<Button
-										size="sm"
-										className="px-4 rounded-[12px] font-semibold"
-										isLoading={isRegistering}
-										onClick={handleOpenRegisterForm}
-										disabled={isFull || isRegistering}
-									>
-										{isFull ? t('Full') : t('Join')}
-									</Button>
-								))}
+								<Button
+									size="sm"
+									className="px-4 rounded-[12px] font-semibold"
+									isLoading={isRegistering}
+									onClick={(e) => {
+										e.stopPropagation()
+										setOpen(true)
+									}}
+									disabled={isFull || isRegistering}
+								>
+									{btnText}
+								</Button>
+							}
 						</div>
 					</CardCTA>
 				</CardBody>

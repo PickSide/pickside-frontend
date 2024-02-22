@@ -6,11 +6,10 @@ export interface Sports extends Resources {
 	results?: Sport[]
 }
 export interface Sport {
-	id?: string
-	value?: string
-	name?: string
-	featureAvailable?: boolean
-	modes?: Mode[]
+	id: string
+	name: string
+	gameModes: string[]
+	featureAvailable: boolean
 }
 
 export interface Mode {

@@ -12,7 +12,7 @@ const useUpdateFavorite = () => {
 	const me = useSelector((state: AppState) => state.user)
 
 	const callback = async (activityId) =>
-		await axiosInstance.put(`/activities/${activityId}/favorites`, { data: { userId: me?.id } })
+		await axiosInstance.put(`/users/${me?.id}/activities/${activityId}/favorites`)
 
 	const {
 		mutate: updateFavorite,

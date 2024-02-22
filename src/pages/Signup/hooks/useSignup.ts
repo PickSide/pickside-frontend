@@ -11,7 +11,7 @@ const useSignup = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
-	const callback = async (data: any) => await axiosInstance.post(`/users/create`, { data })
+	const callback = async (data: any) => await axiosInstance.post(`/users`, data)
 
 	const {
 		mutate: signup,

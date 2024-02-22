@@ -1,7 +1,7 @@
 import { Activity, AppState } from '@state'
 import { Button, Card, CardBody, CardCTA, CardHeader, Dialog, DialogCTA, Icon, IconButton } from '@components'
 import { CardImage, CardProps } from '@components/shared/Card'
-import { FC, useState } from 'react'
+import { FC, useMemo, useState } from 'react'
 
 import { ACCOUNT_TYPE } from '@state/me/constants'
 import Avatar from '@components/Avatar'
@@ -20,10 +20,8 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className }) => {
 		isFavorite,
 		isFull,
 		isRegistering,
-		isUnregistering,
 		isRegisteredToActivity,
 		registerToActivity,
-		unregisterFromActivity,
 		updateFavorite,
 	} = useActivityHandlers(activity)
 
@@ -37,10 +35,15 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className }) => {
 		setOpen(false)
 	}
 
-	const handleUnregister = async (e) => {
-		e.stopPropagation()
-		await unregisterFromActivity(activity.id)
-	}
+	const btnText = useMemo(() => {
+		if (isRegisteredToActivity) {
+			return t('Unregister')
+		} else if (!isFull) {
+			return t('Join')
+		} else {
+			return t('Full')
+		}
+	}, [isRegisteredToActivity])
 
 	return (
 		<>
@@ -51,7 +54,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className }) => {
 						{t('Cancel')}
 					</Button>
 					<Button isLoading={isRegistering} onClick={handleRegister}>
-						{t('Register')}
+						{isRegisteredToActivity ? t('Unregister') : t('Register')}
 					</Button>
 				</DialogCTA>
 			</Dialog>
@@ -90,7 +93,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className }) => {
 						<div className="flex items-center gap-x-[10px]">
 							<Icon icon="group" />
 							<span>
-								{activity.participants?.length}/{activity.maxPlayers}
+								{activity.participants?.length || 0}/{activity.maxPlayers}
 							</span>
 						</div>
 						<div className="flex items-center gap-x-[10px]">
@@ -106,27 +109,16 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className }) => {
 						{me &&
 							me.accountType !== ACCOUNT_TYPE.GUEST &&
 							activity &&
-							(isRegisteredToActivity ? (
-								<Button
-									size="sm"
-									className="px-4 rounded-[12px] font-semibold"
-									isLoading={isUnregistering}
-									onClick={handleUnregister}
-									disabled={isUnregistering}
-								>
-									{t('Uneregister')}
-								</Button>
-							) : (
-								<Button
-									size="sm"
-									className="px-4 rounded-[12px] font-semibold"
-									isLoading={isRegistering}
-									onClick={() => setOpen(true)}
-									disabled={isFull || isRegistering}
-								>
-									{isFull ? t('Full') : t('Join')}
-								</Button>
-							))}
+							<Button
+								size="sm"
+								className="px-4 rounded-[12px] font-semibold"
+								isLoading={isRegistering}
+								onClick={() => setOpen(true)}
+								disabled={isFull || isRegistering}
+							>
+								{btnText}
+							</Button>
+						}
 					</div>
 				</CardCTA>
 			</Card>

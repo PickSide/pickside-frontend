@@ -1,8 +1,8 @@
+import { AppState, Locale } from '@state'
 import { BottomDrawer, Button, Dialog, InputField, Select } from '@components'
 import { Controller, useForm } from 'react-hook-form'
 
 import { ACCOUNT_TYPE } from '@state/me/constants'
-import { AppState } from '@state'
 import ChangePasswordForm from '../components/forms/ChangePasswordForm'
 import DeactivationForm from '../components/forms/DeactivationForm'
 import { FaExternalLinkAlt } from 'react-icons/fa'
@@ -72,8 +72,8 @@ const AccountManagement = () => {
 								defaultValue={field.value}
 								placeholder={t('Select language')}
 								options={locales?.results}
-								getOptionLabel={(option) => option.description}
-								getOptionValue={(option) => option.id}
+								getOptionLabel={(option: Locale) => option.name}
+								getOptionValue={(option: Locale) => option.id}
 							/>
 						)}
 					/>

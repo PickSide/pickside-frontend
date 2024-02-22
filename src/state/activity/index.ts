@@ -44,6 +44,7 @@ const ActivityReducer = createSlice({
 			return state
 		},
 		updateParticipants: (state, action: PayloadAction<{ activityId: string; participants: any[] }>) => {
+			console.log(action.payload)
 			if (state.results) {
 				const idx = state.results.findIndex((activity) => activity.id === action.payload.activityId)
 

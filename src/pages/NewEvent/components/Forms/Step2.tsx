@@ -1,4 +1,4 @@
-import { AppState, Mode, Sport } from '@state'
+import { AppState, Sport } from '@state'
 import { Button, FormDivider, Icon, NumberField, Select } from '@components'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 
@@ -14,6 +14,7 @@ const Step2 = () => {
 	const { t } = useTranslation()
 
 	const sportOptions = useSelector((state: AppState) => state.sports?.results || [])
+	const gameModes = getValues('sport.gameModes')?.split(',').map(g => ({ label: g, value: g }))
 
 	return (
 		<>
@@ -26,14 +27,15 @@ const Step2 = () => {
 						label={t('Sport')}
 						placeholder={t('Select sport')}
 						options={sportOptions as Sport[]}
-						getOptionLabel={(option) => option?.name}
-						getOptionValue={(option) => option?.value}
+						getOptionLabel={(option: Sport) => option?.name}
+						getOptionValue={(option: Sport) => option?.name}
 						isOptionDisabled={(option) => !option?.featureAvailable}
 					/>
 				)}
 			/>
 
 			<FormDivider />
+
 
 			{watch('sport') && (
 				<>
@@ -45,9 +47,8 @@ const Step2 = () => {
 								{...field}
 								label={t('Mode')}
 								placeholder={t('Select mode')}
-								options={getValues('sport.modes') as Mode[]}
-								getOptionLabel={(option: Mode) => option?.name}
-								getOptionValue={(option: Mode) => option?.value}
+								options={gameModes}
+								getOptionValue={(option) => option.value}
 							/>
 						)}
 					/>
