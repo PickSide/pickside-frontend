@@ -46,12 +46,11 @@ const Map = () => {
 		<div className='w-full h-full'>
 			<GoogleMapReact shouldUnregisterMapOnUnmount zoom={12} center={center} options={options}>
 				{activities?.results
-					?.filter(({ address }) => address.geometry)
-					.map((activity, idx) => (
+					?.map((activity, idx) => (
 						<Marker
 							key={idx}
-							lat={activity.address.geometry?.location?.lat}
-							lng={activity.address.geometry?.location?.lng}
+							lat={activity.lat}
+							lng={activity.lng}
 							text={activity.title}
 							icon={
 								<Icon
@@ -82,7 +81,7 @@ const Map = () => {
 									</span>
 									<div className="">
 										<span>{t('Location')}</span>:{' '}
-										<span className="text-blue-600 underline cursor-pointer">{activity.address.formatted_address}</span>
+										<span className="text-blue-600 underline cursor-pointer">{activity.address}</span>
 									</div>
 								</div>
 							</div>

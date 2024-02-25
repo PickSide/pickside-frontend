@@ -1,18 +1,25 @@
+import { AppState, setGroups } from '@state'
+import { useDispatch, useSelector } from 'react-redux'
+
 import { AxiosContext } from '@context'
 import { useContext } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 const useFetchGroupByOrganizerId = () => {
     const { axiosInstance } = useContext(AxiosContext)
+    const dispatch = useDispatch()
 
-    const callback = async (organizerId: any) => await axiosInstance.get(`/groups/${organizerId}`)
+    const me = useSelector((state: AppState) => state.user)
 
-    const { data: group, isLoading } = useQuery(['fetch-group-by-organizer'], (organizerId) => callback(organizerId), {
+    const callback = async () => await axiosInstance.get(`/groups/users/${me?.id}`)
+
+    const { data: group, isLoading, refetch } = useQuery(['fetch-group-by-organizer'], callback, {
+        onSuccess: ({ data }) => dispatch(setGroups(data)),
         onError: () => { },
         refetchOnWindowFocus: false,
     })
 
-    return { group, isLoading }
+    return { group, isLoading, refetch }
 }
 
 export default useFetchGroupByOrganizerId

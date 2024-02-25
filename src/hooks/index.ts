@@ -1,6 +1,5 @@
 import useActivityHandlers from './useActivityHandlers'
-import useCreateActivity from './services/useCreateActivity'
-import useCreateGroups from './services/useCreateGroups'
+import useCreateActivity from '../pages/NewEvent/hooks/useCreateActivity'
 import useDeactivateAccount from './services/useDeactivateAccount'
 import useDebouncedCallback from './useDebouncedCallback'
 import useDeleteGroup from './services/useDeleteGroup'
@@ -38,7 +37,6 @@ export {
 	useActivityHandlers,
 	useMyPosition,
 	useCreateActivity,
-	useCreateGroups,
 	useDeactivateAccount,
 	useDebouncedCallback,
 	useDeleteGroup,

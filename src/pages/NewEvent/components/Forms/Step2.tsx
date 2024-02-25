@@ -2,19 +2,20 @@ import { AppState, Sport } from '@state'
 import { Button, FormDivider, Icon, NumberField, Select } from '@components'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 
+import { CreateEventProps } from '@pages/NewEvent/utils/types'
 import StepperCTAWrapper from '../shared/StepperCTAWrapper'
 import { useSelector } from 'react-redux'
 import { useStepper } from '@pages/NewEvent/hooks/useStepper'
 import { useTranslation } from 'react-i18next'
 
 const Step2 = () => {
-	const { control, getValues, watch } = useFormContext<any>()
+	const { control, getValues, watch, setValue } = useFormContext<CreateEventProps>()
 	const { dirtyFields } = useFormState({ control })
 	const { previous, next } = useStepper()
 	const { t } = useTranslation()
 
 	const sportOptions = useSelector((state: AppState) => state.sports?.results || [])
-	const gameModes = getValues('sport.gameModes')?.split(',').map(g => ({ label: g, value: g }))
+	const gameModes = getValues('sport.gameModes')?.split(',').map(g => ({ value: g }))
 
 	return (
 		<>
@@ -27,8 +28,9 @@ const Step2 = () => {
 						label={t('Sport')}
 						placeholder={t('Select sport')}
 						options={sportOptions as Sport[]}
+						formatOptionLabel={(option: Sport) => <span className='capitalize'>{option.name}</span>}
 						getOptionLabel={(option: Sport) => option?.name}
-						getOptionValue={(option: Sport) => option?.name}
+						getOptionValue={(option: Sport) => option?.id.toString()}
 						isOptionDisabled={(option) => !option?.featureAvailable}
 					/>
 				)}
@@ -40,7 +42,7 @@ const Step2 = () => {
 			{watch('sport') && (
 				<>
 					<Controller
-						name="mode"
+						name="gameMode"
 						control={control}
 						render={({ field }) => (
 							<Select
@@ -48,7 +50,11 @@ const Step2 = () => {
 								label={t('Mode')}
 								placeholder={t('Select mode')}
 								options={gameModes}
-								getOptionValue={(option) => option.value}
+								value={gameModes.find(x => x.value === field.value)}
+								getOptionLabel={(option: { value: string }) => option.value}
+								onChange={(selectedOption: { value: string }) => {
+									field.onChange(selectedOption.value)
+								}}
 							/>
 						)}
 					/>
@@ -60,7 +66,15 @@ const Step2 = () => {
 				name="price"
 				control={control}
 				render={({ field }) => (
-					<NumberField {...field} fullWidth label={t('Price')} startContent={<Icon icon="attach_money" />} />
+					<NumberField
+						{...field}
+						fullWidth
+						label={t('Price')}
+						startContent={<Icon icon="attach_money" />}
+						onChange={(e) => {
+							field.onChange(Number.parseFloat(e.target.value))
+						}}
+					/>
 				)}
 			/>
 
@@ -70,7 +84,15 @@ const Step2 = () => {
 				name="maxPlayers"
 				control={control}
 				render={({ field }) => (
-					<NumberField {...field} fullWidth label={t('Number of players')} startContent={<Icon icon="group" />} />
+					<NumberField
+						{...field}
+						fullWidth
+						label={t('Number of players')}
+						startContent={<Icon icon="group" />}
+						onChange={(e) => {
+							field.onChange(Number.parseFloat(e.target.value))
+						}}
+					/>
 				)}
 			/>
 
@@ -81,7 +103,7 @@ const Step2 = () => {
 				<Button
 					type="button"
 					onClick={next}
-					disabled={!dirtyFields['sport'] || !dirtyFields['mode'] || !dirtyFields['maxPlayers']}
+					disabled={!dirtyFields['sport'] || !dirtyFields['gameMode'] || !dirtyFields['maxPlayers']}
 				>
 					{t('Continue')}
 				</Button>

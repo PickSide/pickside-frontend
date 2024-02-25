@@ -1,13 +1,14 @@
 import { Button, DatePicker, FormDivider, TimePicker } from '@components'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 
+import { CreateEventProps } from '@pages/NewEvent/utils/types'
 import { GoogleAutocomplete } from '@components'
 import StepperCTAWrapper from '../shared/StepperCTAWrapper'
 import { useStepper } from '@pages/NewEvent/hooks/useStepper'
 import { useTranslation } from 'react-i18next'
 
 const Step1 = () => {
-	const { control, setValue } = useFormContext<any>()
+	const { control, setValue } = useFormContext<CreateEventProps>()
 	const { dirtyFields } = useFormState({ control })
 	const { previous, next } = useStepper()
 	const { t } = useTranslation()
@@ -32,7 +33,16 @@ const Step1 = () => {
 				name="address"
 				control={control}
 				render={({ field }) =>
-					<GoogleAutocomplete {...field} label={t('Address')} onPlaceSelected={(value) => setValue('address', value)} value={field.value.formatted_address} />
+					<GoogleAutocomplete
+						{...field}
+						label={t('Address')}
+						onPlaceSelected={(value: google.maps.places.PlaceResult) => {
+							setValue('address', value.formatted_address)
+							setValue('lat', value.geometry?.location?.lat())
+							setValue('lng', value.geometry?.location?.lng())
+						}}
+						value={field.value}
+					/>
 				}
 			/>
 

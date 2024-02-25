@@ -18,7 +18,7 @@ export interface User {
 	fitnessLevel?: 'retired' | 'average' | 'athletic' | 'very athletic'
 	fullName?: string
 	groups?: Group[]
-	id?: string
+	id?: any
 	inactive?: boolean
 	inactiveDate?: Date
 	joinDate?: string

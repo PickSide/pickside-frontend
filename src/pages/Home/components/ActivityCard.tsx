@@ -84,7 +84,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className }) => {
 					<div className="block w-full space-y-2 truncate">
 						<div className="flex items-center gap-x-[10px]">
 							<Icon icon="location_on" />
-							<span>{activity.address?.formatted_address}</span>
+							<span>{activity.address}</span>
 						</div>
 						<div className="flex items-center gap-x-[10px]">
 							<Icon icon="schedule" />

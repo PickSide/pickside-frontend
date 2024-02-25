@@ -21,6 +21,7 @@ interface ActivityCardProps extends CardProps {
 }
 
 const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) => {
+	console.log('activity', activity)
 	const { t } = useTranslation()
 	const {
 		isFavorite,
@@ -128,7 +129,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 					<div className="block w-fit space-y-2 mt-3 truncate">
 						<span className='flex items-center gap-x-2'>
 							<Icon icon="location_on" />
-							{activity.address?.formatted_address}
+							{activity.address}
 						</span>
 						<span className='flex items-center gap-x-2'>
 							<Icon icon="schedule" />
