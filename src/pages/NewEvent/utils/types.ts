@@ -12,6 +12,6 @@ export type CreateEventProps = {
     price: number
     rules?: string
     sport: any
-    time: string
+    time: any
     title: string
 }

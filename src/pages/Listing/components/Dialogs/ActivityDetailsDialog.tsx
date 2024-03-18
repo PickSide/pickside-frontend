@@ -17,7 +17,7 @@ const ActivityDetailsDialog: FC<{ activity: Activity }> = ({ activity }) => {
             <div className='grid grid-cols-3 grid-rows-1 gap-3 mb-3'>
                 <div className='row-span-1'>
                     <p className='font-semibold'>{t('Address')}</p>
-                    <span>{activity.address.formatted_address}</span>
+                    <span>{activity.address}</span>
                 </div>
 
                 <div className='row-span-1'>
