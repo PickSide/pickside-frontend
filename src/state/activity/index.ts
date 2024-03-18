@@ -7,20 +7,20 @@ export interface Activities extends Resources {
 
 export interface Activity {
 	id?: string
-	address: google.maps.places.PlaceResult
+	address: string
 	date: string
 	description: string
-	duration: number
+	gameMode: string
+	lat: number
+	lng: number
 	maxPlayers: number
-	mode: string
-	organizer: User
-	participants: User[]
-	recommandedLevel: string
+	price: number
 	rules: string
-	sport: Sport
 	time: Date
 	title: string
-	price: number
+	organizer: User
+	participants: User[]
+	sport: Sport
 }
 
 const ActivityReducer = createSlice({
@@ -44,6 +44,7 @@ const ActivityReducer = createSlice({
 			return state
 		},
 		updateParticipants: (state, action: PayloadAction<{ activityId: string; participants: any[] }>) => {
+			console.log(action.payload)
 			if (state.results) {
 				const idx = state.results.findIndex((activity) => activity.id === action.payload.activityId)
 

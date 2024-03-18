@@ -13,10 +13,8 @@ const useUpdateSetting = () => {
 
 	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async (data) => {
-		console.log(data)
-		return axiosInstance.put(`users/${me?.id}/settings`, { data })
-	}
+	const callback = async (data) => axiosInstance.put(`users/${me?.id}/settings`, data)
+
 
 	const {
 		mutate: updateUser,
@@ -24,8 +22,9 @@ const useUpdateSetting = () => {
 		error,
 		isError,
 	} = useMutation(callback, {
-		mutationKey: ['updateUserSettings'],
+		mutationKey: ['update-user-settings'],
 		onSuccess: ({ data }, params) => {
+			console.log(params)
 			dispatch(updateMeConfig(params))
 			dispatch({
 				type: 'toast/toastMessage',

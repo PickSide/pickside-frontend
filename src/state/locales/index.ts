@@ -7,10 +7,10 @@ export interface Locales extends Resources {
 }
 
 export interface Locale {
-	id?: string
-	value?: string
-	description?: string
-	flagCode?: string
+	id: string
+	name: string
+	value: string
+	flagCode: string
 }
 
 const LocalesReducer = createSlice({

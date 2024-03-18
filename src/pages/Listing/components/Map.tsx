@@ -22,7 +22,7 @@ const Map = () => {
 	const selectedLocation = useSelector((state: AppState) => state.selectedLocation)
 
 	const getMarkerColor = useCallback((activity: Activity) => {
-		const participants = activity.participants.length
+		const participants = activity.participants?.length
 		const maxPlayers = activity.maxPlayers
 		if (participants === maxPlayers) {
 			return 'text-red-500'
@@ -46,12 +46,11 @@ const Map = () => {
 		<div className='w-full h-full'>
 			<GoogleMapReact shouldUnregisterMapOnUnmount zoom={12} center={center} options={options}>
 				{activities?.results
-					?.filter(({ address }) => address.geometry)
-					.map((activity, idx) => (
+					?.map((activity, idx) => (
 						<Marker
 							key={idx}
-							lat={activity.address.geometry?.location?.lat}
-							lng={activity.address.geometry?.location?.lng}
+							lat={activity.lat}
+							lng={activity.lng}
 							text={activity.title}
 							icon={
 								<Icon
@@ -72,7 +71,7 @@ const Map = () => {
 								<div className="flex items-center px-2 bg-green-500 h-8 text-white align-middle">{activity.title}</div>
 								<div className="flex flex-col p-3 text-base">
 									<span className="">
-										{t('Participants')}: {activity.participants.length} / {activity.maxPlayers}
+										{t('Participants')}: {activity.participants?.length} / {activity.maxPlayers}
 									</span>
 									<span className="">
 										{t('Date')}: {dayjs(activity.date).toDate().toDateString()}
@@ -82,7 +81,7 @@ const Map = () => {
 									</span>
 									<div className="">
 										<span>{t('Location')}</span>:{' '}
-										<span className="text-blue-600 underline cursor-pointer">{activity.address.formatted_address}</span>
+										<span className="text-blue-600 underline cursor-pointer">{activity.address}</span>
 									</div>
 								</div>
 							</div>

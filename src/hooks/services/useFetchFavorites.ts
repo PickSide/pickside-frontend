@@ -4,11 +4,12 @@ import { useContext } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 
-const useFetchActivity = () => {
+const useFetchFavorites = () => {
 	const { axiosInstance } = useContext(AxiosContext)
+
 	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async () => await axiosInstance.get(`/activities/user/${me?.id}/favorites`)
+	const callback = async () => await axiosInstance.get(`/users/${me?.id}/activities/favorites`)
 
 	const { data: favorites, isLoading } = useQuery(['fetch-favorites'], callback, {
 		refetchOnWindowFocus: false,
@@ -17,4 +18,4 @@ const useFetchActivity = () => {
 	return { favorites, isLoading }
 }
 
-export default useFetchActivity
+export default useFetchFavorites

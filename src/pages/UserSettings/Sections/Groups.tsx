@@ -1,9 +1,12 @@
+import { AppState, User } from '@state'
 import { Button, Dialog, DialogCTA, InputField, Select, Spinner, Switch, TextAreaField } from '@components'
 import { Controller, useForm } from 'react-hook-form'
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
-import { useCreateGroups, useDeleteGroup, useFetchGroups, useFetchUsers } from '@hooks'
+import { useDeleteGroup, useFetchGroups, useFetchUsers } from '@hooks'
 
-import { AppState } from '@state'
+import { CreateGroupProps } from '../utils/types'
+import useCreateGroups from '../hooks/services/useCreateGroups'
+import useFetchGroupByOrganizerId from '@hooks/services/useFetchGroupByOrganizerId'
 import useGroupTableColums from '../hooks/useGroupTableColums'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
@@ -12,34 +15,49 @@ import { useTranslation } from 'react-i18next'
 const Groups = () => {
 	const { createGroups, isLoading: isCreatingGroupsLoading } = useCreateGroups()
 	const { deleteGroup, isLoading: isDeletingGroupLoading } = useDeleteGroup()
-	const { isLoading: isFetchingGroupsLoading, refetch: refetchGroups } = useFetchGroups()
+	const { isLoading: isFetchingGroupsLoading, refetch: refetchGroups } = useFetchGroupByOrganizerId()
 	const { users, isLoading: isFetchingUsers } = useFetchUsers()
 	const { t } = useTranslation()
-	const { control, handleSubmit, reset } = useForm({
+	const { control, handleSubmit, reset } = useForm<CreateGroupProps>({
 		defaultValues: {
-			name: '',
 			description: '',
-			members: '',
+			members: [],
+			name: '',
+			organizerId: -1,
 			requireApproval: false,
-			sport: '',
+			sport: {},
 			visibility: 'public',
 		},
 	})
+
 
 	const me = useSelector((state: AppState) => state.user)
 	const groups = useSelector((state: AppState) => state.groups)
 	const sportOptions = useSelector((state: AppState) => state.sports?.results || [])
 
+	console.log(groups)
 	const [openEditCreateGroupDialog, setOpenEditCreateGroupDialog] = useState<boolean>(false)
 	const [openConfirmDeleteGroupDialog, setOpenConfirmDeleteGroupDialog] = useState<boolean>(false)
 	const [openInfoGroupDialog, setOpenInfoGroupDialog] = useState<boolean>(false)
 	const [selectedGroupId, setSelectedGroupId] = useState<string>('')
 
-	const onSubmit = async (values) => {
-		const data = values
-		data['visibility'] = data['visibility'].value
-		data['sport'] = data['sport'].id
-		data['members'] = data['members'].map((m) => m.id)
+
+	const visibilities = [
+		{ value: 'public' },
+		{ value: 'private' },
+	]
+
+	const onSubmit = async (values: CreateGroupProps) => {
+		const data = {
+			description: values.description,
+			members: values.members.map(m => m.id),
+			name: values.name,
+			organizerId: me?.id,
+			requiresApproval: values.requireApproval,
+			sportId: values.sport.id,
+			visibility: values.visibility
+		}
+
 		await createGroups(data)
 		reset()
 		refetchGroups()
@@ -87,7 +105,7 @@ const Groups = () => {
 								placeholder={t('Select sport')}
 								options={sportOptions}
 								getOptionLabel={(option) => option?.name}
-								getOptionValue={(option) => option?.value}
+								getOptionValue={(option) => option?.id}
 								isOptionDisabled={(option) => !option?.featureAvailable}
 							/>
 						)}
@@ -100,12 +118,13 @@ const Groups = () => {
 								{...field}
 								label={t('Visibility')}
 								placeholder={t('Select group visibility')}
-								options={[
-									{ key: 1, name: 'Public', value: 'public' },
-									{ key: 2, name: 'Private', value: 'private' },
-								]}
-								getOptionLabel={(option) => option?.name}
-								getOptionValue={(option) => option?.value}
+								options={visibilities}
+								formatOptionLabel={(option) => <span className='capitalize'>{option.value}</span>}
+								value={visibilities.find(x => x.value === field.value)}
+								getOptionValue={(option) => option.value}
+								onChange={(selectedOption: { value: string }) => {
+									field.onChange(selectedOption.value)
+								}}
 							/>
 						)}
 					/>
@@ -115,13 +134,14 @@ const Groups = () => {
 						render={({ field }) => (
 							<Select
 								{...field}
+								isMulti
+								closeMenuOnSelect={false}
 								label={t('Members')}
 								placeholder={isFetchingUsers ? t('Loading members...') : t('Search members')}
 								options={users?.results.filter(user => user.id !== me?.id) || []}
-								closeMenuOnSelect={false}
-								isMulti
-								getOptionLabel={(option) => option?.username}
-								getOptionValue={(option) => option?.id}
+								formatOptionLabel={(option: User) => <span>{option?.username}</span>}
+								getOptionLabel={(option: User) => option.username!}
+								getOptionValue={(option: User) => option.id}
 							/>
 						)}
 					/>

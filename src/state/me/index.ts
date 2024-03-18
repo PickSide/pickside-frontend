@@ -14,32 +14,28 @@ export interface User {
 	city?: string
 	email?: string
 	emailVerified?: boolean
-	favorites?: any[]
+	favorites?: string
 	fitnessLevel?: 'retired' | 'average' | 'athletic' | 'very athletic'
 	fullName?: string
 	groups?: Group[]
-	id?: string
+	id?: any
 	inactive?: boolean
 	inactiveDate?: Date
 	joinDate?: string
 	localeRegion?: string
-	locationCommonlyPlayedIn?: string
-	locationTracking?: boolean
 	matchOrganizedCount?: number
 	matchPlayedCount?: number
 	phone?: string
 	permissions?: [USER_PERMISSIONS]
+	allowLocationTracking?: boolean
 	preferredLocale?: Locale
 	preferredRegion?: google.maps.places.PlaceResult
 	preferredSport?: Sport
 	preferredTheme?: 'light' | 'dark'
-	profilePrivacy?: {
-		allowLocationTracking?: boolean
-		showAge?: boolean
-		showEmail?: boolean
-		showPhone?: boolean
-		showGroups?: boolean
-	}
+	showAge?: boolean
+	showEmail?: boolean
+	showPhone?: boolean
+	showGroups?: boolean
 	reasonsForJoining?: string[]
 	reliability?: number
 	role?: ROLES
@@ -58,8 +54,8 @@ const UserReducer = createSlice({
 		setMe: (state, action: PayloadAction<User | null | undefined>) => (state = action.payload),
 		updateMeConfig: (state, action: PayloadAction<any>) => state = { ...state, ...action.payload },
 		updateMeFavorites: (state, action: PayloadAction<any>) => {
-			if (state && action.payload.result.favorites) {
-				state.favorites = action.payload.result.favorites
+			if (state && action.payload.result) {
+				state.favorites = action.payload.result
 			}
 			return state
 		},

@@ -19,7 +19,8 @@ const useLogin = () => {
 	const navigate = useNavigate()
 	const { t } = useTranslation()
 
-	const callback = (data: any) => axiosInstance.post('/login', { data })
+	const callback = (data: any) => axiosInstance.post('/login', data)
+
 
 	const {
 		mutate: login,
@@ -28,7 +29,6 @@ const useLogin = () => {
 		isError,
 	} = useMutation(callback, {
 		onSuccess: ({ data }) => {
-			console.log(data)
 			setCachedUser(data.result)
 			dispatch(setMe(data.result))
 			dispatch({

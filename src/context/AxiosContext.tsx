@@ -13,7 +13,7 @@ const AxiosContext = createContext<AxiosContextProps>({
 
 export const AxiosProvider: FC<any> = ({ children }) => {
 	const axiosInstance = axios.create({
-		baseURL: import.meta.env.VITE_APP_API_URL,
+		baseURL: import.meta.env.VITE_APP_API_URL_V2,
 		withCredentials: true,
 		headers: {
 			'Content-Type': 'application/json',

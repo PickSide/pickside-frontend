@@ -82,11 +82,11 @@ const SignUpForm = () => {
 					})}
 				/>
 
-				<Checkbox label={t('I agree to the terms of service and privacy policy.')} {...register('agreement')} />
+				<Checkbox label={t('I agree to the terms of service and privacy policy.')} {...register('agreedToTerms')} />
 
 				<Button
 					type="submit"
-					disabled={!watch('agreement')}
+					disabled={!watch('agreedToTerms')}
 					isLoading={isLoading}
 					className="rounded-md bg-ocean text-white font-semibold h-[50px] transition-all duration-75 ease-in hover:bg-secondary"
 				>

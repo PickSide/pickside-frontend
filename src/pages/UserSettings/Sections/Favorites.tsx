@@ -13,7 +13,7 @@ const Favorites = () => {
 			{isLoading ? (
 				<Spinner text={t('Loading favorites')} />
 			) : (
-				(favorites?.data?.result as Activity[])?.map((activity, idx) => <ActivityCard key={idx} activity={activity} />)
+				(favorites?.data?.results as Activity[])?.map((activity, idx) => <ActivityCard key={idx} activity={activity} />)
 			)}
 		</div>
 	)

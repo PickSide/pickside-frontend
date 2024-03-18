@@ -4,5 +4,5 @@ export type SignupFormProps = {
 	password: string
 	confirmPassword: string
 	phone: string
-	agreement: boolean
+	agreedToTerms: boolean
 }

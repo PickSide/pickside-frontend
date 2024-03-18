@@ -71,7 +71,7 @@ export default function LoginForm() {
 					)}
 				/>
 				<Controller
-					name="remeberMe"
+					name="rememberMe"
 					control={control}
 					render={({ field: { value, ...rest } }) => <Checkbox {...rest} checked={value} label={t('Remember me')} />}
 				/>

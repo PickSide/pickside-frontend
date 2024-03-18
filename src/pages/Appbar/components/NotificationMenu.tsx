@@ -18,13 +18,13 @@ const NotificationMenu: FC<any> = () => {
 
 	const notifications = useSelector((state: AppState) => state.notifications)
 
-	useEffectOnce(() => {
-		groupsSocket?.on('group:created', (payload) => console.log(payload))
+	// useEffectOnce(() => {
+	// 	groupsSocket?.on('group:created', (payload) => console.log(payload))
 
-		return () => {
-			groupsSocket?.off('group:created', console.log)
-		}
-	})
+	// 	return () => {
+	// 		groupsSocket?.off('group:created', console.log)
+	// 	}
+	// })
 
 	const RenderNotification = ({ notification }: { notification: Notification }) => {
 		if (notification.type === 'group-invite') {

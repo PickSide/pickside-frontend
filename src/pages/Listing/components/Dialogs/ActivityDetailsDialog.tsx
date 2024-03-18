@@ -17,7 +17,7 @@ const ActivityDetailsDialog: FC<{ activity: Activity }> = ({ activity }) => {
             <div className='grid grid-cols-3 grid-rows-1 gap-3 mb-3'>
                 <div className='row-span-1'>
                     <p className='font-semibold'>{t('Address')}</p>
-                    <span>{activity.address.formatted_address}</span>
+                    <span>{activity.address}</span>
                 </div>
 
                 <div className='row-span-1'>
@@ -33,8 +33,8 @@ const ActivityDetailsDialog: FC<{ activity: Activity }> = ({ activity }) => {
             <div className='flex flex-col mb-3'>
                 <p className='font-semibold'>{t('Paticipants')}</p>
                 <div className='grid grid-flow-row grid-cols-2 gap-y-2'>
-                    {!!activity.participants.length ? activity.participants.map(p => (
-                        <div className='inline-flex items-center gap-x-2'>
+                    {!!activity.participants?.length ? activity.participants?.map((p, idx) => (
+                        <div key={idx} className='inline-flex items-center gap-x-2'>
                             <Avatar src={p.avatar} />
                             <p>{p.fullName}</p>
                         </div>

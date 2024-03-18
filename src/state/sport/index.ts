@@ -6,18 +6,10 @@ export interface Sports extends Resources {
 	results?: Sport[]
 }
 export interface Sport {
-	id?: string
-	value?: string
-	name?: string
-	featureAvailable?: boolean
-	modes?: Mode[]
-}
-
-export interface Mode {
-	value: string
+	id: number
 	name: string
-	description: string
-	defaultMaxPlayers: number
+	gameModes: string
+	featureAvailable: boolean
 }
 
 const SportReducer = createSlice({

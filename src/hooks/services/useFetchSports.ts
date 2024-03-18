@@ -10,9 +10,12 @@ const useFetchSports = () => {
 
 	const callback = async () => await axiosInstance.get('/sports')
 
-	const { data: sports, isLoading } = useQuery(['fetchSports'], callback, {
-		onSuccess: ({ data }) => dispatch(setSports(data)),
-		onError: () => {},
+	const { data: sports, isLoading } = useQuery(['fetch-sports'], callback, {
+		onSuccess: ({ data }) => {
+
+			dispatch(setSports(data))
+		},
+		onError: () => { },
 		refetchOnWindowFocus: false,
 	})
 

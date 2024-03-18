@@ -14,7 +14,7 @@ const useDeleteGroup = () => {
 	const me = useSelector((state: AppState) => state.user)
 
 	const callback = async (id: string) =>
-		await axiosInstance.delete(`/groups/${id}`, { data: { organizerId: me?.id } })
+		await axiosInstance.delete(`/groups/${id}/users/${me?.id}`)
 
 	const {
 		mutate: deleteGroup,

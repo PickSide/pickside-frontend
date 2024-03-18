@@ -1,6 +1,5 @@
 import useActivityHandlers from './useActivityHandlers'
-import useCreateActivity from './services/useCreateActivity'
-import useCreateGroups from './services/useCreateGroups'
+import useCreateActivity from '../pages/NewEvent/hooks/useCreateActivity'
 import useDeactivateAccount from './services/useDeactivateAccount'
 import useDebouncedCallback from './useDebouncedCallback'
 import useDeleteGroup from './services/useDeleteGroup'
@@ -28,9 +27,8 @@ import useMyPosition from './useMyPosition'
 import useOnScreen from './useOnScreen'
 import useReactivateAccount from './services/useReactivateAccount'
 import useReadNotification from './services/useReadNotification'
-import useRegisterSelfToActivity from './services/useRegisterSelfToActivity'
+import useRegisterToActivity from './services/useRegisterToActivity'
 import useResetDb from '../pages/Home/hooks/useResetDb'
-import useUnregisterSelfFromActivity from './services/useUnregisterSelfFromActivity'
 import useUpdateAvatar from './services/useUpdateAvatar'
 import useUpdateFavorite from './services/useUpdateFavorite'
 import useUpdateSetting from './services/useUpdateSetting'
@@ -39,7 +37,6 @@ export {
 	useActivityHandlers,
 	useMyPosition,
 	useCreateActivity,
-	useCreateGroups,
 	useDeactivateAccount,
 	useDebouncedCallback,
 	useDeleteGroup,
@@ -66,9 +63,8 @@ export {
 	useOnScreen,
 	useReactivateAccount,
 	useReadNotification,
-	useRegisterSelfToActivity,
+	useRegisterToActivity,
 	useResetDb,
-	useUnregisterSelfFromActivity,
 	useUpdateAvatar,
 	useUpdateFavorite,
 	useUpdateSetting,
