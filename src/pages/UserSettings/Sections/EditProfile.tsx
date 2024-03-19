@@ -3,6 +3,7 @@ import { Controller, useForm } from 'react-hook-form'
 
 import { AppState } from '@state'
 import getDirtyFieldsValues from '../utils/getDirtyFieldsValues'
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { useUpdateSetting } from '@hooks'
@@ -26,9 +27,17 @@ const EditProfile = () => {
 
 	const onSubmit = async (values) => {
 		const changes = getDirtyFieldsValues(values, formState)
+
 		await updateUser(changes)
-		reset()
 	}
+
+	useEffect(() => {
+		reset({
+			username: me?.username,
+			bio: me?.bio,
+			preferredRegion: me?.preferredRegion,
+		})
+	}, [me, reset])
 
 	return (
 		<div className="relative h-full">
@@ -38,13 +47,13 @@ const EditProfile = () => {
 					<Controller
 						name="username"
 						control={control}
-						render={({ field }) => <InputField label={t('Username')} fullWidth {...field} />}
+						render={({ field }) => <InputField {...field} label={t('Username')} fullWidth />}
 					/>
 
 					<Controller
 						name="bio"
 						control={control}
-						render={({ field }) => <TextAreaField label={t('Bio')} fullWidth {...field} />}
+						render={({ field }) => <TextAreaField {...field} label={t('Bio')} fullWidth />}
 					/>
 					<BottomDrawer formState={formState} onReset={reset} />
 				</form>

@@ -31,13 +31,12 @@ const GoogleAutocomplete: FC<GoogleAutocompleteProps> = forwardRef<any, GoogleAu
 	}
 
 	return (
-		<div ref={ref} className="relative w-fit">
+		<div ref={ref} className="relative w-full">
 			<InputField
 				name={name}
 				label={label}
 				startContent={<Icon icon="location_on" />}
 				placeholder={t('Enter location')}
-				fullWidth
 				onChange={handleChange}
 				onPressArrowUp={() =>
 					setCursor((prev) => {

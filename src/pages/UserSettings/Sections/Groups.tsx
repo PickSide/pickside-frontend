@@ -1,10 +1,12 @@
 import { AppState, User } from '@state'
 import { Button, Dialog, DialogCTA, InputField, Select, Spinner, Switch, TextAreaField } from '@components'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, useForm, useFormState } from 'react-hook-form'
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
 import { useDeleteGroup, useFetchGroups, useFetchUsers } from '@hooks'
 
 import { CreateGroupProps } from '../utils/types'
+import GroupSelector from '@components/platform/GroupSelector'
+import SportSelector from '@components/platform/SportSelector'
 import useCreateGroups from '../hooks/services/useCreateGroups'
 import useFetchGroupByOrganizerId from '@hooks/services/useFetchGroupByOrganizerId'
 import useGroupTableColums from '../hooks/useGroupTableColums'
@@ -29,13 +31,13 @@ const Groups = () => {
 			visibility: 'public',
 		},
 	})
-
+	const { dirtyFields } = useFormState({ control })
+	console.log(dirtyFields)
 
 	const me = useSelector((state: AppState) => state.user)
 	const groups = useSelector((state: AppState) => state.groups)
 	const sportOptions = useSelector((state: AppState) => state.sports?.results || [])
 
-	console.log(groups)
 	const [openEditCreateGroupDialog, setOpenEditCreateGroupDialog] = useState<boolean>(false)
 	const [openConfirmDeleteGroupDialog, setOpenConfirmDeleteGroupDialog] = useState<boolean>(false)
 	const [openInfoGroupDialog, setOpenInfoGroupDialog] = useState<boolean>(false)
@@ -88,26 +90,20 @@ const Groups = () => {
 					<Controller
 						name="name"
 						control={control}
-						render={({ field }) => <InputField {...field} label={t('Group name')} fullWidth />}
+						rules={{ required: true }}
+						render={({ field }) => <InputField {...field} label={t('Group name')} placeholder={t('Name')} fullWidth />}
 					/>
 					<Controller
 						name="description"
 						control={control}
-						render={({ field }) => <TextAreaField {...field} label={t('Description')} fullWidth />}
+						render={({ field }) => <TextAreaField {...field} label={t('Description')} placeholder={t('Describe your group')} fullWidth />}
 					/>
 					<Controller
 						name="sport"
 						control={control}
+						rules={{ required: true }}
 						render={({ field }) => (
-							<Select
-								{...field}
-								label={t('Sport')}
-								placeholder={t('Select sport')}
-								options={sportOptions}
-								getOptionLabel={(option) => option?.name}
-								getOptionValue={(option) => option?.id}
-								isOptionDisabled={(option) => !option?.featureAvailable}
-							/>
+							<SportSelector {...field} />
 						)}
 					/>
 					<Controller
@@ -131,6 +127,7 @@ const Groups = () => {
 					<Controller
 						name="members"
 						control={control}
+						rules={{ required: true }}
 						render={({ field }) => (
 							<Select
 								{...field}
@@ -154,12 +151,13 @@ const Groups = () => {
 						<Button variant="tertiary" onClick={() => setOpenEditCreateGroupDialog(false)}>
 							{t('Cancel')}
 						</Button>
-						<Button type="submit" isLoading={isCreatingGroupsLoading}>
+						<Button type="submit" disabled={!dirtyFields['name'] || !dirtyFields['members'] || !dirtyFields['sport']} isLoading={isCreatingGroupsLoading}>
 							{t('Create')}
 						</Button>
 					</DialogCTA>
 				</form>
 			</Dialog>
+
 			<Dialog open={openConfirmDeleteGroupDialog} onClose={() => setOpenConfirmDeleteGroupDialog(false)}>
 				<p>{t('Are you sure you want to delete group ')}</p>
 				<DialogCTA>
@@ -178,7 +176,9 @@ const Groups = () => {
 					</Button>
 				</DialogCTA>
 			</Dialog>
+
 			<Dialog open={openInfoGroupDialog} onClose={() => setOpenInfoGroupDialog(false)}></Dialog>
+
 			<div className="p-5 w-full max-w-[1000px] overflow-y-scroll">
 				<Button className="float-right mb-4" onClick={() => setOpenEditCreateGroupDialog(true)}>
 					{t('Add group')}

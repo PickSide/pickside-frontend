@@ -35,6 +35,7 @@ const Step1 = () => {
 				render={({ field }) =>
 					<GoogleAutocomplete
 						{...field}
+						fullWidth
 						label={t('Address')}
 						onPlaceSelected={(value: google.maps.places.PlaceResult) => {
 							setValue('address', value.formatted_address)
@@ -47,7 +48,7 @@ const Step1 = () => {
 			/>
 
 			<StepperCTAWrapper>
-				<Button variant="secondary" type="button" disabled onClick={previous}>
+				<Button variant="tertiary" type="button" disabled onClick={previous}>
 					{t('Previous')}
 				</Button>
 				<Button type="button" onClick={next} disabled={!dirtyFields['address']}>

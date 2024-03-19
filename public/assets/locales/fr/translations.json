@@ -38,5 +38,6 @@
 	"Allow location tracking": "Permission de connaître votre emplacement",
 	"Allow the app to track your location.": "Donner permission à l'application de connaître votre emplacement actuel.",
 	"Set default location": "Région par défaut",
-	"Set the default region when loading the app.": "Choisir la région par défaut de l'application. Cette région permettra de vous donner les événements cette région au chargement."
+	"Set the default region when loading the app.": "Choisir la région par défaut de l'application. Cette région permettra de vous donner les événements cette région au chargement.",
+	"Version": "Version {{ version }}"
 }

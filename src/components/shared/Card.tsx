@@ -18,7 +18,7 @@ const Card: FC<CardProps> = ({ children, className, fullWidth = false, ...rest }
 	return (
 		<div
 			className={cn(
-				'relative h-auto border-2 border-gray-300 rounded-[10px] text-gray-800 whitespace-nowrap hover:shadow-md cursor-pointer transition-shadow duration-100 ease-in',
+				'relative h-auto border-[1px] bg-cloud border-gray-300 rounded-[10px] overflow-clip text-gray-800 whitespace-nowrap hover:shadow-md cursor-pointer transition-shadow duration-100 ease-in',
 				fullWidth ? 'w-full' : 'max-w-[480px]',
 				className,
 			)}
@@ -30,15 +30,15 @@ const Card: FC<CardProps> = ({ children, className, fullWidth = false, ...rest }
 }
 
 export const CardHeader: FC<CardHeaderProps> = (props) => {
-	return <div className={cn('p-5', props.className)}>{props.children}</div>
+	return <div className={cn('', props.className)}>{props.children}</div>
 }
 
 export const CardImage: FC<CardImageProps> = (props) => {
-	return <div className={cn('px-5', props.className)}>{props.children}</div>
+	return <div className={cn(props.className)}>{props.children}</div>
 }
 
 export const CardBody: FC<CardBodyProps> = (props) => {
-	return <div className={cn('p-5', props.className)}>{props.children}</div>
+	return <div className={cn('', props.className)}>{props.children}</div>
 }
 
 export const CardCTA: FC<CardCTAProps> = (props) => {

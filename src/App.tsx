@@ -10,7 +10,6 @@ import ChatroomContainer from '@components/global/ChatroomContainer'
 import CreateEvent from '@pages/NewEvent/CreateEvent'
 import EditProfile from '@pages/UserSettings/Sections/EditProfile'
 import { EmailVerificationProvider } from '@context/EmailVerificationContext'
-import Favorites from '@pages/UserSettings/Sections/Favorites'
 import Groups from '@pages/UserSettings/Sections/Groups'
 import Home from '@pages/Home/Home'
 import { IdleTimeOutProvider } from '@context/IdleTimeOutContext'
@@ -83,7 +82,6 @@ const App = () => {
 																<Route path="settings/" element={<Settings />}>
 																	<Route index element={<Navigate to="/user/settings/edit-profile" />} />
 																	<Route path="edit-profile" element={<EditProfile />} />
-																	<Route path="favorites" element={<Favorites />} />
 																	<Route path="groups" element={<Groups />} />
 																	<Route path="personal-info" element={<PersonalInfo />} />
 																	<Route path="account-management" element={<AccountManagement />} />

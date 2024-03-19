@@ -9,14 +9,14 @@ export const Stepper = ({ children }) => {
 
 	return (
 		<StepperWrapper>
-			<div className="w-full flex items-center lg:p-2">
+			<div className="flex items-center lg:p-2">
 				{steps.length
 					? steps.map((step, idx) => (
 						<Fragment key={idx}>
 							<div
 								className={cn(
-									'relative rounded-full w-7 h-7 lg:w-8 lg:h-8 text-[#68737D] ',
-									currentStep === idx ? 'bg-[#ADCCE4]' : 'bg-[#E9EBED]',
+									'relative rounded-full w-7 h-7 lg:w-8 lg:h-8 text-charcoal-black',
+									currentStep === idx ? 'bg-ocean-2' : 'bg-cool-gray-2',
 								)}
 							>
 								<span className="absolute text-white left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
@@ -26,7 +26,7 @@ export const Stepper = ({ children }) => {
 									{step.title}
 								</span>
 							</div>
-							{idx !== steps.length - 1 && <hr className="flex-grow-2 border-t-2 border-solid" />}
+							{idx !== steps.length - 1 && <hr className="flex-grow-2 border-t-2 border-solid mx-5" />}
 						</Fragment>
 					))
 					: null}
@@ -40,9 +40,9 @@ Stepper.Step = StepperStep
 Stepper.Steps = StepperSteps
 
 const StepperWrapper = ({ children }) => (
-	<div className="flex flex-col w-full justify-between text-charcoal-black">{children}</div>
+	<div className="space-y-12 w-full h-full text-charcoal-black py-16">{children}</div>
 )
 
 export const StepperBodyWrapper = ({ children }) => (
-	<div className="lg:w-fit mx-auto">{children}</div>
+	children
 )

@@ -18,6 +18,7 @@ import { pageTransition } from '@utils'
 import { useSelector } from 'react-redux'
 import useThemeSwitcher from './hooks/useThemeSwitcher'
 import { useTranslation } from 'react-i18next'
+import { version } from 'package.json'
 
 const AppBar = () => {
 	const ref = useRef<HTMLDivElement | null>(null)
@@ -102,9 +103,6 @@ const AppBar = () => {
 								<PopupMenuItem key="profile">
 									<NavLink to="/user/settings">{t('Profile')}</NavLink>
 								</PopupMenuItem>,
-								<PopupMenuItem key="favorites">
-									<NavLink to="/user/settings/favorites">{t('Favorites')}</NavLink>
-								</PopupMenuItem>,
 								<PopupMenuItem key="groups">
 									<NavLink to="/user/settings/groups">{t('Groups')}</NavLink>
 								</PopupMenuItem>,
@@ -162,6 +160,9 @@ const AppBar = () => {
 								<span className="cursor-pointer">{t('Logout')}</span>
 							</PopupMenuItem>
 						)}
+						<PopupMenuItem key="version" disabled>
+							<span>{t('Version', { version })}</span>
+						</PopupMenuItem>
 					</PopupMenu>
 				</div>
 			</div>

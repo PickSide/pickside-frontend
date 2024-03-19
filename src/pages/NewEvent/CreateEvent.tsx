@@ -1,4 +1,5 @@
 import { FormProvider, useForm } from 'react-hook-form'
+import { useCreateActivity, useDevice } from '@hooks'
 
 import { CreateEventProps } from './utils/types'
 import Footer from '../Home/sections/Footer'
@@ -6,10 +7,10 @@ import MultiStepForm from './components/MultiStepForm'
 import { StepperProvider } from './context'
 import dayjs from 'dayjs'
 import moment from 'moment'
-import { useCreateActivity } from '@hooks'
 
 const CreateEvent = () => {
 	const { createActivity } = useCreateActivity()
+	const [device] = useDevice()
 
 	const form = useForm<CreateEventProps>({
 		defaultValues: {
@@ -35,14 +36,14 @@ const CreateEvent = () => {
 	const onSubmit = async (data) => createActivity(data)
 
 	return (
-		<StepperProvider>
-			<div className="flex flex-col h-screen w-screen">
+		<div className='flex flex-col justify-between h-[calc(100vh-64px)]'>
+			<StepperProvider>
 				<FormProvider {...form}>
 					<MultiStepForm onSubmit={onSubmit} />
 				</FormProvider>
-				<Footer />
-			</div>
-		</StepperProvider>
+			</StepperProvider>
+			{device !== 'mobile' && <Footer />}
+		</div>
 	)
 }
 
