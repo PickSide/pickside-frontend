@@ -1,3 +1,4 @@
+import About from './sections/About'
 import Footer from './sections/Footer'
 import HowItWorks from './sections/HowItWorks'
 import LandingPage from './sections/LandingPage'
@@ -8,8 +9,9 @@ import { pageTransition } from '@utils'
 
 const Home = () => {
 	return (
-		<motion.div initial="hidden" animate="visible" exit="exit" variants={pageTransition}>
+		<motion.div initial="hidden" animate="visible" exit="exit" variants={pageTransition} className='overflow-hidden'>
 			<LandingPage />
+			<About />
 			<UpcomingEvents />
 			<HowItWorks />
 			<Footer />

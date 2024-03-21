@@ -35,7 +35,7 @@ export const BREAKPOINTS = {
 	sm: '360px', //mobile
 	md: '768px', //ipad
 	lg: '1024px', //pc
-	xl: '1200px',
+	xl: '1440px',
 }
 
 export type IconVariant = 'primary' | 'secondary' | 'tertiary' | 'danger'

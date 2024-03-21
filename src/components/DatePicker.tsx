@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { dropdownAnimation, generateDate, months, weeks } from '@utils'
-import { forwardRef, useId, useState } from 'react'
+import { forwardRef, useState } from 'react'
 
 import Icon from './shared/Icon'
 import InputField from './shared/InputField'
@@ -11,8 +11,6 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 	const [today, setToday] = useState<dayjs.Dayjs>(value)
 	const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs>(value)
 	const [open, setOpen] = useState<boolean>(false)
-
-	const id = useId()
 
 	const openCalendar = () => setOpen(true)
 	const closeCalendar = () => setOpen(false)

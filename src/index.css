@@ -69,9 +69,6 @@
 	::-webkit-scrollbar-thumb:hover {
 		background: #171717;
 	}
-	#root {
-		min-height: 100vh;
-	}
 
 	.pac-container:after {
 		/* Disclaimer: not needed to show 'powered by Google' if also a Google Map is shown */
@@ -185,6 +182,10 @@
 	}
 	.scrollable {
 		@apply scrollbar-thumb-accent scrollbar-thin scrollbar-track-gray-100;
+	}
+
+	section {
+		@apply w-screen mx-auto mb-[182px];
 	}
 }
 
