@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useFetchOnlineUsers, useFetchUsers } from '@hooks'
 
 import Avatar from '@components/Avatar'
-import { RTAContentContext } from '@context'
+import { SocketContext } from '@context'
 import { StatusBadge } from '@components'
 import UsersAutocomplete from './UsersAutocomplete'
 import { useEffectOnce } from 'usehooks-ts'
@@ -18,7 +18,7 @@ const ChatroomsListing: FC<ChatroomsListingProps> = ({ callbackOnClick }) => {
 	const dispatch = useDispatch()
 	const { onlineUsers, refetch: refetchOnlineUsers } = useFetchOnlineUsers()
 	const { users } = useFetchUsers()
-	const { usersSocket } = useContext(RTAContentContext)
+	const { usersSocket } = useContext(SocketContext)
 	const me = useSelector((state: AppState) => state.user)
 
 	if (!me) {

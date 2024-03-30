@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Avatar from '@components/Avatar'
 import { AxiosContext } from '@context'
 import ChatBubble from './ChatBubble'
-import { RTAContentContext } from '@context'
+import { SocketContext } from '@context'
 import { motion } from 'framer-motion'
 import { useEffectOnce } from 'usehooks-ts'
 import { useFetchOnlineUsers } from '@hooks'
@@ -31,7 +31,7 @@ const ChatroomContainer = () => {
 
 export const Chatroom = ({ chatroom, minimize = false }) => {
 	const { axiosInstance } = useContext(AxiosContext)
-	const { chatroomsSocket } = useContext(RTAContentContext)
+	const { chatroomsSocket } = useContext(SocketContext)
 	const dispatch = useDispatch()
 	const { onlineUsers } = useFetchOnlineUsers()
 	const me = useSelector((state: AppState) => state.user)

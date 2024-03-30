@@ -3,14 +3,14 @@ import { Avatar, Button, Dropdown, Icon, MenuItem, Spinner } from '@components'
 import { FC, useContext } from 'react'
 import { useFetchNotifications, useJoinGroup, useReadNotification } from '@hooks'
 
-import { RTAContentContext } from '@context'
 import { RxDotFilled } from 'react-icons/rx'
+import { SocketContext } from '@context'
 import { useEffectOnce } from 'usehooks-ts'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 const NotificationMenu: FC<any> = () => {
-	const { groupsSocket } = useContext(RTAContentContext)
+	const { groupsSocket } = useContext(SocketContext)
 	const { isLoading, refetch: refetchNotifications } = useFetchNotifications()
 	const { joinGroup, isLoading: isJoiningGroup } = useJoinGroup()
 	const { readNotification } = useReadNotification()

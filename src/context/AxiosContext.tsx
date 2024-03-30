@@ -5,10 +5,12 @@ import { v4 as uuidv4 } from 'uuid'
 
 export interface AxiosContextProps {
 	axiosInstance: AxiosInstance
+	axiosISInstance: AxiosInstance
 }
 
 const AxiosContext = createContext<AxiosContextProps>({
 	axiosInstance: axios,
+	axiosISInstance: axios
 })
 
 export const AxiosProvider: FC<any> = ({ children }) => {
@@ -21,7 +23,15 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 		},
 	})
 
-	return <AxiosContext.Provider value={{ axiosInstance }}>{children}</AxiosContext.Provider>
+	const axiosISInstance = axios.create({
+		baseURL: import.meta.env.VITE_APP_IS_URL,
+		withCredentials: true,
+		headers: {
+			'X-Request-Id': uuidv4(),
+		},
+	})
+
+	return <AxiosContext.Provider value={{ axiosInstance, axiosISInstance }}>{children}</AxiosContext.Provider>
 }
 
 export default AxiosContext

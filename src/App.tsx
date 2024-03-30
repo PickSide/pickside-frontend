@@ -21,12 +21,12 @@ import PersonalInfo from '@pages/UserSettings/Sections/PersonalInfo'
 import Privacy from '@pages/UserSettings/Sections/Privacy'
 import { ProtectedRoute } from '@components'
 import { QueryClientProvider } from '@tanstack/react-query'
-import { RTAContentProvider } from '@context/RTAContentContext'
 import { RequireAuth } from '@components'
 import Settings from '@pages/UserSettings/UserSettings'
 import { SidenavProvider } from '@context/SidenavContext'
 import SignUp from '@pages/Signup/SignUp'
 import SocialMedia from '@pages/UserSettings/Sections/SocialMedia'
+import { SocketProvider } from '@context/SocketContext'
 import { ToastProvider } from '@context/ToastContext'
 import { USER_PERMISSIONS } from '@state/me/constants'
 import UpcomingEvents from '@pages/UserUpcomingEvents/UpcomingEvents'
@@ -38,7 +38,7 @@ const App = () => {
 	return (
 		<AxiosProvider>
 			<QueryClientProvider client={queryClient}>
-				<RTAContentProvider>
+				<SocketProvider>
 					<InitialAppStateProvider>
 						<EmailVerificationProvider>
 							<IdleTimeOutProvider>
@@ -100,7 +100,7 @@ const App = () => {
 							</IdleTimeOutProvider>
 						</EmailVerificationProvider>
 					</InitialAppStateProvider>
-				</RTAContentProvider>
+				</SocketProvider>
 			</QueryClientProvider>
 		</AxiosProvider>
 	)

@@ -1,5 +1,5 @@
 import { AppState, addGroup } from '@state'
-import { AxiosContext, RTAContentContext } from '@context'
+import { AxiosContext, SocketContext } from '@context'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { useContext } from 'react'
@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 
 const useCreateGroups = () => {
 	const { axiosInstance } = useContext(AxiosContext)
-	const { groupsSocket } = useContext(RTAContentContext)
+	const { groupsSocket } = useContext(SocketContext)
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 

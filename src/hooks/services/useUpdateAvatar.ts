@@ -9,11 +9,11 @@ import { useTranslation } from 'react-i18next'
 const useUpdateAvatar = () => {
     const dispatch = useDispatch()
     const { t } = useTranslation()
-    const { axiosInstance } = useContext(AxiosContext)
+    const { axiosInstance, axiosISInstance } = useContext(AxiosContext)
 
     const me = useSelector((state: AppState) => state.user)
 
-    const callback = async (data) => await axiosInstance.put(`users/${me?.id}/avatar`, { data })
+    const callback = async (formData) => await axiosISInstance.post(`users/${me?.id}`, formData)
 
     const {
         mutate: updateAvatar,
@@ -22,15 +22,18 @@ const useUpdateAvatar = () => {
         isError,
     } = useMutation(callback, {
         mutationKey: ['update-avatar'],
-        onSuccess: ({ data }, params) => {
-            dispatch(updateMeConfig(params))
-            dispatch({
-                type: 'toast/toastMessage',
-                payload: {
-                    message: t(data.message),
-                    type: 'success',
-                },
-            })
+        onSuccess: async ({ data }, params) => {
+            await axiosInstance.put(`users/${me?.id}/settings`, { avatar: data.path })
+                .then((resp) => {
+                    dispatch(updateMeConfig(resp.data.result))
+                    dispatch({
+                        type: 'toast/toastMessage',
+                        payload: {
+                            message: t(data.message),
+                            type: 'success',
+                        },
+                    })
+                })
         },
         onError: (e) => console.log(e),
     })

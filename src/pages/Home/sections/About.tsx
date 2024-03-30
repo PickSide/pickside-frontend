@@ -6,11 +6,11 @@ const About = () => {
 
     return (
         <section id='about'>
-            <div className="max-w-screen-xl flex mx-auto">
-                <div className='min-w-[756px] h-[413px]'>
+            <div className="max-w-screen-xl flex flex-col gap-y-4 lg:flex-row mx-auto">
+                <div className='w-full lg:min-w-[756px] h-[413px]'>
                     <img src={Basketball} className='w-full h-full object-cover' />
                 </div>
-                <div className='flex flex-col'>
+                <div className='flex flex-col px-8 gap-y-4'>
                     <h1 className='text-ocean'>{t('What is PICK SIDE?')}</h1>
                     <p className='text-lg'>
                         {t(`
