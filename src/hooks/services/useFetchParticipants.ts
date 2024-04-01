@@ -1,10 +1,8 @@
 import { AxiosContext } from '@context'
 import { useContext } from 'react'
-import { useDispatch } from 'react-redux'
 import { useQuery } from '@tanstack/react-query'
 
 const useFetchParticipants = () => {
-    const dispatch = useDispatch()
     const { axiosInstance } = useContext(AxiosContext)
 
     const fetchParticipants = async (activityId: any) => await axiosInstance.get(`/activities/${activityId}/participants`)
