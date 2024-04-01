@@ -1,7 +1,7 @@
 import { AppState, setMe } from '@state'
-import { AxiosContext, SocketContext } from '@context'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { AxiosContext } from '@context'
 import { useContext } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
