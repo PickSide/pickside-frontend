@@ -13,7 +13,7 @@ const useUpdateAvatar = () => {
 
     const me = useSelector((state: AppState) => state.user)
 
-    const callback = async (formData) => await axiosFSInstance.post(`users/${me?.id}`, formData)
+    const callback = async (formData) => await axiosFSInstance.post(`/file-service/users/${me?.id}`, formData)
 
     const {
         mutate: updateAvatar,
@@ -23,7 +23,7 @@ const useUpdateAvatar = () => {
     } = useMutation(callback, {
         mutationKey: ['update-avatar'],
         onSuccess: async ({ data }, params) => {
-            await axiosInstance.put(`users/${me?.id}/settings`, { avatar: data.path })
+            await axiosInstance.put(`/me/settings`, { avatar: data.path })
                 .then((resp) => {
                     dispatch(updateMeConfig(resp.data.result))
                     dispatch({
