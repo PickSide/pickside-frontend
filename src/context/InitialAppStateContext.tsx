@@ -1,4 +1,5 @@
 import { FC, ReactNode, createContext } from 'react'
+import { useEffectOnce, useLocalStorage } from 'usehooks-ts'
 import { useFetchActivities, useFetchLocales, useFetchMe, useFetchSports } from '@hooks'
 
 export interface InitialAppStateContextProps {
@@ -14,7 +15,15 @@ export const InitialAppStateProvider: FC<any> = ({ children }) => {
 	const { isLoading: activitiesLoading } = useFetchActivities()
 	const { isLoading: localesLoading } = useFetchLocales()
 	const { isLoading: sportsLoading } = useFetchSports()
-	const { isLoading: meLoading } = useFetchMe()
+	const { isLoading: meLoading, refetchMe } = useFetchMe()
+	const [me] = useLocalStorage('user', null)
+
+	useEffectOnce(() => {
+		console.log(me)
+		if (me) {
+			refetchMe()
+		}
+	})
 
 	return (
 		<InitialAppStateContext.Provider value={{ loading: activitiesLoading || localesLoading || sportsLoading || meLoading }}>

@@ -17,7 +17,7 @@ const useLogout = () => {
 
 	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async () => await axiosInstance.post(`/logout`, { data: { userId: me?.id } })
+	const callback = async () => await axiosInstance.post(`/me/logout`, { data: { userId: me?.id } })
 
 	const {
 		mutate: logout,

@@ -27,7 +27,7 @@ const useLoginWithGoogle = () => {
 			},
 		})
 
-	const callback = async (data: any) => await axiosInstance.post('/google-login', data)
+	const callback = async (data: any) => await axiosInstance.post('/me/google-login', data)
 
 	const loginWithGoogle = useGoogleLogin({
 		onSuccess: async ({ access_token }) => {

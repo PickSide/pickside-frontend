@@ -9,12 +9,12 @@ export declare type NotificationType = 'system' | 'global' | 'like' | 'group-inv
 
 export type Notification = {
 	id?: string
-	created: string
-	expires: string
-	isRead: boolean
-	message: string
-	sender: User
-	type: NotificationType
+	content?: string
+	created?: string
+	expires?: string
+	isRead?: boolean
+	recipient?: User
+	title?: string
 }
 
 const NotificationsReducer = createSlice({

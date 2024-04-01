@@ -26,7 +26,6 @@ import Settings from '@pages/UserSettings/UserSettings'
 import { SidenavProvider } from '@context/SidenavContext'
 import SignUp from '@pages/Signup/SignUp'
 import SocialMedia from '@pages/UserSettings/Sections/SocialMedia'
-import { SocketProvider } from '@context/SocketContext'
 import { ToastProvider } from '@context/ToastContext'
 import { USER_PERMISSIONS } from '@state/me/constants'
 import UpcomingEvents from '@pages/UserUpcomingEvents/UpcomingEvents'
@@ -38,69 +37,67 @@ const App = () => {
 	return (
 		<AxiosProvider>
 			<QueryClientProvider client={queryClient}>
-				<SocketProvider>
-					<InitialAppStateProvider>
-						<EmailVerificationProvider>
-							<IdleTimeOutProvider>
-								<AppThemeProvider>
-									<ChatroomContainer />
-									<WindowProvider>
-										<SidenavProvider>
-											<BrowserRouter>
-												<AppBar />
-												<ToastProvider>
-													<Routes>
-														<Route path="/" element={<Home />}>
-															<Route index path="home" element={<LandingPage />} />
-															<Route path="about" element={<About />} />
-														</Route>
+				<InitialAppStateProvider>
+					<EmailVerificationProvider>
+						<IdleTimeOutProvider>
+							<AppThemeProvider>
+								<ChatroomContainer />
+								<WindowProvider>
+									<SidenavProvider>
+										<BrowserRouter>
+											<AppBar />
+											<ToastProvider>
+												<Routes>
+													<Route path="/" element={<Home />}>
+														<Route index path="home" element={<LandingPage />} />
+														<Route path="about" element={<About />} />
+													</Route>
+													<Route
+														path="/listing"
+														element={<Listing />}
+													/>
+													<Route
+														path="/user-detail/:id"
+														element={
+															<ProtectedRoute allowsGuestAccount permissions={[USER_PERMISSIONS.USERS_VIEW_DETAIL]}>
+																<UserDetail />
+															</ProtectedRoute>
+														}
+													/>
+													<Route path="/login" element={<Login />} />
+													<Route path="/signup" element={<SignUp />} />
+													<Route element={<RequireAuth />}>
 														<Route
-															path="/listing"
-															element={<Listing />}
-														/>
-														<Route
-															path="/user-detail/:id"
+															path="/new-event"
 															element={
-																<ProtectedRoute allowsGuestAccount permissions={[USER_PERMISSIONS.USERS_VIEW_DETAIL]}>
-																	<UserDetail />
+																<ProtectedRoute permissions={[USER_PERMISSIONS.ACTIVITIES_CREATE]}>
+																	<CreateEvent />
 																</ProtectedRoute>
 															}
 														/>
-														<Route path="/login" element={<Login />} />
-														<Route path="/signup" element={<SignUp />} />
-														<Route element={<RequireAuth />}>
-															<Route
-																path="/new-event"
-																element={
-																	<ProtectedRoute permissions={[USER_PERMISSIONS.ACTIVITIES_CREATE]}>
-																		<CreateEvent />
-																	</ProtectedRoute>
-																}
-															/>
-															<Route path="/user/">
-																<Route path="upcoming-events/" element={<UpcomingEvents />} />
-																<Route path="settings/" element={<Settings />}>
-																	<Route index element={<Navigate to="/user/settings/edit-profile" />} />
-																	<Route path="edit-profile" element={<EditProfile />} />
-																	<Route path="groups" element={<Groups />} />
-																	<Route path="personal-info" element={<PersonalInfo />} />
-																	<Route path="account-management" element={<AccountManagement />} />
-																	<Route path="activity-history" element={<ActivityHistory />} />
-																	<Route path="privacy" element={<Privacy />} />
-																	<Route path="social-media" element={<SocialMedia />} />
-																</Route>
+														<Route path="/user/">
+															<Route path="upcoming-events/" element={<UpcomingEvents />} />
+															<Route path="settings/" element={<Settings />}>
+																<Route index element={<Navigate to="/user/settings/edit-profile" />} />
+																<Route path="edit-profile" element={<EditProfile />} />
+																<Route path="groups" element={<Groups />} />
+																<Route path="personal-info" element={<PersonalInfo />} />
+																<Route path="account-management" element={<AccountManagement />} />
+																<Route path="activity-history" element={<ActivityHistory />} />
+																<Route path="privacy" element={<Privacy />} />
+																<Route path="social-media" element={<SocialMedia />} />
 															</Route>
 														</Route>
-													</Routes>
-												</ToastProvider>
-											</BrowserRouter>
-										</SidenavProvider>
-									</WindowProvider>
-								</AppThemeProvider>
-							</IdleTimeOutProvider>
-						</EmailVerificationProvider>
-					</InitialAppStateProvider>
-				</SocketProvider>
+													</Route>
+												</Routes>
+											</ToastProvider>
+										</BrowserRouter>
+									</SidenavProvider>
+								</WindowProvider>
+							</AppThemeProvider>
+						</IdleTimeOutProvider>
+					</EmailVerificationProvider>
+				</InitialAppStateProvider>
 			</QueryClientProvider>
 		</AxiosProvider>
 	)

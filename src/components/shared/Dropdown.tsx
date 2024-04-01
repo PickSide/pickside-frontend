@@ -81,7 +81,7 @@ const Dropdown = forwardRef<any, DropdownProps>(
 						<>
 							<div className="fixed inset-0 w-screen h-screen z-20" onClick={() => setIsOpen(false)}></div>
 							<motion.div
-								className="absolute right-0 mt-2 origin-top-right z-20 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-clip"
+								className="absolute right-0 mt-2 max-h-[400px] overflow-y-scroll origin-top-right z-20 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-clip"
 								role="menu"
 								aria-orientation="vertical"
 								aria-labelledby="menu-button"

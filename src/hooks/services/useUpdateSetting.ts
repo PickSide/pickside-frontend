@@ -13,7 +13,7 @@ const useUpdateSetting = () => {
 
 	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async (data) => axiosInstance.put(`users/${me?.id}/settings`, data)
+	const callback = async (data) => axiosInstance.put(`/me/users/${me?.id}/settings`, data)
 
 
 	const {
