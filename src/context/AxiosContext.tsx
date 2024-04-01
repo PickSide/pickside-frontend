@@ -43,14 +43,6 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 		},
 	})
 
-	const axiosWSInstance = axios.create({
-		baseURL: import.meta.env.VITE_APP_WEBSOCKET_SERVICE_URL,
-		withCredentials: true,
-		headers: {
-			'X-Request-Id': uuidv4(),
-		},
-	})
-
 	return <AxiosContext.Provider value={{ axiosInstance, axiosFSInstance, axiosNSInstance, axiosWSInstance }}>{children}</AxiosContext.Provider>
 }
 
