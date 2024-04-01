@@ -7,14 +7,12 @@ export interface AxiosContextProps {
 	axiosInstance: AxiosInstance
 	axiosFSInstance: AxiosInstance
 	axiosNSInstance: AxiosInstance
-	axiosWSInstance: AxiosInstance
 }
 
 const AxiosContext = createContext<AxiosContextProps>({
 	axiosInstance: axios,
 	axiosFSInstance: axios,
-	axiosNSInstance: axios,
-	axiosWSInstance: axios
+	axiosNSInstance: axios
 })
 
 export const AxiosProvider: FC<any> = ({ children }) => {
@@ -43,7 +41,7 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 		},
 	})
 
-	return <AxiosContext.Provider value={{ axiosInstance, axiosFSInstance, axiosNSInstance, axiosWSInstance }}>{children}</AxiosContext.Provider>
+	return <AxiosContext.Provider value={{ axiosInstance, axiosFSInstance, axiosNSInstance }}>{children}</AxiosContext.Provider>
 }
 
 export default AxiosContext
