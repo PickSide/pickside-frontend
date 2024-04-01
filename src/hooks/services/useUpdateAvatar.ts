@@ -9,11 +9,11 @@ import { useTranslation } from 'react-i18next'
 const useUpdateAvatar = () => {
     const dispatch = useDispatch()
     const { t } = useTranslation()
-    const { axiosInstance, axiosISInstance } = useContext(AxiosContext)
+    const { axiosInstance, axiosFSInstance } = useContext(AxiosContext)
 
     const me = useSelector((state: AppState) => state.user)
 
-    const callback = async (formData) => await axiosISInstance.post(`users/${me?.id}`, formData)
+    const callback = async (formData) => await axiosFSInstance.post(`users/${me?.id}`, formData)
 
     const {
         mutate: updateAvatar,
