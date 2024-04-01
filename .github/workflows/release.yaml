@@ -3,7 +3,7 @@ name: Build and Release
 on:
   push:
     branches:
-      - main # or the name of your release branch
+      - release # or the name of your release branch
 
 jobs:
   build-and-release:
