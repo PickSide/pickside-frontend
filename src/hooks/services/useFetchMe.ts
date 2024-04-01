@@ -10,13 +10,14 @@ const useFetchMe = () => {
 
     const callback = async () => await axiosInstance.get('/me')
 
-    const { data: me, isLoading } = useQuery(['fetch-me'], callback, {
+    const { data: me, isLoading, refetch: refetchMe } = useQuery(['fetch-me'], callback, {
+        enabled: false,
         onSuccess: ({ data }) => dispatch(setMe(data.result)),
         onError: () => { },
         refetchOnWindowFocus: false,
     })
 
-    return { me, isLoading }
+    return { me, isLoading, refetchMe }
 }
 
 export default useFetchMe

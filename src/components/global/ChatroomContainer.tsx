@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import Avatar from '@components/Avatar'
 import { AxiosContext } from '@context'
 import ChatBubble from './ChatBubble'
-import { RTAContentContext } from '@context'
 import { motion } from 'framer-motion'
 import { useEffectOnce } from 'usehooks-ts'
 import { useFetchOnlineUsers } from '@hooks'
@@ -31,7 +30,6 @@ const ChatroomContainer = () => {
 
 export const Chatroom = ({ chatroom, minimize = false }) => {
 	const { axiosInstance } = useContext(AxiosContext)
-	const { chatroomsSocket } = useContext(RTAContentContext)
 	const dispatch = useDispatch()
 	const { onlineUsers } = useFetchOnlineUsers()
 	const me = useSelector((state: AppState) => state.user)
@@ -61,18 +59,18 @@ export const Chatroom = ({ chatroom, minimize = false }) => {
 	}
 
 	const onSubmit = async (values) => {
-		chatroomsSocket.emit('chatroom:sending-message', { ...values, sender: me?.id })
-		reset()
+		// 	chatroomsSocket.emit('chatroom:sending-message', { ...values, sender: me?.id })
+		// 	reset()
 	}
 
-	useEffect(() => {
-		chatroomsSocket.emit('chatroom:open', chatroom)
-		chatroomsSocket.on('chatroom:message-registered', handleMessage)
+	// useEffect(() => {
+	// 	chatroomsSocket.emit('chatroom:open', chatroom)
+	// 	chatroomsSocket.on('chatroom:message-registered', handleMessage)
 
-		return () => {
-			chatroomsSocket.off('chatroom:message-registered', console.log)
-		}
-	}, [])
+	// 	return () => {
+	// 		chatroomsSocket.off('chatroom:message-registered', console.log)
+	// 	}
+	// }, [])
 
 	useEffectOnce(() => {
 		fetchMessages()

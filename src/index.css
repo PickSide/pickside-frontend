@@ -183,6 +183,10 @@
 	.scrollable {
 		@apply scrollbar-thumb-accent scrollbar-thin scrollbar-track-gray-100;
 	}
+
+	section {
+		@apply w-screen mx-auto mb-[182px];
+	}
 }
 
 @layer components {

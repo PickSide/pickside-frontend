@@ -38,5 +38,6 @@
 	"Allow location tracking": "Allow location tracking",
 	"Allow the app to track your location.": "Allow the app to track your location.",
 	"Set default location": "Set default location",
-	"Set the default region when loading the app.": "Set the default region when loading the app."
+	"Set the default region when loading the app.": "Set the default region when loading the app.",
+	"Version": "Version {{ version }}"
 }

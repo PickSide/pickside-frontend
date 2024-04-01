@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useFetchOnlineUsers, useFetchUsers } from '@hooks'
 
 import Avatar from '@components/Avatar'
-import { RTAContentContext } from '@context'
 import { StatusBadge } from '@components'
 import UsersAutocomplete from './UsersAutocomplete'
 import { useEffectOnce } from 'usehooks-ts'
@@ -18,7 +17,6 @@ const ChatroomsListing: FC<ChatroomsListingProps> = ({ callbackOnClick }) => {
 	const dispatch = useDispatch()
 	const { onlineUsers, refetch: refetchOnlineUsers } = useFetchOnlineUsers()
 	const { users } = useFetchUsers()
-	const { usersSocket } = useContext(RTAContentContext)
 	const me = useSelector((state: AppState) => state.user)
 
 	if (!me) {
@@ -35,14 +33,14 @@ const ChatroomsListing: FC<ChatroomsListingProps> = ({ callbackOnClick }) => {
 		}
 	}
 
-	useEffectOnce(() => {
-		usersSocket?.on('user:isonline', refetchOnlineUsers)
-		usersSocket?.on('user:isoffline', refetchOnlineUsers)
-		return () => {
-			usersSocket?.off('user:isonline', console.log)
-			usersSocket?.off('user:isoffline', console.log)
-		}
-	})
+	// useEffectOnce(() => {
+	// 	usersSocket?.on('user:isonline', refetchOnlineUsers)
+	// 	usersSocket?.on('user:isoffline', refetchOnlineUsers)
+	// 	return () => {
+	// 		usersSocket?.off('user:isonline', console.log)
+	// 		usersSocket?.off('user:isoffline', console.log)
+	// 	}
+	// })
 
 	const onlineUsersBydId = useMemo(() => onlineUsers?.results?.map((user) => user.id), [onlineUsers])
 

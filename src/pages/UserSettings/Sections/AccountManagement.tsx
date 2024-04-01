@@ -1,14 +1,15 @@
-import { AppState, Locale } from '@state'
 import { BottomDrawer, Button, Dialog, InputField, Select } from '@components'
 import { Controller, useForm } from 'react-hook-form'
+import { useEffect, useState } from 'react'
 
 import { ACCOUNT_TYPE } from '@state/me/constants'
+import { AppState } from '@state'
 import ChangePasswordForm from '../components/forms/ChangePasswordForm'
 import DeactivationForm from '../components/forms/DeactivationForm'
 import { FaExternalLinkAlt } from 'react-icons/fa'
+import LanguageSelector from '@components/platform/LanguageSelector'
 import getDirtyFieldsValues from '../utils/getDirtyFieldsValues'
 import { useSelector } from 'react-redux'
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useUpdateSetting } from '@hooks'
 
@@ -17,7 +18,6 @@ const AccountManagement = () => {
 	const { updateUser } = useUpdateSetting()
 
 	const me = useSelector((state: AppState) => state.user)
-	const locales = useSelector((state: AppState) => state.locales)
 
 	const { control, formState, reset, handleSubmit } = useForm({
 		defaultValues: {
@@ -34,9 +34,20 @@ const AccountManagement = () => {
 
 	const onSubmit = async (values) => {
 		const changes = getDirtyFieldsValues(values, formState)
+
+		if (changes['preferredLocale']) {
+			changes['preferredLocale'] = changes['preferredLocale'].value
+		}
+
 		await updateUser(changes)
-		reset()
 	}
+
+	useEffect(() => {
+		reset({
+			email: me?.email,
+			preferredLocale: me?.preferredLocale,
+		});
+	}, [me, reset]);
 
 	return (
 		<div className="relative h-full">
@@ -66,15 +77,7 @@ const AccountManagement = () => {
 						name="preferredLocale"
 						control={control}
 						render={({ field }) => (
-							<Select
-								{...field}
-								label={t('Language')}
-								defaultValue={field.value}
-								placeholder={t('Select language')}
-								options={locales?.results}
-								getOptionLabel={(option: Locale) => option.name}
-								getOptionValue={(option: Locale) => option.id}
-							/>
+							<LanguageSelector {...field} />
 						)}
 					/>
 					<BottomDrawer formState={formState} onReset={reset} />

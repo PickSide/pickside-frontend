@@ -7,7 +7,6 @@ import { AppState } from '@state'
 import Avatar from '@components/Avatar'
 import AvatarUploadForm from './components/forms/AvatarUploadForm'
 import EditProfile from './Sections/EditProfile'
-import Favorites from './Sections/Favorites'
 import Groups from './Sections/Groups'
 import History from './Sections/ActivityHistory'
 import { useSelector } from 'react-redux'
@@ -29,26 +28,12 @@ const Settings = () => {
 				content: <EditProfile />,
 			},
 			{
-				description: t('Favorites'),
-				ref: 'favorites',
-				value: 'favorites',
-				icon: <Icon icon="star" />,
-				content: <Favorites />,
-			},
-			{
 				description: t('Groups'),
 				ref: 'groups',
 				value: 'groups',
 				icon: <Icon icon="group" />,
 				content: <Groups />,
 			},
-			// {
-			// 	description: t('Personal Info'),
-			// 	ref: 'personal-info',
-			// 	value: 'personal-info',
-			// 	icon: <Icon icon="star" />,
-			// 	content: <AppSettings />,
-			// },
 			{
 				description: t('Account Management'),
 				ref: 'account-management',
@@ -56,13 +41,6 @@ const Settings = () => {
 				icon: <Icon icon="settings" />,
 				content: <AppSettings />,
 			},
-			// {
-			// 	description: t('Social Media'),
-			// 	ref: 'social-media',
-			// 	value: 'social-media',
-			// 	icon: <MdHistory size={20} />,
-			// 	content: <History />,
-			// },
 			{
 				description: t('Privacy'),
 				ref: 'privacy',
@@ -70,13 +48,6 @@ const Settings = () => {
 				icon: <Icon icon="lock" />,
 				content: <History />,
 			},
-			// {
-			// 	description: t('Activity history'),
-			// 	ref: 'activity-history',
-			// 	value: 'activity-history',
-			// 	icon: <BiTime size={20} />,
-			// 	content: <History />,
-			// },
 		],
 		[t],
 	)

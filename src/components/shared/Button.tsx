@@ -5,13 +5,13 @@ import Spinner from '../Spinner'
 import { cn } from '@utils'
 
 export const ButtonVariants = cva(
-	['rounded', 'text-base', 'leading-none', 'hover:bg-gray-300', 'disabled:text-cool-gray-4', 'disabled:bg-cool-gray-2'],
+	['rounded', 'text-base', 'leading-none', 'disabled:text-cool-gray-4', 'disabled:pointer-events-none'],
 	{
 		variants: {
 			variant: {
-				primary: ['text-white', 'bg-ocean', 'dark:bg-grey-600', 'dark:text-white', 'dark:hover:bg-gray-300'],
-				secondary: ['text-ocean', 'border-[1px]', 'border-ocean', 'dark:bg-white', 'dark:text-black'],
-				tertiary: ['text-ocean', 'underline', 'font-semibold', 'bg-none ', 'dark:text-white'],
+				primary: ['text-white', 'bg-ocean', 'dark:bg-grey-600', 'hover:bg-gray-300', 'disabled:bg-cool-gray-4', 'disabled:text-cloud', 'dark:text-white', 'dark:hover:bg-gray-300'],
+				secondary: ['text-ocean', 'border-[1px]', 'border-ocean', 'hover:bg-gray-300', 'disabled:bg-cool-gray-2', 'dark:bg-white', 'dark:text-black'],
+				tertiary: ['text-ocean', 'underline', 'font-semibold', 'bg-none ', 'hover:text-ocean/70', 'dark:text-white'],
 				danger: ['text-white', 'bg-red-600 ', 'hover:bg-red-400'],
 			},
 			size: {

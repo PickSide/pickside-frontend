@@ -38,7 +38,7 @@ export const reducer = (state = defaultStepperState, action) => {
 
 export const StepperContext = createContext<any>([])
 
-export const StepperProvider = ({ children }) => {
+export const StepperProvider = ({ children, ...props }) => {
 	const [state, dispatch] = useReducer(reducer, defaultStepperState)
 
 	return <StepperContext.Provider value={[state, dispatch]}>{children}</StepperContext.Provider>

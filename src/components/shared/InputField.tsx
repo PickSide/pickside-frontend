@@ -1,11 +1,11 @@
-import { ComponentPropsWithRef, ReactNode, forwardRef, useCallback, useId, useState } from 'react'
+import { ComponentPropsWithRef, ReactNode, forwardRef, useCallback, useId } from 'react'
 import { VariantProps, cva } from 'class-variance-authority'
 
 import { cn } from '@utils'
 
 export const inputVariants = cva(
 	[
-		'inline-flex bg-white items-center border-2 rounded-md h-full mt-1 mb-2 focus-within:border-2 focus-within:border-ocean transition-all',
+		'inline-flex bg-white items-center border-2 rounded-md h-full mt-1 focus-within:border-2 focus-within:border-ocean transition-all',
 	],
 	{
 		variants: {
@@ -17,7 +17,7 @@ export const inputVariants = cva(
 			},
 		},
 		defaultVariants: {
-			size: 'sm',
+			size: 'md',
 		},
 	},
 )
@@ -71,14 +71,15 @@ const InputField = forwardRef<any, InputFieldProps>(
 		)
 
 		return (
-			<div className="flex flex-col" ref={ref}>
-				<label htmlFor={`${id || generatedId}-label-input`}>
+			<div className="relative flex flex-col mb-6 w-full" ref={ref}>
+				<label htmlFor={`${id || generatedId}-label-input`} className='min-h-[24px]'>
 					{label}
 				</label>
 				<div className={cn(inputVariants({ className, size }), className)}>
 					<span className="inline-flex items-center max-w-6 max-h-6 mx-2">{startContent}</span>
 					<input
 						ref={ref}
+						id={`${id || generatedId}-label-input`}
 						aria-labelledby={`${id || generatedId}-label-input`}
 						autoComplete="off"
 						disabled={readOnly}
@@ -90,7 +91,7 @@ const InputField = forwardRef<any, InputFieldProps>(
 					<span className="inline-flex items-center w-6 h-6 mx-2">{endContent}</span>
 				</div>
 				{error && (
-					<label htmlFor={id} className="text-error">
+					<label htmlFor={`${id || generatedId}-label-input`} className="text-error">
 						{error}
 					</label>
 				)}

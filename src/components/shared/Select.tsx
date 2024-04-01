@@ -1,4 +1,4 @@
-import { ReactNode, forwardRef } from 'react'
+import { ReactNode, forwardRef, useId } from 'react'
 import ReactSelect, {
 	ClearIndicatorProps,
 	DropdownIndicatorProps,
@@ -12,7 +12,7 @@ import Icon from './Icon'
 import IconButton from '@components/IconButton'
 import { cn } from '@utils'
 
-export const SelectVariants = cva('relative',
+export const SelectVariants = cva('w-full inline-flex items-center mt-1',
 	{
 		variants: {
 			size: {
@@ -81,12 +81,15 @@ const optionStyles = {
 const noOptionsMessageStyles = 'text-gray-500 p-2 bg-gray-50 border border-dashed border-gray-200 rounded-sm bg-white'
 
 const Select = forwardRef<any, SelectProps>(({ className, components, label, fullWidth = false, ...rest }: SelectProps, ref) => {
+	const id = useId()
+
 	return (
-		<div className={cn('relative ', fullWidth ? 'w-full' : '')}>
-			<label id="listbox-label" className="text-gray-800 leading-4">
+		<div className={cn('relative ', fullWidth ? 'w-full' : '')} ref={ref}>
+			<label id={`listbox-label-${id}`} className='min-h-[24px]'>
 				{label}
 			</label>
 			<ReactSelect
+				inputId={`listbox-label-${id}`}
 				components={{ DropdownIndicator, ClearIndicator, MultiValueRemove, ...components }}
 				unstyled
 				classNamePrefix="pickside-select"

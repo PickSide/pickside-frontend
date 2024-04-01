@@ -50,6 +50,7 @@ module.exports = {
 				},
 				cloud: '#FBFBFB',
 				'cool-gray': {
+					0: '#F8F9F9',
 					1: '#EAEAEA',
 					2: '#D9D9D9',
 					3: '#C2C8CC',

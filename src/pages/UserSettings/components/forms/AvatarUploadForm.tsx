@@ -2,10 +2,9 @@ import { Button, Upload } from '@components'
 import { useId, useState } from 'react'
 
 import Avatar from '@components/Avatar'
-import { convertToBase64 } from '@utils/base64'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { useUpdateAvatar, } from '@hooks'
+import { useUpdateAvatar } from '@hooks'
 
 const AvatarUploadForm = () => {
     const id = useId()
@@ -17,6 +16,8 @@ const AvatarUploadForm = () => {
     const { updateAvatar, isLoading } = useUpdateAvatar()
     const { t } = useTranslation()
 
+
+
     const [preview, setPreview] = useState<any>()
 
     const handleSelect = (e) => {
@@ -25,8 +26,11 @@ const AvatarUploadForm = () => {
     }
 
     const onSubmit = async ({ avatar }: any) => {
-        const base64 = await convertToBase64(avatar)
-        await updateAvatar({ avatar: base64 })
+        const formData = new FormData()
+
+        formData.append('file', avatar)
+
+        await updateAvatar(formData)
     }
 
     return (

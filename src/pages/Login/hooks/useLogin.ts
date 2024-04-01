@@ -11,7 +11,6 @@ import { useTranslation } from 'react-i18next'
 
 const useLogin = () => {
 	const [, setCachedUser] = useLocalStorage('user', null)
-
 	const [, setGuestUser] = useSessionStorage('guest-user', null)
 
 	const { axiosInstance } = useContext(AxiosContext)
@@ -19,7 +18,7 @@ const useLogin = () => {
 	const navigate = useNavigate()
 	const { t } = useTranslation()
 
-	const callback = (data: any) => axiosInstance.post('/login', data)
+	const callback = (data: any) => axiosInstance.post('/me/login', data)
 
 
 	const {
