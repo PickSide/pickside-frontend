@@ -54,7 +54,7 @@ const UserReducer = createSlice({
 		setMe: (state, action: PayloadAction<User | null | undefined>) => (state = action.payload),
 		updateMeConfig: (state, action: PayloadAction<any>) => state = { ...state, ...action.payload },
 		updateMeFavorites: (state, action: PayloadAction<any>) => {
-			if (state && action.payload.result) {
+			if (state) {
 				state.favorites = action.payload.result
 			}
 			return state

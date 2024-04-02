@@ -8,6 +8,7 @@ const useUpdateFavorite = () => {
 	const { axiosInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 
+
 	const callback = async (activityId) =>
 		await axiosInstance.put(`/me/activities/${activityId}/favorites`)
 
@@ -17,7 +18,7 @@ const useUpdateFavorite = () => {
 		error,
 		isError,
 	} = useMutation(callback, {
-		mutationKey: ['updateFavorite'],
+		mutationKey: ['update-favorite'],
 		onSuccess: ({ data }, activityId) => dispatch(updateMeFavorites({ activityId, result: data.result })),
 		onError: (e) => console.log(e),
 	})

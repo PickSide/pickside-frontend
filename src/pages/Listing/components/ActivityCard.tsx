@@ -21,7 +21,6 @@ interface ActivityCardProps extends CardProps {
 }
 
 const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) => {
-	console.log('activity', activity)
 	const { t } = useTranslation()
 	const {
 		isFavorite,
@@ -60,7 +59,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 		} else {
 			return t('Full')
 		}
-	}, [isRegisteredToActivity])
+	}, [isFull, isRegisteredToActivity, t])
 
 	return (
 		<>

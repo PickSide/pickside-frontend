@@ -8,10 +8,10 @@ const HowItWorks = () => {
 
 	return (
 		<section id="about" className="text-center dark:bg-charcoal-black/20">
-			<div className='max-w-screen-xl px-10 lg:px-24 py-10 mx-auto '>
+			<div className='max-w-screen-xl py-10 mx-auto '>
 
 				<h3 className="text-ocean border-b-8 border-ocean font-semibold mb-10 lg:mb-[171px]">{t('How It Works')}</h3>
-				<div className="flex flex-col items-center gap-y-20 lg:flex-row lg:justify-between lg:gap-x-10">
+				<div className="flex flex-col items-center gap-y-20 lg:flex-row lg:justify-between">
 					<div className="flex flex-col justify-between items-center gap-y-10">
 						<img className="float-right" src={JoinOrCreateSvg} alt="join_or_create" />
 						<div className="float-left w-3/4 space-y-2">
