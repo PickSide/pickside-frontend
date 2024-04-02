@@ -63,8 +63,8 @@
 	"scripts": {
 		"dev": "vite --host",
 		"build": "tsc && vite build",
-		"postbuild": "npm run sync",
-		"sync": "aws s3 sync build/ s3://pickside.net/ --delete  --cache-control max-age=60",
+		"postbuild": "echo Running postbuild && pnpm run sync",
+		"sync": "echo Syncing to S3 &&  aws s3 sync build/ s3://pickside.net/ --delete  --cache-control max-age=60",
 		"preview": "vite preview"
 	},
 	"eslintConfig": {
