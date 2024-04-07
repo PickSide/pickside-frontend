@@ -2,10 +2,9 @@ import { AppState, User } from '@state'
 import { Button, Dialog, DialogCTA, InputField, Select, Spinner, Switch, TextAreaField } from '@components'
 import { Controller, useForm, useFormState } from 'react-hook-form'
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
-import { useDeleteGroup, useFetchGroups, useFetchUsers } from '@hooks'
+import { useDeleteGroup, useFetchUsers } from '@hooks'
 
 import { CreateGroupProps } from '../utils/types'
-import GroupSelector from '@components/platform/GroupSelector'
 import SportSelector from '@components/platform/SportSelector'
 import useCreateGroups from '../hooks/services/useCreateGroups'
 import useFetchGroupByOrganizerId from '@hooks/services/useFetchGroupByOrganizerId'
@@ -32,11 +31,9 @@ const Groups = () => {
 		},
 	})
 	const { dirtyFields } = useFormState({ control })
-	console.log(dirtyFields)
 
 	const me = useSelector((state: AppState) => state.user)
 	const groups = useSelector((state: AppState) => state.groups)
-	const sportOptions = useSelector((state: AppState) => state.sports?.results || [])
 
 	const [openEditCreateGroupDialog, setOpenEditCreateGroupDialog] = useState<boolean>(false)
 	const [openConfirmDeleteGroupDialog, setOpenConfirmDeleteGroupDialog] = useState<boolean>(false)

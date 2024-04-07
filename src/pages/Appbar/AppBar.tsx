@@ -59,6 +59,7 @@ const AppBar = () => {
 								</NavLink>
 							</PrivilegedContent>
 						)}
+
 						<PrivilegedContent permissions={[USER_PERMISSIONS.SEND_MESSAGES]}>
 							<IconButton
 								onClick={() =>
