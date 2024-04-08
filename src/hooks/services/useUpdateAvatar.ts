@@ -13,7 +13,10 @@ const useUpdateAvatar = () => {
 
     const me = useSelector((state: AppState) => state.user)
 
-    const callback = async (formData) => await axiosFSInstance.post(`/file-service/users/${me?.id}`, formData)
+    const callback = async (formData) => {
+        console.log(formData)
+        return await axiosFSInstance.post(`/file-service/users/${me?.id}`, formData)
+    }
 
     const {
         mutate: updateAvatar,

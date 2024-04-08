@@ -21,7 +21,6 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 		baseURL: import.meta.env.VITE_APP_MAIN_SERVICE_URL,
 		withCredentials: true,
 		headers: {
-
 			'Content-Type': 'application/json',
 		},
 	})
@@ -30,7 +29,7 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 		baseURL: import.meta.env.VITE_APP_FILE_SERVICE_URL,
 		withCredentials: true,
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
 		},
 	})
 
