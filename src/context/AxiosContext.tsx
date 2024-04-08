@@ -1,6 +1,7 @@
-import { FC, createContext } from 'react'
+import { FC, createContext, useEffect } from 'react'
 import axios, { AxiosInstance } from 'axios'
 
+import { version as ClientVersion } from 'package.json'
 import { v4 as uuidv4 } from 'uuid'
 
 export interface AxiosContextProps {
@@ -21,7 +22,6 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 		withCredentials: true,
 		headers: {
 			'Content-Type': 'application/json',
-			'X-Request-Id': uuidv4(),
 		},
 	})
 
@@ -29,7 +29,7 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 		baseURL: import.meta.env.VITE_APP_FILE_SERVICE_URL,
 		withCredentials: true,
 		headers: {
-			'X-Request-Id': uuidv4(),
+			'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
 		},
 	})
 
@@ -37,9 +37,23 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 		baseURL: import.meta.env.VITE_APP_NOTIFICATION_SERVICE_URL,
 		withCredentials: true,
 		headers: {
-			'X-Request-Id': uuidv4(),
+			'Content-Type': 'application/json',
 		},
 	})
+
+	useEffect(() => {
+		[axiosInstance, axiosFSInstance, axiosNSInstance]
+			.forEach((axiosInstance) => axiosInstance.interceptors.request.use((config) => {
+				config.headers['Accept'] = '*/*'
+				config.headers['Accept-Version'] = 'v2'
+				config.headers['X-Client-Version'] = ClientVersion
+				config.headers['X-Request-Id'] = uuidv4()
+				return config
+			},
+				(error) => {
+					return Promise.reject(error);
+				}))
+	}, [axiosInstance, axiosFSInstance, axiosNSInstance])
 
 	return <AxiosContext.Provider value={{ axiosInstance, axiosFSInstance, axiosNSInstance }}>{children}</AxiosContext.Provider>
 }
