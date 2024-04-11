@@ -23,10 +23,7 @@ const GroupReducer = createSlice({
 	name: 'groups',
 	reducers: {
 		addGroup: (state, action: PayloadAction<Group>) => {
-			if (state.results) {
-				state.results = [...state.results, action.payload]
-			}
-			return state
+			state.results = state.results ? [...state.results, action.payload] : [action.payload]
 		},
 		removeGroup: (state, action: PayloadAction<string>) => {
 			if (state.results) {

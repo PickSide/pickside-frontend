@@ -10,7 +10,7 @@ interface DialogProps extends ComponentPropsWithoutRef<'dialog'> {
 	onClose: (e?) => void
 }
 
-interface DialogCTAProps extends ComponentPropsWithoutRef<'div'> {}
+interface DialogCTAProps extends ComponentPropsWithoutRef<'div'> { }
 
 const Dialog: FC<DialogProps> = ({ children, className, open, title, onClose, ...rest }) => {
 	useEffect(() => {
@@ -38,9 +38,9 @@ const Dialog: FC<DialogProps> = ({ children, className, open, title, onClose, ..
 					animate="visible"
 					exit="exit"
 					variants={modaleDropIn}
-					className={cn('fixed z-20 rounded-md inset-0', className)}
+					className={cn('fixed z-20 rounded-md inset-0 overflow-scroll', className)}
 				>
-					<div className="bg-white border shadow-sm rounded-md min-[100px] max-w-[600px]">
+					<div className="bg-white border shadow-sm rounded-md">
 						<div className="flex justify-between items-center py-3 px-4 border-b space-x-5">
 							<h3 className="h5 mb-0">{title}</h3>
 							<button

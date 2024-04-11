@@ -136,6 +136,8 @@ const Groups = () => {
 								formatOptionLabel={(option: User) => <span>{option?.username}</span>}
 								getOptionLabel={(option: User) => option.username!}
 								getOptionValue={(option: User) => option.id}
+								menuPortalTarget={document.body}
+								styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
 							/>
 						)}
 					/>
@@ -155,7 +157,7 @@ const Groups = () => {
 				</form>
 			</Dialog>
 
-			<Dialog open={openConfirmDeleteGroupDialog} onClose={() => setOpenConfirmDeleteGroupDialog(false)}>
+			<Dialog open={openConfirmDeleteGroupDialog} onClose={() => setOpenConfirmDeleteGroupDialog(false)} title={t('Delete group')}>
 				<p>{t('Are you sure you want to delete group ')}</p>
 				<DialogCTA>
 					<Button variant="tertiary" onClick={() => setOpenConfirmDeleteGroupDialog(false)}>

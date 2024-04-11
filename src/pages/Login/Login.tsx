@@ -7,7 +7,6 @@ import { NavLink } from 'react-router-dom'
 import SoccerBall from '@assets/soccer-ball.png'
 import { motion } from 'framer-motion'
 import { pageTransition } from '@utils'
-import { useDevice } from '@hooks'
 import { useTranslation } from 'react-i18next'
 
 export default function Login() {
@@ -18,7 +17,6 @@ export default function Login() {
 		},
 	})
 	const { t } = useTranslation()
-	const [device] = useDevice()
 
 	return (
 		<motion.div
@@ -26,12 +24,12 @@ export default function Login() {
 			animate="visible"
 			exit="exit"
 			variants={pageTransition}
-			className="flex flex-col w-screen h-[calc(100vh-64px)]"
+			className="flex flex-col w-screen h-[calc(100vh-64px)] overflow-hidden"
 		>
 			<div className="flex-grow-2 flex">
 				<div className="hidden relative lg:flex justify-center bg-cool-gray-0 w-1/2">
 					<div className="w-[320px] h-[320px] bg-soccer-ball bg-contain my-auto">
-						<img src={SoccerBall} />
+						<img src={SoccerBall} alt="soccer-ball.png" />
 					</div>
 					<div className="absolute top-1/2 w-full rounded-b-full h-[247px] bg-black/[.5%] backdrop-blur-[50px]" />
 				</div>

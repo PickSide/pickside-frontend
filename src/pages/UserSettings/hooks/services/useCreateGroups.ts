@@ -1,8 +1,7 @@
-import { AppState, addGroup } from '@state'
-import { useDispatch, useSelector } from 'react-redux'
-
 import { AxiosContext } from '@context'
+import { addGroup } from '@state'
 import { useContext } from 'react'
+import { useDispatch } from 'react-redux'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
@@ -10,8 +9,6 @@ const useCreateGroups = () => {
 	const { axiosInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
-
-	const me = useSelector((state: AppState) => state.user)
 
 	const callback = async (data: any) =>
 		await axiosInstance.post(`/groups`, data)
