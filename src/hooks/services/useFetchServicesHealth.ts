@@ -29,7 +29,7 @@ const useFetchServicesHealth = () => {
         refetch,
     } = useQuery(['fetch-health-services'], fetchServicesHealth, {
         onError: () => { },
-        refetchInterval: 10000,
+        refetchInterval: 3.6e6,
         refetchOnWindowFocus: false,
     })
 
