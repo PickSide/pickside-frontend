@@ -1,12 +1,12 @@
 import { ComponentPropsWithRef, ReactNode, forwardRef } from 'react'
+import Icon, { IconProps } from '../shared/Icon'
 import { VariantProps, cva } from 'class-variance-authority'
 import { cn, fadeIn } from '@utils'
 
-import Icon from './Icon'
 import IconButton from '@components/IconButton'
 import { motion } from 'framer-motion'
 
-export const alertVariants = cva(
+export const bannerVariants = cva(
 	[
 		'flex',
 		'w-full',
@@ -14,7 +14,6 @@ export const alertVariants = cva(
 		'items-center',
 		'space-x-4',
 		'shadow-lg',
-		'text-white',
 		'p-4',
 		'z-50',
 		'min-h-[50px]',
@@ -29,26 +28,21 @@ export const alertVariants = cva(
 				success: 'bg-success',
 				warning: 'bg-warning',
 			},
-			alertIcon: {
-				info: 'info',
-				error: 'error',
-				success: 'check_indeterminate_small',
-				warning: 'warning',
-			}
 		},
 		defaultVariants: {
-			alertIcon: "info",
 			severity: 'info',
 		},
 	},
 )
 
-export interface AlertProps extends ComponentPropsWithRef<'div'>, VariantProps<typeof alertVariants> {
+export type BannerProps = ComponentPropsWithRef<'div'> & VariantProps<typeof bannerVariants> & {
 	children?: ReactNode
+	icon?: string
 	onClose?: () => void
 }
 
-const Alert = forwardRef<HTMLDivElement, AlertProps>(({ onClose, children, className, alertIcon, severity }, ref) => {
+const Banner = forwardRef<HTMLDivElement, BannerProps>(({ onClose, children, className, icon, severity }, ref) => {
+	console.log(bannerVariants({ className, severity }))
 	return (
 		<motion.div
 			ref={ref}
@@ -57,15 +51,15 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(({ onClose, children, class
 			animate="show"
 			exit="exit"
 			whileInView="show"
-			className={cn(alertVariants({ className, severity }), className)}
+			className={cn(bannerVariants({ className, severity }), className)}
 		>
-			<Icon icon={alertIcon as any} />
+			<Icon icon={icon as any} />
 			{children}
-			<IconButton className="text-white" onClick={onClose}>
+			<IconButton onClick={onClose}>
 				<Icon icon="close" />
 			</IconButton>
 		</motion.div>
 	)
 })
 
-export default Alert
+export default Banner

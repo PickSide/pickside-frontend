@@ -1,8 +1,8 @@
 import { FC, ReactNode, createContext, useEffect, useState } from 'react'
 
-import { Alert, } from '@components'
 import { AnimatePresence } from 'framer-motion'
 import { AppState } from '@state'
+import { Banner, } from '@components'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
@@ -28,13 +28,13 @@ export const EmailVerificationProvider: FC<any> = ({ children }) => {
         {showAlert && <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
 
             <div className="fixed z-50 w-full xl:w-fit xl:left-1/2 xl:-translate-x-1/2">
-                <Alert
+                <Banner
                     severity='info'
-                    alertIcon='info'
+                    icon='info'
                     onClose={() => setShowAlert(false)}
                 >
                     <span>{t('Your email needs to be verified')}</span>
-                </Alert>
+                </Banner>
             </div>
 
         </AnimatePresence>}

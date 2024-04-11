@@ -6,6 +6,7 @@ import { IdleTimeOutProvider } from '@context/IdleTimeOutContext'
 import { InitialAppStateProvider } from '@context/InitialAppStateContext'
 import PicksideRoutes from './Routes'
 import { QueryClientProvider } from '@tanstack/react-query'
+import { ServerStatusProvider } from '@context/ServerStatusContext'
 import { SidenavProvider } from '@context/SidenavContext'
 import { ToastProvider } from '@context/ToastContext'
 import { WindowProvider } from '@context/WindowContext'
@@ -17,18 +18,20 @@ const App = () => {
 			<QueryClientProvider client={queryClient}>
 				<InitialAppStateProvider>
 					<EmailVerificationProvider>
-						<IdleTimeOutProvider>
-							<AppThemeProvider>
-								<ChatroomContainer />
-								<WindowProvider>
-									<SidenavProvider>
-										<ToastProvider>
-											<PicksideRoutes />
-										</ToastProvider>
-									</SidenavProvider>
-								</WindowProvider>
-							</AppThemeProvider>
-						</IdleTimeOutProvider>
+						<ServerStatusProvider>
+							<IdleTimeOutProvider>
+								<AppThemeProvider>
+									<ChatroomContainer />
+									<WindowProvider>
+										<SidenavProvider>
+											<ToastProvider>
+												<PicksideRoutes />
+											</ToastProvider>
+										</SidenavProvider>
+									</WindowProvider>
+								</AppThemeProvider>
+							</IdleTimeOutProvider>
+						</ServerStatusProvider>
 					</EmailVerificationProvider>
 				</InitialAppStateProvider>
 			</QueryClientProvider>

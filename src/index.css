@@ -185,7 +185,7 @@
 	}
 
 	section {
-		@apply w-screen mx-auto mb-[182px];
+		@apply mx-auto mb-[182px] w-screen;
 	}
 }
 
@@ -213,6 +213,9 @@
 	}
 	.section {
 		@apply mx-auto h-screen w-full items-center overflow-x-hidden p-2;
+	}
+	.link {
+		@apply cursor-pointer text-ocean underline shadow-inner hover:text-ocean/60;
 	}
 }
 
