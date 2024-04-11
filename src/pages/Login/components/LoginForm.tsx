@@ -1,10 +1,9 @@
-import { Button, Checkbox, Icon, InputField, PasswordField } from '@components'
+import { Alert, Button, Icon, InputField, PasswordField } from '@components'
 import { Controller, useFormContext } from 'react-hook-form'
 
 import { FcGoogle } from 'react-icons/fc'
 import { LoginFormProps } from '../interface/forms'
 import useLogin from '../hooks/useLogin'
-import useLoginAsGuest from '../hooks/useLoginAsGuest'
 import useLoginWithGoogle from '../hooks/useLoginWithGoogle'
 import { useTranslation } from 'react-i18next'
 
@@ -16,12 +15,6 @@ export default function LoginForm() {
 		isError: isGoogleLoginEror,
 		error: googleLoginError,
 	} = useLoginWithGoogle()
-	const {
-		loginAsGuest,
-		isLoading: isLoginGuestLoading,
-		isError: isLoginGuestError,
-		error: loginGuestError,
-	} = useLoginAsGuest()
 	const { t } = useTranslation()
 
 	const { control, handleSubmit } = useFormContext<LoginFormProps>()
@@ -32,18 +25,16 @@ export default function LoginForm() {
 
 	const onLogin = async (data: any) => await login(data)
 
-	const onGuestLogin = async (data: any) => await loginAsGuest(data)
 
 	const onGoogleLogin = async (data: any) => await loginWithGoogle(data)
 
 	return (
 		<>
-			{(isLoginError || isLoginGuestError || isGoogleLoginEror) && (
-				<div className="rounded-sm border-2 text-center p-1 border-error text-red-900 bg-red-200 text-base">
-					{loginError?.response.data.error.message || loginError?.message}
-					{loginGuestError?.response.data.error.message || loginGuestError?.message}
-					{googleLoginError?.response.data.error.message || googleLoginError?.message}
-				</div>
+			{(isLoginError || isGoogleLoginEror) && (
+				<Alert className='w-full' icon='block' severity='error'>
+					{loginError?.response.data.message || loginError?.message}
+					{googleLoginError?.response.data.message || googleLoginError?.message}
+				</Alert>
 			)}
 			<form onSubmit={handleSubmit(onLogin)} className="flex flex-col gap-y-8 py-8">
 				<Controller
@@ -70,21 +61,14 @@ export default function LoginForm() {
 						<PasswordField {...field} label={t('Password')} placeholder={t('Enter password')} fullWidth />
 					)}
 				/>
-				<Button type="submit" isLoading={isLoginLoading || isGoogleLoginLoading || isLoginGuestLoading}>
+				<Button type="submit" isLoading={isLoginLoading || isGoogleLoginLoading}>
 					{t('Login')}
-				</Button>
-				<Button
-					variant="secondary"
-					onClick={onGuestLogin}
-					isLoading={isLoginLoading || isGoogleLoginLoading || isLoginGuestLoading}
-				>
-					{t('Continue as guest')}
 				</Button>
 				<Button
 					type="submit"
 					className="h-[40px] flex whitespace-nowrap gap-x-4 text-base font-medium items-center justify-center"
 					variant="secondary"
-					isLoading={isLoginLoading || isGoogleLoginLoading || isLoginGuestLoading}
+					isLoading={isLoginLoading || isGoogleLoginLoading}
 					onClick={onGoogleLogin}
 				>
 					<FcGoogle size={20} />

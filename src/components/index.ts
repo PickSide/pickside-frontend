@@ -5,9 +5,10 @@ import Dialog, { DialogCTA } from './Dialog'
 import Tab, { Tabs } from './Tabs'
 import Toggle, { ToggleGroup } from './Toggle'
 
-import Alert from './shared/Alert'
+import Alert from './global/Alert'
 import Autocomplete from './Autocomplete'
 import Avatar from './Avatar'
+import Banner from './global/Banner'
 import BottomDrawer from './BottomDrawer'
 import Button from './shared/Button'
 import Checkbox from './Checkbox'
@@ -50,6 +51,7 @@ export {
 	Avatar,
 	QueryAutocomplete,
 	Autocomplete,
+	Banner,
 	BottomDrawer,
 	Button,
 	Card,

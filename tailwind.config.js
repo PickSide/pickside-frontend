@@ -38,7 +38,11 @@ module.exports = {
 				tertiary: '#F4FF81',
 				info: '#156495',
 				success: '#74cd8d',
-				error: '#c96972',
+				error: {
+					100: '#ebc8c2',
+					200: '#c5a6a4',
+					DEFAULT: '#c96972',
+				},
 				warning: '#eed202',
 				dark: '#0C1615',
 				light: '#F8F8F8',

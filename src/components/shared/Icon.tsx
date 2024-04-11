@@ -9,15 +9,18 @@ const validIcons = [
 	'arrow_upward',
 	'arrow_upward_alt',
 	'attach_money',
+	'block',
 	'bookmark',
 	'bookmark_border',
 	'calendar_today',
 	'chat_bubble_outline',
+	'check_circle',
 	'check_indeterminate_small',
 	'close',
 	'dark_mode',
 	'delete',
 	'edit',
+	'error',
 	'error_outline',
 	'favorite',
 	'group',
@@ -82,7 +85,7 @@ const iconVariants = cva(['text-inherit'], {
 	},
 })
 
-interface IconProps extends ComponentPropsWithRef<'i'>, VariantProps<typeof iconVariants> {
+export interface IconProps extends ComponentPropsWithRef<'i'>, VariantProps<typeof iconVariants> {
 	icon: IconName
 }
 
