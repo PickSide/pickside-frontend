@@ -4,6 +4,7 @@ import ChatroomContainer from '@components/global/ChatroomContainer'
 import { EmailVerificationProvider } from '@context/EmailVerificationContext'
 import { IdleTimeOutProvider } from '@context/IdleTimeOutContext'
 import { InitialAppStateProvider } from '@context/InitialAppStateContext'
+import { MeProvider } from '@context/MeContext'
 import PicksideRoutes from './Routes'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ServerStatusProvider } from '@context/ServerStatusContext'
@@ -20,16 +21,18 @@ const App = () => {
 					<EmailVerificationProvider>
 						<ServerStatusProvider>
 							<IdleTimeOutProvider>
-								<AppThemeProvider>
-									<ChatroomContainer />
-									<WindowProvider>
-										<SidenavProvider>
-											<ToastProvider>
-												<PicksideRoutes />
-											</ToastProvider>
-										</SidenavProvider>
-									</WindowProvider>
-								</AppThemeProvider>
+								<MeProvider>
+									<AppThemeProvider>
+										<ChatroomContainer />
+										<WindowProvider>
+											<SidenavProvider>
+												<ToastProvider>
+													<PicksideRoutes />
+												</ToastProvider>
+											</SidenavProvider>
+										</WindowProvider>
+									</AppThemeProvider>
+								</MeProvider>
 							</IdleTimeOutProvider>
 						</ServerStatusProvider>
 					</EmailVerificationProvider>

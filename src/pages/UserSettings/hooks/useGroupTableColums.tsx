@@ -57,12 +57,7 @@ const useGroupTableColums = ({ onClickDeleteGroup }) => {
 				cell: (info) => {
 					return (
 						<div key={info.cell.id} className="flex justify-end">
-							{/* <IconButton onClick={() => onClickViewGroupInfo(info.getValue())}>
-								<Icon icon="info" />
-							</IconButton> */}
-							{/* <IconButton onClick={() => onClickEditGroup(info.getValue())}>
-								<Icon icon="edit" />
-							</IconButton> */}
+
 							<IconButton onClick={() => onClickDeleteGroup(info.getValue())}>
 								<Icon className="text-red-700" icon="delete" variant="filled" />
 							</IconButton>

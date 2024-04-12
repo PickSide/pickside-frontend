@@ -113,7 +113,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 						<div className="flex items-center gap-x-2">
 							<Avatar size="md" src={activity.organizer?.avatar} />
 							<div className="flex flex-col">
-								<span className="text-base font-bold max-w-[90px]">{activity.title}</span>
+								<span className="text-base font-bold max-w-[90px] truncate">{activity.title}</span>
 								<span className="font-medium">
 									{t('Host')}:&nbsp;{activity.organizer?.fullName}
 								</span>

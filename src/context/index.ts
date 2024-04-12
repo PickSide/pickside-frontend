@@ -6,6 +6,7 @@ import EmailVerificationContext from './EmailVerificationContext'
 import I18nAppContext from './I18nAppContext'
 import IdleTimeOutContext from './IdleTimeOutContext'
 import InitialAppStateContext from './InitialAppStateContext'
+import MeContext from './MeContext'
 import ToastContext from './ToastContext'
 import WindowContext from './WindowContext'
 
@@ -16,6 +17,7 @@ export {
 	I18nAppContext,
 	IdleTimeOutContext,
 	InitialAppStateContext,
+	MeContext,
 	SidenavContext,
 	SidenavDispatchContext,
 	ToastContext,
