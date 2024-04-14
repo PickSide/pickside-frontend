@@ -13,13 +13,12 @@ const useLogin = () => {
 	const [, setCachedUser] = useLocalStorage('user', null)
 	const [, setGuestUser] = useSessionStorage('guest-user', null)
 
-	const { axiosInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
 
-	const callback = (data: any) => axiosInstance.post('/me/login', data)
-
+	const callback = (data: any) => axiosMSInstance.post('/me/login', data)
 
 	const {
 		mutate: login,

@@ -3,12 +3,12 @@ import { useContext } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 const useFetchGroup = () => {
-	const { axiosInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 
-	const callback = async (groupId: any) => await axiosInstance.get(`/groups/${groupId}`)
+	const callback = async (groupId: any) => await axiosMSInstance.get(`/groups/${groupId}`)
 
 	const { data: group, isLoading } = useQuery(['fetch-group'], (groupId) => callback(groupId), {
-		onError: () => { },
+		onError: () => {},
 		refetchOnWindowFocus: false,
 	})
 

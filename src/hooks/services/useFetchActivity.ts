@@ -6,13 +6,13 @@ import { useQuery } from '@tanstack/react-query'
 
 const useFetchActivity = (activityId) => {
 	const dispatch = useDispatch()
-	const { axiosInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 
-	const callback = async () => await axiosInstance.get(`/activities/${activityId}`)
+	const callback = async () => await axiosMSInstance.get(`/activities/${activityId}`)
 
 	const { data: activities, isLoading } = useQuery(['fetch-activity'], callback, {
 		onSuccess: ({ data }) => dispatch(setActivities(data)),
-		onError: () => { },
+		onError: () => {},
 		refetchOnWindowFocus: false,
 	})
 

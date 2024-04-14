@@ -11,12 +11,12 @@ import { useTranslation } from 'react-i18next'
 const useLoginAsGuest = () => {
 	const [, setGuestUser] = useSessionStorage('guest-user', null)
 
-	const { axiosInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
 
-	const callback = () => axiosInstance.post('/guest-login')
+	const callback = () => axiosMSInstance.post('/guest-login')
 
 	const {
 		mutate: loginAsGuest,

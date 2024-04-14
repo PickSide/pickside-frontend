@@ -5,11 +5,11 @@ import { useMutation } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 
 const useReactivateAccount = () => {
-	const { axiosInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 
 	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async (data: any) => await axiosInstance.put(`/users/reactivate/${me?.id}`)
+	const callback = async (data: any) => await axiosMSInstance.put(`/users/reactivate/${me?.id}`)
 
 	const {
 		mutate: reactivateUser,

@@ -5,12 +5,12 @@ import { useDispatch } from 'react-redux'
 import { useMutation } from '@tanstack/react-query'
 
 const useUpdateFavorite = () => {
-	const { axiosInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 
 
 	const callback = async (activityId) =>
-		await axiosInstance.put(`/me/activities/${activityId}/favorites`)
+		await axiosMSInstance.put(`/me/activities/${activityId}/favorites`)
 
 	const {
 		mutate: updateFavorite,

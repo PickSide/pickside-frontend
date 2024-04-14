@@ -6,9 +6,9 @@ import { useQuery } from '@tanstack/react-query'
 
 const useFetchMe = () => {
     const dispatch = useDispatch()
-    const { axiosInstance } = useContext(AxiosContext)
+    const { axiosMSInstance } = useContext(AxiosContext)
 
-    const callback = async () => await axiosInstance.get('/me')
+    const callback = async () => await axiosMSInstance.get('/me')
 
     const { data: me, isLoading, refetch: refetchMe } = useQuery(['fetch-me'], callback, {
         onSuccess: ({ data }) => dispatch(setMe(data.result)),

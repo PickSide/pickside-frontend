@@ -3,16 +3,16 @@ import { useContext } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 const useFetchOnlineUsers = () => {
-	const { axiosInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 
-	const callback = async () => (await axiosInstance.get('/users', { params: { status: 'online' } })).data
+	const callback = async () => (await axiosMSInstance.get('/users', { params: { status: 'online' } })).data
 
 	const {
 		data: onlineUsers,
 		isLoading,
 		refetch,
 	} = useQuery(['fetch-online-users'], callback, {
-		onError: () => { },
+		onError: () => {},
 		refetchOnWindowFocus: false,
 	})
 

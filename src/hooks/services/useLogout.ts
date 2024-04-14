@@ -8,7 +8,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
 const useLogout = () => {
-	const { axiosInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const [, removeCachedUser] = useLocalStorage('user', null)
 	const [, removeAccessToken] = useLocalStorage('accessToken', null)
@@ -17,7 +17,7 @@ const useLogout = () => {
 
 	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async () => await axiosInstance.post(`/me/logout`, { data: { userId: me?.id } })
+	const callback = async () => await axiosMSInstance.post(`/me/logout`, { data: { userId: me?.id } })
 
 	const {
 		mutate: logout,
