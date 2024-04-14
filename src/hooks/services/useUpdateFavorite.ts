@@ -1,16 +1,16 @@
 import { AxiosContext } from '@context'
-import { updateMeFavorites } from '@state'
+import { AppState, updateMeFavorites } from '@state'
 import { useContext } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useMutation } from '@tanstack/react-query'
 
 const useUpdateFavorite = () => {
 	const { axiosMSInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 
+	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async (activityId) =>
-		await axiosMSInstance.put(`/me/activities/${activityId}/favorites`)
+	const callback = async (activityId) => await axiosMSInstance.put(`/user/${me?.id}/activities/${activityId}/favorites`)
 
 	const {
 		mutate: updateFavorite,

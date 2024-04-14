@@ -31,7 +31,7 @@ const useLogin = () => {
 					type: 'success',
 				},
 			})
-			navigate(data.redirectUri, { replace: true })
+			!!data.redirectUri ? navigate(data.redirectUri, { replace: true }) : navigate('/', { replace: true })
 		},
 		onError: (error: any) => handleResponseError(error),
 	})

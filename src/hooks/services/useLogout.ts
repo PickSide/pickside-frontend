@@ -9,12 +9,10 @@ import { useTranslation } from 'react-i18next'
 const useLogout = () => {
 	const { axiosASInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
-	const [, removeCachedUser] = useLocalStorage('user', null)
 	const [, removeBearerToken] = useLocalStorage('my-bearer-token', null)
 	const { t } = useTranslation()
 
-
-	const callback = async () => await axiosASInstance.post(`/logout`)
+	const callback = async () => await axiosASInstance.get('/logout')
 
 	const {
 		mutate: logout,
@@ -25,7 +23,6 @@ const useLogout = () => {
 		mutationKey: ['logout'],
 		onSuccess: () => {
 			removeBearerToken(null)
-			removeCachedUser(null)
 
 			dispatch(setMe(null))
 			dispatch({

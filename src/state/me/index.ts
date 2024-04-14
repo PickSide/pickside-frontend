@@ -6,6 +6,7 @@ import { Locale } from '../locales'
 import { Sport } from '../sport'
 
 export interface User {
+	id?: any
 	accountType?: ACCOUNT_TYPE
 	address?: string
 	attendedEventsCount?: number
@@ -18,7 +19,6 @@ export interface User {
 	fitnessLevel?: 'retired' | 'average' | 'athletic' | 'very athletic'
 	fullName?: string
 	groups?: Group[]
-	id?: any
 	inactive?: boolean
 	inactiveDate?: Date
 	joinDate?: string
@@ -52,7 +52,7 @@ const UserReducer = createSlice({
 	name: 'me',
 	reducers: {
 		setMe: (state, action: PayloadAction<User | null | undefined>) => (state = action.payload),
-		updateMeConfig: (state, action: PayloadAction<any>) => state = { ...state, ...action.payload },
+		updateMeConfig: (state, action: PayloadAction<any>) => (state = { ...state, ...action.payload }),
 		updateMeFavorites: (state, action: PayloadAction<any>) => {
 			if (state) {
 				state.favorites = action.payload.result
