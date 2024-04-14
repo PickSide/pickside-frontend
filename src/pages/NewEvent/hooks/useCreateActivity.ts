@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 const useCreateActivity = () => {
-	const { axiosInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
@@ -27,7 +27,7 @@ const useCreateActivity = () => {
 
 		delete data.sport
 
-		return await axiosInstance.post(`/activities`, data)
+		return await axiosMSInstance.post(`/activities`, data)
 	}
 
 	const {

@@ -6,9 +6,9 @@ import { useQuery } from '@tanstack/react-query'
 
 const useFetchGroups = () => {
 	const dispatch = useDispatch()
-	const { axiosInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 
-	const fetchGroups = async () => await axiosInstance.get(`/groups`)
+	const fetchGroups = async () => await axiosMSInstance.get(`/groups`)
 
 	const {
 		data: groups,
@@ -16,7 +16,7 @@ const useFetchGroups = () => {
 		refetch,
 	} = useQuery(['fetch-groups'], fetchGroups, {
 		onSuccess: ({ data }) => dispatch(setGroups(data)),
-		onError: () => { },
+		onError: () => {},
 		refetchOnWindowFocus: false,
 	})
 

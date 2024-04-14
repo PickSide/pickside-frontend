@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 const useUpdateAvatar = () => {
     const dispatch = useDispatch()
     const { t } = useTranslation()
-    const { axiosInstance, axiosFSInstance } = useContext(AxiosContext)
+    const { axiosMSInstance, axiosFSInstance } = useContext(AxiosContext)
 
     const me = useSelector((state: AppState) => state.user)
 
@@ -22,8 +22,8 @@ const useUpdateAvatar = () => {
         isError,
     } = useMutation(callback, {
         mutationKey: ['update-avatar'],
-        onSuccess: async ({ data }, params) => {
-            await axiosInstance.put(`/me/settings`, { avatar: data.path })
+        onSuccess: async ({ data }) => {
+            await axiosMSInstance.put(`/user/${me?.id}/settings`, { avatar: data.path })
                 .then((resp) => {
                     dispatch(updateMeConfig(resp.data.result))
                     dispatch({

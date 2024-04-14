@@ -15,12 +15,12 @@ const UsersAutocomplete = ({
 	debounceValue = 500,
 	onSelectAction,
 }: UserAutocompleteProps & { myRef?: Ref<HTMLInputElement> }) => {
-	const { axiosInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 	const { t } = useTranslation()
 
 	return (
 		<QueryAutocomplete
-			apiContext={axiosInstance}
+			apiContext={axiosMSInstance}
 			clearable
 			fullWidth
 			endpoint="/users"
@@ -32,7 +32,7 @@ const UsersAutocomplete = ({
 			onChange={onSelectAction}
 			renderInput={(option: User) => (
 				<MenuItem icon={<Avatar size="sm" variant="secondary" src={option.avatar} />}>
-					<div className="inline-flex items-center text-base font-normal gap-x-2">
+					<div className="inline-flex items-center gap-x-2 text-base font-normal">
 						{option.username}
 						<span className="text-gray-300">({option.fullName})</span>
 					</div>

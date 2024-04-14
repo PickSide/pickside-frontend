@@ -6,9 +6,9 @@ import { useQuery } from '@tanstack/react-query'
 
 const useFetchSports = () => {
 	const dispatch = useDispatch()
-	const { axiosInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 
-	const callback = async () => await axiosInstance.get('/sports')
+	const callback = async () => await axiosMSInstance.get('/sports')
 
 	const { data: sports, isLoading } = useQuery(['fetch-sports'], callback, {
 		onSuccess: ({ data }) => {

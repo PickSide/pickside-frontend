@@ -3,21 +3,22 @@ import { useContext } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 const useFetchParticipants = () => {
-    const { axiosInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 
-    const fetchParticipants = async (activityId: any) => await axiosInstance.get(`/activities/${activityId}/participants`)
+	const fetchParticipants = async (activityId: any) =>
+		await axiosMSInstance.get(`/activities/${activityId}/participants`)
 
-    const {
-        data: activities,
-        isLoading,
-        refetch,
-    } = useQuery(['fetch-participants'], (id) => fetchParticipants(id), {
-        onSuccess: ({ data }) => console.log(data),
-        onError: () => { },
-        refetchOnWindowFocus: false,
-    })
+	const {
+		data: activities,
+		isLoading,
+		refetch,
+	} = useQuery(['fetch-participants'], (id) => fetchParticipants(id), {
+		onSuccess: ({ data }) => console.log(data),
+		onError: () => {},
+		refetchOnWindowFocus: false,
+	})
 
-    return { activities, isLoading, refetch }
+	return { activities, isLoading, refetch }
 }
 
 export default useFetchParticipants

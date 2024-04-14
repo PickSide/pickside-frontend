@@ -5,11 +5,11 @@ import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
 const useResetDb = () => {
-	const { axiosInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 
-	const callback = async () => await axiosInstance.post('/resetdb')
+	const callback = async () => await axiosMSInstance.post('/resetdb')
 
 	const {
 		mutate: resetDb,

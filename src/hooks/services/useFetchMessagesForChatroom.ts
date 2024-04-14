@@ -17,9 +17,9 @@ interface Message {
 }
 
 const useFetchMessagesForChatroom = () => {
-	const { axiosInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 
-	const callback = async (chatroom) => (await axiosInstance.get(`/messages/${chatroom?.id}`)).data
+	const callback = async (chatroom) => (await axiosMSInstance.get(`/messages/${chatroom?.id}`)).data
 
 	const {
 		data: messages,

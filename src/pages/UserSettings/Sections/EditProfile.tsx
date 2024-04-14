@@ -1,4 +1,4 @@
-import { BottomDrawer, InputField, TextAreaField } from '@components'
+import { BottomDrawer, EmailField, TextAreaField } from '@components'
 import { Controller, useForm } from 'react-hook-form'
 
 import { AppState } from '@state'
@@ -15,25 +15,25 @@ const EditProfile = () => {
 
 	const { control, formState, handleSubmit, reset } = useForm({
 		defaultValues: {
-			username: me?.username,
+			email: me?.email,
 			bio: me?.bio,
 			preferredRegion: me?.preferredRegion,
 		},
-		mode: "onChange",
+		mode: 'onChange',
 		resetOptions: {
 			keepDirtyValues: true,
-		}
+		},
 	})
 
 	const onSubmit = async (values) => {
 		const changes = getDirtyFieldsValues(values, formState)
 
-		await updateUser(changes)
+		updateUser(changes)
 	}
 
 	useEffect(() => {
 		reset({
-			username: me?.username,
+			email: me?.email,
 			bio: me?.bio,
 			preferredRegion: me?.preferredRegion,
 		})
@@ -41,15 +41,14 @@ const EditProfile = () => {
 
 	return (
 		<div className="relative h-full">
-			<div className="flex flex-col gap-y-4 w-[600px]">
+			<div className="flex w-[600px] flex-col gap-y-4">
 				<p className="text-2xl font-semibold">{t('Edit profile')}</p>
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<Controller
-						name="username"
+						name="email"
 						control={control}
-						render={({ field }) => <InputField {...field} label={t('Username')} fullWidth />}
+						render={({ field }) => <EmailField {...field} label={t('Email')} fullWidth />}
 					/>
-
 					<Controller
 						name="bio"
 						control={control}

@@ -6,13 +6,13 @@ import { useQuery } from '@tanstack/react-query'
 
 const useFetchLocales = () => {
 	const dispatch = useDispatch()
-	const { axiosInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 
-	const callback = async () => await axiosInstance.get('/locales')
+	const callback = async () => await axiosMSInstance.get('/locales')
 
 	const { data: locales, isLoading } = useQuery(['fetch-locales'], callback, {
 		onSuccess: ({ data }) => dispatch(setLocales(data)),
-		onError: () => { },
+		onError: () => {},
 		refetchOnWindowFocus: false,
 	})
 

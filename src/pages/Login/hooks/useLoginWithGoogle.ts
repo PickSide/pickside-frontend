@@ -15,7 +15,7 @@ const useLoginWithGoogle = () => {
 	const [, setCachedUser] = useLocalStorage('user', null)
 	const { t } = useTranslation()
 
-	const { axiosInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 	const [isLoading, setIsLoading] = useState<any>(null)
 	const [error, setError] = useState<any>(null)
 
@@ -27,7 +27,7 @@ const useLoginWithGoogle = () => {
 			},
 		})
 
-	const callback = async (data: any) => await axiosInstance.post('/me/google-login', data)
+	const callback = async (data: any) => await axiosMSInstance.post('/extlogin', { ...data, provider: "google" })
 
 	const loginWithGoogle = useGoogleLogin({
 		onSuccess: async ({ access_token }) => {

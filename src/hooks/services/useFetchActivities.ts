@@ -6,9 +6,9 @@ import { useQuery } from '@tanstack/react-query'
 
 const useFetchActivities = () => {
 	const dispatch = useDispatch()
-	const { axiosInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 
-	const fetchActivities = async () => await axiosInstance.get('/activities')
+	const fetchActivities = async () => await axiosMSInstance.get('/activities')
 
 	const {
 		data: activities,

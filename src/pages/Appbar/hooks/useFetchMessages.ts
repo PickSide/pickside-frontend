@@ -18,11 +18,11 @@ export interface Message {
 }
 
 const useFetchMessages = () => {
-	const { axiosInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 
 	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async () => await axiosInstance.get('/messages', { data: { userId: me?.id } })
+	const callback = async () => await axiosMSInstance.get('/messages', { data: { userId: me?.id } })
 
 	const {
 		data: messages,

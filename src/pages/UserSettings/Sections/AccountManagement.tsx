@@ -21,12 +21,11 @@ const AccountManagement = () => {
 
 	const { control, formState, reset, handleSubmit } = useForm({
 		defaultValues: {
-			email: me?.email,
 			preferredLocale: me?.preferredLocale,
 		},
 		resetOptions: {
 			keepDirtyValues: true,
-		}
+		},
 	})
 
 	const [openPasswordChangeDialog, setOpenPasswordChangeDialog] = useState<boolean>(false)
@@ -39,15 +38,14 @@ const AccountManagement = () => {
 			changes['preferredLocale'] = changes['preferredLocale'].value
 		}
 
-		await updateUser(changes)
+		updateUser(changes)
 	}
 
 	useEffect(() => {
 		reset({
-			email: me?.email,
 			preferredLocale: me?.preferredLocale,
-		});
-	}, [me, reset]);
+		})
+	}, [me, reset])
 
 	return (
 		<div className="relative h-full">
@@ -65,20 +63,13 @@ const AccountManagement = () => {
 			>
 				<DeactivationForm onClose={() => setOpenDeactivationDialog(false)} />
 			</Dialog>
-			<div className="flex flex-col gap-y-4 w-[600px]">
+			<div className="flex w-[600px] flex-col gap-y-4">
 				<p className="text-2xl font-semibold">{t('Account Management')}</p>
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<Controller
-						name="email"
-						control={control}
-						render={({ field }) => <InputField {...field} label={t('Email')} fullWidth />}
-					/>
-					<Controller
 						name="preferredLocale"
 						control={control}
-						render={({ field }) => (
-							<LanguageSelector {...field} />
-						)}
+						render={({ field }) => <LanguageSelector {...field} />}
 					/>
 					<BottomDrawer formState={formState} onReset={reset} />
 				</form>
@@ -88,7 +79,7 @@ const AccountManagement = () => {
 					<p className="text-lg font-semibold">{t('Change your password')}</p>
 					<Button
 						type="button"
-						className="flex whitespace-nowrap gap-x-4 text-sm items-center"
+						className="flex items-center gap-x-4 whitespace-nowrap text-sm"
 						onClick={() => setOpenPasswordChangeDialog(true)}
 					>
 						<>
@@ -104,7 +95,7 @@ const AccountManagement = () => {
 				<p className="text-lg font-semibold">{t('Deactivate your account')}</p>
 				<Button
 					variant="danger"
-					className="flex whitespace-nowrap gap-x-4 items-center"
+					className="flex items-center gap-x-4 whitespace-nowrap"
 					onClick={() => setOpenDeactivationDialog(true)}
 				>
 					<>
