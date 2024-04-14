@@ -22,8 +22,8 @@ const useUpdateAvatar = () => {
         isError,
     } = useMutation(callback, {
         mutationKey: ['update-avatar'],
-        onSuccess: async ({ data }, params) => {
-            await axiosMSInstance.put(`/me/settings`, { avatar: data.path })
+        onSuccess: async ({ data }) => {
+            await axiosMSInstance.put(`/user/${me?.id}/settings`, { avatar: data.path })
                 .then((resp) => {
                     dispatch(updateMeConfig(resp.data.result))
                     dispatch({
