@@ -1,23 +1,20 @@
-import { AppState, setMe } from '@state'
-import { useDispatch, useSelector } from 'react-redux'
-
 import { AxiosContext } from '@context'
+import { setMe } from '@state'
 import { useContext } from 'react'
+import { useDispatch } from 'react-redux'
 import { useLocalStorage } from 'usehooks-ts'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
 const useLogout = () => {
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { axiosASInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const [, removeCachedUser] = useLocalStorage('user', null)
-	const [, removeAccessToken] = useLocalStorage('accessToken', null)
-	const [, removeRefreshToken] = useLocalStorage('refreshToken', null)
+	const [, removeBearerToken] = useLocalStorage('my-bearer-token', null)
 	const { t } = useTranslation()
 
-	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async () => await axiosMSInstance.post(`/me/logout`, { data: { userId: me?.id } })
+	const callback = async () => await axiosASInstance.post(`/logout`)
 
 	const {
 		mutate: logout,
@@ -25,11 +22,10 @@ const useLogout = () => {
 		error,
 		isError,
 	} = useMutation(callback, {
-		mutationKey: ['logoutUser'],
+		mutationKey: ['logout'],
 		onSuccess: () => {
+			removeBearerToken(null)
 			removeCachedUser(null)
-			removeAccessToken(null)
-			removeRefreshToken(null)
 
 			dispatch(setMe(null))
 			dispatch({

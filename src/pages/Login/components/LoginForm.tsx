@@ -1,4 +1,4 @@
-import { Alert, Button, Icon, InputField, PasswordField } from '@components'
+import { Alert, Button, EmailField, PasswordField } from '@components'
 import { Controller, useFormContext } from 'react-hook-form'
 
 import { FcGoogle } from 'react-icons/fc'
@@ -38,17 +38,15 @@ export default function LoginForm() {
 			)}
 			<form onSubmit={handleSubmit(onLogin)} className="flex flex-col gap-y-8 py-8">
 				<Controller
-					name="username"
+					name="email"
 					control={control}
 					rules={baseRule}
 					render={({ field }) => (
-						<InputField
+						<EmailField
 							{...field}
-							type="text"
 							autoFocus
-							label={t('Username or email')}
-							placeholder={t('Enter username or email')}
-							startContent={<Icon icon="person" />}
+							label={t('Email')}
+							placeholder={t('Enter email')}
 							fullWidth
 						/>
 					)}

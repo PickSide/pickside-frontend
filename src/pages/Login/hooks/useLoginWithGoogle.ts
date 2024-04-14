@@ -27,7 +27,7 @@ const useLoginWithGoogle = () => {
 			},
 		})
 
-	const callback = async (data: any) => await axiosMSInstance.post('/me/google-login', data)
+	const callback = async (data: any) => await axiosMSInstance.post('/extlogin', { ...data, provider: "google" })
 
 	const loginWithGoogle = useGoogleLogin({
 		onSuccess: async ({ access_token }) => {

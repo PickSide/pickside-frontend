@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next'
 export default function Login() {
 	const form = useForm<LoginFormProps>({
 		defaultValues: {
-			username: '',
+			email: '',
 			password: '',
 		},
 	})

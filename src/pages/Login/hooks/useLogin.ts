@@ -1,5 +1,3 @@
-import { useLocalStorage, useSessionStorage } from 'usehooks-ts'
-
 import { AxiosContext } from '@context'
 import { handleResponseError } from '@utils'
 import { setMe } from '@state'
@@ -10,15 +8,12 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 const useLogin = () => {
-	const [, setCachedUser] = useLocalStorage('user', null)
-	const [, setGuestUser] = useSessionStorage('guest-user', null)
-
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { axiosASInstance, setBearer } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
 
-	const callback = (data: any) => axiosMSInstance.post('/me/login', data)
+	const callback = (data: any) => axiosASInstance.post('/login', data)
 
 	const {
 		mutate: login,
@@ -27,7 +22,7 @@ const useLogin = () => {
 		isError,
 	} = useMutation(callback, {
 		onSuccess: ({ data }) => {
-			setCachedUser(data.result)
+			setBearer(data.token)
 			dispatch(setMe(data.result))
 			dispatch({
 				type: 'toast/toastMessage',
@@ -39,9 +34,6 @@ const useLogin = () => {
 			navigate(data.redirectUri, { replace: true })
 		},
 		onError: (error: any) => handleResponseError(error),
-		onSettled: () => {
-			setGuestUser(null)
-		},
 	})
 	return { login, isLoading, error, isError }
 }

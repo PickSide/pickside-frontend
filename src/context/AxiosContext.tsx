@@ -2,8 +2,8 @@ import { Dispatch, FC, SetStateAction, createContext, useEffect } from 'react'
 import axios, { AxiosInstance } from 'axios'
 
 import { version as ClientVersion } from 'package.json'
-import { v4 as uuidv4 } from 'uuid'
 import { useLocalStorage } from 'usehooks-ts'
+import { v4 as uuidv4 } from 'uuid'
 
 export interface AxiosContextProps {
 	axiosASInstance: AxiosInstance
@@ -54,16 +54,18 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 			'Content-Type': 'application/json',
 		},
 	})
-
-	const [bearer, setBearer] = useLocalStorage<string | null>('user-bearer-token', null)
+	const [bearer, setBearer] = useLocalStorage<string | null>('my-bearer-token', null)
 
 	useEffect(() => {
-		const interceptor = (axiosInstance: AxiosInstance) => {
-			return axiosInstance.interceptors.request.use(async (config) => {
+		const instances = [axiosMSInstance]
+		const interceptorIDs = new Map<AxiosInstance, number>()
+
+		const addInterceptor = (axiosInstance: AxiosInstance) => {
+			const id = axiosInstance.interceptors.request.use(async (config) => {
 				try {
 					await axiosASInstance.get('/verify-token', {
 						headers: {
-							Authorization: `Bearer ${bearer}`,
+							Authorization: `Bearer ${bearer || ''}`,
 						},
 					})
 
@@ -74,18 +76,24 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 
 					return config
 				} catch (error) {
-					throw new Error('Token validation failed:', error)
+					throw error
+				}
+			})
+
+			interceptorIDs.set(axiosInstance, id)
+		}
+
+		instances.forEach(addInterceptor)
+
+		return () => {
+			instances.forEach((instance) => {
+				const id = interceptorIDs.get(instance)
+				if (id !== undefined) {
+					instance.interceptors.request.eject(id)
 				}
 			})
 		}
-		;[axiosASInstance, axiosFSInstance, axiosMSInstance, axiosNSInstance].forEach(interceptor)
-
-		return () => {
-			;[axiosASInstance, axiosFSInstance, axiosMSInstance, axiosNSInstance].forEach((instance) => {
-				instance.interceptors.request.eject(interceptor)
-			})
-		}
-	}, [axiosASInstance, axiosFSInstance, axiosMSInstance, axiosNSInstance])
+	}, [axiosASInstance, axiosFSInstance, axiosMSInstance, axiosNSInstance, bearer])
 
 	return (
 		<AxiosContext.Provider value={{ axiosASInstance, axiosFSInstance, axiosMSInstance, axiosNSInstance, setBearer }}>
