@@ -9,6 +9,7 @@ export interface AxiosContextProps {
 	axiosASInstance: AxiosInstance
 	axiosFSInstance: AxiosInstance
 	axiosMSInstance: AxiosInstance
+	axiosMSGSInstance: AxiosInstance
 	axiosNSInstance: AxiosInstance
 	setBearer: Dispatch<SetStateAction<string | null>>
 }
@@ -17,6 +18,7 @@ const AxiosContext = createContext<AxiosContextProps>({
 	axiosASInstance: axios,
 	axiosFSInstance: axios,
 	axiosMSInstance: axios,
+	axiosMSGSInstance: axios,
 	axiosNSInstance: axios,
 	setBearer: () => null,
 })
@@ -46,6 +48,16 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 			'Content-Type': 'application/json',
 		},
 	})
+
+	const axiosMSGSInstance = axios.create({
+		baseURL: import.meta.env.VITE_APP_MESSAGE_SERVICE_URL,
+		withCredentials: true,
+		headers: {
+			'Accept-Version': 'v2',
+			'Content-Type': 'application/json',
+		},
+	})
+
 
 	const axiosNSInstance = axios.create({
 		baseURL: import.meta.env.VITE_APP_NOTIFICATION_SERVICE_URL,
@@ -93,10 +105,10 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 				}
 			})
 		}
-	}, [axiosASInstance, axiosFSInstance, axiosMSInstance, axiosNSInstance, bearer])
+	}, [axiosASInstance, axiosFSInstance, axiosMSInstance, axiosMSGSInstance, axiosNSInstance, bearer])
 
 	return (
-		<AxiosContext.Provider value={{ axiosASInstance, axiosFSInstance, axiosMSInstance, axiosNSInstance, setBearer }}>
+		<AxiosContext.Provider value={{ axiosASInstance, axiosFSInstance, axiosMSInstance, axiosMSGSInstance, axiosNSInstance, setBearer }}>
 			{children}
 		</AxiosContext.Provider>
 	)

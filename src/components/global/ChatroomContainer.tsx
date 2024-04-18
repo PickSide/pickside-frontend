@@ -29,7 +29,7 @@ const ChatroomContainer = () => {
 }
 
 export const Chatroom = ({ chatroom, minimize = false }) => {
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { axiosMSGSInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const { onlineUsers } = useFetchOnlineUsers()
 	const me = useSelector((state: AppState) => state.user)
@@ -51,7 +51,7 @@ export const Chatroom = ({ chatroom, minimize = false }) => {
 	const [messages, setMessages] = useState<Message[]>([])
 
 	const fetchMessages = async () => {
-		await axiosMSInstance.get(`/messages/${chatroom?.id}`).then((response) => setMessages(response.data.results))
+		await axiosMSGSInstance.get(`/messages/${chatroom?.id}`).then((response) => setMessages(response.data.results))
 	}
 
 	const handleMessage = (payload: Message) => {
