@@ -1,8 +1,7 @@
 import { AppState, setChatrooms } from '@state'
-import { FC, ReactNode, createContext, useEffect, useRef, useState } from 'react'
+import { FC, ReactNode, createContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { MessageEventProps } from '@types'
 import { loadChatroomMessages } from '@state/messages'
 import { useLocalStorage } from 'usehooks-ts'
 

@@ -1,10 +1,10 @@
 import { AppState, setActiveChatroom } from '@state'
 import { Icon, IconButton, InputField } from '@components'
-import { LoadMessagesEventProps, MessageEventProps } from '@types'
 import { useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Avatar from '@components/Avatar'
+import { MessageEventProps } from '@types'
 import { MessagingContext } from '@context'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
@@ -28,19 +28,14 @@ export const Chatroom = ({ chatroom }) => {
 
 	useEffect(() => {
 		if (connection?.readyState === WebSocket.OPEN) {
-			const message: MessageEventProps = {
-				eventType: 'chatroom:loadmessages',
+			connection.send(JSON.stringify({
+				eventType: 'chatroom:open',
 				content: {
 					chatroomtId: chatroom.id
 				}
-			}
-			connection.send(JSON.stringify(message))
-			connection.addEventListener("message", event => {
-				const response = JSON.parse(event.data)
-				console.log(response)
-			})
+			}));
 		}
-	}, [chatroom, connection])
+	}, [chatroom, connection, dispatch])
 
 	return chatroom ? (
 		<motion.div

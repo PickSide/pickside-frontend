@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { Resources } from '@state'
-
-export interface Messages extends Resources {
-    results?: Message[]
+export interface Messages {
+    [key: string]: {
+        results?: Message[]
+    }
 }
 
 export interface Message {
@@ -15,7 +15,7 @@ export interface Message {
 }
 
 const LocalesReducer = createSlice({
-    initialState: [] as Messages,
+    initialState: {} as Messages,
     name: 'messages',
     reducers: {
         loadChatroomMessages: (state, action: PayloadAction<Messages>) => (state = action.payload),
