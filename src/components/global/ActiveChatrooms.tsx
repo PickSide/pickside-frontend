@@ -27,7 +27,7 @@ export const Chatroom = ({ chatroom }) => {
 	const recipient = chatroom?.participants?.find((x) => x.id !== me?.id)
 
 	useEffect(() => {
-		if (connection?.readyState === 1) {
+		if (connection?.readyState === WebSocket.OPEN) {
 			const message: MessageEventProps = {
 				eventType: 'chatroom:loadmessages',
 				content: {

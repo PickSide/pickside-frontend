@@ -3,6 +3,7 @@ import { FC, ReactNode, createContext, useEffect, useRef, useState } from 'react
 import { useDispatch, useSelector } from 'react-redux'
 
 import { MessageEventProps } from '@types'
+import { loadChatroomMessages } from '@state/messages'
 import { useLocalStorage } from 'usehooks-ts'
 
 interface MessagingContextProps {
@@ -29,26 +30,29 @@ export const MessagingProvider: FC<any> = ({ children }) => {
         const socket = new WebSocket(socketUrl)
 
 
-        socket.addEventListener("open", event => {
-            const message: MessageEventProps = {
+        socket.onopen = () => {
+            socket.send(JSON.stringify({
                 eventType: 'chatrooms:loadall',
                 content: {
                     participantId: me.id
                 }
-            }
-            socket.send(JSON.stringify(message))
-        })
+            }))
+        }
 
-        socket.addEventListener("message", event => {
-            const response = JSON.parse(event.data)
-            dispatch(setChatrooms(response))
-        })
-        socket.addEventListener('close', event => {
-            console.log('Connection closed by server.')
-        })
-        socket.addEventListener('error', event => {
-            console.error('WebSocket error:', event)
-        })
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data)
+            switch (data.eventType) {
+                case 'chatrooms:loadall':
+                    dispatch(setChatrooms(data.content))
+                    break
+                case 'chatroom:loadmessages':
+                    dispatch(loadChatroomMessages(data.content))
+                    break
+            }
+        };
+
+        socket.onclose = () => console.log("Connection closed by the server");
+        socket.onerror = (error) => console.error("WebSocket error:", error);
 
         setConnection(socket)
 
