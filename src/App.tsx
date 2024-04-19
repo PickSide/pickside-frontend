@@ -1,11 +1,11 @@
+import ActiveChatrooms from '@components/global/ActiveChatrooms'
 import { AppThemeProvider } from '@context/AppThemeContext'
 import { AxiosProvider } from '@context/AxiosContext'
-import ChatroomContainer from '@components/global/ChatroomContainer'
 import { EmailVerificationProvider } from '@context/EmailVerificationContext'
 import { IdleTimeOutProvider } from '@context/IdleTimeOutContext'
 import { InitialAppStateProvider } from '@context/InitialAppStateContext'
 import { MeProvider } from '@context/MeContext'
-import { MessageProvider } from '@context/MessageContext'
+import { MessagingProvider } from '@context/MessagingContext'
 import PicksideRoutes from './Routes'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ServerStatusProvider } from '@context/ServerStatusContext'
@@ -23,9 +23,9 @@ const App = () => {
 						<ServerStatusProvider>
 							<IdleTimeOutProvider>
 								<MeProvider>
-									<MessageProvider>
+									<MessagingProvider>
 										<AppThemeProvider>
-											<ChatroomContainer />
+											<ActiveChatrooms />
 											<WindowProvider>
 												<SidenavProvider>
 													<ToastProvider>
@@ -34,7 +34,7 @@ const App = () => {
 												</SidenavProvider>
 											</WindowProvider>
 										</AppThemeProvider>
-									</MessageProvider>
+									</MessagingProvider>
 								</MeProvider>
 							</IdleTimeOutProvider>
 						</ServerStatusProvider>

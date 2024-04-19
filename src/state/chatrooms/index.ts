@@ -1,33 +1,25 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { Resources, User } from '@state'
 
-import { User } from '@state'
+export interface Chatrooms extends Resources {
+	results?: Chatroom[]
+}
 
 export interface Chatroom {
 	id?: string
 	name?: string
 	participants?: Partial<User>[]
-	openedChatroom?: User[]
-	numberOfMessages?: number
-	lastMessage?: any
-	startedBy?: User
+	numberOfMessages?: Number
 }
 
 const ChatroomsReducer = createSlice({
-	initialState: ([] as Chatroom[]) || [],
+	initialState: { results: [] } as Chatrooms,
 	name: 'chatrooms',
 	reducers: {
-		openChatroom: (state, action: PayloadAction<Chatroom>) => {
-			const chatIdx = state.findIndex((c) => c.id === action.payload.id)
-			if (chatIdx > -1) {
-				return state.filter((c) => c.id !== action.payload.id)
-			} else {
-				return [...state, action.payload]
-			}
-		},
-		closeChatroom: (state, action: PayloadAction<Chatroom>) => state.filter((c) => c.id !== action.payload.id),
+		setChatrooms: (state, action: PayloadAction<Chatrooms>) => (state = { ...state, ...action.payload }),
 	},
 })
 
-export const { openChatroom, closeChatroom } = ChatroomsReducer.actions
+export const { setChatrooms } = ChatroomsReducer.actions
 
 export default ChatroomsReducer.reducer

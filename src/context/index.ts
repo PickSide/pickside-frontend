@@ -7,7 +7,7 @@ import I18nAppContext from './I18nAppContext'
 import IdleTimeOutContext from './IdleTimeOutContext'
 import InitialAppStateContext from './InitialAppStateContext'
 import MeContext from './MeContext'
-import MessageContext from './MessageContext'
+import MessagingContext from './MessagingContext'
 import ToastContext from './ToastContext'
 import WindowContext from './WindowContext'
 
@@ -19,7 +19,7 @@ export {
 	IdleTimeOutContext,
 	InitialAppStateContext,
 	MeContext,
-	MessageContext,
+	MessagingContext,
 	SidenavContext,
 	SidenavDispatchContext,
 	ToastContext,
