@@ -1,5 +1,5 @@
 import { AppState, toastMessage } from '@state'
-import { FC, ReactNode, createContext, useContext, useEffect } from 'react'
+import { FC, ReactNode, createContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Toast } from '@components'
@@ -12,8 +12,6 @@ export interface ToastContextProps {
 const ToastContext = createContext<ToastContextProps>({
 	triggerToast: () => { },
 })
-
-export const useThemeContext = () => useContext(ToastContext)
 
 export const ToastProvider: FC<any> = ({ children }) => {
 	const dispatch = useDispatch()

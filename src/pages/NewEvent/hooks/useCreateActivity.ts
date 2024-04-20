@@ -17,7 +17,6 @@ const useCreateActivity = () => {
 	const me = useSelector((state: AppState) => state.user)
 
 	const callback = async (values: CreateEventProps) => {
-		console.log('values.date', values.date)
 		const data = {
 			...values,
 			date: values.date.format('YYYY-MM-DD'),

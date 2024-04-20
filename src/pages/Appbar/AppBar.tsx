@@ -23,9 +23,9 @@ import { version } from 'package.json'
 const AppBar = () => {
 	const ref = useRef<HTMLDivElement | null>(null)
 	const popMenuRef = useRef<any>(null)
-	const { handleLocaleChange, locales, current: currentLocale } = useLocaleSwitcher()
+	const { handleLocaleChange, locales } = useLocaleSwitcher()
 	const sidenavDispatch = useContext(SidenavDispatchContext)
-	const { handleThemeSwitch, themes, current: currentTheme } = useThemeSwitcher()
+	const { handleThemeSwitch, themes } = useThemeSwitcher()
 	const { logout } = useLogout()
 	const { guestLogout } = useGuestLogout()
 	const { pathname } = useLocation()
@@ -33,6 +33,8 @@ const AppBar = () => {
 
 	const [open, setOpen] = useState<boolean>(false)
 	const me = useSelector((state: AppState) => state.user)
+	const appLocale = useSelector((state: AppState) => state.appLocale)
+	const appTheme = useSelector((state: AppState) => state.appTheme)
 
 	return (
 		<motion.div
@@ -118,7 +120,7 @@ const AppBar = () => {
 										key={idx}
 										label={<span className='capitalize'>{locale.name}</span>}
 										icon={<span className={`rounded-sm fi fi-${locale.flagCode}`}></span>}
-										defaultChecked={locale.value === currentLocale}
+										defaultChecked={locale.value === appLocale}
 										value={locale.value}
 									/>
 								))}
@@ -131,7 +133,7 @@ const AppBar = () => {
 										key={idx}
 										label={<span className="capitalize">{theme}</span>}
 										icon={<Icon icon={theme === 'dark' ? 'dark_mode' : 'light_mode'} />}
-										defaultChecked={theme === currentTheme}
+										defaultChecked={theme === appTheme}
 										value={theme}
 									/>
 								))}

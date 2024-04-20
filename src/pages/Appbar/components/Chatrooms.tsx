@@ -25,8 +25,8 @@ const ChatroomsListing: FC<ChatroomsListingProps> = ({ callbackOnClick }) => {
 		}
 	}
 
-	const ChatroomRender = ({ idx, chatroom }) => (
-		<li key={idx} className="w-full">
+	const ChatroomRender = ({ chatroom }) => (
+		<li className="w-full">
 			<button
 				className="inline-flex items-center w-full px-3 py-4 gap-x-4 rounded-2xl cursor-pointer hover:bg-slate-300"
 				onClick={() => dispatch(setActiveChatroom(chatroom))}
@@ -56,7 +56,7 @@ const ChatroomsListing: FC<ChatroomsListingProps> = ({ callbackOnClick }) => {
 		<div className="w-full">
 			<UsersAutocomplete onSelectAction={open} />
 			<ul className="flex flex-col mt-4">
-				{chatrooms?.results?.map((chatroom, idx) => <ChatroomRender idx={idx} chatroom={chatroom} />)}
+				{chatrooms?.results?.map((chatroom, idx) => <ChatroomRender key={idx} chatroom={chatroom} />)}
 			</ul>
 		</div>
 	)

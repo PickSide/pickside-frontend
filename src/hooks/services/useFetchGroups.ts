@@ -1,14 +1,17 @@
+import { AppState, setGroups } from '@state'
+import { useDispatch, useSelector } from 'react-redux'
+
 import { AxiosContext } from '@context'
-import { setGroups } from '@state'
 import { useContext } from 'react'
-import { useDispatch } from 'react-redux'
 import { useQuery } from '@tanstack/react-query'
 
 const useFetchGroups = () => {
 	const dispatch = useDispatch()
 	const { axiosMSInstance } = useContext(AxiosContext)
 
-	const fetchGroups = async () => await axiosMSInstance.get(`/groups`)
+	const me = useSelector((state: AppState) => state.user)
+
+	const fetchGroups = async () => await axiosMSInstance.get(`/groups/user/${me?.id}`)
 
 	const {
 		data: groups,
@@ -16,7 +19,7 @@ const useFetchGroups = () => {
 		refetch,
 	} = useQuery(['fetch-groups'], fetchGroups, {
 		onSuccess: ({ data }) => dispatch(setGroups(data)),
-		onError: () => {},
+		onError: () => { },
 		refetchOnWindowFocus: false,
 	})
 

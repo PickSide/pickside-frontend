@@ -2,6 +2,7 @@ import ActiveChatrooms from '@components/global/ActiveChatrooms'
 import { AppThemeProvider } from '@context/AppThemeContext'
 import { AxiosProvider } from '@context/AxiosContext'
 import { EmailVerificationProvider } from '@context/EmailVerificationContext'
+import { I18nProvider } from '@context/I18nAppContext'
 import { IdleTimeOutProvider } from '@context/IdleTimeOutContext'
 import { InitialAppStateProvider } from '@context/InitialAppStateContext'
 import { MeProvider } from '@context/MeContext'
@@ -25,14 +26,16 @@ const App = () => {
 								<MeProvider>
 									<MessagingProvider>
 										<AppThemeProvider>
-											<ActiveChatrooms />
-											<WindowProvider>
-												<SidenavProvider>
-													<ToastProvider>
-														<PicksideRoutes />
-													</ToastProvider>
-												</SidenavProvider>
-											</WindowProvider>
+											<I18nProvider>
+												<ActiveChatrooms />
+												<WindowProvider>
+													<SidenavProvider>
+														<ToastProvider>
+															<PicksideRoutes />
+														</ToastProvider>
+													</SidenavProvider>
+												</WindowProvider>
+											</I18nProvider>
 										</AppThemeProvider>
 									</MessagingProvider>
 								</MeProvider>

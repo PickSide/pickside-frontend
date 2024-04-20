@@ -1,8 +1,8 @@
-import { AppState, setChatrooms } from '@state'
-import { FC, ReactNode, createContext, useEffect, useState } from 'react'
+import { AppState, newMessage, setChatrooms, setMessages } from '@state'
+import { FC, ReactNode, createContext, useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { loadChatroomMessages } from '@state/messages'
+import { uniq } from 'lodash'
 import { useLocalStorage } from 'usehooks-ts'
 
 interface MessagingContextProps {
@@ -19,8 +19,9 @@ export const MessagingProvider: FC<any> = ({ children }) => {
     const me = useSelector((state: AppState) => state.user)
 
     const [connection, setConnection] = useState<WebSocket>()
+    const [shouldReconnect, setShouldReconnect] = useState<boolean>(true)
 
-    useEffect(() => {
+    const connectToWebSocket = useCallback(() => {
         if (!bearer || !me) {
             return
         }
@@ -28,8 +29,8 @@ export const MessagingProvider: FC<any> = ({ children }) => {
         const socketUrl = `${import.meta.env.VITE_APP_MESSAGE_SERVICE_SOCKET_URL}?token=${bearer}`
         const socket = new WebSocket(socketUrl)
 
-
         socket.onopen = () => {
+            console.info('Connected to messaging server')
             socket.send(JSON.stringify({
                 eventType: 'chatrooms:loadall',
                 content: {
@@ -40,30 +41,50 @@ export const MessagingProvider: FC<any> = ({ children }) => {
 
         socket.onmessage = (event) => {
             const data = JSON.parse(event.data)
+
             switch (data.eventType) {
-                case 'chatrooms:loadall':
-                    dispatch(setChatrooms(data.content))
+                case 'chatrooms:loaded':
+                    dispatch(setChatrooms({ results: data.results }))
                     break
-                case 'chatroom:loadmessages':
-                    dispatch(loadChatroomMessages(data.content))
+                case 'chatroom:loadedmessages':
+                    const chatroomId = uniq(data.results.map(r => r.chatroomId) || [])
+                    dispatch(setMessages({ chatroomId: chatroomId[0], messages: data.results }))
+                    break
+                case 'message:received':
+                    dispatch(newMessage({ chatroomId: data.results.chatroomId, message: data.results }))
                     break
             }
-        };
+        }
 
-        socket.onclose = () => console.log("Connection closed by the server");
-        socket.onerror = (error) => console.error("WebSocket error:", error);
+        socket.onclose = () => {
+            console.info("Connection closed by the messaging server")
+            if (shouldReconnect) {
+                console.info("Attempting to reconnect...")
+                setTimeout(() => {
+                    connectToWebSocket()
+                }, 5000)
+            }
+        }
+        socket.onerror = (error) => {
+            console.error("WebSocket error:", error)
+            socket.close()
+        }
 
         setConnection(socket)
 
-        return () => {
-            socket.close()
-        }
-    }, [bearer, dispatch, me])
+        return socket
+    }, [dispatch, me])
 
     useEffect(() => {
-        console.log('connection changed', connection)
-    }, [connection])
+        const socket = connectToWebSocket()
 
+        return () => {
+            setShouldReconnect(false)
+            if (socket) {
+                socket.close()
+            }
+        }
+    }, [connectToWebSocket])
     return (
         <MessagingContext.Provider value={{ connection }}>
             {children}

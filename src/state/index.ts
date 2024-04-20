@@ -2,6 +2,7 @@ import activities, { Activities } from './activity'
 import chatrooms, { Chatroom, Chatrooms } from './chatrooms'
 import groups, { Groups } from './groups'
 import locales, { Locales } from './locales'
+import messages, { Messages } from './messages'
 import notifications, { Notifications } from './notifications'
 import selectedContexts, { SelectedContexts } from './selectedContext'
 import sports, { Sports } from './sport'
@@ -24,6 +25,7 @@ export * from './deactivated'
 export * from './groups'
 export * from './locales'
 export * from './me'
+export * from './messages'
 export * from './notifications'
 export * from './selectedActivity'
 export * from './selectedContext'
@@ -46,6 +48,7 @@ export interface AppState {
 	deactivated?: boolean
 	groups?: Groups
 	locales?: Locales
+	messages?: Messages
 	notifications?: Notifications
 	onlineUsers?: User[]
 	selectedActivity?: any
@@ -65,6 +68,7 @@ export const reducers = combineReducers({
 	chatrooms,
 	groups,
 	locales,
+	messages,
 	notifications,
 	selectedActivity,
 	selectedContexts,

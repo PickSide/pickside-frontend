@@ -1,9 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 export interface Messages {
-    [key: string]: {
-        results?: Message[]
-    }
+    [key: string]: Message[]
 }
 
 export interface Message {
@@ -11,17 +9,27 @@ export interface Message {
     content: string
     chatroomId: string
     delivered: boolean
+    senderId: string
     sentAt: string
 }
 
-const LocalesReducer = createSlice({
+const MessagesReducer = createSlice({
     initialState: {} as Messages,
     name: 'messages',
     reducers: {
-        loadChatroomMessages: (state, action: PayloadAction<Messages>) => (state = action.payload),
+        newMessage: (state, action: PayloadAction<{ chatroomId: string, message: Message }>) => {
+            const { chatroomId, message } = action.payload
+            state[chatroomId] = [...state[chatroomId], message]
+            return state
+        },
+        setMessages: (state, action: PayloadAction<{ chatroomId: string, messages: Message[] }>) => {
+            const { chatroomId, messages } = action.payload
+            state[chatroomId] = messages
+            return state
+        },
     },
 })
 
-export const { loadChatroomMessages } = LocalesReducer.actions
+export const { newMessage, setMessages } = MessagesReducer.actions
 
-export default LocalesReducer.reducer
+export default MessagesReducer.reducer

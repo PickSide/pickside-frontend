@@ -1,6 +1,6 @@
-import { AppState, setMe } from '@state'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { AppState } from '@state'
 import { AxiosContext } from '@context'
 import { useContext } from 'react'
 import { useMutation } from '@tanstack/react-query'
@@ -11,9 +11,9 @@ const useJoinGroup = () => {
     const dispatch = useDispatch()
     const { t } = useTranslation()
 
-    const connectedUser = useSelector((state: AppState) => state.user)
+    const me = useSelector((state: AppState) => state.user)
 
-    const callback = async (groupId: string) => await axiosMSInstance.post(`/groups/join`, { groupId, userId: connectedUser?.id })
+    const callback = async (groupId: string) => await axiosMSInstance.put(`/groups/${groupId}/user/${me?.id}`)
 
     const {
         mutate: joinGroup,
@@ -23,7 +23,6 @@ const useJoinGroup = () => {
     } = useMutation(callback, {
         mutationKey: ['join-group'],
         onSuccess: () => {
-            dispatch(setMe(null))
             dispatch({
                 type: 'toast/toastMessage',
                 payload: {

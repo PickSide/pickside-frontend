@@ -1,8 +1,9 @@
 import Select from "@components/shared/Select"
+import { forwardRef } from 'react'
 import { useFetchSports } from "@hooks"
 import { useTranslation } from "react-i18next"
 
-const SportSelector = ({ ...props }) => {
+const SportSelector = forwardRef((props, ref) => {
     const { sports, isLoading } = useFetchSports()
     const { t } = useTranslation()
 
@@ -11,6 +12,7 @@ const SportSelector = ({ ...props }) => {
     return (
         <Select
             {...props}
+            ref={ref}
             isDisabled={isLoading}
             label={t('Sport')}
             placeholder={t('Select sport')}
@@ -22,6 +24,6 @@ const SportSelector = ({ ...props }) => {
             isOptionDisabled={(option) => !option?.featureAvailable}
         />
     )
-}
+})
 
 export default SportSelector
