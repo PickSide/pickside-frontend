@@ -1,33 +1,39 @@
 import { AppState, User } from '@state'
-import { Button, Dialog, DialogCTA, Spinner } from '@components'
+import { Button, Dialog, Spinner } from '@components'
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
-import { useDeleteGroup, useFetchGroups, } from '@hooks'
 
 import AddGroupFormDialog from '../components/forms/dialogs/AddGroupFormDialog'
-import MembersViewDialog from '../components/dialogs/MembersViewDialog'
+import DeleteGroupDialog from '../components/dialogs/DeleteGroupDialog'
+import LeaveGroupDialog from '../components/dialogs/LeaveGroupDialog'
+import ViewMembersDialog from '../components/dialogs/ViewMembersDialog'
+import { useFetchGroups, } from '@hooks'
 import useGroupTableColums from '../hooks/useGroupTableColums'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const Groups = () => {
-	const { deleteGroup, isLoading: isDeletingGroupLoading } = useDeleteGroup()
 	const { isLoading: isFetchingGroupsLoading } = useFetchGroups()
 	const { t } = useTranslation()
 
 	const groups = useSelector((state: AppState) => state.groups)
+	const me = useSelector((state: AppState) => state.user)
 
 	const [openEditCreateGroupDialog, setOpenEditCreateGroupDialog] = useState<boolean>(false)
 	const [openConfirmDeleteGroupDialog, setOpenConfirmDeleteGroupDialog] = useState<boolean>(false)
 	const [openViewMembersDialog, setOpenViewMembersDialog] = useState<boolean>(false)
-	const [openInfoGroupDialog, setOpenInfoGroupDialog] = useState<boolean>(false)
+	const [openLeaveGroupDialog, setOpenLeaveGroupDialog] = useState<boolean>(false)
 
 	const [selectedGroupMembers, setSelectedGroupMembers] = useState<User[]>([])
 	const [selectedGroupId, setSelectedGroupId] = useState<string>('')
 
 	const columns = useGroupTableColums({
-		onClickDeleteGroup: (groupId) => {
+		onClickDeleteGroup: (groupId: string) => {
 			setOpenConfirmDeleteGroupDialog(true)
+			setSelectedGroupId(groupId)
+		},
+		onClickLeaveGroup: (groupId: string) => {
+			setOpenLeaveGroupDialog(true)
 			setSelectedGroupId(groupId)
 		},
 		onClickViewMembers: (members: User[]) => {
@@ -44,40 +50,21 @@ const Groups = () => {
 
 	return (
 		<>
-			<Dialog
-				open={openEditCreateGroupDialog}
-				onClose={() => setOpenEditCreateGroupDialog(false)}
-				title={t('Create new group')}
-			>
+			<Dialog open={openEditCreateGroupDialog} onClose={() => setOpenEditCreateGroupDialog(false)} title={t('Create new group')}>
 				<AddGroupFormDialog onClose={() => setOpenEditCreateGroupDialog(false)} />
 			</Dialog>
-			<Dialog
-				open={openViewMembersDialog}
-				onClose={() => setOpenViewMembersDialog(false)}
-				title={t('Members')}
-			>
-				<MembersViewDialog onClose={() => setOpenViewMembersDialog(false)} members={selectedGroupMembers} />
-			</Dialog>
-			<Dialog open={openConfirmDeleteGroupDialog} onClose={() => setOpenConfirmDeleteGroupDialog(false)} title={t('Delete group')}>
-				<p>{t('Are you sure you want to delete group ?')}</p>
-				<DialogCTA>
-					<Button variant="tertiary" onClick={() => setOpenConfirmDeleteGroupDialog(false)}>
-						{t('Cancel')}
-					</Button>
-					<Button
-						variant="danger"
-						isLoading={isDeletingGroupLoading}
-						onClick={() => {
-							deleteGroup(selectedGroupId)
-							setOpenConfirmDeleteGroupDialog(false)
-						}}
-					>
-						{t('Delete')}
-					</Button>
-				</DialogCTA>
+
+			<Dialog open={openViewMembersDialog} onClose={() => setOpenViewMembersDialog(false)} title={t('Members')}>
+				<ViewMembersDialog onClose={() => setOpenViewMembersDialog(false)} members={selectedGroupMembers.filter(m => m.id !== me?.id)} />
 			</Dialog>
 
-			<Dialog open={openInfoGroupDialog} onClose={() => setOpenInfoGroupDialog(false)}></Dialog>
+			<Dialog open={openConfirmDeleteGroupDialog} onClose={() => setOpenConfirmDeleteGroupDialog(false)} title={t('Delete group')}>
+				<DeleteGroupDialog groupId={selectedGroupId} onClose={() => setOpenConfirmDeleteGroupDialog(false)} />
+			</Dialog>
+
+			<Dialog open={openLeaveGroupDialog} onClose={() => setOpenLeaveGroupDialog(false)} title={t('Leave group')}>
+				<LeaveGroupDialog groupId={selectedGroupId} onClose={() => setOpenLeaveGroupDialog(false)} />
+			</Dialog>
 
 			<div className="p-5 w-full h-full overflow-y-scroll">
 				<Button className="float-right mb-4" onClick={() => setOpenEditCreateGroupDialog(true)}>

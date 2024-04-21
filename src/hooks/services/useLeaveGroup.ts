@@ -1,4 +1,4 @@
-import { AppState, setMe } from '@state'
+import { AppState, removeGroup, setMe } from '@state'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { AxiosContext } from '@context'
@@ -13,7 +13,7 @@ const useLeaveGroup = () => {
 
     const me = useSelector((state: AppState) => state.user)
 
-    const callback = async (groupId: string) => await axiosMSInstance.delete(`/groups/${groupId}/user/${me?.id}`)
+    const callback = async (groupId: string) => await axiosMSInstance.delete(`/group-leave/${groupId}/user/${me?.id}`)
 
     const {
         mutate: leaveGroup,
@@ -22,12 +22,12 @@ const useLeaveGroup = () => {
         isError,
     } = useMutation(callback, {
         mutationKey: ['leave-group'],
-        onSuccess: () => {
-            dispatch(setMe(null))
+        onSuccess: ({ data }, groupId) => {
+            dispatch(removeGroup(groupId))
             dispatch({
                 type: 'toast/toastMessage',
                 payload: {
-                    message: t('Successfully left group'),
+                    message: t(data.message),
                     type: 'success',
                 },
             })

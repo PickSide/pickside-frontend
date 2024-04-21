@@ -8,6 +8,7 @@ import Toggle, { ToggleGroup } from './Toggle'
 import Alert from './global/Alert'
 import Autocomplete from './Autocomplete'
 import Avatar from './Avatar'
+import Badge from './Badge'
 import Banner from './global/Banner'
 import BottomDrawer from './BottomDrawer'
 import Button from './shared/Button'
@@ -51,6 +52,7 @@ export {
 	Avatar,
 	QueryAutocomplete,
 	Autocomplete,
+	Badge,
 	Banner,
 	BottomDrawer,
 	Button,

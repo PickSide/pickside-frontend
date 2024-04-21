@@ -10,7 +10,7 @@ const useCreateGroups = () => {
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 
-	const callback = async (data: any) => await axiosMSInstance.post(`/groups`, data)
+	const callback = async (data: any) => await axiosMSInstance.post(`/group`, data)
 
 	const {
 		mutate: createGroups,
@@ -18,7 +18,7 @@ const useCreateGroups = () => {
 		error,
 		isError,
 	} = useMutation(callback, {
-		mutationKey: ['create-groups'],
+		mutationKey: ['create-group'],
 		onSuccess: ({ data }) => {
 			dispatch(addGroup(data.result))
 			dispatch({

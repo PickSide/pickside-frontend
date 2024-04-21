@@ -5,16 +5,24 @@ export type Notifications = Resources & {
 	results?: Notification[]
 }
 
-export declare type NotificationType = 'system' | 'global' | 'like' | 'group-invite' | 'message-reminder' | 'friend-invite'
-
 export type Notification = {
 	id?: string
 	content?: string
 	created?: string
 	expires?: string
+	extra?: string
 	isRead?: boolean
 	recipient?: User
+	type?: 'group-invite' | 'friend-request' | 'group-settings-changed' | 'event-invite' | 'event-approaching'
 	title?: string
+}
+
+export type NotificationExtra = {
+	groupId?: string
+	userId?: string
+	organizerId?: string
+	activityId?: string
+	date?: string
 }
 
 const NotificationsReducer = createSlice({

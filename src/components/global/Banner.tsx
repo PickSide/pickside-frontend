@@ -18,7 +18,6 @@ export const bannerVariants = cva(
 		'z-50',
 		'min-h-[50px]',
 		'lg:min-w-[200px]',
-		'xl:justify-normal',
 	],
 	{
 		variants: {

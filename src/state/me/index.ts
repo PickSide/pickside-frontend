@@ -6,6 +6,7 @@ import { Sport } from '../sport'
 
 export interface User {
 	id?: any
+	acceptedInvitation?: boolean
 	accountType?: ACCOUNT_TYPE
 	address?: string
 	allowLocationTracking?: boolean

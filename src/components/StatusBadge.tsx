@@ -15,7 +15,7 @@ export const statusBadgeVariants = cva(['w-2', 'h-2', 'rounded-full'], {
 	},
 })
 
-export interface StatusBadgeProps extends ComponentProps<'div'>, VariantProps<typeof statusBadgeVariants> {}
+export interface StatusBadgeProps extends ComponentProps<'div'>, VariantProps<typeof statusBadgeVariants> { }
 
 const StatusBadge: FC<StatusBadgeProps> = ({ className, variant }) => {
 	return <div className={cn(statusBadgeVariants({ className, variant }))} />
