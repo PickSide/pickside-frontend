@@ -1,5 +1,5 @@
 import activities, { Activities } from './activity'
-import chatrooms, { Chatroom, Chatrooms } from './chatrooms'
+import chatrooms, { Chatroom } from './chatrooms'
 import groups, { Groups } from './groups'
 import locales, { Locales } from './locales'
 import messages, { Messages } from './messages'
@@ -44,7 +44,7 @@ export interface AppState {
 	activities?: Activities
 	appLocale?: string
 	appTheme?: string
-	chatrooms?: Chatrooms
+	chatrooms?: Chatroom[]
 	deactivated?: boolean
 	groups?: Groups
 	locales?: Locales

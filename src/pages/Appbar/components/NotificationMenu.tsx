@@ -49,6 +49,7 @@ const NotificationMenu: FC<any> = () => {
 		>
 			{notifications?.results ? (
 				notifications?.results?.map((notification, idx) => {
+					// need to handle badly parsed json here
 					const extra = notification.extra ? JSON.parse(notification.extra) : {}
 
 					if (notification.type === 'group-invite' && extra.groupId) {
@@ -58,11 +59,12 @@ const NotificationMenu: FC<any> = () => {
 							</MenuItem>
 						)
 					}
-					return (
-						<MenuItem key={idx} className='p-4' onClick={() => readNotification(notification.id)}>
-							<RenderNotification notification={notification} />
-						</MenuItem>
-					)
+					return null
+					// (
+					// 	<MenuItem key={idx} className='p-4' onClick={() => readNotification(notification.id)}>
+					// 		<RenderNotification notification={notification} />
+					// 	</MenuItem>
+					// )
 				})) :
 				<MenuItem disabled>
 					<p>{t('No new notifications')}</p>

@@ -19,12 +19,16 @@ const MessagesReducer = createSlice({
     reducers: {
         newMessage: (state, action: PayloadAction<{ chatroomId: string, message: Message }>) => {
             const { chatroomId, message } = action.payload
-            state[chatroomId] = [...state[chatroomId], message]
+            if (!state[chatroomId]) {
+                state[chatroomId] = [message]
+            } else {
+                state[chatroomId] = [...state[chatroomId], message]
+            }
             return state
         },
         setMessages: (state, action: PayloadAction<{ chatroomId: string, messages: Message[] }>) => {
             const { chatroomId, messages } = action.payload
-            state[chatroomId] = messages
+            state[chatroomId] = messages || []
             return state
         },
     },

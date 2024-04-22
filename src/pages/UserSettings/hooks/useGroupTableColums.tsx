@@ -49,7 +49,7 @@ const useGroupTableColums = ({ onClickDeleteGroup, onClickLeaveGroup, onClickVie
 			}),
 			columnHelper.accessor(row => ({
 				id: row.id,
-				organizerId: row.organizer?.id
+				organizerId: row.organizer ? row.organizer.id : null
 			}), {
 				id: 'actions',
 				header: t(''),

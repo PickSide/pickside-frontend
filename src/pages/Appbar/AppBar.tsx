@@ -6,7 +6,7 @@ import { useGuestLogout, useLocaleSwitcher, useLogout } from '@hooks'
 
 import { AppState } from '@state'
 import Avatar from '@components/Avatar'
-import Chatrooms from './components/Chatrooms'
+import Chatrooms from './components/chatroom/ChatroomList'
 import { HashLink } from 'react-router-hash-link'
 import NotificationMenu from './components/NotificationMenu'
 import PopupMenu from './components/PopupMenu'

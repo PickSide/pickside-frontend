@@ -1,9 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { Resources, User } from '@state'
 
-export interface Chatrooms extends Resources {
-	results?: Chatroom[]
-}
+import { User } from '@state'
 
 export interface Chatroom {
 	id?: string
@@ -13,13 +10,14 @@ export interface Chatroom {
 }
 
 const ChatroomsReducer = createSlice({
-	initialState: { results: [] } as Chatrooms,
+	initialState: [] as Chatroom[],
 	name: 'chatrooms',
 	reducers: {
-		setChatrooms: (state, action: PayloadAction<Chatrooms>) => (state = { ...state, ...action.payload }),
+		setChatroom: (state, action: PayloadAction<Chatroom>) => (state = [...state, action.payload]),
+		setChatrooms: (state, action: PayloadAction<Chatroom[]>) => (state = [...state, ...action.payload]),
 	},
 })
 
-export const { setChatrooms } = ChatroomsReducer.actions
+export const { setChatroom, setChatrooms } = ChatroomsReducer.actions
 
 export default ChatroomsReducer.reducer

@@ -1,4 +1,4 @@
-import { AppState, newMessage, setChatrooms, setMessages } from '@state'
+import { AppState, newMessage, setActiveChatroom, setChatroom, setChatrooms, setMessages } from '@state'
 import { FC, ReactNode, createContext, useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -10,7 +10,7 @@ interface MessagingContextProps {
     connection?: WebSocket
 }
 
-const MessagingContext = createContext<MessagingContextProps>({})
+const MessageServiceContext = createContext<MessagingContextProps>({})
 
 export const MessagingProvider: FC<any> = ({ children }) => {
     const dispatch = useDispatch()
@@ -32,7 +32,7 @@ export const MessagingProvider: FC<any> = ({ children }) => {
         socket.onopen = () => {
             console.info('Connected to messaging server')
             socket.send(JSON.stringify({
-                eventType: 'chatrooms:loadall',
+                eventType: 'chatrooms:getall',
                 content: {
                     participantId: me.id
                 }
@@ -41,12 +41,16 @@ export const MessagingProvider: FC<any> = ({ children }) => {
 
         socket.onmessage = (event) => {
             const data = JSON.parse(event.data)
-
+            console.log(data)
             switch (data.eventType) {
-                case 'chatrooms:loaded':
-                    dispatch(setChatrooms({ results: data.results }))
+                case 'chatroom:opened':
+                    dispatch(setChatroom(data.results))
+                    dispatch(setActiveChatroom(data.results))
                     break
-                case 'chatroom:loadedmessages':
+                case 'chatrooms:fetched':
+                    dispatch(setChatrooms(data.results))
+                    break
+                case 'chatroom:messages':
                     const chatroomId = uniq(data.results.map(r => r.chatroomId) || [])
                     dispatch(setMessages({ chatroomId: chatroomId[0], messages: data.results }))
                     break
@@ -73,7 +77,7 @@ export const MessagingProvider: FC<any> = ({ children }) => {
         setConnection(socket)
 
         return socket
-    }, [dispatch, me])
+    }, [me?.id])
 
     useEffect(() => {
         const socket = connectToWebSocket()
@@ -86,10 +90,10 @@ export const MessagingProvider: FC<any> = ({ children }) => {
         }
     }, [connectToWebSocket])
     return (
-        <MessagingContext.Provider value={{ connection }}>
+        <MessageServiceContext.Provider value={{ connection }}>
             {children}
-        </MessagingContext.Provider>
+        </MessageServiceContext.Provider>
     )
 }
 
-export default MessagingContext
+export default MessageServiceContext
