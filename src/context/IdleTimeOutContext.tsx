@@ -60,7 +60,7 @@ export const IdleTimeOutProvider: FC<any> = ({ children }) => {
 		return () => clearInterval(interval)
 	}, [checkIfUserIdle, user])
 
-	return <Context.Provider value={{}}>{children}</Context.Provider>
+	return <Context.Provider value={{}}></Context.Provider>
 }
 
 export default Context

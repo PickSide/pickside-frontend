@@ -6,28 +6,18 @@ export interface Chatroom {
 	id?: string
 	name?: string
 	participants?: Partial<User>[]
-	openedChatroom?: User[]
-	numberOfMessages?: number
-	lastMessage?: any
-	startedBy?: User
+	numberOfMessages?: Number
 }
 
 const ChatroomsReducer = createSlice({
-	initialState: ([] as Chatroom[]) || [],
+	initialState: [] as Chatroom[],
 	name: 'chatrooms',
 	reducers: {
-		openChatroom: (state, action: PayloadAction<Chatroom>) => {
-			const chatIdx = state.findIndex((c) => c.id === action.payload.id)
-			if (chatIdx > -1) {
-				return state.filter((c) => c.id !== action.payload.id)
-			} else {
-				return [...state, action.payload]
-			}
-		},
-		closeChatroom: (state, action: PayloadAction<Chatroom>) => state.filter((c) => c.id !== action.payload.id),
+		setChatroom: (state, action: PayloadAction<Chatroom>) => (state = [...state, action.payload]),
+		setChatrooms: (state, action: PayloadAction<Chatroom[]>) => (state = [...state, ...action.payload]),
 	},
 })
 
-export const { openChatroom, closeChatroom } = ChatroomsReducer.actions
+export const { setChatroom, setChatrooms } = ChatroomsReducer.actions
 
 export default ChatroomsReducer.reducer

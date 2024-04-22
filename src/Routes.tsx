@@ -9,6 +9,7 @@ import EditProfile from '@pages/UserSettings/Sections/EditProfile'
 import { FC } from "react"
 import Groups from '@pages/UserSettings/Sections/Groups'
 import Home from '@pages/Home/Home'
+import { IdleTimeOutProvider } from '@context/IdleTimeOutContext'
 import LandingPage from '@pages/Home/sections/LandingPage'
 import Listing from '@pages/Listing/Listing'
 import Login from '@pages/Login/Login'
@@ -27,6 +28,7 @@ const PicksideRoutes: FC = () => {
     return (
         <Router>
             <AppBar />
+            <IdleTimeOutProvider />
             <Routes>
                 <Route path="/" element={<Home />}>
                     <Route index path="home" element={<LandingPage />} />

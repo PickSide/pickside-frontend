@@ -1,73 +1,77 @@
+import { AppState, Group } from '@state'
 import { Icon, IconButton } from '@components'
 
-import Avatar from '@components/Avatar'
-import { Group } from '@state'
-import { Link } from 'react-router-dom'
 import { createColumnHelper } from '@tanstack/react-table'
 import { useMemo } from 'react'
+import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 const columnHelper = createColumnHelper<Group>()
 
-const useGroupTableColums = ({ onClickDeleteGroup }) => {
+const useGroupTableColums = ({ onClickDeleteGroup, onClickLeaveGroup, onClickViewMembers }) => {
 	const { t } = useTranslation()
+
+	const me = useSelector((state: AppState) => state.user)
 
 	return useMemo(
 		() => [
 			columnHelper.accessor('name', {
 				header: t('Group Name'),
-				cell: (info) => <span>{info.getValue()}</span>,
+				cell: (info) => <span key={info.cell.id}>{info.getValue()}</span>,
 				footer: (info) => info.column.id,
 			}),
 			columnHelper.accessor('organizer', {
-				header: t('Owner'),
-				cell: (info) => (
-					<div key={info.cell.id} className="underline text-blue-600 cursor-pointer">
-						{info.getValue()?.username || info.getValue()?.fullName}
+				header: t('Organizer'),
+				cell: (info) => {
+					return <div key={info.cell.id} className="underline text-blue-600 cursor-pointer">
+						{info.getValue()?.displayName || info.getValue()?.fullName}
 					</div>
-				),
+				},
 				footer: (info) => info.column.id,
 			}),
 			columnHelper.accessor('members', {
 				header: t('Members'),
 				cell: (info) => (
 					<div key={info.cell.id} className="flex">
-						{info.getValue()?.map((member) => {
-							const name = member.fullName?.split(' ')
-							return (
-								<Link
-									to={`/user-detail/${member.id}`}
-									state={{ user: member }}
-									className="w-6 h-6 rounded-full overflow-clip bg-ocean shadow-inner text-white text-sm flex items-center justify-center"
-								>
-									{member.avatar ? (
-										<Avatar size="sm" variant="secondary" src={member?.avatar} />
-									) : name ? (
-										[name[0].charAt(0).toLocaleUpperCase(), name[1].charAt(1).toLocaleUpperCase()]
-									) : null}
-								</Link>
-							)
-						})}
+						{info.getValue()?.length ?
+							<span
+								className="link"
+								onClick={() => onClickViewMembers(info.getValue())}
+							>
+								{t('View members')}
+							</span>
+							:
+							<span>{t('No members')}</span>
+						}
 					</div>
 				),
 				footer: (info) => info.column.id,
 			}),
-			columnHelper.accessor('id', {
+			columnHelper.accessor(row => ({
+				id: row.id,
+				organizerId: row.organizer ? row.organizer.id : null
+			}), {
+				id: 'actions',
 				header: t(''),
 				cell: (info) => {
+					const { id: groupId, organizerId } = info.getValue()
 					return (
 						<div key={info.cell.id} className="flex justify-end">
-
-							<IconButton onClick={() => onClickDeleteGroup(info.getValue())}>
-								<Icon className="text-red-700" icon="delete" variant="filled" />
-							</IconButton>
+							{me?.id === organizerId ? (
+								<IconButton onClick={() => onClickDeleteGroup(groupId)}>
+									<Icon className="text-error" icon="delete" variant="filled" />
+								</IconButton>) : (
+								<IconButton onClick={() => onClickLeaveGroup(groupId)}>
+									<Icon className="text-error" icon="move_group" variant="filled" />
+								</IconButton>
+							)}
 						</div>
 					)
 				},
 				footer: (info) => info.column.id,
 			}),
 		],
-		[t, onClickDeleteGroup],
+		[me, onClickDeleteGroup, onClickLeaveGroup, onClickViewMembers, t],
 	)
 }
 

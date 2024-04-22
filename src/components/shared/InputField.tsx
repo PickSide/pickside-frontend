@@ -59,11 +59,11 @@ const InputField = forwardRef<any, InputFieldProps>(
 		const onKeyDown = useCallback(
 			(e) => {
 				if (e.key === 'ArrowDown') {
-					onPressArrowDown && onPressArrowDown()
+					onPressArrowDown && onPressArrowDown(e)
 				} else if (e.key === 'ArrowUp') {
-					onPressArrowUp && onPressArrowUp()
+					onPressArrowUp && onPressArrowUp(e)
 				} else if (e.key === 'Enter') {
-					onPressEnterKey && onPressEnterKey()
+					onPressEnterKey && onPressEnterKey(e)
 				}
 				return
 			},

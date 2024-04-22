@@ -1,46 +1,47 @@
+import { AppState, removeGroup, setMe } from '@state'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { AppState } from '@state'
 import { AxiosContext } from '@context'
 import { useContext } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
-const useJoinGroup = () => {
+const useLeaveGroup = () => {
     const { axiosMSInstance } = useContext(AxiosContext)
     const dispatch = useDispatch()
     const { t } = useTranslation()
 
     const me = useSelector((state: AppState) => state.user)
 
-    const callback = async (groupId: string) => await axiosMSInstance.put(`/group-join/${groupId}/user/${me?.id}`)
+    const callback = async (groupId: string) => await axiosMSInstance.delete(`/group-leave/${groupId}/user/${me?.id}`)
 
     const {
-        mutate: joinGroup,
+        mutate: leaveGroup,
         isLoading,
         error,
         isError,
     } = useMutation(callback, {
-        mutationKey: ['join-group'],
-        onSuccess: () => {
+        mutationKey: ['leave-group'],
+        onSuccess: ({ data }, groupId) => {
+            dispatch(removeGroup(groupId))
             dispatch({
                 type: 'toast/toastMessage',
                 payload: {
-                    message: t('Successfully joined group'),
+                    message: t(data.message),
                     type: 'success',
                 },
             })
         },
-        onError: ({ response: { data } }) => dispatch({
+        onError: (e) => dispatch({
             type: 'toast/toastMessage',
             payload: {
-                message: data.error,
+                message: t('Error while leaving group'),
                 type: 'error',
             },
         }),
     })
 
-    return { joinGroup, isLoading, error, isError }
+    return { leaveGroup, isLoading, error, isError }
 }
 
-export default useJoinGroup
+export default useLeaveGroup

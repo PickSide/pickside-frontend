@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 const useFetchServicesHealth = () => {
-	const { axiosASInstance, axiosFSInstance, axiosMSInstance, axiosNSInstance } = useContext(AxiosContext)
+	const { axiosASInstance, axiosFSInstance, axiosMSInstance, axiosMSGSInstance, axiosNSInstance } = useContext(AxiosContext)
 
 	const fetchServicesHealth = async () => {
 		const promiseHandler = (promise, serviceName: string) => {
@@ -16,6 +16,7 @@ const useFetchServicesHealth = () => {
 			promiseHandler(axiosASInstance.get('/health'), 'auth-service'),
 			promiseHandler(axiosFSInstance.get('/health'), 'file-service'),
 			promiseHandler(axiosMSInstance.get('/health'), 'main-service'),
+			promiseHandler(axiosMSGSInstance.get('/health'), 'message-service'),
 			promiseHandler(axiosNSInstance.get('/health'), 'notification-service'),
 		])
 
@@ -28,7 +29,7 @@ const useFetchServicesHealth = () => {
 		error: reqError,
 		refetch,
 	} = useQuery(['fetch-health-services'], fetchServicesHealth, {
-		onError: () => {},
+		onError: () => { },
 		refetchInterval: 3.6e6,
 		refetchOnWindowFocus: false,
 	})

@@ -33,7 +33,7 @@ const UsersAutocomplete = ({
 			renderInput={(option: User) => (
 				<MenuItem icon={<Avatar size="sm" variant="secondary" src={option.avatar} />}>
 					<div className="inline-flex items-center gap-x-2 text-base font-normal">
-						{option.username}
+						{option.displayName}
 						<span className="text-gray-300">({option.fullName})</span>
 					</div>
 				</MenuItem>

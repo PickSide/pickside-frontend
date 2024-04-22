@@ -1,10 +1,11 @@
+import ActiveChatrooms from '@pages/Appbar/components/chatroom/ActiveChatrooms'
 import { AppThemeProvider } from '@context/AppThemeContext'
 import { AxiosProvider } from '@context/AxiosContext'
-import ChatroomContainer from '@components/global/ChatroomContainer'
 import { EmailVerificationProvider } from '@context/EmailVerificationContext'
-import { IdleTimeOutProvider } from '@context/IdleTimeOutContext'
+import { I18nProvider } from '@context/I18nAppContext'
 import { InitialAppStateProvider } from '@context/InitialAppStateContext'
 import { MeProvider } from '@context/MeContext'
+import { MessagingProvider } from '@context/MessageServiceContext'
 import PicksideRoutes from './Routes'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ServerStatusProvider } from '@context/ServerStatusContext'
@@ -20,20 +21,22 @@ const App = () => {
 				<InitialAppStateProvider>
 					<EmailVerificationProvider>
 						<ServerStatusProvider>
-							<IdleTimeOutProvider>
-								<MeProvider>
+							<MeProvider>
+								<MessagingProvider>
 									<AppThemeProvider>
-										<ChatroomContainer />
-										<WindowProvider>
-											<SidenavProvider>
-												<ToastProvider>
-													<PicksideRoutes />
-												</ToastProvider>
-											</SidenavProvider>
-										</WindowProvider>
+										<I18nProvider>
+											<ActiveChatrooms />
+											<WindowProvider>
+												<SidenavProvider>
+													<ToastProvider>
+														<PicksideRoutes />
+													</ToastProvider>
+												</SidenavProvider>
+											</WindowProvider>
+										</I18nProvider>
 									</AppThemeProvider>
-								</MeProvider>
-							</IdleTimeOutProvider>
+								</MessagingProvider>
+							</MeProvider>
 						</ServerStatusProvider>
 					</EmailVerificationProvider>
 				</InitialAppStateProvider>

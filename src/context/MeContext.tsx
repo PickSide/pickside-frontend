@@ -1,6 +1,5 @@
-import { FC, ReactNode, createContext } from 'react'
-
-import { useFetchMe } from '@hooks'
+import { FC, ReactNode, createContext, useEffect } from 'react'
+import { useFetchMe, useFetchNotifications } from '@hooks'
 
 export interface MeContextProps {
     children?: ReactNode
@@ -12,7 +11,14 @@ const MeContext = createContext<MeContextProps>({
 })
 
 export const MeProvider: FC<any> = ({ children }) => {
-    const { isLoading: meLoading } = useFetchMe()
+    const { isLoading: meLoading, me } = useFetchMe()
+    const { refetch: fetchNotifications } = useFetchNotifications()
+
+    useEffect(() => {
+        if (!meLoading && me) {
+            fetchNotifications()
+        }
+    }, [fetchNotifications, me, meLoading])
 
     return (
         <MeContext.Provider value={{ amILoading: meLoading }}>

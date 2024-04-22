@@ -1,4 +1,4 @@
-import { FC, ReactNode, createContext, useContext, useEffect, useState } from 'react'
+import { FC, ReactNode, createContext, useEffect, useState } from 'react'
 
 import { AppState } from '@state'
 import { useEffectOnce } from 'usehooks-ts'
@@ -9,8 +9,6 @@ export interface AppThemeContextProps {
 }
 
 const AppThemeContext = createContext<AppThemeContextProps>({})
-
-export const useThemeContext = () => useContext(AppThemeContext)
 
 export const AppThemeProvider: FC<any> = ({ children }) => {
 	const user = useSelector((state: AppState) => state.user)

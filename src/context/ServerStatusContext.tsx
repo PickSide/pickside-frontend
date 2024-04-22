@@ -44,7 +44,7 @@ export const ServerStatusProvider: FC<any> = ({ children }) => {
             {isAtLeastOneErrored && (
                 <Banner icon='block' severity='error'>
                     <div className='flex items-center'>
-                        <span>{t('Server is temporary running into issues.')}</span>&nbsp;
+                        <span>{t('Some services are temporary running into issues.')}</span>&nbsp;
                         <span className='link' onClick={() => setOpenHealthCheckDialog(true)}>{t(`Click here`)}</span>&nbsp;
                         <span>{t(`to see what's wrong`)}</span>
                     </div>

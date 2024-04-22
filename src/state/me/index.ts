@@ -1,50 +1,45 @@
 import { ACCOUNT_TYPE, ROLES, USER_PERMISSIONS } from './constants'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { Group } from '../groups'
 import { Locale } from '../locales'
 import { Sport } from '../sport'
 
 export interface User {
 	id?: any
+	acceptedInvitation?: boolean
 	accountType?: ACCOUNT_TYPE
 	address?: string
-	attendedEventsCount?: number
+	allowLocationTracking?: boolean
 	avatar?: any
 	bio?: string
 	city?: string
+	displayName?: string
 	email?: string
 	emailVerified?: boolean
+	exernalId?: string
 	favorites?: string
-	fitnessLevel?: 'retired' | 'average' | 'athletic' | 'very athletic'
 	fullName?: string
-	groups?: Group[]
 	inactive?: boolean
 	inactiveDate?: Date
 	joinDate?: string
 	localeRegion?: string
 	matchOrganizedCount?: number
 	matchPlayedCount?: number
-	phone?: string
 	permissions?: [USER_PERMISSIONS]
-	allowLocationTracking?: boolean
+	phone?: string
 	preferredLocale?: Locale
 	preferredRegion?: google.maps.places.PlaceResult
 	preferredSport?: Sport
 	preferredTheme?: 'light' | 'dark'
-	showAge?: boolean
-	showEmail?: boolean
-	showPhone?: boolean
-	showGroups?: boolean
 	reasonsForJoining?: string[]
 	reliability?: number
 	role?: ROLES
 	sexe?: 'male' | 'female'
-	socialNetworks?: any[]
-	subscriptionType?: string
+	showAge?: boolean
+	showEmail?: boolean
+	showGroups?: boolean
+	showPhone?: boolean
 	timezone?: string
-	username?: string
-	zip?: string
 }
 
 const UserReducer = createSlice({
