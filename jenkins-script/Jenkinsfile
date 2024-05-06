@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    environment {
+        VITE_APP_TITLE = 'Pickside'
+        VITE_APP_AUTH_SERVICE_URL = 'https://pickside-service.com/auth-service'
+        VITE_APP_FILE_SERVICE_URL = 'https://pickside-service.com/file-service'
+        VITE_APP_MAIN_SERVICE_URL = 'https://pickside-service.com/api/v2'
+        VITE_APP_MESSAGE_SERVICE_URL = 'https://pickside-service.com/message-service'
+        VITE_APP_MESSAGE_SERVICE_SOCKET_URL = 'wss://localhost:8084/message-service/ws'
+        VITE_APP_NOTIFICATION_SERVICE_URL = 'https://pickside-service.com/notification-service'
+    }
+
+    stages {
+        stage('Install Dependencies') {
+            steps {
+                sh 'pnpm install'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'pnpm run build'
+            }
+        }
+
+        stage('Postbuild') {
+            steps {
+                script {
+                    withCredentials([
+                        string(credentialsId: 'VITE_APP_GOOGLE_MAPS_API_KEY', variable: 'VITE_APP_GOOGLE_MAPS_API_KEY'),
+                        string(credentialsId: 'VITE_APP_GOOGLE_MAPS_OAUTH_CLIENT_ID', variable: 'VITE_APP_GOOGLE_MAPS_OAUTH_CLIENT_ID'),
+                    ]) {
+                        sh '''
+                            export VITE_APP_GOOGLE_MAPS_API_KEY=$VITE_APP_GOOGLE_MAPS_API_KEY
+                            export VITE_APP_GOOGLE_MAPS_OAUTH_CLIENT_ID=$VITE_APP_GOOGLE_MAPS_OAUTH_CLIENT_ID
+                            pnpm run postbuild
+                        '''
+                    }
+                }
+            }
+        }
+    }
+}
