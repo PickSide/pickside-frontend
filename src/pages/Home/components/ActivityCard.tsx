@@ -23,7 +23,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className }) => {
 				<CardBody className="flex flex-col flex-grow-2 justify-center relative px-5 h-fit text-charcoal-black text-sm">
 					<div className='absolute -top-[24px] left-0 space-x-2'>
 						<Avatar className='border-2 border-ocean-1' variant="secondary" size='lg' src={activity.organizer?.avatar} />
-						<span className='absolute top-1/2'>{activity.organizer.username}</span>
+						<span className='absolute top-1/2'>{activity.organizer.displayName}</span>
 					</div>
 					<div className="block w-full space-y-2 truncate">
 						<div className="flex items-center gap-x-[10px]">
