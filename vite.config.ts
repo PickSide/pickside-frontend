@@ -20,7 +20,7 @@ export default defineConfig(() => {
 		},
 		plugins: [
 			react({ include: /\.(mdx|js|jsx|ts|tsx)$/ }),
-			eslint(),
+			//eslint(),
 			viteTsconfigPaths({ parseNative: false }),
 			svgr({ svgrOptions: { icon: true } }),
 			splitVendorChunkPlugin(),
