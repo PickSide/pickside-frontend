@@ -34,7 +34,7 @@ pipeline {
                         sh '''
                             export VITE_APP_GOOGLE_MAPS_API_KEY=$VITE_APP_GOOGLE_MAPS_API_KEY
                             export VITE_APP_GOOGLE_MAPS_OAUTH_CLIENT_ID=$VITE_APP_GOOGLE_MAPS_OAUTH_CLIENT_ID
-                            pnpm run postbuild
+                            npm run postbuild
                         '''
                     }
                 }
