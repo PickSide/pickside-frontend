@@ -5,8 +5,6 @@ import react from '@vitejs/plugin-react'
 import svgr from 'vite-plugin-svgr'
 import viteTsconfigPaths from 'vite-tsconfig-paths'
 
-//import path from 'path'
-
 export default defineConfig(() => {
 	return {
 		build: {
@@ -20,7 +18,7 @@ export default defineConfig(() => {
 		},
 		plugins: [
 			react({ include: /\.(mdx|js|jsx|ts|tsx)$/ }),
-			//eslint(),
+			eslint(),
 			viteTsconfigPaths({ parseNative: false }),
 			svgr({ svgrOptions: { icon: true } }),
 			splitVendorChunkPlugin(),

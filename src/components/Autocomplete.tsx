@@ -99,8 +99,10 @@ const Autocomplete = <T,>({
 				</div>
 			)
 		} else if (renderInput) {
-			return options?.map((option, idx) =>
-				cloneElement(renderInput(option), { key: idx, onClick: (e) => onSelectElement(e, option) }),
+			return (
+				<>
+					{options?.map((option, idx) => cloneElement(renderInput(option), { key: idx, onClick: (e) => onSelectElement(e, option) }))}
+				</>
 			)
 		} else {
 			return (
