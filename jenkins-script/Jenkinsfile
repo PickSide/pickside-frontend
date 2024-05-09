@@ -34,7 +34,7 @@ pipeline {
                 }
             }
         }
-        stage('Postbuild') {
+        stage('Deploy') {
             steps {
                 script {
                     withCredentials([
