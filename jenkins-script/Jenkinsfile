@@ -7,11 +7,17 @@ pipeline {
         VITE_APP_FILE_SERVICE_URL = 'https://pickside-service.com/file-service'
         VITE_APP_MAIN_SERVICE_URL = 'https://pickside-service.com/api/v2'
         VITE_APP_MESSAGE_SERVICE_URL = 'https://pickside-service.com/message-service'
-        VITE_APP_MESSAGE_SERVICE_SOCKET_URL = 'wss://localhost:8084/message-service/ws'
+        VITE_APP_MESSAGE_SERVICE_SOCKET_URL = 'wss://pickside-service/message-service/ws'
         VITE_APP_NOTIFICATION_SERVICE_URL = 'https://pickside-service.com/notification-service'
     }
 
     stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'release',
+                    url: 'https://github.com/PickSide/pickside-frontend.git'
+            }
+        }
         stage('Install Dependencies') {
             steps {
                 sh 'pnpm install'
@@ -20,25 +26,44 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'pnpm run build'
-            }
-        }
-
-        stage('Postbuild') {
-            steps {
                 script {
-                    withCredentials([
-                        string(credentialsId: 'VITE_APP_GOOGLE_MAPS_API_KEY', variable: 'VITE_APP_GOOGLE_MAPS_API_KEY'),
-                        string(credentialsId: 'VITE_APP_GOOGLE_MAPS_OAUTH_CLIENT_ID', variable: 'VITE_APP_GOOGLE_MAPS_OAUTH_CLIENT_ID'),
+                     withCredentials([
+                        string(credentialsId: 'google-map-api-key', variable: 'VITE_APP_GOOGLE_MAPS_API_KEY'),
+                        string(credentialsId: 'google-oauth-id', variable: 'VITE_APP_GOOGLE_MAPS_OAUTH_CLIENT_ID'),
                     ]) {
                         sh '''
-                            export VITE_APP_GOOGLE_MAPS_API_KEY=$VITE_APP_GOOGLE_MAPS_API_KEY
-                            export VITE_APP_GOOGLE_MAPS_OAUTH_CLIENT_ID=$VITE_APP_GOOGLE_MAPS_OAUTH_CLIENT_ID
-                            npm run postbuild
+                            echo $VITE_APP_GOOGLE_MAPS_API_KEY
+                            echo $VITE_APP_GOOGLE_MAPS_OAUTH_CLIENT_ID
+                            pnpm run build
                         '''
                     }
                 }
             }
         }
+        stage('Postbuild') {
+            steps {
+                script {
+                    withCredentials([
+                        aws(credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')
+                    ]) {
+                        sh '''
+                            export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+                            export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+                            aws sts get-caller-identity
+                            if [ $? -eq 0 ]; then
+                                echo "AWS credentials are valid."
+                                echo "Syncing to S3"
+                                aws s3 sync build/ s3://pickside.net/ --delete --cache-control max-age=60
+                            else
+                                echo "Failed to validate AWS credentials."
+                                exit 1
+                            fi
+                        '''
+                    }
+                   
+                }
+            }
+        }
+
     }
 }
