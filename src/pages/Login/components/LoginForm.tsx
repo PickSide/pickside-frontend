@@ -24,8 +24,6 @@ export default function LoginForm() {
 	}
 
 	const onLogin = async (data: any) => await login(data)
-
-
 	const onGoogleLogin = async (data: any) => await loginWithGoogle(data)
 
 	return (
@@ -64,6 +62,7 @@ export default function LoginForm() {
 				</Button>
 				<Button
 					type="submit"
+					disabled
 					className="h-[40px] flex whitespace-nowrap gap-x-4 text-base font-medium items-center justify-center"
 					variant="secondary"
 					isLoading={isLoginLoading || isGoogleLoginLoading}
