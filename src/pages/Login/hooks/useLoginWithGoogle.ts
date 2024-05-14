@@ -15,19 +15,14 @@ const useLoginWithGoogle = () => {
 	const [, setCachedUser] = useLocalStorage('user', null)
 	const { t } = useTranslation()
 
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { axiosASInstance, axiosMSInstance } = useContext(AxiosContext)
 	const [isLoading, setIsLoading] = useState<any>(null)
 	const [error, setError] = useState<any>(null)
 
 	const fetchGoogleAccountInfoServiceAPI = async (accessToken: string) =>
-		await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`, {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-				Accept: 'application/json',
-			},
-		})
+		await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`)
 
-	const callback = async (data: any) => await axiosMSInstance.post('/extlogin', { ...data, provider: "google" })
+	const callback = async (data: any) => await axiosASInstance.post('/extlogin', { ...data, provider: "google" })
 
 	const loginWithGoogle = useGoogleLogin({
 		onSuccess: async ({ access_token }) => {

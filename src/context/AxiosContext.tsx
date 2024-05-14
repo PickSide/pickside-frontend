@@ -75,13 +75,8 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 		const addInterceptor = (axiosInstance: AxiosInstance) => {
 			const id = axiosInstance.interceptors.request.use(async (config) => {
 				try {
-					await axiosASInstance.get('/verify-token', {
-						headers: {
-							Authorization: `Bearer ${bearer || ''}`,
-						},
-					})
-
 					config.headers['Accept'] = '*/*'
+					config.headers['Authorization'] = `Bearer ${bearer || ''}`
 					config.headers['Accept-Version'] = 'v2'
 					config.headers['X-Client-Version'] = ClientVersion
 					config.headers['X-Request-Id'] = uuidv4()
