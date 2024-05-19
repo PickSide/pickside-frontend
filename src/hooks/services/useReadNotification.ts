@@ -7,20 +7,20 @@ import { useMutation } from '@tanstack/react-query'
 
 const useReadNotification = () => {
 	const dispatch = useDispatch()
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { axiosNSInstance } = useContext(AxiosContext)
 
 	const me = useSelector((state: AppState) => state.user)
 
 	const callback = async (notificationId: any) =>
-		await axiosMSInstance.put(`/notifications/${notificationId}/${me?.id}`)
+		await axiosNSInstance.put(`/seen/${notificationId}`)
 
 	const {
 		mutate: readNotification,
 		data: notifications,
 		isLoading,
 	} = useMutation(callback, {
-		mutationKey: ['readNotification'],
-		onSuccess: ({ data }) => dispatch(setNotifications(data)),
+		mutationKey: ['seen-notification'],
+		onSuccess: (_, params) => dispatch(setNotifications(params)),
 		onError: () => {},
 	})
 

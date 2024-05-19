@@ -30,7 +30,8 @@ const NotificationsReducer = createSlice({
 	name: 'notifications',
 	reducers: {
 		setNotifications: (state, action: PayloadAction<Notifications>) => (state = { ...state, ...action.payload }),
-		markAsRead: (state, action: PayloadAction<any>) => {
+		markSeen: (state, action: PayloadAction<string>) => {
+			console.log('action', action)
 			if (state && state.results) {
 				const idx = state.results.findIndex((item) => item.id === action.payload)
 				state.results[idx].isRead = true
@@ -40,6 +41,6 @@ const NotificationsReducer = createSlice({
 	},
 })
 
-export const { setNotifications, markAsRead } = NotificationsReducer.actions
+export const { setNotifications, markSeen } = NotificationsReducer.actions
 
 export default NotificationsReducer.reducer
