@@ -54,17 +54,18 @@ const NotificationMenu: FC<any> = () => {
 
 					if (notification.type === 'group-invite' && extra.groupId) {
 						return (
-							<MenuItem key={idx} className='p-4' hoverable={false}>
+							<MenuItem key={idx} className='p-4' hoverable={false} onClick={() => readNotification(notification.id)}>
 								<GroupInviteNotification groupId={extra.groupId} />
 							</MenuItem>
 						)
 					}
-					return null
-					// (
-					// 	<MenuItem key={idx} className='p-4' onClick={() => readNotification(notification.id)}>
-					// 		<RenderNotification notification={notification} />
-					// 	</MenuItem>
-					// )
+					// return null
+					return (
+						<MenuItem key={idx} className='p-4' onClick={() => readNotification(notification.id)}>
+							<RenderNotification notification={notification} />
+						</MenuItem>
+					)
+					
 				})) :
 				<MenuItem disabled>
 					<p>{t('No new notifications')}</p>
