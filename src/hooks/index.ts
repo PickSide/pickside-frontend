@@ -1,3 +1,4 @@
+import useAcceptFriendRequest from './services/useAcceptFriendRequest'
 import useActivityHandlers from './useActivityHandlers'
 import useCreateActivity from '../pages/NewEvent/hooks/useCreateActivity'
 import useDeactivateAccount from './services/useDeactivateAccount'
@@ -30,11 +31,13 @@ import useReactivateAccount from './services/useReactivateAccount'
 import useReadNotification from './services/useReadNotification'
 import useRegisterToActivity from './services/useRegisterToActivity'
 import useResetDb from '../pages/Home/hooks/useResetDb'
+import useSendFriendRequest from './services/useSendFriendRequest'
 import useUpdateAvatar from './services/useUpdateAvatar'
 import useUpdateFavorite from './services/useUpdateFavorite'
 import useUpdateSetting from './services/useUpdateSetting'
 
 export {
+	useAcceptFriendRequest,
 	useActivityHandlers,
 	useMyPosition,
 	useCreateActivity,
@@ -67,6 +70,7 @@ export {
 	useReadNotification,
 	useRegisterToActivity,
 	useResetDb,
+	useSendFriendRequest,
 	useUpdateAvatar,
 	useUpdateFavorite,
 	useUpdateSetting,
