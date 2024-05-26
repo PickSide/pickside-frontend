@@ -8,12 +8,12 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 const useLogin = () => {
-	const { axiosASInstance, setBearer } = useContext(AxiosContext)
+	const { axiosMSInstance, setBearer } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
 
-	const callback = (data: any) => axiosASInstance.post('/login', data)
+	const callback = (data: any) => axiosMSInstance.post('/login', data)
 
 	const {
 		mutate: login,

@@ -14,7 +14,18 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
-                sh 'pnpm install'
+                script {
+                    sh '''
+                        # Source .bashrc to load nvm and npm
+                        . ~/.bashrc
+
+                        # Use Node.js installed by nvm
+                        nvm use --lts
+
+                        # Install project dependencies using pnpm
+                        pnpm install
+                    '''
+                }
             }
         }
 
@@ -26,9 +37,9 @@ pipeline {
                         string(credentialsId: 'google-oauth-id', variable: 'VITE_APP_GOOGLE_MAPS_OAUTH_CLIENT_ID'),
                     ]) {
                         sh '''
-                            echo $VITE_APP_GOOGLE_MAPS_API_KEY
-                            echo $VITE_APP_GOOGLE_MAPS_OAUTH_CLIENT_ID
-                            pnpm run build
+                            . ~/.bashrc
+                            nvm use --lts
+                            pnpm build
                         '''
                     }
                 }
@@ -38,12 +49,16 @@ pipeline {
             steps {
                 script {
                     withCredentials([
-                        aws(credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')
+                        aws(credentialsId: 'aws-creds', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')
                     ]) {
                         sh '''
+                            . ~/.bashrc
+
                             export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
                             export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+
                             aws sts get-caller-identity
+                            
                             if [ $? -eq 0 ]; then
                                 echo "AWS credentials are valid."
                                 echo "Syncing to S3"

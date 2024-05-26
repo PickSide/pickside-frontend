@@ -5,6 +5,5 @@
 	"singleQuote": true,
 	"printWidth": 120,
 	"useTabs": true,
-	"endOfLine": "auto",
-	"plugins": ["prettier-plugin-tailwindcss"]
+	"endOfLine": "auto"
 }
