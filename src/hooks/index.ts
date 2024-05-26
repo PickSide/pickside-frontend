@@ -5,7 +5,6 @@ import useDeactivateAccount from './services/useDeactivateAccount'
 import useDebouncedCallback from './useDebouncedCallback'
 import useDeleteGroup from './services/useDeleteGroup'
 import useDevice from './useDevice'
-import useEnvVariables from './useEnvVariables'
 import useFetchActivities from './services/useFetchActivities'
 import useFetchActivity from './services/useFetchActivity'
 import useFetchFavorites from './services/useFetchFavorites'
@@ -45,7 +44,6 @@ export {
 	useDebouncedCallback,
 	useDeleteGroup,
 	useDevice,
-	useEnvVariables,
 	useFetchActivities,
 	useFetchActivity,
 	useFetchFavorites,
