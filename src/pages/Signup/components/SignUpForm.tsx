@@ -2,7 +2,6 @@ import { Button, Checkbox, EmailField, Icon, InputField, PasswordField } from '@
 import { EMAIL_REGEX, PASSWORD_REGEX, PHONE_REGEX } from '@utils'
 import { useFormContext, useFormState } from 'react-hook-form'
 
-import { AiFillPhone } from 'react-icons/ai'
 import { SignupFormProps } from '../interface/forms'
 import { omit } from 'lodash'
 import useSignup from '../hooks/useSignup'
@@ -14,7 +13,7 @@ const SignUpForm = () => {
 	const { signup, error, isError, isLoading } = useSignup()
 	const { t } = useTranslation()
 
-	const onSubmit = async (data) => await signup(omit(data, 'confirmPassword'))
+	const onSubmit = async (data) => await signup(omit({...data, accountType: 'system'}, 'confirmPassword'))
 
 	return (
 		<>
@@ -69,18 +68,7 @@ const SignUpForm = () => {
 					})}
 				/>
 
-				<InputField
-					label={t('Phone number')}
-					placeholder={t('Enter phone')}
-					startContent={<AiFillPhone size={20} />}
-					error={errors.phone?.message}
-					aria-invalid={!!errors.phone}
-					fullWidth
-					{...register('phone', {
-						required: t('Field is required'),
-						pattern: { value: PHONE_REGEX, message: t('Phone wrong format') },
-					})}
-				/>
+				
 
 				<Checkbox label={t('I agree to the terms of service and privacy policy.')} {...register('agreedToTerms')} />
 

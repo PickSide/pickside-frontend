@@ -7,11 +7,11 @@ import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 
 const useSignup = () => {
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { axiosMSInstance, setBearer } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
-	const callback = async (data: any) => await axiosMSInstance.post(`/users`, data)
+	const callback = async (data: any) => await axiosMSInstance.post(`/signup`, data)
 
 	const {
 		mutate: signup,
@@ -21,6 +21,7 @@ const useSignup = () => {
 	} = useMutation(callback, {
 		mutationKey: ['create-user'],
 		onSuccess: ({ data }) => {
+			setBearer(data.token)
 			dispatch(setMe(data.result))
 			navigate('/', { replace: true })
 		},
