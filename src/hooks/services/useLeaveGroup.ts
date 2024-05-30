@@ -1,4 +1,4 @@
-import { AppState, removeGroup, setMe } from '@state'
+import { AppState, removeGroup } from '@state'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { AxiosContext } from '@context'
@@ -13,7 +13,7 @@ const useLeaveGroup = () => {
 
     const me = useSelector((state: AppState) => state.user)
 
-    const callback = async (groupId: string) => await axiosMSInstance.delete(`/group-leave/${groupId}/user/${me?.id}`)
+    const callback = async (groupId: string) => await axiosMSInstance.delete(`/group/leave/${groupId}/user/${me?.id}`)
 
     const {
         mutate: leaveGroup,

@@ -2,6 +2,7 @@ export type CreateEventProps = {
     address: any
     date: any
     description?: string
+    duration?: string
     gameMode: string
     images: string[]
     isPrivate: boolean
@@ -12,6 +13,6 @@ export type CreateEventProps = {
     price: number
     rules?: string
     sport: any
-    time: any
+    startTime: any
     title: string
 }

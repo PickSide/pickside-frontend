@@ -1,4 +1,4 @@
-import { Button, DatePicker, FormDivider, TimePicker } from '@components'
+import { Button, DatePicker, FormDivider, InputField, Select, TimePicker } from '@components'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 
 import { CreateEventProps } from '@pages/NewEvent/utils/types'
@@ -23,16 +23,32 @@ const Step1 = () => {
 			<FormDivider />
 
 			<Controller
-				name="time"
+				name="startTime"
 				control={control}
 				render={({ field }) => <TimePicker {...field} fullWidth placeholder={t('Choose time')} label={t('Time')} />}
 			/>
 			<FormDivider />
 
 			<Controller
+				name="duration"
+				control={control}
+				rules={{
+					required: "Required",
+					pattern: {
+						value: /^(?:(?:[1-9][0-9]*h)?(?:[1-5]?[0-9]min)?)$/,
+						message: t('Wrong format')
+					},
+				}}
+				render={({ field }) => (
+					<InputField {...field} placeholder={t('You can type 30min, 1h, 90min, 1h30min, etc')} label={t('Duration')} />
+				)}
+			/>
+			<FormDivider />
+
+			<Controller
 				name="address"
 				control={control}
-				render={({ field }) =>
+				render={({ field }) => (
 					<GoogleAutocomplete
 						{...field}
 						fullWidth
@@ -44,7 +60,7 @@ const Step1 = () => {
 						}}
 						value={field.value}
 					/>
-				}
+				)}
 			/>
 
 			<StepperCTAWrapper>

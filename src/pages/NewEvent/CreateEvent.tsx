@@ -14,19 +14,20 @@ const CreateEvent = () => {
 
 	const form = useForm<CreateEventProps>({
 		defaultValues: {
-			date: dayjs(),
-			time: moment(),
 			address: '',
-			sport: '',
+			date: dayjs(),
+			duration: '',
 			gameMode: '',
-			price: 0,
-			maxPlayers: 0,
-			rules: '',
-			title: '',
 			images: [],
 			isPrivate: false,
+			maxPlayers: 0,
+			price: 0,
+			rules: '',
+			sport: '',
+			startTime: moment(),
+			title: '',
 		},
-		reValidateMode: 'onChange',
+		reValidateMode: 'onBlur',
 		resetOptions: {
 			keepDirtyValues: false,
 			keepErrors: false,
