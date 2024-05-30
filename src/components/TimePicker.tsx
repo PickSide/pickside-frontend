@@ -1,5 +1,5 @@
 import { ControlProps, components } from 'react-select'
-import { forwardRef, useCallback, useEffect, useId, useState } from 'react'
+import { forwardRef, useId, useState } from 'react'
 
 import Icon from './shared/Icon'
 import Select from './shared/Select'
@@ -19,7 +19,7 @@ const TimePicker = ({ fullWidth = false, onChange, label, value, ...rest }, ref)
 
 	const amPmOpts = [
 		{ label: 'AM', value: 'am' },
-		{ label: 'PM', value: 'pm' }
+		{ label: 'PM', value: 'pm' },
 	]
 
 	const Control = ({ children, ...props }: ControlProps<any>) => {
@@ -31,10 +31,12 @@ const TimePicker = ({ fullWidth = false, onChange, label, value, ...rest }, ref)
 		)
 	}
 
-	const [amPm, setAmPm] = useState(amPmOpts.find(x => x.value === value.format('LT').split(' ')[1].toLowerCase()) || amPmOpts[0])
+	const [amPm, setAmPm] = useState(
+		amPmOpts.find((x) => x.value === value.format('LT').split(' ')[1].toLowerCase()) || amPmOpts[0],
+	)
 
-	const handleAmPmChange = (value) => {
-		setAmPm(value)
+	const handleAmPmChange = (amPm) => {
+		setAmPm(amPm)
 		onChange && onChange(value.add(12, 'hours'))
 	}
 
