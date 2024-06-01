@@ -13,7 +13,7 @@ const useDeleteGroup = () => {
 
 	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async (id: string) => await axiosMSInstance.delete(`/group/${id}/organizer/${me?.id}`)
+	const callback = async (id: string) => await axiosMSInstance.delete(`/groups/${id}/organizer/${me?.id}`)
 
 	const {
 		mutate: deleteGroup,

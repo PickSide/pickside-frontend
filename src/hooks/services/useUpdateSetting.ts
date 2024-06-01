@@ -1,7 +1,8 @@
-import { AxiosContext } from '@context'
 import { AppState, updateMeConfig } from '@state'
-import { useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
+import { AxiosContext } from '@context'
+import { useContext } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
@@ -12,7 +13,7 @@ const useUpdateSetting = () => {
 
 	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async (data) => axiosMSInstance.put(`/user/${me?.id}/settings`, data)
+	const callback = async (data) => axiosMSInstance.put(`/users/${me?.id}/settings`, data)
 
 	const {
 		mutate: updateUser,

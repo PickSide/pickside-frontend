@@ -14,7 +14,6 @@ export interface Group {
 	name?: string
 	organizer?: User
 	requireApproval?: boolean
-	sport: string
 	visibility: 'public' | 'private'
 }
 

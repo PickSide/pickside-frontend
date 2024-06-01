@@ -10,7 +10,7 @@ const useCreateGroups = () => {
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 
-	const callback = async (data: any) => await axiosMSInstance.post(`/group`, data)
+	const callback = async (data: any) => await axiosMSInstance.post(`/groups`, data)
 
 	const {
 		mutate: createGroups,

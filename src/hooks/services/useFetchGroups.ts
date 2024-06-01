@@ -11,7 +11,7 @@ const useFetchGroups = () => {
 
 	const me = useSelector((state: AppState) => state.user)
 
-	const fetchGroups = async () => await axiosMSInstance.get(`/groups/user/${me?.id}`)
+	const fetchGroups = async () => await axiosMSInstance.get(`/groups/users/${me?.id}`)
 
 	const {
 		data: groups,

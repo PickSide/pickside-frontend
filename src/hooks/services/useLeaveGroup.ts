@@ -13,7 +13,7 @@ const useLeaveGroup = () => {
 
     const me = useSelector((state: AppState) => state.user)
 
-    const callback = async (groupId: string) => await axiosMSInstance.delete(`/group/leave/${groupId}/user/${me?.id}`)
+    const callback = async (groupId: string) => await axiosMSInstance.delete(`/groups/leave/${groupId}/users/${me?.id}`)
 
     const {
         mutate: leaveGroup,

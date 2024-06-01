@@ -13,7 +13,7 @@ const useJoinGroup = () => {
 
     const me = useSelector((state: AppState) => state.user)
 
-    const callback = async (groupId: string) => await axiosMSInstance.put(`/group/join/${groupId}/user/${me?.id}`)
+    const callback = async (groupId: string) => await axiosMSInstance.put(`/groups/join/${groupId}/users/${me?.id}`)
 
     const {
         mutate: joinGroup,
