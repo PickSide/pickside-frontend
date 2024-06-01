@@ -31,7 +31,6 @@ const NotificationsReducer = createSlice({
 	reducers: {
 		setNotifications: (state, action: PayloadAction<Notifications>) => (state = { ...state, ...action.payload }),
 		markSeen: (state, action: PayloadAction<string>) => {
-			console.log('action', action)
 			if (state && state.results) {
 				const idx = state.results.findIndex((item) => item.id === action.payload)
 				state.results[idx].isRead = true
