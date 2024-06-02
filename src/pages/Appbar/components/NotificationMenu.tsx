@@ -23,16 +23,20 @@ const NotificationMenu: FC<any> = () => {
 		</div>
 	)
 
-	const GroupInviteNotification = ({ groupId, isRead }) => (
+	const GroupInviteNotification = ({ groupId, isRead, requireApproval }) => (
 		<div className="flex items-center">
 			{!isRead && <RxDotFilled className="text-blue-400" size={20} />}
 			<p>{t(`You have received an invitation to join group`)}</p>
-			<Button className="text-error" variant="tertiary">
-				{t('Reject')}
-			</Button>
-			<Button className="bg-success text-white" onClick={() => joinGroup(groupId)}>
-				{t('Accept')}
-			</Button>
+			{requireApproval && (
+				<>
+					<Button className="text-error" variant="tertiary">
+						{t('Reject')}
+					</Button>
+					<Button className="bg-success text-white" onClick={() => joinGroup(groupId)}>
+						{t('Accept')}
+					</Button>
+				</>
+			)}
 		</div>
 	)
 	const FriendRequestNotification = ({ isRead, userId }) => (
@@ -66,10 +70,14 @@ const NotificationMenu: FC<any> = () => {
 					// need to handle badly parsed json here
 					const extra = notification.extra ? JSON.parse(notification.extra) : {}
 
-					if (notification.type === 'group-invite' && extra.groupId) {
+					if (notification.type === 'group-invite') {
 						return (
 							<MenuItem key={idx} className="p-4" hoverable={false} onClick={() => readNotification(notification.id)}>
-								<GroupInviteNotification groupId={extra.groupId} isRead={notification.isRead} />
+								<GroupInviteNotification
+									groupId={extra.groupId}
+									isRead={notification.isRead}
+									requireApproval={extra.requiresApproval}
+								/>
 							</MenuItem>
 						)
 					}

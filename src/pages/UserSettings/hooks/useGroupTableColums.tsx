@@ -62,7 +62,7 @@ const useGroupTableColums = ({ onClickDeleteGroup, onClickLeaveGroup, onClickVie
 									<Icon className="text-error" icon="delete" variant="filled" />
 								</IconButton>) : (
 								<IconButton onClick={() => onClickLeaveGroup(groupId)}>
-									<Icon className="text-error" icon="move_group" variant="filled" />
+									<Icon className="text-info" icon="exit_to_app" variant="filled" />
 								</IconButton>
 							)}
 						</div>

@@ -7,11 +7,11 @@ import { useQuery } from '@tanstack/react-query'
 
 const useFetchNotifications = () => {
 	const dispatch = useDispatch()
-	const { axiosNSInstance } = useContext(AxiosContext)
+	const { axiosMSInstance } = useContext(AxiosContext)
 
 	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async () => await axiosNSInstance.get<any>(`/notifications?userKey=${me?.id}`)
+	const callback = async () => await axiosMSInstance.get<any>(`/notifications?userKey=${me?.id}`)
 
 	const {
 		data: notifications,
@@ -20,7 +20,7 @@ const useFetchNotifications = () => {
 	} = useQuery(['fetch-notifications'], callback, {
 		enabled: false,
 		onSuccess: ({ data }) => dispatch(setNotifications(data)),
-		onError: () => { },
+		onError: () => {},
 		refetchOnWindowFocus: false,
 	})
 

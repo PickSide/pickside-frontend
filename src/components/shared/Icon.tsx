@@ -22,6 +22,7 @@ const validIcons = [
 	'edit',
 	'error',
 	'error_outline',
+	'exit_to_app',
 	'favorite',
 	'group',
 	'info',
