@@ -6,7 +6,7 @@ import AddGroupFormDialog from '../components/forms/dialogs/AddGroupFormDialog'
 import DeleteGroupDialog from '../components/dialogs/DeleteGroupDialog'
 import LeaveGroupDialog from '../components/dialogs/LeaveGroupDialog'
 import ViewMembersDialog from '../components/dialogs/ViewMembersDialog'
-import { useFetchGroups, } from '@hooks'
+import { useFetchGroups } from '@hooks'
 import useGroupTableColums from '../hooks/useGroupTableColums'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
@@ -39,7 +39,7 @@ const Groups = () => {
 		onClickViewMembers: (members: User[]) => {
 			setOpenViewMembersDialog(true)
 			setSelectedGroupMembers(members)
-		}
+		},
 	})
 
 	const table = useReactTable({
@@ -50,15 +50,23 @@ const Groups = () => {
 
 	return (
 		<>
-			<Dialog open={openEditCreateGroupDialog} onClose={() => setOpenEditCreateGroupDialog(false)} title={t('Create new group')}>
+			<Dialog
+				open={openEditCreateGroupDialog}
+				onClose={() => setOpenEditCreateGroupDialog(false)}
+				title={t('Create new group')}
+			>
 				<AddGroupFormDialog onClose={() => setOpenEditCreateGroupDialog(false)} />
 			</Dialog>
 
 			<Dialog open={openViewMembersDialog} onClose={() => setOpenViewMembersDialog(false)} title={t('Members')}>
-				<ViewMembersDialog onClose={() => setOpenViewMembersDialog(false)} members={selectedGroupMembers.filter(m => m.id !== me?.id)} />
+				<ViewMembersDialog onClose={() => setOpenViewMembersDialog(false)} members={selectedGroupMembers} />
 			</Dialog>
 
-			<Dialog open={openConfirmDeleteGroupDialog} onClose={() => setOpenConfirmDeleteGroupDialog(false)} title={t('Delete group')}>
+			<Dialog
+				open={openConfirmDeleteGroupDialog}
+				onClose={() => setOpenConfirmDeleteGroupDialog(false)}
+				title={t('Delete group')}
+			>
 				<DeleteGroupDialog groupId={selectedGroupId} onClose={() => setOpenConfirmDeleteGroupDialog(false)} />
 			</Dialog>
 
@@ -71,9 +79,7 @@ const Groups = () => {
 					{t('Add group')}
 				</Button>
 				{!groups?.results?.length ? (
-					<div className='flex items-center justify-center'>
-						{t('No groups')}
-					</div>
+					<div className="flex items-center justify-center">{t('No groups')}</div>
 				) : isFetchingGroupsLoading ? (
 					<Spinner text={t('Loading groups')} />
 				) : (
@@ -93,7 +99,9 @@ const Groups = () => {
 							{table.getRowModel().rows.map((row) => (
 								<tr key={row.id} className="h-8 border-b-2">
 									{row.getVisibleCells().map((cell) => (
-										<td key={cell.id} className='p-4 border-b-2'>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+										<td key={cell.id} className="p-4 border-b-2">
+											{flexRender(cell.column.columnDef.cell, cell.getContext())}
+										</td>
 									))}
 								</tr>
 							))}

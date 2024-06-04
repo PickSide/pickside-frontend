@@ -15,7 +15,7 @@ const useFetchServicesHealth = () => {
 		const responses = await Promise.all([
 			promiseHandler(axiosASInstance.get('/health'), 'auth-service'),
 			promiseHandler(axiosFSInstance.get('/health'), 'file-service'),
-			promiseHandler(axiosMSInstance.get('/health'), 'main-service'),
+			promiseHandler(axiosMSInstance.get('/health'), 'external-service'),
 			promiseHandler(axiosMSGSInstance.get('/health'), 'message-service'),
 			promiseHandler(axiosNSInstance.get('/health'), 'notification-service'),
 		])

@@ -13,7 +13,8 @@ export interface Group {
 	members?: User[]
 	name?: string
 	organizer?: User
-	requireApproval?: boolean
+	invitationStatus?: 'accepted' | 'pending' | 'declined'
+	isOrganizer?: boolean
 	visibility: 'public' | 'private'
 }
 

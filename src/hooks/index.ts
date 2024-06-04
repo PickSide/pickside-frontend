@@ -18,7 +18,6 @@ import useFetchOnlineUsers from './services/useFetchOnlineUsers'
 import useFetchSports from './services/useFetchSports'
 import useFetchUsers from './services/useFetchUsers'
 import useGuestLogout from './services/useGuestLogout'
-import useJoinGroup from './services/useJoinGroup'
 import useLeaveGroup from './services/useLeaveGroup'
 import useLocaleSwitcher from './useLocaleSwitcher'
 import useLogout from './services/useLogout'
@@ -29,10 +28,10 @@ import useOnScreen from './useOnScreen'
 import useReactivateAccount from './services/useReactivateAccount'
 import useReadNotification from './services/useReadNotification'
 import useRegisterToActivity from './services/useRegisterToActivity'
-import useResetDb from '../pages/Home/hooks/useResetDb'
 import useSendFriendRequest from './services/useSendFriendRequest'
 import useUpdateAvatar from './services/useUpdateAvatar'
 import useUpdateFavorite from './services/useUpdateFavorite'
+import useUpdateGroupInvitationRequest from './services/useUpdateGroupInvitationRequest'
 import useUpdateSetting from './services/useUpdateSetting'
 
 export {
@@ -57,7 +56,6 @@ export {
 	useFetchSports,
 	useFetchUsers,
 	useGuestLogout,
-	useJoinGroup,
 	useLeaveGroup,
 	useLocaleSwitcher,
 	useLogout,
@@ -67,9 +65,9 @@ export {
 	useReactivateAccount,
 	useReadNotification,
 	useRegisterToActivity,
-	useResetDb,
 	useSendFriendRequest,
 	useUpdateAvatar,
 	useUpdateFavorite,
+	useUpdateGroupInvitationRequest,
 	useUpdateSetting,
 }

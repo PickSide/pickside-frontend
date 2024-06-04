@@ -1,6 +1,6 @@
 import { AppState, Group, Notification } from '@state'
 import { Avatar, Button, Dropdown, Icon, MenuItem } from '@components'
-import { useAcceptFriendRequest, useJoinGroup, useReadNotification } from '@hooks'
+import { useAcceptFriendRequest, useReadNotification, useUpdateGroupInvitationRequest } from '@hooks'
 
 import { FC } from 'react'
 import { RxDotFilled } from 'react-icons/rx'
@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 
 const NotificationMenu: FC<any> = () => {
 	const { readNotification } = useReadNotification()
-	const { joinGroup } = useJoinGroup()
+	const { updateGroupInvitiationRequest } = useUpdateGroupInvitationRequest()
 	const { acceptFriendRequest } = useAcceptFriendRequest()
 	const { t } = useTranslation()
 
@@ -27,10 +27,17 @@ const NotificationMenu: FC<any> = () => {
 		<div className="flex items-center">
 			{!isRead && <RxDotFilled className="text-blue-400" size={20} />}
 			<p>{t(`You have received an invitation to join group`)}</p>
-			<Button className="text-error" variant="tertiary">
+			<Button
+				className="text-error"
+				variant="tertiary"
+				onClick={() => updateGroupInvitiationRequest({ groupId, status: 'declined' })}
+			>
 				{t('Reject')}
 			</Button>
-			<Button className="bg-success text-white" onClick={() => joinGroup(groupId)}>
+			<Button
+				className="bg-success text-white"
+				onClick={() => updateGroupInvitiationRequest({ groupId, status: 'accepted' })}
+			>
 				{t('Accept')}
 			</Button>
 		</div>
@@ -65,8 +72,8 @@ const NotificationMenu: FC<any> = () => {
 				notifications?.results?.map((notification, idx) => {
 					// need to handle badly parsed json here
 					const extra = notification.extra ? JSON.parse(notification.extra) : {}
-
-					if (notification.type === 'group-invite' && extra.groupId) {
+					console.log('extra', extra)
+					if (notification.type === 'group-invite') {
 						return (
 							<MenuItem key={idx} className="p-4" hoverable={false} onClick={() => readNotification(notification.id)}>
 								<GroupInviteNotification groupId={extra.groupId} isRead={notification.isRead} />

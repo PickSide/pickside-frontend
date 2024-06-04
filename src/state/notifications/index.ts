@@ -10,7 +10,7 @@ export type Notification = {
 	content?: string
 	created?: string
 	expires?: string
-	extra?: string
+	extra?: string | any
 	isRead?: boolean
 	recipient?: User
 	type?: 'group-invite' | 'friend-request' | 'group-settings-changed' | 'event-invite' | 'event-approaching'
