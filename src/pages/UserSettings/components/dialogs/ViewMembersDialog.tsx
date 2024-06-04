@@ -11,6 +11,18 @@ interface MembersViewDialogProps {
 const ViewMembersDialog: FC<MembersViewDialogProps> = ({ members }) => {
 	const { t } = useTranslation()
 
+	const InvitationStatusCSSMap: Record<string, 'success' | 'error' | 'warning' | 'info'> = {
+		accepted: 'success',
+		declined: 'error',
+		pending: 'warning',
+	}
+
+	const InvitationStatusTextMap: Record<string, string> = {
+		accepted: t('Accepted'),
+		declined: t('Declined'),
+		pending: t('Pending'),
+	}
+
 	return (
 		<div className="flex flex-col gap-y-4">
 			{members?.map((member, idx) => (
@@ -19,8 +31,8 @@ const ViewMembersDialog: FC<MembersViewDialogProps> = ({ members }) => {
 					<span className="text-md col-span-2">{member.email}</span>
 					<Badge
 						className="col-span-2"
-						variant={member.acceptedInvitation ? 'success' : 'error'}
-						text={member.acceptedInvitation ? t('Accepted') : t('Not accepted')}
+						variant={member.invitationStatus ? InvitationStatusCSSMap[member.invitationStatus] : 'info'}
+						text={member.invitationStatus ? InvitationStatusTextMap[member.invitationStatus] : t('No status')}
 					/>
 				</div>
 			))}

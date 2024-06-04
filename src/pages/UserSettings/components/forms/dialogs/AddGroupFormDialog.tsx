@@ -15,7 +15,6 @@ const AddGroupFormDialog = ({ onClose }) => {
 			members: [],
 			name: '',
 			organizerId: -1,
-			requireApproval: false,
 			visibility: 'public',
 		},
 	})
@@ -33,7 +32,6 @@ const AddGroupFormDialog = ({ onClose }) => {
 			members: values.members.map((m) => m.id),
 			name: values.name,
 			organizerId: me?.id,
-			requiresApproval: values.requireApproval,
 			visibility: values.visibility,
 		}
 
@@ -96,11 +94,6 @@ const AddGroupFormDialog = ({ onClose }) => {
 						styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
 					/>
 				)}
-			/>
-			<Controller
-				name="requireApproval"
-				control={control}
-				render={({ field }) => <Switch {...field} label={t('Requires approval on joining')} />}
 			/>
 			<DialogCTA>
 				<Button variant="tertiary" onClick={onClose}>

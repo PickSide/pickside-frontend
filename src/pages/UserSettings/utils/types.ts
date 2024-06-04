@@ -5,7 +5,6 @@ export type CreateGroupProps = {
     members: any[]
     name: string
     organizerId: number
-    requireApproval: boolean
     sport: Sport
     visibility: 'public' | 'private'
 }

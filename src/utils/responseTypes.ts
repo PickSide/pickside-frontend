@@ -41,7 +41,6 @@ export enum JobType {
 	GetChatroom = 'getchatroom',
 	UpdateChatroom = 'updatechatroom',
 	DeleteChatroom = 'deletechatroom',
-	ResetDb = 'resetdb',
 	Login = 'login',
 	Logout = 'logout',
 	Register = 'register',
