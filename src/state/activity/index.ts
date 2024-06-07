@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { Resources, Sport, User } from '@state'
 
 export interface Activities extends Resources {
-	results?: Activity[]
+	result?: Activity[]
 }
 
 export interface Activity {
@@ -28,27 +28,27 @@ const ActivityReducer = createSlice({
 	name: 'activities',
 	reducers: {
 		addActivity: (state, action: PayloadAction<Activity>) => {
-			if (state.results) {
-				state.results = [...state.results, action.payload]
+			if (state.result) {
+				state.result = [...state.result, action.payload]
 			}
 			return state
 		},
 		updateActivity: (state, action: PayloadAction<any>) => {
-			if (state.results) {
-				const idx = state.results.findIndex((Activity) => Activity.id === action.payload.id) || -1
+			if (state.result) {
+				const idx = state.result.findIndex((Activity) => Activity.id === action.payload.id) || -1
 
 				if (idx > -1) {
-					state.results?.splice(idx, 1, action.payload)
+					state.result?.splice(idx, 1, action.payload)
 				}
 			}
 			return state
 		},
 		updateParticipants: (state, action: PayloadAction<{ activityId: string; participants: any[] }>) => {
-			if (state.results) {
-				const idx = state.results.findIndex((activity) => activity.id === action.payload.activityId)
+			if (state.result) {
+				const idx = state.result.findIndex((activity) => activity.id === action.payload.activityId)
 
 				if (idx > -1) {
-					state.results[idx].participants = action.payload.participants
+					state.result[idx].participants = action.payload.participants
 				}
 			}
 			return state

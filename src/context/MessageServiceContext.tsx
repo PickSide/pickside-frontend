@@ -44,18 +44,18 @@ export const MessagingProvider: FC<any> = ({ children }) => {
             console.log(data)
             switch (data.eventType) {
                 case 'chatroom:opened':
-                    dispatch(setChatroom(data.results))
-                    dispatch(setActiveChatroom(data.results))
+                    dispatch(setChatroom(data.result))
+                    dispatch(setActiveChatroom(data.result))
                     break
                 case 'chatrooms:fetched':
-                    dispatch(setChatrooms(data.results))
+                    dispatch(setChatrooms(data.result))
                     break
                 case 'chatroom:messages':
-                    const chatroomId = uniq(data.results.map(r => r.chatroomId) || [])
-                    dispatch(setMessages({ chatroomId: chatroomId[0], messages: data.results }))
+                    const chatroomId = uniq(data.result.map(r => r.chatroomId) || [])
+                    dispatch(setMessages({ chatroomId: chatroomId[0], messages: data.result }))
                     break
                 case 'message:received':
-                    dispatch(newMessage({ chatroomId: data.results.chatroomId, message: data.results }))
+                    dispatch(newMessage({ chatroomId: data.result.chatroomId, message: data.result }))
                     break
             }
         }

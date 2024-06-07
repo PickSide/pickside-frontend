@@ -57,7 +57,7 @@ const QueryAutocomplete = <T,>({
 			}
 
 			const response = await apiContext.get(endpoint, { params: { startsWith: userInput } })
-			return (response.data.results as T[]) || []
+			return (response.data.result as T[]) || []
 		},
 		{ refetchOnWindowFocus: false },
 	)

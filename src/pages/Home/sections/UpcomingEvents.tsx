@@ -57,19 +57,19 @@ const UpcomingEvents = () => {
 					</div>
 				)}
 
-				{!activities?.results?.length && !isLoading && (
+				{!activities?.result?.length && !isLoading && (
 					<div className="flex h-16 w-full border items-center justify-center">
 						<p className="text-gray-500">{t('No upcoming events')}</p>
 					</div>
 				)}
 
-				{!!activities?.results && !isLoading && (
+				{!!activities?.result && !isLoading && (
 					<ul
 						ref={ref}
 						className="relative flex overflow-scroll snap-x snap-mandatory no-scrollbar px-8"
 					>
-						{activities?.results?.map((activity, idx) => (
-							<li key={idx} className={cn("snap-start", idx + 1 !== activities.results?.length && 'mr-5')}>
+						{activities?.result?.map((activity, idx) => (
+							<li key={idx} className={cn("snap-start", idx + 1 !== activities.result?.length && 'mr-5')}>
 								<ActivityCard activity={activity} />
 							</li>
 						))}

@@ -115,7 +115,7 @@ const AppBar = () => {
 						)}
 						<PopupSubmenuItem key="locales" title={t('Language')} ref={popMenuRef}>
 							<RadioGroup name="locales" onChange={handleLocaleChange}>
-								{locales?.results?.map((locale, idx) => (
+								{locales?.result?.map((locale, idx) => (
 									<Radio
 										key={idx}
 										label={<span className='capitalize'>{locale.name}</span>}

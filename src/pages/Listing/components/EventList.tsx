@@ -22,7 +22,7 @@ const EventList: FC<any> = () => {
 	const { t } = useTranslation()
 	const activities = useSelector((state: AppState) => state.activities)
 
-	const filteredActivities = useMemo(() => activities?.results?.slice(), [activities])
+	const filteredActivities = useMemo(() => activities?.result?.slice(), [activities])
 
 	const handleSort = (option: Sort) => {
 		filteredActivities?.sort(option.compareFn)

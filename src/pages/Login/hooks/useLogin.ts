@@ -22,8 +22,8 @@ const useLogin = () => {
 		isError,
 	} = useMutation(callback, {
 		onSuccess: ({ data }) => {
-			setBearer(data.token)
-			dispatch(setMe(data.result))
+			setBearer(data.result.token)
+			dispatch(setMe(data.result.user))
 			dispatch({
 				type: 'toast/toastMessage',
 				payload: {

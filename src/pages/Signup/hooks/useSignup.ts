@@ -21,8 +21,8 @@ const useSignup = () => {
 	} = useMutation(callback, {
 		mutationKey: ['create-user'],
 		onSuccess: ({ data }) => {
-			setBearer(data.token)
-			dispatch(setMe(data.result))
+			setBearer(data.result.token)
+			dispatch(setMe(data.result.user))
 			navigate('/', { replace: true })
 		},
 		onError: (error: any) => handleResponseError(error),

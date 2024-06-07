@@ -3,7 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { Resources } from '@state'
 
 export interface Locales extends Resources {
-	results?: Locale[]
+	result?: Locale[]
 }
 
 export interface Locale {

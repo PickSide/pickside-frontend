@@ -86,7 +86,7 @@ const AddGroupFormDialog = ({ onClose }) => {
 						closeMenuOnSelect={false}
 						label={t('Members')}
 						placeholder={isFetchingUsers ? t('Loading members...') : t('Search members')}
-						options={users?.results.filter((user) => user.id !== me?.id) || []}
+						options={users?.result.filter((user) => user.id !== me?.id) || []}
 						formatOptionLabel={(option: User) => <span className="capitalize">{option?.displayName}</span>}
 						getOptionLabel={(option: User) => option.displayName || ''}
 						getOptionValue={(option: User) => option.id}
