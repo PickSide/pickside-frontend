@@ -87,7 +87,7 @@ export interface User {
 
 ```typescript
 export interface SportEvents {
-	results: SportEvent[]
+	result: SportEvent[]
 	/*
 		It's to allow for generic use of pagination in case we need it later
 	*/

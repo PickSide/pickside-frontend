@@ -43,7 +43,7 @@ const Groups = () => {
 	})
 
 	const table = useReactTable({
-		data: groups?.results || [],
+		data: groups?.result || [],
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 	})
@@ -78,7 +78,7 @@ const Groups = () => {
 				<Button className="float-right mb-4" onClick={() => setOpenEditCreateGroupDialog(true)}>
 					{t('Add group')}
 				</Button>
-				{!groups?.results?.length ? (
+				{!groups?.result?.length ? (
 					<div className="flex items-center justify-center">{t('No groups')}</div>
 				) : isFetchingGroupsLoading ? (
 					<Spinner text={t('Loading groups')} />

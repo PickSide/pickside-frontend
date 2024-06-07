@@ -7,7 +7,7 @@ const SportSelector = forwardRef((props, ref) => {
     const { sports, isLoading } = useFetchSports()
     const { t } = useTranslation()
 
-    const defaultSport = sports?.data.results?.find(sport => sport.featureAvailable === true)
+    const defaultSport = sports?.data.result?.find(sport => sport.featureAvailable === true)
 
     return (
         <Select
@@ -16,7 +16,7 @@ const SportSelector = forwardRef((props, ref) => {
             isDisabled={isLoading}
             label={t('Sport')}
             placeholder={t('Select sport')}
-            options={sports?.data.results}
+            options={sports?.data.result}
             value={defaultSport}
             formatOptionLabel={(option) => <span className='capitalize'>{option.name}</span>}
             getOptionLabel={(option) => option?.name}

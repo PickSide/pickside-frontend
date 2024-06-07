@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { Resources, User } from '@state'
 
 export interface Groups extends Resources {
-	results?: Group[]
+	result?: Group[]
 }
 
 export interface Group {
@@ -19,15 +19,15 @@ export interface Group {
 }
 
 const GroupReducer = createSlice({
-	initialState: { results: [] } as Groups,
+	initialState: { result: [] } as Groups,
 	name: 'groups',
 	reducers: {
 		addGroup: (state, action: PayloadAction<Group>) => {
-			state.results = state.results ? [...state.results, action.payload] : [action.payload]
+			state.result = state.result ? [...state.result, action.payload] : [action.payload]
 		},
 		removeGroup: (state, action: PayloadAction<string>) => {
-			if (state.results) {
-				state.results = state.results.filter((group) => group.id !== action.payload)
+			if (state.result) {
+				state.result = state.result.filter((group) => group.id !== action.payload)
 			}
 			return state
 		},

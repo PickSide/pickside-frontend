@@ -16,7 +16,7 @@ const Step2 = () => {
 	const { previous, next } = useStepper()
 	const { t } = useTranslation()
 
-	const sportOptions = useSelector((state: AppState) => state.sports?.results || [])
+	const sportOptions = useSelector((state: AppState) => state.sports?.result || [])
 	const gameModes = getValues('sport.gameModes')?.split(',').map(g => ({ value: g }))
 
 	return (

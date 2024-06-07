@@ -3,7 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { Resources } from '@state'
 
 export interface Sports extends Resources {
-	results?: Sport[]
+	result?: Sport[]
 }
 export interface Sport {
 	id: number

@@ -12,7 +12,7 @@ const GroupSelector = ({ ...props }) => {
             isDisabled={isLoading}
             label={t('Language')}
             placeholder={t('Select language')}
-            options={groups?.data.results}
+            options={groups?.data.result}
             formatOptionLabel={(option) => <span className='capitalize'>{option.name}</span>}
             getOptionLabel={(option) => option?.name}
             getOptionValue={(option) => option?.id}

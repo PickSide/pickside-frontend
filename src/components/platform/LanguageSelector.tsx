@@ -20,8 +20,8 @@ const LanguageSelector = forwardRef<HTMLDivElement, LanguageSelectorProps>(({ ..
             isDisabled={isLoading}
             label={props.label || t('Language')}
             placeholder={t('Select language')}
-            options={locales?.data.results}
-            value={locales?.data.results.find(x => x.value === props.value)}
+            options={locales?.data.result}
+            value={locales?.data.result.find(x => x.value === props.value)}
             formatOptionLabel={(option) => <span className='capitalize'>{option.name}</span>}
             getOptionLabel={(option) => option?.name}
             getOptionValue={(option) => option?.value}

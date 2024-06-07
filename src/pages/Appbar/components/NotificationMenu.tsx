@@ -61,15 +61,15 @@ const NotificationMenu: FC<any> = () => {
 		<Dropdown
 			className="max-h-[400px]"
 			icon={
-				notifications?.results?.some((n) => !n.isRead) ? (
+				notifications?.result?.some((n) => !n.isRead) ? (
 					<Icon variant="filled" icon="notifications_active" className="animate-pulse" />
 				) : (
 					<Icon icon="notifications" />
 				)
 			}
 		>
-			{notifications?.results ? (
-				notifications?.results?.map((notification, idx) => {
+			{notifications?.result ? (
+				notifications?.result?.map((notification, idx) => {
 					// need to handle badly parsed json here
 					const extra = notification.extra ? JSON.parse(notification.extra) : {}
 					console.log('extra', extra)

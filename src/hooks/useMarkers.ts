@@ -11,7 +11,7 @@ const useMarkers = (): { markerProps: any[] } => {
 
 	const markerProps = useMemo<any>(
 		() =>
-			activities?.results?.map((e) => ({
+			activities?.result?.map((e) => ({
 				onClick: () =>
 					dispatch(
 						setSelectedContext({

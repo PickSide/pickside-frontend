@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 
 export interface Messages extends Resources {
-	results?: Message[]
+	result?: Message[]
 }
 
 export interface Message {

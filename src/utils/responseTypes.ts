@@ -116,5 +116,5 @@ export interface MessageReponseProps {
 }
 
 export type PayloadResponseProps<T> = MessageReponseProps & { payload: T }
-export type ListPayloadResponseProps<T> = MessageReponseProps & { results: T[] }
+export type ListPayloadResponseProps<T> = MessageReponseProps & { result: T[] }
 export type ResponseMessageProps = MessageReponseProps

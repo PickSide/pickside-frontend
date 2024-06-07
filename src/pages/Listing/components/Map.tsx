@@ -45,7 +45,7 @@ const Map = () => {
 	return (
 		<div className='w-full h-full'>
 			<GoogleMapReact shouldUnregisterMapOnUnmount zoom={12} center={center} options={options}>
-				{activities?.results
+				{activities?.result
 					?.map((activity, idx) => (
 						<Marker
 							key={idx}

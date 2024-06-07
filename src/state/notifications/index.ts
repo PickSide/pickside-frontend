@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { Resources, User } from '@state'
 
 export type Notifications = Resources & {
-	results?: Notification[]
+	result?: Notification[]
 }
 
 export type Notification = {
@@ -31,9 +31,9 @@ const NotificationsReducer = createSlice({
 	reducers: {
 		setNotifications: (state, action: PayloadAction<Notifications>) => (state = { ...state, ...action.payload }),
 		markSeen: (state, action: PayloadAction<string>) => {
-			if (state && state.results) {
-				const idx = state.results.findIndex((item) => item.id === action.payload)
-				state.results[idx].isRead = true
+			if (state && state.result) {
+				const idx = state.result.findIndex((item) => item.id === action.payload)
+				state.result[idx].isRead = true
 			}
 			return state
 		},

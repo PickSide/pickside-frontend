@@ -5,7 +5,7 @@ import { useContext } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 interface Messages extends Resources {
-	results?: Message[]
+	result?: Message[]
 }
 
 interface Message {
