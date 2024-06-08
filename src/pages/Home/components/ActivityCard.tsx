@@ -1,9 +1,9 @@
 import { Card, CardBody, Icon } from '@components'
 import { CardImage, CardProps } from '@components/shared/Card'
+import { FC, useMemo } from 'react'
 
 import { Activity } from '@state'
 import Avatar from '@components/Avatar'
-import { FC } from 'react'
 import dayjs from 'dayjs'
 import { useTranslation } from 'react-i18next'
 
@@ -14,6 +14,8 @@ interface ActivityCardProps extends CardProps {
 const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 	const { t } = useTranslation()
 
+	const organizer = useMemo(() => activity?.participants?.find((p) => p.isOrganizer), [activity])
+
 	return activity ? (
 		<>
 			<Card className="flex flex-col w-[400px] h-[462px]">
@@ -22,13 +24,8 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 				</CardImage>
 				<CardBody className="flex flex-col flex-grow-2 justify-center relative px-5 h-fit text-charcoal-black text-sm">
 					<div className="absolute -top-[24px] left-0 space-x-2">
-						<Avatar
-							className="border-2 border-ocean-1"
-							variant="secondary"
-							size="lg"
-							src={activity.organizer?.avatar}
-						/>
-						<span className="absolute top-1/2">{activity.organizer?.displayName}</span>
+						<Avatar className="border-2 border-ocean-1" variant="secondary" size="lg" src={organizer?.avatar} />
+						<span className="absolute top-1/2">{organizer?.displayName}</span>
 					</div>
 					<div className="block w-full space-y-2 truncate">
 						<div className="flex items-center gap-x-[10px]">

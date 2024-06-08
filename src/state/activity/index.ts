@@ -53,10 +53,17 @@ const ActivityReducer = createSlice({
 			}
 			return state
 		},
+		removeActivity: (state, action: PayloadAction<string>) => {
+			if (state.result) {
+				state.result = state.result.filter((activity) => activity.id !== action.payload)
+			}
+			return state
+		},
 		setActivities: (state, action: PayloadAction<Activities>) => (state = { ...state, ...action.payload }),
 	},
 })
 
-export const { addActivity, updateActivity, updateParticipants, setActivities } = ActivityReducer.actions
+export const { addActivity, updateActivity, updateParticipants, removeActivity, setActivities } =
+	ActivityReducer.actions
 
 export default ActivityReducer.reducer

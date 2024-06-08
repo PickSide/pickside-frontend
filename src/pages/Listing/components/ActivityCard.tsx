@@ -25,8 +25,10 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 	const {
 		isFavorite,
 		isFull,
+		isDeletingActivity,
 		isRegistering,
 		isRegisteredToActivity,
+		deleteActivity,
 		registerToActivity,
 		updateFavorite,
 		registeredCount,
@@ -36,9 +38,11 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 	const selectedActivity = useSelector((state: AppState) => state.selectedActivity)
 
 	const [open, setOpen] = useState<boolean>(false)
+	const [openDeleteActivity, setOpenDeleteActivity] = useState<boolean>(false)
 	const [openActivtyDetail, setOpenActivtyDetail] = useState<boolean>(false)
 
-
+	const organizer = useMemo(() => activity?.participants?.find((p) => p.isOrganizer), [activity])
+	const isMeOrganizer = me?.id === organizer?.id
 
 	const handleUpdateFavorite = (e) => {
 		e.stopPropagation()
@@ -47,8 +51,18 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 
 	const handleRegister = async (e) => {
 		e.stopPropagation()
-		await registerToActivity(activity.id)
+		if (activity.id) {
+			await registerToActivity(activity.id)
+		}
 		setOpen(false)
+	}
+
+	const handleDelete = async (e) => {
+		e.stopPropagation()
+		if (activity.id) {
+			await deleteActivity(activity.id)
+		}
+		setOpenDeleteActivity(false)
 	}
 
 	const btnText = useMemo(() => {
@@ -61,6 +75,45 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 		}
 	}, [isFull, isRegisteredToActivity, t])
 
+	const ActivityCTA = () => {
+		if (isMeOrganizer) {
+			return (
+				<DialogCTA>
+					<Button
+						size="sm"
+						variant="danger"
+						className="px-4 rounded-[12px] font-semibold"
+						isLoading={isDeletingActivity}
+						onClick={(e) => {
+							e.stopPropagation()
+							setOpenDeleteActivity(true)
+						}}
+						disabled={isFull || isRegistering}
+					>
+						{t('Remove')}
+					</Button>
+				</DialogCTA>
+			)
+		}
+
+		return (
+			<DialogCTA>
+				<Button
+					size="sm"
+					className="px-4 rounded-[12px] font-semibold"
+					isLoading={isDeletingActivity}
+					onClick={(e) => {
+						e.stopPropagation()
+						setOpen(true)
+					}}
+					disabled={isMeOrganizer}
+				>
+					{btnText}
+				</Button>
+			</DialogCTA>
+		)
+	}
+
 	return (
 		<>
 			<Dialog open={open} onClose={() => setOpen(false)} title={t('Confirm event registration')}>
@@ -72,33 +125,31 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 					<Button onClick={handleRegister}>{btnText}</Button>
 				</DialogCTA>
 			</Dialog>
+			<Dialog
+				open={openDeleteActivity}
+				onClose={() => setOpenDeleteActivity(false)}
+				title={t('Confirm event deletion')}
+			>
+				<p>{t('Deleting this activity will cancel the event for all players. Are you sure you want to continue?')}</p>
+				<DialogCTA>
+					<Button variant="tertiary" onClick={(e) => setOpenDeleteActivity(false)}>
+						{t('Cancel')}
+					</Button>
+					<Button variant="danger" onClick={handleDelete}>
+						{t('Remove')}
+					</Button>
+				</DialogCTA>
+			</Dialog>
 			<Dialog open={openActivtyDetail} onClose={() => setOpenActivtyDetail(false)} title={activity.title}>
 				<ActivityDetailsDialog activity={activity} />
-				<DialogCTA>
-					<Button variant="tertiary" onClick={() => setOpenActivtyDetail(false)}>
-						{t('Close')}
-					</Button>
-					{me &&
-						me.accountType !== ACCOUNT_TYPE.GUEST &&
-						activity &&
-						<Button
-							size="sm"
-							className="px-4 rounded-[12px] font-semibold"
-							isLoading={isRegistering}
-							onClick={() => setOpen(true)}
-							disabled={isFull || isRegistering}
-						>
-							{btnText}
-						</Button>
-					}
-				</DialogCTA>
+				<ActivityCTA />
 			</Dialog>
 			<Card
 				className={cn(
 					'flex px-[20px] py-[17px] gap-x-[28px]',
 					isFull ? 'bg-[#EAEAEA]' : '',
 					selectedActivity?.id === activity.id ? 'shadow-md' : '',
-					className
+					className,
 				)}
 				onMouseEnter={rest.onMouseEnter}
 				onMouseLeave={rest.onMouseLeave}
@@ -111,11 +162,11 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 				<CardBody className="flex flex-col p-0 overflow-hidden w-full">
 					<div className="flex items-center justify-between">
 						<div className="flex items-center gap-x-2">
-							<Avatar size="md" src={activity.organizer?.avatar} />
+							<Avatar size="md" src={organizer?.avatar} />
 							<div className="flex flex-col">
 								<span className="text-base font-bold max-w-[90px] truncate">{activity.title}</span>
 								<span className="font-medium">
-									{t('Host')}:&nbsp;{activity.organizer?.fullName}
+									{t('Host')}:&nbsp;{organizer?.fullName || t('No organizer')}
 								</span>
 							</div>
 						</div>
@@ -126,41 +177,26 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 						)}
 					</div>
 					<div className="block w-fit space-y-2 mt-3 truncate">
-						<span className='flex items-center gap-x-2'>
+						<span className="flex items-center gap-x-2">
 							<Icon icon="location_on" />
 							{activity.address}
 						</span>
-						<span className='flex items-center gap-x-2'>
+						<span className="flex items-center gap-x-2">
 							<Icon icon="schedule" />
 							{dayjs(activity.date).toDate().toDateString()}
 						</span>
-						<span className='flex items-center gap-x-2'>
+						<span className="flex items-center gap-x-2">
 							<Icon icon="group" />
 							{registeredCount}/{activity.maxPlayers}
 						</span>
-						<span className='flex items-center gap-x-2'>
+						<span className="flex items-center gap-x-2">
 							<Icon icon="payments" />
 							{!activity.price ? t('Free') : `${activity.price}$ ${t('per person')}`}
 						</span>
 					</div>
 					<CardCTA className="p-0 w-full">
 						<div className="flex justify-end items-center gap-x-2">
-							{me &&
-								me.accountType !== ACCOUNT_TYPE.GUEST &&
-								activity &&
-								<Button
-									size="sm"
-									className="px-4 rounded-[12px] font-semibold"
-									isLoading={isRegistering}
-									onClick={(e) => {
-										e.stopPropagation()
-										setOpen(true)
-									}}
-									disabled={isFull || isRegistering}
-								>
-									{btnText}
-								</Button>
-							}
+							<ActivityCTA />
 						</div>
 					</CardCTA>
 				</CardBody>

@@ -5,14 +5,36 @@ import Spinner from '../Spinner'
 import { cn } from '@utils'
 
 export const ButtonVariants = cva(
-	['rounded', 'text-base', 'leading-none', 'disabled:text-cool-gray-4', 'disabled:pointer-events-none'],
+	[
+		'rounded',
+		'text-base',
+		'leading-none',
+		'disabled:bg-cool-gray-3',
+		'disabled:text-cloud',
+		'disabled:pointer-events-none',
+		'disabled:pointer-disabled'
+	],
 	{
 		variants: {
 			variant: {
-				primary: ['text-white', 'bg-ocean', 'dark:bg-grey-600', 'hover:bg-gray-300', 'disabled:bg-cool-gray-4', 'disabled:text-cloud', 'dark:text-white', 'dark:hover:bg-gray-300'],
-				secondary: ['text-ocean', 'border-[1px]', 'border-ocean', 'hover:bg-gray-300', 'disabled:bg-cool-gray-2', 'dark:bg-white', 'dark:text-black'],
+				primary: [
+					'text-white',
+					'bg-ocean',
+					'dark:bg-grey-600',
+					'hover:bg-gray-300',
+					'dark:text-white',
+					'dark:hover:bg-gray-300',
+				],
+				secondary: [
+					'text-ocean',
+					'border-[1px]',
+					'border-ocean',
+					'hover:bg-gray-300',
+					'dark:bg-white',
+					'dark:text-black',
+				],
 				tertiary: ['text-ocean', 'underline', 'font-semibold', 'bg-none ', 'hover:text-ocean/70', 'dark:text-white'],
-				danger: ['text-white', 'bg-red-600 ', 'hover:bg-red-400'],
+				danger: ['text-white', 'bg-error ', 'hover:bg-red-400'],
 			},
 			size: {
 				sm: ['px-2', 'py-2'],
@@ -35,7 +57,10 @@ export interface ButtonProps extends ComponentPropsWithRef<'button'>, VariantPro
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-	({ children, className, isLoading = false, loadingText, variant, size, type = 'button', startContent, ...rest }, ref) => {
+	(
+		{ children, className, isLoading = false, loadingText, variant, size, type = 'button', startContent, ...rest },
+		ref,
+	) => {
 		return (
 			<button
 				type={type}
@@ -43,13 +68,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 				className={cn(ButtonVariants({ className, size, variant }), { 'cursor-not-allowed': isLoading }, className)}
 				{...rest}
 			>
-				{isLoading ? <Spinner text={loadingText} />
-					:
-					<span className='flex justify-center items-center gap-x-2'>
+				{isLoading ? (
+					<Spinner text={loadingText} />
+				) : (
+					<span className="flex justify-center items-center gap-x-2">
 						{startContent}
 						{children}
 					</span>
-				}
+				)}
 			</button>
 		)
 	},
