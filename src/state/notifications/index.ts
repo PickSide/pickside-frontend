@@ -37,9 +37,15 @@ const NotificationsReducer = createSlice({
 			}
 			return state
 		},
+		removeNotification: (state, action: PayloadAction<string>) => {
+			if (state.result) {
+				state.result = state.result.filter((notification) => notification.id !== action.payload)
+			}
+			return state
+		},
 	},
 })
 
-export const { setNotifications, markSeen } = NotificationsReducer.actions
+export const { setNotifications, markSeen, removeNotification } = NotificationsReducer.actions
 
 export default NotificationsReducer.reducer

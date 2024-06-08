@@ -1,21 +1,23 @@
-import { AppState, Group, Notification } from '@state'
+import { AppState, Group, Notification, removeNotification } from '@state'
 import { Avatar, Button, Dropdown, Icon, MenuItem } from '@components'
 import { useAcceptFriendRequest, useReadNotification, useUpdateGroupInvitationRequest } from '@hooks'
 
 import { FC } from 'react'
 import { RxDotFilled } from 'react-icons/rx'
+import useDeleteNotification from '@hooks/services/useDeleteNotification'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 const NotificationMenu: FC<any> = () => {
 	const { readNotification } = useReadNotification()
+	const { deleteNotification } = useDeleteNotification()
 	const { updateGroupInvitiationRequest } = useUpdateGroupInvitationRequest()
 	const { acceptFriendRequest } = useAcceptFriendRequest()
 	const { t } = useTranslation()
 
 	const notifications = useSelector((state: AppState) => state.notifications)
 
-	const PlainTextNotification = ({ avatar, content, isRead }) => (
+	const PlainTextNotification = ({ id, avatar, content, isRead }) => (
 		<div className="relative flex items-center justify-between gap-x-2">
 			{!isRead && <RxDotFilled className="text-blue-400" size={20} />}
 			<Avatar src={avatar} />
@@ -23,20 +25,26 @@ const NotificationMenu: FC<any> = () => {
 		</div>
 	)
 
-	const GroupInviteNotification = ({ groupId, isRead }) => (
+	const GroupInviteNotification = ({ id, groupId, isRead }) => (
 		<div className="flex items-center">
 			{!isRead && <RxDotFilled className="text-blue-400" size={20} />}
 			<p>{t(`You have received an invitation to join group`)}</p>
 			<Button
 				className="text-error"
 				variant="tertiary"
-				onClick={() => updateGroupInvitiationRequest({ groupId, status: 'declined' })}
+				onClick={() => {
+					updateGroupInvitiationRequest({ groupId, status: 'declined' })
+					deleteNotification(id)
+				}}
 			>
 				{t('Reject')}
 			</Button>
 			<Button
 				className="bg-success text-white"
-				onClick={() => updateGroupInvitiationRequest({ groupId, status: 'accepted' })}
+				onClick={() => {
+					updateGroupInvitiationRequest({ groupId, status: 'accepted' })
+					deleteNotification(id)
+				}}
 			>
 				{t('Accept')}
 			</Button>
@@ -76,7 +84,7 @@ const NotificationMenu: FC<any> = () => {
 					if (notification.type === 'group-invite') {
 						return (
 							<MenuItem key={idx} className="p-4" hoverable={false} onClick={() => readNotification(notification.id)}>
-								<GroupInviteNotification groupId={extra.groupId} isRead={notification.isRead} />
+								<GroupInviteNotification id={notification.id} groupId={extra.groupId} isRead={notification.isRead} />
 							</MenuItem>
 						)
 					}
@@ -84,6 +92,7 @@ const NotificationMenu: FC<any> = () => {
 					return (
 						<MenuItem key={idx} className="p-4" onClick={() => readNotification(notification.id)}>
 							<PlainTextNotification
+								id={notification.id}
 								avatar={notification.recipient?.avatar}
 								content={notification.content}
 								isRead={notification.isRead}
