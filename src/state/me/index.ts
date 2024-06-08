@@ -22,6 +22,7 @@ export interface User {
 	inactive?: boolean
 	inactiveDate?: Date
 	invitationStatus?: 'accepted' | 'pending' | 'declined'
+	isOrganizer?: boolean
 	joinDate?: string
 	localeRegion?: string
 	matchOrganizedCount?: number
