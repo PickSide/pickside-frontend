@@ -28,9 +28,13 @@ export default function LoginForm() {
 
 	return (
 		<>
-			{(isLoginError || isGoogleLoginEror) && (
-				<Alert className='w-full' icon='block' severity='error'>
-					{loginError?.response.data.message || loginError?.message}
+			{isLoginError && (
+				<Alert className="w-full" icon="block" severity="error">
+					<span className='capitalize'>{loginError?.response.data.msg}</span>
+				</Alert>
+			)}
+			{isGoogleLoginEror && (
+				<Alert className="w-full" icon="block" severity="error">
 					{googleLoginError?.response.data.message || googleLoginError?.message}
 				</Alert>
 			)}
@@ -40,13 +44,7 @@ export default function LoginForm() {
 					control={control}
 					rules={baseRule}
 					render={({ field }) => (
-						<EmailField
-							{...field}
-							autoFocus
-							label={t('Email')}
-							placeholder={t('Enter email')}
-							fullWidth
-						/>
+						<EmailField {...field} autoFocus label={t('Email')} placeholder={t('Enter email')} fullWidth />
 					)}
 				/>
 				<Controller

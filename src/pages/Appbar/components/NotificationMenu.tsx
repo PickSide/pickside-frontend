@@ -80,7 +80,7 @@ const NotificationMenu: FC<any> = () => {
 				notifications?.result?.map((notification, idx) => {
 					// need to handle badly parsed json here
 					const extra = notification.extra ? JSON.parse(notification.extra) : {}
-					console.log('extra', extra)
+					
 					if (notification.type === 'group-invite') {
 						return (
 							<MenuItem key={idx} className="p-4" hoverable={false} onClick={() => readNotification(notification.id)}>

@@ -2,13 +2,9 @@ import { Dialog, Icon, IconButton, Popover } from '@components'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 
-import AppSettings from './Sections/PersonalInfo'
 import { AppState } from '@state'
 import Avatar from '@components/Avatar'
 import AvatarUploadForm from './components/forms/AvatarUploadForm'
-import EditProfile from './Sections/EditProfile'
-import Groups from './Sections/Groups'
-import History from './Sections/ActivityHistory'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
@@ -25,28 +21,24 @@ const Settings = () => {
 				ref: 'edit-profile',
 				value: 'edit-profile',
 				icon: <Icon icon="account_circle" />,
-				content: <EditProfile />,
 			},
 			{
 				description: t('Groups'),
 				ref: 'groups',
 				value: 'groups',
 				icon: <Icon icon="group" />,
-				content: <Groups />,
 			},
 			{
 				description: t('Account Management'),
 				ref: 'account-management',
 				value: 'account-management',
 				icon: <Icon icon="settings" />,
-				content: <AppSettings />,
 			},
 			{
 				description: t('Privacy'),
 				ref: 'privacy',
 				value: 'privacy',
 				icon: <Icon icon="lock" />,
-				content: <History />,
 			},
 		],
 		[t],
@@ -67,7 +59,6 @@ const Settings = () => {
 							<Icon icon="edit" size="xs" />
 						</button>
 						<Avatar size="xlg" variant="secondary" src={me?.avatar} />
-
 					</div>
 					<div className="flex-col my-8">
 						<h4 className="font-semibold">{me?.fullName}</h4>
@@ -96,8 +87,9 @@ const Settings = () => {
 						{MenuItems.map(({ description, ref, icon }, idx) => (
 							<div
 								key={idx}
-								className={`inline-flex items-center gap-x-4 rounded-md h-10 hover:bg-slate-200 px-2 leading-8 ${pathname.includes(ref) ? 'font-semibold bg-slate-100' : ''
-									}`}
+								className={`inline-flex items-center gap-x-4 rounded-md h-10 hover:bg-slate-200 px-2 leading-8 ${
+									pathname.includes(ref) ? 'font-semibold bg-slate-100' : ''
+								}`}
 							>
 								{icon}
 								<NavLink className="flex-grow whitespace-nowrap" to={ref}>

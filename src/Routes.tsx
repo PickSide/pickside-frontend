@@ -13,7 +13,6 @@ import { IdleTimeOutProvider } from '@context/IdleTimeOutContext'
 import LandingPage from '@pages/Home/sections/LandingPage'
 import Listing from '@pages/Listing/Listing'
 import Login from '@pages/Login/Login'
-import PersonalInfo from '@pages/UserSettings/Sections/PersonalInfo'
 import Privacy from '@pages/UserSettings/Sections/Privacy'
 import { ProtectedRoute } from '@components'
 import { RequireAuth } from '@components'
@@ -63,7 +62,6 @@ const PicksideRoutes: FC = () => {
                             <Route index element={<Navigate to="/user/settings/edit-profile" />} />
                             <Route path="edit-profile" element={<EditProfile />} />
                             <Route path="groups" element={<Groups />} />
-                            <Route path="personal-info" element={<PersonalInfo />} />
                             <Route path="account-management" element={<AccountManagement />} />
                             <Route path="activity-history" element={<ActivityHistory />} />
                             <Route path="privacy" element={<Privacy />} />
