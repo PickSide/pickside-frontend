@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
-import { GoogleAutocomplete, Icon } from '@components'
+import { GoogleAutocomplete, Icon, IconButton } from '@components'
 
+import { isEmpty } from 'lodash'
 import { setSelectedLocation } from '@state'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -36,16 +37,25 @@ const LandingPage: FC<any> = () => {
 			id="intro"
 			className="section h-[calc(100vh-64px)] lg:relative lg:block dark:bg-charcoal-black/80 overflow-hidden"
 		>
-			<div className='w-full h-3/4 flex items-center justify-center mx-auto bg-landing bg-no-repeat bg-contain bg-center'>
+			<div className="w-full h-3/4 flex items-center justify-center mx-auto bg-landing bg-no-repeat bg-contain bg-center">
 				{/* <img src={Landing} alt='landing background' /> */}
 			</div>
-			<div className='flex items-center justify-center'>
+			<div className="flex items-center justify-center">
 				<form>
 					<GoogleAutocomplete
-						label={<h4 className='flex items-center justify-center text-ocean'>{t('Host or Join, Your Victory Starts Here.')}</h4>}
+						label={
+							<h4 className="flex items-center justify-center text-ocean">
+								{t('Host or Join, Your Victory Starts Here.')}
+							</h4>
+						}
 						onPressEnterKey={navigateToListing}
-						className="border-ocean/30 w-[418px] h-[50px] rounded-[15px]"
+						className="border-ocean/30 h-[50px] rounded-[15px]"
 						startContent={<Icon icon="search" />}
+						endContent={
+							<IconButton onClick={navigateToListing} disabled={isEmpty(selected)}>
+								<Icon icon="arrow_forward" />
+							</IconButton>
+						}
 						placeholder={t('Search by location or postal code')}
 						onPlaceSelected={(value) => setSelected(value)}
 					/>

@@ -6,6 +6,7 @@ import { cn } from '@utils'
 const validIcons = [
 	'account_circle',
 	'alternate_email',
+	'arrow_forward',
 	'arrow_upward',
 	'arrow_upward_alt',
 	'attach_money',
