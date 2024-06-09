@@ -1,23 +1,94 @@
-import { Button, InputField } from '@components'
+import { Alert, Button, PasswordField } from '@components'
+import { Controller, useForm } from 'react-hook-form'
 
-import { useForm } from 'react-hook-form'
+import useChangePassword from '@pages/UserSettings/hooks/services/useChangePassword'
 import { useTranslation } from 'react-i18next'
 
-const ChangePasswordForm = ({ onClose }) => {
-	const { t } = useTranslation()
-	const { handleSubmit, register } = useForm({})
+interface ChangePasswordFormProps {
+	currentPassword?: string
+	newPassword?: string
+	confirmNewPassword?: string
+}
 
-	const onSubmit = (values) => {}
+const ChangePasswordForm = ({ onClose }) => {
+	const { changePassword, isError, isLoading } = useChangePassword()
+	const { t } = useTranslation()
+	const {
+		control,
+		handleSubmit,
+		register,
+		formState: { isValid },
+		watch,
+	} = useForm<ChangePasswordFormProps>({
+		defaultValues: {
+			currentPassword: '',
+			newPassword: '',
+			confirmNewPassword: '',
+		},
+		reValidateMode: 'onChange',
+	})
+
+	const onSubmit = (values) => {
+		changePassword({ currentPassword: values.currentPassword, newPassword: values.newPassword })
+	}
 
 	return (
-		<form className="flex flex-col space-y-8" onSubmit={handleSubmit(onSubmit)}>
-			<InputField label={t('Current password')} fullWidth {...register('current_password')} />
-			<InputField label={t('New password')} fullWidth {...register('password')} />
-			<InputField label={t('Confirm new password')} fullWidth {...register('confirm_password')} />
-			<Button type="button" variant="tertiary" onClick={onClose}>
-				{t('Cancel')}
-			</Button>
-			<Button type="submit">{t('Submit')} </Button>
+		<form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
+			{isError && (
+				<Alert className="w-full" icon="password" severity="error">
+					{t('Something went wrong')}
+				</Alert>
+			)}
+			<Controller
+				name="currentPassword"
+				control={control}
+				rules={{ required: true }}
+				render={({ field }) => (
+					<PasswordField
+						{...field}
+						autoFocus
+						label={t('Current password')}
+						placeholder={t('Type your current password')}
+						fullWidth
+					/>
+				)}
+			/>
+			<Controller
+				name="newPassword"
+				control={control}
+				rules={{ required: true }}
+				render={({ field }) => (
+					<PasswordField {...field} label={t('New password')} placeholder={t('Type your new password')} fullWidth />
+				)}
+			/>
+			<Controller
+				name="confirmNewPassword"
+				control={control}
+				rules={{
+					required: true,
+					validate: (val) => {
+						if (watch('newPassword') != val) {
+							return t('Passwords do no match')
+						}
+					},
+				}}
+				render={({ field }) => (
+					<PasswordField
+						{...field}
+						label={t('Confirm new password')}
+						placeholder={t('Confirm your current password')}
+						fullWidth
+					/>
+				)}
+			/>
+			<div className="flex items-center justify-around">
+				<Button type="button" variant="tertiary" onClick={onClose}>
+					{t('Cancel')}
+				</Button>
+				<Button isLoading={isLoading} type="submit" disabled={!isValid}>
+					{t('Submit')}{' '}
+				</Button>
+			</div>
 		</form>
 	)
 }

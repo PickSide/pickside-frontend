@@ -1,7 +1,11 @@
 export interface IErrorResponse {
-	failReason: string
-	message: string
-	status: number
+	response: {
+		data: {
+			statusCode: string
+			msg: string | any
+			status: number
+		}
+	}
 }
 
 export interface IApiError {
@@ -11,12 +15,10 @@ export interface IApiError {
 	timeStamp: string
 }
 
-export function handleResponseError(error: any) {
+export function handleResponseError(error: IErrorResponse) {
 	if (!error.response?.data) {
 		return Promise.resolve('Unkown error')
 	}
 
-	const errorResponse = error.response?.data
-
-	return errorResponse.error
+	return error.response?.data
 }

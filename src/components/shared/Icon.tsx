@@ -43,6 +43,7 @@ const validIcons = [
 	'move_item',
 	'notifications',
 	'notifications_active',
+	'password',
 	'payments',
 	'person',
 	'place',
