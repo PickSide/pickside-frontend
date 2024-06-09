@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 import { GoogleAutocomplete, Icon, IconButton } from '@components'
 
+import { isEmpty } from 'lodash'
 import { setSelectedLocation } from '@state'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -51,7 +52,7 @@ const LandingPage: FC<any> = () => {
 						className="border-ocean/30 h-[50px] rounded-[15px]"
 						startContent={<Icon icon="search" />}
 						endContent={
-							<IconButton>
+							<IconButton onClick={navigateToListing} disabled={isEmpty(selected)}>
 								<Icon icon="arrow_forward" />
 							</IconButton>
 						}
