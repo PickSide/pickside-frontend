@@ -17,7 +17,7 @@ export interface User {
 	email?: string
 	emailVerified?: boolean
 	exernalId?: string
-	favorites?: string
+	favorites?: string[]
 	fullName?: string
 	inactive?: boolean
 	inactiveDate?: Date

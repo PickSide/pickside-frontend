@@ -23,7 +23,7 @@ const useFetchMe = () => {
 		refetch: refetchMe,
 	} = useQuery(['fetch-me'], callback, {
 		enabled: !!bearer,
-		onSuccess: ({ data }) => dispatch(setMe(data.result)),
+		onSuccess: ({ data }) => dispatch(setMe(data.result.user)),
 		onError: () => {},
 		refetchOnWindowFocus: false,
 	})

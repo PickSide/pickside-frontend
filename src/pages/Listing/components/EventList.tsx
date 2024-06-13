@@ -30,15 +30,30 @@ const EventList: FC<any> = () => {
 
 	return filteredActivities?.length ? (
 		<div className="flex flex-col bg-[#fafafa] min-w-[500px] h-[calc(100vh-64px)] py-2 px-4 gap-y-3 overflow-y-scroll overflow-x-hidden">
-			<div className='flex items-center gap-x-2'>
+			<div className="flex items-center gap-x-2">
 				<Select
-					size='sm'
+					size="sm"
 					placeholder={t('Sort by')}
 					options={[
 						{ label: t('Price'), value: 'price', target: 'price', compareFn: (a, b) => a.price - b.price },
-						{ label: t('Date posted'), value: 'date', target: 'date', compareFn: (a: Activity, b: Activity) => a.date > b.date },
-						{ label: t('Partcipants'), value: 'participants', target: 'participants', compareFn: (a, b) => a.participants - b.participants },
-						{ label: t('Max players'), value: 'maxPlayers', target: 'maxPlayers', compareFn: (a, b) => a.maxPlayers - b.maxPlayers }
+						{
+							label: t('Date posted'),
+							value: 'date',
+							target: 'date',
+							compareFn: (a: Activity, b: Activity) => a.date > b.date,
+						},
+						{
+							label: t('Partcipants'),
+							value: 'participants',
+							target: 'participants',
+							compareFn: (a, b) => a.participants - b.participants,
+						},
+						{
+							label: t('Max players'),
+							value: 'maxPlayers',
+							target: 'maxPlayers',
+							compareFn: (a, b) => a.maxPlayers - b.maxPlayers,
+						},
 					]}
 					onChange={handleSort}
 				/>
@@ -48,28 +63,23 @@ const EventList: FC<any> = () => {
 					className={cn(focusedActivity?.id === activity.id ? 'shadow-md' : 'hover:shadow-md')}
 					key={idx}
 					activity={activity}
-					// onClick={() =>
-					// 	sidenavDispatch({
-					// 		type: 'open',
-					// 		content: <SelectedActivity activity={activity} />,
-					// 		title: activity.title,
-					// 	})
-					// }
 					onMouseEnter={() => onFocusInActivity(activity)}
 					onMouseLeave={onFocusOutActivity}
 				/>
 			))}
 		</div>
-	) : isLoading ? (
-		<div className="min-w-[500px] m-auto text-center">
-			<Spinner text={t('Loading activites...')} />
-		</div>
 	) : (
 		<div className="min-w-[500px] m-auto text-center">
-			<h4 className="font-semibold">{t('No events in the area')}</h4>
-			<span className="text-lg font-normal underline text-blue-700 cursor-pointer" onClick={() => refetch()}>
-				{t('Refresh')}
-			</span>
+			{isLoading ? (
+				<Spinner text={t('Loading activites...')} />
+			) : (
+				<>
+					<h4 className="font-semibold text-grey-600">{t('No events in the area')}</h4>
+					<span className="text-lg font-normal underline text-blue-700 cursor-pointer" onClick={() => refetch()}>
+						{t('Refresh')}
+					</span>
+				</>
+			)}
 		</div>
 	)
 }

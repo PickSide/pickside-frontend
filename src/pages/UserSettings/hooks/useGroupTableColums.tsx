@@ -20,12 +20,14 @@ const useGroupTableColums = ({ onClickDeleteGroup, onClickLeaveGroup, onClickVie
 				cell: (info) => <span key={info.cell.id}>{info.getValue()}</span>,
 				footer: (info) => info.column.id,
 			}),
-			columnHelper.accessor('organizer', {
+			columnHelper.accessor((group) => group, {
 				header: t('Organizer'),
 				cell: (info) => {
+					const { members, organizerId } = info.getValue()
+					const organizer = members?.find((x) => x.id === organizerId)
 					return (
 						<div key={info.cell.id} className="underline text-blue-600 cursor-pointer">
-							{info.getValue()?.displayName || info.getValue()?.fullName}
+							{organizer?.displayName || organizer?.fullName}
 						</div>
 					)
 				},

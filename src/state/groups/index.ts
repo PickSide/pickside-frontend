@@ -12,6 +12,7 @@ export interface Group {
 	description?: string
 	members?: User[]
 	name?: string
+	organizerId?: string
 	organizer?: User
 	invitationStatus?: 'accepted' | 'pending' | 'declined'
 	isOrganizer?: boolean

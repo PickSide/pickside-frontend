@@ -30,7 +30,6 @@ import useReadNotification from './services/useReadNotification'
 import useRegisterToActivity from './services/useRegisterToActivity'
 import useSendFriendRequest from './services/useSendFriendRequest'
 import useUpdateAvatar from './services/useUpdateAvatar'
-import useUpdateFavorite from './services/useUpdateFavorite'
 import useUpdateGroupInvitationRequest from './services/useUpdateGroupInvitationRequest'
 import useUpdateSetting from './services/useUpdateSetting'
 
@@ -67,7 +66,6 @@ export {
 	useRegisterToActivity,
 	useSendFriendRequest,
 	useUpdateAvatar,
-	useUpdateFavorite,
 	useUpdateGroupInvitationRequest,
 	useUpdateSetting,
 }

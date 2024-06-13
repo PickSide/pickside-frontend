@@ -30,7 +30,6 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 		isRegisteredToActivity,
 		deleteActivity,
 		registerToActivity,
-		updateFavorite,
 		registeredCount,
 	} = useActivityHandlers(activity)
 
@@ -43,11 +42,6 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 
 	const organizer = useMemo(() => activity?.participants?.find((p) => p.isOrganizer), [activity])
 	const isMeOrganizer = me?.id === organizer?.id
-
-	const handleUpdateFavorite = (e) => {
-		e.stopPropagation()
-		updateFavorite(activity.id)
-	}
 
 	const handleRegister = async (e) => {
 		e.stopPropagation()
@@ -170,11 +164,6 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 								</span>
 							</div>
 						</div>
-						{me && me.accountType !== ACCOUNT_TYPE.GUEST && (
-							<IconButton onClick={handleUpdateFavorite}>
-								{isFavorite ? <Icon icon="bookmark" /> : <Icon icon="bookmark_border" />}
-							</IconButton>
-						)}
 					</div>
 					<div className="block w-fit space-y-2 mt-3 truncate">
 						<span className="flex items-center gap-x-2">
