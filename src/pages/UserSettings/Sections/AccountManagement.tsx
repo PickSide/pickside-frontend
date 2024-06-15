@@ -79,7 +79,7 @@ const AccountManagement = () => {
 					<p className="text-lg font-semibold">{t('Change your password')}</p>
 					<Button
 						type="button"
-						className="flex items-center gap-x-4 whitespace-nowrap text-sm"
+						className="flex items-center gap-x-4 whitespace-nowrap"
 						onClick={() => setOpenPasswordChangeDialog(true)}
 					>
 						<>

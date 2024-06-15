@@ -21,12 +21,12 @@ export const ServerStatusProvider: FC<any> = ({ children }) => {
 			isServiceON ? (
 				<p key={idx} className="flex items-center gap-x-2 text-success">
 					<Icon icon="check_circle" />
-					<span>{t(`${name} service is up and running`)}</span>
+					<span>{t(`${name} is up and running`)}</span>
 				</p>
 			) : (
 				<p key={idx} className="flex items-center gap-x-2 font-semibold text-error">
 					<Icon icon="block" />
-					<span>{t(`${name} service is down`)}</span>
+					<span>{t(`${name} is down`)}</span>
 				</p>
 			),
 		)
@@ -40,7 +40,7 @@ export const ServerStatusProvider: FC<any> = ({ children }) => {
 			</Dialog>
 			{isAtLeastOneErrored && (
 				<Banner icon="block" severity="error">
-					<div className="flex items-center">
+					<div className="flex items-center text-cool-gray-1">
 						<span>{t('Some services are temporary running into issues.')}</span>&nbsp;
 						<span className="link" onClick={() => setOpenHealthCheckDialog(true)}>
 							{t(`Click here`)}

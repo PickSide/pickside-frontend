@@ -20,48 +20,48 @@ const useGroupTableColums = ({ onClickDeleteGroup, onClickLeaveGroup, onClickVie
 				cell: (info) => <span key={info.cell.id}>{info.getValue()}</span>,
 				footer: (info) => info.column.id,
 			}),
-			columnHelper.accessor('organizer', {
+			columnHelper.accessor((group) => group, {
 				header: t('Organizer'),
 				cell: (info) => {
-					return <div key={info.cell.id} className="underline text-blue-600 cursor-pointer">
-						{info.getValue()?.displayName || info.getValue()?.fullName}
-					</div>
+					const { members, organizerId } = info.getValue()
+					const organizer = members?.find((x) => x.id === organizerId)
+					return (
+						<div key={info.cell.id} className="underline text-blue-600 cursor-pointer">
+							{organizer?.displayName || organizer?.fullName}
+						</div>
+					)
 				},
 				footer: (info) => info.column.id,
 			}),
-			columnHelper.accessor('members', {
+			columnHelper.accessor((row) => row, {
 				header: t('Members'),
-				cell: (info) => (
-					<div key={info.cell.id} className="flex">
-						{info.getValue()?.length ?
-							<span
-								className="link"
-								onClick={() => onClickViewMembers(info.getValue())}
-							>
-								{t('View members')}
-							</span>
-							:
-							<span>{t('No members')}</span>
-						}
-					</div>
-				),
+				cell: (info) => {
+					return (
+						<div key={info.cell.id} className="flex">
+							{info.getValue().members?.length ? (
+								<span className="link" onClick={() => onClickViewMembers(info.getValue())}>
+									{t('View members')}
+								</span>
+							) : (
+								<span>{t('No members')}</span>
+							)}
+						</div>
+					)
+				},
 				footer: (info) => info.column.id,
 			}),
-			columnHelper.accessor(row => ({
-				id: row.id,
-				organizerId: row.organizer ? row.organizer.id : null
-			}), {
+			columnHelper.accessor((group) => group, {
 				id: 'actions',
 				header: t(''),
 				cell: (info) => {
-					const { id: groupId, organizerId } = info.getValue()
 					return (
 						<div key={info.cell.id} className="flex justify-end">
-							{me?.id === organizerId ? (
-								<IconButton onClick={() => onClickDeleteGroup(groupId)}>
+							{info.getValue().isOrganizer ? (
+								<IconButton onClick={() => onClickDeleteGroup(info.getValue())}>
 									<Icon className="text-error" icon="delete" variant="filled" />
-								</IconButton>) : (
-								<IconButton onClick={() => onClickLeaveGroup(groupId)}>
+								</IconButton>
+							) : (
+								<IconButton onClick={() => onClickLeaveGroup(info.getValue())}>
 									<Icon className="text-info" icon="exit_to_app" variant="filled" />
 								</IconButton>
 							)}

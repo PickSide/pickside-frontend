@@ -3,7 +3,7 @@ import { VariantProps, cva } from 'class-variance-authority'
 
 import { cn } from '@utils'
 
-export const badgeVariants = cva('w-fit rounded-full font-semibold', {
+export const badgeVariants = cva('w-fit rounded-full font-semibold flex items-center', {
 	variants: {
 		variant: {
 			success: 'border-2 border-success bg-pistachio-1 text-charcoal-black',

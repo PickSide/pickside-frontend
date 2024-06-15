@@ -1,24 +1,14 @@
+import { AxiosError } from 'axios'
+
 export interface IErrorResponse {
-	response: {
-		data: {
-			statusCode: string
-			msg: string | any
-			status: number
-		}
-	}
+	statusCode: string
+	msg: string | any
 }
 
-export interface IApiError {
-	context: string
-	error: IErrorResponse
-	jobStatus: string
-	timeStamp: string
-}
-
-export function handleResponseError(error: IErrorResponse) {
-	if (!error.response?.data) {
-		return Promise.resolve('Unkown error')
+export function handleResponseError(error: AxiosError<IErrorResponse>) {
+	if (!error) {
+		return 'Unkown error'
 	}
 
-	return error.response?.data
+	return error
 }

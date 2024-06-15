@@ -1,4 +1,4 @@
-import { AppState, User } from '@state'
+import { AppState, Group, User } from '@state'
 import { Button, Dialog, Spinner } from '@components'
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
 
@@ -24,21 +24,20 @@ const Groups = () => {
 	const [openViewMembersDialog, setOpenViewMembersDialog] = useState<boolean>(false)
 	const [openLeaveGroupDialog, setOpenLeaveGroupDialog] = useState<boolean>(false)
 
-	const [selectedGroupMembers, setSelectedGroupMembers] = useState<User[]>([])
-	const [selectedGroupId, setSelectedGroupId] = useState<string>('')
+	const [selectedGroup, setSelectedGroup] = useState<Group>()
 
 	const columns = useGroupTableColums({
-		onClickDeleteGroup: (groupId: string) => {
+		onClickDeleteGroup: (group: Group) => {
 			setOpenConfirmDeleteGroupDialog(true)
-			setSelectedGroupId(groupId)
+			setSelectedGroup(group)
 		},
-		onClickLeaveGroup: (groupId: string) => {
+		onClickLeaveGroup: (group: Group) => {
 			setOpenLeaveGroupDialog(true)
-			setSelectedGroupId(groupId)
+			setSelectedGroup(group)
 		},
-		onClickViewMembers: (members: User[]) => {
+		onClickViewMembers: (group: Group) => {
 			setOpenViewMembersDialog(true)
-			setSelectedGroupMembers(members)
+			setSelectedGroup(group)
 		},
 	})
 
@@ -50,6 +49,7 @@ const Groups = () => {
 
 	return (
 		<>
+			{/* Add Group Form Dialog */}
 			<Dialog
 				open={openEditCreateGroupDialog}
 				onClose={() => setOpenEditCreateGroupDialog(false)}
@@ -58,20 +58,23 @@ const Groups = () => {
 				<AddGroupFormDialog onClose={() => setOpenEditCreateGroupDialog(false)} />
 			</Dialog>
 
+			{/* View Members Dialog */}
 			<Dialog open={openViewMembersDialog} onClose={() => setOpenViewMembersDialog(false)} title={t('Members')}>
-				<ViewMembersDialog onClose={() => setOpenViewMembersDialog(false)} members={selectedGroupMembers} />
+				<ViewMembersDialog group={selectedGroup} onClose={() => setOpenViewMembersDialog(false)} />
 			</Dialog>
 
+			{/* Delete Group Dialog */}
 			<Dialog
 				open={openConfirmDeleteGroupDialog}
 				onClose={() => setOpenConfirmDeleteGroupDialog(false)}
 				title={t('Delete group')}
 			>
-				<DeleteGroupDialog groupId={selectedGroupId} onClose={() => setOpenConfirmDeleteGroupDialog(false)} />
+				<DeleteGroupDialog group={selectedGroup} onClose={() => setOpenConfirmDeleteGroupDialog(false)} />
 			</Dialog>
 
+			{/* Leave Group Dialog */}
 			<Dialog open={openLeaveGroupDialog} onClose={() => setOpenLeaveGroupDialog(false)} title={t('Leave group')}>
-				<LeaveGroupDialog groupId={selectedGroupId} onClose={() => setOpenLeaveGroupDialog(false)} />
+				<LeaveGroupDialog group={selectedGroup} onClose={() => setOpenLeaveGroupDialog(false)} />
 			</Dialog>
 
 			<div className="p-5 w-full h-full overflow-y-scroll">

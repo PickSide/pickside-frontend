@@ -11,12 +11,11 @@ interface ChangePasswordFormProps {
 }
 
 const ChangePasswordForm = ({ onClose }) => {
-	const { changePassword, isError, isLoading } = useChangePassword()
+	const { changePassword, isError, isLoading, error } = useChangePassword()
 	const { t } = useTranslation()
 	const {
 		control,
 		handleSubmit,
-		register,
 		formState: { isValid },
 		watch,
 	} = useForm<ChangePasswordFormProps>({
@@ -36,7 +35,7 @@ const ChangePasswordForm = ({ onClose }) => {
 		<form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
 			{isError && (
 				<Alert className="w-full" icon="password" severity="error">
-					{t('Something went wrong')}
+					{error?.response?.data.msg}
 				</Alert>
 			)}
 			<Controller
