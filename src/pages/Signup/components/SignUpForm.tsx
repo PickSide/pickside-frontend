@@ -1,4 +1,4 @@
-import { Button, Checkbox, EmailField, Icon, InputField, PasswordField } from '@components'
+import { Alert, Button, Checkbox, EmailField, Icon, InputField, PasswordField } from '@components'
 import { EMAIL_REGEX, PASSWORD_REGEX, PHONE_REGEX } from '@utils'
 import { useFormContext, useFormState } from 'react-hook-form'
 
@@ -13,14 +13,14 @@ const SignUpForm = () => {
 	const { signup, error, isError, isLoading } = useSignup()
 	const { t } = useTranslation()
 
-	const onSubmit = async (data) => await signup(omit({...data, accountType: 'system'}, 'confirmPassword'))
+	const onSubmit = async (data) => await signup(omit({ ...data, accountType: 'system' }, 'confirmPassword'))
 
 	return (
 		<>
 			{!!isError && (
-				<div className="rounded-sm border-[1px] w-full text-center p-2 border-error text-red-900 bg-red-200 text-[15px]">
-					<p>{error.response.data.error.message || error.message}</p>
-				</div>
+				<Alert className="w-full" icon="block" severity="error">
+					<span className="capitalize">{error?.response.data.msg}</span>
+				</Alert>
 			)}
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-5 py-8">
 				<InputField
@@ -41,7 +41,10 @@ const SignUpForm = () => {
 					error={errors.email?.message}
 					aria-invalid={!!errors.email}
 					fullWidth
-					{...register('email', { required: t('Field is required'), pattern: { value: EMAIL_REGEX, message: t('Email wrong format') } })}
+					{...register('email', {
+						required: t('Field is required'),
+						pattern: { value: EMAIL_REGEX, message: t('Email wrong format') },
+					})}
 				/>
 
 				<PasswordField
@@ -64,11 +67,9 @@ const SignUpForm = () => {
 					fullWidth
 					{...register('confirmPassword', {
 						required: t('Field is required'),
-						validate: (value) => value === getValues('password') || t('Passwords must be the same')
+						validate: (value) => value === getValues('password') || t('Passwords must be the same'),
 					})}
 				/>
-
-				
 
 				<Checkbox label={t('I agree to the terms of service and privacy policy.')} {...register('agreedToTerms')} />
 

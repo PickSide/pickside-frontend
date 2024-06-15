@@ -1,6 +1,5 @@
-import { IErrorResponse, handleResponseError } from '@utils'
-
 import { AxiosContext } from '@context'
+import { handleResponseError } from '@utils'
 import { setMe } from '@state'
 import { useContext } from 'react'
 import { useDispatch } from 'react-redux'
