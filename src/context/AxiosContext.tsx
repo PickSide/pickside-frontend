@@ -33,7 +33,7 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 	})
 
 	const axiosFSInstance = axios.create({
-		baseURL: import.meta.env.VITE_APP_FILE_SERVICE_URL,
+		baseURL: import.meta.env.VITE_APP_MAIN_SERVICE_URL,
 		withCredentials: true,
 		headers: {
 			'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
@@ -58,7 +58,6 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 		},
 	})
 
-
 	const axiosNSInstance = axios.create({
 		baseURL: import.meta.env.VITE_APP_NOTIFICATION_SERVICE_URL,
 		withCredentials: true,
@@ -69,7 +68,7 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 	const [bearer, setBearer] = useLocalStorage<string | null>('my-bearer-token', null)
 
 	useEffect(() => {
-		const instances = [axiosMSInstance]
+		const instances = [axiosFSInstance, axiosMSInstance]
 		const interceptorIDs = new Map<AxiosInstance, number>()
 
 		const addInterceptor = (axiosInstance: AxiosInstance) => {
@@ -103,7 +102,9 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 	}, [axiosASInstance, axiosFSInstance, axiosMSInstance, axiosMSGSInstance, axiosNSInstance, bearer])
 
 	return (
-		<AxiosContext.Provider value={{ axiosASInstance, axiosFSInstance, axiosMSInstance, axiosMSGSInstance, axiosNSInstance, setBearer }}>
+		<AxiosContext.Provider
+			value={{ axiosASInstance, axiosFSInstance, axiosMSInstance, axiosMSGSInstance, axiosNSInstance, setBearer }}
+		>
 			{children}
 		</AxiosContext.Provider>
 	)
