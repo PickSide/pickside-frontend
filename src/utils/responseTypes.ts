@@ -51,7 +51,6 @@ export enum JobType {
 	VerifyEmail = 'vertifyemail',
 	DeactivateAccount = 'deactivateaccount',
 	ReactivateAccount = 'deactivateaccount',
-	ActivityFavorite = 'addactivitytofavorites',
 	ActivityRegister = 'registerusertoactivity',
 }
 

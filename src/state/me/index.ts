@@ -17,7 +17,6 @@ export interface User {
 	email?: string
 	emailVerified?: boolean
 	exernalId?: string
-	favorites?: string[]
 	fullName?: string
 	inactive?: boolean
 	inactiveDate?: Date
@@ -50,15 +49,9 @@ const UserReducer = createSlice({
 	reducers: {
 		setMe: (state, action: PayloadAction<User | null | undefined>) => (state = action.payload),
 		updateMeConfig: (state, action: PayloadAction<any>) => (state = { ...state, ...action.payload }),
-		updateMeFavorites: (state, action: PayloadAction<any>) => {
-			if (state) {
-				state.favorites = action.payload.result
-			}
-			return state
-		},
 	},
 })
 
-export const { setMe, updateMeConfig, updateMeFavorites } = UserReducer.actions
+export const { setMe, updateMeConfig } = UserReducer.actions
 
 export default UserReducer.reducer

@@ -7,7 +7,6 @@ import useDeleteGroup from './services/useDeleteGroup'
 import useDevice from './useDevice'
 import useFetchActivities from './services/useFetchActivities'
 import useFetchActivity from './services/useFetchActivity'
-import useFetchFavorites from './services/useFetchFavorites'
 import useFetchGroup from './services/useFetchGroup'
 import useFetchGroups from './services/useFetchGroups'
 import useFetchLocales from './services/useFetchLocales'
@@ -44,7 +43,6 @@ export {
 	useDevice,
 	useFetchActivities,
 	useFetchActivity,
-	useFetchFavorites,
 	useFetchGroup,
 	useFetchGroups,
 	useFetchLocales,

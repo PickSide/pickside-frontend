@@ -7,7 +7,6 @@ import useRegisterToActivity from './services/useRegisterToActivity'
 import { useSelector } from 'react-redux'
 
 interface ActivityHandlersOutput {
-	isFavorite: boolean
 	isFull: boolean
 	isOrganizer: boolean
 	isDeletingActivity: boolean
@@ -22,12 +21,6 @@ const useActivityHandlers = (activity: Activity): ActivityHandlersOutput => {
 	const { deleteActivity, isLoading: isDeletingActivity } = useDeleteActivity()
 
 	const me = useSelector((state: AppState) => state.user)
-	const isFavorite = useMemo(() => {
-		if (!activity.id || !me || !me?.favorites) {
-			return false
-		}
-		return me.favorites?.some((fav) => fav == activity.id)
-	}, [activity.id, me])
 	const isFull = useMemo(() => activity.participants?.length === activity.maxPlayers, [activity])
 	const isOrganizer = useMemo(() => activity.organizer?.id === me?.id, [activity, me])
 	const isRegisteredToActivity = useMemo(
@@ -37,7 +30,6 @@ const useActivityHandlers = (activity: Activity): ActivityHandlersOutput => {
 	const registeredCount = useMemo(() => activity.participants?.length || 0, [activity.participants])
 
 	return {
-		isFavorite,
 		isFull,
 		isOrganizer,
 		isDeletingActivity,
