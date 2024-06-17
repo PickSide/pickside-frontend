@@ -3,12 +3,10 @@ import Card, { CardBody, CardCTA, CardImage, CardProps } from '@components/share
 import Dialog, { DialogCTA } from '@components/Dialog'
 import { FC, useMemo, useState } from 'react'
 
-import { ACCOUNT_TYPE } from '@state/me/constants'
 import ActivityDetailsDialog from './Dialogs/ActivityDetailsDialog'
 import Avatar from '@components/Avatar'
 import Button from '@components/shared/Button'
 import Icon from '@components/shared/Icon'
-import IconButton from '@components/IconButton'
 import { cn } from '@utils'
 import dayjs from 'dayjs'
 import { useActivityHandlers } from '@hooks'
@@ -23,7 +21,6 @@ interface ActivityCardProps extends CardProps {
 const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) => {
 	const { t } = useTranslation()
 	const {
-		isFavorite,
 		isFull,
 		isDeletingActivity,
 		isRegistering,
@@ -89,23 +86,25 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 				</DialogCTA>
 			)
 		}
-
-		return (
-			<DialogCTA>
-				<Button
-					size="sm"
-					className="px-4 rounded-[12px] font-semibold"
-					isLoading={isDeletingActivity}
-					onClick={(e) => {
-						e.stopPropagation()
-						setOpen(true)
-					}}
-					disabled={isMeOrganizer}
-				>
-					{btnText}
-				</Button>
-			</DialogCTA>
-		)
+		if (!!me) {
+			return (
+				<DialogCTA>
+					<Button
+						size="sm"
+						className="px-4 rounded-[12px] font-semibold"
+						isLoading={isDeletingActivity}
+						onClick={(e) => {
+							e.stopPropagation()
+							setOpen(true)
+						}}
+						disabled={isMeOrganizer}
+					>
+						{btnText}
+					</Button>
+				</DialogCTA>
+			)
+		}
+		return null
 	}
 
 	return (
