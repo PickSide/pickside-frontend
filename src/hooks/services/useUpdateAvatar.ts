@@ -26,7 +26,6 @@ const useUpdateAvatar = () => {
         onSuccess: async ({ data }) => {
             await extsvcInstance.put(`/users/${me?.id}/settings`, { avatar: data.result })
                 .then((resp) => {
-                    console.log()
                     dispatch(updateMeConfig(resp.data.result))
                     dispatch({
                         type: 'toast/toastMessage',

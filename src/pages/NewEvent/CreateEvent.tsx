@@ -34,10 +34,10 @@ const CreateEvent = () => {
 		},
 	})
 
-	const onSubmit = async (data) => createActivity(data)
+	const onSubmit = async (values) => createActivity(values)
 
 	return (
-		<div className='flex flex-col justify-between h-[calc(100vh-64px)]'>
+		<div className="flex flex-col justify-between h-[calc(100vh-64px)]">
 			<StepperProvider>
 				<FormProvider {...form}>
 					<MultiStepForm onSubmit={onSubmit} />

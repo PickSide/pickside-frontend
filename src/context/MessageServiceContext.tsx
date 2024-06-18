@@ -41,7 +41,6 @@ export const MessagingProvider: FC<any> = ({ children }) => {
 
         socket.onmessage = (event) => {
             const data = JSON.parse(event.data)
-            console.log(data)
             switch (data.eventType) {
                 case 'chatroom:opened':
                     dispatch(setChatroom(data.result))
