@@ -15,12 +15,12 @@ const UsersAutocomplete = ({
 	debounceValue = 500,
 	onSelectAction,
 }: UserAutocompleteProps & { myRef?: Ref<HTMLInputElement> }) => {
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { extsvcInstance } = useContext(AxiosContext)
 	const { t } = useTranslation()
 
 	return (
 		<QueryAutocomplete
-			apiContext={axiosMSInstance}
+			apiContext={extsvcInstance}
 			clearable
 			fullWidth
 			endpoint="/users"

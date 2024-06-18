@@ -8,13 +8,13 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 const useLogout = () => {
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { extsvcInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const [, removeBearerToken] = useLocalStorage('my-bearer-token', null)
 	const { t } = useTranslation()
 
-	const callback = async () => await axiosMSInstance.post('/logout')
+	const callback = async () => await extsvcInstance.post('/logout')
 
 	const {
 		mutate: logout,

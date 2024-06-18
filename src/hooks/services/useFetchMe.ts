@@ -7,11 +7,11 @@ import { useQuery } from '@tanstack/react-query'
 
 const useFetchMe = () => {
 	const dispatch = useDispatch()
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { extsvcInstance } = useContext(AxiosContext)
 	const [bearer] = useLocalStorage('my-bearer-token', null)
 
 	const callback = async () =>
-		await axiosMSInstance.get('/me', {
+		await extsvcInstance.get('/me', {
 			headers: {
 				Authorization: `Bearer ${bearer || ''}`,
 			},

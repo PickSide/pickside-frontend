@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 const useCreateActivity = () => {
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { extsvcMFDInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { t } = useTranslation()
@@ -25,8 +25,19 @@ const useCreateActivity = () => {
 		} as CreateEventProps
 
 		delete data.sport
+		
+		const formData = new FormData()
 
-		return await axiosMSInstance.post(`/activities`, data)
+		// append all entries
+		Object.entries(data).forEach(([key, value]) => {
+			formData.append(key, value)
+		})
+
+		// append images
+		values.images.forEach((img) => formData.append('images[]', img))
+
+
+		return await extsvcMFDInstance.post(`/activities`, formData)
 	}
 
 	const {

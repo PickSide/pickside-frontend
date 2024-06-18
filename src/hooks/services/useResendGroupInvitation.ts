@@ -10,12 +10,12 @@ interface ResendGroupInvitationProps {
 }
 
 const useResendGroupInvitation = () => {
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { extsvcInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 
 	const callback = async (data: ResendGroupInvitationProps) =>
-		await axiosMSInstance.post(`/groups/resend-invitation`, data)
+		await extsvcInstance.post(`/groups/resend-invitation`, data)
 
 	const {
 		mutate: resendGroupInvitation,

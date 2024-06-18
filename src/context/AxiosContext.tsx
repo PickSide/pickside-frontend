@@ -8,7 +8,8 @@ import { v4 as uuidv4 } from 'uuid'
 export interface AxiosContextProps {
 	axiosASInstance: AxiosInstance
 	axiosFSInstance: AxiosInstance
-	axiosMSInstance: AxiosInstance
+	extsvcInstance: AxiosInstance
+	extsvcMFDInstance: AxiosInstance
 	axiosMSGSInstance: AxiosInstance
 	axiosNSInstance: AxiosInstance
 	setBearer: Dispatch<SetStateAction<string | null>>
@@ -17,7 +18,8 @@ export interface AxiosContextProps {
 const AxiosContext = createContext<AxiosContextProps>({
 	axiosASInstance: axios,
 	axiosFSInstance: axios,
-	axiosMSInstance: axios,
+	extsvcInstance: axios,
+	extsvcMFDInstance: axios,
 	axiosMSGSInstance: axios,
 	axiosNSInstance: axios,
 	setBearer: () => null,
@@ -40,12 +42,22 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 		},
 	})
 
-	const axiosMSInstance = axios.create({
+	const extsvcInstance = axios.create({
 		baseURL: import.meta.env.VITE_APP_MAIN_SERVICE_URL,
 		withCredentials: true,
 		headers: {
 			'Accept-Version': 'v2',
 			'Content-Type': 'application/json',
+		},
+	})
+
+	//Multipart/form data instance permitting sending images on top of a request
+	const extsvcMFDInstance = axios.create({
+		baseURL: import.meta.env.VITE_APP_MAIN_SERVICE_URL,
+		withCredentials: true,
+		headers: {
+			'Accept-Version': 'v2',
+			'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
 		},
 	})
 
@@ -68,7 +80,7 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 	const [bearer, setBearer] = useLocalStorage<string | null>('my-bearer-token', null)
 
 	useEffect(() => {
-		const instances = [axiosFSInstance, axiosMSInstance]
+		const instances = [axiosFSInstance, extsvcInstance, extsvcMFDInstance]
 		const interceptorIDs = new Map<AxiosInstance, number>()
 
 		const addInterceptor = (axiosInstance: AxiosInstance) => {
@@ -99,11 +111,19 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 				}
 			})
 		}
-	}, [axiosASInstance, axiosFSInstance, axiosMSInstance, axiosMSGSInstance, axiosNSInstance, bearer])
+	}, [axiosASInstance, axiosFSInstance, extsvcInstance, extsvcMFDInstance, axiosMSGSInstance, axiosNSInstance, bearer])
 
 	return (
 		<AxiosContext.Provider
-			value={{ axiosASInstance, axiosFSInstance, axiosMSInstance, axiosMSGSInstance, axiosNSInstance, setBearer }}
+			value={{
+				axiosASInstance,
+				axiosFSInstance,
+				extsvcInstance,
+				extsvcMFDInstance,
+				axiosMSGSInstance,
+				axiosNSInstance,
+				setBearer,
+			}}
 		>
 			{children}
 		</AxiosContext.Provider>

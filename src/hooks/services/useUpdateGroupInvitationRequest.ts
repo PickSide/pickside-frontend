@@ -12,14 +12,14 @@ interface UpdateGroupInvitiationRequestProps {
 }
 
 const useUpdateGroupInvitationRequest = () => {
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { extsvcInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 
 	const me = useSelector((state: AppState) => state.user)
 
 	const callback = async (data: UpdateGroupInvitiationRequestProps) =>
-		await axiosMSInstance.put(`/groups/${data.groupId}/users/${me?.id}/invitation?status=${data.status}`)
+		await extsvcInstance.put(`/groups/${data.groupId}/users/${me?.id}/invitation?status=${data.status}`)
 
 	const {
 		mutate: updateGroupInvitiationRequest,

@@ -9,11 +9,11 @@ import { useTranslation } from 'react-i18next'
 const useUpdateSetting = () => {
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { extsvcInstance } = useContext(AxiosContext)
 
 	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async (data) => axiosMSInstance.put(`/users/${me?.id}/settings`, data)
+	const callback = async (data) => extsvcInstance.put(`/users/${me?.id}/settings`, data)
 
 	const {
 		mutate: updateUser,

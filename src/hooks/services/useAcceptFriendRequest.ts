@@ -7,14 +7,14 @@ import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
 const useAcceptFriendRequest = () => {
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { extsvcInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 
 	const me = useSelector((state: AppState) => state.user)
 
 	const callback = async (userId: string) =>
-		await axiosMSInstance.put(`/accept-friend-request?userKeys=${userId},${me?.id}`)
+		await extsvcInstance.put(`/accept-friend-request?userKeys=${userId},${me?.id}`)
 
 	const {
 		mutate: acceptFriendRequest,
