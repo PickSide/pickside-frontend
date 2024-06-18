@@ -7,13 +7,13 @@ import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
 const useDeactivateAccount = () => {
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { extsvcInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 
 	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async () => await axiosMSInstance.put(`/users/deactivate/${me?.id}`)
+	const callback = async () => await extsvcInstance.put(`/users/deactivate/${me?.id}`)
 
 	const {
 		mutate: deactivateUser,

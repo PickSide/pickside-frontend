@@ -3,10 +3,10 @@ import { useContext } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 const useFetchParticipants = () => {
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { extsvcInstance } = useContext(AxiosContext)
 
 	const fetchParticipants = async (activityId: any) =>
-		await axiosMSInstance.get(`/activities/${activityId}/participants`)
+		await extsvcInstance.get(`/activities/${activityId}/participants`)
 
 	const {
 		data: activities,

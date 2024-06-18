@@ -7,11 +7,11 @@ import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 
 const useSignup = () => {
-	const { axiosMSInstance, setBearer } = useContext(AxiosContext)
+	const { extsvcInstance, setBearer } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
-	const callback = async (data: any) => await axiosMSInstance.post(`/signup`, data)
+	const callback = async (data: any) => await extsvcInstance.post(`/signup`, data)
 
 	const {
 		mutate: signup,

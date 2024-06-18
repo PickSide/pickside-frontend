@@ -7,13 +7,13 @@ import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
 const useLeaveGroup = () => {
-    const { axiosMSInstance } = useContext(AxiosContext)
+    const { extsvcInstance } = useContext(AxiosContext)
     const dispatch = useDispatch()
     const { t } = useTranslation()
 
     const me = useSelector((state: AppState) => state.user)
 
-    const callback = async (groupId: string) => await axiosMSInstance.delete(`/groups/leave/${groupId}/users/${me?.id}`)
+    const callback = async (groupId: string) => await extsvcInstance.delete(`/groups/leave/${groupId}/users/${me?.id}`)
 
     const {
         mutate: leaveGroup,

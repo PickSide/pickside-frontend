@@ -150,7 +150,11 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 				{...rest}
 			>
 				<CardImage className="rounded-[5px] min-w-[150px] max-h-[200px] p-0 ">
-					<img className="w-full h-full bg-card-placeholder bg-cover bg-no-repeat" src="" alt="" />
+					{activity.images?.length ? (
+						<img className="w-full h-full bg-card-placeholder bg-cover bg-no-repeat" src={activity.images[0]} alt="" />
+					) : (
+						<img className="w-full h-full bg-card-placeholder bg-cover bg-no-repeat" src="" alt="" />
+					)}
 				</CardImage>
 				<CardBody className="flex flex-col p-0 overflow-hidden w-full">
 					<div className="flex items-center justify-between">

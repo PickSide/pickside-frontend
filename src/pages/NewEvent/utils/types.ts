@@ -4,7 +4,7 @@ export type CreateEventProps = {
     description?: string
     duration?: string
     gameMode: string
-    images: string[]
+    images: any[]
     isPrivate: boolean
     lat?: number
     lng?: number

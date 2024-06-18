@@ -6,13 +6,13 @@ import { useContext } from 'react'
 import { useMutation } from '@tanstack/react-query'
 
 const useRegisterToActivity = () => {
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { extsvcInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 
 	const me = useSelector((state: AppState) => state.user)
 
 	const callback = async (activityId: any) =>
-		await axiosMSInstance.put(`/activities/registration`, { activityId: activityId, userId: me?.id })
+		await extsvcInstance.put(`/activities/registration`, { activityId: activityId, userId: me?.id })
 
 	const {
 		mutate: registerToActivity,

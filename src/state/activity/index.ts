@@ -11,16 +11,17 @@ export interface Activity {
 	date: string
 	description: string
 	gameMode: string
+	images?: string[]
 	lat: number
 	lng: number
 	maxPlayers: number
-	price: number
-	rules: string
-	time: Date
-	title: string
 	organizer: User
 	participants: User[]
+	price: number
+	rules: string
 	sport: Sport
+	time: Date
+	title: string
 }
 
 const ActivityReducer = createSlice({

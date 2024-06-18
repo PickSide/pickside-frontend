@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 const useFetchServicesHealth = () => {
-	const { axiosASInstance, axiosFSInstance, axiosMSInstance, axiosMSGSInstance, axiosNSInstance } =
+	const { axiosASInstance, axiosFSInstance, extsvcInstance, axiosMSGSInstance, axiosNSInstance } =
 		useContext(AxiosContext)
 
 	const fetchServicesHealth = async () => {
@@ -16,7 +16,7 @@ const useFetchServicesHealth = () => {
 		const responses = await Promise.all([
 			promiseHandler(axiosASInstance.get('/health'), 'Authentication service'),
 			promiseHandler(axiosFSInstance.get('/health'), 'File service'),
-			promiseHandler(axiosMSInstance.get('/health'), 'External gateway service'),
+			promiseHandler(extsvcInstance.get('/health'), 'External gateway service'),
 			promiseHandler(axiosMSGSInstance.get('/health'), 'Message service'),
 			promiseHandler(axiosNSInstance.get('/health'), 'Notification service'),
 		])

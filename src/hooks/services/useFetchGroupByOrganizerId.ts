@@ -6,12 +6,12 @@ import { useContext } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 const useFetchGroupByOrganizerId = () => {
-    const { axiosMSInstance } = useContext(AxiosContext)
+    const { extsvcInstance } = useContext(AxiosContext)
     const dispatch = useDispatch()
 
     const me = useSelector((state: AppState) => state.user)
 
-    const callback = async () => await axiosMSInstance.get(`/groups/users/${me?.id}`)
+    const callback = async () => await extsvcInstance.get(`/groups/users/${me?.id}`)
 
     const { data: group, isLoading, refetch } = useQuery(['fetch-group-by-organizer'], callback, {
         onSuccess: ({ data }) => dispatch(setGroups(data)),

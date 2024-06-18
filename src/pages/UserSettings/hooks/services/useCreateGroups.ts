@@ -6,11 +6,11 @@ import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
 const useCreateGroups = () => {
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { extsvcInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 
-	const callback = async (data: any) => await axiosMSInstance.post(`/groups`, data)
+	const callback = async (data: any) => await extsvcInstance.post(`/groups`, data)
 
 	const {
 		mutate: createGroups,

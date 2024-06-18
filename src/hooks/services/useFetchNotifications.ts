@@ -7,11 +7,11 @@ import { useQuery } from '@tanstack/react-query'
 
 const useFetchNotifications = () => {
 	const dispatch = useDispatch()
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { extsvcInstance } = useContext(AxiosContext)
 
 	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async () => await axiosMSInstance.get<any>(`/notifications?userKey=${me?.id}`)
+	const callback = async () => await extsvcInstance.get<any>(`/notifications?userKey=${me?.id}`)
 
 	const {
 		data: notifications,

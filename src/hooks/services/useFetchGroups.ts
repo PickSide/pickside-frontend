@@ -7,11 +7,11 @@ import { useQuery } from '@tanstack/react-query'
 
 const useFetchGroups = () => {
 	const dispatch = useDispatch()
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { extsvcInstance } = useContext(AxiosContext)
 
 	const me = useSelector((state: AppState) => state.user)
 
-	const fetchGroups = async () => await axiosMSInstance.get(`/groups/users/${me?.id}`)
+	const fetchGroups = async () => await extsvcInstance.get(`/groups/users/${me?.id}`)
 
 	const {
 		data: groups,

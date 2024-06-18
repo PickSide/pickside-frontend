@@ -14,14 +14,14 @@ interface ChangePasswordRequestProps {
 }
 
 const useChangePassword = () => {
-	const { axiosMSInstance } = useContext(AxiosContext)
+	const { extsvcInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 
 	const me = useSelector((app: AppState) => app.user)
 
 	const callback = async (data: ChangePasswordRequestProps) =>
-		await axiosMSInstance.put(`/change-password`, { email: me?.email, userId: me?.id, ...data })
+		await extsvcInstance.put(`/change-password`, { email: me?.email, userId: me?.id, ...data })
 
 	const {
 		mutate: changePassword,

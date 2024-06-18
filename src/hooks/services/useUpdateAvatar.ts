@@ -10,11 +10,11 @@ import { useTranslation } from 'react-i18next'
 const useUpdateAvatar = () => {
     const dispatch = useDispatch()
     const { t } = useTranslation()
-    const { axiosMSInstance, axiosFSInstance } = useContext(AxiosContext)
+    const { extsvcInstance, extsvcMFDInstance } = useContext(AxiosContext)
 
     const me = useSelector((state: AppState) => state.user)
 
-    const callback = async (formData) => await axiosFSInstance.put(`/users/${me?.id}/avatar`, formData)
+    const callback = async (formData) => await extsvcMFDInstance.put(`/users/${me?.id}/avatar`, formData)
 
     const {
         mutate: updateAvatar,
@@ -24,9 +24,8 @@ const useUpdateAvatar = () => {
     } = useMutation(callback, {
         mutationKey: ['update-avatar'],
         onSuccess: async ({ data }) => {
-            await axiosMSInstance.put(`/users/${me?.id}/settings`, { avatar: data.result })
+            await extsvcInstance.put(`/users/${me?.id}/settings`, { avatar: data.result })
                 .then((resp) => {
-                    console.log()
                     dispatch(updateMeConfig(resp.data.result))
                     dispatch({
                         type: 'toast/toastMessage',
