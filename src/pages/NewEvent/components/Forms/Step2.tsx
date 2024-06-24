@@ -75,6 +75,7 @@ const Step2 = () => {
 							{...field}
 							fullWidth
 							label={t('Price')}
+							defaultValue={0.00}
 							startContent={<Icon icon="attach_money" />}
 							onChange={(e) => {
 								field.onChange(Number.parseFloat(e.target.value))

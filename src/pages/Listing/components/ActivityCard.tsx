@@ -7,8 +7,10 @@ import ActivityDetailsDialog from './Dialogs/ActivityDetailsDialog'
 import Avatar from '@components/Avatar'
 import Button from '@components/shared/Button'
 import Icon from '@components/shared/Icon'
+import Image from '@components/Image'
 import { cn } from '@utils'
 import dayjs from 'dayjs'
+import moment from 'moment'
 import { useActivityHandlers } from '@hooks'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
@@ -38,7 +40,10 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 	const [openActivtyDetail, setOpenActivtyDetail] = useState<boolean>(false)
 
 	const organizer = useMemo(() => activity?.participants?.find((p) => p.isOrganizer), [activity])
-	const isMeOrganizer = me?.id === organizer?.id
+	const isMeOrganizer = me !== undefined && organizer !== undefined && me?.id === organizer?.id
+
+	const date = moment(activity.date)
+	const startTime = moment(activity.startTime)
 
 	const handleRegister = async (e) => {
 		e.stopPropagation()
@@ -73,7 +78,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 					<Button
 						size="sm"
 						variant="danger"
-						className="px-4 rounded-[12px] font-semibold"
+						className="px-4"
 						isLoading={isDeletingActivity}
 						onClick={(e) => {
 							e.stopPropagation()
@@ -81,7 +86,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 						}}
 						disabled={isFull || isRegistering}
 					>
-						{t('Remove')}
+						{t('Delete')}
 					</Button>
 				</DialogCTA>
 			)
@@ -91,7 +96,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 				<DialogCTA>
 					<Button
 						size="sm"
-						className="px-4 rounded-[12px] font-semibold"
+						className="px-4"
 						isLoading={isDeletingActivity}
 						onClick={(e) => {
 							e.stopPropagation()
@@ -149,12 +154,8 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 				onClick={() => setOpenActivtyDetail(true)}
 				{...rest}
 			>
-				<CardImage className="rounded-[5px] min-w-[150px] max-h-[200px] p-0 ">
-					{activity.images?.length ? (
-						<img className="w-full h-full bg-card-placeholder bg-cover bg-no-repeat" src={activity.images[0]} alt="" />
-					) : (
-						<img className="w-full h-full bg-card-placeholder bg-cover bg-no-repeat" src="" alt="" />
-					)}
+				<CardImage className="">
+					{activity.images?.length ? <Image className="" src={activity.images[0]} /> : <Image />}
 				</CardImage>
 				<CardBody className="flex flex-col p-0 overflow-hidden w-full">
 					<div className="flex items-center justify-between">
@@ -171,11 +172,19 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 					<div className="block w-fit space-y-2 mt-3 truncate">
 						<span className="flex items-center gap-x-2">
 							<Icon icon="location_on" />
-							{activity.address}
+							{activity.gmapsUrl ? (
+								<a className="link" href={activity.gmapsUrl} target="_blank">
+									{activity.address}
+								</a>
+							) : (
+								activity.address
+							)}
 						</span>
 						<span className="flex items-center gap-x-2">
 							<Icon icon="schedule" />
-							{dayjs(activity.date).toDate().toDateString()}
+							<p>{date.format('MMM Do')}</p>
+							<p>at</p>
+							<p className="uppercase">{startTime.format('hh:mm a')}</p>
 						</span>
 						<span className="flex items-center gap-x-2">
 							<Icon icon="group" />

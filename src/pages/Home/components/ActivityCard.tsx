@@ -5,6 +5,7 @@ import { FC, useMemo } from 'react'
 import { Activity } from '@state'
 import Avatar from '@components/Avatar'
 import dayjs from 'dayjs'
+import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 
 interface ActivityCardProps extends CardProps {
@@ -15,6 +16,9 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 	const { t } = useTranslation()
 
 	const organizer = useMemo(() => activity?.participants?.find((p) => p.isOrganizer), [activity])
+
+	const date = moment(activity.date)
+	const startTime = moment(activity.startTime)
 
 	return activity ? (
 		<>
@@ -37,7 +41,9 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 						</div>
 						<div className="flex items-center gap-x-[10px]">
 							<Icon className="text-cool-gray-3" icon="schedule" />
-							<span>{dayjs(activity.date).toDate().toDateString()}</span>
+							<span>
+								{date.format('MMM Do')} at {startTime.format('hh:mm a')}
+							</span>
 						</div>
 						<div className="flex items-center gap-x-[10px]">
 							<Icon className="text-cool-gray-3" icon="group" />
@@ -47,9 +53,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 						</div>
 						<div className="flex items-center gap-x-[10px]">
 							<Icon className="text-cool-gray-3" icon="payments" />
-							<span>
-								{activity.price}$&nbsp;{t('per person')}
-							</span>
+							<span>{activity.price === 0 ? t('Free') : activity.price + ' ' + t('per person')}</span>
 						</div>
 					</div>
 				</CardBody>

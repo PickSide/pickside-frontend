@@ -11,6 +11,7 @@ export interface Activity {
 	date: string
 	description: string
 	gameMode: string
+	gmapsUrl?: string
 	images?: string[]
 	lat: number
 	lng: number
@@ -20,7 +21,7 @@ export interface Activity {
 	price: number
 	rules: string
 	sport: Sport
-	time: Date
+	startTime: string
 	title: string
 }
 

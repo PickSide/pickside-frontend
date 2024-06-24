@@ -19,13 +19,18 @@ const useCreateActivity = () => {
 
 	const callback = async (values: CreateEventProps) => {
 		const data = omit(
-			{ ...values, date: values.date.format('YYYY-MM-DD'), sportId: values.sport.id, organizerId: me?.id },
+			{
+				...values,
+				date: values.date.format('YYYY-MM-DD'),
+				sportId: values.sport.id,
+				organizerId: me?.id,
+			},
 			['images', 'sport'],
 		)
 
 		const resp = await extsvcInstance.post(`/activities`, data)
 
-		if (resp.data.result && values.images) {
+		if (resp.data.result && values.images.length) {
 			const formData = new FormData()
 
 			values.images.forEach((img) => {

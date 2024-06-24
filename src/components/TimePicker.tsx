@@ -56,7 +56,7 @@ const TimePicker = ({ fullWidth = false, onChange, label, value, ...rest }, ref)
 					onChange={onChange}
 					getOptionValue={(option: moment.Moment) => option.format('hh:mm')}
 					getOptionLabel={(option: moment.Moment) => option.format('hh:mm')}
-					label={t('Time')}
+					label={label || t('Time')}
 					{...rest}
 				/>
 			</div>

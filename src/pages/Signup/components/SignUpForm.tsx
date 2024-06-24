@@ -27,17 +27,28 @@ const SignUpForm = () => {
 					type="text"
 					label={t('Full name')}
 					placeholder={t('Enter your full name')}
-					startContent={<Icon icon="person" />}
+					//startContent={<Icon icon="person" />}
 					error={errors.fullName?.message}
 					aria-invalid={!!errors.fullName}
 					fullWidth
 					{...register('fullName', { required: t('Field is required') })}
 				/>
 
+				<InputField
+					label={t('Display name')}
+					placeholder={t('Enter display name')}
+					error={errors.displayName?.message}
+					aria-invalid={!!errors.displayName}
+					fullWidth
+					{...register('displayName', {
+						required: t('Field is required'),
+					})}
+				/>
+
 				<EmailField
 					label={t('Email')}
 					placeholder={t('Enter email')}
-					startContent={<Icon icon="alternate_email" />}
+					//startContent={<Icon icon="alternate_email" />}
 					error={errors.email?.message}
 					aria-invalid={!!errors.email}
 					fullWidth
