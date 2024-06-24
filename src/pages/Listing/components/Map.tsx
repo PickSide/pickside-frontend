@@ -43,50 +43,49 @@ const Map = () => {
 	const center = !!selectedLocation ? selectedLocation : { lat: 45.5490424, lng: -73.6573323 }
 
 	return (
-		<div className='w-full h-full'>
+		<div className="w-full h-full">
 			<GoogleMapReact shouldUnregisterMapOnUnmount zoom={12} center={center} options={options}>
-				{activities?.result
-					?.map((activity, idx) => (
-						<Marker
-							key={idx}
-							lat={activity.lat}
-							lng={activity.lng}
-							text={activity.title}
-							icon={
-								<Icon
-									icon="location_on"
-									size="lg"
-									className={cn(
-										'transition-all',
-										getMarkerColor(activity),
-										focusedActivity?.id === activity.id ? 'scale-125' : 'hover:scale-125',
-									)}
-								/>
-							}
-							openInfoWindow={activity.id === selectedActivity?.id}
-							onMouseEnter={() => onFocusInActivity(activity)}
-							onMouseLeave={onFocusOutActivity}
-						>
-							<div className="block">
-								<div className="flex items-center px-2 bg-green-500 h-8 text-white align-middle">{activity.title}</div>
-								<div className="flex flex-col p-3 text-base">
-									<span className="">
-										{t('Participants')}: {activity.participants?.length} / {activity.maxPlayers}
-									</span>
-									<span className="">
-										{t('Date')}: {dayjs(activity.date).toDate().toDateString()}
-									</span>
-									<span className="">
-										{t('Time')}: {moment(activity.time).format('LT')}
-									</span>
-									<div className="">
-										<span>{t('Location')}</span>:{' '}
-										<span className="text-blue-600 underline cursor-pointer">{activity.address}</span>
-									</div>
+				{activities?.result?.map((activity, idx) => (
+					<Marker
+						key={idx}
+						lat={activity.lat}
+						lng={activity.lng}
+						text={activity.title}
+						icon={
+							<Icon
+								icon="location_on"
+								size="lg"
+								className={cn(
+									'transition-all',
+									getMarkerColor(activity),
+									focusedActivity?.id === activity.id ? 'scale-125' : 'hover:scale-125',
+								)}
+							/>
+						}
+						openInfoWindow={activity.id === selectedActivity?.id}
+						onMouseEnter={() => onFocusInActivity(activity)}
+						onMouseLeave={onFocusOutActivity}
+					>
+						<div className="block">
+							<div className="flex items-center px-2 bg-green-500 h-8 text-white align-middle">{activity.title}</div>
+							<div className="flex flex-col p-3 text-base">
+								<span className="">
+									{t('Participants')}: {activity.participants?.length} / {activity.maxPlayers}
+								</span>
+								<span className="">
+									{t('Date')}: {dayjs(activity.date).toDate().toDateString()}
+								</span>
+								<span className="">
+									{t('Time')}: {moment(activity.startTime).format('hh:mm a')}
+								</span>
+								<div className="">
+									<span>{t('Location')}</span>:{' '}
+									<span className="text-blue-600 underline cursor-pointer">{activity.address}</span>
 								</div>
 							</div>
-						</Marker>
-					))}
+						</div>
+					</Marker>
+				))}
 			</GoogleMapReact>
 		</div>
 	)
