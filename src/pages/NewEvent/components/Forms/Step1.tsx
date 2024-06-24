@@ -1,4 +1,4 @@
-import { Button, DatePicker, FormDivider, InputField, Select, TimePicker } from '@components'
+import { Button, DatePicker, FormDivider, InputField, TimePicker } from '@components'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 
 import { CreateEventProps } from '@pages/NewEvent/utils/types'
@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 
 const Step1 = () => {
 	const { control, setValue } = useFormContext<CreateEventProps>()
-	const { dirtyFields } = useFormState({ control })
+	const { dirtyFields, errors } = useFormState({ control })
 	const { previous, next } = useStepper()
 	const { t } = useTranslation()
 
@@ -25,7 +25,12 @@ const Step1 = () => {
 			<Controller
 				name="startTime"
 				control={control}
-				render={({ field }) => <TimePicker {...field} fullWidth placeholder={t('Choose time')} label={t('Time')} />}
+				rules={{
+					required: 'Field required',
+				}}
+				render={({ field }) => (
+					<TimePicker {...field} fullWidth placeholder={t('Choose time')} label={t('Start time')} />
+				)}
 			/>
 			<FormDivider />
 
@@ -33,14 +38,19 @@ const Step1 = () => {
 				name="duration"
 				control={control}
 				rules={{
-					required: "Required",
+					required: 'Required',
 					pattern: {
 						value: /^(?:(?:[1-9][0-9]*h)?(?:[1-5]?[0-9]min)?)$/,
-						message: t('Wrong format')
+						message: t('Wrong format'),
 					},
 				}}
 				render={({ field }) => (
-					<InputField {...field} placeholder={t('You can type 30min, 1h, 90min, 1h30min, etc')} label={t('Duration')} />
+					<InputField
+						{...field}
+						error={errors.duration?.message}
+						placeholder={t('You can type 30min, 1h, 90min, 1h30min, etc')}
+						label={t('Duration')}
+					/>
 				)}
 			/>
 			<FormDivider />
@@ -54,9 +64,14 @@ const Step1 = () => {
 						fullWidth
 						label={t('Address')}
 						onPlaceSelected={(value: google.maps.places.PlaceResult) => {
+							if (!value.geometry?.location?.lat() || !value.geometry?.location?.lng()) {
+								console.error('invalid location please select another one')
+								return
+							}
 							setValue('address', value.formatted_address)
-							setValue('lat', value.geometry?.location?.lat())
-							setValue('lng', value.geometry?.location?.lng())
+							setValue('gmapsUrl', value.url)
+							setValue('lat', value.geometry.location.lat())
+							setValue('lng', value.geometry.location.lng())
 						}}
 						value={field.value}
 					/>

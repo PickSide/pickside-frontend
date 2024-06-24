@@ -38,21 +38,20 @@ const AppBar = () => {
 
 	return (
 		<motion.div
-			id='navbar'
+			id="navbar"
 			ref={ref}
 			initial="hidden"
 			animate="visible"
 			exit="exit"
 			variants={pageTransition}
-			className='flex h-16 pl-5 pr-5 lg:px-10 w-full dark:bg-charcoal-black '
-
+			className="flex h-16 pl-5 pr-5 lg:px-10 w-full dark:bg-charcoal-black "
 		>
 			<div className="w-full h-10 my-auto">
 				<NavLink to="/" className="float-left w-24 h-full bg-logo bg-contain bg-no-repeat" />
 				<div className="float-right flex items-center gap-x-6">
 					<div className="flex items-center gap-x-4">
 						{pathname !== '/new-event' && (
-							<PrivilegedContent permissions={[USER_PERMISSIONS.ACTIVITIES_CREATE]}>
+							<PrivilegedContent permissions={[USER_PERMISSIONS.MANAGE_ACTIVITIES]}>
 								<NavLink
 									to="/new-event"
 									className="text-base text-grey-700 font-medium hover:text-slate-300 transition-all"
@@ -61,31 +60,30 @@ const AppBar = () => {
 								</NavLink>
 							</PrivilegedContent>
 						)}
-
-						<PrivilegedContent permissions={[USER_PERMISSIONS.SEND_MESSAGES]}>
-							<IconButton
-								onClick={() =>
-									sidenavDispatch({
-										type: 'open',
-										title: t('Messages'),
-										content: (
-											<Chatrooms
-												callbackOnClick={() =>
-													sidenavDispatch({
-														type: 'close',
-													})
-												}
-											/>
-										),
-									})
-								}
-							>
-								<Icon icon="chat_bubble_outline" />
-							</IconButton>
-						</PrivilegedContent>
-						<PrivilegedContent permissions={[USER_PERMISSIONS.NOTIFICATIONS_RECEIVE]}>
-							<NotificationMenu />
-						</PrivilegedContent>
+						{me && (
+							<>
+								<IconButton
+									onClick={() =>
+										sidenavDispatch({
+											type: 'open',
+											title: t('Messages'),
+											content: (
+												<Chatrooms
+													callbackOnClick={() =>
+														sidenavDispatch({
+															type: 'close',
+														})
+													}
+												/>
+											),
+										})
+									}
+								>
+									<Icon icon="chat_bubble_outline" />
+								</IconButton>
+								<NotificationMenu />
+							</>
+						)}
 					</div>
 					<PopupMenu
 						ref={popMenuRef}
@@ -106,9 +104,11 @@ const AppBar = () => {
 								<PopupMenuItem key="profile">
 									<NavLink to="/user/settings">{t('Profile')}</NavLink>
 								</PopupMenuItem>,
-								<PopupMenuItem key="groups">
-									<NavLink to="/user/settings/groups">{t('Groups')}</NavLink>
-								</PopupMenuItem>,
+								<PrivilegedContent permissions={[USER_PERMISSIONS.MANAGE_GROUPS]}>
+									<PopupMenuItem key="groups">
+										<NavLink to="/user/settings/groups">{t('Groups')}</NavLink>
+									</PopupMenuItem>
+								</PrivilegedContent>,
 							]
 						) : (
 							<></>
@@ -118,7 +118,7 @@ const AppBar = () => {
 								{locales?.result?.map((locale, idx) => (
 									<Radio
 										key={idx}
-										label={<span className='capitalize'>{locale.name}</span>}
+										label={<span className="capitalize">{locale.name}</span>}
 										icon={<span className={`rounded-sm fi fi-${locale.flagCode}`}></span>}
 										defaultChecked={locale.value === appLocale}
 										value={locale.value}

@@ -12,7 +12,7 @@ const PasswordField = (props: InputFieldProps, ref) => {
 	return (
 		<InputField
 			type={type}
-			startContent={<Icon icon="lock" />}
+			//startContent={<Icon icon="lock" />}
 			endContent={
 				<IconButton tabIndex={-1} size="sm" onClick={() => setHidePassword(!hidePassword)}>
 					{hidePassword ? <Icon icon="visibility_off" /> : <Icon icon="visibility" />}

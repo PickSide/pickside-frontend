@@ -27,7 +27,7 @@ export const EmailVerificationProvider: FC<any> = ({ children }) => {
     return <EmailVerificationContext.Provider value={{}}>
         {showAlert && <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
 
-            <div className="fixed z-50 w-full xl:w-fit xl:left-1/2 xl:-translate-x-1/2">
+            <div className="z-50 w-full">
                 <Banner
                     severity='info'
                     icon='info'

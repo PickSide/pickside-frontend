@@ -12,7 +12,7 @@ const useRegisterToActivity = () => {
 	const me = useSelector((state: AppState) => state.user)
 
 	const callback = async (activityId: any) =>
-		await extsvcInstance.put(`/activities/registration`, { activityId: activityId, userId: me?.id })
+		await extsvcInstance.put(`/activities/register`, { activityId: activityId, userId: me?.id })
 
 	const {
 		mutate: registerToActivity,
