@@ -1,6 +1,7 @@
+import { Button, GoogleAutocomplete, Icon, IconButton } from '@components'
 import { FC, useState } from 'react'
-import { GoogleAutocomplete, Icon, IconButton } from '@components'
 
+import Landing from '@assets/landing.png'
 import { isEmpty } from 'lodash'
 import { setSelectedLocation } from '@state'
 import { useDispatch } from 'react-redux'
@@ -13,15 +14,17 @@ const LandingPage: FC<any> = () => {
 	const { t } = useTranslation()
 	const [selected, setSelected] = useState<google.maps.places.PlaceResult>({})
 
-	const navigateToListing = async () => {
+	const navigateToListingWithAddress = async () => {
 		if (!selected || !selected.geometry || !selected.geometry.location) {
 			return
 		}
 		const lat = selected.geometry.location.lat()
 		const lng = selected.geometry.location.lng()
-		await dispatch(setSelectedLocation({ lat, lng }))
-		await navigate('/listing')
+		dispatch(setSelectedLocation({ lat, lng }))
+		navigate('/listing')
 	}
+
+	const navigateToListing = async () => navigate('/listing')
 
 	// const goToListing = async () => {
 	// 	if ((window.location.protocol === 'http:' || window.location.protocol === 'https:') && navigator.geolocation) {
@@ -37,29 +40,32 @@ const LandingPage: FC<any> = () => {
 			id="intro"
 			className="section h-[calc(100vh-64px)] lg:relative lg:block dark:bg-charcoal-black/80 overflow-hidden"
 		>
-			<div className="w-full h-3/4 flex items-center justify-center mx-auto bg-landing bg-no-repeat bg-contain bg-center">
-				{/* <img src={Landing} alt='landing background' /> */}
-			</div>
-			<div className="flex items-center justify-center">
-				<form>
+			<div className="flex flex-col items-center justify-around max-w-screen-lg h-full mx-auto text-center">
+				<img src={Landing} alt="landing background" />
+				<div className="max-w-3xl">
 					<GoogleAutocomplete
 						label={
 							<h4 className="flex items-center justify-center text-ocean">
 								{t('Host or Join, Your Victory Starts Here.')}
 							</h4>
 						}
-						onPressEnterKey={navigateToListing}
+						onPressEnterKey={navigateToListingWithAddress}
 						className="border-ocean/30 h-[50px] rounded-[15px]"
 						startContent={<Icon icon="search" />}
 						endContent={
-							<IconButton onClick={navigateToListing} disabled={isEmpty(selected)}>
+							<IconButton onClick={navigateToListingWithAddress} disabled={isEmpty(selected)}>
 								<Icon icon="arrow_forward" />
 							</IconButton>
 						}
 						placeholder={t('Search by location or postal code')}
 						onPlaceSelected={(value) => setSelected(value)}
 					/>
-				</form>
+				</div>
+				<div>
+					<Button variant="secondary" size="lg" onClick={navigateToListing}>
+						{t('See all events')}
+					</Button>
+				</div>
 			</div>
 		</section>
 	)

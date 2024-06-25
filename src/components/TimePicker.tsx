@@ -1,5 +1,5 @@
 import { ControlProps, components } from 'react-select'
-import { forwardRef, useId, useState } from 'react'
+import { forwardRef, useEffect, useId, useState } from 'react'
 
 import Icon from './shared/Icon'
 import Select from './shared/Select'
@@ -31,13 +31,39 @@ const TimePicker = ({ fullWidth = false, onChange, label, value, ...rest }, ref)
 		)
 	}
 
-	const [amPm, setAmPm] = useState(
-		amPmOpts.find((x) => x.value === value.format('LT').split(' ')[1].toLowerCase()) || amPmOpts[0],
-	)
+	const [amPm, setAmPm] = useState(amPmOpts.find((x) => x.value === value.format('A').toLowerCase()) || amPmOpts[0])
 
-	const handleAmPmChange = (amPm) => {
-		setAmPm(amPm)
-		onChange && onChange(value.add(12, 'hours'))
+	useEffect(() => {
+		setAmPm(amPmOpts.find((x) => x.value === value.format('A').toLowerCase()) || amPmOpts[0])
+	}, [value])
+
+	const handleAmPmChange = (selectedAmPm) => {
+		if (selectedAmPm.value !== amPm.value) {
+			setAmPm(selectedAmPm)
+			const newValue = value.clone()
+			if (selectedAmPm.value === 'am' && value.hour() >= 12) {
+				newValue.subtract(12, 'hours')
+			} else if (selectedAmPm.value === 'pm' && value.hour() < 12) {
+				newValue.add(12, 'hours')
+			}
+			onChange && onChange(newValue)
+		}
+	}
+
+	const handleTimeChange = (selectedTime) => {
+		const newTime = selectedTime.clone().set({
+			year: value.year(),
+			month: value.month(),
+			date: value.date(),
+		})
+
+		if (amPm.value === 'pm' && newTime.hour() < 12) {
+			newTime.add(12, 'hours')
+		} else if (amPm.value === 'am' && newTime.hour() >= 12) {
+			newTime.subtract(12, 'hours')
+		}
+
+		onChange && onChange(newTime)
 	}
 
 	return (
@@ -53,7 +79,7 @@ const TimePicker = ({ fullWidth = false, onChange, label, value, ...rest }, ref)
 					backspaceRemovesValue
 					isSearchable={false}
 					options={options}
-					onChange={onChange}
+					onChange={handleTimeChange}
 					getOptionValue={(option: moment.Moment) => option.format('hh:mm')}
 					getOptionLabel={(option: moment.Moment) => option.format('hh:mm')}
 					label={label || t('Time')}

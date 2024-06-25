@@ -8,10 +8,12 @@ import { useStepper } from '@pages/NewEvent/hooks/useStepper'
 import { useTranslation } from 'react-i18next'
 
 const Step1 = () => {
-	const { control, setValue } = useFormContext<CreateEventProps>()
+	const { control, setValue, watch } = useFormContext<CreateEventProps>()
 	const { dirtyFields, errors } = useFormState({ control })
 	const { previous, next } = useStepper()
 	const { t } = useTranslation()
+
+	console.log(watch('startTime'))
 
 	return (
 		<>
@@ -28,9 +30,9 @@ const Step1 = () => {
 				rules={{
 					required: 'Field required',
 				}}
-				render={({ field }) => (
-					<TimePicker {...field} fullWidth placeholder={t('Choose time')} label={t('Start time')} />
-				)}
+				render={({ field }) => {
+					return <TimePicker {...field} fullWidth placeholder={t('Choose time')} label={t('Start time')} />
+				}}
 			/>
 			<FormDivider />
 

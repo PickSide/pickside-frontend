@@ -8,8 +8,10 @@ export interface Activities extends Resources {
 export interface Activity {
 	id?: string
 	address: string
-	date: string
+	date: any
 	description: string
+	duration: string
+	endTime?: string
 	gameMode: string
 	gmapsUrl?: string
 	images?: string[]
@@ -21,7 +23,7 @@ export interface Activity {
 	price: number
 	rules: string
 	sport: Sport
-	startTime: string
+	startTime: any
 	title: string
 }
 

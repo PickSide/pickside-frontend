@@ -76,7 +76,7 @@ const optionStyles = {
 	base: 'hover:cursor-pointer p-2 rounded',
 	focus: 'bg-gray-100 active:bg-gray-200',
 	disabled: 'text-gray-300',
-	selected: "bg-gray-100 text-success font-semibold",
+	selected: "bg-gray-100 text-ocean-2 font-semibold",
 }
 const noOptionsMessageStyles = 'text-gray-500 p-2 bg-gray-50 border border-dashed border-gray-200 rounded-sm bg-white'
 

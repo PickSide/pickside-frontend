@@ -5,7 +5,6 @@ import { CreateEventProps } from './utils/types'
 import Footer from '../Home/sections/Footer'
 import MultiStepForm from './components/MultiStepForm'
 import { StepperProvider } from './context'
-import dayjs from 'dayjs'
 import moment from 'moment'
 
 const CreateEvent = () => {
@@ -15,14 +14,14 @@ const CreateEvent = () => {
 	const form = useForm<CreateEventProps>({
 		defaultValues: {
 			address: '',
-			date: dayjs(),
+			date: moment(),
 			duration: '1h',
 			gameMode: '',
 			gmapsUrl: '',
 			images: [],
 			isPrivate: false,
 			maxPlayers: 0,
-			price: 0.00,
+			price: 0.0,
 			rules: '',
 			sport: '',
 			startTime: moment(),
@@ -35,7 +34,10 @@ const CreateEvent = () => {
 		},
 	})
 
-	const onSubmit = async (values) => createActivity(values)
+	const onSubmit = async (values) => {
+		//console.log(value)
+		createActivity(values)
+	}
 
 	return (
 		<div className="flex flex-col justify-between h-[calc(100vh-64px)]">

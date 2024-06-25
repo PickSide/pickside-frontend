@@ -1,60 +1,57 @@
-import dayjs from 'dayjs'
+import moment from 'moment'
 
-export const generateDate = (month = dayjs().month(), year = dayjs().year()) => {
+export const generateDate = (month = moment().month(), year = moment().year()) => {
+	const firstDateOfMonth = moment().year(year).month(month).startOf('month')
+	const lastDateOfMonth = moment().year(year).month(month).endOf('month')
 
-    const firstDateOfMonth = dayjs().year(year).month(month).startOf('month')
-    const lastDateOfMonth = dayjs().year(year).month(month).endOf('month')
+	const arrayOfDate: any = []
 
-    const arrayOfDate: any = []
+	// Create prefix dates
+	for (let i = 0; i < firstDateOfMonth.day(); i++) {
+		const date = firstDateOfMonth.clone().day(i)
 
-    //create prefix date
-    for (let i = 0; i < firstDateOfMonth.day(); i++) {
-        const date = firstDateOfMonth.day(i)
+		arrayOfDate.push({
+			currentMonth: false,
+			date,
+		})
+	}
 
-        arrayOfDate.push({
-            currentMonth: false,
-            date
-        })
-    }
+	// Generate current month dates
+	for (let i = firstDateOfMonth.date(); i <= lastDateOfMonth.date(); i++) {
+		arrayOfDate.push({
+			currentMonth: true,
+			date: firstDateOfMonth.clone().date(i),
+			today: firstDateOfMonth.clone().date(i).toDate().toDateString() === moment().toDate().toDateString(),
+			afterToday: firstDateOfMonth.clone().date(i).isAfter(moment()),
+		})
+	}
 
-    //generate current date
-    for (let i = firstDateOfMonth.date(); i <= lastDateOfMonth.date(); i++) {
-        arrayOfDate.push({
-            currentMonth: true,
-            date: firstDateOfMonth.date(i),
-            today:
-                firstDateOfMonth.date(i).toDate().toDateString() ===
-                dayjs().toDate().toDateString(),
-            afterToday: firstDateOfMonth.date(i) > dayjs()
-        });
-    }
+	const remaining = 42 - arrayOfDate.length
 
-    const remaining = 42 - arrayOfDate.length
+	// Create suffix dates
+	for (let i = 1; i <= remaining; i++) {
+		arrayOfDate.push({
+			currentMonth: false,
+			date: lastDateOfMonth.clone().add(i, 'days'),
+		})
+	}
 
-    //create suffix date
-    for (let i = lastDateOfMonth.date() + 1; i <= lastDateOfMonth.date() + remaining; i++) {
-        arrayOfDate.push({
-            currentMonth: false,
-            date: lastDateOfMonth.date(i),
-        })
-    }
-
-    return arrayOfDate
+	return arrayOfDate
 }
 
 export const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+	'January',
+	'February',
+	'March',
+	'April',
+	'May',
+	'June',
+	'July',
+	'August',
+	'September',
+	'October',
+	'November',
+	'December',
 ]
 
 export const weeks = ['Su', 'Mon', 'Tu', 'We', 'Th', 'Fr', 'Sa']

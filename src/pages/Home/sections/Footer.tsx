@@ -8,7 +8,7 @@ const Footer = () => {
 	const { t } = useTranslation()
 
 	return (
-		<section id="footer" className="bg-ocean text-white max-w-full mb-0">
+		<section id="footer" className="bg-ocean text-white mb-0">
 			<div className="flex flex-col px-40 py-10">
 				<div className="flex items-center space-x-6">
 					<p className="text-[20px] font-semibold">{t('Post your sport event')}</p>
@@ -17,16 +17,16 @@ const Footer = () => {
 					</Button>
 				</div>
 				<div className="border border-white my-4"></div>
-				<div className="flex space-x-56">
+				<div className="flex justify-between max-w-xl">
 					<div className="flex flex-col justify-center space-y-3">
 						<p className="font-semibold">{t('Your Account')}</p>
-						<NavLink to="">{t('Sign up')}</NavLink>
-						<NavLink to="">{t('Login')}</NavLink>
+						<NavLink to="signup">{t('Sign up')}</NavLink>
+						<NavLink to="login">{t('Login')}</NavLink>
 						<NavLink to="">{t('Help')}</NavLink>
 					</div>
 					<div className="flex flex-col space-y-3">
 						<p className="font-semibold">{t('Discover')}</p>
-						<NavLink to="">{t('Events')}</NavLink>
+						<NavLink to="listing">{t('Events')}</NavLink>
 						<NavLink to="">{t('Calendar')}</NavLink>
 					</div>
 					<div className="flex flex-col space-y-3">

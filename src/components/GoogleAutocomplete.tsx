@@ -60,8 +60,8 @@ const GoogleAutocomplete = forwardRef<HTMLDivElement, GoogleAutocompleteProps>(
 				/>
 				{openPrediction && (
 					<>
-						<div className="fixed opacity-25 h-screen w-screen" onClick={() => setOpenPrediction(false)} />
-						<div id="prediction-box" className="absolute bg-white border-[1px] shadow-sm w-full rounded-md">
+						<div className="fixed opacity-25 h-screen w-screen inset-0" onClick={() => setOpenPrediction(false)} />
+						<div id="prediction-box" className="absolute bg-white border-[1px] -mt-5 shadow-sm w-full rounded-md">
 							{isPlacePredictionsLoading ? (
 								<div className="flex items-center justify-center py-2 w-full">
 									<Spinner />
