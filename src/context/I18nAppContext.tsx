@@ -1,7 +1,7 @@
 import { FC, ReactNode, createContext, useEffect, useState } from 'react'
 
 import { AppState } from '@state'
-import { useEffectOnce } from 'usehooks-ts'
+import { useLocaleSwitcher } from '@hooks'
 import { useSelector } from 'react-redux'
 
 export interface I18nAppContextProps {
@@ -13,24 +13,24 @@ const I18nAppContext = createContext<I18nAppContextProps>({})
 export const I18nProvider: FC<any> = ({ children }) => {
 	const appLocale = useSelector((state: AppState) => state.appLocale)
 	const me = useSelector((state: AppState) => state.user)
-	const [currentLocalClass, setCurrentLocalClass] = useState<any>(me?.preferredLocale || 'en')
+
+	const { handleLocaleChange } = useLocaleSwitcher()
+	useEffect(() => {
+		handleLocaleChange(appLocale)
+	}, [])
 
 	useEffect(() => {
 		if (me?.preferredLocale) {
-			setCurrentLocalClass(me.preferredLocale)
+			handleLocaleChange(me.preferredLocale)
 		}
-	}, [])
-
-	useEffectOnce(() => window.document.documentElement.classList.add(currentLocalClass))
+	}, [me])
 
 	useEffect(() => {
 		if (appLocale) {
 			const root = window.document.documentElement
-			root.classList.remove(currentLocalClass)
-			root.classList.add(appLocale)
-			setCurrentLocalClass(appLocale)
+			root.setAttribute('lang', appLocale)
 		}
-	}, [appLocale, currentLocalClass])
+	}, [appLocale])
 
 	return <I18nAppContext.Provider value={{}}>{children}</I18nAppContext.Provider>
 }

@@ -10,14 +10,11 @@ const useLocaleSwitcher = (): { handleLocaleChange: (locale: any) => void; local
 
 	const locales = useSelector((state: AppState) => state.locales)
 
-	const [current, setCurrent] = useState<Locale>()
-
 	const handleLocaleChange = useCallback(
 		async (locale) => {
 			if (locale) {
 				dispatch(setLocale(locale))
 				i18n.changeLanguage(locale)
-				setCurrent(locales?.result?.find((l) => l.value === locale))
 			}
 		},
 		[dispatch, i18n],

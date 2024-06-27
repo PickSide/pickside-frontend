@@ -88,7 +88,7 @@ const AppBarV2 = () => {
 			</NavLink>
 		</PrivilegedContent>
 	)
-
+	
 	return (
 		<motion.div
 			id="navbar"
@@ -141,14 +141,22 @@ const AppBarV2 = () => {
 									<span className="opacity-40">{t('Not connected')}</span>
 								</li>
 							)}
-							<li className="flex items-center gap-x-2 gap-y-2">
-								<Icon icon="calendar_today" size="sm" />
-								<NavLinkMenuItem to="/new-event" name={t('Post Event')} />
-							</li>
-							<li className="flex items-center gap-x-2 gap-y-2">
-								<Icon icon="chat_bubble_outline" size="sm" />
-								<LinkMenuItem name={t('Messages')} onClick={handleClickMessage} />
-							</li>
+							{me && (
+								<li className="flex items-center gap-x-2 gap-y-2">
+									<Icon icon="calendar_today" size="sm" />
+									<PrivilegedNavLinkMenuItem
+										to="/new-event"
+										name={t('Post Event')}
+										permissions={[USER_PERMISSIONS.MANAGE_ACTIVITIES]}
+									/>
+								</li>
+							)}
+							{me && (
+								<li className="flex items-center gap-x-2 gap-y-2">
+									<Icon icon="chat_bubble_outline" size="sm" />
+									<LinkMenuItem name={t('Messages')} onClick={handleClickMessage} />
+								</li>
+							)}
 							<li className="flex flex-col gap-x-2 gap-y-2 border-y py-2">
 								<p className="font-medium opacity-60">{t('Language')}</p>
 								<div className="flex items-center gap-x-2">
