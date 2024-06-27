@@ -24,7 +24,11 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 		<>
 			<Card className="flex flex-col w-[400px] h-[462px]">
 				<CardImage className="h-[258px]">
-					<img className="w-full h-full bg-card-placeholder bg-contain" src="" alt="" />
+					<img
+						className="w-full h-full bg-card-placeholder bg-contain"
+						src={activity.images ? activity.images[0] : ''}
+						alt=""
+					/>
 				</CardImage>
 				<CardBody className="flex flex-col flex-grow-2 justify-center relative px-5 h-fit text-charcoal-black text-sm">
 					<div className="absolute -top-[24px] left-0 space-x-2">
@@ -53,7 +57,9 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 						</div>
 						<div className="flex items-center gap-x-[10px]">
 							<Icon className="text-cool-gray-3" icon="payments" />
-							<span>{activity.price === 0 ? t('Free') : activity.price + ' ' + t('per person')}</span>
+							<span>
+								{!activity.price || activity.price === 0 ? t('Free') : activity.price + ' ' + t('per person')}
+							</span>
 						</div>
 					</div>
 				</CardBody>

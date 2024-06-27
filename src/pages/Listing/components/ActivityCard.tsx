@@ -28,7 +28,6 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 		isRegistering,
 		isRegisteredToActivity,
 		deleteActivity,
-		fetchConflictingEvents,
 		registerToActivity,
 		registeredCount,
 	} = useActivityHandlers(activity)
@@ -71,12 +70,6 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 			return t('Full')
 		}
 	}, [isFull, isRegisteredToActivity, t])
-
-	useEffect(() => {
-		if (!!me?.id) {
-			fetchConflictingEvents({ date: activity.date, endTime: activity.endTime, startTime: activity.startTime })
-		}
-	}, [me])
 
 	const ActivityCTA = () => {
 		if (isMeOrganizer) {
@@ -122,7 +115,8 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 	return (
 		<>
 			<Dialog open={open} onClose={() => setOpen(false)} title={t('Confirm event registration')}>
-				<p>{t('Before registering, you need to understand some rules.')}</p>
+				<p className='font-medium'>{t('Read the rules before joining.')}</p>
+				<p>{activity.rules}</p>
 				<DialogCTA>
 					<Button variant="tertiary" onClick={(e) => setOpen(false)}>
 						{t('Cancel')}
@@ -156,6 +150,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 					selectedActivity?.id === activity.id ? 'shadow-md' : '',
 					className,
 				)}
+				fullWidth
 				onMouseEnter={rest.onMouseEnter}
 				onMouseLeave={rest.onMouseLeave}
 				onClick={() => setOpenActivtyDetail(true)}

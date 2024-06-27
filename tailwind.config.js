@@ -108,11 +108,19 @@ module.exports = {
 			secondary: '"Roboto Slab"',
 			tertiary: 'Aldrich',
 		},
+
 		fontSize: {
 			xs: ['10px', { lineHeight: '1.5' }],
 			sm: ['13px', { lineHeight: '1.5' }],
 			base: ['16px', { lineHeight: '1.5' }],
 			lg: ['20px', { lineHeight: '1.5' }],
+		},
+		fontWeight: {
+			light: '300',
+			normal: '400',
+			medium: '500',
+			semibold: '600',
+			bold: '700',
 		},
 		screens: {
 			...BREAKPOINTS,

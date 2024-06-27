@@ -22,18 +22,16 @@ const SignUpForm = () => {
 					<span className="capitalize">{error?.response.data.msg}</span>
 				</Alert>
 			)}
-			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-5 py-8">
+			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-8 py-8">
 				<InputField
 					type="text"
 					label={t('Full name')}
 					placeholder={t('Enter your full name')}
-					//startContent={<Icon icon="person" />}
 					error={errors.fullName?.message}
 					aria-invalid={!!errors.fullName}
 					fullWidth
 					{...register('fullName', { required: t('Field is required') })}
 				/>
-
 				<InputField
 					label={t('Display name')}
 					placeholder={t('Enter display name')}
@@ -44,11 +42,9 @@ const SignUpForm = () => {
 						required: t('Field is required'),
 					})}
 				/>
-
 				<EmailField
 					label={t('Email')}
 					placeholder={t('Enter email')}
-					//startContent={<Icon icon="alternate_email" />}
 					error={errors.email?.message}
 					aria-invalid={!!errors.email}
 					fullWidth
@@ -57,7 +53,6 @@ const SignUpForm = () => {
 						pattern: { value: EMAIL_REGEX, message: t('Email wrong format') },
 					})}
 				/>
-
 				<PasswordField
 					label={t('Password')}
 					placeholder={t('Enter password')}
@@ -69,7 +64,6 @@ const SignUpForm = () => {
 						pattern: { value: PASSWORD_REGEX, message: t('Password does not meet requirement') },
 					})}
 				/>
-
 				<PasswordField
 					label={t('Confirm password')}
 					placeholder={t('Confirm password')}
@@ -81,9 +75,7 @@ const SignUpForm = () => {
 						validate: (value) => value === getValues('password') || t('Passwords must be the same'),
 					})}
 				/>
-
 				<Checkbox label={t('I agree to the terms of service and privacy policy.')} {...register('agreedToTerms')} />
-
 				<Button
 					type="submit"
 					disabled={!watch('agreedToTerms')}

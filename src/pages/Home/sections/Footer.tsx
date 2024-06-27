@@ -20,13 +20,13 @@ const Footer = () => {
 				<div className="flex justify-between max-w-xl">
 					<div className="flex flex-col justify-center space-y-3">
 						<p className="font-semibold">{t('Your Account')}</p>
-						<NavLink to="signup">{t('Sign up')}</NavLink>
-						<NavLink to="login">{t('Login')}</NavLink>
+						<NavLink to="/signup">{t('Sign up')}</NavLink>
+						<NavLink to="/login">{t('Login')}</NavLink>
 						<NavLink to="">{t('Help')}</NavLink>
 					</div>
 					<div className="flex flex-col space-y-3">
 						<p className="font-semibold">{t('Discover')}</p>
-						<NavLink to="listing">{t('Events')}</NavLink>
+						<NavLink to="/listing">{t('Events')}</NavLink>
 						<NavLink to="">{t('Calendar')}</NavLink>
 					</div>
 					<div className="flex flex-col space-y-3">

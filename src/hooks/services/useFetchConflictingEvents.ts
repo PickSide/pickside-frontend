@@ -2,7 +2,7 @@ import { AppState } from '@state'
 import { AxiosContext } from '@context'
 import { handleResponseError } from '@utils'
 import { useContext } from 'react'
-import { useMutation } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 
 const useFetchConflictingEvents = () => {
@@ -10,22 +10,23 @@ const useFetchConflictingEvents = () => {
 
 	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async ({ date, endTime, startTime }) =>
+	const callback = async ({ date, endTime, startTime }: any) =>
 		await extsvcInstance.get(`/activities/conflicting`, {
 			params: { date, endTime, startTime, userKey: me?.id },
 		})
 
 	const {
-		mutate: fetchConflictingEvents,
+		data: conflictingEvents,
 		isLoading,
 		error,
 		isError,
-	} = useMutation(callback, {
-		mutationKey: ['fetch-conflicting-event'],
+		refetch,
+	} = useQuery(['fetch-conflicting-event'], (params) => callback(params), {
 		onError: (e: any) => handleResponseError(e),
+		enabled: false,
 	})
 
-	return { fetchConflictingEvents, isLoading, error, isError }
+	return { conflictingEvents, isLoading, error, isError, refetch }
 }
 
 export default useFetchConflictingEvents

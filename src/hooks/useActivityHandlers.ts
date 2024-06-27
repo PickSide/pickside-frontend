@@ -20,7 +20,6 @@ interface ActivityHandlersOutput {
 const useActivityHandlers = (activity: Activity) => {
 	const { registerToActivity, isLoading: isRegistering } = useRegisterToActivity()
 	const { deleteActivity, isLoading: isDeletingActivity } = useDeleteActivity()
-	const { fetchConflictingEvents, isLoading: isFetchingConflictingEvents } = useFetchConflictingEvents()
 
 	const me = useSelector((state: AppState) => state.user)
 	const isFull = useMemo(() => activity.participants?.length === activity.maxPlayers, [activity])
@@ -35,11 +34,9 @@ const useActivityHandlers = (activity: Activity) => {
 		isFull,
 		isOrganizer,
 		isDeletingActivity,
-		isFetchingConflictingEvents,
 		isRegistering,
 		isRegisteredToActivity,
 		deleteActivity,
-		fetchConflictingEvents,
 		registerToActivity,
 		registeredCount,
 	}

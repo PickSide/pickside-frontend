@@ -26,14 +26,14 @@ export default function Login() {
 			variants={pageTransition}
 			className="flex flex-col w-screen h-[calc(100vh-64px)] overflow-hidden"
 		>
-			<div className="flex-grow-2 flex">
+			<div className="flex flex-grow-2">
 				<div className="hidden relative lg:flex justify-center bg-cool-gray-0 w-1/2">
 					<div className="w-[320px] h-[320px] bg-soccer-ball bg-contain my-auto">
 						<img src={SoccerBall} alt="soccer-ball.png" />
 					</div>
 					<div className="absolute top-1/2 w-full rounded-b-full h-[247px] bg-black/[.5%] backdrop-blur-[50px]" />
 				</div>
-				<div className="flex flex-col justify-center max-w-[487px] lg:w-[487px] mx-auto">
+				<div className="flex flex-col justify-center mx-auto lg:w-[487px]">
 					<h4>{t('Hi, welcome back!')}</h4>
 					<FormProvider {...form}>
 						<LoginForm />
@@ -49,7 +49,7 @@ export default function Login() {
 					</span>
 				</div>
 			</div>
-			<div className='hidden lg:block'>
+			<div className="hidden lg:block">
 				<Footer />
 			</div>
 		</motion.div>

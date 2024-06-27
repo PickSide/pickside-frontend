@@ -51,14 +51,14 @@ const Settings = () => {
 			</Dialog>
 			<div className="w-[80%] m-auto flex flex-col divide-y-2 divide-opacity-30 divide-slate-200 h-[calc(100vh-64px)]">
 				<div className="inline-flex items-center gap-x-6">
-					<div className="relative ">
+					<div className="relative">
 						<button
 							className="absolute rounded-full w-6 h-6 right-0 bottom-0 z-20 bg-ocean border-2 border-white text-white hover:bg-secondary"
 							onClick={() => setOpenChangeAvatarDialog(true)}
 						>
-							<Icon icon="edit" size="xs" />
+							<Icon icon="edit" size='xs' />
 						</button>
-						<Avatar size="xlg" variant="secondary" src={me?.avatar} />
+						<Avatar size="lg" variant="secondary" src={me?.avatar} />
 					</div>
 					<div className="flex-col my-8">
 						<h4 className="font-semibold">{me?.fullName}</h4>
