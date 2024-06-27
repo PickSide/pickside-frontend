@@ -2,6 +2,7 @@ import { Activity, AppState } from '@state'
 
 import { UseMutateFunction } from '@tanstack/react-query'
 import useDeleteActivity from './services/useDeleteActivity'
+import useFetchConflictingEvents from './services/useFetchConflictingEvents'
 import { useMemo } from 'react'
 import useRegisterToActivity from './services/useRegisterToActivity'
 import { useSelector } from 'react-redux'
@@ -16,7 +17,7 @@ interface ActivityHandlersOutput {
 	deleteActivity: UseMutateFunction<any, unknown, string, unknown>
 	registerToActivity: UseMutateFunction<any, any, unknown, any>
 }
-const useActivityHandlers = (activity: Activity): ActivityHandlersOutput => {
+const useActivityHandlers = (activity: Activity) => {
 	const { registerToActivity, isLoading: isRegistering } = useRegisterToActivity()
 	const { deleteActivity, isLoading: isDeletingActivity } = useDeleteActivity()
 

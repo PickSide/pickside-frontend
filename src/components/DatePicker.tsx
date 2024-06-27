@@ -5,20 +5,21 @@ import { forwardRef, useState } from 'react'
 import Icon from './shared/Icon'
 import InputField from './shared/InputField'
 import { cn } from '@utils'
-import dayjs from 'dayjs'
+import moment from 'moment'
 
-const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
-	const [today, setToday] = useState<dayjs.Dayjs>(value)
-	const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs>(value)
-	const [open, setOpen] = useState<boolean>(false)
+const DatePicker = ({ value = moment(), fullWidth = false, ...rest }, ref) => {
+	const [today, setToday] = useState(moment(value))
+	const [selectedDate, setSelectedDate] = useState(moment(value))
+	const [open, setOpen] = useState(false)
 
 	const openCalendar = () => setOpen(true)
 	const closeCalendar = () => setOpen(false)
 
 	const handleSelect = (date) => {
-		setSelectedDate(date)
+		const selected = moment(date)
+		setSelectedDate(selected)
 		if (rest.onChange) {
-			rest.onChange(date)
+			rest.onChange(selected)
 		}
 		setOpen(false)
 	}
@@ -26,10 +27,10 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 	return (
 		<div className={cn('relative', fullWidth ? 'w-full' : 'max-w-[230px]')} tabIndex={0}>
 			<InputField
-				startContent={<Icon icon='calendar_today' />}
+				startContent={<Icon icon="calendar_today" />}
 				onFocus={openCalendar}
 				onBlur={closeCalendar}
-				value={selectedDate?.toDate().toDateString()}
+				value={selectedDate?.format('dddd, MMMM D, YYYY')}
 				ref={ref}
 				{...rest}
 			/>
@@ -49,9 +50,9 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 									type="button"
 									disabled={today.month() <= 0}
 									className="rounded-md hover:bg-gray-200 shadow-sm outline-none font-ocean m-2 p-1"
-									onClick={() => setToday(today.month(today.month() - 1))}
+									onClick={() => setToday(moment(today).subtract(1, 'month'))}
 								>
-									<Icon icon='keyboard_arrow_left' />
+									<Icon icon="keyboard_arrow_left" />
 								</button>
 								<span className="rounded-full text-base hover:bg-gray-200 border-none outline-none font-ocean m-2 p-1">
 									{months[today.month()]}
@@ -60,9 +61,9 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 									type="button"
 									disabled={today.month() >= 11}
 									className="rounded-md hover:bg-gray-200 shadow-sm outline-none font-ocean m-2 p-1"
-									onClick={() => setToday(today.month(today.month() + 1))}
+									onClick={() => setToday(moment(today).add(1, 'month'))}
 								>
-									<Icon icon='keyboard_arrow_right' />
+									<Icon icon="keyboard_arrow_right" />
 								</button>
 							</div>
 							<div className="grid grid-cols-7 p-2 text-center">
@@ -82,7 +83,7 @@ const DatePicker = ({ value = dayjs(), fullWidth = false, ...rest }, ref) => {
 										>
 											{date.date()}
 										</button>
-									) : selectedDate?.toDate().toDateString() === date.toDate().toDateString() ? (
+									) : selectedDate?.isSame(date, 'day') ? (
 										<button
 											type="button"
 											key={idx}

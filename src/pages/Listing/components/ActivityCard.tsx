@@ -1,7 +1,7 @@
 import { Activity, AppState } from '@state'
 import Card, { CardBody, CardCTA, CardImage, CardProps } from '@components/shared/Card'
 import Dialog, { DialogCTA } from '@components/Dialog'
-import { FC, useMemo, useState } from 'react'
+import { FC, useEffect, useMemo, useState } from 'react'
 
 import ActivityDetailsDialog from './Dialogs/ActivityDetailsDialog'
 import Avatar from '@components/Avatar'
@@ -84,7 +84,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 							e.stopPropagation()
 							setOpenDeleteActivity(true)
 						}}
-						disabled={isFull || isRegistering}
+						disabled={isFull || isRegistering || isDeletingActivity}
 					>
 						{t('Delete')}
 					</Button>
@@ -97,12 +97,12 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 					<Button
 						size="sm"
 						className="px-4"
-						isLoading={isDeletingActivity}
+						isLoading={isRegistering}
 						onClick={(e) => {
 							e.stopPropagation()
 							setOpen(true)
 						}}
-						disabled={isMeOrganizer}
+						disabled={isFull || isRegistering || isDeletingActivity}
 					>
 						{btnText}
 					</Button>
@@ -115,7 +115,8 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 	return (
 		<>
 			<Dialog open={open} onClose={() => setOpen(false)} title={t('Confirm event registration')}>
-				<p>{t('Before registering, you need to understand some rules.')}</p>
+				<p className='font-medium'>{t('Read the rules before joining.')}</p>
+				<p>{activity.rules}</p>
 				<DialogCTA>
 					<Button variant="tertiary" onClick={(e) => setOpen(false)}>
 						{t('Cancel')}
@@ -149,6 +150,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 					selectedActivity?.id === activity.id ? 'shadow-md' : '',
 					className,
 				)}
+				fullWidth
 				onMouseEnter={rest.onMouseEnter}
 				onMouseLeave={rest.onMouseLeave}
 				onClick={() => setOpenActivtyDetail(true)}

@@ -1,40 +1,93 @@
-import { ACCOUNT_TYPE, USER_PERMISSIONS } from '@state/me/constants'
-import { Button, Icon, IconButton, PrivilegedContent, Radio, RadioGroup } from '@components'
+import { Icon, IconButton, PrivilegedContent, Switch } from '@components'
 import { NavLink, useLocation } from 'react-router-dom'
+import { cn, pageTransition } from '@utils'
 import { useContext, useRef, useState } from 'react'
-import { useGuestLogout, useLocaleSwitcher, useLogout } from '@hooks'
+import { useLocaleSwitcher, useLogout } from '@hooks'
 
 import { AppState } from '@state'
 import Avatar from '@components/Avatar'
 import Chatrooms from './components/chatroom/ChatroomList'
-import { HashLink } from 'react-router-hash-link'
 import NotificationMenu from './components/NotificationMenu'
 import PopupMenu from './components/PopupMenu'
-import PopupMenuItem from './components/shared/PopupMenuItem'
-import PopupSubmenuItem from './components/shared/PopupSubmenuItem'
 import { SidenavDispatchContext } from '@context'
+import { USER_PERMISSIONS } from '@state/me/constants'
 import { motion } from 'framer-motion'
-import { pageTransition } from '@utils'
 import { useSelector } from 'react-redux'
 import useThemeSwitcher from './hooks/useThemeSwitcher'
 import { useTranslation } from 'react-i18next'
 import { version } from 'package.json'
 
-const AppBar = () => {
+const AppBarV2 = () => {
 	const ref = useRef<HTMLDivElement | null>(null)
-	const popMenuRef = useRef<any>(null)
+	const profileRef = useRef<any>(null)
 	const { handleLocaleChange, locales } = useLocaleSwitcher()
 	const sidenavDispatch = useContext(SidenavDispatchContext)
-	const { handleThemeSwitch, themes } = useThemeSwitcher()
+	const { handleThemeSwitch } = useThemeSwitcher()
 	const { logout } = useLogout()
-	const { guestLogout } = useGuestLogout()
 	const { pathname } = useLocation()
 	const { t } = useTranslation()
 
-	const [open, setOpen] = useState<boolean>(false)
+	const [openProfileMenu, setOpenProfileMenu] = useState<boolean>(false)
 	const me = useSelector((state: AppState) => state.user)
 	const appLocale = useSelector((state: AppState) => state.appLocale)
 	const appTheme = useSelector((state: AppState) => state.appTheme)
+
+	const handleClickMessage = () => {
+		sidenavDispatch({
+			type: 'open',
+			title: t('Messages'),
+			content: (
+				<Chatrooms
+					callbackOnClick={() =>
+						sidenavDispatch({
+							type: 'close',
+						})
+					}
+				/>
+			),
+		})
+	}
+
+	const NavLinkMenuItem = ({ name, to }) => (
+		<NavLink to={to} className="seemless-link" onClick={() => setOpenProfileMenu(false)}>
+			{name}
+		</NavLink>
+	)
+	const LinkMenuItem = ({ name, onClick }) => (
+		<a
+			className="seemless-link"
+			onClick={() => {
+				onClick && onClick()
+				setOpenProfileMenu(false)
+			}}
+		>
+			{name}
+		</a>
+	)
+	const PrivilegedNavLinkMenuItem = ({
+		name,
+		to,
+		onClick,
+		permissions = [],
+	}: {
+		name: string
+		to: string
+		onClick?: () => void
+		permissions: USER_PERMISSIONS[]
+	}) => (
+		<PrivilegedContent permissions={permissions}>
+			<NavLink
+				to={to}
+				className="seemless-link"
+				onClick={() => {
+					onClick && onClick()
+					setOpenProfileMenu(false)
+				}}
+			>
+				{name}
+			</NavLink>
+		</PrivilegedContent>
+	)
 
 	return (
 		<motion.div
@@ -49,123 +102,113 @@ const AppBar = () => {
 			<div className="w-full h-10 my-auto">
 				<NavLink to="/" className="float-left w-24 h-full bg-logo bg-contain bg-no-repeat" />
 				<div className="float-right flex items-center gap-x-6">
-					<div className="flex items-center gap-x-4">
-						{pathname !== '/new-event' && (
-							<PrivilegedContent permissions={[USER_PERMISSIONS.MANAGE_ACTIVITIES]}>
-								<NavLink
-									to="/new-event"
-									className="text-base text-grey-700 font-medium hover:text-slate-300 transition-all"
-								>
-									{t('Post an event')}
-								</NavLink>
-							</PrivilegedContent>
+					<div className="hidden md:flex items-center gap-x-6">
+						{me && pathname !== '/new-event' && (
+							<PrivilegedNavLinkMenuItem
+								key="new-event"
+								to="/new-event"
+								name={t('Post an event')}
+								permissions={[USER_PERMISSIONS.MANAGE_ACTIVITIES]}
+							/>
 						)}
 						{me && (
-							<>
-								<IconButton
-									onClick={() =>
-										sidenavDispatch({
-											type: 'open',
-											title: t('Messages'),
-											content: (
-												<Chatrooms
-													callbackOnClick={() =>
-														sidenavDispatch({
-															type: 'close',
-														})
-													}
-												/>
-											),
-										})
-									}
-								>
-									<Icon icon="chat_bubble_outline" />
-								</IconButton>
-								<NotificationMenu />
-							</>
+							<IconButton onClick={handleClickMessage}>
+								<Icon icon="chat_bubble_outline" />
+							</IconButton>
 						)}
+						{me && <NotificationMenu />}
 					</div>
 					<PopupMenu
-						ref={popMenuRef}
-						open={open}
-						onClose={() => setOpen(false)}
+						ref={profileRef}
+						open={openProfileMenu}
+						onClose={() => setOpenProfileMenu(false)}
 						trigger={
-							<Button
-								className="flex items-center border border-ocean bg-transparent px-[10px] py-[5px] rounded-[40px] gap-x-1"
-								onClick={() => setOpen(true)}
-							>
-								<Avatar size="sm" variant="secondary" src={me?.avatar} />
-								<Icon icon="menu" className="text-ocean dark:text-white" />
-							</Button>
+							<span className="border-ocean btn-base" onClick={() => setOpenProfileMenu(true)}>
+								<Avatar size="lg" variant="secondary" src={me?.avatar} />
+							</span>
 						}
 					>
-						{me && me.accountType !== ACCOUNT_TYPE.GUEST ? (
-							[
-								<PopupMenuItem key="profile">
-									<NavLink to="/user/settings">{t('Profile')}</NavLink>
-								</PopupMenuItem>,
-								<PrivilegedContent permissions={[USER_PERMISSIONS.MANAGE_GROUPS]}>
-									<PopupMenuItem key="groups">
-										<NavLink to="/user/settings/groups">{t('Groups')}</NavLink>
-									</PopupMenuItem>
-								</PrivilegedContent>,
-							]
-						) : (
-							<></>
-						)}
-						<PopupSubmenuItem key="locales" title={t('Language')} ref={popMenuRef}>
-							<RadioGroup name="locales" onChange={handleLocaleChange}>
-								{locales?.result?.map((locale, idx) => (
-									<Radio
-										key={idx}
-										label={<span className="capitalize">{locale.name}</span>}
-										icon={<span className={`rounded-sm fi fi-${locale.flagCode}`}></span>}
-										defaultChecked={locale.value === appLocale}
-										value={locale.value}
+						<ul className="space-y-4 px-4">
+							{me ? (
+								<li key="display-name" className="">
+									<div className="flex flex-col items-start gap-x-2">
+										<span className="font-semibold">{me.displayName}</span>
+										<span className="opacity-40">{me.email}</span>
+									</div>
+								</li>
+							) : (
+								<li key="display-name" className="">
+									<span className="opacity-40">{t('Not connected')}</span>
+								</li>
+							)}
+							<li className="flex items-center gap-x-2 gap-y-2">
+								<Icon icon="calendar_today" size="sm" />
+								<NavLinkMenuItem to="/new-event" name={t('Post Event')} />
+							</li>
+							<li className="flex items-center gap-x-2 gap-y-2">
+								<Icon icon="chat_bubble_outline" size="sm" />
+								<LinkMenuItem name={t('Messages')} onClick={handleClickMessage} />
+							</li>
+							<li className="flex flex-col gap-x-2 gap-y-2 border-y py-2">
+								<p className="font-medium opacity-60">{t('Language')}</p>
+								<div className="flex items-center gap-x-2">
+									{locales.map((locale, idx) => (
+										<IconButton
+											className={cn(locale.value === appLocale && 'border-2')}
+											onClick={() => {
+												handleLocaleChange(locale.value)
+												setOpenProfileMenu(false)
+											}}
+										>
+											<span key={idx} className={`rounded-sm fi fi-${locale.flagCode}`} />
+										</IconButton>
+									))}
+								</div>
+							</li>
+							<li className="flex flex-col gap-x-2 gap-y-2">
+								<div className="flex items-center gap-x-2 justify-between">
+									<span>{t('Dark mode')}</span>
+									<Switch
+										defaultChecked={appTheme === 'dark'}
+										size="md"
+										onChange={(e) => handleThemeSwitch(e.target.checked ? 'dark' : 'light')}
 									/>
-								))}
-							</RadioGroup>
-						</PopupSubmenuItem>
-						<PopupSubmenuItem key="themes" title={t('Theme')}>
-							<RadioGroup name="themes" onChange={handleThemeSwitch}>
-								{themes?.map((theme, idx) => (
-									<Radio
-										key={idx}
-										label={<span className="capitalize">{theme}</span>}
-										icon={<Icon icon={theme === 'dark' ? 'dark_mode' : 'light_mode'} />}
-										defaultChecked={theme === appTheme}
-										value={theme}
+								</div>
+							</li>
+							{me && (
+								<li key="profile" className="text-base">
+									<NavLinkMenuItem to="/user/settings" name={t('Profile')} />
+								</li>
+							)}
+							{me && (
+								<li key="groups" className="text-base">
+									<PrivilegedNavLinkMenuItem
+										to="/user/settings/groups"
+										name={t('Groups')}
+										permissions={[USER_PERMISSIONS.MANAGE_GROUPS]}
 									/>
-								))}
-							</RadioGroup>
-						</PopupSubmenuItem>
-						<PopupMenuItem key="about-us">
-							<HashLink to="/#about">{t('About us')}</HashLink>
-						</PopupMenuItem>
-						<PopupMenuItem key="contact-us">
-							<HashLink to="/#footer">{t('Contact us')}</HashLink>
-						</PopupMenuItem>
-						{!me ? (
-							[
-								<PopupMenuItem key="login">
-									<NavLink to="/login">{t('Log in')}</NavLink>
-								</PopupMenuItem>,
-								<PopupMenuItem key="signup">
-									<NavLink to="/signup">{t('Sign up')}</NavLink>
-								</PopupMenuItem>,
-							]
-						) : me.accountType === ACCOUNT_TYPE.GUEST ? (
-							<PopupMenuItem key="guest-logout" onClick={guestLogout}>
-								<span className="cursor-pointer">{t('Stop guest session')}</span>
-							</PopupMenuItem>
-						) : (
-							<PopupMenuItem key="logout" onClick={logout}>
-								<span className="cursor-pointer">{t('Logout')}</span>
-							</PopupMenuItem>
-						)}
-						<PopupMenuItem key="version" disabled>
-							<span>{t('Version', { version })}</span>
-						</PopupMenuItem>
+								</li>
+							)}
+							{!me && (
+								<li key="login" className="text-base">
+									<NavLinkMenuItem to="/login" name={t('Login')} />
+								</li>
+							)}
+							{!me && (
+								<li key="signup" className="text-base">
+									<NavLinkMenuItem to="/signup" name={t('Signup')} />
+								</li>
+							)}
+
+							{me && (
+								<li key="logout" className="text-base">
+									<LinkMenuItem name={t('Logout')} onClick={logout} />
+								</li>
+							)}
+							<li className="text-base">
+								<span className="disabled-el">{t('Version', { version })}</span>
+							</li>
+						</ul>
 					</PopupMenu>
 				</div>
 			</div>
@@ -173,4 +216,4 @@ const AppBar = () => {
 	)
 }
 
-export default AppBar
+export default AppBarV2

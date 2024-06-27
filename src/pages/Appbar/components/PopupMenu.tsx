@@ -1,15 +1,23 @@
-import { Children, ComponentPropsWithRef, cloneElement, forwardRef, isValidElement, useEffect } from 'react'
+import {
+	Children,
+	ComponentPropsWithRef,
+	ReactElement,
+	cloneElement,
+	forwardRef,
+	isValidElement,
+	useEffect,
+} from 'react'
 import { cn, popUpSubmMenu } from '@utils'
 
 import { motion } from 'framer-motion'
 
-interface PopupMenuProps extends ComponentPropsWithRef<'button'> {
+interface PopupMenuV2Props extends ComponentPropsWithRef<'button'> {
 	open?: boolean
-	trigger: any
+	trigger: ReactElement
 	onClose: (e?) => void
 }
 
-const PopupMenu = forwardRef<any, PopupMenuProps>(
+const PopupMenuV2 = forwardRef<any, PopupMenuV2Props>(
 	({ className, children, disabled, open, onClose, trigger, ...rest }, ref) => {
 		useEffect(() => {
 			const closeOnEscapeKey = (e: KeyboardEvent) => (e.key === 'Escape' ? onClose() : null)
@@ -42,7 +50,7 @@ const PopupMenu = forwardRef<any, PopupMenuProps>(
 							exit="exit"
 							variants={popUpSubmMenu}
 							className={cn(
-								'absolute right-1/2 z-20 min-w-[250px] min-h-[30px] p-[30px] rounded-[20px] bg-cloud space-y-[20px] shadow-menu',
+								'absolute z-20 p-3 rounded-md mt-2 bg-white drop-shadow-md min-w-max origin-top-right right-0',
 								className,
 							)}
 						>
@@ -55,4 +63,4 @@ const PopupMenu = forwardRef<any, PopupMenuProps>(
 	},
 )
 
-export default PopupMenu
+export default PopupMenuV2

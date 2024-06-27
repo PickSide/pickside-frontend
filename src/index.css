@@ -196,7 +196,7 @@
 	}
 	/* BUTTONS */
 	.btn-base {
-		@apply rounded;
+		@apply cursor-pointer;
 	}
 	.btn-sm {
 		@apply px-2 py-2 text-xs leading-none;
@@ -215,7 +215,10 @@
 		@apply mx-auto h-screen w-full items-center overflow-x-hidden p-2;
 	}
 	.link {
-		@apply cursor-pointer text-ocean underline shadow-inner hover:text-ocean/60;
+		@apply cursor-pointer text-ocean underline hover:text-ocean/60;
+	}
+	.seemless-link {
+		@apply cursor-pointer text-inherit hover:text-ocean/60;
 	}
 }
 
@@ -229,5 +232,8 @@
 	.no-scrollbar {
 		-ms-overflow-style: none; /* IE and Edge */
 		scrollbar-width: none; /* Firefox */
+	}
+	.disabled-el {
+		@apply text-slate-300 pointer-events-none;
 	}
 }

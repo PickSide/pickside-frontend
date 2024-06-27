@@ -4,14 +4,12 @@ import { VariantProps, cva } from 'class-variance-authority'
 import { cn } from '@utils'
 
 export const avatarVariants = cva(
-	['relative', 'inline-flex', 'items-center', 'justify-center', 'rounded-full', 'text-base', 'overflow-clip'],
+	['relative', 'inline-flex', 'items-center', 'justify-center', 'rounded-full', 'text-inherit', 'overflow-clip'],
 	{
 		variants: {
 			variant: {
 				primary: [
 					'text-ocean',
-					'border-duck-3',
-					'border-2',
 					'bg-cool-gray-1',
 					'dark:bg-grey-600',
 					'dark:text-white',
@@ -22,9 +20,7 @@ export const avatarVariants = cva(
 			size: {
 				sm: ['w-7 h-7'],
 				md: ['w-8 h-8'],
-				lg: ['w-12 h-12'],
-				xlg: ['w-14 h-14'],
-				xxlg: ['w-40 h-40'],
+				lg: ['w-10 h-10'],
 			},
 		},
 		defaultVariants: {

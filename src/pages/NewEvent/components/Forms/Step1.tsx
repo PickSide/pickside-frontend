@@ -28,9 +28,9 @@ const Step1 = () => {
 				rules={{
 					required: 'Field required',
 				}}
-				render={({ field }) => (
-					<TimePicker {...field} fullWidth placeholder={t('Choose time')} label={t('Start time')} />
-				)}
+				render={({ field }) => {
+					return <TimePicker {...field} fullWidth placeholder={t('Choose time')} label={t('Start time')} />
+				}}
 			/>
 			<FormDivider />
 

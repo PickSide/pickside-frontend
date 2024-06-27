@@ -15,23 +15,21 @@ const MultiStepForm = ({ onSubmit }: MultiStepFormProps) => {
 	const { t } = useTranslation()
 
 	return (
-		<form className="w-full h-full" onSubmit={handleSubmit(onSubmit)}>
-			<div className='max-w-[512px] mx-auto px-6'>
-				<Stepper>
-					<Stepper.Steps>
-						<Stepper.Step order={1} title={t('Time and Location')}>
-							<Step1 />
-						</Stepper.Step>
-						<Stepper.Step order={2} title={t('Price and Rules')}>
-							<Step2 />
-						</Stepper.Step>
-						<Stepper.Step order={3} title={t('Submit')}>
-							<Step3 />
-						</Stepper.Step>
-					</Stepper.Steps>
-				</Stepper>
-			</div>
-		</form >
+		<form onSubmit={handleSubmit(onSubmit)}>
+			<Stepper>
+				<Stepper.Steps>
+					<Stepper.Step order={1} title={t('Time and Location')}>
+						<Step1 />
+					</Stepper.Step>
+					<Stepper.Step order={2} title={t('Price and Rules')}>
+						<Step2 />
+					</Stepper.Step>
+					<Stepper.Step order={3} title={t('Submit')}>
+						<Step3 />
+					</Stepper.Step>
+				</Stepper.Steps>
+			</Stepper>
+		</form>
 	)
 }
 

@@ -35,9 +35,9 @@ export const switchVariants = cva(
 				],
 			},
 			size: {
-				sm: ['w-11', 'h-6'],
-				md: ['w-11', 'h-6'],
-				lg: ['w-11', 'h-6'],
+				sm: 'after:w-3 after:h-3 w-7 h-4',
+				md: 'after:w-4 after:h-4 w-9 h-5',
+				lg: 'after:w-5 after:h-5 w-11 h-6',
 			},
 		},
 		defaultVariants: {
