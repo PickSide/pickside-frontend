@@ -43,7 +43,7 @@ const AvatarUploadForm = () => {
                             <p>{t('PNG, JPG or GIF')}</p>
                         </div>
                     ) : (
-                        <Avatar size='xxlg' src={preview} alt='avatar' />
+                        <Avatar size='lg' src={preview} alt='avatar' />
                     )}
                     <Upload {...register('avatar')} text={preview ? t('Change') : t('Upload picture')} onChange={handleSelect} />
 
