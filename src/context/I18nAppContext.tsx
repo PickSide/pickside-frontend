@@ -1,4 +1,4 @@
-import { FC, ReactNode, createContext, useEffect, useState } from 'react'
+import { FC, ReactNode, createContext, useEffect } from 'react'
 
 import { AppState } from '@state'
 import { useLocaleSwitcher } from '@hooks'
