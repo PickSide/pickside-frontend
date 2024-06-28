@@ -1,5 +1,5 @@
-import { AppState, setNotifications } from '@state'
-import { useDispatch, useSelector } from 'react-redux'
+import { setNotifications } from '@state'
+import { useDispatch } from 'react-redux'
 
 import { AxiosContext } from '@context'
 import { useContext } from 'react'
@@ -9,10 +9,7 @@ const useReadNotification = () => {
 	const dispatch = useDispatch()
 	const { axiosNSInstance } = useContext(AxiosContext)
 
-	const me = useSelector((state: AppState) => state.user)
-
-	const callback = async (notificationId: any) =>
-		await axiosNSInstance.put(`/seen/${notificationId}`)
+	const callback = async (notificationId: any) => await axiosNSInstance.put(`/seen/${notificationId}`)
 
 	const {
 		mutate: readNotification,

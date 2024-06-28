@@ -17,13 +17,13 @@ export const I18nProvider: FC<any> = ({ children }) => {
 	const { handleLocaleChange } = useLocaleSwitcher()
 	useEffect(() => {
 		handleLocaleChange(appLocale)
-	}, [])
+	}, [appLocale, handleLocaleChange])
 
 	useEffect(() => {
 		if (me?.preferredLocale) {
 			handleLocaleChange(me.preferredLocale)
 		}
-	}, [me])
+	}, [handleLocaleChange, me])
 
 	useEffect(() => {
 		if (appLocale) {

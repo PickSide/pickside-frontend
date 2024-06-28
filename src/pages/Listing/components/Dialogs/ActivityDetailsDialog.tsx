@@ -20,7 +20,7 @@ const ActivityDetailsDialog: FC<{ activity: Activity }> = ({ activity }) => {
 				<li className="row-span-1 max-w-prose truncate">
 					<p className="font-medium opacity-50">{t('Address')}</p>
 					{activity.gmapsUrl ? (
-						<a className="link" href={activity.gmapsUrl} target="_blank">
+						<a className="link" href={activity.gmapsUrl} target="_blank" rel="noreferrer">
 							{activity.address}
 						</a>
 					) : (

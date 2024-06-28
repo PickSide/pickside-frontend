@@ -1,5 +1,5 @@
-import { AppState, Locale, Locales, setLocale } from '@state'
-import { useCallback, useState } from 'react'
+import { AppState, Locale, setLocale } from '@state'
+import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { useTranslation } from 'react-i18next'

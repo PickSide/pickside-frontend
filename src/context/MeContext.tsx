@@ -18,7 +18,7 @@ export const MeProvider: FC<any> = ({ children }) => {
 		if (!meLoading && me) {
 			fetchNotifications()
 		}
-	}, [me, meLoading])
+	}, [fetchNotifications, me, meLoading])
 
 	return <MeContext.Provider value={{ amILoading: meLoading }}>{children}</MeContext.Provider>
 }

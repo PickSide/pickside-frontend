@@ -1,7 +1,7 @@
 import { Activity, AppState } from '@state'
 import Card, { CardBody, CardCTA, CardImage, CardProps } from '@components/shared/Card'
 import Dialog, { DialogCTA } from '@components/Dialog'
-import { FC, useEffect, useMemo, useState } from 'react'
+import { FC, useMemo, useState } from 'react'
 
 import ActivityDetailsDialog from './Dialogs/ActivityDetailsDialog'
 import Avatar from '@components/Avatar'
@@ -9,7 +9,6 @@ import Button from '@components/shared/Button'
 import Icon from '@components/shared/Icon'
 import Image from '@components/Image'
 import { cn } from '@utils'
-import dayjs from 'dayjs'
 import moment from 'moment'
 import { useActivityHandlers } from '@hooks'
 import { useSelector } from 'react-redux'
@@ -115,7 +114,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 	return (
 		<>
 			<Dialog open={open} onClose={() => setOpen(false)} title={t('Confirm event registration')}>
-				<p className='font-medium'>{t('Read the rules before joining.')}</p>
+				<p className="font-medium">{t('Read the rules before joining.')}</p>
 				<p>{activity.rules}</p>
 				<DialogCTA>
 					<Button variant="tertiary" onClick={(e) => setOpen(false)}>
@@ -175,7 +174,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 						<span className="flex items-center gap-x-2">
 							<Icon icon="location_on" />
 							{activity.gmapsUrl ? (
-								<a className="link" href={activity.gmapsUrl} target="_blank">
+								<a className="link" href={activity.gmapsUrl} target="_blank" rel="noreferrer">
 									{activity.address}
 								</a>
 							) : (

@@ -1,4 +1,4 @@
-import { AppState, Group, User } from '@state'
+import { AppState, Group } from '@state'
 import { Button, Dialog, Spinner } from '@components'
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
 
@@ -17,7 +17,6 @@ const Groups = () => {
 	const { t } = useTranslation()
 
 	const groups = useSelector((state: AppState) => state.groups)
-	const me = useSelector((state: AppState) => state.user)
 
 	const [openEditCreateGroupDialog, setOpenEditCreateGroupDialog] = useState<boolean>(false)
 	const [openConfirmDeleteGroupDialog, setOpenConfirmDeleteGroupDialog] = useState<boolean>(false)

@@ -4,7 +4,6 @@ import { FC, useMemo } from 'react'
 
 import { Activity } from '@state'
 import Avatar from '@components/Avatar'
-import dayjs from 'dayjs'
 import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 

@@ -1,5 +1,5 @@
-import { AppState, removeActivity } from '@state'
-import { useDispatch, useSelector } from 'react-redux'
+import { removeActivity } from '@state'
+import { useDispatch } from 'react-redux'
 
 import { AxiosContext } from '@context'
 import { useContext } from 'react'
@@ -10,8 +10,6 @@ const useDeleteActivity = () => {
 	const { extsvcInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
-
-	const me = useSelector((state: AppState) => state.user)
 
 	const callback = async (activityId: string) => await extsvcInstance.delete(`/activities/${activityId}`)
 

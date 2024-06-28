@@ -35,6 +35,7 @@ const TimePicker = ({ fullWidth = false, onChange, label, value, ...rest }, ref)
 
 	useEffect(() => {
 		setAmPm(amPmOpts.find((x) => x.value === value.format('A').toLowerCase()) || amPmOpts[0])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [value])
 
 	const handleAmPmChange = (selectedAmPm) => {

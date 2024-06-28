@@ -26,11 +26,14 @@ const ViewMembersDialog: FC<MembersViewDialogProps> = ({ group, onClose }) => {
 		pending: t('Pending'),
 	}
 
-	const handleOnResendInvitation = useCallback((userId) => {
-		if (group?.id) {
-			resendGroupInvitation({ groupId: group.id, userId })
-		}
-	}, [])
+	const handleOnResendInvitation = useCallback(
+		(userId: string) => {
+			if (group?.id) {
+				resendGroupInvitation({ groupId: group.id, userId })
+			}
+		},
+		[group?.id, resendGroupInvitation],
+	)
 
 	return (
 		<div className="grid gap-y-4">

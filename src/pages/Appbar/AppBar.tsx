@@ -54,7 +54,7 @@ const AppBarV2 = () => {
 		</NavLink>
 	)
 	const LinkMenuItem = ({ name, onClick }) => (
-		<a
+		<span
 			className="seemless-link"
 			onClick={() => {
 				onClick && onClick()
@@ -62,7 +62,7 @@ const AppBarV2 = () => {
 			}}
 		>
 			{name}
-		</a>
+		</span>
 	)
 	const PrivilegedNavLinkMenuItem = ({
 		name,
@@ -88,7 +88,7 @@ const AppBarV2 = () => {
 			</NavLink>
 		</PrivilegedContent>
 	)
-	
+
 	return (
 		<motion.div
 			id="navbar"

@@ -29,7 +29,7 @@ const SignUp = () => {
 			<div className="flex flex-grow-2">
 				<div className="hidden relative lg:flex justify-center bg-cool-gray-0 w-1/2">
 					<div className="w-[320px] h-[320px] bg-soccer-ball bg-contain my-auto">
-						<img src={SoccerBall} />
+						<img src={SoccerBall} alt="soccer_ball" />
 					</div>
 					<div className="absolute top-1/2 w-full rounded-b-full h-[247px] bg-black/[.5%] backdrop-blur-[50px]" />
 				</div>
