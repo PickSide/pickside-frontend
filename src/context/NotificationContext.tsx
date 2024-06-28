@@ -24,6 +24,7 @@ export const NotificationProvider: FC<any> = ({ children }) => {
 		if (me) {
 			fetchNotifications()
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [me])
 
 	return (

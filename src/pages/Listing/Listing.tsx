@@ -14,7 +14,7 @@ const Listing = () => {
 					<div className="hidden md:block w-full">
 						<Map selectedActivity={selectedActivity} setSelectedActivity={setSelectedActivity} />
 					</div>
-					<EventList selectedActivity={selectedActivity} setSelectedActivity={setSelectedActivity} />
+					<EventList />
 				</div>
 			</FocusEventProvider>
 		</div>

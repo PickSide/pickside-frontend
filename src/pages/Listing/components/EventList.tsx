@@ -1,4 +1,4 @@
-import { Activity, AppState, setSelectedActivity } from '@state'
+import { Activity, AppState } from '@state'
 import { Select, Spinner } from '@components'
 import { useContext, useMemo } from 'react'
 
@@ -16,12 +16,7 @@ type Sort = {
 	compareFn: () => number
 }
 
-interface EventListProps {
-	selectedActivity?: Activity
-	setSelectedActivity: any
-}
-
-const EventList = ({}: EventListProps) => {
+const EventList = () => {
 	const { focusedActivity, onFocusInActivity, onFocusOutActivity } = useContext(FocusEventContext)
 	const { refetch, isLoading } = useFetchActivities()
 	const { t } = useTranslation()
