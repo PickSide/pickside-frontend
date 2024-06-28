@@ -1,27 +1,64 @@
-import { Avatar, Image } from '@components'
+import { Avatar, Icon, Image, Marker } from '@components'
+import { FC, useCallback } from 'react'
 
 import { Activity } from '@state'
-import { FC } from 'react'
+import GoogleMapReact from 'google-map-react'
+import { cn } from '@utils'
 import moment from 'moment'
+import { useMapStyles } from '@hooks'
 import { useTranslation } from 'react-i18next'
 
 const ActivityDetailsDialog: FC<{ activity: Activity }> = ({ activity }) => {
 	const { t } = useTranslation()
+	const mapStyles = useMapStyles()
 	const date = new Date(activity.date)
 	const startTime = moment(activity.startTime)
 	const endTime = moment(activity.endTime)
 	const organizer = activity.participants.find((p) => p.isOrganizer)
+
+	const options: GoogleMapReact.MapOptions = {
+		styles: mapStyles,
+		disableDefaultUI: true,
+		zoomControl: false,
+	}
+
+	const getMarkerColor = useCallback((activity: Activity) => {
+		const participants = activity.participants?.length
+		const maxPlayers = activity.maxPlayers
+		if (participants === maxPlayers) {
+			return 'text-red-500'
+		}
+
+		if (participants / maxPlayers > 0.6) {
+			return 'text-yellow-500'
+		}
+		return 'text-green-500'
+	}, [])
+
+	const center = { lat: activity.lat, lng: activity.lng }
+
 	return (
-		<div className="block px-4">
-			<div className="flex items-center justify-center mb-3 rounded-md overflow-hidden">
+		<div className="block overflow-y-auto">
+			<div className="block md:hidden w-full h-[200px] rounded-md overflow-hidden mb-4">
+				<GoogleMapReact shouldUnregisterMapOnUnmount zoom={12} center={center} options={options}>
+					<Marker
+						lat={activity.lat}
+						lng={activity.lng}
+						text={activity.title}
+						icon={<Icon icon="location_on" size="lg" className={cn('transition-all', getMarkerColor(activity))} />}
+					></Marker>
+				</GoogleMapReact>
+			</div>
+			<div className="hidden lg:flex items-center justify-center mb-3 rounded-md overflow-hidden">
 				{activity.images?.length ? <Image src={activity.images[0]} /> : <Image />}
 			</div>
 			<ul className="flex flex-col gap-y-4">
 				<li className="row-span-1 max-w-prose truncate">
 					<p className="font-medium opacity-50">{t('Address')}</p>
 					{activity.gmapsUrl ? (
-						<a className="link" href={activity.gmapsUrl} target="_blank" rel="noreferrer">
-							{activity.address}
+						<a className="link flex items-center gap-x-2" href={activity.gmapsUrl} target="_blank" rel="noreferrer">
+							{t('Get directions')}
+							<Icon icon="directions" variant="filled" />
 						</a>
 					) : (
 						activity.address

@@ -111,8 +111,9 @@ const AppBarV2 = () => {
 								permissions={[USER_PERMISSIONS.MANAGE_ACTIVITIES]}
 							/>
 						)}
+						{/* Need to re-enable once refactored */}
 						{me && (
-							<IconButton onClick={handleClickMessage}>
+							<IconButton onClick={handleClickMessage} disabled>
 								<Icon icon="chat_bubble_outline" />
 							</IconButton>
 						)}
@@ -151,8 +152,9 @@ const AppBarV2 = () => {
 									/>
 								</li>
 							)}
+							{/* Need to re-enable once refactored */}
 							{me && (
-								<li className="flex items-center gap-x-2 gap-y-2">
+								<li className="flex items-center gap-x-2 gap-y-2 disabled-el">
 									<Icon icon="chat_bubble_outline" size="sm" />
 									<LinkMenuItem name={t('Messages')} onClick={handleClickMessage} />
 								</li>

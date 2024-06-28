@@ -6,12 +6,13 @@ const About = () => {
 
 	return (
 		<section id="about">
-			<div className="max-w-screen-xl flex flex-col gap-y-4 lg:flex-row mx-auto">
+			<div className="max-w-screen-xl flex flex-col gap-y-10 lg:flex-row mx-auto">
 				<div className="w-full lg:min-w-[756px] h-[413px]">
 					<img src={Basketball} alt="basketball_img" className="w-full h-full object-cover" />
 				</div>
-				<div className="flex flex-col px-8 gap-y-4">
-					<h1 className="text-ocean">{t('What is PICK SIDE?')}</h1>
+				<div className="flex flex-col items-center lg:items-start px-8 gap-y-4">
+					<h1 className="hidden md:block text-ocean">{t('What is PICK SIDE?')}</h1>
+					<h3 className="md:hidden text-ocean text-center">{t('What is PICK SIDE?')}</h3>
 					<p className="text-lg">
 						{t(`
                         Our platform offers effortless matchmaking, transparency,

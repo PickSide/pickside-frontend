@@ -19,7 +19,7 @@ interface ActivityCardProps extends CardProps {
 	size?: 'sm' | 'md' | 'lg'
 }
 
-const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) => {
+const ActivityCard: FC<ActivityCardProps> = ({ activity, className, onClick, ...rest }) => {
 	const { t } = useTranslation()
 	const {
 		isFull,
@@ -155,10 +155,10 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 				onClick={() => setOpenActivtyDetail(true)}
 				{...rest}
 			>
-				<CardImage className="">
-					{activity.images?.length ? <Image className="" src={activity.images[0]} /> : <Image />}
+				<CardImage className="block">
+					{activity.images?.length ? <Image src={activity.images[0]} /> : <Image />}
 				</CardImage>
-				<CardBody className="flex flex-col p-0 overflow-hidden w-full">
+				<CardBody className="flex flex-col p-0 overflow-hidden w-full text-base">
 					<div className="flex items-center justify-between">
 						<div className="flex items-center gap-x-2">
 							<Avatar size="md" src={organizer?.avatar} />

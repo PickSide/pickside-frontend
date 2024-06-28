@@ -1,6 +1,6 @@
-import { Activity, AppState } from '@state'
-import { FC, useContext, useMemo } from 'react'
+import { Activity, AppState, setSelectedActivity } from '@state'
 import { Select, Spinner } from '@components'
+import { useContext, useMemo } from 'react'
 
 import ActivityCard from './ActivityCard'
 import FocusEventContext from '../context/FocusEventContext'
@@ -16,7 +16,12 @@ type Sort = {
 	compareFn: () => number
 }
 
-const EventList: FC<any> = () => {
+interface EventListProps {
+	selectedActivity?: Activity
+	setSelectedActivity: any
+}
+
+const EventList = ({}: EventListProps) => {
 	const { focusedActivity, onFocusInActivity, onFocusOutActivity } = useContext(FocusEventContext)
 	const { refetch, isLoading } = useFetchActivities()
 	const { t } = useTranslation()
@@ -29,7 +34,7 @@ const EventList: FC<any> = () => {
 	}
 
 	return filteredActivities?.length ? (
-		<div className="flex flex-col bg-[#fafafa] min-w-[500px] h-[calc(100vh-64px)] py-2 px-4 gap-y-3 overflow-y-scroll overflow-x-hidden">
+		<div className="flex flex-col bg-[#fafafa]  h-[calc(100vh-64px)] py-2 px-4 gap-y-3 overflow-y-scroll overflow-x-hidden">
 			<div className="flex items-center gap-x-2">
 				<Select
 					size="sm"

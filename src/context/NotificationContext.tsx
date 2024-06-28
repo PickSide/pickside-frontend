@@ -1,26 +1,36 @@
+import { AppState, Notification } from '@state'
 import { FC, ReactNode, createContext, useEffect } from 'react'
-import { useFetchMe, useFetchNotifications } from '@hooks'
+
+import { useFetchNotifications } from '@hooks'
+import { useSelector } from 'react-redux'
 
 export interface NotificationContextProps {
 	children?: ReactNode
-	amILoading?: boolean
+	loading?: boolean
+	notifications: Notification[]
 }
 
 const NotificationContext = createContext<NotificationContextProps>({
-	amILoading: false,
+	loading: false,
+	notifications: [],
 })
 
 export const NotificationProvider: FC<any> = ({ children }) => {
-	const { isLoading: meLoading, me } = useFetchMe()
-	const { refetch: fetchNotifications } = useFetchNotifications()
+	const { notifications, isLoading, refetch: fetchNotifications } = useFetchNotifications()
+
+	const me = useSelector((state: AppState) => state.user)
 
 	useEffect(() => {
-		if (!meLoading && me) {
+		if (me) {
 			fetchNotifications()
 		}
-	}, [me, meLoading])
+	}, [me])
 
-	return <NotificationContext.Provider value={{ amILoading: meLoading }}>{children}</NotificationContext.Provider>
+	return (
+		<NotificationContext.Provider value={{ loading: isLoading, notifications: notifications?.data.result || [] }}>
+			{children}
+		</NotificationContext.Provider>
+	)
 }
 
 export default NotificationContext

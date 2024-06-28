@@ -6,6 +6,7 @@ import { I18nProvider } from '@context/I18nAppContext'
 import { InitialAppStateProvider } from '@context/InitialAppStateContext'
 import { MeProvider } from '@context/MeContext'
 import { MessagingProvider } from '@context/MessageServiceContext'
+import { NotificationProvider } from '@context/NotificationContext'
 import PicksideRoutes from './Routes'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ServerStatusProvider } from '@context/ServerStatusContext'
@@ -22,20 +23,22 @@ const App = () => {
 					<EmailVerificationProvider>
 						<ServerStatusProvider>
 							<MeProvider>
-								<MessagingProvider>
-									<AppThemeProvider>
-										<I18nProvider>
-											<ActiveChatrooms />
-											<WindowProvider>
-												<SidenavProvider>
-													<ToastProvider>
-														<PicksideRoutes />
-													</ToastProvider>
-												</SidenavProvider>
-											</WindowProvider>
-										</I18nProvider>
-									</AppThemeProvider>
-								</MessagingProvider>
+								<NotificationProvider>
+									<MessagingProvider>
+										<AppThemeProvider>
+											<I18nProvider>
+												<ActiveChatrooms />
+												<WindowProvider>
+													<SidenavProvider>
+														<ToastProvider>
+															<PicksideRoutes />
+														</ToastProvider>
+													</SidenavProvider>
+												</WindowProvider>
+											</I18nProvider>
+										</AppThemeProvider>
+									</MessagingProvider>
+								</NotificationProvider>
 							</MeProvider>
 						</ServerStatusProvider>
 					</EmailVerificationProvider>

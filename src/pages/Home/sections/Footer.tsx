@@ -9,15 +9,15 @@ const Footer = () => {
 
 	return (
 		<section id="footer" className="bg-ocean text-white mb-0">
-			<div className="flex flex-col px-40 py-10">
+			<div className="flex flex-col px-5 md:px-40 py-10">
 				<div className="flex items-center space-x-6">
-					<p className="text-[20px] font-semibold">{t('Post your sport event')}</p>
+					<p className="text-base font-semibold">{t('Post your sport event')}</p>
 					<Button type="button" variant="secondary" className="border border-white text-white">
 						{t('Get Started')}
 					</Button>
 				</div>
 				<div className="border border-white my-4"></div>
-				<div className="flex justify-between max-w-xl">
+				<div className="flex flex-col md:flex-row justify-between max-w-xl">
 					<div className="flex flex-col justify-center space-y-3">
 						<p className="font-semibold">{t('Your Account')}</p>
 						<NavLink to="/signup">{t('Sign up')}</NavLink>

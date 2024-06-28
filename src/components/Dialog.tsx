@@ -31,18 +31,18 @@ const Dialog: FC<DialogProps> = ({ children, className, open, title, onClose, ..
 	return open ? (
 		<ReactPortal wrapperId="portal">
 			<>
-				<div className="fixed opacity-25 h-screen w-sreen inset-0 z-20 bg-black" onClick={onClose}></div>
+				<div className="fixed opacity-70 h-screen w-sreen inset-0 z-20 bg-black" onClick={onClose}></div>
 				<motion.dialog
 					open
 					initial="hidden"
 					animate="visible"
 					exit="exit"
 					variants={modaleDropIn}
-					className={cn('fixed z-20 rounded-md inset-0 overflow-scroll', className)}
+					className={cn('fixed z-20 rounded-md inset-0 max-h-[80%] overflow-scroll', className)}
 				>
 					<div className="bg-white border shadow-sm rounded-md">
 						<div className="flex justify-between items-center py-3 px-4 border-b space-x-5">
-							<h3 className="h5 mb-0">{title}</h3>
+							<h5 className="mb-0">{title}</h5>
 							<button
 								type="button"
 								onClick={onClose}
