@@ -20,6 +20,7 @@ const validIcons = [
 	'close',
 	'dark_mode',
 	'delete',
+	'directions',
 	'edit',
 	'error',
 	'error_outline',

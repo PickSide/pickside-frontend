@@ -1,4 +1,4 @@
-import { FC, forwardRef, useState } from 'react'
+import { forwardRef, useState } from 'react'
 import InputField, { InputFieldProps } from './shared/InputField'
 
 import Icon from './shared/Icon'

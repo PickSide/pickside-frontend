@@ -1,4 +1,4 @@
-import { FC, ReactNode, createContext, useEffect, useState } from 'react'
+import { FC, ReactNode, createContext, useEffect } from 'react'
 
 import { AppState } from '@state'
 import { useLocaleSwitcher } from '@hooks'
@@ -17,13 +17,13 @@ export const I18nProvider: FC<any> = ({ children }) => {
 	const { handleLocaleChange } = useLocaleSwitcher()
 	useEffect(() => {
 		handleLocaleChange(appLocale)
-	}, [])
+	}, [appLocale, handleLocaleChange])
 
 	useEffect(() => {
 		if (me?.preferredLocale) {
 			handleLocaleChange(me.preferredLocale)
 		}
-	}, [me])
+	}, [handleLocaleChange, me])
 
 	useEffect(() => {
 		if (appLocale) {

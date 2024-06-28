@@ -1,4 +1,4 @@
-import { AppState, setNotifications } from '@state'
+import { AppState, Notifications, setNotifications } from '@state'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { AxiosContext } from '@context'
@@ -11,7 +11,7 @@ const useFetchNotifications = () => {
 
 	const me = useSelector((state: AppState) => state.user)
 
-	const callback = async () => await extsvcInstance.get<any>(`/notifications?userKey=${me?.id}`)
+	const callback = async () => await extsvcInstance.get<Notifications>(`/notifications?userKey=${me?.id}`)
 
 	const {
 		data: notifications,

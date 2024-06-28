@@ -66,7 +66,7 @@ const ChangePasswordForm = ({ onClose }) => {
 				rules={{
 					required: true,
 					validate: (val) => {
-						if (watch('newPassword') != val) {
+						if (watch('newPassword') !== val) {
 							return t('Passwords do no match')
 						}
 					},

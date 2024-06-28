@@ -1,7 +1,7 @@
 import { Activity, AppState } from '@state'
 import Card, { CardBody, CardCTA, CardImage, CardProps } from '@components/shared/Card'
 import Dialog, { DialogCTA } from '@components/Dialog'
-import { FC, useEffect, useMemo, useState } from 'react'
+import { FC, useMemo, useState } from 'react'
 
 import ActivityDetailsDialog from './Dialogs/ActivityDetailsDialog'
 import Avatar from '@components/Avatar'
@@ -9,7 +9,6 @@ import Button from '@components/shared/Button'
 import Icon from '@components/shared/Icon'
 import Image from '@components/Image'
 import { cn } from '@utils'
-import dayjs from 'dayjs'
 import moment from 'moment'
 import { useActivityHandlers } from '@hooks'
 import { useSelector } from 'react-redux'
@@ -20,7 +19,7 @@ interface ActivityCardProps extends CardProps {
 	size?: 'sm' | 'md' | 'lg'
 }
 
-const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) => {
+const ActivityCard: FC<ActivityCardProps> = ({ activity, className, onClick, ...rest }) => {
 	const { t } = useTranslation()
 	const {
 		isFull,
@@ -115,7 +114,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 	return (
 		<>
 			<Dialog open={open} onClose={() => setOpen(false)} title={t('Confirm event registration')}>
-				<p className='font-medium'>{t('Read the rules before joining.')}</p>
+				<p className="font-medium">{t('Read the rules before joining.')}</p>
 				<p>{activity.rules}</p>
 				<DialogCTA>
 					<Button variant="tertiary" onClick={(e) => setOpen(false)}>
@@ -156,10 +155,10 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 				onClick={() => setOpenActivtyDetail(true)}
 				{...rest}
 			>
-				<CardImage className="">
-					{activity.images?.length ? <Image className="" src={activity.images[0]} /> : <Image />}
+				<CardImage className="block">
+					{activity.images?.length ? <Image src={activity.images[0]} /> : <Image />}
 				</CardImage>
-				<CardBody className="flex flex-col p-0 overflow-hidden w-full">
+				<CardBody className="flex flex-col p-0 overflow-hidden w-full text-base">
 					<div className="flex items-center justify-between">
 						<div className="flex items-center gap-x-2">
 							<Avatar size="md" src={organizer?.avatar} />
@@ -175,7 +174,7 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity, className, ...rest }) =
 						<span className="flex items-center gap-x-2">
 							<Icon icon="location_on" />
 							{activity.gmapsUrl ? (
-								<a className="link" href={activity.gmapsUrl} target="_blank">
+								<a className="link" href={activity.gmapsUrl} target="_blank" rel="noreferrer">
 									{activity.address}
 								</a>
 							) : (

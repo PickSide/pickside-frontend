@@ -1,5 +1,5 @@
 import { AppState, User } from '@state'
-import { Button, DialogCTA, InputField, Select, Switch, TextAreaField } from '@components'
+import { Button, DialogCTA, InputField, Select, TextAreaField } from '@components'
 import { Controller, useForm, useFormState } from 'react-hook-form'
 
 import { CreateGroupProps } from '@pages/UserSettings/utils/types'

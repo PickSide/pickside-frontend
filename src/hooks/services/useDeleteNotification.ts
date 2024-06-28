@@ -3,12 +3,10 @@ import { removeNotification } from '@state'
 import { useContext } from 'react'
 import { useDispatch } from 'react-redux'
 import { useMutation } from '@tanstack/react-query'
-import { useTranslation } from 'react-i18next'
 
 const useDeleteNotification = () => {
 	const { extsvcInstance } = useContext(AxiosContext)
 	const dispatch = useDispatch()
-	const { t } = useTranslation()
 
 	const callback = async (id: string) => await extsvcInstance.delete(`/notifications/${id}`)
 

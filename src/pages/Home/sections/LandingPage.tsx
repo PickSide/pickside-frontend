@@ -45,7 +45,7 @@ const LandingPage: FC<any> = () => {
 				<div className="max-w-3xl">
 					<GoogleAutocomplete
 						label={
-							<h4 className="flex items-center justify-center text-ocean">
+							<h4 className="text-base md:h4 flex items-center justify-center text-ocean">
 								{t('Host or Join, Your Victory Starts Here.')}
 							</h4>
 						}

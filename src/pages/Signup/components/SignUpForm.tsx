@@ -1,5 +1,5 @@
-import { Alert, Button, Checkbox, EmailField, Icon, InputField, PasswordField } from '@components'
-import { EMAIL_REGEX, PASSWORD_REGEX, PHONE_REGEX } from '@utils'
+import { Alert, Button, Checkbox, EmailField, InputField, PasswordField } from '@components'
+import { EMAIL_REGEX, PASSWORD_REGEX } from '@utils'
 import { useFormContext, useFormState } from 'react-hook-form'
 
 import { SignupFormProps } from '../interface/forms'

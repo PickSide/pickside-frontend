@@ -1,17 +1,14 @@
-import { AppState, Group } from '@state'
+import { Group } from '@state'
 import { Icon, IconButton } from '@components'
 
 import { createColumnHelper } from '@tanstack/react-table'
 import { useMemo } from 'react'
-import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 const columnHelper = createColumnHelper<Group>()
 
 const useGroupTableColums = ({ onClickDeleteGroup, onClickLeaveGroup, onClickViewMembers }) => {
 	const { t } = useTranslation()
-
-	const me = useSelector((state: AppState) => state.user)
 
 	return useMemo(
 		() => [
@@ -71,7 +68,7 @@ const useGroupTableColums = ({ onClickDeleteGroup, onClickLeaveGroup, onClickVie
 				footer: (info) => info.column.id,
 			}),
 		],
-		[me, onClickDeleteGroup, onClickLeaveGroup, onClickViewMembers, t],
+		[onClickDeleteGroup, onClickLeaveGroup, onClickViewMembers, t],
 	)
 }
 

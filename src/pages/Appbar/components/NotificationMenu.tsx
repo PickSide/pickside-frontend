@@ -1,6 +1,6 @@
-import { AppState, Group, Notification, removeNotification } from '@state'
+import { AppState } from '@state'
 import { Avatar, Button, Dropdown, Icon, MenuItem } from '@components'
-import { useAcceptFriendRequest, useReadNotification, useUpdateGroupInvitationRequest } from '@hooks'
+import { useReadNotification, useUpdateGroupInvitationRequest } from '@hooks'
 
 import { FC } from 'react'
 import { RxDotFilled } from 'react-icons/rx'
@@ -12,7 +12,6 @@ const NotificationMenu: FC<any> = () => {
 	const { readNotification } = useReadNotification()
 	const { deleteNotification } = useDeleteNotification()
 	const { updateGroupInvitiationRequest } = useUpdateGroupInvitationRequest()
-	const { acceptFriendRequest } = useAcceptFriendRequest()
 	const { t } = useTranslation()
 
 	const notifications = useSelector((state: AppState) => state.notifications)
@@ -50,20 +49,20 @@ const NotificationMenu: FC<any> = () => {
 			</Button>
 		</div>
 	)
-	const FriendRequestNotification = ({ isRead, userId }) => (
-		<div className="flex items-center">
-			{!isRead && <RxDotFilled className="text-blue-400" size={20} />}
-			<p>{t(`You have received an invitation to join group`)}</p>
-			<Button className="text-error" variant="tertiary">
-				{t('Reject')}
-			</Button>
-			<Button className="bg-success text-white" onClick={() => acceptFriendRequest(userId)}>
-				{t('Accept')}
-			</Button>
-		</div>
-	)
-	const EventInviteRequestNotification = () => <div></div>
-	const EventApproachingRequestNotification = () => <div></div>
+	// const FriendRequestNotification = ({ isRead, userId }) => (
+	// 	<div className="flex items-center">
+	// 		{!isRead && <RxDotFilled className="text-blue-400" size={20} />}
+	// 		<p>{t(`You have received an invitation to join group`)}</p>
+	// 		<Button className="text-error" variant="tertiary">
+	// 			{t('Reject')}
+	// 		</Button>
+	// 		<Button className="bg-success text-white" onClick={() => acceptFriendRequest(userId)}>
+	// 			{t('Accept')}
+	// 		</Button>
+	// 	</div>
+	// )
+	// const EventInviteRequestNotification = () => <div></div>
+	// const EventApproachingRequestNotification = () => <div></div>
 
 	return (
 		<Dropdown
@@ -80,7 +79,7 @@ const NotificationMenu: FC<any> = () => {
 				notifications?.result?.map((notification, idx) => {
 					// need to handle badly parsed json here
 					const extra = notification.extra ? JSON.parse(notification.extra) : {}
-					
+
 					if (notification.type === 'group-invite') {
 						return (
 							<MenuItem key={idx} className="p-4" hoverable={false} onClick={() => readNotification(notification.id)}>

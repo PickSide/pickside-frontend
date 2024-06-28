@@ -4,7 +4,6 @@ import { FC, useMemo } from 'react'
 
 import { Activity } from '@state'
 import Avatar from '@components/Avatar'
-import dayjs from 'dayjs'
 import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 
@@ -22,15 +21,15 @@ const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
 
 	return activity ? (
 		<>
-			<Card className="flex flex-col w-[400px] h-[462px]">
-				<CardImage className="h-[258px]">
+			<Card className="flex flex-col">
+				<CardImage className="w-[300px] h-[200px]">
 					<img
-						className="w-full h-full bg-card-placeholder bg-contain"
+						className="w-full h-full bg-card-placeholder bg-cover bg-no-repeat"
 						src={activity.images ? activity.images[0] : ''}
 						alt=""
 					/>
 				</CardImage>
-				<CardBody className="flex flex-col flex-grow-2 justify-center relative px-5 h-fit text-charcoal-black text-sm">
+				<CardBody className="flex flex-col flex-grow-2 justify-center relative p-5 h-fit text-charcoal-black text-sm">
 					<div className="absolute -top-[24px] left-0 space-x-2">
 						<Avatar className="border-2 border-ocean-1" variant="secondary" size="lg" src={organizer?.avatar} />
 						<span className="absolute top-1/2">{organizer?.displayName}</span>

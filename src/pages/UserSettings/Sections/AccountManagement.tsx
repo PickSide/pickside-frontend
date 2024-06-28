@@ -1,4 +1,4 @@
-import { BottomDrawer, Button, Dialog, InputField, Select } from '@components'
+import { BottomDrawer, Button, Dialog } from '@components'
 import { Controller, useForm } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 
@@ -31,7 +31,7 @@ const AccountManagement = () => {
 	const [openPasswordChangeDialog, setOpenPasswordChangeDialog] = useState<boolean>(false)
 	const [openDeactivationDialog, setOpenDeactivationDialog] = useState<boolean>(false)
 
-	const onSubmit = async (values) => {
+	const onSubmit = async (values: any) => {
 		const changes = getDirtyFieldsValues(values, formState)
 
 		if (changes['preferredLocale']) {
