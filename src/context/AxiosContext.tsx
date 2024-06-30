@@ -8,20 +8,20 @@ import { v4 as uuidv4 } from 'uuid'
 export interface AxiosContextProps {
 	axiosASInstance: AxiosInstance
 	axiosFSInstance: AxiosInstance
-	extsvcInstance: AxiosInstance
-	extsvcMFDInstance: AxiosInstance
 	axiosMSGSInstance: AxiosInstance
 	axiosNSInstance: AxiosInstance
+	extsvcInstance: AxiosInstance
+	gMapsApiInstance: AxiosInstance
 	setBearer: Dispatch<SetStateAction<string | null>>
 }
 
 const AxiosContext = createContext<AxiosContextProps>({
 	axiosASInstance: axios,
 	axiosFSInstance: axios,
-	extsvcInstance: axios,
-	extsvcMFDInstance: axios,
 	axiosMSGSInstance: axios,
 	axiosNSInstance: axios,
+	extsvcInstance: axios,
+	gMapsApiInstance: axios,
 	setBearer: () => null,
 })
 
@@ -42,25 +42,6 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 		},
 	})
 
-	const extsvcInstance = axios.create({
-		baseURL: import.meta.env.VITE_APP_MAIN_SERVICE_URL,
-		withCredentials: true,
-		headers: {
-			'Accept-Version': 'v2',
-			'Content-Type': 'application/json',
-		},
-	})
-
-	//Multipart/form data instance permitting sending images on top of a request
-	const extsvcMFDInstance = axios.create({
-		baseURL: import.meta.env.VITE_APP_MAIN_SERVICE_URL,
-		withCredentials: true,
-		headers: {
-			'Accept-Version': 'v2',
-			'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
-		},
-	})
-
 	const axiosMSGSInstance = axios.create({
 		baseURL: import.meta.env.VITE_APP_MESSAGE_SERVICE_URL,
 		withCredentials: true,
@@ -77,10 +58,28 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 			'Content-Type': 'application/json',
 		},
 	})
+
+	const extsvcInstance = axios.create({
+		baseURL: import.meta.env.VITE_APP_MAIN_SERVICE_URL,
+		withCredentials: true,
+		headers: {
+			'Accept-Version': 'v2',
+			'Content-Type': 'application/json',
+		},
+	})
+
+	const gMapsApiInstance = axios.create({
+		headers: {
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Methods': 'GET,OPTIONS',
+		},
+		baseURL: 'https://maps.googleapis.com/maps/api',
+	})
+
 	const [bearer, setBearer] = useLocalStorage<string | null>('my-bearer-token', null)
 
 	useEffect(() => {
-		const instances = [axiosFSInstance, extsvcInstance, extsvcMFDInstance]
+		const instances = [extsvcInstance]
 		const interceptorIDs = new Map<AxiosInstance, number>()
 
 		const addInterceptor = (axiosInstance: AxiosInstance) => {
@@ -111,17 +110,17 @@ export const AxiosProvider: FC<any> = ({ children }) => {
 				}
 			})
 		}
-	}, [axiosASInstance, axiosFSInstance, extsvcInstance, extsvcMFDInstance, axiosMSGSInstance, axiosNSInstance, bearer])
+	}, [extsvcInstance, bearer])
 
 	return (
 		<AxiosContext.Provider
 			value={{
 				axiosASInstance,
 				axiosFSInstance,
-				extsvcInstance,
-				extsvcMFDInstance,
 				axiosMSGSInstance,
 				axiosNSInstance,
+				extsvcInstance,
+				gMapsApiInstance,
 				setBearer,
 			}}
 		>

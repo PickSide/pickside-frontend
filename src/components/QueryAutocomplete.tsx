@@ -10,7 +10,8 @@ import { useDebounce } from 'usehooks-ts'
 import { useQuery } from '@tanstack/react-query'
 
 export interface QueryAutocompleteProps<T> extends ComponentPropsWithRef<'input'> {
-	apiContext: AxiosInstance
+	queryFn: (searchText: string) => Promise<T[]>
+	//apiContext: AxiosInstance
 	endpoint: string
 	clearable?: boolean
 	fullWidth?: boolean
@@ -27,7 +28,8 @@ export interface QueryAutocompleteProps<T> extends ComponentPropsWithRef<'input'
 }
 
 const QueryAutocomplete = <T,>({
-	apiContext,
+	queryFn,
+	//apiContext,
 	endpoint,
 	clearable = false,
 	fullWidth = false,
@@ -49,15 +51,26 @@ const QueryAutocomplete = <T,>({
 	const debouncedOpen = useDebounce(open, 100)
 	const searchText = useDebounce(userInput, 500)
 
+	// const { data: options, isLoading } = useQuery<T[]>(
+	// 	['search-users', searchText],
+	// 	async () => {
+	// 		if (!userInput) {
+	// 			return []
+	// 		}
+
+	// 		const response = await apiContext.get(endpoint, { params: { startsWith: userInput } })
+	// 		return (response.data.result as T[]) || []
+	// 	},
+	// 	{ refetchOnWindowFocus: false },
+	// )
+
 	const { data: options, isLoading } = useQuery<T[]>(
-		['search-users', searchText],
+		['search', searchText],
 		async () => {
 			if (!userInput) {
 				return []
 			}
-
-			const response = await apiContext.get(endpoint, { params: { startsWith: userInput } })
-			return (response.data.result as T[]) || []
+			return await queryFn(userInput)
 		},
 		{ refetchOnWindowFocus: false },
 	)

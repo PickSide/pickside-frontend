@@ -1,17 +1,24 @@
-import { Button, DatePicker, FormDivider, InputField, TimePicker } from '@components'
+import { Button, DatePicker, FormDivider, InputField, Select, TimePicker } from '@components'
 import { Controller, useFormContext, useFormState } from 'react-hook-form'
 
 import { CreateEventProps } from '@pages/NewEvent/utils/types'
 import { GoogleAutocomplete } from '@components'
 import StepperCTAWrapper from '../shared/StepperCTAWrapper'
+import { useEffect } from 'react'
+import useFetchSoccerFields from '@hooks/services/googleMaps/useFetchSoccerFields'
 import { useStepper } from '@pages/NewEvent/hooks/useStepper'
 import { useTranslation } from 'react-i18next'
 
 const Step1 = () => {
 	const { control, setValue } = useFormContext<CreateEventProps>()
 	const { dirtyFields, errors } = useFormState({ control })
+	const { refetch: fetchSoccerFields } = useFetchSoccerFields()
 	const { previous, next } = useStepper()
 	const { t } = useTranslation()
+
+	useEffect(() => {
+		fetchSoccerFields()
+	}, [])
 
 	return (
 		<>
@@ -77,6 +84,25 @@ const Step1 = () => {
 					/>
 				)}
 			/>
+
+			{/* <Controller
+				name="address"
+				control={control}
+				render={({ field }) => (
+					<Select
+						{...field}
+						fullWidth
+						label={t('Mode')}
+						placeholder={t('Select mode')}
+						options={fields?.data.result}
+						value={fields?.data.result.find((x) => x.value === field.value)}
+						getOptionLabel={(option: { value: string }) => option.value}
+						onChange={(selectedOption: { value: string }) => {
+							field.onChange(selectedOption.value)
+						}}
+					/>
+				)}
+			/> */}
 
 			<StepperCTAWrapper>
 				<Button variant="tertiary" type="button" disabled onClick={previous}>

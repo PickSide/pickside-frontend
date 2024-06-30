@@ -2,6 +2,7 @@ import { Button, GoogleAutocomplete, Icon, IconButton } from '@components'
 import { FC, useState } from 'react'
 
 import Landing from '@assets/landing.png'
+import LocationAutocomplete from '@components/LocationAutocomplete'
 import { isEmpty } from 'lodash'
 import { setSelectedLocation } from '@state'
 import { useDispatch } from 'react-redux'
@@ -60,6 +61,7 @@ const LandingPage: FC<any> = () => {
 						placeholder={t('Search by location or postal code')}
 						onPlaceSelected={(value) => setSelected(value)}
 					/>
+					<LocationAutocomplete />
 				</div>
 				<div>
 					<Button variant="secondary" size="lg" onClick={navigateToListing}>
