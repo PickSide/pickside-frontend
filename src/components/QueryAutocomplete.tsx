@@ -47,18 +47,18 @@ const QueryAutocomplete = <T,>({
 	const ref = useRef<HTMLInputElement>(null)
 	const [open, setOpen] = useState<boolean>(false)
 	const [selected, setSelected] = useState<T>()
-	const [userInput, setMeInput] = useState<string>('')
+	const [input, setInput] = useState<string>('')
 	const debouncedOpen = useDebounce(open, 100)
-	const searchText = useDebounce(userInput, 500)
+	const searchText = useDebounce(input, 500)
 
 	// const { data: options, isLoading } = useQuery<T[]>(
 	// 	['search-users', searchText],
 	// 	async () => {
-	// 		if (!userInput) {
+	// 		if (!input) {
 	// 			return []
 	// 		}
 
-	// 		const response = await apiContext.get(endpoint, { params: { startsWith: userInput } })
+	// 		const response = await apiContext.get(endpoint, { params: { startsWith: input } })
 	// 		return (response.data.result as T[]) || []
 	// 	},
 	// 	{ refetchOnWindowFocus: false },
@@ -67,18 +67,22 @@ const QueryAutocomplete = <T,>({
 	const { data: options, isLoading } = useQuery<T[]>(
 		['search', searchText],
 		async () => {
-			if (!userInput) {
+			if (!input) {
 				return []
 			}
-			return await queryFn(userInput)
+			return await queryFn(input)
 		},
 		{ refetchOnWindowFocus: false },
 	)
 
-	const handleOnChange = (e) => setMeInput(e.target.value)
+	const handleOnChange = (e) => {
+		setInput(e.target.value)
+		setSelected(undefined)
+	}
 
 	const handleSelected = (option: T) => {
 		setSelected(option)
+		setInput(getOptionLabel(option))
 		handleClose()
 	}
 
@@ -93,7 +97,7 @@ const QueryAutocomplete = <T,>({
 	}
 
 	const handleClear = () => {
-		setMeInput('')
+		setInput('')
 		setSelected(undefined)
 	}
 
@@ -121,10 +125,10 @@ const QueryAutocomplete = <T,>({
 	}, [])
 
 	useEffect(() => {
-		if (selected && onChange) {
-			setMeInput(getOptionLabel(selected))
-			onChange(selected)
+		if (selected) {
+			setInput(getOptionLabel(selected))
 		}
+		//onChange && onChange(selected)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selected])
 
@@ -143,7 +147,7 @@ const QueryAutocomplete = <T,>({
 						id={id}
 						autoComplete="on"
 						type="text"
-						value={userInput}
+						value={input}
 						onChange={handleOnChange}
 						{...rest}
 					/>
